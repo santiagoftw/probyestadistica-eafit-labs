@@ -94,14 +94,44 @@ Con la secuencia `seq(0, 60)` como población de referencia:
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Construcción de FDA empírica con datos pequeños, lectura de una gráfica de FDA para recuperar el conjunto de datos original, cálculo de probabilidades con una FDA teórica dada:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema P5 →](#)
+```r
+# FDA empírica: completa la comparación
+fda_empirica <- function(x, datos) sum(datos ___ x) / length(datos)
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`<=` — cuenta cuántos datos son menores o iguales a `x`.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap5">
+<div style="margin-bottom: 1rem;"><strong>1. La FDA es no decreciente.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. F(x) = P(X ≥ x).</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La FDA empírica sube en escalones.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP5()">Revisar respuestas</button>
+<p id="resultado-quiz-temap5" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP5() {
+  const respuestas = { q1: "V", q2: "F", q3: "V" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-temap5");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

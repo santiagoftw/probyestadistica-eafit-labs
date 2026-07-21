@@ -160,14 +160,44 @@ Con `mtcars$mpg` (el mismo dataset del Tema 0):
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Cálculo de $k$ con Sturges, interpretación de histogramas y clasificación de formas:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema 3 →](#)
+```r
+# Regla de Sturges: completa la función correcta
+k <- 1 + 3.3 * ___(n)
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`log10(n)` — el logaritmo en base 10 del número de observaciones.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-tema3">
+<div style="margin-bottom: 1rem;"><strong>1. Un histograma siempre debe tener espacios entre las barras.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. La regla de Sturges da un número exacto y obligatorio de intervalos.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. Una distribución bimodal tiene dos picos.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTema3()">Revisar respuestas</button>
+<p id="resultado-quiz-tema3" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTema3() {
+  const respuestas = { q1: "F", q2: "F", q3: "V" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-tema3");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

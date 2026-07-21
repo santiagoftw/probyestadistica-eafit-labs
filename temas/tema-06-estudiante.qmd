@@ -142,14 +142,44 @@ Con `mtcars$mpg`:
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Cálculo de cuartiles con datos pequeños, identificación visual de valores atípicos en distintos boxplots, interpretación de simetría vs. sesgo:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema 6 →](#)
+```r
+# Rango intercuartílico: completa la función correcta
+___(x)
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`IQR(x)` — calcula directamente $Q_3 - Q_1$.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-tema6">
+<div style="margin-bottom: 1rem;"><strong>1. La caja del boxplot representa el 50% central de los datos.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Todo punto fuera de los bigotes es necesariamente un error de medición.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. El rango intercuartílico es Q3 menos Q1.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTema6()">Revisar respuestas</button>
+<p id="resultado-quiz-tema6" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTema6() {
+  const respuestas = { q1: "V", q2: "F", q3: "V" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-tema6");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

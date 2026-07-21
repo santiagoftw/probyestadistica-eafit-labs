@@ -102,14 +102,44 @@ Con dos máquinas: A produce 60% de los productos con 20% de tasa de defecto; B 
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Aplicación de probabilidad total con 2 y 3 escenarios, cálculo de Bayes paso a paso, identificación del error de invertir condicionales:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema P3 →](#)
+```r
+# Teorema de Bayes: completa el denominador
+p_B_dado_A <- (p_A_dado_B * p_B) / ___
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`p_A` — la probabilidad total del evento condicionante, calculada previamente con la ley de probabilidad total.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap3">
+<div style="margin-bottom: 1rem;"><strong>1. Bayes permite invertir una probabilidad condicional.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. La probabilidad a priori no cambia después de observar evidencia.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La ley de probabilidad total suma sobre escenarios mutuamente excluyentes.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP3()">Revisar respuestas</button>
+<p id="resultado-quiz-temap3" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP3() {
+  const respuestas = { q1: "V", q2: "F", q3: "V" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-temap3");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

@@ -145,14 +145,44 @@ Con `mpg` (incluido en `ggplot2`), variable `class` (tipo de vehículo):
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Opción múltiple, completar código e interpretación de gráficas sobre tablas de frecuencia:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema 2 →](#)
+```r
+# ¿Cómo obtienes la frecuencia relativa porcentual de una tabla?
+___(table(datos)) * 100
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`prop.table(table(datos)) * 100` — convierte las frecuencias absolutas en proporciones antes de multiplicar por 100.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-tema2">
+<div style="margin-bottom: 1rem;"><strong>1. La frecuencia relativa siempre está entre 0 y 1.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. La gráfica de pastel es mejor que la de barras cuando hay muchas categorías.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La frecuencia acumulada tiene sentido para variables nominales.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTema2()">Revisar respuestas</button>
+<p id="resultado-quiz-tema2" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTema2() {
+  const respuestas = { q1: "V", q2: "F", q3: "F" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-tema2");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

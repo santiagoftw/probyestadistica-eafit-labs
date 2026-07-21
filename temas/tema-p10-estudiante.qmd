@@ -98,14 +98,44 @@ El crecimiento del PIB se modela como $Crecimiento(t) = \alpha + \beta t + \epsi
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Simulación de sistemas con componentes en competencia, combinación de variables aleatorias correlacionadas, verificación de fórmulas analíticas contra simulación:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema P10 →](#)
+```r
+# ¿Cuál componente falla primero? Completa la comparación
+prob_A_antes_B <- mean(tiempos_A ___ tiempos_B)
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`<` — cuenta la proporción de simulaciones donde el tiempo de falla de A es menor que el de B.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap10">
+<div style="margin-bottom: 1rem;"><strong>1. La simulación es útil cuando Y=g(X) no tiene fórmula cerrada simple.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Combinar activos correlacionados en un portafolio siempre aumenta el riesgo total.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. P(A&lt;B) = λA/(λA+λB) para exponenciales independientes.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP10()">Revisar respuestas</button>
+<p id="resultado-quiz-temap10" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP10() {
+  const respuestas = { q1: "V", q2: "F", q3: "V" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-temap10");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

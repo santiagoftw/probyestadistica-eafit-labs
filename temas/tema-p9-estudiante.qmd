@@ -94,14 +94,44 @@ Con resistencia a la tracción $R \sim N(500, 50^2)$ MPa y módulo de elasticida
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Construcción de matrices de covarianza a partir de correlaciones dadas, uso de `mvrnorm()`, interpretación de correlaciones resultantes de funciones de variables correlacionadas:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema P9 →](#)
+```r
+# Simular variables normales correlacionadas: completa la función
+variables <- ___(n, mu = c(m1, m2), Sigma = cov_matrix)
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`mvrnorm` (del paquete `MASS`) — genera observaciones conjuntas que respetan la matriz de covarianza dada.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap9">
+<div style="margin-bottom: 1rem;"><strong>1. `rnorm()` generado por separado produce variables correlacionadas automáticamente.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. `mvrnorm()` necesita una matriz de covarianza.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La correlación entre dos variables puede ser mayor a 1.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP9()">Revisar respuestas</button>
+<p id="resultado-quiz-temap9" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP9() {
+  const respuestas = { q1: "F", q2: "V", q3: "F" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-temap9");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

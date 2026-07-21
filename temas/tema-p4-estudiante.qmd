@@ -91,14 +91,44 @@ Retoma el ejercicio de las 3 monedas del Laboratorio 3 (lo verás formalmente en
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Verificación de independencia con distintos pares de probabilidades, distinción entre independencia y exclusión mutua, interpretación de resultados de simulación:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema P4 →](#)
+```r
+# Verificación de independencia: completa la comparación
+p_A_y_B == p_A * ___
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`p_B` — la condición de independencia es $P(A\cap B) = P(A)\cdot P(B)$.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap4">
+<div style="margin-bottom: 1rem;"><strong>1. Dos eventos mutuamente excluyentes (con probabilidad positiva) son independientes.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. A y B son independientes si P(A∩B) = P(A)·P(B).</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La independencia se puede verificar con P(A|B) = P(A).</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP4()">Revisar respuestas</button>
+<p id="resultado-quiz-temap4" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP4() {
+  const respuestas = { q1: "F", q2: "V", q3: "V" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-temap4");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 

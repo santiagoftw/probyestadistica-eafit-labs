@@ -140,13 +140,63 @@ Con el dataset `starwars` (incluido en `dplyr`), clasifica `species`, `eye_color
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Clasificación por arrastre, opción múltiple y verdadero/falso sobre tipos de variable:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema 1 →](#)
+Copia esto en tu propia sesión de RStudio y complétalo (reemplaza `___`):
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+```r
+# ¿Qué tipo de dato le asigna R a la variable msleep$vore?
+# Completa con la función correcta:
+___(msleep$vore)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`class(msleep$vore)` — devuelve `"character"`. Es la misma función que usaste en la exploración del tema para ver `chr`, `num`, `int`, `factor` por columna, ahora aplicada a una sola columna.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-tema1">
+<div style="margin-bottom: 1rem;">
+  <strong>1. Toda variable numérica es de escala de razón.</strong><br>
+  <label><input type="radio" name="q1" value="V"> Verdadero</label>
+  <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label>
+</div>
+<div style="margin-bottom: 1rem;">
+  <strong>2. El código postal de una dirección es una variable cuantitativa porque R lo puede guardar como número.</strong><br>
+  <label><input type="radio" name="q2" value="V"> Verdadero</label>
+  <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label>
+</div>
+<div style="margin-bottom: 1rem;">
+  <strong>3. El estado de conservación de un animal (least concern, vulnerable, endangered...) es una variable ordinal.</strong><br>
+  <label><input type="radio" name="q3" value="V"> Verdadero</label>
+  <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label>
+</div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTema1()">Revisar respuestas</button>
+<p id="resultado-quiz-tema1" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTema1() {
+  const respuestas = { q1: "F", q2: "F", q3: "V" };
+  let correctas = 0;
+  let total = Object.keys(respuestas).length;
+  for (const [pregunta, correcta] of Object.entries(respuestas)) {
+    const seleccionado = document.querySelector(`input[name="${pregunta}"]:checked`);
+    if (seleccionado && seleccionado.value === correcta) correctas++;
+  }
+  const resultado = document.getElementById("resultado-quiz-tema1");
+  resultado.textContent = `Obtuviste ${correctas} de ${total} correctas.`;
+  resultado.style.color = correctas === total ? "#004B85" : "#B37D00";
+}
+</script>
+
+::: {.callout-note}
+## Explicación de las respuestas
+1. **Falso** — la temperatura en °C es numérica pero de intervalo, no de razón.
+2. **Falso** — es el error clásico del Tema 1: el tipo de dato en R no determina la escala estadística.
+3. **Verdadero** — tiene un orden natural de severidad, aunque no una distancia numérica definida entre niveles.
 :::
 
 ## 🗂️ Resumen

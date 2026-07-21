@@ -178,14 +178,44 @@ Con `mtcars$mpg` y `mtcars$hp`:
 
 ## ✅ Ejercicios autocorregibles
 
-::: {.callout-important}
-## Ejercicio interactivo (learnr)
-Cálculo de varianza paso a paso, comparación de CV entre variables de distintas unidades, verdadero/falso sobre propiedades del rango:
+### Ejercicio 1 — Completa el código
 
-[Abrir ejercicios del Tema 5 →](#)
+```r
+# Coeficiente de variación: completa la función correcta
+___(x) / mean(x)
+```
 
-*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
-:::
+<details>
+<summary>Ver respuesta</summary>
+`sd(x)` — la desviación estándar dividida entre la media.
+</details>
+
+### Ejercicio 2 — Verdadero o falso
+
+<div class="card-lab" id="quiz-tema5">
+<div style="margin-bottom: 1rem;"><strong>1. El rango usa toda la información del conjunto de datos.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. El coeficiente de variación no tiene unidades.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La varianza se expresa en las mismas unidades que los datos originales.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTema5()">Revisar respuestas</button>
+<p id="resultado-quiz-tema5" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTema5() {
+  const respuestas = { q1: "F", q2: "V", q3: "F" };
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  const r = document.getElementById("resultado-quiz-tema5");
+  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
 
 ## 🗂️ Resumen
 
