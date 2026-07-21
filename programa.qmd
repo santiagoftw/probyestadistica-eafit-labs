@@ -1,0 +1,7 @@
+---
+title: "Programa"
+---
+
+::: {.card-lab}
+Contenido pendiente: mapa completo de temas del módulo de estadística descriptiva y su relación con el programa oficial de Probabilidad y Estadística.
+:::

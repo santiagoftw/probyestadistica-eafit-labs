@@ -1,0 +1,137 @@
+---
+title: "Tema 5 · Medidas de dispersión"
+---
+
+::: {.hero-motivacion}
+## 🐢 Dos playas, el mismo promedio de huevos por nido
+
+Dos playas donde anida la tortuga golfina tienen, en promedio, el mismo número de huevos por nido. ¿Significa eso que las dos playas son igual de "consistentes"?
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: si te dijeran que en la Playa A los nidos van de 60 a 110 huevos, y en la Playa B van de 95 a 105, ¿cuál playa dirías que es más "predecible"? ¿Cómo lo medirías con un número, no solo con la intuición?
+:::
+
+## 🔬 Exploremos: cuando el promedio no alcanza
+
+```{r}
+#| eval: false
+playa_a <- c(66, 70, 75, 80, 85, 88, 90, 92, 95, 98, 100, 102, 105, 108, 110)
+playa_b <- c(95, 96, 97, 98, 99, 100, 100, 101, 102, 103, 104, 105)
+
+mean(playa_a); mean(playa_b)
+```
+
+::: {.ficha-resultado}
+Corre el código. ¿Los promedios son parecidos? Ahora calcula `range(playa_a)` y `range(playa_b)` — ¿qué diferencia notas que el promedio no te estaba mostrando?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+Si el promedio es prácticamente el mismo en ambas playas, ¿qué información nos falta para decir cuál es "más variable"?
+:::
+
+## 🎛️ Simulación: misma media, distinta dispersión
+
+```{r}
+#| label: fig-misma-media-distinta-sd
+#| fig-cap: "Dos distribuciones con la misma media pero distinta dispersión"
+#| layout-ncol: 2
+set.seed(3)
+grupo_concentrado <- rnorm(500, mean = 20, sd = 2)
+grupo_disperso <- rnorm(500, mean = 20, sd = 8)
+
+hist(grupo_concentrado, breaks = 20, col = "#004B85", border = "white",
+     main = "sd = 2", xlab = "", xlim = c(-10, 50))
+hist(grupo_disperso, breaks = 20, col = "#FFB903", border = "white",
+     main = "sd = 8", xlab = "", xlim = c(-10, 50))
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Ambos histogramas están centrados casi en el mismo lugar (20), pero uno es mucho más "ancho" que el otro. La media por sí sola no distingue estos dos casos — necesitamos una medida de dispersión.
+:::
+
+## 💡 Discusión
+
+- ¿Por qué el rango (máximo − mínimo) podría ser una medida de dispersión poco confiable si tuvieras un solo dato raro en el conjunto?
+- Si dos variables se miden en unidades distintas (por ejemplo, pH y temperatura), ¿cómo compararías cuál es "más variable" en términos relativos?
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Rango
+La diferencia entre el valor máximo y el mínimo (Rincón, 2017):
+
+$$r = x_{(n)} - x_{(1)}$$
+
+Es la medida de dispersión más simple, pero **solo usa dos valores** del conjunto — el resto de los datos no aporta nada al cálculo. Es sensible a valores atípicos: un solo dato extremo puede inflar el rango sin que el resto de los datos sea realmente muy variable.
+
+## Varianza
+Mide la dispersión promediando el cuadrado de las distancias de cada dato a la media:
+
+$$s^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2$$
+
+¿Por qué al cuadrado? Porque la suma simple de las distancias a la media siempre da cero (las distancias positivas y negativas se cancelan) — elevar al cuadrado "rompe" ese balance. La consecuencia es que la varianza queda en **unidades al cuadrado**, lo que dificulta su interpretación directa.
+
+## Desviación estándar
+La raíz cuadrada de la varianza — recupera las unidades originales de la variable:
+
+$$s = \sqrt{s^2} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2}$$
+
+Es la medida de dispersión más usada en la práctica, precisamente porque es interpretable en las mismas unidades que los datos.
+
+## Coeficiente de variación
+El cociente entre la desviación estándar y la media:
+
+$$cv(x) = \frac{s}{\bar{x}}$$
+
+Al ser un cociente entre dos cantidades con las mismas unidades, el coeficiente de variación **no tiene unidades** — por eso permite comparar la dispersión relativa de variables medidas en escalas distintas (por ejemplo, pH vs. temperatura), algo que la desviación estándar sola no puede hacer.
+
+:::
+
+## 🧪 Ejemplo con datos reales
+
+```{r}
+#| eval: false
+playa_a <- c(66, 70, 75, 80, 85, 88, 90, 92, 95, 98, 100, 102, 105, 108, 110)
+playa_b <- c(95, 96, 97, 98, 99, 100, 100, 101, 102, 103, 104, 105)
+
+range(playa_a); range(playa_b)
+sd(playa_a); sd(playa_b)
+sd(playa_a) / mean(playa_a)  # coeficiente de variación, Playa A
+sd(playa_b) / mean(playa_b)  # coeficiente de variación, Playa B
+```
+
+::: {.callout-important}
+## Comparando pH y temperatura (ejemplo de Contento Rubio)
+Si el coeficiente de variación del pH de un grupo de estanques es 18% y el de la temperatura es 25%, se concluye que los estanques son más similares entre sí en pH que en temperatura — aunque ambas variables se midan en escalas totalmente distintas.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+Con `mtcars$mpg` y `mtcars$hp`:
+
+1. Calcula rango, varianza, desviación estándar y coeficiente de variación para ambas variables.
+2. ¿Cuál de las dos variables es relativamente más dispersa, según el coeficiente de variación? (No te dejes engañar por cuál tiene mayor desviación estándar en términos absolutos — están en unidades distintas.)
+3. Elimina el auto con mayor `hp` del dataset y recalcula. ¿Cuánto cambió el rango? ¿Cuánto cambió la desviación estándar?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Cálculo de varianza paso a paso, comparación de CV entre variables de distintas unidades, verdadero/falso sobre propiedades del rango:
+
+[Abrir ejercicios del Tema 5 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- El rango es simple pero frágil: solo usa dos datos y es muy sensible a valores atípicos.
+- La varianza usa todos los datos pero queda en unidades al cuadrado; la desviación estándar corrige eso.
+- El coeficiente de variación, al no tener unidades, es la única de estas medidas que permite comparar la dispersión relativa entre variables medidas en escalas distintas.
+:::

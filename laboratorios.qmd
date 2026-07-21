@@ -1,0 +1,7 @@
+---
+title: "Laboratorios"
+---
+
+::: {.card-lab}
+Contenido pendiente: Taller 1 integrador (20%), enunciado y rúbrica.
+:::

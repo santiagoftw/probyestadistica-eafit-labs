@@ -1,0 +1,7 @@
+---
+title: "Recursos"
+---
+
+::: {.card-lab}
+Contenido pendiente: lecturas de Rincón (2017) y Contento Rubio, enlaces a Posit Cloud, guías de instalación de R.
+:::

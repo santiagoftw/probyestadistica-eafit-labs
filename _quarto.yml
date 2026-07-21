@@ -1,0 +1,62 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Estadística Descriptiva — Curso interactivo"
+  description: "Aprende estadística descriptiva experimentando con R"
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    background: "#1B2A4A"
+    foreground: "#EFEAE0"
+    left:
+      - href: index.qmd
+        text: "Inicio"
+      - href: presentacion.qmd
+        text: "Presentación"
+      - href: programa.qmd
+        text: "Programa"
+      - href: laboratorios.qmd
+        text: "Laboratorios"
+      - href: recursos.qmd
+        text: "Recursos"
+
+  sidebar:
+    style: "docked"
+    background: "#EFEAE0"
+    contents:
+      - index.qmd
+      - presentacion.qmd
+      - programa.qmd
+      - section: "Módulo 1 — Estadística descriptiva"
+        contents:
+          - temas/tema-00-estudiante.qmd
+          - temas/tema-01-estudiante.qmd
+          - temas/tema-02-estudiante.qmd
+          - temas/tema-03-estudiante.qmd
+          - temas/tema-04-estudiante.qmd
+          - temas/tema-05-estudiante.qmd
+          - temas/tema-06-estudiante.qmd
+      - laboratorios.qmd
+      - recursos.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles.scss
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+    smooth-scroll: true
+    grid:
+      sidebar-width: 260px
+      body-width: 850px
+      margin-width: 220px
+
+execute:
+  freeze: auto
+  warning: false
+  message: false

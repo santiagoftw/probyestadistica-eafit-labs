@@ -1,0 +1,7 @@
+---
+title: "Presentación del curso"
+---
+
+::: {.card-lab}
+Contenido pendiente: filosofía del curso, metodología de descubrimiento, cómo usar este sitio.
+:::

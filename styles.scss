@@ -1,0 +1,151 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap');
+
+// Paleta — "cuaderno de laboratorio de datos", colores institucionales EAFIT
+// Azul EAFIT y Amarillo EAFIT: Manual de Identidad Visual, Universidad EAFIT
+$tinta:      #004B85;  // Azul EAFIT — texto, estructura, resultado confirmado
+$papel:      #F5F7FA;  // fondo (papel frío, no compite con el azul institucional)
+$dato:       #004B85;  // lo observado / resultado real (Azul EAFIT)
+$prediccion: #FFB903;  // lo predicho / hipótesis del estudiante (Amarillo EAFIT)
+$grafito:    #2B2B2B;  // texto de cuerpo
+
+$body-bg: $papel;
+$body-color: $grafito;
+$primary: $tinta;
+$link-color: $dato;
+
+$font-family-monospace: "IBM Plex Mono", monospace;
+$font-family-serif: "Source Serif 4", Georgia, serif;
+$font-family-sans-serif: "Inter", -apple-system, sans-serif;
+
+$headings-font-family: $font-family-monospace;
+$headings-color: $tinta;
+$font-family-base: $font-family-serif;
+
+/*-- scss:rules --*/
+
+body {
+  background-image:
+    linear-gradient(rgba(27, 42, 74, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 42, 74, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.navbar, .sidebar {
+  font-family: $font-family-sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: $font-family-monospace;
+  letter-spacing: -0.01em;
+}
+
+h1::before { content: "# "; color: $dato; opacity: .55; }
+h2::before { content: "## "; color: $dato; opacity: .45; }
+
+// --- Hero de motivación ---
+// Azul y amarillo: los colores de la bandera institucional de EAFIT
+.hero-motivacion {
+  background: $tinta;
+  color: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
+  border-left: 6px solid $prediccion;
+  margin-bottom: 2rem;
+
+  h1 { color: #fff; }
+  p { font-family: $font-family-serif; font-size: 1.15rem; }
+}
+
+// --- Ficha de predicción: el elemento firma del curso ---
+// Etiqueta con fondo amarillo institucional y texto azul: buen contraste, se lee como "post-it"
+.ficha-prediccion {
+  position: relative;
+  background: #fff;
+  border: 2px dashed $prediccion;
+  border-radius: 2px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  font-family: $font-family-sans-serif;
+
+  &::before {
+    content: "TU PREDICCIÓN";
+    position: absolute;
+    top: -0.7em;
+    left: 1rem;
+    background: $prediccion;
+    color: $tinta;
+    font-family: $font-family-monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+}
+
+.ficha-resultado {
+  position: relative;
+  background: #fff;
+  border: 2px solid $dato;
+  border-radius: 2px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  font-family: $font-family-sans-serif;
+
+  &::before {
+    content: "RESULTADO REAL (R)";
+    position: absolute;
+    top: -0.65em;
+    left: 1rem;
+    background: $papel;
+    color: $dato;
+    font-family: $font-family-monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0 0.5rem;
+  }
+}
+
+// --- Tarjetas generales de contenido ---
+.card-lab {
+  background: #fff;
+  border: 1px solid rgba(27, 42, 74, 0.15);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 2px 2px 0 rgba(27, 42, 74, 0.06);
+}
+
+// --- Callouts nativos de Quarto, re-tematizados ---
+div.callout-note { border-left-color: $dato; }
+div.callout-tip { border-left-color: $prediccion; }
+div.callout-important { border-left-color: $tinta; }
+
+// --- Bloques de código ---
+pre.sourceCode, div.sourceCode {
+  border-radius: 4px;
+  border: 1px solid rgba(27, 42, 74, 0.15);
+}
+
+// --- Botones ---
+.btn-primary {
+  background-color: $dato;
+  border-color: $dato;
+  font-family: $font-family-sans-serif;
+  font-weight: 600;
+
+  &:hover { background-color: darken($dato, 8%); border-color: darken($dato, 8%); }
+}
+
+.btn-outline-prediccion {
+  background-color: transparent;
+  border: 2px dashed $prediccion;
+  color: $tinta;
+  font-family: $font-family-sans-serif;
+  font-weight: 600;
+
+  &:hover { background-color: $prediccion; color: $tinta; }
+}

@@ -1,0 +1,307 @@
+---
+title: "Clase 2 - Variables cualitativas: tablas y gráficas"
+author: "Curso de Probabilidad y Estadística"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: true
+---
+
+# Información general
+
+**Duración:** 90 minutos
+**Semana:** 3
+**Tema:** Tablas de frecuencia y gráficas para variables cualitativas (barras, pastel)
+**Competencias:** Construir una tabla de frecuencias absolutas, relativas y porcentuales para una variable cualitativa; elegir entre gráfica de barras y gráfica de pastel según el objetivo comunicativo; convertir una variable de texto en factor (nominal u ordinal) en R.
+
+**Fuentes de esta clase:** Teoría — Rincón (2017), *Estadística descriptiva*, Cap. 3 "Descripciones gráficas" (Gráfica de barras) y Cap. 2 (Frecuencias). Práctica en R — Contento Rubio, *Estadística con aplicaciones en R*, Cap. 1-2 (uso de `table()`, `factor()`, `barplot()`, `pie()`).
+
+---
+
+# Objetivos de aprendizaje
+
+Al finalizar la sesión el estudiante será capaz de:
+
+- Construir a mano y en R una tabla de frecuencias absolutas, relativas y porcentuales para una variable cualitativa.
+- Explicar por qué el orden de las categorías importa para una variable ordinal y no para una nominal, al momento de graficar.
+- Convertir un vector de texto en un `factor` de R, con o sin orden, según corresponda.
+- Justificar cuándo conviene una gráfica de barras y cuándo una gráfica de pastel para el mismo conjunto de datos.
+
+---
+
+# Conocimientos previos
+
+Antes de iniciar esta clase el estudiante debe conocer:
+
+- Clasificación de variables (nominal, ordinal, discreta, continua) — Clase 1.
+- Uso básico de `table()` para contar categorías — introducido informalmente en Clase 0.
+
+---
+
+# Materiales necesarios
+
+## Profesor
+- Computador, proyector, internet, RStudio/Posit Cloud, Quarto, Shiny (app ya desplegada).
+
+## Estudiantes
+- Computador con acceso a Posit Cloud.
+- Ninguna base de datos externa: se usa `mpg` (incluido en `ggplot2`) y el ejemplo de grupos sanguíneos de Rincón (datos capturados a mano en clase).
+
+---
+
+# Contexto motivador
+
+## Situación problema
+
+> Rincón (2017) presenta el caso de 80 personas clasificadas según su grupo sanguíneo: A, B, AB u O. ¿Cuál creen que es el grupo sanguíneo más común en *este salón*? ¿Y en la población en general?
+
+Preguntas para discutir:
+
+- ¿Alguien conoce su propio grupo sanguíneo? ¿Cuántos coinciden?
+- ¿Esperan que la distribución en el salón se parezca a la distribución mundial? ¿Por qué sí o por qué no?
+
+**Tiempo:** 10 minutos
+
+---
+
+# Actividad de exploración
+
+**Objetivo:** que el estudiante construya una tabla de frecuencias con datos que él mismo generó, antes de ver la definición formal.
+
+## Actividad
+
+1. Cada estudiante levanta la mano según su respuesta a una pregunta categórica sencilla (por ejemplo: "¿cuál es tu método de transporte habitual a la universidad? — bus, carro, moto, bicicleta, caminando").
+2. En grupos, cuentan cuántas personas cayeron en cada categoría y arman una tabla a mano con dos columnas: categoría y frecuencia.
+3. Sin que nadie lo indique, algunos grupos probablemente calculan también el porcentaje — se aprovecha esto para introducir el concepto de frecuencia relativa "desde la práctica del propio estudiante".
+
+### Recursos
+- Tablero para consolidar los conteos de todos los grupos
+- Post-its o tarjetas para que cada estudiante registre su respuesta individual
+
+### Preguntas guía
+- ¿Todos los grupos llegaron al mismo total? ¿Debería coincidir?
+- ¿Qué es más fácil de comparar entre dos salones distintos: la frecuencia absoluta o el porcentaje?
+
+**Tiempo:** 15 minutos
+
+---
+
+# Simulación interactiva
+
+## Herramienta
+Shiny (app: `frecuencias_interactivas`)
+
+## Controles
+- **Selector:** variable categórica a explorar (medio de transporte del salón, o el ejemplo de grupo sanguíneo de Rincón)
+- **Selector:** tipo de frecuencia a mostrar (absoluta / relativa / porcentual / acumulada — esta última solo si la variable es ordinal)
+- **Botón:** alternar entre gráfica de barras y gráfica de pastel para los mismos datos
+
+## Variables manipulables
+- Tipo de frecuencia mostrada en la tabla y el eje del gráfico
+- Tipo de gráfica (barras vs. pastel)
+
+## Resultados esperados
+El estudiante observará que la gráfica de pastel se vuelve difícil de leer cuando hay más de 4-5 categorías o cuando dos categorías tienen proporciones muy similares — mientras que la gráfica de barras sigue siendo clara. Esto sienta las bases para la discusión de cuándo usar cada una.
+
+---
+
+# Discusión
+
+Preguntas abiertas:
+
+- ¿En qué momento la gráfica de pastel dejó de ser útil al aumentar el número de categorías?
+- ¿Cambia la forma de la gráfica de barras si reordenan las categorías? ¿Debería importar el orden si la variable es nominal?
+- ¿Qué pasaría si graficaran el grupo sanguíneo como gráfica de pastel pero solo tuvieran las frecuencias porcentuales, sin el total de personas? (conecta con la advertencia de Rincón sobre frecuencias porcentuales sin total de referencia)
+
+**Tiempo:** 10 minutos
+
+---
+
+# Desarrollo conceptual
+
+## Conceptos (basados en Rincón, 2017, Cap. 2 y 3)
+
+- **Frecuencia absoluta:** número de veces que se observa una categoría.
+- **Frecuencia relativa:** frecuencia absoluta dividida entre el total de observaciones (un número entre 0 y 1).
+- **Frecuencia relativa porcentual:** la frecuencia relativa expresada como porcentaje (multiplicada por 100).
+- **Frecuencia acumulada (solo variables ordinales):** suma de las frecuencias de una categoría y todas las anteriores según su orden natural.
+- **Gráfica de barras:** una barra por categoría, cuya altura es la frecuencia (absoluta, relativa o porcentual). Sirve tanto para variables nominales como ordinales; en las nominales el orden de las barras es arbitrario.
+- **Gráfica de pastel (circular):** representa cada categoría como una porción de un círculo, proporcional a su frecuencia relativa — útil para comunicar "parte de un todo", pero pierde claridad con muchas categorías.
+
+## Ejemplos
+
+**Ejemplo 1 (Rincón):** El ejemplo de 92 personas clasificadas en M (50) y H (42) — una gráfica de barras simple con solo dos categorías.
+
+**Ejemplo 2 (Rincón):** El ejemplo de grupos sanguíneos de 80 personas (A: 15%, B: 35%, AB: 20%, O: 30%) — usado para mostrar tanto la gráfica de barras como la de pastel sobre los mismos datos, y comparar.
+
+---
+
+# Visualizaciones
+
+## Gráfico 1
+- **Objetivo:** mostrar la frecuencia de cada grupo sanguíneo.
+- **Tipo:** gráfica de barras.
+- **Paquete:** R base (`barplot()`), replicando el código exacto de Rincón (2017, p. 101).
+- **Interpretación:** cada barra se compara fácilmente contra las demás, incluso si las diferencias son pequeñas.
+
+## Gráfico 2
+- **Objetivo:** mostrar la misma información como proporción del total.
+- **Tipo:** gráfica de pastel.
+- **Paquete:** R base (`pie()`), siguiendo el estilo de código de Contento Rubio (uso de `pie()` con `labels` y `col`).
+- **Interpretación:** comunica "parte de un todo" de forma intuitiva, pero se degrada con más de 4-5 categorías — comparar directamente contra el Gráfico 1 con los mismos datos.
+
+---
+
+# Código en R
+
+## Librerías
+```r
+# Ninguna librería externa requerida — table(), barplot() y pie() son de R base
+```
+
+## Código principal
+(No escribir aún el código definitivo — se define en la sesión de preparación de materiales.)
+
+Estructura esperada del script:
+
+1. Captura de los datos del salón como vector de texto.
+2. Conversión a `factor` (con `levels()` y, si aplica, `ordered()`), siguiendo el patrón de Contento Rubio para la variable Género/Educación de su dataset de clientes.
+3. `table()` para la frecuencia absoluta; división entre `sum()` o `length()` para la relativa.
+4. `barplot(table(variable))` y `pie(table(variable))` sobre los mismos datos, replicando el estilo de ambos libros.
+
+---
+
+# Ejemplo guiado
+
+Resolver paso a paso con el ejemplo de grupos sanguíneos de Rincón (f = c(15, 35, 20, 30), etiquetas A, B, AB, O).
+
+Mostrar:
+- código: `barplot(f, names.arg = gs, xlab = "Grupo sanguíneo", ylab = "Frecuencia")` (código casi textual de Rincón, p. 101)
+- salida: la gráfica de barras
+- interpretación: el grupo B es visiblemente el más frecuente, sin necesidad de leer números
+
+---
+
+# Ejercicio en clase
+
+## Enunciado
+Con el dataset `mpg` (incluido en `ggplot2`), la variable `drv` (tipo de tracción: delantera, trasera, 4x4).
+
+## Preguntas
+1. Construyan la tabla de frecuencias absolutas y relativas porcentuales de `drv`.
+2. ¿Es `drv` una variable nominal u ordinal? Justifiquen.
+3. Grafiquen `drv` con `barplot()` y con `pie()`. ¿Cuál transmite mejor la información en este caso?
+
+---
+
+# Ejercicio interactivo (learnr)
+
+## Tipo
+- **Opción múltiple:** dado un conjunto de frecuencias porcentuales sin el total de observaciones, identificar qué información NO se puede recuperar.
+- **Completar código:** completar la línea de `barplot()` a la que le falta el argumento `names.arg`.
+- **Verdadero/falso:** "El orden de las barras en una gráfica de barras siempre importa" (falso para nominales, verdadero para ordinales).
+- **Interpretación de gráfico:** mostrar una gráfica de pastel con 9 categorías y preguntar qué problema tiene.
+
+---
+
+# Laboratorio
+
+## Objetivo
+Aplicar tablas de frecuencia y ambas gráficas sobre una variable cualitativa real, y justificar por escrito cuál gráfica es más apropiada.
+
+## Datos
+`mpg` (incluido en `ggplot2`) — variable `class` (tipo de vehículo: 2seater, compact, midsize, minivan, pickup, subcompact, suv).
+
+## Actividades
+1. Construir la tabla de frecuencias absolutas y porcentuales de `class`.
+2. Graficar con `barplot()` y con `pie()`.
+3. Redactar 3-4 líneas justificando cuál de las dos gráficas usarían en un informe para la dirección de una concesionaria, y por qué.
+
+---
+
+# Errores comunes
+
+**Error 1:** Reportar solo frecuencias porcentuales sin indicar el total de observaciones.
+¿Por qué ocurre? Parece suficiente mostrar el porcentaje, pero sin el total no se puede verificar ni comparar con otro estudio.
+¿Cómo evitarlo? Siempre acompañar la tabla porcentual con el total de observaciones (n), tal como lo hace Rincón en su ejemplo de grupos sanguíneos.
+
+**Error 2:** Usar gráfica de pastel para variables con muchas categorías o con categorías de tamaño muy similar.
+¿Por qué ocurre? El pastel parece "más visual" e intuitivamente atractivo, pero el ojo humano compara ángulos peor que alturas de barras.
+¿Cómo evitarlo? Aplicar la regla práctica trabajada en la simulación: con más de 4-5 categorías, preferir barras.
+
+---
+
+# Mini evaluación
+
+Cinco preguntas conceptuales (no cálculos mecánicos):
+
+1. ¿Cuál es la diferencia entre frecuencia relativa y frecuencia relativa porcentual?
+2. ¿Por qué el orden de las categorías no afecta la interpretación de una gráfica de barras nominal, pero sí una ordinal?
+3. Da un ejemplo (no visto en clase) donde una gráfica de pastel sea mejor opción que una de barras.
+4. Si te muestran una tabla con solo frecuencias porcentuales, ¿qué pregunta harías antes de interpretarla?
+5. ¿Qué instrucción de R usarías para saber cuántas observaciones hay en cada categoría de un vector de texto?
+
+---
+
+# Reflexión final
+
+- ¿Qué aprendimos hoy? A resumir una variable cualitativa en una tabla de frecuencias y a elegir entre dos formas gráficas según el número de categorías y el mensaje que se quiere comunicar.
+- ¿Cómo se relaciona con la vida real? Cualquier encuesta, reporte de ventas por categoría o estudio demográfico usa exactamente estas herramientas.
+- ¿Qué preguntas quedan abiertas? ¿Cómo se resume una variable cuantitativa, que no se puede simplemente "contar por categorías"? (Tema 3).
+
+---
+
+# Tarea
+
+Con datos propios (por ejemplo, las categorías de gasto de su última semana: comida, transporte, ocio, otros), construir una tabla de frecuencias y decidir, justificando por escrito, si usarían barras o pastel para presentarlo.
+
+---
+
+# Recursos adicionales
+
+- Lectura: Rincón (2017), Cap. 3, sección "Gráfica de barras" y "Gráfica de pastel"; Cap. 2, sección "Frecuencias"
+- Lectura: Contento Rubio, Cap. 1-2 (uso de `factor()`, `table()`, `barplot()`, `pie()`)
+- Simulación: app Shiny `frecuencias_interactivas`
+
+---
+
+# Código fuente
+
+Archivos utilizados
+- `mpg` (dataset del paquete `ggplot2`, sin archivo externo)
+- `frecuencias_interactivas/app.R`
+- `tema-02-variables-cualitativas.qmd`
+
+---
+
+# Notas para el profesor
+
+## Dificultades esperadas
+- Confundir frecuencia relativa (0 a 1) con porcentual (0 a 100) al reportar resultados — insistir en la distinción explícita.
+- Preferencia instintiva por el pastel "porque se ve más profesional" — aprovechar la simulación para desafiar esa intuición con evidencia visual.
+
+## Tiempo recomendado
+
+| Actividad | Minutos |
+|-----------|----------|
+| Motivación | 10 |
+| Exploración | 15 |
+| Simulación | 15 |
+| Discusión | 10 |
+| Teoría | 15 |
+| Ejemplo | 10 |
+| Laboratorio | 10 |
+| Cierre | 5 |
+
+---
+
+# Posibles mejoras
+
+Espacio para registrar observaciones después de impartir la clase.
+
+- **Funcionó bien:**
+- **Debe mejorarse:**
+- **Preguntas frecuentes de los estudiantes:**

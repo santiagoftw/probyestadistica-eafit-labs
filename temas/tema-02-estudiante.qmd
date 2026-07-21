@@ -1,0 +1,149 @@
+---
+title: "Tema 2 · Variables cualitativas: tablas y gráficas"
+---
+
+::: {.hero-motivacion}
+## 🩸 ¿Cuál es el grupo sanguíneo más común?
+
+Rincón (2017) presenta el caso real de 80 personas clasificadas por su grupo sanguíneo: A, B, AB u O. ¿Cuál creen que es el más común? ¿Y en este salón?
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: ordena de más a menos común los grupos A, B, AB, O según tu intuición. ¿Cuántos compañeros crees que coinciden contigo en su tipo de sangre?
+:::
+
+## 🔬 Exploremos: construyendo una tabla a mano
+
+Respondan en el salón: ¿cuál es su medio de transporte habitual a la universidad? Cuenten cuántas personas cayeron en cada categoría y arme su propia tabla de frecuencias — sin fórmulas todavía, solo contando.
+
+::: {.ficha-resultado}
+Cuando terminen de contar: ¿alguien calculó también el porcentaje sin que se lo pidieran? Esa es exactamente la idea de frecuencia relativa, y ya la usaron de forma intuitiva.
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Todos los grupos del salón llegaron al mismo total? ¿Debería coincidir?
+:::
+
+## 🎛️ Simulación: barras vs. pastel
+
+Con los datos de grupo sanguíneo de Rincón (A: 15%, B: 35%, AB: 20%, O: 30%, de 80 personas), compara las dos formas de representarlo.
+
+```{r}
+#| label: fig-barras-pastel
+#| fig-cap: "Grupo sanguíneo de 80 personas — barras vs. pastel (datos: Rincón, 2017)"
+#| layout-ncol: 2
+f <- c(15, 35, 20, 30)
+gs <- c("A", "B", "AB", "O")
+
+barplot(f, names.arg = gs, col = "#004B85",
+        xlab = "Grupo sanguíneo", ylab = "Frecuencia porcentual",
+        main = "Gráfica de barras")
+
+pie(f, labels = paste0(gs, " (", f, "%)"),
+    col = c("#004B85", "#4B8BC2", "#FFB903", "#D9DEE4"),
+    main = "Gráfica de pastel")
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Con solo 4 categorías, ambas gráficas comunican bien. Prueba (en tu propia sesión de R) qué pasa si conviertes `f` y `gs` en 9 o 10 categorías en vez de 4 — el pastel se vuelve difícil de leer, mientras que las barras siguen siendo claras.
+:::
+
+## 💡 Discusión
+
+- ¿En qué momento el pastel dejó de ser útil al aumentar las categorías?
+- ¿Cambiaría algo si reordenas las barras de A, B, AB, O a B, O, AB, A? ¿Debería importar, siendo una variable nominal?
+- Si solo te dieran los porcentajes (15%, 35%, 20%, 30%) sin decirte que son 80 personas, ¿qué no podrías calcular?
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Frecuencia absoluta
+El número de veces que se observa una categoría. Notación (Rincón, 2017): si $C_1, C_2, \dots, C_k$ son las categorías, sus frecuencias absolutas se denotan $f_1, f_2, \dots, f_k$. En el ejemplo: 28 personas tienen grupo B.
+
+## Frecuencia relativa
+La frecuencia absoluta dividida entre el total de observaciones $n$ — un número entre 0 y 1: $f_i / n$. Para el grupo B: 28/80 = 0.35. La suma de todas las frecuencias relativas siempre es 1.
+
+## Frecuencia relativa porcentual
+La frecuencia relativa multiplicada por 100: $100 \cdot f_i/n$. Para el grupo B: 35%.
+
+## Frecuencia acumulada (solo ordinales)
+Cuando las categorías tienen un orden natural $C_1 \le C_2 \le \dots \le C_k$, la frecuencia acumulada de $C_j$ es la suma de su frecuencia y las de todas las categorías anteriores: $f_1 + f_2 + \dots + f_j$. **Solo tiene sentido si la variable es ordinal** — no aplica a grupo sanguíneo, que es nominal (no hay "categoría anterior" bien definida).
+
+:::
+
+### Ejemplo completo con frecuencia acumulada
+
+A diferencia del grupo sanguíneo (nominal), tomemos una variable **ordinal**: el nivel de satisfacción de 46 encuestados, con niveles Bajo < Medio < Alto (ejemplo adaptado de Rincón, 2017).
+
+```{r}
+#| label: tbl-frecuencia-acumulada
+#| tbl-cap: "Tabla de frecuencias completa para una variable ordinal"
+nivel <- c("Bajo", "Medio", "Alto")
+f_abs <- c(15, 21, 10)
+
+tabla <- data.frame(
+  Nivel = nivel,
+  Frec_absoluta = f_abs,
+  Frec_acumulada = cumsum(f_abs),
+  Frec_relativa = round(f_abs / sum(f_abs), 3),
+  Frec_rel_acumulada = round(cumsum(f_abs) / sum(f_abs), 3)
+)
+knitr::kable(tabla)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+La frecuencia acumulada de "Alto" (46) coincide con el total — tiene que ser así, porque acumula *todas* las categorías. Prueba reordenar `nivel` a `c("Alto", "Bajo", "Medio")` y correr el chunk de nuevo: la frecuencia acumulada deja de tener sentido, porque rompiste el orden natural de la variable.
+:::
+
+### Las dos gráficas
+
+::: {.panel-tabset}
+
+## Gráfica de barras
+Una barra por categoría, cuya altura es la frecuencia. Sirve para nominales y ordinales; en las nominales, el orden de las barras es arbitrario.
+
+## Gráfica de pastel
+Cada categoría es una porción de un círculo, proporcional a su frecuencia relativa. Comunica bien "parte de un todo", pero pierde claridad con muchas categorías.
+
+:::
+
+## 🧪 Ejemplo con datos reales
+
+```{r}
+#| eval: false
+library(ggplot2)
+table(mpg$drv)                    # frecuencia absoluta
+prop.table(table(mpg$drv)) * 100  # frecuencia relativa porcentual
+barplot(table(mpg$drv), col = "#004B85")
+```
+
+## 🧑‍🔬 Laboratorio
+
+Con `mpg` (incluido en `ggplot2`), variable `class` (tipo de vehículo):
+
+1. Construye la tabla de frecuencias absolutas y porcentuales de `class`.
+2. Grafícala con `barplot()` y con `pie()`.
+3. Escribe 3-4 líneas: si tuvieras que presentarle esto a la dirección de una concesionaria, ¿cuál gráfica usarías y por qué?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Opción múltiple, completar código e interpretación de gráficas sobre tablas de frecuencia:
+
+[Abrir ejercicios del Tema 2 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Una tabla de frecuencias puede expresarse como absoluta, relativa o porcentual — y siempre conviene reportar el total (n).
+- La gráfica de barras funciona para nominales y ordinales; el pastel comunica proporciones pero se degrada con muchas categorías.
+- Solo las variables ordinales admiten frecuencia acumulada, porque solo ellas tienen un orden natural entre categorías.
+:::

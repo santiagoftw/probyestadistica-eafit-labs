@@ -1,0 +1,146 @@
+---
+title: "Tema 6 · Cuantiles y boxplot"
+---
+
+::: {.hero-motivacion}
+## 🔩 ¿Cuántos huecos aguanta una broca antes de romperse?
+
+Se probaron 49 brocas idénticas, perforando una aleación de latón hasta que cada una se rompió. Se registró cuántos huecos alcanzó a hacer cada una antes de fracturarse (Contento Rubio). Algunas duraron muchísimo más que las demás.
+:::
+
+::: {.ficha-prediccion}
+Antes de ver los datos: si la mayoría de las brocas duran entre 150 y 220 huecos, pero una llegó a 520, ¿esa broca de 520 es simplemente "una muy buena", o podría tratarse de un dato atípico que merece investigarse aparte?
+:::
+
+## 🔬 Exploremos: los datos reales
+
+```{r}
+#| eval: false
+duracion <- c(30,118,120,123,125,127,130,136,139,141,155,156,158,159,
+              160,160,161,168,170,171,172,174,175,178,178,177,184,185,
+              187,191,191,194,197,199,201,206,208,210,211,217,248,263,
+              265,270,289,322,388,513,520)
+length(duracion)
+sort(duracion)
+```
+
+::: {.ficha-resultado}
+Ordena los datos y mira los últimos 5 valores. ¿Ves un salto brusco entre la mayoría de los datos y los últimos dos?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Cómo definirías, con una regla clara y no solo "a ojo", a partir de qué valor un dato se considera atípico?
+:::
+
+## 🎛️ Simulación: construyendo el boxplot paso a paso
+
+```{r}
+#| label: fig-boxplot-brocas
+#| fig-cap: "Boxplot de la duración de 49 brocas (Contento Rubio)"
+duracion <- c(30,118,120,123,125,127,130,136,139,141,155,156,158,159,
+              160,160,161,168,170,171,172,174,175,178,178,177,184,185,
+              187,191,191,194,197,199,201,206,208,210,211,217,248,263,
+              265,270,289,322,388,513,520)
+
+boxplot(duracion, horizontal = TRUE, col = "#004B85",
+        main = "Número de huecos antes de romperse", xlab = "No. de huecos")
+points(mean(duracion), 1, pch = 8, col = "#FFB903", cex = 1.5)
+legend("bottomright", legend = "media (*)", pch = 8, col = "#FFB903", bty = "n")
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Los puntos que aparecen sueltos fuera de los "bigotes" son justamente los valores atípicos que ya habías notado al ordenar los datos — R los identifica automáticamente con la misma regla que vamos a formalizar ahora.
+:::
+
+## 💡 Discusión
+
+- ¿Por qué la mediana está más cerca de Q1 que de Q3 en este boxplot? ¿Qué te dice eso sobre la forma de la distribución?
+- Si tuvieras que decidir si estas brocas cumplen un estándar de calidad, ¿usarías la media o la mediana como referencia? ¿Por qué?
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Cuantiles y cuartiles
+Un cuantil es un número que separa los datos ordenados en dos partes, según una proporción $p$: el $100p\%$ de los datos son menores o iguales al cuantil, y el $100(1-p)\%$ restante es mayor o igual (Rincón, 2017). Los **cuartiles** son los cuantiles al 25%, 50% y 75%:
+- $Q_1$ (25%): un cuarto de los datos son menores o iguales a este valor.
+- $Q_2$ (50%): es la mediana.
+- $Q_3$ (75%): tres cuartos de los datos son menores o iguales a este valor.
+
+## Rango intercuartílico (RIC / IQR)
+La altura de la "caja" del boxplot: la distancia entre el primer y tercer cuartil.
+
+$$RIC = Q_3 - Q_1$$
+
+Mide qué tan dispersas están el 50% de las observaciones centrales, sin que le afecten los valores extremos — es una medida de dispersión robusta, análoga a como la mediana es una medida de tendencia central robusta.
+
+## Vallas y valores atípicos
+Rincón y Contento Rubio coinciden en la misma regla estándar (la que usa `boxplot()` en R):
+
+$$\text{Brazo superior} = \min\{x_{(n)},\ Q_3 + 1.5 \cdot RIC\}$$
+$$\text{Brazo inferior} = \max\{x_{(1)},\ Q_1 - 1.5 \cdot RIC\}$$
+
+Los datos que caen fuera de estos brazos se consideran **valores atípicos**. Contento Rubio añade un segundo nivel: las **vallas externas**, a $1.5 \cdot RIC$ más allá de las internas — los datos más allá de esas se consideran **atípicos extremos**.
+
+## Lectura del boxplot
+- Si la mediana está centrada en la caja y los bigotes son de largo similar → indicio de simetría.
+- Si la mediana está desplazada hacia un extremo de la caja, o un bigote es mucho más largo que el otro → indicio de sesgo.
+- El ancho de la caja es directamente proporcional a la variabilidad — útil para comparar dos o más boxplots lado a lado.
+
+:::
+
+## 🧪 Ejemplo con datos reales
+
+```{r}
+#| eval: false
+duracion <- c(30,118,120,123,125,127,130,136,139,141,155,156,158,159,
+              160,160,161,168,170,171,172,174,175,178,178,177,184,185,
+              187,191,191,194,197,199,201,206,208,210,211,217,248,263,
+              265,270,289,322,388,513,520)
+
+Q1 <- quantile(duracion, 0.25)
+Q2 <- quantile(duracion, 0.50)
+Q3 <- quantile(duracion, 0.75)
+ric <- IQR(duracion)
+
+Q1; Q2; Q3; ric
+
+# Vallas internas
+Q1 - 1.5 * ric
+Q3 + 1.5 * ric
+
+# Vallas externas (atípicos extremos)
+Q1 - 3 * ric
+Q3 + 3 * ric
+```
+
+Con estos datos: $Q_1 = 158$, $Q_2 = 178$, $Q_3 = 208$, por lo que $RIC = 50$. La valla interna superior queda en $208 + 1.5(50) = 283$ — por lo tanto, **388, 513 y 520 son valores atípicos** según esta regla.
+
+## 🧑‍🔬 Laboratorio
+
+Con `mtcars$mpg`:
+
+1. Calcula $Q_1$, $Q_2$, $Q_3$ y el RIC.
+2. Construye el boxplot con `boxplot()`.
+3. ¿Hay algún valor atípico? Si lo hay, identifica de qué auto se trata (pista: `rownames(mtcars)[which.max(mtcars$mpg)]`).
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Cálculo de cuartiles con datos pequeños, identificación visual de valores atípicos en distintos boxplots, interpretación de simetría vs. sesgo:
+
+[Abrir ejercicios del Tema 6 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Los cuartiles dividen los datos ordenados en cuatro partes iguales; el RIC mide la dispersión del 50% central, sin verse afectado por valores extremos.
+- La regla estándar de valores atípicos usa $Q_3 + 1.5 \cdot RIC$ y $Q_1 - 1.5 \cdot RIC$ como límites.
+- Un boxplot resume 5 números (mínimo, Q1, mediana, Q3, máximo) y hace visibles la mediana, la dispersión y los atípicos en un solo vistazo — sin necesitar el promedio.
+:::

@@ -1,0 +1,48 @@
+<svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <!-- 5 pasos en fila -->
+  <g>
+    <circle cx="90" cy="60" r="30" fill="#004B85"/>
+    <text x="90" y="68" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">1</text>
+    <text x="90" y="115" text-anchor="middle" fill="#004B85" font-size="13" font-weight="700">Rango</text>
+    <text x="90" y="133" text-anchor="middle" fill="#2B2B2B" font-size="11">máx − mín</text>
+  </g>
+
+  <line x1="130" y1="60" x2="240" y2="60" stroke="#FFB903" stroke-width="3"/>
+
+  <g>
+    <circle cx="280" cy="60" r="30" fill="#004B85"/>
+    <text x="280" y="68" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">2</text>
+    <text x="280" y="115" text-anchor="middle" fill="#004B85" font-size="13" font-weight="700">Número de clases (k)</text>
+    <text x="280" y="133" text-anchor="middle" fill="#2B2B2B" font-size="11">Sturges: 1 + 3.3·log₁₀(n)</text>
+  </g>
+
+  <line x1="360" y1="60" x2="430" y2="60" stroke="#FFB903" stroke-width="3"/>
+
+  <g>
+    <circle cx="470" cy="60" r="30" fill="#004B85"/>
+    <text x="470" y="68" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">3</text>
+    <text x="470" y="115" text-anchor="middle" fill="#004B85" font-size="13" font-weight="700">Ancho de clase (w)</text>
+    <text x="470" y="133" text-anchor="middle" fill="#2B2B2B" font-size="11">rango / k</text>
+  </g>
+
+  <line x1="510" y1="60" x2="580" y2="60" stroke="#FFB903" stroke-width="3"/>
+
+  <g>
+    <circle cx="620" cy="60" r="30" fill="#004B85"/>
+    <text x="620" y="68" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">4</text>
+    <text x="620" y="115" text-anchor="middle" fill="#004B85" font-size="13" font-weight="700">Límites de clase</text>
+    <text x="620" y="133" text-anchor="middle" fill="#2B2B2B" font-size="11">cubren todo el rango</text>
+  </g>
+
+  <line x1="660" y1="60" x2="730" y2="60" stroke="#FFB903" stroke-width="3"/>
+
+  <g>
+    <circle cx="770" cy="60" r="30" fill="#004B85"/>
+    <text x="770" y="68" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">5</text>
+    <text x="770" y="115" text-anchor="middle" fill="#004B85" font-size="13" font-weight="700">Contar frecuencias</text>
+    <text x="770" y="133" text-anchor="middle" fill="#2B2B2B" font-size="11">asignar cada dato a su clase</text>
+  </g>
+
+  <rect x="60" y="165" width="750" height="45" rx="4" fill="none" stroke="#FFB903" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="435" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#004B85">R hace estos 5 pasos automáticamente al llamar hist() — pero conviene saber qué calcula</text>
+</svg>

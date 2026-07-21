@@ -1,0 +1,140 @@
+---
+title: "Tema 0 · R como laboratorio"
+---
+
+::: {.hero-motivacion}
+## 🪙 Antes de tocar una fórmula...
+
+Vas a lanzar una moneda 100 veces. **Antes de correr nada:** ¿cuántas caras crees que saldrán? ¿Estás seguro de ese número? Si lo repites, ¿esperas exactamente lo mismo?
+:::
+
+::: {.ficha-prediccion}
+Escribe tu predicción antes de seguir leyendo: ¿cuántas caras esperas en 100 lanzamientos, y qué tan seguro estás (mucho / algo / poco)?
+:::
+
+## 🔬 Exploremos
+
+Este código simula 100 lanzamientos de una moneda (1 = cara, 0 = sello). Ejecútalo en tu sesión de Posit Cloud y anota el resultado.
+
+```{r}
+#| eval: false
+set.seed(NULL)  # cada corrida es distinta a propósito
+lanzamientos <- sample(c(0, 1), size = 100, replace = TRUE)
+sum(lanzamientos)      # número de caras
+mean(lanzamientos)     # proporción de caras
+```
+
+::: {.ficha-resultado}
+Corre el código **dos veces seguidas** sin cambiar nada. ¿Obtuviste el mismo número de caras ambas veces?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Por qué el mismo código, corrido dos veces, te da resultados distintos? Discútelo con un compañero antes de seguir.
+:::
+
+## 🎛️ Simulación: ¿qué pasa si cambias cuántas veces lanzas?
+
+Mueve el control de la animación (▶ / la barra inferior) para ver cómo la proporción de caras se comporta según cuántos lanzamientos llevas acumulados.
+
+```{r}
+#| label: fig-estabilizacion
+#| fig-cap: "Proporción acumulada de caras según el número de lanzamientos"
+library(plotly)
+library(purrr)
+
+set.seed(123)
+n_max <- 2000
+lanzamientos <- sample(c(0, 1), n_max, replace = TRUE)
+cortes <- c(10, 50, 100, 250, 500, 1000, 2000)
+
+df <- map_dfr(cortes, function(n) {
+  data.frame(
+    n = n,
+    lanzamiento = 1:n,
+    proporcion_cara = cumsum(lanzamientos[1:n]) / (1:n)
+  )
+})
+
+plot_ly(df, x = ~lanzamiento, y = ~proporcion_cara, frame = ~n,
+        type = "scatter", mode = "lines",
+        line = list(color = "#004B85", width = 2)) |>
+  layout(
+    yaxis = list(range = c(0, 1), title = "Proporción de caras"),
+    xaxis = list(title = "Número de lanzamiento"),
+    shapes = list(list(
+      type = "line", x0 = 0, x1 = 1, xref = "paper",
+      y0 = 0.5, y1 = 0.5,
+      line = list(dash = "dot", color = "#B37D00")
+    ))
+  ) |>
+  animation_slider(currentvalue = list(prefix = "lanzamientos acumulados hasta n = "))
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Con pocos lanzamientos la línea salta mucho. A medida que crece `n`, se acerca y se queda cerca de la línea punteada roja (50%), aunque casi nunca la toca exactamente.
+:::
+
+## 💡 Discusión
+
+- ¿Coincidió tu predicción inicial con lo que observaste?
+- ¿Por qué la línea "salta" más al principio que al final?
+- ¿Qué le dirías a alguien que insiste en que 100 lanzamientos *deben* dar exactamente 50 caras?
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Consola vs. script
+La **consola** es para probar algo rápido y que se pierde después. El **script** guarda tu trabajo para poder reproducirlo. Todo lo que hiciste arriba deberías guardarlo en un script, no solo en la consola.
+
+## Vector
+Un **vector** es la estructura básica de R para guardar una colección de valores — exactamente lo que es `lanzamientos`: 100 (o 2000) resultados de 0 y 1 guardados en un solo objeto.
+
+## Función
+Una **función** es una "caja" que recibe un vector y devuelve una respuesta: `sum()` cuenta, `mean()` promedia, `length()` cuenta cuántos elementos hay. Ya usaste las tres sin saber que se llamaban así.
+
+## Aleatoriedad
+Cada vez que R "lanza la moneda" con `sample()`, genera un resultado distinto porque usa un generador de números aleatorios. Eso es exactamente lo que viste al correr el código dos veces.
+
+:::
+
+## 🧪 Ejemplo con datos reales
+
+`mtcars` es un conjunto de datos real de 32 autos, incluido en R (no necesitas descargar nada).
+
+```{r}
+#| eval: false
+data(mtcars)
+length(mtcars$mpg)      # ¿cuántos autos hay?
+mean(mtcars$mpg)        # rendimiento promedio (millas por galón)
+table(mtcars$cyl)       # ¿cuántos autos de 4, 6 y 8 cilindros hay?
+```
+
+## 🧑‍🔬 Laboratorio
+
+Con el mismo dataset `mtcars`:
+
+1. ¿Cuántos autos hay en total?
+2. ¿Cuál es el rendimiento promedio en millas por galón?
+3. Construye una tabla de frecuencias de `cyl` y grafícala con `ggplot2::geom_bar()`. ¿Cuál número de cilindros es más común?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Los ejercicios de opción múltiple, completar código e interpretación de gráficos de este tema están en el tutorial interactivo:
+
+[Abrir ejercicios del Tema 0 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr en shinyapps.io o Posit Connect.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- R es una herramienta de exploración, no un examen de sintaxis.
+- Los resultados de una simulación cambian entre corridas por aleatoriedad — y se estabilizan al aumentar `n`.
+- Una función es una caja que responde preguntas sobre un vector: `mean()`, `sum()`, `length()`, `table()`.
+:::

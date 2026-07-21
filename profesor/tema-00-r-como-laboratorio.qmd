@@ -1,0 +1,352 @@
+---
+title: "Clase 0 - R como laboratorio (no como lenguaje)"
+author: "Curso de Probabilidad y Estadística"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: true
+---
+
+# Información general
+
+**Duración:** 90 minutos
+**Semana:** 1
+**Tema:** Introducción a R como herramienta de exploración estadística (previo a Introducción a la estadística descriptiva)
+**Competencias:** Usar R/RStudio como espacio de experimentación; generar y resumir datos simples con funciones básicas; interpretar la aleatoriedad de una simulación; producir un primer gráfico con `ggplot2`.
+
+---
+
+# Objetivos de aprendizaje
+
+Al finalizar la sesión el estudiante será capaz de:
+
+- Usar RStudio (consola, script, entorno, panel de gráficos) para explorar datos sin miedo al error.
+- Crear un vector de datos y aplicarle funciones (`mean()`, `sum()`, `length()`, `table()`) para responder preguntas concretas.
+- Explicar, con sus palabras, por qué dos corridas del mismo código de simulación pueden dar resultados distintos.
+- Construir un gráfico de barras simple con `ggplot2` a partir de datos generados por él mismo.
+
+---
+
+# Conocimientos previos
+
+Antes de iniciar esta clase el estudiante debe conocer:
+
+- Aritmética básica (promedios, conteos, porcentajes).
+- Qué es un experimento aleatorio de forma intuitiva (lanzar una moneda, tirar un dado).
+- No se requiere experiencia previa en programación.
+
+---
+
+# Materiales necesarios
+
+## Profesor
+
+- Computador
+- Proyector
+- Internet
+- RStudio / Posit Cloud
+- Quarto
+- Shiny (app ya desplegada o corrida localmente)
+
+## Estudiantes
+
+- Computador con acceso a Posit Cloud (o RStudio instalado)
+- Cuenta de acceso al proyecto de Posit Cloud del curso
+- No se requiere calculadora
+
+---
+
+# Contexto motivador
+
+## Situación problema
+
+> Vas a lanzar una moneda 100 veces. Antes de hacerlo: ¿cuántas caras crees que saldrán? ¿Estás seguro de ese número? Si repites las 100 lanzadas otra vez, ¿esperas exactamente el mismo resultado?
+
+Hacerlo a mano tomaría varios minutos y sería tedioso llevar la cuenta. Esa fricción es la excusa perfecta para presentar una herramienta que "lanza monedas" —o cualquier otro experimento— miles de veces en segundos.
+
+Preguntas para discutir:
+
+- ¿Cuántas caras esperarían en 100 lanzamientos? ¿Y en 10? ¿Y en 10 000?
+- ¿Qué tan seguros están de ese número?
+- ¿Alguna vez han usado un programa o app para "simular" algo (un juego, un dado virtual)?
+
+**Tiempo:** 10 minutos
+
+---
+
+# Actividad de exploración
+
+**Objetivo:** que el estudiante descubra, antes de cualquier explicación formal, que R permite generar datos aleatorios rápidamente y que el resultado varía de una corrida a otra.
+
+## Actividad
+
+Se entrega un script de RStudio ya abierto con una única línea de código que simula 100 lanzamientos de moneda (usando `sample()`). El estudiante:
+
+1. Escribe su predicción del número de caras **antes** de correr el código.
+2. Ejecuta la línea (botón "Run") y anota el resultado real.
+3. Vuelve a ejecutar la misma línea sin cambiar nada y compara con el resultado anterior.
+4. Cambia el número de lanzamientos (de 100 a 10, luego a 10 000) y observa qué pasa con la estabilidad del resultado.
+
+### Recursos
+
+- Script de RStudio precargado (Posit Cloud)
+- Formulario corto (Google Forms o papel) para registrar la predicción antes de correr el código
+- Tablero compartido en vivo (Mentimeter o similar) para comparar predicciones del grupo
+
+### Preguntas guía
+
+- ¿Qué observan al correr el mismo código dos veces?
+- ¿Qué diferencias encuentran entre usar 10, 100 y 10 000 lanzamientos?
+- ¿Por qué creen que ocurre esto?
+
+**Tiempo:** 15 minutos
+
+---
+
+# Simulación interactiva
+
+## Herramienta
+
+Shiny (app: `moneda_simulador`)
+
+## Controles
+
+- **Slider:** número de lanzamientos (n), rango de 10 a 10 000
+- **Botón:** "Lanzar de nuevo" (nueva corrida con el mismo n)
+- **Selector (opcional):** mostrar conteo absoluto vs. proporción de caras
+
+## Variables manipulables
+
+- Número de lanzamientos (n)
+- Número de repeticiones de la simulación completa (para ver varias corridas una junto a otra, opcional si el tiempo lo permite)
+
+## Resultados esperados
+
+El estudiante observará:
+
+- Que con n pequeño (10, 20) el resultado salta mucho entre corridas (puede salir 3 caras o 8 caras de 10).
+- Que con n grande (10 000) el resultado se estabiliza cerca de 50% caras, aunque nunca sea exactamente 50%.
+- Que el gráfico de barras se actualiza en tiempo real al mover el slider o presionar el botón, reforzando visualmente la idea de variabilidad vs. estabilización.
+
+---
+
+# Discusión
+
+Preguntas abiertas:
+
+- ¿Qué aprendimos al mover el slider de n pequeño a n grande?
+- ¿Por qué el resultado "salta" más cuando hay pocos lanzamientos?
+- ¿Qué patrón encontraron al aumentar mucho el número de lanzamientos?
+
+**Tiempo:** 10 minutos
+
+---
+
+# Desarrollo conceptual
+
+Ahora se formaliza lo ya vivido en la exploración.
+
+## Conceptos
+
+- **Consola vs. script:** la consola es para probar rápido; el script es para guardar y reproducir el trabajo.
+- **Vector:** la generalización de "mi lista de 100 resultados" — la estructura básica que contiene un conjunto de datos en R.
+- **Función:** una "caja" que recibe un vector y devuelve una respuesta (`mean()`, `sum()`, `length()`, `table()`), conectando directamente con las preguntas que ya se hicieron en la exploración.
+- **Asignación (`<-`):** ponerle nombre a un resultado para no perderlo y poder reutilizarlo.
+- **Aleatoriedad computacional:** por qué el mismo código puede dar resultados distintos cada vez que se ejecuta.
+
+## Ejemplos
+
+Ejemplo 1: Mostrar cómo `table()` sobre el vector de lanzamientos da el conteo de caras/sellos que ya obtuvieron manualmente en la exploración.
+
+Ejemplo 2: Mostrar 2-3 mensajes de error típicos de R a propósito (paréntesis faltante, nombre mal escrito) y leerlos juntos en clase para desdramatizarlos.
+
+---
+
+# Visualizaciones
+
+## Gráfico 1
+
+- **Objetivo:** representar visualmente el conteo de caras/sellos de una corrida.
+- **Tipo:** gráfico de barras.
+- **Paquete:** `ggplot2` (`geom_bar()`).
+- **Interpretación:** conecta el número que ya calcularon con `table()` con una representación visual — primer contacto del curso con "un gráfico representa datos".
+
+## Gráfico 2
+
+- **Objetivo:** mostrar cómo se estabiliza la proporción de caras a medida que aumenta el número de lanzamientos.
+- **Tipo:** gráfico de línea (proporción acumulada de caras vs. número de lanzamiento).
+- **Paquete:** `ggplot2` (`geom_line()`).
+- **Interpretación:** opcional si el tiempo lo permite; siembra sin nombrarla la intuición de la ley de los grandes números, que se retomará formalmente en el módulo de probabilidad.
+
+---
+
+# Código en R
+
+## Librerías
+
+```r
+library(tidyverse)
+```
+
+## Código principal
+
+(No escribir aún el código definitivo — se define en la sesión de preparación de materiales.)
+
+Estructura esperada del script:
+
+1. Generación del vector de lanzamientos con `sample()`.
+2. Conteo de caras/sellos con `table()`.
+3. Cálculo de la proporción con `mean()` (aprovechando la codificación 0/1 o TRUE/FALSE).
+4. Un gráfico de barras (`ggplot() + geom_bar()`).
+
+---
+
+# Ejemplo guiado
+
+Resolver paso a paso usando `mtcars` (el mismo dataset del laboratorio, para que el estudiante lo reconozca).
+
+Mostrar:
+
+- código: aplicar `mean(mtcars$mpg)`, `length(mtcars$mpg)`, `table(mtcars$cyl)`
+- salida: el resultado numérico
+- interpretación: qué significa ese número en contexto (no solo "el promedio es 20.09", sino "en promedio estos 32 autos rinden ~20 millas por galón", y comparar con lo que el grupo esperaría de un auto actual)
+
+---
+
+# Ejercicio en clase
+
+Los estudiantes desarrollan una actividad guiada.
+
+## Enunciado
+
+Usando el mismo script de la moneda, cambien el experimento simulado por el lanzamiento de un dado (valores 1 a 6) y respondan las preguntas siguientes.
+
+## Preguntas
+
+1. ¿Cuántas veces esperan que salga cada cara del dado en 60 lanzamientos?
+2. ¿Qué cambia en el código respecto al de la moneda?
+3. ¿El resultado se estabiliza igual de rápido que con la moneda? ¿Por qué sí o por qué no?
+
+---
+
+# Ejercicio interactivo (learnr)
+
+## Tipo
+
+- **Opción múltiple:** "Si corres el mismo código de simulación dos veces, ¿por qué obtienes números distintos?"
+- **Completar código:** completar el valor de `n` en un chunk dado, de modo que el resultado sea "casi siempre cercano a 50 caras".
+- **Verdadero/falso:** interpretación de dos gráficos de barras (uno con n=10, otro con n=10 000), identificando cuál corresponde a cuál tamaño de muestra.
+- **Respuesta abierta (con retroalimentación, no calificación exacta):** "¿Qué le dirías a un compañero que afirma que 100 lanzamientos SIEMPRE deben dar exactamente 50 caras?"
+
+---
+
+# Laboratorio
+
+Utilizar una base de datos real.
+
+## Objetivo
+
+Demostrar que las mismas herramientas usadas con la moneda simulada (`mean()`, `length()`, `table()`, un `ggplot` de barras) sirven igual para responder preguntas sobre datos reales.
+
+## Datos
+
+`mtcars` — dataset incluido en R base (32 automóviles de 1974, sin necesidad de instalar ni descargar nada). Variables relevantes para esta sesión: `mpg` (millas por galón, numérica) y `cyl` (número de cilindros, con solo 3 valores posibles: 4, 6, 8 — útil como variable a tabular).
+
+## Actividades
+
+1. Cargar el dataset con `data(mtcars)` y explorarlo con `length()` / `nrow()` (¿cuántos autos hay?).
+2. Calcular el promedio de `mpg` con `mean()`. Preguntar: ¿es un número razonable para el rendimiento de un auto de esa época?
+3. Construir una tabla de frecuencias con `table(mtcars$cyl)` y graficarla con `ggplot2` (`geom_bar()`), respondiendo: ¿cuál número de cilindros es más común en este conjunto de autos?
+
+---
+
+# Errores comunes
+
+**Error 1:** Creer que un mensaje de error de R significa que "algo se rompió" de forma permanente.
+¿Por qué ocurre? Es normal en quien nunca ha programado; el software genera ansiedad cuando el error se interpreta como fracaso.
+¿Cómo evitarlo? Mostrar errores intencionalmente durante la exploración y leerlos en voz alta como información, no como falla.
+
+**Error 2:** Esperar que dos corridas de la misma simulación den siempre el mismo resultado.
+¿Por qué ocurre? Es la intuición previa más común sobre "código = resultado fijo", como en una calculadora.
+¿Cómo evitarlo? Es justamente lo que la actividad de exploración busca desmontar; si reaparece en el laboratorio, es señal de reforzarlo antes de avanzar al siguiente tema.
+
+---
+
+# Mini evaluación
+
+Cinco preguntas conceptuales (no cálculos mecánicos):
+
+1. ¿Cuál es la diferencia entre la consola y un script en RStudio?
+2. ¿Qué te dice `length()` de un vector que no te dice `mean()`?
+3. Si tu compañero obtiene un resultado distinto al tuyo corriendo el mismo código de simulación, ¿es un error? Explica.
+4. ¿Qué representa un vector en R en el contexto de este tema?
+5. ¿Por qué el resultado de una simulación con n=10 000 es más estable que uno con n=10?
+
+---
+
+# Reflexión final
+
+- ¿Qué aprendimos hoy? Que R permite simular experimentos aleatorios rápidamente y que sus resultados varían de una corrida a otra, estabilizándose a medida que crece el número de repeticiones.
+- ¿Cómo se relaciona este tema con la vida real? Con encuestas, control de calidad, juegos de azar, y cualquier situación donde se repita un experimento muchas veces.
+- ¿Qué preguntas quedan abiertas? ¿Por qué se estabiliza el resultado? ¿Existe un límite teórico al que "tiende"? (se retomará en el módulo de probabilidad).
+
+---
+
+# Tarea
+
+Modificar el script de simulación para un experimento distinto (por ejemplo, elegir una carta al azar de una baraja simplificada de 4 valores) y responder por escrito: ¿cuántas veces esperan cada resultado en 100 repeticiones? ¿Coincide con lo que observan al correr el código?
+
+---
+
+# Recursos adicionales
+
+- Video: introducción breve a RStudio (por definir enlace institucional)
+- Artículo: breve nota sobre la diferencia entre aleatoriedad y azar percibido
+- Lectura: Apéndice "Breve orientación sobre R" — Rincón (2017)
+- Simulación: app Shiny `moneda_simulador` (uso libre fuera de clase)
+
+---
+
+# Código fuente
+
+Archivos utilizados
+
+- `mtcars` (dataset base de R, sin archivo externo)
+- `moneda_simulador/app.R`
+- `tema-00-r-como-laboratorio.qmd`
+
+---
+
+# Notas para el profesor
+
+## Dificultades esperadas
+
+- Estudiantes que instalan R/RStudio local con problemas de versión — mitigar usando Posit Cloud como entorno estándar del curso.
+- Confusión inicial entre `=` y `<-` — no profundizar, solo mencionar que ambos asignan en la mayoría de los casos.
+- Algunos estudiantes querrán "forzar" que el resultado dé exactamente 50 caras — aprovechar como pie para la discusión, no corregir de inmediato.
+
+## Tiempo recomendado
+
+| Actividad | Minutos |
+|-----------|----------|
+| Motivación | 10 |
+| Exploración | 15 |
+| Simulación | 15 |
+| Discusión | 10 |
+| Teoría | 15 |
+| Ejemplo | 10 |
+| Laboratorio | 10 |
+| Cierre | 5 |
+
+---
+
+# Posibles mejoras
+
+Espacio para registrar observaciones después de impartir la clase.
+
+- **Funcionó bien:**
+- **Debe mejorarse:**
+- **Preguntas frecuentes de los estudiantes:**

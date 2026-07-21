@@ -1,0 +1,74 @@
+---
+title: " "
+---
+
+::: {.hero-motivacion}
+# Estadística Descriptiva
+### Un curso donde primero experimentas y después entiendes.
+
+No vas a memorizar fórmulas antes de saber para qué sirven. Vas a lanzar monedas, clasificar animales, mover deslizadores y equivocarte en tus predicciones — y de ahí va a salir la teoría, no al revés.
+:::
+
+::: {.card-lab}
+## 🧭 Cómo funciona cada tema
+
+Cada tema sigue la misma ruta: **predices → experimentas → discutes → formalizas → aplicas con datos reales**. La ficha punteada roja es tu predicción; la ficha sólida verde es lo que R realmente encontró. Compáralas siempre antes de leer la teoría.
+:::
+
+::: {.grid}
+
+::: {.g-col-6 .card-lab}
+### Tema 0 · R como laboratorio
+Pierde el miedo a R lanzando monedas simuladas y viendo cómo se estabiliza el azar.
+
+[Empezar →](temas/tema-00-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Tema 1 · Datos, población y variables
+Clasifica variables reales de animales y personajes de Star Wars antes de aprender las definiciones formales.
+
+[Empezar →](temas/tema-01-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Tema 2 · Variables cualitativas
+Compara barras contra pastel con el ejemplo real de grupos sanguíneos de Rincón (2017).
+
+[Empezar →](temas/tema-02-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Tema 3 · Histograma y forma de los datos
+Descubre la distribución bimodal real de Old Faithful moviendo el número de intervalos.
+
+[Empezar →](temas/tema-03-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Tema 4 · Tendencia central
+Media, mediana y moda puestas a prueba con 4 casos reales de Devore.
+
+[Empezar →](temas/tema-04-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Tema 5 · Dispersión
+Rango, varianza, desviación estándar y coeficiente de variación con tortugas golfinas.
+
+[Empezar →](temas/tema-05-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Tema 6 · Cuantiles y boxplot
+49 brocas reales puestas a prueba hasta romperse — encuentra los valores atípicos.
+
+[Empezar →](temas/tema-06-estudiante.qmd)
+:::
+
+:::
+
+::: {.callout-note}
+## Próximos temas
+Momentos, asimetría y curtosis (puente opcional a probabilidad) · Laboratorio integrador (Taller 1).
+:::

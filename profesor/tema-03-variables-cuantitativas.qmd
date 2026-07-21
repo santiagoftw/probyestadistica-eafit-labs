@@ -1,0 +1,299 @@
+---
+title: "Clase 3 - Variables cuantitativas: histograma y forma de los datos"
+author: "Curso de Probabilidad y Estadística"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: true
+---
+
+# Información general
+
+**Duración:** 90 minutos
+**Semana:** 4
+**Tema:** Histograma para variables cuantitativas continuas; regla de Sturges; lectura de forma (simetría, sesgo, modalidad)
+**Competencias:** Construir una tabla de frecuencias agrupada en intervalos para una variable continua; aplicar la regla de Sturges para decidir el número de clases; construir e interpretar un histograma en R; describir la forma de una distribución.
+
+**Fuentes de esta clase:** Teoría base — Rincón (2017), Cap. 3 "Descripciones gráficas" (Histograma). Complemento — regla de Sturges y lectura de forma (simetría/sesgo/modalidad), tratamiento habitual en Levin & Rubin. Práctica en R — Contento Rubio, uso de `hist()` con el argumento `breaks`.
+
+---
+
+# Objetivos de aprendizaje
+
+Al finalizar la sesión el estudiante será capaz de:
+
+- Explicar por qué una variable continua no se puede tabular "por valor" como una cualitativa, y requiere agrupación en intervalos.
+- Aplicar la regla de Sturges para estimar un número razonable de clases.
+- Construir un histograma en R y ajustar manualmente el número de intervalos.
+- Leer la forma de una distribución: simétrica vs. sesgada, unimodal vs. bimodal.
+
+---
+
+# Conocimientos previos
+
+- Tablas de frecuencia y gráfica de barras — Clase 2.
+- Diferencia entre variable discreta y continua — Clase 1.
+
+---
+
+# Materiales necesarios
+
+## Profesor
+- Computador, proyector, internet, RStudio/Posit Cloud, Quarto, Shiny (app ya desplegada).
+
+## Estudiantes
+- Computador con acceso a Posit Cloud.
+- Dataset `faithful` (incluido en R base) — duración de erupciones del géiser Old Faithful.
+
+---
+
+# Contexto motivador
+
+## Situación problema
+
+> El géiser Old Faithful, en Yellowstone, es famoso por ser predecible... o eso dicen. Si midieras la duración de 272 erupciones consecutivas, ¿esperarías que la mayoría duren "más o menos lo mismo", formando una sola campana? ¿O podría haber dos comportamientos distintos mezclados en los mismos datos?
+
+Preguntas para discutir:
+- ¿Qué forma imaginan que tendría el histograma de duraciones: una sola montaña, o algo más raro?
+- ¿Un histograma podría revelar algo que una tabla de números no muestra a simple vista?
+
+**Tiempo:** 10 minutos
+
+---
+
+# Actividad de exploración
+
+**Objetivo:** que el estudiante intente construir a mano una tabla de frecuencias agrupada, y descubra por qué "una clase por cada valor" deja de funcionar con datos continuos.
+
+## Actividad
+1. Se les da un vector pequeño de 20 tiempos (minutos, con decimales) y se les pide construir una tabla de frecuencias exactamente como la Clase 2 (una fila por valor distinto).
+2. Rápidamente notarán que casi todos los valores son distintos entre sí — la tabla termina teniendo casi tantas filas como datos, y no resume nada.
+3. Se les reta a "inventar" su propia forma de agrupar esos 20 valores en, digamos, 4 o 5 intervalos, sin instrucciones adicionales.
+
+### Recursos
+- Vector de 20 datos impreso o en el tablero
+- Tiempo libre para que cada grupo proponga su propio agrupamiento antes de conocer la regla de Sturges
+
+### Preguntas guía
+- ¿Por qué la tabla "por valor" no sirvió esta vez, si funcionó perfecto en la Clase 2?
+- ¿Cómo decidieron cuántos intervalos usar? ¿Todos los grupos eligieron el mismo número?
+
+**Tiempo:** 15 minutos
+
+---
+
+# Simulación interactiva
+
+## Herramienta
+Shiny (app: `histograma_interactivo`)
+
+## Controles
+- **Slider:** número de intervalos (`breaks`), de 3 a 30
+- **Selector:** dataset a explorar (`faithful$eruptions`, `faithful$waiting`, o el vector de la actividad de exploración)
+- **Casilla:** mostrar/ocultar la línea vertical del número de clases sugerido por Sturges para ese `n`
+
+## Variables manipulables
+- Número de intervalos del histograma
+
+## Resultados esperados
+El estudiante observará que con muy pocos intervalos el histograma "esconde" detalles (incluso puede ocultar que los datos son bimodales), y con demasiados se ve "ruidoso" y pierde la forma general. El valor sugerido por Sturges suele caer en un punto razonable, pero no es una ley absoluta — es un punto de partida.
+
+---
+
+# Discusión
+
+- ¿Qué pasó con la forma del histograma de `faithful$eruptions` al mover el slider de pocos a muchos intervalos? ¿En algún punto se hicieron visibles dos "montañas"?
+- ¿La regla de Sturges dio siempre el mejor número de intervalos, o solo un punto de partida razonable?
+- ¿Qué le dirían a alguien que concluye "el géiser es predecible" mirando solo el promedio de las duraciones, sin ver el histograma?
+
+**Tiempo:** 10 minutos
+
+---
+
+# Desarrollo conceptual
+
+## Conceptos
+
+**Histograma (Rincón, 2017):** gráfica similar a una de barras, pero para datos con orden — las barras (rectángulos) son contiguas, sin espacio entre ellas, porque no hay "huecos" entre categorías: el valor de la variable fluye de manera continua.
+
+**Regla de Sturges (complemento — Levin & Rubin):** una guía práctica para decidir cuántas clases (intervalos) usar al agrupar datos continuos:
+
+$$k = 1 + 3.3 \cdot \log_{10}(n)$$
+
+donde $n$ es el número de observaciones. El ancho de cada clase se obtiene dividiendo el rango (máximo menos mínimo) entre $k$, y redondeando a un valor conveniente. Es una guía, no una regla exacta — R, por ejemplo, usa su propio algoritmo por defecto (basado en Sturges) al llamar `hist()`, pero permite forzar un número distinto con el argumento `breaks`.
+
+**Lectura de forma (complemento):**
+- **Simétrica:** los datos se distribuyen de manera pareja alrededor del centro (forma de campana).
+- **Sesgada a la derecha (asimetría positiva):** cola larga hacia valores altos.
+- **Sesgada a la izquierda (asimetría negativa):** cola larga hacia valores bajos.
+- **Unimodal / bimodal:** un solo pico vs. dos picos — un histograma bimodal puede sugerir que los datos provienen de dos grupos o procesos distintos mezclados en una sola muestra.
+
+## Ejemplos
+**Ejemplo (Rincón):** un histograma que se asemeja a la curva en forma de campana, sugiriendo que la variable podría modelarse con una distribución normal (idea que se retomará formalmente en el módulo de probabilidad).
+
+**Ejemplo (complemento):** `faithful$eruptions` — un caso real y célebre de distribución claramente bimodal, útil para mostrar que "una sola campana" no es automática.
+
+---
+
+# Visualizaciones
+
+## Gráfico 1
+- **Objetivo:** mostrar el histograma de `faithful$eruptions` con el número de clases sugerido por Sturges.
+- **Tipo:** histograma.
+- **Paquete:** R base (`hist()`), replicando el estilo de Contento Rubio (uso del argumento `breaks`).
+- **Interpretación:** revela dos picos claros — algo que ninguna tabla de resumen numérico (media, por ejemplo) habría mostrado por sí sola.
+
+## Gráfico 2
+- **Objetivo:** comparar el mismo histograma con muy pocos y con muchos intervalos.
+- **Tipo:** dos histogramas lado a lado (`breaks = 3` vs. `breaks = 30`).
+- **Paquete:** R base (`hist()`).
+- **Interpretación:** ilustra el compromiso entre "esconder" y "saturar" la forma real de los datos.
+
+---
+
+# Código en R
+
+## Librerías
+```r
+# Ninguna librería externa requerida — hist() es de R base
+```
+
+## Código principal
+(No escribir aún el código definitivo — se define en la sesión de preparación de materiales.)
+
+Estructura esperada del script:
+1. Cálculo manual de $k$ con la fórmula de Sturges para `n = nrow(faithful)`.
+2. `hist(faithful$eruptions, breaks = k, ...)`, siguiendo el estilo de Contento Rubio (`main`, `xlab`, `ylab`, `col`, `border`).
+3. Repetir con `breaks = 3` y `breaks = 30` para la comparación.
+
+---
+
+# Ejemplo guiado
+
+Resolver paso a paso con `faithful$eruptions` (272 observaciones):
+- código: cálculo de $k = 1 + 3.3 \log_{10}(272)$
+- salida: $k \approx 9.2$, se redondea a 9 clases
+- interpretación: con 9 clases el histograma ya deja ver las dos montañas — comparar contra el resultado con solo 3 clases, donde se pierden.
+
+---
+
+# Ejercicio en clase
+
+## Enunciado
+Con `faithful$waiting` (tiempo de espera entre erupciones, en minutos).
+
+## Preguntas
+1. Calculen $k$ con la regla de Sturges para $n = 272$.
+2. Construyan el histograma con ese número de clases.
+3. ¿La forma de `waiting` es similar a la de `eruptions`? ¿Qué relación esperarían entre las dos variables?
+
+---
+
+# Ejercicio interactivo (learnr)
+
+## Tipo
+- **Opción múltiple:** dado $n$, calcular $k$ con la fórmula de Sturges.
+- **Completar código:** completar el argumento `breaks` de un `hist()` dado un valor de $k$ ya calculado.
+- **Interpretación de gráfico:** mostrar dos histogramas del mismo dataset con distinto número de clases y preguntar cuál "esconde" información relevante.
+- **Verdadero/falso:** "Un histograma bimodal siempre significa que hay un error en los datos" (falso — puede reflejar dos procesos o grupos reales).
+
+---
+
+# Laboratorio
+
+## Objetivo
+Aplicar la regla de Sturges y evaluar distintos niveles de agrupamiento sobre un dataset propio.
+
+## Datos
+`mtcars$mpg` (ya usado en la Clase 0 — continuidad narrativa del curso).
+
+## Actividades
+1. Calcular $k$ con Sturges para $n = 32$.
+2. Construir el histograma con ese $k$, con la mitad y con el doble.
+3. Describir la forma resultante (simetría, sesgo, modalidad) en cada caso, y decidir cuál de los tres histogramas usarían en un informe.
+
+---
+
+# Errores comunes
+
+**Error 1:** Tratar la regla de Sturges como una ley matemática exacta en vez de una guía.
+¿Por qué ocurre? La fórmula da una falsa sensación de precisión.
+¿Cómo evitarlo? Enfatizar, con la simulación, que el número "correcto" de clases depende también de lo que se quiera mostrar — Sturges es un punto de partida razonable, no una respuesta única.
+
+**Error 2:** Confundir un histograma con una gráfica de barras y dejar espacios entre las barras.
+¿Por qué ocurre? Ambas se ven similares a primera vista.
+¿Cómo evitarlo? Recordar el criterio de Rincón: el histograma no tiene espacios porque representa una variable que fluye de forma continua, no categorías separadas.
+
+---
+
+# Mini evaluación
+
+1. ¿Por qué no tiene sentido hacer una tabla de frecuencias "por valor" para una variable continua?
+2. Calcula $k$ con la regla de Sturges para $n = 50$.
+3. ¿Qué le pasa a un histograma cuando usas muy pocos intervalos? ¿Y muchos?
+4. Describe con tus palabras qué significa que una distribución sea "bimodal".
+5. Si la media y la mediana de una variable son muy distintas entre sí, ¿qué podrías anticipar sobre la forma del histograma? (conecta con Tema 4)
+
+---
+
+# Reflexión final
+
+- ¿Qué aprendimos hoy? A resumir una variable continua agrupándola en intervalos, con un criterio razonable para elegir cuántos, y a leer la forma resultante.
+- ¿Cómo se relaciona con la vida real? El caso de Old Faithful muestra que confiar solo en un promedio puede ocultar patrones importantes que un histograma sí revela.
+- ¿Qué preguntas quedan abiertas? Si la forma cambia tanto, ¿qué número representa mejor "el centro" de los datos? (Tema 4 — Medidas de tendencia central).
+
+---
+
+# Tarea
+
+Con un conjunto de datos propio (por ejemplo, sus calificaciones de los últimos semestres, o los tiempos de sus trayectos diarios), calcular $k$ con Sturges, construir el histograma en R y describir su forma por escrito.
+
+---
+
+# Recursos adicionales
+
+- Lectura: Rincón (2017), Cap. 3, sección "Histograma"
+- Lectura complementaria: regla de Sturges y lectura de forma de distribuciones (tratamiento habitual en Levin & Rubin, *Estadística para Administración y Economía*)
+- Lectura práctica: Contento Rubio, uso de `hist()` con `breaks`
+- Simulación: app Shiny `histograma_interactivo`
+
+---
+
+# Código fuente
+
+Archivos utilizados
+- `faithful` y `mtcars` (datasets de R base, sin archivo externo)
+- `histograma_interactivo/app.R`
+- `tema-03-variables-cuantitativas.qmd`
+
+---
+
+# Notas para el profesor
+
+## Dificultades esperadas
+- Confundir la fórmula de Sturges con una fórmula "exacta" que no admite juicio del analista.
+- Dificultad para leer sesgo (derecha vs. izquierda) — un truco útil: "la cola larga apunta hacia el nombre del sesgo".
+
+## Tiempo recomendado
+
+| Actividad | Minutos |
+|-----------|----------|
+| Motivación | 10 |
+| Exploración | 15 |
+| Simulación | 15 |
+| Discusión | 10 |
+| Teoría | 15 |
+| Ejemplo | 10 |
+| Laboratorio | 10 |
+| Cierre | 5 |
+
+---
+
+# Posibles mejoras
+
+- **Funcionó bien:**
+- **Debe mejorarse:**
+- **Preguntas frecuentes de los estudiantes:**

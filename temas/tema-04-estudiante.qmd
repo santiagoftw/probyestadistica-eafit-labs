@@ -1,0 +1,152 @@
+---
+title: "Tema 4 · Medidas de tendencia central"
+---
+
+::: {.hero-motivacion}
+## 🚒 ¿Cuál es el consumo de oxígeno "típico" de un bombero?
+
+Devore registró el consumo de oxígeno (ml/kg/min) de 10 bomberos durante un simulacro: 29.5, 49.3, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6. Uno de esos números es muy distinto a los demás. ¿Cómo resumirías "el bombero típico" en un solo número?
+:::
+
+::: {.ficha-prediccion}
+Antes de calcular nada: mirando la lista, ¿cuál crees que es un valor razonable para describir el centro? ¿Te parece que el 49.3 debería pesar igual que los demás en ese cálculo?
+:::
+
+## 🔬 Exploremos: el efecto de un valor extremo
+
+```{r}
+#| eval: false
+oxigeno <- c(29.5, 49.3, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6)
+mean(oxigeno)
+median(oxigeno)
+```
+
+::: {.ficha-resultado}
+Corre el código. ¿La media y la mediana están cerca o lejos una de otra? Ahora quita el 49.3 del vector (imagina que fue un error de medición) y vuelve a calcular ambas. ¿Cuál de las dos cambió más?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+Si un solo dato puede mover tanto la media, ¿por qué seguimos usándola tan seguido en vez de usar siempre la mediana?
+:::
+
+## 🎛️ Simulación: media vs. mediana bajo valores extremos
+
+```{r}
+#| label: fig-media-mediana-outlier
+#| fig-cap: "Cómo reaccionan media y mediana ante un valor extremo creciente"
+set.seed(7)
+base <- c(29.5, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6)
+extremos <- seq(35, 150, by = 5)
+
+medias <- sapply(extremos, function(e) mean(c(base, e)))
+medianas <- sapply(extremos, function(e) median(c(base, e)))
+
+plot(extremos, medias, type = "l", col = "#B37D00", lwd = 2,
+     ylim = range(c(medias, medianas)),
+     xlab = "Valor del dato extremo agregado", ylab = "Estadístico",
+     main = "Sensibilidad a un valor extremo")
+lines(extremos, medianas, col = "#004B85", lwd = 2)
+legend("topleft", legend = c("Media", "Mediana"), col = c("#B37D00", "#004B85"), lwd = 2, bty = "n")
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+La línea de la media sube sin parar a medida que el valor extremo crece — la mediana apenas se mueve. Esto es exactamente lo que dice la teoría: la mediana es **robusta** ante valores atípicos; la media no.
+:::
+
+## 💡 Discusión
+
+- ¿En qué tipo de variable preferirías reportar la mediana en vez de la media? (piensa en salarios, precios de vivienda)
+- ¿Tiene sentido calcular una "media" del color favorito de un grupo de personas? ¿Y una moda?
+- Devore también sugiere una **media truncada al 20%**: eliminar el 20% de datos más bajos y el 20% más altos antes de promediar. ¿Por qué alguien haría eso en vez de solo usar la mediana?
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Media (Rincón, 2017)
+La medida de localización más utilizada. Para un conjunto de datos $x_1, \dots, x_n$:
+
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
+
+Usa **todos** los valores del conjunto — por eso es sensible a valores extremos: un solo dato muy grande o muy pequeño puede desplazarla notablemente.
+
+## Mediana
+El valor que queda exactamente en medio cuando los datos se ordenan de menor a mayor.
+- Si $n$ es impar, es el valor en la posición $(n+1)/2$.
+- Si $n$ es par, es el promedio de los dos valores centrales.
+
+No usa los valores numéricos exactos de los extremos, solo su posición — por eso es **robusta** ante valores atípicos, y es la medida preferida para distribuciones sesgadas (ingresos, precios de vivienda).
+
+## Moda
+El valor (o categoría) que aparece con mayor frecuencia. Es la **única** medida de tendencia central que tiene sentido para variables cualitativas — no existe una "media" del color favorito de un grupo, pero sí una moda. Un conjunto de datos puede no tener moda, tener una (unimodal) o varias (bimodal, multimodal).
+
+## Media ponderada
+Cuando no todos los valores tienen la misma importancia, se usa una media ponderada:
+
+$$\bar{x}_w = \frac{\sum w_i x_i}{\sum w_i}$$
+
+Ejemplo típico: el costo promedio de mano de obra cuando distintas tarifas por hora se aplican a distintas cantidades de horas trabajadas — un promedio simple de las tarifas ignoraría cuánto pesa cada una.
+
+:::
+
+## 🧪 Ejemplos reales (Devore)
+
+Cuatro casos reales, cada uno enseña algo distinto sobre cuándo confiar en la media y cuándo no.
+
+```{r}
+#| eval: false
+# Caso 1: consumo de oxígeno de bomberos — sensibilidad a un extremo
+oxigeno <- c(29.5, 49.3, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6)
+mean(oxigeno); median(oxigeno)
+mean(oxigeno, trim = 0.20)  # media truncada al 20%
+
+# Caso 2: resistencia a la tensión de alambre de cobre — distribución casi simétrica
+tension <- c(113.4, 116.5, 116.9, 117.2, 117.4, 117.6,
+             118.1, 118.5, 119.2, 120.1, 122.1, 125.0)
+mean(tension); median(tension)  # deberían quedar muy cerca
+
+# Caso 3: transductores defectuosos por lote — caso bimodal
+defectos <- c(0,0,0,0,0, 1,1,1,1,1,1,1,1,
+              2,2,2,2,2,2,2,2,2,2,2,2,
+              3,3,3,3,3,3,3,3,3,3,3,3,
+              4,4,4,4,4,4, 5,5,5, 6,6,6, 7, 8)
+table(defectos)  # busca las dos modas
+
+# Caso 4: ancho de grietas en placas — asimetría positiva
+grietas <- c(1.25, 1.31, 1.38, 1.48, 1.59, 1.63, 1.66, 1.70, 1.78, 1.81, 2.21)
+mean(grietas); median(grietas)  # la media > mediana revela sesgo a la derecha
+```
+
+::: {.callout-important}
+## Interpretación del Caso 4
+Cuando la **media es mayor que la mediana**, es señal de asimetría positiva (sesgo a la derecha) — hay algunos valores grandes "jalando" la media hacia arriba, mientras la mediana se mantiene en el centro posicional de los datos.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+Con `mtcars$hp` (caballos de fuerza, dataset ya conocido del curso):
+
+1. Calcula media, mediana y moda (usa `names(sort(-table(...)))[1]`, siguiendo el estilo de Rincón, 2017).
+2. ¿Media y mediana están cerca o lejos? ¿Qué sugiere eso sobre la forma de la distribución?
+3. Calcula la media truncada al 10% y compárala con la media simple.
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Interpretación de casos donde media ≠ mediana, cálculo de media ponderada, identificación de modas múltiples:
+
+[Abrir ejercicios del Tema 4 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La media usa todos los datos pero es sensible a valores extremos; la mediana es robusta pero ignora las magnitudes exactas.
+- La moda es la única medida válida para variables cualitativas, y puede haber más de una.
+- Si media > mediana, hay indicio de sesgo a la derecha; si media < mediana, sesgo a la izquierda; si son casi iguales, la distribución tiende a ser simétrica.
+:::

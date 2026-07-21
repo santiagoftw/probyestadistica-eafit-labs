@@ -1,0 +1,358 @@
+---
+title: "Clase 1 - Datos: población, muestra, tipos de variable y escalas de medición"
+author: "Curso de Probabilidad y Estadística"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: true
+---
+
+# Información general
+
+**Duración:** 90 minutos
+**Semana:** 2
+**Tema:** Población, muestra, clasificación de variables y escalas de medición
+**Competencias:** Distinguir población de muestra en un problema real; clasificar una variable como cualitativa o cuantitativa, y dentro de cada tipo identificar su escala de medición (nominal, ordinal, de intervalo, de razón); anticipar qué tipo de resumen o gráfico es válido según el tipo de variable.
+
+---
+
+# Objetivos de aprendizaje
+
+Al finalizar la sesión el estudiante será capaz de:
+
+- Diferenciar población y muestra en una situación concreta, e identificar la unidad de observación.
+- Clasificar cualquier variable de un conjunto de datos como cualitativa (nominal u ordinal) o cuantitativa (discreta o continua).
+- Reconocer la escala de medición de una variable (nominal, ordinal, de intervalo, de razón) y explicar por qué esa distinción importa antes de resumir o graficar datos.
+- Usar `str()` y `glimpse()` en R para inspeccionar el tipo de cada variable en un dataset real.
+
+---
+
+# Conocimientos previos
+
+Antes de iniciar esta clase el estudiante debe conocer:
+
+- Qué es un vector en R y cómo aplicar funciones básicas (`mean()`, `length()`, `table()`) — Clase 0.
+- Que R puede generar y resumir datos simulados y que sus resultados varían entre corridas.
+
+---
+
+# Materiales necesarios
+
+## Profesor
+
+- Computador
+- Proyector
+- Internet
+- RStudio / Posit Cloud
+- Quarto
+- Shiny (app ya desplegada o corrida localmente)
+
+## Estudiantes
+
+- Computador con acceso a Posit Cloud
+- Tarjetas físicas o digitales para la actividad de clasificación (Mentimeter/Jamboard o tarjetas impresas)
+
+---
+
+# Contexto motivador
+
+## Situación problema
+
+> ¿Cómo sabe Netflix qué películas recomendarte? No le pregunta a los 260 millones de suscriptores en el mundo qué opinan de cada título; usa los datos de lo que tú y una muestra de usuarios similares ya vieron, calificaron y por cuánto tiempo lo vieron.
+
+Preguntas para discutir:
+
+- ¿Netflix necesita los datos de *todos* sus usuarios para hacerte una recomendación, o le basta con una parte?
+- Cuando Netflix registra que viste una serie, ¿qué tipo de información distinta guarda? (género, calificación en estrellas, minutos vistos, si la terminaste o no...)
+- ¿Todas esas variables se pueden "promediar" de la misma forma?
+
+**Tiempo:** 10 minutos
+
+---
+
+# Actividad de exploración
+
+**Objetivo:** que el estudiante intente clasificar variables reales *antes* de conocer las categorías formales (cualitativa/cuantitativa, nominal/ordinal/intervalo/razón), y que note por sí mismo que no todas las variables se comportan igual.
+
+## Actividad
+
+Se presentan 8-10 variables de un dataset real de mamíferos y sus patrones de sueño (`msleep`, incluido en el paquete `ggplot2`): nombre del animal, tipo de dieta (`vore`), orden taxonómico, estado de conservación, horas totales de sueño, horas de sueño REM, horas despierto, peso del cerebro, peso corporal.
+
+En grupos pequeños, sin ninguna definición previa, deben:
+
+1. Separar las variables en dos grandes grupos usando solo su intuición: "se puede promediar de forma directa" vs. "no tiene sentido promediarla directamente".
+2. Dentro del grupo de "no se puede promediar directamente", intentar ver si hay un orden natural entre sus valores (por ejemplo, estado de conservación) o si no hay ningún orden (por ejemplo, el nombre del animal).
+3. Registrar su clasificación en el tablero compartido antes de que el profesor revele la clasificación formal.
+
+### Recursos
+
+- Tarjetas (físicas o en Jamboard/Mentimeter) con el nombre de cada variable
+- Tablero compartido en vivo para que cada grupo registre su clasificación
+- Vista previa impresa de las primeras filas de `msleep` (sin mostrar aún `str()`)
+
+### Preguntas guía
+
+- ¿Qué diferencias notan entre "nombre del animal" y "horas de sueño"?
+- ¿El estado de conservación tiene algún orden lógico, aunque no sea un número?
+- ¿Qué pasaría si calculan el "promedio" del nombre de los animales? ¿Tiene sentido?
+
+**Tiempo:** 15 minutos
+
+---
+
+# Simulación interactiva
+
+## Herramienta
+
+Shiny (app: `clasificador_variables`)
+
+## Controles
+
+- **Selector:** elegir una variable del dataset `msleep`
+- **Botón:** "Revelar tipo" (muestra si es cualitativa nominal/ordinal o cuantitativa discreta/continua, y su escala de medición)
+- **Botón:** "Siguiente variable" (avanza a otra variable al azar para practicar)
+- **Contador de aciertos:** compara la clasificación que el estudiante eligió antes de presionar "Revelar tipo" contra la respuesta correcta
+
+## Variables manipulables
+
+- Variable seleccionada del dataset (10 variables disponibles de `msleep`)
+- Modo de práctica: clasificación simple (cualitativa/cuantitativa) vs. clasificación completa (incluye escala de medición)
+
+## Resultados esperados
+
+El estudiante observará:
+
+- Que su intuición de la actividad de exploración coincide con la clasificación formal en la mayoría de los casos evidentes (nombre, peso) pero falla en casos ambiguos (estado de conservación, número de horas discretas vs. continuas).
+- Que existen variables cuantitativas que en la práctica se ven como categorías (por ejemplo, si `msleep` tuviera un conteo de crías, un número entero pequeño) y variables cualitativas con orden (ordinal) que se distinguen de las que no tienen orden (nominal).
+- Que la escala de medición no es un detalle menor: determina qué operaciones (promedio, orden, resta, razón) tienen sentido sobre esa variable.
+
+---
+
+# Discusión
+
+Preguntas abiertas:
+
+- ¿Qué variables les costó más clasificar? ¿Por qué?
+- ¿Encontraron alguna variable "en el límite" entre dos categorías?
+- ¿Por qué creen que esta clasificación importa antes de graficar o resumir datos (temas de las próximas clases)?
+
+**Tiempo:** 10 minutos
+
+---
+
+# Desarrollo conceptual
+
+## Conceptos
+
+- **Población:** el conjunto completo de individuos u objetos de interés (todos los suscriptores de Netflix, todos los colombianos, todos los mamíferos de una especie).
+- **Muestra:** un subconjunto de la población, del cual efectivamente se tienen datos.
+- **Unidad de observación:** el elemento individual sobre el que se mide algo (un usuario, un animal, un producto).
+- **Variable cualitativa (categórica):**
+  - *Nominal:* categorías sin orden natural (género de película, especie de animal).
+  - *Ordinal:* categorías con un orden natural pero sin distancia numérica definida (estado de conservación, nivel de satisfacción).
+- **Variable cuantitativa (numérica):**
+  - *Discreta:* valores contables, generalmente enteros (número de temporadas vistas).
+  - *Continua:* valores que pueden tomar cualquier valor dentro de un rango (horas de sueño, peso corporal).
+- **Escalas de medición:**
+  - *Nominal:* solo identifica categorías.
+  - *Ordinal:* categorías ordenadas, sin distancias iguales entre niveles.
+  - *De intervalo:* distancias iguales entre valores, pero sin un cero absoluto (temperatura en °C).
+  - *De razón:* distancias iguales y cero absoluto que permite hablar de proporciones (peso, tiempo, dinero).
+
+## Ejemplos
+
+**Ejemplo 1:** Clasificar las variables de la situación motivadora de Netflix (género = nominal, calificación en estrellas = ordinal, minutos vistos = cuantitativa continua de razón).
+
+**Ejemplo 2:** Revisar en conjunto la salida de `str(msleep)` y `glimpse(msleep)`, contrastando lo que R reporta (`chr`, `num`, `int`, `factor`) con la clasificación estadística que se acaba de construir — señalando que R no siempre distingue ordinal de nominal automáticamente, y que eso depende de cómo se codifique la variable.
+
+---
+
+# Visualizaciones
+
+## Gráfico 1
+
+- **Objetivo:** mostrar de un vistazo cuántas variables del dataset caen en cada categoría (nominal, ordinal, discreta, continua).
+- **Tipo:** gráfico de barras.
+- **Paquete:** `ggplot2` (`geom_bar()`).
+- **Interpretación:** refuerza visualmente el resultado de la actividad de clasificación grupal, permitiendo comparar la clasificación de la clase contra la clasificación correcta.
+
+## Gráfico 2
+
+- **Objetivo:** ilustrar que una misma variable numérica (horas de sueño) se ve distinto según se trate como continua (histograma) o se agrupe artificialmente en categorías (barras) — sembrando la pregunta de "qué gráfico es válido según el tipo de variable", que se resuelve formalmente en los Temas 2 y 3.
+- **Tipo:** histograma simple junto a un gráfico de barras de la misma variable agrupada en rangos.
+- **Paquete:** `ggplot2` (`geom_histogram()` y `geom_bar()`).
+- **Interpretación:** no se profundiza en la construcción del histograma aquí (eso es Tema 3); solo se usa para mostrar que el tipo de variable condiciona el tipo de gráfico.
+
+---
+
+# Código en R
+
+## Librerías
+
+```r
+library(tidyverse)
+```
+
+## Código principal
+
+(No escribir aún el código definitivo — se define en la sesión de preparación de materiales.)
+
+Estructura esperada del script:
+
+1. Carga del dataset `msleep` (incluido en `ggplot2`).
+2. Inspección de tipos con `str(msleep)` y `glimpse(msleep)`.
+3. Conteo de variables por tipo (`nominal`, `ordinal`, `discreta`, `continua`) construido manualmente por el estudiante en una tabla, no calculado automáticamente por R (el objetivo es que clasifiquen, no que R clasifique por ellos).
+4. Los dos gráficos comparativos descritos arriba.
+
+---
+
+# Ejemplo guiado
+
+Resolver paso a paso usando `msleep`.
+
+Mostrar:
+
+- código: `str(msleep)`, `glimpse(msleep)`, `table(msleep$vore)`
+- salida: tipos de dato reportados por R para cada columna
+- interpretación: contrastar lo que R llama `chr`, `num`, `int`, `factor` con las categorías estadísticas (nominal, ordinal, discreta, continua), señalando que son marcos de clasificación relacionados pero no idénticos.
+
+---
+
+# Ejercicio en clase
+
+Los estudiantes desarrollan una actividad guiada.
+
+## Enunciado
+
+Con el dataset `starwars` (incluido en el paquete `dplyr`), clasificar cinco variables elegidas por el profesor (por ejemplo: `species`, `eye_color`, `height`, `mass`, `gender`).
+
+## Preguntas
+
+1. ¿Cuáles de estas variables son cualitativas y cuáles cuantitativas?
+2. De las cualitativas, ¿cuáles tienen un orden natural (ordinal) y cuáles no (nominal)?
+3. De las cuantitativas, ¿cuál escala de medición corresponde a cada una (intervalo o razón)? Justifiquen con el criterio del "cero absoluto".
+
+---
+
+# Ejercicio interactivo (learnr)
+
+## Tipo
+
+- **Opción múltiple:** dada una lista de variables de un dataset no visto en clase, elegir su clasificación correcta.
+- **Verdadero/falso:** afirmaciones como "toda variable numérica es de razón" (falso, la temperatura en °C es de intervalo).
+- **Arrastrar:** arrastrar variables a las cuatro categorías (nominal, ordinal, discreta, continua) en una interfaz de clasificación.
+- **Respuesta abierta (con retroalimentación):** "Explica con tus palabras por qué el estado de conservación de un animal es ordinal y no nominal."
+
+---
+
+# Laboratorio
+
+Utilizar una base de datos real.
+
+## Objetivo
+
+Que el estudiante clasifique de forma autónoma **todas** las variables de un dataset completo, sin guía variable por variable, y verifique sus respuestas contra R.
+
+## Datos
+
+`msleep` (dataset completo, incluido en `ggplot2`) — 11 variables con una mezcla rica de tipos y escalas, ideal para un ejercicio de clasificación integral.
+
+## Actividades
+
+1. Ejecutar `glimpse(msleep)` y listar las 11 variables.
+2. Clasificar cada una (cualitativa nominal / cualitativa ordinal / cuantitativa discreta / cuantitativa continua) en una tabla propia, justificando en una frase cada decisión.
+3. Para las tres variables donde el grupo tuvo más dudas, discutir en parejas y llegar a un consenso justificado.
+
+---
+
+# Errores comunes
+
+**Error 1:** Confundir "variable cuantitativa" con "variable que R almacena como número" (por ejemplo, un código postal es numérico para R pero es nominal estadísticamente).
+¿Por qué ocurre? El tipo de dato en R (`num`, `int`, `chr`) no siempre coincide con la clasificación estadística.
+¿Cómo evitarlo? Insistir en el criterio: "¿tiene sentido promediar o sumar esta variable?", no solo mirar cómo la almacena R.
+
+**Error 2:** Pensar que toda variable ordinal se puede tratar como si tuviera distancias iguales entre categorías (por ejemplo, promediar niveles de satisfacción codificados 1-5 sin advertir la limitación).
+¿Por qué ocurre? Es tentador tratar números como si fueran de intervalo o razón solo porque están codificados como enteros.
+¿Cómo evitarlo? Reforzar con el ejemplo del estado de conservación: aunque se codifique 1, 2, 3, 4, la distancia entre "vulnerable" y "en peligro" no es necesariamente igual a la distancia entre "casi amenazado" y "vulnerable".
+
+---
+
+# Mini evaluación
+
+Cinco preguntas conceptuales (no cálculos mecánicos):
+
+1. ¿Cuál es la diferencia entre población y muestra en el ejemplo de Netflix?
+2. Da un ejemplo de variable nominal y uno de variable ordinal que no hayan aparecido en clase.
+3. ¿Por qué la temperatura en grados Celsius es de intervalo y no de razón?
+4. Si una variable está codificada como número en R, ¿eso garantiza que es cuantitativa? Explica con un ejemplo.
+5. ¿Qué unidad de observación usarías para estudiar la satisfacción de los estudiantes con el horario de clases?
+
+---
+
+# Reflexión final
+
+- ¿Qué aprendimos hoy? Que no todos los datos son iguales: antes de resumir o graficar cualquier variable hay que saber si es cualitativa o cuantitativa, y qué escala de medición tiene.
+- ¿Cómo se relaciona este tema con la vida real? Cualquier empresa o institución que recolecta datos (Netflix, un censo, un hospital) debe distinguir estos tipos antes de tomar decisiones con ellos.
+- ¿Qué preguntas quedan abiertas? ¿Qué gráfico o resumen numérico corresponde a cada tipo de variable? (se resuelve en los Temas 2 y 3).
+
+---
+
+# Tarea
+
+Elegir un dataset propio (una app de música, una red social, un registro personal de gastos) y clasificar por escrito al menos 5 variables de ese conjunto de datos, siguiendo el mismo criterio trabajado en clase.
+
+---
+
+# Recursos adicionales
+
+- Lectura: Capítulo 1, "Conceptos elementales" — Rincón (2017)
+- Lectura: Capítulo 1, "El contexto estadístico" (sección de conceptos fundamentales) — Contento Rubio, *Estadística con aplicaciones en R*
+- Simulación: app Shiny `clasificador_variables` (uso libre fuera de clase)
+- Datasets de referencia: `msleep` (ggplot2), `starwars` (dplyr)
+
+---
+
+# Código fuente
+
+Archivos utilizados
+
+- `msleep` (dataset del paquete `ggplot2`, sin archivo externo)
+- `starwars` (dataset del paquete `dplyr`, sin archivo externo)
+- `clasificador_variables/app.R`
+- `tema-01-poblacion-muestra-variables.qmd`
+
+---
+
+# Notas para el profesor
+
+## Dificultades esperadas
+
+- Confusión entre el tipo de dato de R y la clasificación estadística — reforzar con el ejemplo del código postal o el número de identificación.
+- Dudas genuinas en variables "límite" como el estado de conservación — aprovechar esa ambigüedad real como parte de la discusión, no como un error a corregir rápido.
+- Estudiantes que terminan antes la actividad de exploración — tener 2-3 variables adicionales de reserva para que sigan practicando mientras el resto del grupo termina.
+
+## Tiempo recomendado
+
+| Actividad | Minutos |
+|-----------|----------|
+| Motivación | 10 |
+| Exploración | 15 |
+| Simulación | 15 |
+| Discusión | 10 |
+| Teoría | 15 |
+| Ejemplo | 10 |
+| Laboratorio | 10 |
+| Cierre | 5 |
+
+---
+
+# Posibles mejoras
+
+Espacio para registrar observaciones después de impartir la clase.
+
+- **Funcionó bien:**
+- **Debe mejorarse:**
+- **Preguntas frecuentes de los estudiantes:**

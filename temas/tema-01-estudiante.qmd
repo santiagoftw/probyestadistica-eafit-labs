@@ -1,0 +1,150 @@
+---
+title: "Tema 1 · Datos, población y variables"
+---
+
+::: {.hero-motivacion}
+## 🎬 ¿Cómo sabe Netflix qué recomendarte?
+
+No le pregunta a sus 260 millones de usuarios. Usa los datos de una muestra: género, calificación, minutos vistos, si terminaste la serie o no. Pero esas variables no son todas iguales entre sí.
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: de estas cuatro variables — género, calificación en estrellas, minutos vistos, país del usuario — ¿cuáles crees que se pueden "promediar" con sentido y cuáles no? Anótalo.
+:::
+
+## 🔬 Exploremos
+
+Vamos a clasificar variables reales de un conjunto de datos de mamíferos y su sueño (`msleep`, incluido en `ggplot2`), **sin definiciones todavía**. Solo con tu intuición.
+
+```{r}
+#| eval: false
+library(ggplot2)
+head(msleep[, c("name", "vore", "order", "conservation",
+                "sleep_total", "sleep_rem", "bodywt")])
+```
+
+::: {.ficha-resultado}
+En grupos, separen estas variables en dos montones: "se puede promediar directamente" vs. "no tiene sentido promediarla". Dentro del segundo montón, ¿alguna tiene un orden natural?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Qué pasaría si calculas el "promedio" del nombre de los animales? ¿Y el "promedio" del estado de conservación?
+:::
+
+## 🎛️ Practica la clasificación
+
+Elige una variable, decide su tipo, y compara tu respuesta contra la clasificación correcta.
+
+```{r}
+#| label: fig-tipos-variable
+#| fig-cap: "Variables de msleep clasificadas por tipo"
+library(plotly)
+library(ggplot2)
+
+clasificacion <- data.frame(
+  tipo = c("Nominal", "Ordinal", "Discreta", "Continua"),
+  cantidad = c(4, 1, 1, 5)  # ajustar según las 11 columnas reales de msleep
+)
+
+p <- ggplot(clasificacion, aes(x = tipo, y = cantidad, fill = tipo)) +
+  geom_col() +
+  scale_fill_manual(values = c("Nominal" = "#004B85", "Ordinal" = "#4B8BC2",
+                                "Discreta" = "#FFB903", "Continua" = "#D9DEE4")) +
+  labs(x = NULL, y = "Número de variables") +
+  theme_minimal(base_family = "IBM Plex Mono") +
+  theme(legend.position = "none")
+
+ggplotly(p)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+La mayoría de las variables "obvias" (nombre, peso) se clasifican fácil. Las que generan discusión —como el estado de conservación— son las que mejor enseñan la diferencia entre nominal y ordinal.
+:::
+
+## 💡 Discusión
+
+- ¿Qué variable les costó más clasificar? ¿Por qué?
+- ¿Coincidió su clasificación grupal con la de sus compañeros?
+- ¿Por qué esto importa antes de graficar o resumir datos (temas siguientes)?
+
+## 📖 Ahora sí, la teoría
+
+### El árbol de las variables
+
+Toda variable se clasifica primero en cualitativa o cuantitativa, y dentro de cada rama, en dos subtipos más:
+
+![Árbol de clasificación de variables](../images/arbol-variables.svg)
+
+::: {.panel-tabset}
+
+## Población y muestra
+**Población:** el conjunto completo de individuos, objetos o eventos de los cuales nos interesa estudiar alguna característica (Rincón, 2017). Debe especificarse con la mayor precisión posible: no es lo mismo "estudiantes universitarios" que "estudiantes de pregrado matriculados en 2026-2".
+
+**Muestra:** un subconjunto de la población, seleccionado para el análisis porque estudiar la población completa suele ser costoso, lento o imposible.
+
+**Unidad de observación (o unidad experimental):** el objeto o individuo específico del cual se toma cada medición — un estudiante, un producto fabricado, un animal.
+
+## Cualitativa nominal
+Variable que clasifica en categorías **sin ningún orden natural entre ellas** — son etiquetas puras. Ejemplos: sexo, tipo de sangre (A, B, AB, O), estado civil. No tiene sentido preguntar "¿cuál categoría es mayor?".
+
+## Cualitativa ordinal
+Variable que clasifica en categorías **con un orden o jerarquía implícita**, pero sin que la distancia entre categorías esté definida numéricamente. Ejemplos: nivel educativo, calificación (excelente/bueno/malo), rango militar. Sí tiene sentido decir "excelente es mejor que bueno", pero no "cuánto mejor" en términos numéricos exactos.
+
+## Cuantitativa discreta
+Variable numérica cuyos valores son **contables**, generalmente resultado de un conteo, con "huecos" o brechas entre valores posibles (0, 1, 2, 3...). Ejemplos: número de hijos en una familia, número de defectos en un lote.
+
+## Cuantitativa continua
+Variable numérica que puede tomar **cualquier valor dentro de un intervalo**, sin huecos entre valores posibles, resultado típicamente de una medición. Ejemplos: peso, tiempo, temperatura. Esta es la razón por la que, como veremos en el Tema 3, no se puede tabular "un valor a la vez": hay que agrupar en intervalos.
+
+:::
+
+### Escalas de medición
+
+Independientemente de si una variable es cualitativa o cuantitativa, también se clasifica según qué **operaciones matemáticas tienen sentido** sobre ella. Son 4 escalas, cada una más "permisiva" que la anterior:
+
+![Escalera de escalas de medición](../images/escala-medicion.svg)
+
+- **Nominal:** solo permite identificar y contar categorías (no se puede ordenar).
+- **Ordinal:** permite además ordenar, pero no restar (no sabemos "cuánto" separa a dos niveles).
+- **De intervalo:** permite además restar (las distancias son iguales), pero no existe un cero absoluto — por eso 20°C no es "el doble de caliente" que 10°C.
+- **De razón:** permite además dividir y hablar de proporciones, porque existe un cero absoluto real — 20 kg sí es el doble de 10 kg.
+
+## 🧪 Ejemplo con datos reales
+
+```{r}
+#| eval: false
+library(dplyr)
+glimpse(msleep)
+table(msleep$vore)
+```
+
+Contrasta lo que R llama `chr`, `num`, `int`, `factor` con la clasificación estadística que acabas de construir — no siempre coinciden.
+
+## 🧑‍🔬 Laboratorio
+
+Con el dataset `starwars` (incluido en `dplyr`), clasifica `species`, `eye_color`, `height`, `mass` y `gender`:
+
+1. ¿Cuáles son cualitativas y cuáles cuantitativas?
+2. De las cualitativas, ¿cuáles son ordinales y cuáles nominales?
+3. De las cuantitativas, ¿son de intervalo o de razón? Justifica con el criterio del "cero absoluto".
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Clasificación por arrastre, opción múltiple y verdadero/falso sobre tipos de variable:
+
+[Abrir ejercicios del Tema 1 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- No todos los datos son iguales: primero se clasifica, después se resume o grafica.
+- El tipo de dato que usa R (`num`, `chr`, `int`) no siempre coincide con la clasificación estadística.
+- Cualitativa (nominal/ordinal) vs. cuantitativa (discreta/continua) determina qué gráfico y qué resumen tienen sentido — eso es justo lo que viene en los próximos temas.
+:::
