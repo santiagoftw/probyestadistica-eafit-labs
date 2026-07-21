@@ -111,14 +111,28 @@ Cada categoría es una porción de un círculo, proporcional a su frecuencia rel
 
 :::
 
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Si te muestran una tabla con solo porcentajes (sin el total de observaciones, n), no puedes verificar ni comparar nada con seriedad — un 60% de 5 personas y un 60% de 5.000 comunican una certeza completamente distinta. Pide siempre el n antes de interpretar un porcentaje. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧪 Ejemplo con datos reales
 
+**Paso 1 — Cargar los datos y ver la frecuencia absoluta:**
 ```{r}
-#| eval: false
 library(ggplot2)
-table(mpg$drv)                    # frecuencia absoluta
-prop.table(table(mpg$drv)) * 100  # frecuencia relativa porcentual
-barplot(table(mpg$drv), col = "#004B85")
+table(mpg$drv)
+```
+
+**Paso 2 — Frecuencia relativa porcentual:**
+```{r}
+prop.table(table(mpg$drv)) * 100
+```
+
+**Paso 3 — Graficarla:**
+```{r}
+barplot(table(mpg$drv), col = "#004B85", border = "white",
+        main = "Tipo de tracción", xlab = "drv", ylab = "Frecuencia")
 ```
 
 ## 🧑‍🔬 Laboratorio

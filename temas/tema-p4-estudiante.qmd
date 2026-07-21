@@ -1,0 +1,109 @@
+---
+title: "Tema P4 · Independencia de eventos"
+---
+
+::: {.hero-motivacion}
+## 🔗 ¿Saber A te dice algo sobre B?
+
+En el Tema P2 viste que saber que el compresor falló *sí* cambiaba la probabilidad del condensador. Pero no siempre es así — a veces dos eventos son genuinamente independientes, y saber uno no aporta información sobre el otro.
+:::
+
+::: {.ficha-prediccion}
+Con $P(A)=0.4$, $P(B)=0.5$, $P(A\cap B)=0.2$: antes de calcular nada con la fórmula formal, ¿te parece que A y B son independientes? ¿Cómo lo verificarías con lo que ya sabes de probabilidad condicional?
+:::
+
+## 🔬 Exploremos: la prueba de independencia
+
+```{r}
+p_A <- 0.4
+p_B <- 0.5
+p_A_y_B <- 0.2
+
+p_A_por_p_B <- p_A * p_B
+p_A_por_p_B
+p_A_y_B
+```
+
+::: {.ficha-resultado}
+Compara `p_A_por_p_B` con `p_A_y_B`. ¿Son iguales? Esa igualdad exacta es, por definición, la prueba de independencia.
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Por qué crees que la condición de independencia se define como $P(A\cap B) = P(A)\cdot P(B)$, y no de otra forma? Conéctalo con la definición de probabilidad condicional del Tema P2.
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Definición formal
+Los eventos $A$ y $B$ son **independientes** si y solo si:
+
+$$P(A \cap B) = P(A)\cdot P(B)$$
+
+## Definición equivalente (vía condicional)
+Si $P(B)>0$, $A$ y $B$ son independientes si y solo si:
+
+$$P(A|B) = P(A)$$
+
+Es decir: saber que $B$ ocurrió no cambia en absoluto la probabilidad de $A$. Esta es la versión más intuitiva de la definición — se deriva directamente de $P(A|B) = P(A\cap B)/P(B) = P(A)P(B)/P(B) = P(A)$.
+
+## Independencia ≠ mutuamente excluyentes
+Error común: pensar que "independientes" significa "que no tienen nada que ver, no pueden pasar juntos". Todo lo contrario: si $A$ y $B$ son **mutuamente excluyentes** ($P(A\cap B)=0$) y ambos tienen probabilidad positiva, son la definición misma de eventos **dependientes** — saber que uno ocurrió te dice con certeza que el otro no ocurrió.
+
+:::
+
+::: {.callout-important}
+## Verificación exacta, no aproximada
+La igualdad $P(A\cap B) = P(A)P(B)$ debe cumplirse **exactamente** (o dentro del margen de error de una simulación) para declarar independencia. Si el producto da 0.199997 y la intersección observada da 0.2013, con datos simulados, eso sigue siendo evidencia de independencia — la diferencia es ruido de muestreo, no evidencia real de dependencia. Compara siempre contra el tamaño de la simulación.
+:::
+
+## 🧪 Ejemplo con datos reales (verificación por simulación)
+
+```{r}
+set.seed(456)
+p1 <- 0.4
+p2 <- 0.5
+
+n_sim <- 100000
+eventos <- matrix(runif(n_sim * 2), ncol = 2)
+A <- eventos[,1] < p1
+B <- eventos[,2] < p2
+
+# Por construcción, A y B son independientes (columnas generadas por separado)
+mean(A & B)      # debería acercarse a p1 * p2
+p1 * p2
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+`mean(A & B)` debería estar muy cerca de `p1 * p2` — porque generamos las dos columnas de `eventos` de forma completamente separada, sin ninguna relación entre ellas. Así se ve la independencia "desde adentro" de una simulación.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+Retoma el ejercicio de las 3 monedas del Laboratorio 3 (lo verás formalmente en el Tema P8): $Y_1$ = número de caras, $Y_2$ = ganancia según en qué tiro salió la primera cara.
+
+1. Sin calcular nada aún, ¿esperas que $Y_1$ y $Y_2$ sean independientes? Justifica con tu intuición sobre cómo se define $Y_2$.
+2. Calcula las probabilidades marginales de $Y_1$ y $Y_2$ por separado.
+3. Verifica si $P(Y_1=3, Y_2=1) = P(Y_1=3)\cdot P(Y_2=1)$. ¿Qué concluyes?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Verificación de independencia con distintos pares de probabilidades, distinción entre independencia y exclusión mutua, interpretación de resultados de simulación:
+
+[Abrir ejercicios del Tema P4 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- $A$ y $B$ son independientes si y solo si $P(A\cap B) = P(A)\cdot P(B)$ — equivalentemente, si $P(A|B)=P(A)$.
+- Independencia y mutuamente excluyentes son conceptos casi opuestos: eventos mutuamente excluyentes (con probabilidad positiva) son necesariamente dependientes.
+- En una simulación, la independencia se verifica comparando la frecuencia conjunta observada contra el producto de las marginales — con tolerancia al ruido de muestreo.
+:::

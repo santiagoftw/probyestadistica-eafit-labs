@@ -66,9 +66,44 @@ Rango, varianza, desviación estándar y coeficiente de variación con tortugas 
 [Empezar →](temas/tema-06-estudiante.qmd)
 :::
 
+::: {.g-col-6 .card-lab}
+### Tema 7 · Momentos, asimetría y curtosis
+El aparato matemático completo — con demostraciones — que conecta la descriptiva con la probabilidad.
+
+[Empezar →](temas/tema-07-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Tema 8 · Datos conjuntos
+Covarianza, correlación y regresión — con las demostraciones completas de Rincón (2017).
+
+[Empezar →](temas/tema-08-estudiante.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Módulo 2 · Probabilidad
+10 temas completos (P1-P10), desde reglas básicas hasta simulación de sistemas correlacionados.
+
+[Ver arquitectura →](temas/modulo-2-arquitectura.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### 🏋️ Ejercicios propuestos · Módulo 1
+18 ejercicios reales de Rincón (2017), sin solución, organizados por tema.
+
+[Resolver →](temas/ejercicios-modulo1.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### 🏋️ Ejercicios propuestos · Módulo 2
+10 ejercicios reales de tus Laboratorios 2 y 3, sin solución.
+
+[Resolver →](temas/ejercicios-modulo2.qmd)
+:::
+
 :::
 
 ::: {.callout-note}
-## Próximos temas
-Momentos, asimetría y curtosis (puente opcional a probabilidad) · Laboratorio integrador (Taller 1).
+## Próximos pasos
+Planes de profesor (plantilla 90 min) para todos los temas · Tutoriales learnr reales · Módulo 3: Inferencia estadística.
 :::

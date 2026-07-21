@@ -1,0 +1,112 @@
+---
+title: "Tema P9 · Covarianza y correlación de variables aleatorias"
+---
+
+::: {.hero-motivacion}
+## 🏭 Simulando el riesgo de un sistema de producción
+
+Demanda, tiempo de producción y costo de un sistema no son independientes entre sí: están correlacionados (cor(D,T)=0.6, cor(D,C)=0.4, cor(T,C)=0.3). ¿Cómo simulas tres variables que deben mantener exactamente esas correlaciones entre sí?
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: si generas tres variables normales por separado con `rnorm()` tres veces, ¿tendrán la correlación que necesitas, o saldrán prácticamente independientes?
+:::
+
+## 🔬 Exploremos: por qué no basta con `rnorm()` tres veces
+
+```{r}
+set.seed(1)
+d_independiente <- rnorm(1000, 1000, 200)
+t_independiente <- rnorm(1000, 50, 10)
+
+cor(d_independiente, t_independiente)
+```
+
+::: {.ficha-resultado}
+La correlación debería salir cercana a 0 — casi sin relación — aunque en el problema real necesitamos que sea 0.6. Generar variables por separado con `rnorm()` **no** produce la correlación deseada; hace falta una herramienta distinta.
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+Del Tema 8 (Módulo 1) recuerdas que la covarianza depende de las varianzas individuales y del grado de asociación. ¿Cómo "inyectarías" una correlación específica al simular datos normales conjuntos?
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Covarianza y correlación de variables aleatorias
+Las definiciones son análogas a las del Tema 8 del Módulo 1, pero ahora sobre la distribución teórica en vez de datos ya observados:
+
+$$Cov(X,Y) = E[(X-\mu_X)(Y-\mu_Y)] \qquad \rho(X,Y) = \frac{Cov(X,Y)}{\sigma_X\sigma_Y}$$
+
+## Simulación de normales multivariadas
+Para simular variables normales con una estructura de correlación específica, se construye la **matriz de covarianza** $\Sigma$ a partir de las desviaciones estándar individuales y las correlaciones deseadas:
+
+$$\Sigma_{ij} = \rho_{ij}\cdot\sigma_i\cdot\sigma_j \qquad (\Sigma_{ii} = \sigma_i^2)$$
+
+y se usa `MASS::mvrnorm(n, mu, Sigma)`, que genera observaciones conjuntas que respetan exactamente esa estructura de covarianza (en el límite, a medida que crece $n$).
+
+## Funciones de variables aleatorias correlacionadas
+Cuando una variable se define como función de otras correlacionadas (por ejemplo, $L = R^2/E$), su media y varianza generalmente **no** tienen fórmula cerrada simple — la simulación es la herramienta natural para estimarlas.
+
+:::
+
+## 🧪 Ejemplo con datos reales
+
+**Paso 1 — Construir la matriz de covarianza a partir de las correlaciones dadas:**
+```{r}
+#| message: false
+library(MASS)
+
+mean_D <- 1000; sd_D <- 200
+mean_T <- 50;   sd_T <- 10
+mean_C <- 5000; sd_C <- 800
+cor_D_T <- 0.6; cor_D_C <- 0.4; cor_T_C <- 0.3
+
+cov_matrix <- matrix(c(
+  sd_D^2,             cor_D_T*sd_D*sd_T,  cor_D_C*sd_D*sd_C,
+  cor_D_T*sd_D*sd_T,  sd_T^2,             cor_T_C*sd_T*sd_C,
+  cor_D_C*sd_D*sd_C,  cor_T_C*sd_T*sd_C,  sd_C^2
+), nrow = 3)
+cov_matrix
+```
+
+**Paso 2 — Simular y verificar:**
+```{r}
+set.seed(123)
+variables <- mvrnorm(10000, mu = c(mean_D, mean_T, mean_C), Sigma = cov_matrix)
+cor(variables)  # debería acercarse a la matriz de correlaciones original
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+La matriz de correlación estimada de los datos simulados debería acercarse mucho a 0.6, 0.4 y 0.3 en las posiciones correspondientes — confirmando que `mvrnorm()` sí logra lo que la simulación ingenua con `rnorm()` por separado no podía.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+Con resistencia a la tracción $R \sim N(500, 50^2)$ MPa y módulo de elasticidad $E \sim N(200, 20^2)$ GPa, correlacionados con $\rho=0.6$, donde la vida útil se modela como $L = R^2/E$:
+
+1. Construye la matriz de covarianza y simula 10,000 escenarios con `mvrnorm()`.
+2. Calcula la vida útil simulada $L$ para cada escenario y reporta su media y desviación estándar.
+3. Calcula la correlación entre $L$ y $R$. ¿Es más fuerte o más débil que la correlación original entre $R$ y $E$? ¿Tiene sentido considerando que $L$ depende de $R$ al cuadrado?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Construcción de matrices de covarianza a partir de correlaciones dadas, uso de `mvrnorm()`, interpretación de correlaciones resultantes de funciones de variables correlacionadas:
+
+[Abrir ejercicios del Tema P9 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Generar variables normales por separado con `rnorm()` no produce correlación entre ellas — se necesita una matriz de covarianza y `mvrnorm()`.
+- La matriz de covarianza se construye combinando desviaciones estándar individuales con las correlaciones deseadas: $\Sigma_{ij}=\rho_{ij}\sigma_i\sigma_j$.
+- Las funciones de variables correlacionadas (como $L=R^2/E$) generalmente se analizan mejor por simulación que por fórmula cerrada.
+:::

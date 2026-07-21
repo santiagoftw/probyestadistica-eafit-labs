@@ -1,0 +1,178 @@
+---
+title: "Tema 7 · Momentos, asimetría y curtosis"
+---
+
+::: {.hero-motivacion}
+## 📐 Más allá de media, varianza... ¿qué más se puede resumir?
+
+Media y varianza describen el centro y la dispersión. Pero dos distribuciones pueden tener exactamente la misma media y varianza, y aun así verse completamente distintas: una simétrica, otra con una cola larga; una con un solo pico agudo, otra achatada. Los **momentos** son la herramienta que formaliza estas diferencias.
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: ¿crees que se puede construir una fórmula general que capture "media" y "varianza" como casos particulares de una idea más amplia? Piensa en qué tienen en común sus fórmulas.
+:::
+
+## 🔬 Exploremos: misma media y varianza, formas distintas
+
+```{r}
+set.seed(11)
+x1 <- rnorm(3000, mean = 0, sd = 1)              # simétrica
+x2 <- (rgamma(3000, shape = 2, rate = sqrt(2)) - sqrt(2)) # sesgada, media≈0, sd≈1
+
+c(mean(x1), sd(x1))
+c(mean(x2), sd(x2))
+```
+
+::: {.ficha-resultado}
+Corre el código. Las medias y desviaciones estándar de `x1` y `x2` deberían salir muy parecidas (ambas cerca de 0 y 1). Ahora grafica ambos histogramas — ¿se ven igual de "parecidos" que sus estadísticos?
+:::
+
+```{r}
+#| label: fig-misma-media-sd-forma-distinta
+#| fig-cap: "Dos distribuciones con media y varianza casi idénticas, pero forma distinta"
+#| layout-ncol: 2
+hist(x1, breaks = 30, col = "#004B85", border = "white", main = "x1 (simétrica)", xlab = "")
+hist(x2, breaks = 30, col = "#FFB903", border = "white", main = "x2 (asimétrica)", xlab = "")
+```
+
+::: {.callout-tip}
+## Pregunta guía
+Si media y varianza no bastan para distinguir estas dos formas, ¿qué tipo de cálculo crees que sí podría capturar la diferencia?
+:::
+
+## 📖 El aparato matemático: momentos
+
+::: {.panel-tabset}
+
+## Momentos (no centrales)
+El $k$-ésimo momento (respecto al origen) de un conjunto de datos $x_1, \dots, x_n$ se define como:
+
+$$m_k' = \frac{1}{n}\sum_{i=1}^{n} x_i^k$$
+
+Observe que $m_1' = \bar{x}$ — la media es, por definición, el primer momento. Esta es la idea que generaliza media y varianza bajo un mismo marco.
+
+## Momentos centrales
+El $k$-ésimo momento **central** (respecto a la media) se define como:
+
+$$m_k = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^k$$
+
+Note que $m_2 = s^2$ — la varianza es, por definición, el segundo momento central. Los momentos centrales de orden superior ($k=3$, $k=4$) son los que capturan la asimetría y el apuntamiento de la distribución.
+
+## Propiedades (con demostración)
+Sea $m_k$ el $k$-ésimo momento central de $x_1, \dots, x_n$. Se cumplen tres propiedades importantes:
+
+**a) $m_1 = 0$ siempre.**
+$$m_1 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x}) = \frac{1}{n}\left(\sum_{i=1}^n x_i\right) - \bar{x} = \bar{x} - \bar{x} = 0$$
+
+**b) $m_2 = s^2$** — es inmediato de las definiciones: ambas son el promedio de $(x_i-\bar{x})^2$.
+
+**c) $m_2 = m_2' - (m_1')^2$** (fórmula de cómputo alternativa, útil en R):
+$$m_2 = \frac{1}{n}\sum (x_i-\bar{x})^2 = \frac{1}{n}\sum x_i^2 - 2\bar{x}\cdot\frac{1}{n}\sum x_i + \bar{x}^2 = m_2' - 2\bar{x}^2 + \bar{x}^2 = m_2' - (m_1')^2$$
+
+**Invarianza bajo traslación:** si $y_i = x_i + c$, entonces $m_k(y) = m_k(x)$ para todo $k$ — los momentos centrales no cambian al trasladar los datos (misma lógica que la varianza).
+
+**Comportamiento bajo escala:** si $y_i = a\,x_i$, entonces $m_k(y) = a^k \cdot m_k(x)$.
+
+:::
+
+## 📈 Asimetría (skewness)
+
+El **coeficiente de asimetría** estandariza el tercer momento central para que no dependa de las unidades de medición:
+
+$$g_1 = \frac{m_3}{s^3} = \frac{m_3}{m_2^{3/2}}$$
+
+- $g_1 \approx 0$ → distribución aproximadamente simétrica.
+- $g_1 > 0$ → asimetría positiva (cola hacia la derecha) — coherente con lo visto en el Tema 4 sobre media > mediana.
+- $g_1 < 0$ → asimetría negativa (cola hacia la izquierda).
+
+```{r}
+asimetria <- function(x) {
+  m3 <- mean((x - mean(x))^3)
+  s <- sd(x) * sqrt((length(x)-1)/length(x))  # ajuste para usar el s poblacional
+  m3 / s^3
+}
+asimetria(x1)  # cercano a 0
+asimetria(x2)  # claramente positivo
+```
+
+## 📊 Curtosis
+
+El **coeficiente de curtosis** usa el cuarto momento central, también estandarizado:
+
+$$g_2 = \frac{m_4}{s^4} = \frac{m_4}{m_2^{2}}$$
+
+Mide qué tan "apuntada" o qué tan "achatada" es una distribución en comparación con la normal (cuya curtosis de referencia es 3):
+
+::: {.card-lab}
+- **Mesocúrtica** ($g_2 \approx 3$): apuntamiento similar al de una distribución normal.
+- **Leptocúrtica** ($g_2 > 3$): más apuntada que la normal, con colas más pesadas — más probabilidad de valores extremos.
+- **Platicúrtica** ($g_2 < 3$): más achatada que la normal, con colas más ligeras.
+:::
+
+```{r}
+curtosis <- function(x) {
+  m4 <- mean((x - mean(x))^4)
+  s <- sd(x) * sqrt((length(x)-1)/length(x))
+  m4 / s^4
+}
+curtosis(x1)  # cercano a 3
+curtosis(rt(3000, df = 3))  # distribución t con colas pesadas: > 3
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+La curtosis por sí sola no dice "qué tan alta" es la campana visualmente — un error común. Compara siempre contra el valor de referencia 3 (normal), no contra 0. Y como con cualquier momento de orden alto, la curtosis es muy sensible a valores atípicos: unos pocos datos extremos pueden dispararla artificialmente. [Ver más trucos →](../recursos.qmd)
+:::
+
+## 🧪 Ejemplo con datos reales
+
+**Paso 1 — Cargar y explorar `mtcars$mpg`:**
+```{r}
+mpg_data <- mtcars$mpg
+mean(mpg_data)
+sd(mpg_data)
+```
+
+**Paso 2 — Calcular asimetría y curtosis:**
+```{r}
+asimetria(mpg_data)
+curtosis(mpg_data)
+```
+
+**Paso 3 — Interpretar con el histograma:**
+```{r}
+hist(mpg_data, breaks = 8, col = "#004B85", border = "white",
+     main = "Millas por galón (mtcars)", xlab = "mpg")
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Si `asimetria(mpg_data)` dio un valor positivo, el histograma debería mostrar una cola más larga hacia la derecha — confirma con tus propios ojos que el número y la forma cuentan la misma historia.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+Con `faithful$eruptions` (el dataset bimodal del Tema 3):
+
+1. Calcula media, varianza, asimetría y curtosis.
+2. ¿La curtosis es mayor o menor que 3? ¿Tiene sentido ese resultado considerando que la distribución es bimodal (dos picos, no una sola campana)?
+3. Compara la asimetría de `faithful$eruptions` con la de `mtcars$mpg`. ¿Cuál está más lejos de la simetría perfecta?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Demostración guiada de $m_1 = 0$, cálculo de momentos con datos pequeños, clasificación de curvas leptocúrticas/mesocúrticas/platicúrticas:
+
+[Abrir ejercicios del Tema 7 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Los momentos generalizan media (primer momento) y varianza (segundo momento central) a un marco común: $m_k' = \frac{1}{n}\sum x_i^k$ y $m_k = \frac{1}{n}\sum(x_i-\bar{x})^k$.
+- El coeficiente de asimetría ($g_1$, tercer momento estandarizado) mide qué tan simétrica es la distribución; el de curtosis ($g_2$, cuarto momento) mide qué tan apuntada es respecto a la normal ($g_2=3$).
+- Estas medidas son el puente natural hacia el módulo de probabilidad: la distribución normal es, precisamente, el caso de referencia con asimetría 0 y curtosis 3.
+:::

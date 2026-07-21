@@ -1,0 +1,116 @@
+---
+title: "Tema P8 · Distribución de probabilidad multivariada"
+---
+
+::: {.hero-motivacion}
+## 🪙 Tres monedas, dos variables, una pregunta escondida
+
+Lanzas 3 monedas. $Y_1$ = número de caras. $Y_2$ = tu ganancia en una apuesta: si la primera cara sale en el primer tiro, ganas \$1; en el segundo, \$2; en el tercero, \$3; si no sale ninguna cara, pierdes \$1. ¿Estas dos variables están relacionadas entre sí, o son independientes?
+:::
+
+::: {.ficha-prediccion}
+Antes de calcular: $Y_2$ depende de *cuándo* sale la primera cara, y $Y_1$ del *número total* de caras. ¿Tu intuición dice que son independientes o no?
+:::
+
+## 🔬 Exploremos: construyendo la tabla conjunta
+
+```{r}
+prob <- function(y1, y2) {
+  if (y1 == 0) return(ifelse(y2 == -1, 1/8, 0))
+  if (y1 == 1) return(ifelse(y2 == 1, 1/8, 0))
+  if (y1 == 2) return(ifelse(y2 == 2, 1/8, 0))
+  if (y1 == 3) return(ifelse(y2 == 3, 1/8, 0))
+  return(0)
+}
+
+Y1 <- 0:3
+Y2 <- c(-1, 1, 2, 3)
+prob_matrix <- outer(Y1, Y2, Vectorize(prob))
+rownames(prob_matrix) <- paste0("Y1=", Y1)
+colnames(prob_matrix) <- paste0("Y2=", Y2)
+prob_matrix
+```
+
+::: {.ficha-resultado}
+Mira la matriz: cada combinación $(Y_1, Y_2)$ tiene probabilidad 1/8 o 0 — nunca algo intermedio. ¿Por qué crees que pasa esto en este problema en particular (pista: piensa en cuántas combinaciones de 3 lanzamientos hay en total)?
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Distribución conjunta
+Para dos variables aleatorias discretas $Y_1, Y_2$, la función de probabilidad conjunta da $P(Y_1=y_1, Y_2=y_2)$ para cada combinación posible — toda la información sobre cómo se comportan **juntas**.
+
+## Distribuciones marginales
+Se obtienen "sumando hacia afuera" la variable que no interesa:
+$$P(Y_1=y_1) = \sum_{y_2} P(Y_1=y_1, Y_2=y_2)$$
+En R, esto es exactamente `rowSums()` o `colSums()` sobre la matriz conjunta.
+
+## Distribución condicional
+$$P(Y_1=y_1 | Y_2=y_2) = \frac{P(Y_1=y_1, Y_2=y_2)}{P(Y_2=y_2)}$$
+La misma idea del Tema P2, ahora aplicada a variables aleatorias en vez de eventos sueltos.
+
+## Independencia de variables aleatorias
+$Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2=y_2)$ para **toda** combinación de valores — no basta con que se cumpla en una sola celda de la tabla.
+
+:::
+
+## 🧪 Ejemplo con datos reales: marginales, condicional e independencia
+
+```{r}
+# Marginal de Y2
+marginal_Y2 <- colSums(prob_matrix)
+marginal_Y2
+
+# Marginal de Y1
+marginal_Y1 <- rowSums(prob_matrix)
+marginal_Y1
+```
+
+```{r}
+# Condicional: P(Y1=3 | Y2=1)
+p_Y1_3_Y2_1 <- prob(3, 1)
+p_Y2_1 <- marginal_Y2["Y2=1"]
+p_Y1_3_dado_Y2_1 <- p_Y1_3_Y2_1 / p_Y2_1
+p_Y1_3_dado_Y2_1
+```
+
+```{r}
+# Verificación de independencia: comparar la matriz conjunta contra el producto de marginales
+independencia_teorica <- outer(marginal_Y1, marginal_Y2)
+round(prob_matrix, 3)
+round(independencia_teorica, 3)
+```
+
+::: {.callout-important}
+## Resultado del ejemplo
+Las dos matrices de arriba **no son iguales** — la matriz conjunta real tiene ceros donde el producto de marginales no los tiene. Esto confirma que $Y_1$ y $Y_2$ **no son independientes**: saber en qué tiro salió la primera cara determina información parcial sobre el número total de caras, y viceversa.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+De 9 ejecutivos: 4 casados, 3 solteros, 2 divorciados. Se seleccionan 3 al azar. $Y_1$ = número de casados seleccionados, $Y_2$ = número de solteros seleccionados.
+
+1. Construye la función de probabilidad conjunta usando combinaciones (`choose()`), siguiendo la lógica de una distribución hipergeométrica multivariada.
+2. Obtén la distribución marginal de $Y_1$.
+3. Si $Y_3 = 3 - Y_1 - Y_2$ es el número de divorciados seleccionados, calcula $P(Y_3=1 | Y_2=1)$.
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Construcción de tablas de probabilidad conjunta, cálculo de marginales y condicionales, verificación de independencia de variables aleatorias:
+
+[Abrir ejercicios del Tema P8 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La distribución conjunta contiene toda la información sobre cómo se relacionan dos variables aleatorias.
+- Las marginales se obtienen sumando la tabla conjunta en una dirección; las condicionales dividen una celda entre su marginal correspondiente.
+- La independencia de variables aleatorias exige que la igualdad $P(Y_1,Y_2)=P(Y_1)P(Y_2)$ se cumpla en **todas** las combinaciones, no solo en algunas.
+:::

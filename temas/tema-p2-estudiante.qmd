@@ -1,0 +1,102 @@
+---
+title: "Tema P2 · Probabilidad condicional y regla multiplicativa"
+---
+
+::: {.hero-motivacion}
+## ❄️ Si el compresor ya falló, ¿qué tan probable es que el condensador también falle?
+
+En un sistema de refrigeración, el compresor falla con probabilidad 0.12, el condensador con 0.08, y ambos fallan juntos con probabilidad 0.05. La pregunta no es "¿cuál es la probabilidad de que el condensador falle?" en abstracto — es **dado que ya sabes que el compresor falló**, ¿cambia tu estimación sobre el condensador?
+:::
+
+::: {.ficha-prediccion}
+Antes de calcular: ¿crees que saber que el compresor falló *aumenta*, *disminuye* o *no cambia* la probabilidad de que el condensador también falle? Justifica tu intuición sobre el sistema.
+:::
+
+## 🔬 Exploremos: probabilidad "antes" vs. "después" de la información
+
+```{r}
+p_C <- 0.12  # P(compresor falla)
+p_D <- 0.08  # P(condensador falla)
+p_C_y_D <- 0.05  # P(ambos fallan)
+
+p_D            # probabilidad de D "sin saber nada más"
+p_D_dado_C <- p_C_y_D / p_C
+p_D_dado_C     # probabilidad de D "sabiendo que C ya ocurrió"
+```
+
+::: {.ficha-resultado}
+Compara `p_D` con `p_D_dado_C`. ¿La información de que el compresor falló aumentó o disminuyó tu estimación sobre el condensador? ¿Coincidió con tu predicción inicial?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+Si `p_D_dado_C` fuera exactamente igual a `p_D`, ¿qué significaría eso sobre la relación entre los dos componentes? (pista: es el concepto que viene en el Tema P4)
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Definición
+Para dos eventos $A$ y $B$, con $P(B) > 0$, la probabilidad condicional de $A$ dado $B$ es:
+
+$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
+
+Se lee: "la proporción de $B$ que también cae dentro de $A$". Reduce el espacio muestral completo al subconjunto donde ya sabemos que $B$ ocurrió.
+
+## Regla multiplicativa
+Despejando la definición anterior se obtiene la regla multiplicativa, útil cuando es más fácil conocer probabilidades condicionales que la intersección directamente:
+
+$$P(A \cap B) = P(A|B) \cdot P(B) = P(B|A) \cdot P(A)$$
+
+## Por qué el orden importa
+$P(A|B) \ne P(B|A)$ en general — son preguntas distintas. "La probabilidad de que llueva dado que hay nubes" no es lo mismo que "la probabilidad de que haya nubes dado que llueve". Confundir estas dos direcciones es uno de los errores más comunes en probabilidad aplicada (y la base del error que corrige el Teorema de Bayes, Tema P3).
+
+:::
+
+::: {.callout-important}
+## Cuidado con datos redundantes en un enunciado
+El problema original de este sistema de refrigeración menciona, además de los datos usados arriba, que "si el compresor falla, la probabilidad de que el condensador también falle es 0.6" — un valor que **no coincide** con lo que calculamos ($P(D|C) \approx 0.417$). Cuando un enunciado da información adicional que no es consistente con los datos base, confía siempre en el cálculo derivado de la definición formal, no en una cifra suelta — y si es una discrepancia real, repórtala como tal en vez de ignorarla en silencio.
+:::
+
+## 🧪 Ejemplo con datos reales (líneas de ensamblaje)
+
+Una planta tiene 3 líneas de ensamblaje con tasas de defectos distintas: $P(D|L_1)=0.02$, $P(D|L_2)=0.05$, $P(D|L_3)=0.03$, y proporciones de producción $P(L_1)=0.4$, $P(L_2)=0.35$, $P(L_3)=0.25$.
+
+**Paso 1 — Probabilidad conjunta de "línea 2 y defectuoso" (regla multiplicativa):**
+```{r}
+p_L2 <- 0.35
+p_D_dado_L2 <- 0.05
+
+p_L2_y_D <- p_D_dado_L2 * p_L2
+p_L2_y_D
+```
+
+**Paso 2 — Interpretación:** esta es la probabilidad de que, al tomar un producto al azar de *toda* la producción, resulte ser de la línea 2 **y** defectuoso simultáneamente — distinto de $P(D|L_2)=0.05$, que asume que ya sabes que viene de la línea 2.
+
+## 🧑‍🔬 Laboratorio
+
+Con los eventos: $A$ = "una pieza tiene defecto de fabricación", $P(A)=0.20$; $B$ = "una pieza pasa la prueba de resistencia", $P(B)=0.25$; $P(A\cap B) = 0.05$.
+
+1. Calcula $P(A|B)$: dado que una pieza pasó la prueba de resistencia, ¿qué tan probable es que igual tenga un defecto de fabricación?
+2. Calcula $P(B|A)$: dado que una pieza tiene un defecto, ¿qué tan probable es que aun así pase la prueba?
+3. Confirma que $P(A|B) \ne P(B|A)$ y explica en una frase por qué no deberían ser iguales en este contexto.
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Cálculo de probabilidad condicional en distintos escenarios de ingeniería, aplicación de la regla multiplicativa, identificación del error de "invertir" una condicional:
+
+[Abrir ejercicios del Tema P2 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- $P(A|B) = P(A\cap B)/P(B)$: la probabilidad condicional reduce el espacio muestral al subconjunto donde $B$ ya ocurrió.
+- La regla multiplicativa, $P(A\cap B)=P(A|B)P(B)$, permite construir la intersección a partir de probabilidades condicionales, cuando estas son más fáciles de obtener directamente.
+- $P(A|B) \ne P(B|A)$ en general — confundir el orden es un error común y es la motivación central del Teorema de Bayes (siguiente tema).
+:::

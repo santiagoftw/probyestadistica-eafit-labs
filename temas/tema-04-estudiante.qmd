@@ -15,7 +15,6 @@ Antes de calcular nada: mirando la lista, ¿cuál crees que es un valor razonabl
 ## 🔬 Exploremos: el efecto de un valor extremo
 
 ```{r}
-#| eval: false
 oxigeno <- c(29.5, 49.3, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6)
 mean(oxigeno)
 median(oxigeno)
@@ -91,37 +90,50 @@ Ejemplo típico: el costo promedio de mano de obra cuando distintas tarifas por 
 
 :::
 
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Antes de aceptar cualquier promedio, calcula también la mediana — te toma dos líneas de código. Si están cerca, la distribución probablemente es simétrica. Si la media es mayor, sospecha de sesgo a la derecha (valores altos poco frecuentes); si es menor, sesgo a la izquierda. Esta comparación detecta asimetría sin necesitar todavía un histograma. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧪 Ejemplos reales (Devore)
 
 Cuatro casos reales, cada uno enseña algo distinto sobre cuándo confiar en la media y cuándo no.
 
+**Caso 1 — Consumo de oxígeno de bomberos (sensibilidad a un extremo):**
 ```{r}
-#| eval: false
-# Caso 1: consumo de oxígeno de bomberos — sensibilidad a un extremo
 oxigeno <- c(29.5, 49.3, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6)
-mean(oxigeno); median(oxigeno)
+mean(oxigeno)
+median(oxigeno)
 mean(oxigeno, trim = 0.20)  # media truncada al 20%
+```
 
-# Caso 2: resistencia a la tensión de alambre de cobre — distribución casi simétrica
+**Caso 2 — Resistencia a la tensión de alambre de cobre (distribución casi simétrica):**
+```{r}
 tension <- c(113.4, 116.5, 116.9, 117.2, 117.4, 117.6,
              118.1, 118.5, 119.2, 120.1, 122.1, 125.0)
-mean(tension); median(tension)  # deberían quedar muy cerca
+mean(tension)
+median(tension)  # deberían quedar muy cerca
+```
 
-# Caso 3: transductores defectuosos por lote — caso bimodal
+**Caso 3 — Transductores defectuosos por lote (caso bimodal):**
+```{r}
 defectos <- c(0,0,0,0,0, 1,1,1,1,1,1,1,1,
               2,2,2,2,2,2,2,2,2,2,2,2,
               3,3,3,3,3,3,3,3,3,3,3,3,
               4,4,4,4,4,4, 5,5,5, 6,6,6, 7, 8)
 table(defectos)  # busca las dos modas
+```
 
-# Caso 4: ancho de grietas en placas — asimetría positiva
+**Caso 4 — Ancho de grietas en placas:**
+```{r}
 grietas <- c(1.25, 1.31, 1.38, 1.48, 1.59, 1.63, 1.66, 1.70, 1.78, 1.81, 2.21)
-mean(grietas); median(grietas)  # la media > mediana revela sesgo a la derecha
+mean(grietas)
+median(grietas)
 ```
 
 ::: {.callout-important}
-## Interpretación del Caso 4
-Cuando la **media es mayor que la mediana**, es señal de asimetría positiva (sesgo a la derecha) — hay algunos valores grandes "jalando" la media hacia arriba, mientras la mediana se mantiene en el centro posicional de los datos.
+## Interpretación del Caso 4 (y una lección de rigor)
+Aquí la media (≈1.618) resulta ligeramente **menor** que la mediana (1.63) — casi iguales, sin una asimetría marcada en ninguna dirección, a pesar de que el dato 2.21 podría hacerte suponer a simple vista que "hay un valor grande jalando la media hacia arriba". Este caso es justo el recordatorio del truco de interpretación del Tema 4: **compara siempre los números reales, no la impresión visual de un solo dato que te llama la atención** — un valor que parece "extremo" no siempre domina lo suficiente como para mover la media por encima de la mediana.
 :::
 
 ## 🧑‍🔬 Laboratorio

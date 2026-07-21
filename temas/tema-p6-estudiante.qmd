@@ -1,0 +1,114 @@
+---
+title: "Tema P6 · Distribuciones discretas: Binomial y Poisson"
+---
+
+::: {.hero-motivacion}
+## 🧬 Dos fórmulas que puedes demostrar tú mismo, por simulación
+
+Para una binomial con parámetros $n$ y $p$: $\mu = np$, $\sigma^2 = np(1-p)$. Para una Poisson con parámetro $\lambda$: $\mu = \lambda$, $\sigma^2 = \lambda$. No hace falta memorizarlas a ciegas — puedes comprobarlas simulando miles de repeticiones.
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: si simulas 1000 repeticiones de una binomial con $n=50$, $p=0.3$, ¿qué valor esperas que dé la media simulada? ¿Y la varianza?
+:::
+
+## 🔬 Exploremos: comprobando la fórmula de la binomial
+
+```{r}
+set.seed(1)
+n_sim <- 1000
+n_binomial <- 50
+p_binomial <- 0.3
+
+simulacion_binomial <- rbinom(n_sim, size = n_binomial, prob = p_binomial)
+
+mean(simulacion_binomial)
+n_binomial * p_binomial                      # μ teórico = np
+
+var(simulacion_binomial)
+n_binomial * p_binomial * (1 - p_binomial)    # σ² teórico = np(1-p)
+```
+
+::: {.ficha-resultado}
+Compara cada par de números. ¿Qué tan cerca están la media/varianza simuladas de las teóricas? Aumenta `n_sim` a 100000 y vuelve a correr — ¿se acercan aún más?
+:::
+
+```{r}
+#| label: fig-binomial-simulada
+#| fig-cap: "Distribución simulada de una binomial(n=50, p=0.3)"
+hist(simulacion_binomial, breaks = 20, col = "#004B85", border = "white",
+     main = "Binomial simulada", xlab = "Número de éxitos")
+```
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Distribución Binomial
+Modela el número de éxitos en $n$ ensayos independientes, cada uno con probabilidad de éxito $p$:
+
+$$P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\dots,n$$
+$$\mu = np \qquad \sigma^2 = np(1-p)$$
+
+En R: `rbinom(n_sim, size = n, prob = p)` genera simulaciones; `dbinom()`, `pbinom()` y `qbinom()` dan la función de probabilidad, la FDA y los cuantiles teóricos.
+
+## Distribución Poisson
+Modela el número de eventos que ocurren en un intervalo fijo, cuando esos eventos suceden a una tasa promedio constante $\lambda$:
+
+$$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}, \quad k=0,1,2,\dots$$
+$$\mu = \lambda \qquad \sigma^2 = \lambda$$
+
+Nota la propiedad distintiva: **media y varianza son iguales**, ambas $\lambda$ — una forma rápida de sospechar si un conteo real sigue (aproximadamente) una Poisson.
+
+## Binomial → Poisson (teorema límite)
+Cuando $n\to\infty$ y $p\to 0$, con $np=\lambda$ constante, la distribución Binomial$(n,p)$ se aproxima a una Poisson$(\lambda)$. Es útil cuando hay muchísimas oportunidades de que ocurra un evento raro (defectos en un lote enorme, llamadas en un conmutador).
+
+:::
+
+## 🧪 Ejemplo con datos reales: la convergencia Binomial → Poisson
+
+```{r}
+#| label: fig-binomial-poisson
+#| fig-cap: "Binomial con n grande y p pequeño vs. Poisson con λ=np"
+n_grande <- 5000
+p_chico <- 0.005
+lambda_equiv <- n_grande * p_chico
+
+sim_binom <- rbinom(n_grande, size = n_grande, prob = p_chico)
+sim_pois <- rpois(n_grande, lambda = lambda_equiv)
+
+hist(sim_binom, breaks = 20, col = rgb(0, 0.29, 0.52, 0.5), border = "white",
+     main = "Binomial (azul) vs. Poisson (amarillo)", xlab = "Valor",
+     xlim = range(c(sim_binom, sim_pois)))
+hist(sim_pois, breaks = 20, col = rgb(1, 0.72, 0.01, 0.5), border = "white", add = TRUE)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Los dos histogramas se superponen casi por completo — evidencia visual de que, con $n$ grande y $p$ pequeño, la binomial y la Poisson con $\lambda=np$ son prácticamente indistinguibles.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. Simula 500,000 valores de una Poisson con $\lambda=5$ (`rpois()`). Calcula media y varianza simuladas — ¿qué tan cerca están de $\lambda=5$ comparado con cuando usaste solo 1000 simulaciones?
+2. Simula una binomial con $n=1000$, $p=0.5$. ¿La forma del histograma se parece a alguna de las formas típicas del Tema 3 (Módulo 1)?
+3. Verifica: para una Poisson simulada, ¿`mean()` y `var()` dan resultados más parecidos entre sí que para una binomial con $p$ lejos de 0 o 1? ¿Por qué tendría sentido esa diferencia?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Cálculo de $\mu$ y $\sigma^2$ teóricos dado $n,p$ o $\lambda$, identificación de cuál distribución usar según el contexto del problema, lectura de histogramas simulados:
+
+[Abrir ejercicios del Tema P6 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Binomial: cuenta éxitos en $n$ ensayos independientes con probabilidad fija $p$; $\mu=np$, $\sigma^2=np(1-p)$.
+- Poisson: cuenta eventos en un intervalo con tasa constante $\lambda$; $\mu=\sigma^2=\lambda$ — su propiedad distintiva.
+- Con $n$ grande y $p$ pequeño ($np=\lambda$ constante), la binomial converge a la Poisson — útil para modelar eventos raros sobre muchas oportunidades.
+:::

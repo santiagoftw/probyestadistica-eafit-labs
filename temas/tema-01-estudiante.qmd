@@ -17,7 +17,6 @@ Antes de seguir: de estas cuatro variables — género, calificación en estrell
 Vamos a clasificar variables reales de un conjunto de datos de mamíferos y su sueño (`msleep`, incluido en `ggplot2`), **sin definiciones todavía**. Solo con tu intuición.
 
 ```{r}
-#| eval: false
 library(ggplot2)
 head(msleep[, c("name", "vore", "order", "conservation",
                 "sleep_total", "sleep_rem", "bodywt")])
@@ -111,12 +110,21 @@ Independientemente de si una variable es cualitativa o cuantitativa, también se
 - **De intervalo:** permite además restar (las distancias son iguales), pero no existe un cero absoluto — por eso 20°C no es "el doble de caliente" que 10°C.
 - **De razón:** permite además dividir y hablar de proporciones, porque existe un cero absoluto real — 20 kg sí es el doble de 10 kg.
 
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Antes de analizar cualquier dataset nuevo, corre primero `str()` o `glimpse()` y clasifica cada columna a mano. Un error clásico es tratar un código numérico (código postal, número de identificación) como si fuera cuantitativo solo porque R lo guarda como número — el tipo de dato en R no siempre coincide con el tipo estadístico real de la variable. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧪 Ejemplo con datos reales
 
+**Paso 1 — Ver el tipo de dato que R asigna a cada columna:**
 ```{r}
-#| eval: false
 library(dplyr)
 glimpse(msleep)
+```
+
+**Paso 2 — Tabla de frecuencias de la variable `vore` (tipo de dieta):**
+```{r}
 table(msleep$vore)
 ```
 

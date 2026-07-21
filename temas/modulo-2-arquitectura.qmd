@@ -1,0 +1,90 @@
+---
+title: "Módulo 2 · Probabilidad — Arquitectura"
+---
+
+::: {.hero-motivacion}
+## 🎲 De describir datos a modelar incertidumbre
+
+El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salto: ¿cómo se modela lo que **todavía no ha ocurrido**? Esta arquitectura está construida directamente sobre los Laboratorios 2 y 3 reales del curso.
+:::
+
+::: {.callout-note}
+## Estado de este módulo
+Los 10 temas (P1-P10) ya están construidos como experiencias interactivas completas, siguiendo la misma progresión que los Laboratorios 2 y 3 reales del curso.
+:::
+
+## Mapa de temas
+
+| Tema | Título | Basado en (fuente real) |
+|---|---|---|
+| P1 | Reglas básicas de probabilidad | Laboratorio 2, Bloque 1 |
+| P2 | Probabilidad condicional y regla multiplicativa | Laboratorio 2, Bloque 2 |
+| P3 | Probabilidad total y Teorema de Bayes | Laboratorio 2, Bloque 2 |
+| P4 | Independencia de eventos | Laboratorio 2, Bloque 2 |
+| P5 | Variables aleatorias y función de distribución acumulada | Laboratorio 2, Bloque 3 |
+| P6 | Distribuciones discretas: Binomial y Poisson | Laboratorio 2, Bloque 4 |
+| P7 | Distribuciones continuas: Uniforme y Normal | Laboratorio 2, Bloque 5 |
+| P8 | Distribución de probabilidad multivariada | Laboratorio 3, Bloque 1 |
+| P9 | Covarianza y correlación de variables aleatorias | Laboratorio 3, Bloque 2 |
+| P10 | Funciones de variables aleatorias y simulación de sistemas | Laboratorio 3, Bloque 3 |
+
+## Detalle por tema
+
+::: {.panel-tabset}
+
+## P1 — Reglas básicas
+**Objetivo:** aplicar axiomas de probabilidad, regla de adición, complemento y diferencia simétrica.
+**Motivación real (Laboratorio 2):** ¿cuál es la probabilidad de obtener un número par al lanzar un dado? Simular 1000 lanzamientos y comparar con la probabilidad teórica.
+**Estado:** ✅ construido — [ir al tema](tema-p1-estudiante.qmd)
+
+## P2 — Probabilidad condicional
+**Objetivo:** calcular $P(A|B)$ y aplicar la regla multiplicativa en un contexto de ingeniería.
+**Motivación real:** sistema de refrigeración con dos componentes (compresor, condensador) — ¿cuál es la probabilidad de que el condensador falle dado que el compresor ya falló?
+**Estado:** ✅ construido — [ir al tema](tema-p2-estudiante.qmd)
+
+## P3 — Probabilidad total y Bayes
+**Objetivo:** calcular probabilidades a posteriori combinando información de varias fuentes.
+**Motivación real:** una fábrica con 3 líneas de ensamblaje, cada una con su propia tasa de defectos — ¿cuál es la probabilidad de que un producto elegido al azar sea defectuoso? Y el caso clásico de Bayes: dado que un producto causó una queja, ¿qué tan probable es que fuera defectuoso?
+**Estado:** ✅ construido — [ir al tema](tema-p3-estudiante.qmd)
+
+## P4 — Independencia
+**Objetivo:** verificar independencia de eventos comparando $P(A\cap B)$ contra $P(A)\cdot P(B)$.
+**Motivación real:** ¿son independientes dos eventos con $P(A)=0.4$, $P(B)=0.5$, $P(A\cap B)=0.2$?
+**Estado:** ✅ construido — [ir al tema](tema-p4-estudiante.qmd)
+
+## P5 — Variables aleatorias y FDA
+**Objetivo:** construir la función de distribución acumulada empírica y compararla con una FDA teórica (exponencial).
+**Motivación real:** tiempos de resistencia de materiales — ordenar, acumular frecuencias, calcular valor esperado y varianza; y la FDA teórica de una distribución exponencial $f(x)=\lambda e^{-\lambda x}$.
+**Estado:** ✅ construido — [ir al tema](tema-p5-estudiante.qmd)
+
+## P6 — Binomial y Poisson
+**Objetivo:** demostrar por simulación que $\mu=np,\ \sigma^2=np(1-p)$ para la binomial, y que la binomial converge a Poisson cuando $n\to\infty$, $p\to 0$, con $np$ constante.
+**Motivación real:** simular 500,000 valores de una Poisson($\lambda=5$) y verificar que media y varianza convergen a $\lambda$.
+**Estado:** ✅ construido — [ir al tema](tema-p6-estudiante.qmd), dado el nivel del curso.
+
+## P7 — Uniforme y Normal
+**Objetivo:** estimar media/varianza de una uniforme continua por simulación; calcular probabilidades, percentiles e intervalos con la normal.
+**Motivación real:** puntuaciones de satisfacción de usuario ~ N(7, 1.5²) — ¿qué percentil corresponde a una puntuación de 8.5?
+**Estado:** ✅ construido — [ir al tema](tema-p7-estudiante.qmd)
+
+## P8 — Distribución multivariada
+**Objetivo:** construir una función de probabilidad conjunta, obtener marginales y condicionales, verificar independencia.
+**Motivación real (Laboratorio 3):** tres monedas lanzadas, con una variable de apuesta ligada al resultado — ¿son independientes el número de caras y las ganancias?
+**Estado:** ✅ construido — [ir al tema](tema-p8-estudiante.qmd)
+
+## P9 — Covarianza y correlación de v.a.
+**Objetivo:** simular variables correlacionadas con `MASS::mvrnorm()` y verificar la matriz de covarianza/correlación resultante.
+**Motivación real:** sistema de producción con demanda, tiempo y costo correlacionados — evaluación de riesgo.
+**Estado:** ✅ construido — [ir al tema](tema-p9-estudiante.qmd), conecta directamente con el Tema 8 del Módulo 1.
+
+## P10 — Funciones de variables aleatorias
+**Objetivo:** simular sistemas completos (tiempos de falla exponenciales, fuerzas combinadas, portafolios de inversión) y comparar resultados simulados contra los teóricos.
+**Motivación real:** ¿cuál de dos componentes falla primero, si sus tiempos de falla son exponenciales con tasas distintas?
+**Estado:** ✅ construido — [ir al tema](tema-p10-estudiante.qmd)
+
+:::
+
+::: {.callout-tip}
+## Por qué este orden
+Sigue exactamente la progresión de los laboratorios reales: reglas → condicional → total/Bayes → independencia → variables aleatorias → distribuciones discretas → continuas → multivariado → covarianza → simulación de sistemas. Es la misma escalera de dificultad que ya evaluó el curso en semestres anteriores.
+:::

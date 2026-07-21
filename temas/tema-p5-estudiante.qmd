@@ -1,0 +1,112 @@
+---
+title: "Tema P5 · Variables aleatorias y función de distribución acumulada"
+---
+
+::: {.hero-motivacion}
+## ⏱️ 30 pruebas de resistencia de materiales... ¿qué patrón esconden?
+
+Se registraron los tiempos de resistencia (en horas) de 30 materiales en una prueba. Ya sabes resumirlos con media y varianza (Módulo 1). Ahora vas a construir una herramienta más completa: una función que responde "¿qué proporción de los datos es menor o igual a *cualquier* valor que yo elija?"
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: si te preguntaran "¿qué proporción de los 30 materiales duró 550 horas o menos?", ¿cómo lo calcularías con las herramientas que ya conoces del Módulo 1?
+:::
+
+## 🔬 Exploremos: construyendo la FDA empírica
+
+```{r}
+tiempo_resistencia <- c(500, 520, 510, 530, 550, 540, 560, 520,
+                         500, 580, 590, 600, 610, 620, 630, 640,
+                         650, 620, 630, 640, 620, 610, 600, 590,
+                         580, 570, 550, 540, 530, 520)
+
+tiempo_ordenado <- sort(tiempo_resistencia)
+frecuencia_acumulada <- cumsum(table(factor(tiempo_ordenado, levels = unique(tiempo_ordenado))))
+fda <- frecuencia_acumulada / length(tiempo_resistencia)
+fda
+```
+
+::: {.ficha-resultado}
+Cada valor de `fda` es la proporción de datos menores o iguales al valor correspondiente. ¿En qué se parece esto a la frecuencia relativa acumulada que ya usaste en el Tema 2 del Módulo 1?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+La FDA sube en "escalones" en vez de suavemente. ¿Por qué? ¿Qué tendría que pasar para que se viera más suave?
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Variable aleatoria
+Una variable aleatoria $X$ asigna un número a cada resultado posible de un experimento aleatorio. Puede ser **discreta** (valores contables) o **continua** (cualquier valor en un rango) — la misma distinción del Tema 1, ahora aplicada a un experimento en vez de a un dataset ya observado.
+
+## Función de distribución acumulada (FDA)
+Para una variable aleatoria $X$, se define como:
+
+$$F(x) = P(X \le x)$$
+
+Acumula toda la probabilidad "hasta" el valor $x$. Es no decreciente, va de 0 a 1, y contiene **toda** la información de la variable aleatoria — su forma completa determina probabilidades de cualquier evento.
+
+## FDA empírica (para datos observados)
+Cuando no se conoce la distribución teórica pero sí se tienen datos $x_1,\dots,x_n$:
+
+$$\hat{F}(x) = \frac{\#\{x_i : x_i \le x\}}{n}$$
+
+Es la versión "basada en datos" de la idea teórica de arriba — exactamente lo que calculaste en la exploración.
+
+## Valor esperado y varianza
+Para $n$ observaciones, se calculan igual que en el Módulo 1 ($\bar{x}$ y $s^2$) — son estimaciones de $E(X)$ y $Var(X)$ de la variable aleatoria subyacente.
+
+:::
+
+## 🧪 Ejemplo con datos reales: FDA teórica (exponencial)
+
+Una FDA **teórica**, en cambio, tiene una fórmula cerrada. Para el tiempo hasta que ocurre un evento con tasa $\lambda$ (distribución exponencial):
+
+$$f(x) = \lambda e^{-\lambda x}, \quad F(x) = 1 - e^{-\lambda x}, \quad x \ge 0$$
+
+```{r}
+#| label: fig-fda-exponencial
+#| fig-cap: "FDA teórica de una exponencial con λ=0.5"
+lambda <- 0.5
+fda_exp <- function(x, lambda) ifelse(x < 0, 0, 1 - exp(-lambda * x))
+
+valores <- seq(0, 10, by = 0.1)
+plot(valores, fda_exp(valores, lambda), type = "l", col = "#004B85", lwd = 2,
+     xlab = "Tiempo", ylab = "FDA", main = "Función de Distribución Acumulada (exponencial)")
+abline(h = 1, col = "#FFB903", lty = 2)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+A diferencia de la FDA empírica del vector de resistencias (una escalera), la FDA teórica es una **curva suave** — porque describe una variable continua de forma exacta, no un conjunto finito de observaciones.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+Con la secuencia `seq(0, 60)` como población de referencia:
+
+1. Construye una función de FDA empírica genérica: `fda_empirica <- function(x, datos) sum(datos <= x) / length(datos)`.
+2. Calcula la FDA empírica en los tres cuartiles ($P_{25}$, $P_{50}$, $P_{75}$) de esa secuencia.
+3. ¿Por qué la FDA empírica evaluada exactamente en la mediana ($P_{50}$) da un valor cercano a 0.5? Conecta tu respuesta con la definición de mediana del Tema 4 (Módulo 1).
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Construcción de FDA empírica con datos pequeños, lectura de una gráfica de FDA para recuperar el conjunto de datos original, cálculo de probabilidades con una FDA teórica dada:
+
+[Abrir ejercicios del Tema P5 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La FDA, $F(x)=P(X\le x)$, contiene toda la información de una variable aleatoria — es más completa que solo media y varianza.
+- La FDA empírica es la versión basada en datos observados: sube en escalones, uno por cada dato distinto.
+- Una FDA teórica (como la exponencial) tiene fórmula cerrada y produce una curva suave — el puente hacia los modelos probabilísticos formales de los siguientes temas.
+:::

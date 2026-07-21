@@ -1,7 +1,93 @@
 ---
-title: "Recursos"
+title: "Trucos de interpretación estadística"
 ---
 
+::: {.hero-motivacion}
+## 🧠 Saber calcular no es lo mismo que saber interpretar
+
+Cualquiera puede pedirle a R que calcule una media o dibuje un histograma. La parte difícil — y la que de verdad importa en la práctica — es saber **cuándo confiar en ese número y cuándo desconfiar de él**. Esta página reúne reglas prácticas, no fórmulas nuevas.
+:::
+
+## 🚩 Señales de alerta rápidas
+
 ::: {.card-lab}
-Contenido pendiente: lecturas de Rincón (2017) y Contento Rubio, enlaces a Posit Cloud, guías de instalación de R.
+| Si ves esto... | Sospecha de... | Qué hacer |
+|---|---|---|
+| Un promedio sin la mediana al lado | Posible sesgo por valores extremos | Pide la mediana; si difieren mucho, hay asimetría (Tema 4) |
+| Un gráfico de pastel con muchas categorías | Comparación visual poco confiable | Pide la tabla de frecuencias o pide un gráfico de barras |
+| Una desviación estándar sin las unidades de la variable | Dificultad de interpretación directa | Recuerda: la varianza está en unidades², la desviación estándar no |
+| Un coeficiente de variación de una variable de intervalo (°C, por ejemplo) | Resultado sin sentido | El CV solo es válido en escala de razón, con cero absoluto real (Tema 1 y 5) |
+| Un histograma sin decir cuántos `breaks` se usaron | La forma puede estar exagerada u oculta | Pide ver el mismo histograma con otro número de intervalos (Tema 3) |
+| Un boxplot con puntos "sueltos" fuera de los bigotes | Valores atípicos | No los borres automáticamente — investiga su origen primero (Tema 6) |
+| Un porcentaje reportado sin el total (n) | Imposible verificar o comparar | Siempre pide el n — un 50% de 4 personas no es lo mismo que un 50% de 4.000 |
+:::
+
+## 📏 Media vs. mediana: la regla de bolsillo
+
+::: {.panel-tabset}
+
+## Cuándo confiar en la media
+- La distribución se ve razonablemente simétrica (Tema 3).
+- No hay valores extremos evidentes.
+- La variable es de intervalo o razón (tiene sentido sumarla y dividirla).
+
+## Cuándo preferir la mediana
+- Hay valores extremos conocidos (ingresos, precios de vivienda, tiempos de espera con colas largas).
+- La media y la mediana están notablemente separadas — eso ya es evidencia de asimetría, sin necesidad de graficar nada.
+- Quieres describir "el caso típico", no "el promedio matemático".
+
+## La prueba rápida
+Compara media y mediana:
+- **Media ≈ mediana** → probablemente simétrica.
+- **Media > mediana** → sesgo a la derecha (cola de valores altos).
+- **Media < mediana** → sesgo a la izquierda (cola de valores bajos).
+
+Esto se puede hacer con dos líneas de código, sin necesitar aún el histograma — es una forma rápida de detectar sesgo antes de graficar nada (ver Tema 4).
+
+:::
+
+## 📊 Gráficos que engañan (y cómo detectarlos)
+
+::: {.callout-important}
+## El eje Y truncado
+Un gráfico de barras cuyo eje Y no empieza en cero puede hacer que diferencias pequeñas parezcan enormes. Siempre revisa dónde empieza el eje antes de confiar en "qué tan grande" se ve una diferencia.
+:::
+
+::: {.callout-important}
+## El histograma con pocos `breaks`
+Como vimos con Old Faithful (Tema 3), un histograma con muy pocos intervalos puede esconder bimodalidad completa. Antes de aceptar "esto parece una sola campana", prueba con más intervalos.
+:::
+
+::: {.callout-important}
+## El pastel con demasiadas rebanadas
+El ojo humano compara alturas de barras mucho mejor que ángulos de un círculo. Más de 5 categorías en un pastel es casi siempre una mala idea (Tema 2).
+:::
+
+## 🔍 Sobre valores atípicos
+
+Un valor atípico **no es automáticamente un error de medición** — puede ser:
+1. Un error real de captura o medición (vale la pena corregirlo o eliminarlo, documentando por qué).
+2. Un caso genuinamente distinto que merece investigarse aparte (como una broca excepcionalmente resistente en el Tema 6).
+3. Evidencia de que hay dos poblaciones mezcladas en una sola muestra (como el caso bimodal de Old Faithful).
+
+**Regla práctica:** nunca elimines un atípico solo porque "arruina" el promedio. Investiga primero su origen — la respuesta cambia completamente qué deberías hacer con él.
+
+## 🧮 Sobre el coeficiente de variación
+
+El CV es poderoso porque no tiene unidades, pero tiene una trampa: **solo es interpretable en variables de escala de razón** (con cero absoluto real). En una escala de intervalo como la temperatura en °C, el CV puede cambiar de signo o de magnitud simplemente por mover el punto cero de la escala — es decir, deja de significar algo estable. Antes de calcular un CV, pregúntate: *¿el cero de esta variable representa "ausencia total" de la cantidad?*
+
+## ✅ Checklist antes de reportar cualquier análisis
+
+::: {.card-lab}
+1. ¿Reporté el tamaño de muestra (n)?
+2. ¿Comparé media y mediana para detectar sesgo?
+3. ¿Miré el histograma o boxplot antes de resumir con un solo número?
+4. ¿Investigué los valores atípicos en vez de solo eliminarlos?
+5. ¿El eje Y de mis gráficos empieza en cero (o dejé claro que no)?
+6. ¿La medida de dispersión que usé tiene sentido para el tipo de variable (nominal/ordinal/intervalo/razón)?
+:::
+
+::: {.callout-note}
+## Recuerda
+Ninguna de estas reglas reemplaza pensar en el contexto de tus datos. Son puntos de partida para hacer las preguntas correctas — no respuestas automáticas.
 :::

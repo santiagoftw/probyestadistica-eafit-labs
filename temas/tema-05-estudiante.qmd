@@ -15,11 +15,11 @@ Antes de seguir: si te dijeran que en la Playa A los nidos van de 60 a 110 huevo
 ## 🔬 Exploremos: cuando el promedio no alcanza
 
 ```{r}
-#| eval: false
 playa_a <- c(66, 70, 75, 80, 85, 88, 90, 92, 95, 98, 100, 102, 105, 108, 110)
 playa_b <- c(95, 96, 97, 98, 99, 100, 100, 101, 102, 103, 104, 105)
 
-mean(playa_a); mean(playa_b)
+mean(playa_a)
+mean(playa_b)
 ```
 
 ::: {.ficha-resultado}
@@ -91,17 +91,76 @@ Al ser un cociente entre dos cantidades con las mismas unidades, el coeficiente 
 
 :::
 
+### Propiedades formales bajo transformaciones lineales
+
+Estas propiedades son el tipo de resultado que se espera poder **demostrar**, no solo aplicar — son la base para entender más adelante cómo se comportan la varianza y el rango cuando se estandarizan datos o se cambian unidades de medición.
+
+Sea $x_1, \dots, x_n$ un conjunto de datos, y considere los datos transformados $y_i = a x_i + c$, con $a, c$ constantes ($a \geq 0$).
+
+::: {.panel-tabset}
+
+## Rango bajo traslación
+**Afirmación:** trasladar los datos ($y_i = x_i + c$) no cambia el rango.
+
+**Demostración:** el valor máximo trasladado es $y_{(n)} = x_{(n)} + c$ y el mínimo es $y_{(1)} = x_{(1)} + c$. Entonces:
+$$r_y = y_{(n)} - y_{(1)} = (x_{(n)} + c) - (x_{(1)} + c) = x_{(n)} - x_{(1)} = r_x$$
+$\blacksquare$
+
+## Rango bajo escala
+**Afirmación:** si los datos se multiplican por una constante $a \geq 0$, el rango se multiplica por esa misma constante.
+
+**Demostración:** como $a \geq 0$, el máximo del nuevo conjunto es $y_{(n)} = a\,x_{(n)}$ y el mínimo es $y_{(1)} = a\,x_{(1)}$. Entonces:
+$$r_y = a\,x_{(n)} - a\,x_{(1)} = a\,(x_{(n)} - x_{(1)}) = a\,r_x$$
+$\blacksquare$
+
+**Pregunta abierta (Rincón, 2017):** ¿qué cambia en este resultado si $a < 0$?
+
+## Varianza y desviación estándar
+Puede demostrarse (usando que $\bar{y} = a\bar{x} + c$) que:
+$$s_y^2 = a^2 \, s_x^2 \qquad\qquad s_y = |a| \cdot s_x$$
+
+La traslación ($c$) no afecta ni a la varianza ni a la desviación estándar — tiene sentido intuitivamente: mover todos los datos la misma cantidad no cambia qué tan dispersos están entre sí.
+
+## Coeficiente de variación
+Como $s_y = |a| \cdot s_x$ y $\bar{y} = a\bar{x}$ (bajo un cambio de escala puro, sin traslación):
+
+$$cv(y) = \frac{|a|}{a}\cdot\frac{s_x}{\bar{x}} = \begin{cases} cv(x) & \text{si } a > 0 \\ -cv(x) & \text{si } a < 0 \end{cases}$$
+
+Es decir: bajo un cambio de escala, el CV puede cambiar de **signo**, pero nunca de **magnitud**. Bajo una traslación pura ($y_i = x_i + c$), en cambio, el CV sí cambia de magnitud, porque $cv(y) = s_x / (\bar{x}+c)$ — otra razón por la que el CV no es apropiado en escalas de intervalo, donde el "cero" es arbitrario y se puede trasladar.
+
+:::
+
+::: {.callout-note}
+## Por qué esto importa en la práctica
+Estas propiedades explican, por ejemplo, por qué **estandarizar** una variable ($z_i = (x_i - \bar{x})/s$) siempre produce media 0 y varianza 1 — es una aplicación directa de la traslación por $c=-\bar{x}$ y la escala por $a = 1/s$. Este resultado será la base de la distribución normal estándar en el módulo de probabilidad.
+:::
+El coeficiente de variación solo tiene sentido en variables de **escala de razón** (con cero absoluto real, como peso o tiempo). Nunca lo calcules para una variable de intervalo como la temperatura en °C — el resultado cambia según dónde pongas el cero de la escala, y deja de significar algo estable. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧪 Ejemplo con datos reales
 
+**Paso 1 — Los datos:**
 ```{r}
-#| eval: false
 playa_a <- c(66, 70, 75, 80, 85, 88, 90, 92, 95, 98, 100, 102, 105, 108, 110)
 playa_b <- c(95, 96, 97, 98, 99, 100, 100, 101, 102, 103, 104, 105)
+```
 
-range(playa_a); range(playa_b)
-sd(playa_a); sd(playa_b)
-sd(playa_a) / mean(playa_a)  # coeficiente de variación, Playa A
-sd(playa_b) / mean(playa_b)  # coeficiente de variación, Playa B
+**Paso 2 — Rango de cada playa:**
+```{r}
+range(playa_a)
+range(playa_b)
+```
+
+**Paso 3 — Desviación estándar de cada playa:**
+```{r}
+sd(playa_a)
+sd(playa_b)
+```
+
+**Paso 4 — Coeficiente de variación (para comparar dispersión relativa):**
+```{r}
+sd(playa_a) / mean(playa_a)  # Playa A
+sd(playa_b) / mean(playa_b)  # Playa B
 ```
 
 ::: {.callout-important}

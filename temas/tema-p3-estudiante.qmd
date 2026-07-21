@@ -1,0 +1,120 @@
+---
+title: "Tema P3 · Probabilidad total y Teorema de Bayes"
+---
+
+::: {.hero-motivacion}
+## 🕵️ Un producto causó una queja. ¿Estaba defectuoso?
+
+En una fábrica, el 30% de los productos son defectuosos. Un producto defectuoso causa una queja con probabilidad 0.8; uno no defectuoso, con probabilidad 0.1. Si llega una queja, ¿qué tan probable es que el producto detrás de ella fuera realmente defectuoso?
+:::
+
+::: {.ficha-prediccion}
+Antes de calcular: ¿tu intuición te dice que esa probabilidad estará más cerca de 30% (la tasa base de defectos) o mucho más alta? ¿Por qué?
+:::
+
+## 🔬 Exploremos: combinando dos fuentes de información
+
+```{r}
+p_defectuoso <- 0.3
+p_no_defectuoso <- 1 - p_defectuoso
+p_queja_dado_defectuoso <- 0.8
+p_queja_dado_no_defectuoso <- 0.1
+
+# Paso 1: probabilidad total de que ocurra una queja (venga de donde venga)
+p_queja <- p_queja_dado_defectuoso * p_defectuoso + p_queja_dado_no_defectuoso * p_no_defectuoso
+p_queja
+```
+
+```{r}
+# Paso 2: invertir la condicional con Bayes
+p_defectuoso_dado_queja <- (p_queja_dado_defectuoso * p_defectuoso) / p_queja
+p_defectuoso_dado_queja
+```
+
+::: {.ficha-resultado}
+Compara `p_defectuoso` (30%) con `p_defectuoso_dado_queja`. ¿Subió mucho? La queja es información valiosa: cambia sustancialmente tu estimación inicial.
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Por qué la probabilidad "a posteriori" (después de la queja) es tan distinta de la probabilidad "a priori" (30%)? ¿Qué papel juega el hecho de que un producto defectuoso sea 8 veces más propenso a generar queja que uno bueno?
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Ley de probabilidad total
+Si $B_1, B_2, \dots, B_k$ son eventos que particionan el espacio muestral (mutuamente excluyentes y cubren todos los casos), entonces para cualquier evento $A$:
+
+$$P(A) = \sum_{i=1}^{k} P(A|B_i)\cdot P(B_i)$$
+
+Es una forma de calcular una probabilidad "global" combinando información de cada escenario posible, ponderada por qué tan probable es cada escenario.
+
+## Teorema de Bayes
+Permite **invertir** una condicional: partiendo de $P(A|B_i)$, obtener $P(B_i|A)$:
+
+$$P(B_i|A) = \frac{P(A|B_i)\cdot P(B_i)}{P(A)} = \frac{P(A|B_i)\cdot P(B_i)}{\sum_j P(A|B_j)\cdot P(B_j)}$$
+
+El denominador es exactamente la ley de probabilidad total — por eso ambas ideas casi siempre aparecen juntas.
+
+## Vocabulario
+- $P(B_i)$: probabilidad **a priori** (antes de observar evidencia).
+- $P(B_i|A)$: probabilidad **a posteriori** (después de observar el evento $A$).
+- $P(A|B_i)$: verosimilitud — qué tan compatible es la evidencia con cada escenario.
+
+:::
+
+::: {.callout-important}
+## El error más común
+Confundir $P(A|B)$ con $P(B|A)$ — en el ejemplo, confundir "la probabilidad de queja dado que es defectuoso" (0.8, un dato del problema) con "la probabilidad de ser defectuoso dado que hubo queja" (0.774, lo que realmente se preguntaba). Son números parecidos aquí por coincidencia numérica, pero conceptualmente son preguntas completamente distintas — y en muchos problemas reales (como pruebas médicas) pueden diferir dramáticamente.
+:::
+
+## 🧪 Ejemplo con datos reales (líneas de ensamblaje)
+
+Con las 3 líneas del Tema P2: $P(D|L_1)=0.02$, $P(D|L_2)=0.05$, $P(D|L_3)=0.03$; $P(L_1)=0.4$, $P(L_2)=0.35$, $P(L_3)=0.25$.
+
+**Paso 1 — Probabilidad total de que un producto sea defectuoso:**
+```{r}
+p_D_L1 <- 0.02; p_D_L2 <- 0.05; p_D_L3 <- 0.03
+p_L1 <- 0.4; p_L2 <- 0.35; p_L3 <- 0.25
+
+p_D <- p_D_L1*p_L1 + p_D_L2*p_L2 + p_D_L3*p_L3
+p_D
+```
+
+**Paso 2 — Dado que un producto es defectuoso, ¿de qué línea es más probable que venga? (Bayes)**
+```{r}
+p_L1_dado_D <- (p_D_L1 * p_L1) / p_D
+p_L2_dado_D <- (p_D_L2 * p_L2) / p_D
+p_L3_dado_D <- (p_D_L3 * p_L3) / p_D
+
+c(L1 = p_L1_dado_D, L2 = p_L2_dado_D, L3 = p_L3_dado_D)
+```
+
+## 🧑‍🔬 Laboratorio
+
+Con dos máquinas: A produce 60% de los productos con 20% de tasa de defecto; B produce 40% con 50% de tasa de defecto.
+
+1. Calcula la probabilidad total de que un producto sea defectuoso.
+2. Dado que un producto es defectuoso, calcula la probabilidad de que haya sido producido por la máquina B (Bayes).
+3. ¿Tiene sentido que esa probabilidad sea considerablemente mayor al 40% de producción de B? Explica por qué.
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Aplicación de probabilidad total con 2 y 3 escenarios, cálculo de Bayes paso a paso, identificación del error de invertir condicionales:
+
+[Abrir ejercicios del Tema P3 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La ley de probabilidad total combina información de varios escenarios mutuamente excluyentes, ponderada por su probabilidad de ocurrencia.
+- Bayes invierte una condicional: de $P(A|B)$ conocida, obtiene $P(B|A)$ — la pregunta que realmente suele importar en la práctica.
+- La probabilidad a posteriori puede ser muy distinta de la a priori cuando la evidencia es fuertemente informativa (verosimilitudes muy distintas entre escenarios).
+:::

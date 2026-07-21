@@ -17,12 +17,16 @@ Escribe tu predicción antes de seguir leyendo: ¿cuántas caras esperas en 100 
 Este código simula 100 lanzamientos de una moneda (1 = cara, 0 = sello). Ejecútalo en tu sesión de Posit Cloud y anota el resultado.
 
 ```{r}
-#| eval: false
-set.seed(NULL)  # cada corrida es distinta a propósito
+set.seed(2026)  # fijamos la semilla para que este resultado sea reproducible en el sitio
 lanzamientos <- sample(c(0, 1), size = 100, replace = TRUE)
 sum(lanzamientos)      # número de caras
 mean(lanzamientos)     # proporción de caras
 ```
+
+::: {.callout-tip}
+## Importante sobre la semilla
+El resultado de arriba siempre va a ser el mismo cada vez que se renderiza el sitio, porque fijamos `set.seed(2026)`. **En tu propia sesión de R, quita esa línea** (o cambia el número) para ver que el resultado sí cambia entre corridas — esa es la aleatoriedad real que estamos explorando.
+:::
 
 ::: {.ficha-resultado}
 Corre el código **dos veces seguidas** sin cambiar nada. ¿Obtuviste el mismo número de caras ambas veces?
@@ -100,16 +104,33 @@ Cada vez que R "lanza la moneda" con `sample()`, genera un resultado distinto po
 
 :::
 
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Si alguien te muestra "el resultado" de un solo experimento aleatorio (una encuesta pequeña, una sola corrida de un simulacro), pregúntate: **¿este resultado se parecería a otra corrida del mismo experimento?** Con `n` pequeño, la respuesta suele ser "no mucho" — desconfía de conclusiones fuertes basadas en pocas repeticiones. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧪 Ejemplo con datos reales
 
-`mtcars` es un conjunto de datos real de 32 autos, incluido en R (no necesitas descargar nada).
+`mtcars` es un conjunto de datos real de 32 autos, incluido en R (no necesitas descargar nada). Vamos paso a paso.
 
+**Paso 1 — Cargar los datos:**
 ```{r}
-#| eval: false
 data(mtcars)
-length(mtcars$mpg)      # ¿cuántos autos hay?
-mean(mtcars$mpg)        # rendimiento promedio (millas por galón)
-table(mtcars$cyl)       # ¿cuántos autos de 4, 6 y 8 cilindros hay?
+```
+
+**Paso 2 — ¿Cuántos autos hay?**
+```{r}
+length(mtcars$mpg)
+```
+
+**Paso 3 — Rendimiento promedio (millas por galón):**
+```{r}
+mean(mtcars$mpg)
+```
+
+**Paso 4 — ¿Cuántos autos hay de 4, 6 y 8 cilindros?**
+```{r}
+table(mtcars$cyl)
 ```
 
 ## 🧑‍🔬 Laboratorio

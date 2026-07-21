@@ -1,0 +1,119 @@
+---
+title: "Tema P7 · Distribuciones continuas: Uniforme y Normal"
+---
+
+::: {.hero-motivacion}
+## 📱 ¿Qué percentil de satisfacción es "8.5 sobre 10"?
+
+Las puntuaciones de satisfacción de una app siguen (según registros históricos) una distribución normal con media 7 y desviación estándar 1.5. Sin encuestar a nadie más, ¿puedes calcular qué proporción de usuarios calificaría por debajo de 6? ¿O qué puntuación marca el percentil 85?
+:::
+
+::: {.ficha-prediccion}
+Antes de calcular: ¿crees que la probabilidad de una puntuación menor a 6 es más cercana a 10%, 25% o 50%? Ten en cuenta que 6 está a menos de una desviación estándar por debajo de la media.
+:::
+
+## 🔬 Exploremos: de la teoría a la probabilidad
+
+```{r}
+media_satisfaccion <- 7
+sd_satisfaccion <- 1.5
+
+# Probabilidad de puntuación menor a 6
+pnorm(6, mean = media_satisfaccion, sd = sd_satisfaccion)
+```
+
+::: {.ficha-resultado}
+`pnorm()` calcula exactamente la FDA normal — la probabilidad acumulada hasta ese punto. ¿Coincidió con tu predicción inicial?
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Qué función usarías para el problema inverso: "¿qué puntuación corresponde al percentil 85?", en vez de "¿qué probabilidad corresponde a la puntuación 6?"
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Distribución Uniforme continua
+Todos los valores en $[a,b]$ son igualmente probables:
+
+$$f(x) = \frac{1}{b-a}, \quad a\le x\le b \qquad \mu=\frac{a+b}{2} \qquad \sigma^2=\frac{(b-a)^2}{12}$$
+
+En R: `runif(n, min=a, max=b)` simula; `dunif()`, `punif()`, `qunif()` completan el conjunto de funciones.
+
+## Distribución Normal
+La distribución en forma de campana, caracterizada por su media $\mu$ y desviación estándar $\sigma$:
+
+$$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-(x-\mu)^2/2\sigma^2}$$
+
+Las cuatro funciones de R que necesitas dominar:
+
+| Función | Responde |
+|---|---|
+| `dnorm(x, mean, sd)` | Altura de la curva de densidad en $x$ |
+| `pnorm(x, mean, sd)` | $P(X \le x)$ — la FDA |
+| `qnorm(p, mean, sd)` | El valor $x$ tal que $P(X\le x)=p$ — el cuantil |
+| `rnorm(n, mean, sd)` | Simula $n$ observaciones |
+
+## La familia `d/p/q/r`
+Este patrón de 4 letras (`d`, `p`, `q`, `r`) se repite para **todas** las distribuciones en R (`dbinom/pbinom/qbinom/rbinom`, `dunif/punif/qunif/runif`, etc.) — aprenderlo una vez para la normal te sirve para cualquier distribución que uses después.
+
+:::
+
+## 🧪 Ejemplo con datos reales
+
+**Caso 1 — Estimar media y varianza de una uniforme por simulación:**
+```{r}
+a <- 2; b <- 5
+set.seed(10)
+muestra_uniforme <- runif(1000, min = a, max = b)
+
+mean(muestra_uniforme)
+(a + b) / 2       # media teórica
+
+var(muestra_uniforme)
+(b - a)^2 / 12    # varianza teórica
+```
+
+**Caso 2 — Tres preguntas sobre la satisfacción normal:**
+```{r}
+# ¿Intervalo del 80% central de las puntuaciones?
+qnorm(c(0.1, 0.9), mean = media_satisfaccion, sd = sd_satisfaccion)
+
+# ¿Qué puntuación corresponde al percentil 85?
+qnorm(0.85, mean = media_satisfaccion, sd = sd_satisfaccion)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+`pnorm()` va de un valor $x$ a una probabilidad; `qnorm()` hace exactamente lo inverso: de una probabilidad a un valor $x$. Son funciones inversas entre sí — como `sqrt()` y elevar al cuadrado.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+Con el tiempo de respuesta de un sistema, normal con media 200 ms y desviación estándar 30 ms:
+
+1. Calcula la probabilidad de que el tiempo de respuesta sea mayor a 250 ms.
+2. Calcula el intervalo donde se encuentra el 95% central de los tiempos de respuesta.
+3. Calcula el valor de tiempo de respuesta correspondiente al percentil 10.
+4. Con `rnorm()`, simula 10,000 tiempos de respuesta y verifica el resultado del punto 1 contando qué proporción de tu muestra simulada supera 250 ms.
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Distinción entre cuándo usar `pnorm()` vs. `qnorm()`, cálculo de intervalos centrales con distintos niveles de confianza, estimación de parámetros de una uniforme por simulación:
+
+[Abrir ejercicios del Tema P7 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La familia `d/p/q/r` se repite en todas las distribuciones de R: densidad, acumulada, cuantil, simulación.
+- `pnorm()` va de un valor a una probabilidad; `qnorm()` va de una probabilidad a un valor — son inversas.
+- La distribución uniforme modela "todo es igualmente probable en un rango"; la normal, con su forma de campana, es el modelo de referencia para fenómenos que se agrupan alrededor de un valor central.
+:::

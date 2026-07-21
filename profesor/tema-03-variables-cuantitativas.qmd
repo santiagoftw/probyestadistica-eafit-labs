@@ -175,7 +175,7 @@ Estructura esperada del script:
 
 Resolver paso a paso con `faithful$eruptions` (272 observaciones):
 - código: cálculo de $k = 1 + 3.3 \log_{10}(272)$
-- salida: $k \approx 9.2$, se redondea a 9 clases
+- salida: $k \approx 9.03$, se redondea a 9 clases
 - interpretación: con 9 clases el histograma ya deja ver las dos montañas — comparar contra el resultado con solo 3 clases, donde se pierden.
 
 ---

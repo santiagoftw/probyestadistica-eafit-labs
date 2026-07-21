@@ -1,0 +1,123 @@
+---
+title: "Tema P10 · Funciones de variables aleatorias y simulación de sistemas"
+---
+
+::: {.hero-motivacion}
+## ⚙️ ¿Cuál componente falla primero?
+
+Un sistema mecánico tiene dos componentes, A y B, con tiempos de falla exponenciales independientes: A con tasa $\lambda=0.1$, B con tasa $\lambda=0.2$. ¿Cuál es la probabilidad de que el sistema falle por causa de A, antes que por B?
+:::
+
+::: {.ficha-prediccion}
+Antes de calcular: B tiene una tasa de falla más alta que A (0.2 vs. 0.1) — es decir, B tiende a fallar más rápido en promedio. ¿Eso hace que la probabilidad de que A falle primero sea mayor o menor a 50%?
+:::
+
+## 🔬 Exploremos: simulando una carrera de fallas
+
+```{r}
+set.seed(123)
+lambda_A <- 0.1
+lambda_B <- 0.2
+n_sim <- 10000
+
+tiempos_A <- rexp(n_sim, rate = lambda_A)
+tiempos_B <- rexp(n_sim, rate = lambda_B)
+
+prob_A_antes_B <- mean(tiempos_A < tiempos_B)
+prob_A_antes_B
+```
+
+::: {.ficha-resultado}
+¿El resultado confirmó tu predicción? Como B tiene tasa de falla más alta, tiende a fallar *más rápido* — por lo tanto A gana la "carrera" con menos frecuencia de lo que un 50-50 sugeriría.
+:::
+
+::: {.callout-tip}
+## Pregunta guía
+¿Por qué una tasa de falla ($\lambda$) más alta implica un tiempo de falla esperado más *corto*? (pista: revisa la relación $E[X]=1/\lambda$ de la exponencial, Tema P5)
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## Función de una variable aleatoria
+Si $Y=g(X)$ para alguna función $g$, y conoces la distribución de $X$, puedes obtener las propiedades de $Y$ analíticamente (a veces) o — mucho más práctico en ingeniería — **por simulación**: generas muchos valores de $X$, aplicas $g$, y resumes los valores de $Y$ resultantes con las herramientas del Módulo 1.
+
+## Combinación de variables aleatorias
+Sumas, productos, mínimos y máximos de variables aleatorias son casos particulares de "función de varias variables aleatorias". Por ejemplo, si $F_1, F_2$ son dos fuerzas normales independientes, $F_{total}=F_1+F_2$ es simplemente otra variable aleatoria, cuya distribución se puede simular directamente sumando las simulaciones de cada una.
+
+## El mínimo de dos exponenciales
+El caso "¿cuál componente falla primero?" es el mínimo de dos variables aleatorias. Se puede demostrar analíticamente que si $A\sim Exp(\lambda_A)$ y $B\sim Exp(\lambda_B)$ son independientes:
+
+$$P(A < B) = \frac{\lambda_A}{\lambda_A+\lambda_B}$$
+
+:::
+
+::: {.callout-important}
+## Verificación analítica vs. simulación
+Para el ejemplo de arriba: $P(A<B) = 0.1/(0.1+0.2) = 0.333...$ — muy cercano al `prob_A_antes_B` que obtuviste por simulación. Cuando existe una fórmula cerrada, siempre es buena práctica usar la simulación como **verificación**, no como único método.
+:::
+
+## 🧪 Ejemplo con datos reales: portafolio de inversión
+
+Un portafolio con 60% en el activo A ($\mu=8\%$, $\sigma=12\%$) y 40% en el activo B ($\mu=6\%$, $\sigma=10\%$), correlacionados con $\rho=0.5$.
+
+```{r}
+#| message: false
+library(MASS)
+
+mean_A <- 0.08; sd_A <- 0.12
+mean_B <- 0.06; sd_B <- 0.10
+correlacion <- 0.5
+
+cov_matrix <- matrix(c(sd_A^2, correlacion*sd_A*sd_B,
+                        correlacion*sd_A*sd_B, sd_B^2), 2, 2)
+
+set.seed(123)
+normal_vars <- mvrnorm(10000, mu = c(mean_A, mean_B), Sigma = cov_matrix)
+
+peso_A <- 0.6; peso_B <- 0.4
+rentabilidad_portafolio <- peso_A * normal_vars[,1] + peso_B * normal_vars[,2]
+
+mean(rentabilidad_portafolio)
+sd(rentabilidad_portafolio)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+La desviación estándar del portafolio combinado es **menor** que un promedio ponderado ingenuo de las desviaciones individuales ($0.6\times0.12 + 0.4\times0.10 = 0.112$) — este es el efecto de diversificación: combinar activos correlacionados (pero no perfectamente) reduce el riesgo total.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+El crecimiento del PIB se modela como $Crecimiento(t) = \alpha + \beta t + \epsilon$, con $\alpha=2\%$, $\beta=1\%$ por año, $\epsilon \sim N(0, 0.5\%^2)$, para $t=1,\dots,30$.
+
+1. Simula 10,000 trayectorias completas del crecimiento (una matriz de 10,000 × 30).
+2. Extrae el crecimiento del año 30 para cada simulación.
+3. Calcula la media y desviación estándar del crecimiento en el último año. ¿Coincide la media con lo que esperarías analíticamente de $\alpha + \beta\cdot 30$?
+
+## ✅ Ejercicios autocorregibles
+
+::: {.callout-important}
+## Ejercicio interactivo (learnr)
+Simulación de sistemas con componentes en competencia, combinación de variables aleatorias correlacionadas, verificación de fórmulas analíticas contra simulación:
+
+[Abrir ejercicios del Tema P10 →](#)
+
+*(Enlace pendiente: se activa cuando publiquemos el tutorial learnr.)*
+:::
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Cuando $Y=g(X)$ no tiene fórmula analítica simple, la simulación es la herramienta práctica: generar $X$, aplicar $g$, resumir $Y$.
+- El mínimo de dos exponenciales independientes tiene fórmula cerrada — úsala para verificar tus simulaciones, no como sustituto de ellas.
+- Combinar variables correlacionadas (como en un portafolio) reduce el riesgo total por debajo del promedio ponderado ingenuo — el efecto de diversificación, visible directamente en la simulación.
+:::
+
+---
+
+::: {.callout-tip}
+## 🎓 Fin del Módulo 2 (arquitectura completa)
+Con este tema se completan los 10 temas planeados del Módulo 2 — desde reglas básicas de probabilidad hasta simulación de sistemas correlacionados. El siguiente paso natural del curso sería un Módulo 3 de inferencia estadística (estimación, intervalos de confianza, pruebas de hipótesis), construido con la misma filosofía de descubrimiento.
+:::

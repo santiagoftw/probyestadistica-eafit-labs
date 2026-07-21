@@ -15,7 +15,6 @@ Antes de ver los datos: si la mayoría de las brocas duran entre 150 y 220 hueco
 ## 🔬 Exploremos: los datos reales
 
 ```{r}
-#| eval: false
 duracion <- c(30,118,120,123,125,127,130,136,139,141,155,156,158,159,
               160,160,161,168,170,171,172,174,175,178,178,177,184,185,
               187,191,191,194,197,199,201,206,208,210,211,217,248,263,
@@ -91,10 +90,15 @@ Los datos que caen fuera de estos brazos se consideran **valores atípicos**. Co
 
 :::
 
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Un boxplot es excelente para detectar atípicos y comparar dispersión, pero **oculta la forma exacta** de la distribución: no distingue una distribución unimodal de una bimodal, porque ambas pueden producir una caja parecida. Combínalo siempre con un histograma antes de sacar conclusiones sobre la forma de los datos. Y recuerda: un valor atípico no se elimina automáticamente — primero se investiga su origen. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧪 Ejemplo con datos reales
 
+**Paso 1 — Los datos y los tres cuartiles:**
 ```{r}
-#| eval: false
 duracion <- c(30,118,120,123,125,127,130,136,139,141,155,156,158,159,
               160,160,161,168,170,171,172,174,175,178,178,177,184,185,
               187,191,191,194,197,199,201,206,208,210,211,217,248,263,
@@ -103,20 +107,30 @@ duracion <- c(30,118,120,123,125,127,130,136,139,141,155,156,158,159,
 Q1 <- quantile(duracion, 0.25)
 Q2 <- quantile(duracion, 0.50)
 Q3 <- quantile(duracion, 0.75)
-ric <- IQR(duracion)
-
-Q1; Q2; Q3; ric
-
-# Vallas internas
-Q1 - 1.5 * ric
-Q3 + 1.5 * ric
-
-# Vallas externas (atípicos extremos)
-Q1 - 3 * ric
-Q3 + 3 * ric
+Q1
+Q2
+Q3
 ```
 
-Con estos datos: $Q_1 = 158$, $Q_2 = 178$, $Q_3 = 208$, por lo que $RIC = 50$. La valla interna superior queda en $208 + 1.5(50) = 283$ — por lo tanto, **388, 513 y 520 son valores atípicos** según esta regla.
+**Paso 2 — Rango intercuartílico:**
+```{r}
+ric <- IQR(duracion)
+ric
+```
+
+**Paso 3 — Vallas internas (límite de valores atípicos):**
+```{r}
+Q1 - 1.5 * ric  # valla interna inferior
+Q3 + 1.5 * ric  # valla interna superior
+```
+
+**Paso 4 — Vallas externas (límite de atípicos extremos):**
+```{r}
+Q1 - 3 * ric  # valla externa inferior
+Q3 + 3 * ric  # valla externa superior
+```
+
+Con estos datos: $Q_1 = 158$, $Q_2 = 178$, $Q_3 = 208$, por lo que $RIC = 50$. La valla interna superior queda en $208 + 1.5(50) = 283$ — por lo tanto, **289, 322, 388, 513 y 520 son valores atípicos** según esta regla (los cinco valores del conjunto que superan 283, no solo los tres más extremos).
 
 ## 🧑‍🔬 Laboratorio
 
