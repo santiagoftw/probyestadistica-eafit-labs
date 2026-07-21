@@ -1,0 +1,60 @@
+<svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <!-- raíz -->
+  <rect x="320" y="20" width="160" height="50" rx="4" fill="#004B85"/>
+  <text x="400" y="51" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">VARIABLE</text>
+
+  <!-- líneas raíz -> ramas -->
+  <line x1="400" y1="70" x2="400" y2="100" stroke="#004B85" stroke-width="2"/>
+  <line x1="180" y1="100" x2="620" y2="100" stroke="#004B85" stroke-width="2"/>
+  <line x1="180" y1="100" x2="180" y2="130" stroke="#004B85" stroke-width="2"/>
+  <line x1="620" y1="100" x2="620" y2="130" stroke="#004B85" stroke-width="2"/>
+
+  <!-- rama cualitativa -->
+  <rect x="80" y="130" width="200" height="50" rx="4" fill="#ffffff" stroke="#004B85" stroke-width="2"/>
+  <text x="180" y="161" text-anchor="middle" fill="#004B85" font-size="16" font-weight="700">CUALITATIVA</text>
+
+  <!-- rama cuantitativa -->
+  <rect x="520" y="130" width="200" height="50" rx="4" fill="#ffffff" stroke="#004B85" stroke-width="2"/>
+  <text x="620" y="161" text-anchor="middle" fill="#004B85" font-size="16" font-weight="700">CUANTITATIVA</text>
+
+  <!-- subramas cualitativa -->
+  <line x1="180" y1="180" x2="180" y2="205" stroke="#004B85" stroke-width="2"/>
+  <line x1="90" y1="205" x2="270" y2="205" stroke="#004B85" stroke-width="2"/>
+  <line x1="90" y1="205" x2="90" y2="230" stroke="#004B85" stroke-width="2"/>
+  <line x1="270" y1="205" x2="270" y2="230" stroke="#004B85" stroke-width="2"/>
+
+  <rect x="20" y="230" width="140" height="46" rx="4" fill="#FFB903"/>
+  <text x="90" y="259" text-anchor="middle" fill="#004B85" font-size="14" font-weight="700">NOMINAL</text>
+
+  <rect x="200" y="230" width="140" height="46" rx="4" fill="#FFB903"/>
+  <text x="270" y="259" text-anchor="middle" fill="#004B85" font-size="14" font-weight="700">ORDINAL</text>
+
+  <text x="90" y="296" text-anchor="middle" fill="#2B2B2B" font-size="11">sin orden natural</text>
+  <text x="90" y="312" text-anchor="middle" fill="#2B2B2B" font-size="11">ej: color, sexo</text>
+
+  <text x="270" y="296" text-anchor="middle" fill="#2B2B2B" font-size="11">con orden natural</text>
+  <text x="270" y="312" text-anchor="middle" fill="#2B2B2B" font-size="11">ej: satisfacción</text>
+
+  <!-- subramas cuantitativa -->
+  <line x1="620" y1="180" x2="620" y2="205" stroke="#004B85" stroke-width="2"/>
+  <line x1="530" y1="205" x2="710" y2="205" stroke="#004B85" stroke-width="2"/>
+  <line x1="530" y1="205" x2="530" y2="230" stroke="#004B85" stroke-width="2"/>
+  <line x1="710" y1="205" x2="710" y2="230" stroke="#004B85" stroke-width="2"/>
+
+  <rect x="460" y="230" width="140" height="46" rx="4" fill="#4B8BC2"/>
+  <text x="530" y="259" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">DISCRETA</text>
+
+  <rect x="640" y="230" width="140" height="46" rx="4" fill="#4B8BC2"/>
+  <text x="710" y="259" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">CONTINUA</text>
+
+  <text x="530" y="296" text-anchor="middle" fill="#2B2B2B" font-size="11">valores contables</text>
+  <text x="530" y="312" text-anchor="middle" fill="#2B2B2B" font-size="11">ej: n° de hijos</text>
+
+  <text x="710" y="296" text-anchor="middle" fill="#2B2B2B" font-size="11">cualquier valor en un rango</text>
+  <text x="710" y="312" text-anchor="middle" fill="#2B2B2B" font-size="11">ej: peso, tiempo</text>
+
+  <!-- nota inferior -->
+  <rect x="140" y="350" width="520" height="50" rx="4" fill="none" stroke="#FFB903" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="400" y="372" text-anchor="middle" fill="#004B85" font-size="12" font-weight="700">El tipo de variable determina</text>
+  <text x="400" y="390" text-anchor="middle" fill="#004B85" font-size="12" font-weight="700">qué resumen y qué gráfico son válidos</text>
+</svg>

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Ejercicios propuestos · Módulo 1 (Estadística descriptiva) – Estadística Descriptiva — Curso interactivo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../temas/modulo-2-arquitectura.html" rel="next">
+<link href="../temas/tema-08-estudiante.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Descriptiva — Curso interactivo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentacion.html"> 
+<span class="menu-text">Presentación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../programa.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../laboratorios.html"> 
+<span class="menu-text">Laboratorios</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recursos.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/tema-00-estudiante.html">Módulo 1 — Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-modulo1.html">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../presentacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación del curso</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../programa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 1 — Estadística descriptiva</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 0 · R como laboratorio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 1 · Datos, población y variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 2 · Variables cualitativas: tablas y gráficas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 3 · Variables cuantitativas: histograma y forma de los datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 4 · Medidas de tendencia central</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 5 · Medidas de dispersión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 6 · Cuantiles y boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 7 · Momentos, asimetría y curtosis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 2 — Probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Módulo 2 · Probabilidad — Arquitectura</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P1 · Reglas básicas de probabilidad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P2 · Probabilidad condicional y regla multiplicativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P3 · Probabilidad total y Teorema de Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P4 · Independencia de eventos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P5 · Variables aleatorias y función de distribución acumulada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6 · Distribuciones discretas: Binomial y Poisson</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P7 · Distribuciones continuas: Uniforme y Normal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P8 · Distribución de probabilidad multivariada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P9 · Covarianza y correlación de variables aleatorias</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P10 · Funciones de variables aleatorias y simulación de sistemas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laboratorios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratorio integrador · Producción mundial de energía renovable</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trucos de interpretación estadística</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#ejercicios-para-resolver-por-tu-cuenta" id="toc-ejercicios-para-resolver-por-tu-cuenta" class="nav-link active" data-scroll-target="#ejercicios-para-resolver-por-tu-cuenta">🏋️ Ejercicios para resolver por tu cuenta</a></li>
+  <li><a href="#tema-1-clasificación-de-variables" id="toc-tema-1-clasificación-de-variables" class="nav-link" data-scroll-target="#tema-1-clasificación-de-variables">Tema 1 · Clasificación de variables</a></li>
+  <li><a href="#tema-2-frecuencias-y-gráficas-cualitativas" id="toc-tema-2-frecuencias-y-gráficas-cualitativas" class="nav-link" data-scroll-target="#tema-2-frecuencias-y-gráficas-cualitativas">Tema 2 · Frecuencias y gráficas cualitativas</a></li>
+  <li><a href="#tema-4-tendencia-central" id="toc-tema-4-tendencia-central" class="nav-link" data-scroll-target="#tema-4-tendencia-central">Tema 4 · Tendencia central</a></li>
+  <li><a href="#tema-5-dispersión" id="toc-tema-5-dispersión" class="nav-link" data-scroll-target="#tema-5-dispersión">Tema 5 · Dispersión</a></li>
+  <li><a href="#tema-6-cuantiles-y-boxplot" id="toc-tema-6-cuantiles-y-boxplot" class="nav-link" data-scroll-target="#tema-6-cuantiles-y-boxplot">Tema 6 · Cuantiles y boxplot</a></li>
+  <li><a href="#tema-7-momentos-asimetría-y-curtosis" id="toc-tema-7-momentos-asimetría-y-curtosis" class="nav-link" data-scroll-target="#tema-7-momentos-asimetría-y-curtosis">Tema 7 · Momentos, asimetría y curtosis</a></li>
+  <li><a href="#tema-8-datos-conjuntos" id="toc-tema-8-datos-conjuntos" class="nav-link" data-scroll-target="#tema-8-datos-conjuntos">Tema 8 · Datos conjuntos</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/tema-00-estudiante.html">Módulo 1 — Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-modulo1.html">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ejercicios-para-resolver-por-tu-cuenta" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="ejercicios-para-resolver-por-tu-cuenta">🏋️ Ejercicios para resolver por tu cuenta</h2>
+<p>A diferencia de los “Laboratorios” de cada tema (que traen solución guiada), estos ejercicios son <strong>para que los resuelvas tú solo</strong>, tal como aparecen en el libro de Rincón (2017) o en los laboratorios reales del curso. No hay solución aquí — si te trabas, vuelve a la teoría del tema correspondiente.</p>
+</section>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Cómo usar esta página
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cada bloque indica a qué tema del sitio corresponde, para que repases la teoría antes de intentarlo. Resuelve primero a mano cuando sea razonable, y verifica después en R.</p>
+</div>
+</div>
+<hr>
+<section id="tema-1-clasificación-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="tema-1-clasificación-de-variables">Tema 1 · Clasificación de variables</h2>
+<p><strong>Fuente:</strong> ejercicios de clasificación estilo Rincón (2017), Cap. 1.</p>
+<ol type="1">
+<li>Para cada una de las siguientes variables, indica si es cualitativa (nominal/ordinal) o cuantitativa (discreta/continua), y su escala de medición: (a) temperatura corporal en °C, (b) número de hermanos, (c) nivel de dolor reportado en una escala de 1 a 10, (d) placa de un vehículo, (e) tiempo de reacción en milisegundos, (f) talla de camiseta (S/M/L/XL).</li>
+<li>Da un ejemplo propio (no visto en clase) de una variable de cada una de las 4 escalas de medición (nominal, ordinal, intervalo, razón).</li>
+</ol>
+<hr>
+</section>
+<section id="tema-2-frecuencias-y-gráficas-cualitativas" class="level2">
+<h2 class="anchored" data-anchor-id="tema-2-frecuencias-y-gráficas-cualitativas">Tema 2 · Frecuencias y gráficas cualitativas</h2>
+<p><strong>Fuente:</strong> adaptado de Rincón (2017), Cap. 2-3, sección de frecuencias.</p>
+<ol start="3" type="1">
+<li>Una variable cualitativa ordinal con valores <span class="math inline">\(A &lt; B &lt; C &lt; D &lt; E &lt; F\)</span> produce las siguientes frecuencias observadas: <span class="math inline">\(f_A=5\)</span>, <span class="math inline">\(f_B=8\)</span>, <span class="math inline">\(f_C=?\)</span>, <span class="math inline">\(f_D=10\)</span>, <span class="math inline">\(f_E=?\)</span>, <span class="math inline">\(f_F=3\)</span>, con un total de <span class="math inline">\(n=50\)</span> observaciones y <span class="math inline">\(f_C = 2\cdot f_E\)</span>. Completa la tabla de frecuencias (absolutas, relativas, acumuladas) y construye la gráfica de frecuencia acumulada.</li>
+<li>Explica, sin hacer ningún cálculo, por qué no tiene sentido calcular una “frecuencia acumulada” para la variable “color favorito”.</li>
+</ol>
+<hr>
+</section>
+<section id="tema-4-tendencia-central" class="level2">
+<h2 class="anchored" data-anchor-id="tema-4-tendencia-central">Tema 4 · Tendencia central</h2>
+<p><strong>Fuente:</strong> Rincón (2017), Cap. 2, ejercicios de medidas de localización.</p>
+<ol start="5" type="1">
+<li>Sea <span class="math inline">\(x_1,\dots,x_n\)</span> un conjunto de datos con media <span class="math inline">\(\bar{x}\)</span> y desviación estándar <span class="math inline">\(s_x&gt;0\)</span>. Los datos se transforman en <span class="math inline">\(y_i=(x_i-\bar{x})/s_x\)</span>. Comprueba (a mano, con álgebra) que <span class="math inline">\(\bar{y}=0\)</span> y <span class="math inline">\(s_y^2=1\)</span>.</li>
+<li>Con los datos <span class="math inline">\(\{1, 3, 3, 4, 5, 5, 5, 7\}\)</span>: calcula media, mediana y moda(s) a mano. ¿El conjunto es unimodal, bimodal o multimodal?</li>
+<li>Con las notas de dos estudiantes: Estudiante 1 = <span class="math inline">\(\{2.0, 3.5, 5.0\}\)</span>, Estudiante 2 = <span class="math inline">\(\{3.4, 3.5, 3.6\}\)</span> (ejemplo de Contento Rubio). Calcula la media de ambos. ¿Qué información importante se pierde si solo reportas la media de cada uno?</li>
+</ol>
+<hr>
+</section>
+<section id="tema-5-dispersión" class="level2">
+<h2 class="anchored" data-anchor-id="tema-5-dispersión">Tema 5 · Dispersión</h2>
+<p><strong>Fuente:</strong> Rincón (2017), Cap. 2, ejercicios de rango y coeficiente de variación.</p>
+<ol start="8" type="1">
+<li>Calcula el rango de cada conjunto: (a) <span class="math inline">\(0,1,2,\dots,10\)</span>; (b) <span class="math inline">\(10,9,8,\dots,0\)</span>; (c) <span class="math inline">\(-10,-9,\dots,0\)</span>. ¿Qué tienen en común los tres resultados? ¿Por qué?</li>
+<li>Sea <span class="math inline">\(x_1,\dots,x_n\)</span> un conjunto de datos con media <span class="math inline">\(\bar{x}\ne 0\)</span>. Define <span class="math inline">\(y_i = x_i/\bar{x}\)</span>. Demuestra que <span class="math inline">\(cv(y) = cv(x)\)</span> si <span class="math inline">\(\bar{x}&gt;0\)</span>, y <span class="math inline">\(cv(y)=-cv(x)\)</span> si <span class="math inline">\(\bar{x}&lt;0\)</span>.</li>
+<li>Verdadero o falso, justificando cada respuesta: (a) el rango de un conjunto de datos puede ser negativo; (b) el coeficiente de variación puede ser cero; (c) si el CV de un conjunto de datos es cero, ¿qué implica eso sobre los datos mismos?</li>
+</ol>
+<hr>
+</section>
+<section id="tema-6-cuantiles-y-boxplot" class="level2">
+<h2 class="anchored" data-anchor-id="tema-6-cuantiles-y-boxplot">Tema 6 · Cuantiles y boxplot</h2>
+<p><strong>Fuente:</strong> Rincón (2017), Cap. 3, ejercicios de diagrama de caja y brazos.</p>
+<ol start="11" type="1">
+<li>Usando cuantiles y <span class="math inline">\(\pm 1.5\)</span> veces el rango intercuartílico, construye (a mano o en R) un diagrama de caja y brazos para: <span class="math inline">\(-20,-1,-1,0,0,1,1,15\)</span>. ¿Hay valores atípicos?</li>
+<li>Con el mismo conjunto de datos anterior, construye el diagrama usando el otro método (centro en la media, brazos a <span class="math inline">\(\pm 1\)</span> desviación estándar). ¿Los dos métodos identifican los mismos “extremos” como notables?</li>
+</ol>
+<hr>
+</section>
+<section id="tema-7-momentos-asimetría-y-curtosis" class="level2">
+<h2 class="anchored" data-anchor-id="tema-7-momentos-asimetría-y-curtosis">Tema 7 · Momentos, asimetría y curtosis</h2>
+<p><strong>Fuente:</strong> Rincón (2017), Cap. 2, ejercicios de momentos.</p>
+<ol start="13" type="1">
+<li>Sea <span class="math inline">\(m_k\)</span> el <span class="math inline">\(k\)</span>-ésimo momento central de <span class="math inline">\(x_1,\dots,x_n\)</span>. Demuestra que <span class="math inline">\(m_2 = m_2' - (m_1')^2\)</span>, donde <span class="math inline">\(m_2'\)</span> es el segundo momento no central (ya se hizo en el Tema 7 — inténtalo sin ver la demostración antes de comparar).</li>
+<li>Sea <span class="math inline">\(a\)</span> una constante y considera los datos transformados <span class="math inline">\(ax_1,\dots,ax_n\)</span>. Demuestra que <span class="math inline">\(m_k(ax) = a^k\cdot m_k(x)\)</span>.</li>
+</ol>
+<hr>
+</section>
+<section id="tema-8-datos-conjuntos" class="level2">
+<h2 class="anchored" data-anchor-id="tema-8-datos-conjuntos">Tema 8 · Datos conjuntos</h2>
+<p><strong>Fuente:</strong> Rincón (2017), Cap. 4, ejercicios de covarianza y correlación.</p>
+<ol start="15" type="1">
+<li>Calcula la covarianza de los siguientes conjuntos de datos: (a) <span class="math inline">\((0,0),(1,2),(2,1)\)</span>; (b) <span class="math inline">\((-1,1),(0,-1),(1,-2),(2,-3)\)</span>; (c) <span class="math inline">\((2,4),(0,0),(1,2),(-1,-2),(0,0)\)</span>.</li>
+<li>Sin hacer ningún cálculo, para dos nubes de puntos — una muy “apretada” alrededor de una línea con pendiente positiva pronunciada, y otra muy dispersa alrededor de una línea con pendiente positiva suave — ¿cuál esperarías que tenga mayor covarianza? ¿Y mayor correlación? (Pista: no son necesariamente la misma respuesta.)</li>
+<li>Calcula la recta de regresión para: <span class="math inline">\(x=\{0,1,2,3,4\}\)</span>, <span class="math inline">\(y=\{3.5,4.5,7.5,9.5,10\}\)</span>. Estima el valor de <span class="math inline">\(y\)</span> cuando <span class="math inline">\(x=2.5\)</span>.</li>
+<li>A través de una recta de regresión, estima el dato faltante: <span class="math inline">\(x=\{1,2,3,4,5\}\)</span>, <span class="math inline">\(y=\{4,8,18,22,\ ?\}\)</span> (usa los primeros 4 pares para ajustar la recta).</li>
+</ol>
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Truco de interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Al resolver ejercicios de demostración (Temas 5, 7, 8), no te limites a verificar con números — intenta primero el álgebra general. Es la diferencia entre “comprobé que funciona en este caso” y “entendí por qué siempre funciona”. <a href="../recursos.html">Ver más trucos →</a></p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../temas/tema-08-estudiante.html" class="pagination-link" aria-label="Tema 8 · Datos conjuntos: covarianza, correlación y regresión">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../temas/modulo-2-arquitectura.html" class="pagination-link" aria-label="Módulo 2 · Probabilidad — Arquitectura">
+        <span class="nav-page-text">Módulo 2 · Probabilidad — Arquitectura</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Ejercicios propuestos · Módulo 1 (Estadística descriptiva)"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🏋️ Ejercicios para resolver por tu cuenta</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>A diferencia de los "Laboratorios" de cada tema (que traen solución guiada), estos ejercicios son **para que los resuelvas tú solo**, tal como aparecen en el libro de Rincón (2017) o en los laboratorios reales del curso. No hay solución aquí — si te trabas, vuelve a la teoría del tema correspondiente.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cómo usar esta página</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Cada bloque indica a qué tema del sitio corresponde, para que repases la teoría antes de intentarlo. Resuelve primero a mano cuando sea razonable, y verifica después en R.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 1 · Clasificación de variables</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>**Fuente:** ejercicios de clasificación estilo Rincón (2017), Cap. 1.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Para cada una de las siguientes variables, indica si es cualitativa (nominal/ordinal) o cuantitativa (discreta/continua), y su escala de medición: (a) temperatura corporal en °C, (b) número de hermanos, (c) nivel de dolor reportado en una escala de 1 a 10, (d) placa de un vehículo, (e) tiempo de reacción en milisegundos, (f) talla de camiseta (S/M/L/XL).</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Da un ejemplo propio (no visto en clase) de una variable de cada una de las 4 escalas de medición (nominal, ordinal, intervalo, razón).</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 2 · Frecuencias y gráficas cualitativas</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>**Fuente:** adaptado de Rincón (2017), Cap. 2-3, sección de frecuencias.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Una variable cualitativa ordinal con valores $A &lt; B &lt; C &lt; D &lt; E &lt; F$ produce las siguientes frecuencias observadas: $f_A=5$, $f_B=8$, $f_C=?$, $f_D=10$, $f_E=?$, $f_F=3$, con un total de $n=50$ observaciones y $f_C = 2\cdot f_E$. Completa la tabla de frecuencias (absolutas, relativas, acumuladas) y construye la gráfica de frecuencia acumulada.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Explica, sin hacer ningún cálculo, por qué no tiene sentido calcular una "frecuencia acumulada" para la variable "color favorito".</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 4 · Tendencia central</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de medidas de localización.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}$ y desviación estándar $s_x&gt;0$. Los datos se transforman en $y_i=(x_i-\bar{x})/s_x$. Comprueba (a mano, con álgebra) que $\bar{y}=0$ y $s_y^2=1$.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Con los datos $<span class="sc">\{</span>1, 3, 3, 4, 5, 5, 5, 7<span class="sc">\}</span>$: calcula media, mediana y moda(s) a mano. ¿El conjunto es unimodal, bimodal o multimodal?</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Con las notas de dos estudiantes: Estudiante 1 = $<span class="sc">\{</span>2.0, 3.5, 5.0<span class="sc">\}</span>$, Estudiante 2 = $<span class="sc">\{</span>3.4, 3.5, 3.6<span class="sc">\}</span>$ (ejemplo de Contento Rubio). Calcula la media de ambos. ¿Qué información importante se pierde si solo reportas la media de cada uno?</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 5 · Dispersión</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de rango y coeficiente de variación.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Calcula el rango de cada conjunto: (a) $0,1,2,\dots,10$; (b) $10,9,8,\dots,0$; (c) $-10,-9,\dots,0$. ¿Qué tienen en común los tres resultados? ¿Por qué?</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}\ne 0$. Define $y_i = x_i/\bar{x}$. Demuestra que $cv(y) = cv(x)$ si $\bar{x}&gt;0$, y $cv(y)=-cv(x)$ si $\bar{x}&lt;0$.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Verdadero o falso, justificando cada respuesta: (a) el rango de un conjunto de datos puede ser negativo; (b) el coeficiente de variación puede ser cero; (c) si el CV de un conjunto de datos es cero, ¿qué implica eso sobre los datos mismos?</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 6 · Cuantiles y boxplot</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 3, ejercicios de diagrama de caja y brazos.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Usando cuantiles y $\pm 1.5$ veces el rango intercuartílico, construye (a mano o en R) un diagrama de caja y brazos para: $-20,-1,-1,0,0,1,1,15$. ¿Hay valores atípicos?</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Con el mismo conjunto de datos anterior, construye el diagrama usando el otro método (centro en la media, brazos a $\pm 1$ desviación estándar). ¿Los dos métodos identifican los mismos "extremos" como notables?</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 7 · Momentos, asimetría y curtosis</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de momentos.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Sea $m_k$ el $k$-ésimo momento central de $x_1,\dots,x_n$. Demuestra que $m_2 = m_2' - (m_1')^2$, donde $m_2'$ es el segundo momento no central (ya se hizo en el Tema 7 — inténtalo sin ver la demostración antes de comparar).</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Sea $a$ una constante y considera los datos transformados $ax_1,\dots,ax_n$. Demuestra que $m_k(ax) = a^k\cdot m_k(x)$.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 8 · Datos conjuntos</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 4, ejercicios de covarianza y correlación.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Calcula la covarianza de los siguientes conjuntos de datos: (a) $(0,0),(1,2),(2,1)$; (b) $(-1,1),(0,-1),(1,-2),(2,-3)$; (c) $(2,4),(0,0),(1,2),(-1,-2),(0,0)$.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Sin hacer ningún cálculo, para dos nubes de puntos — una muy "apretada" alrededor de una línea con pendiente positiva pronunciada, y otra muy dispersa alrededor de una línea con pendiente positiva suave — ¿cuál esperarías que tenga mayor covarianza? ¿Y mayor correlación? (Pista: no son necesariamente la misma respuesta.)</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Calcula la recta de regresión para: $x=<span class="sc">\{</span>0,1,2,3,4<span class="sc">\}</span>$, $y=<span class="sc">\{</span>3.5,4.5,7.5,9.5,10<span class="sc">\}</span>$. Estima el valor de $y$ cuando $x=2.5$.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>A través de una recta de regresión, estima el dato faltante: $x=<span class="sc">\{</span>1,2,3,4,5<span class="sc">\}</span>$, $y=<span class="sc">\{</span>4,8,18,22,\ ?<span class="sc">\}</span>$ (usa los primeros 4 pares para ajustar la recta).</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>Al resolver ejercicios de demostración (Temas 5, 7, 8), no te limites a verificar con números — intenta primero el álgebra general. Es la diferencia entre "comprobé que funciona en este caso" y "entendí por qué siempre funciona". <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
