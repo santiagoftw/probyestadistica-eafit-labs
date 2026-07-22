@@ -398,7 +398,7 @@ window.Quarto = {
   <li><a href="#ejercicios-para-resolver-por-tu-cuenta" id="toc-ejercicios-para-resolver-por-tu-cuenta" class="nav-link active" data-scroll-target="#ejercicios-para-resolver-por-tu-cuenta">🏋️ Ejercicios para resolver por tu cuenta</a></li>
   <li><a href="#tema-1-clasificación-de-variables" id="toc-tema-1-clasificación-de-variables" class="nav-link" data-scroll-target="#tema-1-clasificación-de-variables">Tema 1 · Clasificación de variables</a></li>
   <li><a href="#tema-2-frecuencias-y-gráficas-cualitativas" id="toc-tema-2-frecuencias-y-gráficas-cualitativas" class="nav-link" data-scroll-target="#tema-2-frecuencias-y-gráficas-cualitativas">Tema 2 · Frecuencias y gráficas cualitativas</a></li>
-  <li><a href="#tema-4-tendencia-central" id="toc-tema-4-tendencia-central" class="nav-link" data-scroll-target="#tema-4-tendencia-central">Tema 4 · Tendencia central</a></li>
+  <li><a href="#tema-3-histograma-y-tabla-de-frecuencias-agrupada" id="toc-tema-3-histograma-y-tabla-de-frecuencias-agrupada" class="nav-link" data-scroll-target="#tema-3-histograma-y-tabla-de-frecuencias-agrupada">Tema 3 · Histograma y tabla de frecuencias agrupada</a></li>
   <li><a href="#tema-5-dispersión" id="toc-tema-5-dispersión" class="nav-link" data-scroll-target="#tema-5-dispersión">Tema 5 · Dispersión</a></li>
   <li><a href="#tema-6-cuantiles-y-boxplot" id="toc-tema-6-cuantiles-y-boxplot" class="nav-link" data-scroll-target="#tema-6-cuantiles-y-boxplot">Tema 6 · Cuantiles y boxplot</a></li>
   <li><a href="#tema-7-momentos-asimetría-y-curtosis" id="toc-tema-7-momentos-asimetría-y-curtosis" class="nav-link" data-scroll-target="#tema-7-momentos-asimetría-y-curtosis">Tema 7 · Momentos, asimetría y curtosis</a></li>
@@ -464,8 +464,13 @@ window.Quarto = {
 </ol>
 <hr>
 </section>
-<section id="tema-4-tendencia-central" class="level2">
-<h2 class="anchored" data-anchor-id="tema-4-tendencia-central">Tema 4 · Tendencia central</h2>
+<section id="tema-3-histograma-y-tabla-de-frecuencias-agrupada" class="level2">
+<h2 class="anchored" data-anchor-id="tema-3-histograma-y-tabla-de-frecuencias-agrupada">Tema 3 · Histograma y tabla de frecuencias agrupada</h2>
+<p><strong>Fuente:</strong> adaptado del tratamiento de distribuciones de frecuencia de Contento Rubio (Cap. 2) y del material de clase (Semana 2).</p>
+<p>4a. Una empresa registró el número de llegadas tarde por mes durante 60 meses. Genera tú mismo un conjunto de datos similar en R con <code>set.seed(2026); retardos &lt;- round(runif(60, 12, 79))</code> y luego: (i) calcula el número de clases con la fórmula de Sturges; (ii) calcula el ancho de clase resultante dividiendo el rango entre k; (iii) construye la tabla de distribución de frecuencias con <code>cut()</code> y <code>table()</code> usando esos límites.</p>
+<p>4b. Con el mismo conjunto de datos, observa los límites de clase que produjo la fórmula (con muchos decimales, del estilo “21.57 a 31.14”). Construye una <strong>segunda</strong> tabla usando límites “prácticos” de ancho 10, empezando en 10 (es decir: [10,20), [20,30), …, [70,80)). Compara ambas tablas y responde: ¿cuál es más fácil de interpretar y comunicar? ¿Cambió la forma general de la distribución al cambiar los límites? Esta tensión entre “límites de fórmula” y “límites con sentido práctico” es una decisión real del analista, no un defecto del método.</p>
+<p>4c. Construye el histograma de los mismos datos de las tres maneras vistas en el Tema 3 (manual con <code>cut()</code> + <code>barplot(space = 0)</code>, con <code>hist()</code>, y con <code>ggplot2::geom_histogram()</code>), verificando que las tres cuentan la misma historia.</p>
+<hr>
 <p><strong>Fuente:</strong> Rincón (2017), Cap. 2, ejercicios de medidas de localización.</p>
 <ol start="5" type="1">
 <li>Sea <span class="math inline">\(x_1,\dots,x_n\)</span> un conjunto de datos con media <span class="math inline">\(\bar{x}\)</span> y desviación estándar <span class="math inline">\(s_x&gt;0\)</span>. Los datos se transforman en <span class="math inline">\(y_i=(x_i-\bar{x})/s_x\)</span>. Comprueba (a mano, con álgebra) que <span class="math inline">\(\bar{y}=0\)</span> y <span class="math inline">\(s_y^2=1\)</span>.</li>
@@ -656,7 +661,7 @@ window.Quarto = {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/santiagoftw\.github\.io\/probyestadistica-eafit-labs\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1030,59 +1035,69 @@ window.Quarto = {
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 4 · Tendencia central</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 3 · Histograma y tabla de frecuencias agrupada</span></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de medidas de localización.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>**Fuente:** adaptado del tratamiento de distribuciones de frecuencia de Contento Rubio (Cap. 2) y del material de clase (Semana 2).</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}$ y desviación estándar $s_x&gt;0$. Los datos se transforman en $y_i=(x_i-\bar{x})/s_x$. Comprueba (a mano, con álgebra) que $\bar{y}=0$ y $s_y^2=1$.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Con los datos $<span class="sc">\{</span>1, 3, 3, 4, 5, 5, 5, 7<span class="sc">\}</span>$: calcula media, mediana y moda(s) a mano. ¿El conjunto es unimodal, bimodal o multimodal?</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Con las notas de dos estudiantes: Estudiante 1 = $<span class="sc">\{</span>2.0, 3.5, 5.0<span class="sc">\}</span>$, Estudiante 2 = $<span class="sc">\{</span>3.4, 3.5, 3.6<span class="sc">\}</span>$ (ejemplo de Contento Rubio). Calcula la media de ambos. ¿Qué información importante se pierde si solo reportas la media de cada uno?</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>4a. Una empresa registró el número de llegadas tarde por mes durante 60 meses. Genera tú mismo un conjunto de datos similar en R con <span class="in">`set.seed(2026); retardos &lt;- round(runif(60, 12, 79))`</span> y luego: (i) calcula el número de clases con la fórmula de Sturges; (ii) calcula el ancho de clase resultante dividiendo el rango entre k; (iii) construye la tabla de distribución de frecuencias con <span class="in">`cut()`</span> y <span class="in">`table()`</span> usando esos límites.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>4b. Con el mismo conjunto de datos, observa los límites de clase que produjo la fórmula (con muchos decimales, del estilo "21.57 a 31.14"). Construye una **segunda** tabla usando límites "prácticos" de ancho 10, empezando en 10 (es decir: [10,20), [20,30), ..., [70,80)). Compara ambas tablas y responde: ¿cuál es más fácil de interpretar y comunicar? ¿Cambió la forma general de la distribución al cambiar los límites? Esta tensión entre "límites de fórmula" y "límites con sentido práctico" es una decisión real del analista, no un defecto del método.</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>4c. Construye el histograma de los mismos datos de las tres maneras vistas en el Tema 3 (manual con <span class="in">`cut()`</span> + <span class="in">`barplot(space = 0)`</span>, con <span class="in">`hist()`</span>, y con <span class="in">`ggplot2::geom_histogram()`</span>), verificando que las tres cuentan la misma historia.</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 5 · Dispersión</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de rango y coeficiente de variación.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de medidas de localización.</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Calcula el rango de cada conjunto: (a) $0,1,2,\dots,10$; (b) $10,9,8,\dots,0$; (c) $-10,-9,\dots,0$. ¿Qué tienen en común los tres resultados? ¿Por qué?</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}\ne 0$. Define $y_i = x_i/\bar{x}$. Demuestra que $cv(y) = cv(x)$ si $\bar{x}&gt;0$, y $cv(y)=-cv(x)$ si $\bar{x}&lt;0$.</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Verdadero o falso, justificando cada respuesta: (a) el rango de un conjunto de datos puede ser negativo; (b) el coeficiente de variación puede ser cero; (c) si el CV de un conjunto de datos es cero, ¿qué implica eso sobre los datos mismos?</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}$ y desviación estándar $s_x&gt;0$. Los datos se transforman en $y_i=(x_i-\bar{x})/s_x$. Comprueba (a mano, con álgebra) que $\bar{y}=0$ y $s_y^2=1$.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Con los datos $<span class="sc">\{</span>1, 3, 3, 4, 5, 5, 5, 7<span class="sc">\}</span>$: calcula media, mediana y moda(s) a mano. ¿El conjunto es unimodal, bimodal o multimodal?</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Con las notas de dos estudiantes: Estudiante 1 = $<span class="sc">\{</span>2.0, 3.5, 5.0<span class="sc">\}</span>$, Estudiante 2 = $<span class="sc">\{</span>3.4, 3.5, 3.6<span class="sc">\}</span>$ (ejemplo de Contento Rubio). Calcula la media de ambos. ¿Qué información importante se pierde si solo reportas la media de cada uno?</span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 6 · Cuantiles y boxplot</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 5 · Dispersión</span></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 3, ejercicios de diagrama de caja y brazos.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de rango y coeficiente de variación.</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Usando cuantiles y $\pm 1.5$ veces el rango intercuartílico, construye (a mano o en R) un diagrama de caja y brazos para: $-20,-1,-1,0,0,1,1,15$. ¿Hay valores atípicos?</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Con el mismo conjunto de datos anterior, construye el diagrama usando el otro método (centro en la media, brazos a $\pm 1$ desviación estándar). ¿Los dos métodos identifican los mismos "extremos" como notables?</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 7 · Momentos, asimetría y curtosis</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de momentos.</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Sea $m_k$ el $k$-ésimo momento central de $x_1,\dots,x_n$. Demuestra que $m_2 = m_2' - (m_1')^2$, donde $m_2'$ es el segundo momento no central (ya se hizo en el Tema 7 — inténtalo sin ver la demostración antes de comparar).</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Sea $a$ una constante y considera los datos transformados $ax_1,\dots,ax_n$. Demuestra que $m_k(ax) = a^k\cdot m_k(x)$.</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 8 · Datos conjuntos</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 4, ejercicios de covarianza y correlación.</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Calcula la covarianza de los siguientes conjuntos de datos: (a) $(0,0),(1,2),(2,1)$; (b) $(-1,1),(0,-1),(1,-2),(2,-3)$; (c) $(2,4),(0,0),(1,2),(-1,-2),(0,0)$.</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Sin hacer ningún cálculo, para dos nubes de puntos — una muy "apretada" alrededor de una línea con pendiente positiva pronunciada, y otra muy dispersa alrededor de una línea con pendiente positiva suave — ¿cuál esperarías que tenga mayor covarianza? ¿Y mayor correlación? (Pista: no son necesariamente la misma respuesta.)</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Calcula la recta de regresión para: $x=<span class="sc">\{</span>0,1,2,3,4<span class="sc">\}</span>$, $y=<span class="sc">\{</span>3.5,4.5,7.5,9.5,10<span class="sc">\}</span>$. Estima el valor de $y$ cuando $x=2.5$.</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>A través de una recta de regresión, estima el dato faltante: $x=<span class="sc">\{</span>1,2,3,4,5<span class="sc">\}</span>$, $y=<span class="sc">\{</span>4,8,18,22,\ ?<span class="sc">\}</span>$ (usa los primeros 4 pares para ajustar la recta).</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>Al resolver ejercicios de demostración (Temas 5, 7, 8), no te limites a verificar con números — intenta primero el álgebra general. Es la diferencia entre "comprobé que funciona en este caso" y "entendí por qué siempre funciona". <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Calcula el rango de cada conjunto: (a) $0,1,2,\dots,10$; (b) $10,9,8,\dots,0$; (c) $-10,-9,\dots,0$. ¿Qué tienen en común los tres resultados? ¿Por qué?</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}\ne 0$. Define $y_i = x_i/\bar{x}$. Demuestra que $cv(y) = cv(x)$ si $\bar{x}&gt;0$, y $cv(y)=-cv(x)$ si $\bar{x}&lt;0$.</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Verdadero o falso, justificando cada respuesta: (a) el rango de un conjunto de datos puede ser negativo; (b) el coeficiente de variación puede ser cero; (c) si el CV de un conjunto de datos es cero, ¿qué implica eso sobre los datos mismos?</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 6 · Cuantiles y boxplot</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 3, ejercicios de diagrama de caja y brazos.</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Usando cuantiles y $\pm 1.5$ veces el rango intercuartílico, construye (a mano o en R) un diagrama de caja y brazos para: $-20,-1,-1,0,0,1,1,15$. ¿Hay valores atípicos?</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Con el mismo conjunto de datos anterior, construye el diagrama usando el otro método (centro en la media, brazos a $\pm 1$ desviación estándar). ¿Los dos métodos identifican los mismos "extremos" como notables?</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 7 · Momentos, asimetría y curtosis</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de momentos.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Sea $m_k$ el $k$-ésimo momento central de $x_1,\dots,x_n$. Demuestra que $m_2 = m_2' - (m_1')^2$, donde $m_2'$ es el segundo momento no central (ya se hizo en el Tema 7 — inténtalo sin ver la demostración antes de comparar).</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Sea $a$ una constante y considera los datos transformados $ax_1,\dots,ax_n$. Demuestra que $m_k(ax) = a^k\cdot m_k(x)$.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 8 · Datos conjuntos</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 4, ejercicios de covarianza y correlación.</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Calcula la covarianza de los siguientes conjuntos de datos: (a) $(0,0),(1,2),(2,1)$; (b) $(-1,1),(0,-1),(1,-2),(2,-3)$; (c) $(2,4),(0,0),(1,2),(-1,-2),(0,0)$.</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Sin hacer ningún cálculo, para dos nubes de puntos — una muy "apretada" alrededor de una línea con pendiente positiva pronunciada, y otra muy dispersa alrededor de una línea con pendiente positiva suave — ¿cuál esperarías que tenga mayor covarianza? ¿Y mayor correlación? (Pista: no son necesariamente la misma respuesta.)</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Calcula la recta de regresión para: $x=<span class="sc">\{</span>0,1,2,3,4<span class="sc">\}</span>$, $y=<span class="sc">\{</span>3.5,4.5,7.5,9.5,10<span class="sc">\}</span>$. Estima el valor de $y$ cuando $x=2.5$.</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>A través de una recta de regresión, estima el dato faltante: $x=<span class="sc">\{</span>1,2,3,4,5<span class="sc">\}</span>$, $y=<span class="sc">\{</span>4,8,18,22,\ ?<span class="sc">\}</span>$ (usa los primeros 4 pares para ajustar la recta).</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>Al resolver ejercicios de demostración (Temas 5, 7, 8), no te limites a verificar con números — intenta primero el álgebra general. Es la diferencia entre "comprobé que funciona en este caso" y "entendí por qué siempre funciona". <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

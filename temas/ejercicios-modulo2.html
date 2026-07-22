@@ -399,7 +399,8 @@ window.Quarto = {
   <li><a href="#tema-p1-reglas-básicas-de-probabilidad" id="toc-tema-p1-reglas-básicas-de-probabilidad" class="nav-link" data-scroll-target="#tema-p1-reglas-básicas-de-probabilidad">Tema P1 · Reglas básicas de probabilidad</a></li>
   <li><a href="#tema-p3-probabilidad-total-y-bayes" id="toc-tema-p3-probabilidad-total-y-bayes" class="nav-link" data-scroll-target="#tema-p3-probabilidad-total-y-bayes">Tema P3 · Probabilidad total y Bayes</a></li>
   <li><a href="#tema-p5-variables-aleatorias-y-fda" id="toc-tema-p5-variables-aleatorias-y-fda" class="nav-link" data-scroll-target="#tema-p5-variables-aleatorias-y-fda">Tema P5 · Variables aleatorias y FDA</a></li>
-  <li><a href="#tema-p7-distribuciones-continuas" id="toc-tema-p7-distribuciones-continuas" class="nav-link" data-scroll-target="#tema-p7-distribuciones-continuas">Tema P7 · Distribuciones continuas</a></li>
+  <li><a href="#tema-p6-distribuciones-discretas-binomial-y-poisson" id="toc-tema-p6-distribuciones-discretas-binomial-y-poisson" class="nav-link" data-scroll-target="#tema-p6-distribuciones-discretas-binomial-y-poisson">Tema P6 · Distribuciones discretas (Binomial y Poisson)</a></li>
+  <li><a href="#tema-p7-distribuciones-continuas-uniforme-y-normal" id="toc-tema-p7-distribuciones-continuas-uniforme-y-normal" class="nav-link" data-scroll-target="#tema-p7-distribuciones-continuas-uniforme-y-normal">Tema P7 · Distribuciones continuas (Uniforme y Normal)</a></li>
   <li><a href="#tema-p8-distribución-multivariada" id="toc-tema-p8-distribución-multivariada" class="nav-link" data-scroll-target="#tema-p8-distribución-multivariada">Tema P8 · Distribución multivariada</a></li>
   <li><a href="#tema-p9-covarianza-y-correlación-de-variables-aleatorias" id="toc-tema-p9-covarianza-y-correlación-de-variables-aleatorias" class="nav-link" data-scroll-target="#tema-p9-covarianza-y-correlación-de-variables-aleatorias">Tema P9 · Covarianza y correlación de variables aleatorias</a></li>
   </ul>
@@ -483,15 +484,26 @@ window.Quarto = {
 <li><p>Encuentra la expresión de la función de distribución empírica de cada conjunto de datos, y grafícala: (a) <span class="math inline">\(\{2, 5\}\)</span>; (b) <span class="math inline">\(\{-1, 0, 1\}\)</span>; (c) <span class="math inline">\(\{4, 10, 10, 4, 10, 4\}\)</span>.</p></li>
 <li><p><strong>(Análisis de riesgo):</strong> tres fuentes de energía tienen probabilidad de falla y costo adicional en caso de falla: Fuente X (<span class="math inline">\(P=0.2\)</span>, costo adicional $1000, costo base $20000); Fuente Y (<span class="math inline">\(P=0.1\)</span>, costo adicional $1500, costo base $25000); Fuente Z (<span class="math inline">\(P=0.15\)</span>, costo adicional $1200, costo base $22000). Simula 10,000 escenarios para cada fuente y determina el costo total esperado. ¿Cuál fuente tiene el mayor costo esperado?</p></li>
 </ol>
+<p>6b. <strong>(Función de masa con valor faltante, adaptado del material de clase):</strong> una variable aleatoria discreta toma los valores 6, 7, 8, 9 y 10, con probabilidades 0.05, 0.10, 0.60, 0.15 y un valor desconocido para el 10. (i) Usa la condición de que toda función de masa debe sumar 1 para hallar <span class="math inline">\(P(X=10)\)</span>. (ii) Calcula <span class="math inline">\(P(X \le 8)\)</span> y <span class="math inline">\(P(X &lt; 8)\)</span> — explica por qué <strong>no</strong> son iguales en una variable discreta. (iii) Verifica tus respuestas construyendo la tabla en R con vectores y <code>cumsum()</code>.</p>
 <hr>
 </section>
-<section id="tema-p7-distribuciones-continuas" class="level2">
-<h2 class="anchored" data-anchor-id="tema-p7-distribuciones-continuas">Tema P7 · Distribuciones continuas</h2>
-<p><strong>Fuente:</strong> Laboratorio 2, Bloque 5.</p>
+<section id="tema-p6-distribuciones-discretas-binomial-y-poisson" class="level2">
+<h2 class="anchored" data-anchor-id="tema-p6-distribuciones-discretas-binomial-y-poisson">Tema P6 · Distribuciones discretas (Binomial y Poisson)</h2>
+<p><strong>Fuente:</strong> adaptado de los ejemplos y ejercicios de Contento Rubio (Cap. 4) trabajados en clase.</p>
+<p>6c. <strong>(Poisson en un cruce vial):</strong> el número de accidentes semanales en cierto cruce se modela como Poisson con promedio 2 por semana. (i) Calcula a mano, con la función de masa, la probabilidad de que en una semana no ocurra ningún accidente. (ii) Calcula con <code>ppois()</code> la probabilidad de más de 4 accidentes en una semana. (iii) Usando independencia entre semanas, calcula la probabilidad de exactamente 2 accidentes una semana y 3 la siguiente, y verifica con <code>dpois(2,2) * dpois(3,2)</code>.</p>
+<p>6d. <strong>(Aproximación Binomial → Poisson con eventos raros):</strong> una mutación celular ocurre con probabilidad de 1 en <span class="math inline">\(10^9\)</span> por célula. Si se observan <span class="math inline">\(2\times 10^9\)</span> células, justifica por qué la Binomial<span class="math inline">\((n, p)\)</span> resultante se puede aproximar con una Poisson de parámetro <span class="math inline">\(\lambda = np = 2\)</span>, y calcula con esa aproximación la probabilidad de que ninguna célula mute y la de que mute al menos una. Verifica ambas con <code>dpois()</code>/<code>ppois()</code>.</p>
+<hr>
+</section>
+<section id="tema-p7-distribuciones-continuas-uniforme-y-normal" class="level2">
+<h2 class="anchored" data-anchor-id="tema-p7-distribuciones-continuas-uniforme-y-normal">Tema P7 · Distribuciones continuas (Uniforme y Normal)</h2>
+<p><strong>Fuente:</strong> Laboratorio 2, Bloque 5, y ejercicios adaptados de Contento Rubio (Cap. 4).</p>
 <ol start="7" type="1">
 <li><p><strong>(Resistencia a la tracción):</strong> en un laboratorio de materiales, la resistencia a la tracción de un nuevo material sigue una distribución normal con <span class="math inline">\(\mu=500\)</span> y <span class="math inline">\(\sigma=50\)</span>. Determina: (a) la probabilidad de que una muestra tenga resistencia menor a 450; (b) la probabilidad de que la resistencia esté entre 450 y 550.</p></li>
 <li><p>Estima la media y la varianza de una distribución uniforme continua en <span class="math inline">\([10, 20]\)</span> a partir de una muestra simulada de tamaño <span class="math inline">\(n=1000\)</span>. Compara contra los valores teóricos <span class="math inline">\(\frac{a+b}{2}\)</span> y <span class="math inline">\(\frac{(b-a)^2}{12}\)</span>.</p></li>
 </ol>
+<p>8b. <strong>(Contaminante uniforme):</strong> la concentración de un contaminante se distribuye uniformemente entre 0 y 20 ppm, y se considera tóxica a partir de 8 ppm. (i) Calcula geométricamente (área bajo la densidad) la probabilidad de que una muestra resulte tóxica. (ii) Verifica con <code>punif(8, 0, 20, lower.tail = FALSE)</code>. (iii) ¿Cuál es la probabilidad de que la concentración sea <em>exactamente</em> 10 ppm? Explica por qué esa respuesta es la que es, siendo la variable continua.</p>
+<p>8c. <strong>(Calificaciones normales):</strong> los resultados de un examen se distribuyen normal con promedio 78 y varianza 36 (ojo: varianza, no desviación estándar). (i) Calcula la probabilidad de obtener más de 72. (ii) Si al 10% superior se le asigna la nota A, ¿cuál es la calificación mínima para lograr una A? Resuélvelo con <code>qnorm()</code> y explica por qué esta pregunta es “inversa” a la anterior.</p>
+<p>8d. <strong>(Regla empírica por simulación):</strong> para una normal cualquiera, calcula con <code>pnorm()</code> la probabilidad de caer a lo más a 1, 2 y 3 desviaciones estándar del promedio. Luego simula 100,000 valores con <code>rnorm()</code> y verifica que las proporciones simuladas coinciden con los tres valores teóricos (deberías reconocer la regla 68–95–99.7).</p>
 <hr>
 </section>
 <section id="tema-p8-distribución-multivariada" class="level2">
@@ -695,7 +707,7 @@ window.Quarto = {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/santiagoftw\.github\.io\/probyestadistica-eafit-labs\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1084,47 +1096,65 @@ window.Quarto = {
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**(Análisis de riesgo):** tres fuentes de energía tienen probabilidad de falla y costo adicional en caso de falla: Fuente X ($P=0.2$, costo adicional \$1000, costo base \$20000); Fuente Y ($P=0.1$, costo adicional \$1500, costo base \$25000); Fuente Z ($P=0.15$, costo adicional \$1200, costo base \$22000). Simula 10,000 escenarios para cada fuente y determina el costo total esperado. ¿Cuál fuente tiene el mayor costo esperado?</span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>6b. **(Función de masa con valor faltante, adaptado del material de clase):** una variable aleatoria discreta toma los valores 6, 7, 8, 9 y 10, con probabilidades 0.05, 0.10, 0.60, 0.15 y un valor desconocido para el 10. (i) Usa la condición de que toda función de masa debe sumar 1 para hallar $P(X=10)$. (ii) Calcula $P(X \le 8)$ y $P(X &lt; 8)$ — explica por qué **no** son iguales en una variable discreta. (iii) Verifica tus respuestas construyendo la tabla en R con vectores y <span class="in">`cumsum()`</span>.</span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema P7 · Distribuciones continuas</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>**Fuente:** Laboratorio 2, Bloque 5.</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema P6 · Distribuciones discretas (Binomial y Poisson)</span></span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>**(Resistencia a la tracción):** en un laboratorio de materiales, la resistencia a la tracción de un nuevo material sigue una distribución normal con $\mu=500$ y $\sigma=50$. Determina: (a) la probabilidad de que una muestra tenga resistencia menor a 450; (b) la probabilidad de que la resistencia esté entre 450 y 550.</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>**Fuente:** adaptado de los ejemplos y ejercicios de Contento Rubio (Cap. 4) trabajados en clase.</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Estima la media y la varianza de una distribución uniforme continua en $<span class="co">[</span><span class="ot">10, 20</span><span class="co">]</span>$ a partir de una muestra simulada de tamaño $n=1000$. Compara contra los valores teóricos $\frac{a+b}{2}$ y $\frac{(b-a)^2}{12}$.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>6c. **(Poisson en un cruce vial):** el número de accidentes semanales en cierto cruce se modela como Poisson con promedio 2 por semana. (i) Calcula a mano, con la función de masa, la probabilidad de que en una semana no ocurra ningún accidente. (ii) Calcula con <span class="in">`ppois()`</span> la probabilidad de más de 4 accidentes en una semana. (iii) Usando independencia entre semanas, calcula la probabilidad de exactamente 2 accidentes una semana y 3 la siguiente, y verifica con <span class="in">`dpois(2,2) * dpois(3,2)`</span>.</span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>6d. **(Aproximación Binomial → Poisson con eventos raros):** una mutación celular ocurre con probabilidad de 1 en $10^9$ por célula. Si se observan $2\times 10^9$ células, justifica por qué la Binomial$(n, p)$ resultante se puede aproximar con una Poisson de parámetro $\lambda = np = 2$, y calcula con esa aproximación la probabilidad de que ninguna célula mute y la de que mute al menos una. Verifica ambas con <span class="in">`dpois()`</span>/<span class="in">`ppois()`</span>.</span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema P8 · Distribución multivariada</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>**Fuente:** Laboratorio 3, Bloque 1.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema P7 · Distribuciones continuas (Uniforme y Normal)</span></span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Retoma la tabla de frecuencias conjuntas:</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**Fuente:** Laboratorio 2, Bloque 5, y ejercicios adaptados de Contento Rubio (Cap. 4).</span>
 <span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x <span class="sc">\\</span> y <span class="pp">|</span> 10 <span class="pp">|</span> 20 <span class="pp">|</span> 30 <span class="pp">|</span> 40 <span class="pp">|</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 7 <span class="pp">|</span> 4 <span class="pp">|</span> 1 <span class="pp">|</span> 4 <span class="pp">|</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 3 <span class="pp">|</span> 2 <span class="pp">|</span> 8 <span class="pp">|</span> 2 <span class="pp">|</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 0 <span class="pp">|</span> 2 <span class="pp">|</span> 4 <span class="pp">|</span> 6 <span class="pp">|</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 4 <span class="pp">|</span> 1 <span class="pp">|</span> 0 <span class="pp">|</span> 4 <span class="pp">|</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>Encuentra las frecuencias marginales de $x$ y de $y$ por separado (sin usar <span class="in">`rowSums()`</span>/<span class="in">`colSums()`</span> primero — hazlo sumando a mano, y verifica después en R).</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema P9 · Covarianza y correlación de variables aleatorias</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>**Fuente:** Laboratorio 3, Bloque 2.</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Con el ejemplo de resistencia a la tracción (R, $\mu=500$, $\sigma=50$) y módulo de elasticidad (E, $\mu=200$, $\sigma=20$), correlación 0.6, y vida útil $L=R^2/E$: en vez de simular con <span class="in">`mvrnorm()`</span>, escribe primero (en papel) qué esperarías que pase con la correlación entre $L$ y $R$ si la correlación entre $R$ y $E$ fuera 0 en vez de 0.6. Luego verifica tu intuición cambiando el parámetro y simulando.</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>Varios de estos ejercicios piden "verifica por simulación" — no te saltes el cálculo teórico previo. La simulación confirma (o refuta) tu razonamiento; no lo reemplaza. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>**(Resistencia a la tracción):** en un laboratorio de materiales, la resistencia a la tracción de un nuevo material sigue una distribución normal con $\mu=500$ y $\sigma=50$. Determina: (a) la probabilidad de que una muestra tenga resistencia menor a 450; (b) la probabilidad de que la resistencia esté entre 450 y 550.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Estima la media y la varianza de una distribución uniforme continua en $<span class="co">[</span><span class="ot">10, 20</span><span class="co">]</span>$ a partir de una muestra simulada de tamaño $n=1000$. Compara contra los valores teóricos $\frac{a+b}{2}$ y $\frac{(b-a)^2}{12}$.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>8b. **(Contaminante uniforme):** la concentración de un contaminante se distribuye uniformemente entre 0 y 20 ppm, y se considera tóxica a partir de 8 ppm. (i) Calcula geométricamente (área bajo la densidad) la probabilidad de que una muestra resulte tóxica. (ii) Verifica con <span class="in">`punif(8, 0, 20, lower.tail = FALSE)`</span>. (iii) ¿Cuál es la probabilidad de que la concentración sea *exactamente* 10 ppm? Explica por qué esa respuesta es la que es, siendo la variable continua.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>8c. **(Calificaciones normales):** los resultados de un examen se distribuyen normal con promedio 78 y varianza 36 (ojo: varianza, no desviación estándar). (i) Calcula la probabilidad de obtener más de 72. (ii) Si al 10% superior se le asigna la nota A, ¿cuál es la calificación mínima para lograr una A? Resuélvelo con <span class="in">`qnorm()`</span> y explica por qué esta pregunta es "inversa" a la anterior.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>8d. **(Regla empírica por simulación):** para una normal cualquiera, calcula con <span class="in">`pnorm()`</span> la probabilidad de caer a lo más a 1, 2 y 3 desviaciones estándar del promedio. Luego simula 100,000 valores con <span class="in">`rnorm()`</span> y verifica que las proporciones simuladas coinciden con los tres valores teóricos (deberías reconocer la regla 68–95–99.7).</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema P8 · Distribución multivariada</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>**Fuente:** Laboratorio 3, Bloque 1.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Retoma la tabla de frecuencias conjuntas:</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x <span class="sc">\\</span> y <span class="pp">|</span> 10 <span class="pp">|</span> 20 <span class="pp">|</span> 30 <span class="pp">|</span> 40 <span class="pp">|</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 7 <span class="pp">|</span> 4 <span class="pp">|</span> 1 <span class="pp">|</span> 4 <span class="pp">|</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 3 <span class="pp">|</span> 2 <span class="pp">|</span> 8 <span class="pp">|</span> 2 <span class="pp">|</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 0 <span class="pp">|</span> 2 <span class="pp">|</span> 4 <span class="pp">|</span> 6 <span class="pp">|</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 4 <span class="pp">|</span> 1 <span class="pp">|</span> 0 <span class="pp">|</span> 4 <span class="pp">|</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>Encuentra las frecuencias marginales de $x$ y de $y$ por separado (sin usar <span class="in">`rowSums()`</span>/<span class="in">`colSums()`</span> primero — hazlo sumando a mano, y verifica después en R).</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema P9 · Covarianza y correlación de variables aleatorias</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>**Fuente:** Laboratorio 3, Bloque 2.</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Con el ejemplo de resistencia a la tracción (R, $\mu=500$, $\sigma=50$) y módulo de elasticidad (E, $\mu=200$, $\sigma=20$), correlación 0.6, y vida útil $L=R^2/E$: en vez de simular con <span class="in">`mvrnorm()`</span>, escribe primero (en papel) qué esperarías que pase con la correlación entre $L$ y $R$ si la correlación entre $R$ y $E$ fuera 0 en vez de 0.6. Luego verifica tu intuición cambiando el parámetro y simulando.</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>Varios de estos ejercicios piden "verifica por simulación" — no te saltes el cálculo teórico previo. La simulación confirma (o refuta) tu razonamiento; no lo reemplaza. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
