@@ -116,6 +116,98 @@ Cada categoría es una porción de un círculo, proporcional a su frecuencia rel
 Si te muestran una tabla con solo porcentajes (sin el total de observaciones, n), no puedes verificar ni comparar nada con seriedad — un 60% de 5 personas y un 60% de 5.000 comunican una certeza completamente distinta. Pide siempre el n antes de interpretar un porcentaje. [Ver más trucos →](../recursos.qmd)
 :::
 
+## 🛠️ Tres maneras de hacerlo en R
+
+El mismo resultado — tabla de frecuencias y gráfica — se puede lograr de tres formas distintas. Conocer las tres te da alternativas según el contexto: la manual te enseña qué calcula R por dentro, la de R base es la más rápida, y ggplot2 es la más flexible para gráficos de calidad profesional.
+
+::: {.panel-tabset}
+
+## Manera 1 · Construcción manual
+
+Sin `table()`: construyes la tabla componente por componente, exactamente como se hace a mano. Ideal para entender qué significa cada columna.
+
+```{r}
+# Datos: grupos sanguíneos (frecuencias observadas de 80 personas)
+categorias <- c("A", "B", "AB", "O")
+f_abs <- c(12, 28, 16, 24)
+n <- sum(f_abs)
+
+tabla_manual <- data.frame(
+  Categoria       = categorias,
+  Frec_absoluta   = f_abs,
+  Frec_relativa   = f_abs / n,
+  Frec_porcentual = 100 * f_abs / n
+)
+tabla_manual
+```
+
+La gráfica también se puede construir "a mano", pasándole directamente los vectores a `barplot()`:
+
+```{r}
+barplot(f_abs, names.arg = categorias, col = "#004B85", border = "white",
+        xlab = "Grupo sanguíneo", ylab = "Frecuencia absoluta",
+        main = "Construcción manual")
+```
+
+## Manera 2 · Funciones de R base
+
+Cuando tienes los **datos crudos** (una observación por persona, no las frecuencias ya contadas), `table()` hace el conteo por ti:
+
+```{r}
+set.seed(1)
+# Simulamos los 80 registros individuales a partir de las proporciones
+sangre <- sample(c("A","B","AB","O"), 80, replace = TRUE,
+                 prob = c(0.15, 0.35, 0.20, 0.30))
+
+tabla_base <- table(sangre)
+tabla_base
+prop.table(tabla_base)          # frecuencia relativa
+prop.table(tabla_base) * 100    # frecuencia porcentual
+```
+
+```{r}
+#| layout-ncol: 2
+barplot(tabla_base, col = "#004B85", border = "white", main = "barplot()")
+pie(tabla_base, col = c("#004B85","#4B8BC2","#FFB903","#D9DEE4"), main = "pie()")
+```
+
+## Manera 3 · ggplot2
+
+`ggplot2` cuenta las frecuencias automáticamente con `geom_bar()` cuando le das los datos crudos. Es el estándar para gráficos publicables:
+
+```{r}
+#| message: false
+library(ggplot2)
+datos_sangre <- data.frame(grupo = sangre)
+
+ggplot(datos_sangre, aes(x = grupo, fill = grupo)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#004B85","#4B8BC2","#FFB903","#D9DEE4")) +
+  labs(x = "Grupo sanguíneo", y = "Frecuencia", title = "geom_bar()") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+Y el "pastel" en ggplot2 es una barra apilada llevada a coordenadas polares (la misma técnica que usa el laboratorio del curso):
+
+```{r}
+ggplot(datos_sangre, aes(x = "", fill = grupo)) +
+  geom_bar(width = 1) +
+  coord_polar("y") +
+  scale_fill_manual(values = c("#004B85","#4B8BC2","#FFB903","#D9DEE4")) +
+  labs(x = NULL, y = NULL, title = "geom_bar() + coord_polar()") +
+  theme_void()
+```
+
+:::
+
+::: {.callout-tip}
+## ¿Cuál usar?
+- **Manual** cuando el enunciado te da las frecuencias ya contadas (como en muchos ejercicios de Rincón), o cuando quieres verificar a mano lo que hace R.
+- **R base** para exploración rápida en la consola.
+- **ggplot2** para informes y trabajos finales — permite personalizar todo y combina con el resto del `tidyverse`.
+:::
+
 ## 🧪 Ejemplo con datos reales
 
 **Paso 1 — Cargar los datos y ver la frecuencia absoluta:**
@@ -173,6 +265,16 @@ ___(table(datos)) * 100
 <script>
 function revisarQuizTema2() {
   const respuestas = { q1: "V", q2: "F", q3: "F" };
+  // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-tema2");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
   let correctas = 0;
   for (const [p, c] of Object.entries(respuestas)) {
     const s = document.querySelector(`input[name="${p}"]:checked`);

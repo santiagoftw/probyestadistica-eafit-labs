@@ -10,8 +10,81 @@ Este es el laboratorio real del curso (Semanas 2 y 3), con el dataset oficial `B
 
 ::: {.callout-note}
 ## Antes de empezar
-Descarga [`BaseLaboratorio1.csv`](data/BaseLaboratorio1.csv) y súbelo a tu proyecto de Posit Cloud, o usa la ruta relativa `data/BaseLaboratorio1.csv` si trabajas dentro de este mismo repositorio.
+Descarga [`BaseLaboratorio1.csv`](data/BaseLaboratorio1.csv) y guárdalo donde puedas encontrarlo. Abajo tienes cuatro formas de importarlo — elige la que corresponda a tu entorno de trabajo.
 :::
+
+# Bloque 0 · Cómo importar los datos
+
+Importar bien el archivo es el primer obstáculo real de cualquier laboratorio. Estas son las cuatro opciones, de la más recomendada a la más manual:
+
+::: {.panel-tabset}
+
+## Opción A · Ruta relativa (proyecto)
+
+Si trabajas dentro de un proyecto de RStudio (o clonaste el repositorio del curso), y el CSV está en una subcarpeta `data/`, basta con la ruta relativa:
+
+```r
+datos <- read.csv("data/BaseLaboratorio1.csv")
+```
+
+Es la opción más portable: funciona igual en cualquier computador que tenga la misma estructura de carpetas. **Requisito:** el directorio de trabajo debe ser la raíz del proyecto (verifícalo con `getwd()`).
+
+## Opción B · Posit Cloud
+
+En Posit Cloud, los archivos que subes quedan en `/cloud/project/`. Sube el CSV con el botón "Upload" del panel Files, y luego:
+
+```r
+datos <- read.csv("/cloud/project/BaseLaboratorio1.csv")
+```
+
+Esta es exactamente la ruta que usa la solución oficial del laboratorio del curso.
+
+## Opción C · Fijar el directorio con `setwd()`
+
+Puedes indicarle a R en qué carpeta buscar los archivos con `setwd()`, y después leer con el nombre del archivo solamente:
+
+```r
+setwd("C:/Users/tu_usuario/Documents/estadistica")  # Windows
+# setwd("/Users/tu_usuario/Documents/estadistica")  # Mac
+datos <- read.csv("BaseLaboratorio1.csv")
+```
+
+**Advertencia:** la ruta depende de cómo esté organizado *tu* computador — un script con `setwd()` de rutas absolutas no funcionará en el computador de tu compañero. Úsalo para trabajo personal, no para scripts que vayas a compartir.
+
+## Opción D · Selección interactiva
+
+Si no quieres escribir ninguna ruta, `file.choose()` abre una ventana para navegar hasta el archivo:
+
+```r
+datos <- read.csv(file.choose())
+```
+
+Cómodo para una sesión rápida, pero **no reproducible**: quien corra tu script tendrá que buscar el archivo a mano cada vez. Evítalo en trabajos entregables.
+
+:::
+
+::: {.callout-important}
+## Los argumentos de `read.csv()` que debes conocer
+`read.csv()` asume separador de columnas `,` y punto decimal `.`. Si tu archivo viene de un Excel en español (separador `;` y decimal `,`), esos supuestos fallan y debes declararlos explícitamente:
+
+```r
+datos <- read.table("archivo.csv", header = TRUE, sep = ";", dec = ",")
+```
+
+- `header = TRUE`: la primera fila trae los nombres de las columnas.
+- `sep`: el carácter que separa columnas (`","` o `";"`).
+- `dec`: el carácter decimal (`"."` o `","`).
+
+De hecho, `read.csv()` es solo un atajo de `read.table()` con `sep = ","` y `header = TRUE` ya predefinidos. Si al importar ves una sola columna gigante con todo pegado, casi siempre el problema es el `sep`.
+:::
+
+**Verifica siempre la importación antes de analizar** — estas dos líneas te ahorran horas de errores silenciosos:
+
+```{r}
+datos <- read.csv("data/BaseLaboratorio1.csv")
+dim(datos)    # ¿240 filas y 7 columnas? entonces cargó bien
+head(datos, 3)
+```
 
 ---
 
@@ -82,6 +155,12 @@ Este gráfico circular en particular es un buen ejemplo de **cuándo NO usar pas
 
 ## Ítem 6 — Comparar distribuciones de tres tipos de energía
 
+**Enunciado:** compare las distribuciones de la producción anual de energía solar, eólica e hidráulica. Se muestra en las dos versiones (R base y ggplot2) — el mensaje estadístico es el mismo; elige la herramienta según el contexto.
+
+::: {.panel-tabset}
+
+## Con R base
+
 ```{r}
 #| layout-ncol: 3
 hist(datos$SolarEnergy, main = "SolarEnergy", col = "#004B85", border = "white")
@@ -89,13 +168,70 @@ hist(datos$WindEnergy, main = "WindEnergy", col = "#FFB903", border = "white")
 hist(datos$HydroEnergy, main = "HydroEnergy", col = "#4B8BC2", border = "white")
 ```
 
-## Ítem 7 — Histogramas comparados por país (ggplot2)
+También puedes ponerlos en una sola fila con `par(mfrow = c(1, 3))` antes de los tres `hist()` — es la técnica clásica de R base para paneles múltiples (recuerda restaurar con `par(mfrow = c(1, 1))` al final).
+
+## Con ggplot2
+
+En ggplot2 los paneles se logran reorganizando los datos a formato "largo" y usando `facet_wrap()` — una sola instrucción genera los tres histogramas con ejes comparables:
+
+```{r}
+#| message: false
+library(tidyverse)
+
+datos |>
+  pivot_longer(cols = c(SolarEnergy, WindEnergy, HydroEnergy),
+               names_to = "Fuente", values_to = "Produccion") |>
+  ggplot(aes(x = Produccion, fill = Fuente)) +
+  geom_histogram(color = "white") +
+  facet_wrap(~ Fuente, scales = "free_x") +
+  scale_fill_manual(values = c("#4B8BC2", "#004B85", "#FFB903")) +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+:::
+
+## Ítem 7 — Histogramas comparados por país
+
+**Enunciado:** presente la distribución de la energía solar diferenciando por país.
+
+::: {.panel-tabset}
+
+## Con ggplot2 (superpuestos)
 
 ```{r}
 ggplot(datos, aes(x = SolarEnergy, color = Country)) +
   geom_histogram(fill = "white", alpha = 0.5, position = "identity") +
   theme_bw() + xlab("Energía Solar") + ylab("Frecuencia")
 ```
+
+## Con ggplot2 (facetas — más legible)
+
+Con 10 países superpuestos, el gráfico anterior se satura. Las facetas separan cada país en su propio panel:
+
+```{r}
+ggplot(datos, aes(x = SolarEnergy)) +
+  geom_histogram(fill = "#004B85", color = "white", bins = 12) +
+  facet_wrap(~ Country, ncol = 5) +
+  theme_bw() + xlab("Energía Solar") + ylab("Frecuencia")
+```
+
+## Con R base (boxplots por grupo)
+
+R base no tiene facetas fáciles, pero `boxplot()` con fórmula `variable ~ grupo` compara los 10 países en un solo gráfico:
+
+```{r}
+boxplot(SolarEnergy ~ Country, data = datos, col = "#4B8BC2",
+        las = 2, xlab = "", ylab = "Energía Solar",
+        main = "Producción solar por país")
+```
+
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Cuando compares una variable entre muchos grupos, los boxplots lado a lado suelen comunicar más que los histogramas superpuestos: cada caja resume mediana, dispersión y atípicos de su grupo sin que las barras se tapen entre sí (Tema 6). [Ver más trucos →](recursos.qmd)
+:::
 
 ---
 

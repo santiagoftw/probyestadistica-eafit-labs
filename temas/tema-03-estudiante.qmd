@@ -132,6 +132,94 @@ Cambia `shape` o `rate` en `rgamma()`, o las medias en el ejemplo bimodal, y vue
 Si alguien te presenta un histograma sin decir cuántos `breaks` usó, no confíes todavía en su forma. Como viste con Old Faithful, muy pocos intervalos pueden esconder por completo una bimodalidad real. La forma "definitiva" de una distribución solo se puede afirmar después de probar con distintos niveles de agrupamiento. [Ver más trucos →](../recursos.qmd)
 :::
 
+## 🛠️ Tres maneras de hacerlo en R
+
+Para una variable continua, la tabla agrupada y el histograma también se pueden construir de tres formas. La manual te muestra los 5 pasos del diagrama de arriba uno por uno; `hist()` los automatiza; `ggplot2` te da el control fino para informes.
+
+::: {.panel-tabset}
+
+## Manera 1 · Construcción manual (con `cut()`)
+
+Replica a mano los 5 pasos: rango → k (Sturges) → ancho de clase → límites → conteo. La función `cut()` asigna cada dato a su intervalo, y `table()` cuenta:
+
+```{r}
+x <- faithful$eruptions
+n <- length(x)
+
+# Paso 1-3: rango, k por Sturges, ancho de clase
+rango <- max(x) - min(x)
+k <- ceiling(1 + 3.3 * log10(n))
+w <- rango / k
+c(rango = rango, k = k, ancho = round(w, 3))
+
+# Paso 4: límites de clase
+limites <- seq(min(x), max(x), length.out = k + 1)
+
+# Paso 5: asignar cada dato a su clase y contar
+clases <- cut(x, breaks = limites, include.lowest = TRUE)
+tabla_agrupada <- data.frame(
+  Intervalo       = levels(clases),
+  Frec_absoluta   = as.vector(table(clases)),
+  Frec_relativa   = round(as.vector(table(clases)) / n, 3),
+  Frec_acumulada  = cumsum(as.vector(table(clases)))
+)
+tabla_agrupada
+```
+
+El "histograma manual" es un `barplot()` de esa tabla, con las barras pegadas (`space = 0`):
+
+```{r}
+barplot(tabla_agrupada$Frec_absoluta, space = 0,
+        names.arg = round(limites[-1], 2),
+        col = "#004B85", border = "white",
+        xlab = "Duración (min)", ylab = "Frecuencia",
+        main = "Histograma construido manualmente")
+```
+
+## Manera 2 · `hist()` de R base
+
+Todo lo anterior en una sola línea — R aplica internamente una regla tipo Sturges, o puedes forzar el número de cortes con `breaks`:
+
+```{r}
+h <- hist(faithful$eruptions, breaks = k,
+          col = "#004B85", border = "white",
+          xlab = "Duración (min)", ylab = "Frecuencia",
+          main = "hist() de R base")
+```
+
+Un detalle útil: `hist()` **devuelve un objeto** con toda la tabla agrupada calculada — puedes inspeccionarlo:
+
+```{r}
+h$breaks   # límites de clase que usó
+h$counts   # frecuencias absolutas por clase
+```
+
+## Manera 3 · ggplot2
+
+`geom_histogram()` con control del número de barras (`bins`) o del ancho de clase (`binwidth`) — más una línea de la media, como en el laboratorio del curso:
+
+```{r}
+#| message: false
+library(ggplot2)
+
+ggplot(faithful, aes(x = eruptions)) +
+  geom_histogram(bins = k, fill = "#004B85", color = "white") +
+  geom_vline(aes(xintercept = mean(eruptions)),
+             color = "#FFB903", linetype = "dashed", linewidth = 1) +
+  labs(x = "Duración (min)", y = "Frecuencia",
+       title = "geom_histogram() con la media marcada") +
+  theme_minimal()
+```
+
+:::
+
+::: {.callout-tip}
+## ¿Cuál usar?
+- **Manual (`cut()` + `table()`)** cuando el ejercicio pide *la tabla de distribución de frecuencias* explícita, o cuando los límites de clase deben ser valores "redondos" con sentido práctico (por ejemplo, de 10 en 10) en vez de los que da la fórmula.
+- **`hist()`** para explorar rápido y para acceder a la tabla interna con `h$breaks` y `h$counts`.
+- **ggplot2** para informes, y cuando quieras superponer capas (media, densidad, comparación por grupos con `color = Grupo`).
+:::
+
 ## 🧪 Ejemplo con datos reales
 
 **Paso 1 — Calcular $k$ con la regla de Sturges:**
@@ -188,6 +276,16 @@ k <- 1 + 3.3 * ___(n)
 <script>
 function revisarQuizTema3() {
   const respuestas = { q1: "F", q2: "F", q3: "V" };
+  // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-tema3");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
   let correctas = 0;
   for (const [p, c] of Object.entries(respuestas)) {
     const s = document.querySelector(`input[name="${p}"]:checked`);

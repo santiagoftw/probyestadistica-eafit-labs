@@ -33,7 +33,17 @@ Cada bloque indica a qué tema del sitio corresponde, para que repases la teorí
 
 ---
 
-## Tema 4 · Tendencia central
+## Tema 3 · Histograma y tabla de frecuencias agrupada
+
+**Fuente:** adaptado del tratamiento de distribuciones de frecuencia de Contento Rubio (Cap. 2) y del material de clase (Semana 2).
+
+4a. Una empresa registró el número de llegadas tarde por mes durante 60 meses. Genera tú mismo un conjunto de datos similar en R con `set.seed(2026); retardos <- round(runif(60, 12, 79))` y luego: (i) calcula el número de clases con la fórmula de Sturges; (ii) calcula el ancho de clase resultante dividiendo el rango entre k; (iii) construye la tabla de distribución de frecuencias con `cut()` y `table()` usando esos límites.
+
+4b. Con el mismo conjunto de datos, observa los límites de clase que produjo la fórmula (con muchos decimales, del estilo "21.57 a 31.14"). Construye una **segunda** tabla usando límites "prácticos" de ancho 10, empezando en 10 (es decir: [10,20), [20,30), ..., [70,80)). Compara ambas tablas y responde: ¿cuál es más fácil de interpretar y comunicar? ¿Cambió la forma general de la distribución al cambiar los límites? Esta tensión entre "límites de fórmula" y "límites con sentido práctico" es una decisión real del analista, no un defecto del método.
+
+4c. Construye el histograma de los mismos datos de las tres maneras vistas en el Tema 3 (manual con `cut()` + `barplot(space = 0)`, con `hist()`, y con `ggplot2::geom_histogram()`), verificando que las tres cuentan la misma historia.
+
+---
 
 **Fuente:** Rincón (2017), Cap. 2, ejercicios de medidas de localización.
 

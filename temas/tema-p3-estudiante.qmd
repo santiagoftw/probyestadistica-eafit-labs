@@ -130,6 +130,16 @@ p_B_dado_A <- (p_A_dado_B * p_B) / ___
 <script>
 function revisarQuizTemaP3() {
   const respuestas = { q1: "V", q2: "F", q3: "V" };
+  // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temap3");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
   let correctas = 0;
   for (const [p, c] of Object.entries(respuestas)) {
     const s = document.querySelector(`input[name="${p}"]:checked`);

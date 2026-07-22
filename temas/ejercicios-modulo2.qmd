@@ -48,15 +48,33 @@ Un problema real de este laboratorio plantea dos eventos con $\pi_1=0.4$, $\pi_2
 
 6. **(Análisis de riesgo):** tres fuentes de energía tienen probabilidad de falla y costo adicional en caso de falla: Fuente X ($P=0.2$, costo adicional \$1000, costo base \$20000); Fuente Y ($P=0.1$, costo adicional \$1500, costo base \$25000); Fuente Z ($P=0.15$, costo adicional \$1200, costo base \$22000). Simula 10,000 escenarios para cada fuente y determina el costo total esperado. ¿Cuál fuente tiene el mayor costo esperado?
 
+6b. **(Función de masa con valor faltante, adaptado del material de clase):** una variable aleatoria discreta toma los valores 6, 7, 8, 9 y 10, con probabilidades 0.05, 0.10, 0.60, 0.15 y un valor desconocido para el 10. (i) Usa la condición de que toda función de masa debe sumar 1 para hallar $P(X=10)$. (ii) Calcula $P(X \le 8)$ y $P(X < 8)$ — explica por qué **no** son iguales en una variable discreta. (iii) Verifica tus respuestas construyendo la tabla en R con vectores y `cumsum()`.
+
 ---
 
-## Tema P7 · Distribuciones continuas
+## Tema P6 · Distribuciones discretas (Binomial y Poisson)
 
-**Fuente:** Laboratorio 2, Bloque 5.
+**Fuente:** adaptado de los ejemplos y ejercicios de Contento Rubio (Cap. 4) trabajados en clase.
+
+6c. **(Poisson en un cruce vial):** el número de accidentes semanales en cierto cruce se modela como Poisson con promedio 2 por semana. (i) Calcula a mano, con la función de masa, la probabilidad de que en una semana no ocurra ningún accidente. (ii) Calcula con `ppois()` la probabilidad de más de 4 accidentes en una semana. (iii) Usando independencia entre semanas, calcula la probabilidad de exactamente 2 accidentes una semana y 3 la siguiente, y verifica con `dpois(2,2) * dpois(3,2)`.
+
+6d. **(Aproximación Binomial → Poisson con eventos raros):** una mutación celular ocurre con probabilidad de 1 en $10^9$ por célula. Si se observan $2\times 10^9$ células, justifica por qué la Binomial$(n, p)$ resultante se puede aproximar con una Poisson de parámetro $\lambda = np = 2$, y calcula con esa aproximación la probabilidad de que ninguna célula mute y la de que mute al menos una. Verifica ambas con `dpois()`/`ppois()`.
+
+---
+
+## Tema P7 · Distribuciones continuas (Uniforme y Normal)
+
+**Fuente:** Laboratorio 2, Bloque 5, y ejercicios adaptados de Contento Rubio (Cap. 4).
 
 7. **(Resistencia a la tracción):** en un laboratorio de materiales, la resistencia a la tracción de un nuevo material sigue una distribución normal con $\mu=500$ y $\sigma=50$. Determina: (a) la probabilidad de que una muestra tenga resistencia menor a 450; (b) la probabilidad de que la resistencia esté entre 450 y 550.
 
 8. Estima la media y la varianza de una distribución uniforme continua en $[10, 20]$ a partir de una muestra simulada de tamaño $n=1000$. Compara contra los valores teóricos $\frac{a+b}{2}$ y $\frac{(b-a)^2}{12}$.
+
+8b. **(Contaminante uniforme):** la concentración de un contaminante se distribuye uniformemente entre 0 y 20 ppm, y se considera tóxica a partir de 8 ppm. (i) Calcula geométricamente (área bajo la densidad) la probabilidad de que una muestra resulte tóxica. (ii) Verifica con `punif(8, 0, 20, lower.tail = FALSE)`. (iii) ¿Cuál es la probabilidad de que la concentración sea *exactamente* 10 ppm? Explica por qué esa respuesta es la que es, siendo la variable continua.
+
+8c. **(Calificaciones normales):** los resultados de un examen se distribuyen normal con promedio 78 y varianza 36 (ojo: varianza, no desviación estándar). (i) Calcula la probabilidad de obtener más de 72. (ii) Si al 10% superior se le asigna la nota A, ¿cuál es la calificación mínima para lograr una A? Resuélvelo con `qnorm()` y explica por qué esta pregunta es "inversa" a la anterior.
+
+8d. **(Regla empírica por simulación):** para una normal cualquiera, calcula con `pnorm()` la probabilidad de caer a lo más a 1, 2 y 3 desviaciones estándar del promedio. Luego simula 100,000 valores con `rnorm()` y verifica que las proporciones simuladas coinciden con los tres valores teóricos (deberías reconocer la regla 68–95–99.7).
 
 ---
 

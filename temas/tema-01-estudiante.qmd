@@ -180,6 +180,16 @@ ___(msleep$vore)
 <script>
 function revisarQuizTema1() {
   const respuestas = { q1: "F", q2: "F", q3: "V" };
+  // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-tema1");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
   let correctas = 0;
   let total = Object.keys(respuestas).length;
   for (const [pregunta, correcta] of Object.entries(respuestas)) {
@@ -189,15 +199,18 @@ function revisarQuizTema1() {
   const resultado = document.getElementById("resultado-quiz-tema1");
   resultado.textContent = `Obtuviste ${correctas} de ${total} correctas.`;
   resultado.style.color = correctas === total ? "#004B85" : "#B37D00";
+  document.getElementById("explicacion-quiz-tema1").style.display = "block";
 }
 </script>
 
-::: {.callout-note}
-## Explicación de las respuestas
-1. **Falso** — la temperatura en °C es numérica pero de intervalo, no de razón.
-2. **Falso** — es el error clásico del Tema 1: el tipo de dato en R no determina la escala estadística.
-3. **Verdadero** — tiene un orden natural de severidad, aunque no una distancia numérica definida entre niveles.
-:::
+<div id="explicacion-quiz-tema1" style="display: none;" class="card-lab">
+<strong>Explicación de las respuestas</strong>
+<ol>
+<li><strong>Falso</strong> — la temperatura en °C es numérica pero de intervalo, no de razón.</li>
+<li><strong>Falso</strong> — es el error clásico del Tema 1: el tipo de dato en R no determina la escala estadística.</li>
+<li><strong>Verdadero</strong> — tiene un orden natural de severidad, aunque no una distancia numérica definida entre niveles.</li>
+</ol>
+</div>
 
 ## 🗂️ Resumen
 
