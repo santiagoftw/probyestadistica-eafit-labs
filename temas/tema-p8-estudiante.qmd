@@ -14,25 +14,35 @@ Antes de calcular: $Y_2$ depende de *cuándo* sale la primera cara, y $Y_1$ del 
 
 ## 🔬 Exploremos: construyendo la tabla conjunta
 
-```{r}
-prob <- function(y1, y2) {
-  if (y1 == 0) return(ifelse(y2 == -1, 1/8, 0))
-  if (y1 == 1) return(ifelse(y2 == 1, 1/8, 0))
-  if (y1 == 2) return(ifelse(y2 == 2, 1/8, 0))
-  if (y1 == 3) return(ifelse(y2 == 3, 1/8, 0))
-  return(0)
-}
+La forma más segura de construir la tabla conjunta no es "adivinar" una fórmula, sino **enumerar los 8 resultados posibles** de los 3 lanzamientos y contar directamente:
 
-Y1 <- 0:3
-Y2 <- c(-1, 1, 2, 3)
-prob_matrix <- outer(Y1, Y2, Vectorize(prob))
-rownames(prob_matrix) <- paste0("Y1=", Y1)
-colnames(prob_matrix) <- paste0("Y2=", Y2)
+```{r}
+# Los 8 resultados igualmente probables de lanzar 3 monedas
+monedas <- expand.grid(t1 = c("C", "S"), t2 = c("C", "S"), t3 = c("C", "S"))
+
+# Y1: número total de caras
+monedas$Y1 <- rowSums(monedas[, 1:3] == "C")
+
+# Y2: en qué tiro salió la PRIMERA cara (o -1 si no salió ninguna)
+primera_cara <- function(fila) {
+  pos <- which(fila == "C")
+  if (length(pos) == 0) return(-1)
+  min(pos)
+}
+monedas$Y2 <- apply(monedas[, 1:3], 1, primera_cara)
+
+# Tabla conjunta: cuenta cada combinación (Y1,Y2) y divide por los 8 casos
+prob_matrix <- table(monedas$Y1, monedas$Y2) / nrow(monedas)
 prob_matrix
 ```
 
 ::: {.ficha-resultado}
-Mira la matriz: cada combinación $(Y_1, Y_2)$ tiene probabilidad 1/8 o 0 — nunca algo intermedio. ¿Por qué crees que pasa esto en este problema en particular (pista: piensa en cuántas combinaciones de 3 lanzamientos hay en total)?
+Mira la fila `Y1=2`: la combinación `(Y1=2, Y2=1)` tiene probabilidad 2/8, el doble que las demás celdas no vacías. ¿Por qué? (pista: hay dos maneras distintas de sacar exactamente 2 caras *con la primera cara en el primer tiro*: CCS y CSC).
+:::
+
+::: {.callout-important}
+## Corrección de rigor
+Una versión anterior de este tema seguía la solución oficial del Laboratorio 3, que calcula la tabla conjunta con una función que solo cubre la diagonal ($Y_1=1\Rightarrow Y_2=1$, $Y_1=2\Rightarrow Y_2=2$, etc.), asignando probabilidad 0 a combinaciones que sí son posibles — por ejemplo, `CCS` y `CSC` dan $Y_1=2$ pero $Y_2=1$ (la primera cara salió en el primer tiro), no $Y_2=2$. Aquí se corrigió **enumerando los 8 resultados directamente** en vez de escribir una fórmula a mano — la lección general es que cuando el espacio muestral es pequeño y enumerable, contar es más confiable que "adivinar" una expresión cerrada.
 :::
 
 ## 📖 Ahora sí, la teoría
@@ -59,19 +69,19 @@ $Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2
 ## 🧪 Ejemplo con datos reales: marginales, condicional e independencia
 
 ```{r}
-# Marginal de Y2
+# Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)
 marginal_Y2 <- colSums(prob_matrix)
 marginal_Y2
 
-# Marginal de Y1
+# Marginal de Y1 (filas están rotuladas 0, 1, 2, 3)
 marginal_Y1 <- rowSums(prob_matrix)
 marginal_Y1
 ```
 
 ```{r}
 # Condicional: P(Y1=3 | Y2=1)
-p_Y1_3_Y2_1 <- prob(3, 1)
-p_Y2_1 <- marginal_Y2["Y2=1"]
+p_Y1_3_Y2_1 <- prob_matrix["3", "1"]
+p_Y2_1 <- marginal_Y2["1"]
 p_Y1_3_dado_Y2_1 <- p_Y1_3_Y2_1 / p_Y2_1
 p_Y1_3_dado_Y2_1
 ```
@@ -82,6 +92,8 @@ independencia_teorica <- outer(marginal_Y1, marginal_Y2)
 round(prob_matrix, 3)
 round(independencia_teorica, 3)
 ```
+
+Fíjate en la celda `(Y1=2, Y2=1)`: en la tabla conjunta real vale $2/8=0.25$, pero el producto de marginales da $P(Y_1=2)\cdot P(Y_2=1) = 0.375 \times 0.5 = 0.1875$ — no coinciden.
 
 ::: {.callout-important}
 ## Resultado del ejemplo

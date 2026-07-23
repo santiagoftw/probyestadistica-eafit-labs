@@ -1,11 +1,19 @@
 ---
-title: "Laboratorio integrador · Producción mundial de energía renovable"
+title: "Laboratorios del curso · Ejercicios y prácticas resueltas"
 ---
 
 ::: {.hero-motivacion}
-## ⚡ Laboratorio 1 — Coordinación de área Estadística
+## 🧪 Los cuatro laboratorios reales del curso, resueltos y comentados
 
-Este es el laboratorio real del curso (Semanas 2 y 3), con el dataset oficial `BaseLaboratorio1.csv`: producción anual de energía solar, eólica, hidráulica y otras renovables, en 10 países, entre 2000 y 2023 (240 observaciones). Es el mismo laboratorio que resolverás para el Taller 1.
+Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: **Laboratorio 1** (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), **Laboratorio 2** (fenómenos aleatorios), **Laboratorio 3** (distribución multivariada) y el **Laboratorio de Inferencia Estadística**. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.
+:::
+
+::: {.callout-note}
+## Índice rápido
+- [Laboratorio 1 · Producción de energía renovable](#bloque-0-cómo-importar-los-datos) — Ítems 1 a 12
+- [Laboratorio 2 · Análisis de fenómenos aleatorios](#laboratorio-2-análisis-de-fenómenos-aleatorios) — Ítems 13 a 28
+- [Laboratorio 3 · Distribución de probabilidad multivariada](#laboratorio-3-distribución-de-probabilidad-multivariada) — Ítems 29 a 34
+- [Laboratorio de Inferencia Estadística](#laboratorio-de-inferencia-estadística) — Ítems 35 a 43
 :::
 
 ::: {.callout-note}
@@ -319,9 +327,7 @@ RIP / 98  # desviación interpercentil
 Estas tres "desviaciones" son generalizaciones de la misma idea que el RIC del Tema 6, pero usando distintas proporciones centrales de los datos (50%, 80%, 98%). Todas son medidas de dispersión **robustas** frente a valores atípicos — a diferencia de la desviación estándar, que sí les da peso completo. [Ver más trucos →](../recursos.qmd)
 :::
 
----
-
-## 🗂️ Cierre del laboratorio
+## 🗂️ Cierre del Laboratorio 1
 
 ::: {.card-lab}
 - La clasificación correcta de variables es la base de cualquier análisis descriptivo correcto — un error aquí invalida todo lo que sigue.
@@ -333,4 +339,780 @@ Estas tres "desviaciones" son generalizaciones de la misma idea que el RIC del T
 ::: {.callout-important}
 ## Este es el Taller 1
 Esta es la misma estructura de preguntas que se evalúa en el Taller 1 (20% de la nota, según el programa del curso). Practica cada ítem por tu cuenta antes de consultar la solución oficial de arriba.
+:::
+
+---
+
+::: {.callout-note}
+## Cambio de contexto
+Lo que sigue corresponde a los **Laboratorios 2, 3 y de Inferencia** del curso — mismo formato (enunciado real → predicción → código → interpretación), pero con datasets y contextos distintos al Laboratorio 1: dados, componentes industriales, sistemas de producción y encuestas, en vez del dataset de energía. Los ítems siguen numerándose de forma continua.
+:::
+
+# Laboratorio 2 · Análisis de fenómenos aleatorios
+
+::: {.hero-motivacion}
+## 🎲 De describir lo que ya pasó a modelar lo que puede pasar
+Este laboratorio corresponde a probabilidad: reglas básicas, condicional, total, Bayes, variables aleatorias y distribuciones discretas/continuas — la misma progresión que ya viste en el Módulo 2 (P1-P7), ahora en formato de laboratorio resuelto y consolidado.
+:::
+
+## Bloque 3 · Reglas básicas de probabilidad
+
+### Ítem 13 — Probabilidad de un número par (teórica vs. simulada)
+
+**Enunciado:** calcule la probabilidad de obtener un número par al lanzar un dado de seis caras. Luego simule el lanzamiento del dado 1000 veces y verifique la frecuencia de números pares.
+
+::: {.ficha-prediccion}
+¿Qué tan cerca esperas que quede la frecuencia simulada de la probabilidad teórica con solo 1000 lanzamientos?
+:::
+
+```{r}
+prob_par <- 3 / 6  # hay 3 números pares en un dado de 6 caras
+
+set.seed(123)
+lanzamientos <- sample(1:6, size = 1000, replace = TRUE)
+frecuencia_par <- mean(lanzamientos %% 2 == 0)
+
+prob_par
+frecuencia_par
+```
+
+::: {.ficha-resultado}
+La frecuencia simulada (0.497) está muy cerca del valor teórico (0.5) — es la Ley de los Grandes Números en acción: entre más lanzamientos, más se acerca la frecuencia relativa a la probabilidad teórica.
+:::
+
+### Ítem 14 — Regla de adición: $P(A\cup B)$
+
+**Enunciado:** una fábrica tiene dos tipos de defectos: A (falla de lubricación, $P(A)=0.15$) y B (falla eléctrica, $P(B)=0.10$), con $P(A\cap B)=0.05$. Calcule la probabilidad de que ocurra al menos uno de los dos defectos.
+
+```{r}
+p_A <- 0.15
+p_B <- 0.10
+p_A_int_B <- 0.05
+
+p_A_union_B <- p_A + p_B - p_A_int_B
+p_A_union_B
+```
+
+### Ítem 15 — Diferencia simétrica de eventos
+
+**Enunciado:** en una línea de producción, $P(A)=0.3$ (defecto A), $P(B)=0.4$ (defecto B), $P(A\cap B)=0.1$. Calcule la probabilidad de que un producto tenga *exactamente uno* de los dos defectos (diferencia simétrica, $A\Delta B$) y la probabilidad de que tenga al menos uno.
+
+```{r}
+p_A <- 0.3
+p_B <- 0.4
+p_A_int_B <- 0.1
+
+# Diferencia simétrica: A∆B = (A∪B) - (A∩B)
+p_diferencia_simetrica <- p_A + p_B - 2 * p_A_int_B
+p_al_menos_uno <- p_A + p_B - p_A_int_B
+
+list(diferencia_simetrica = p_diferencia_simetrica, al_menos_uno = p_al_menos_uno)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+$A\Delta B$ resta la intersección **dos veces** (en vez de una, como en $A\cup B$) porque quiere excluir por completo los casos donde ocurren ambos eventos a la vez, no solo contarlos una vez. Compara la fórmula con la de $P(A\cup B)$ del ítem anterior. [Ver más trucos →](../recursos.qmd)
+:::
+
+### Ítem 16 — Complemento en análisis de fiabilidad
+
+**Enunciado:** la probabilidad de que un componente mecánico funcione sin fallos durante su vida útil es 0.85. Determine la probabilidad de que falle.
+
+```{r}
+p_funciona <- 0.85
+p_falla <- 1 - p_funciona
+p_falla
+```
+
+### Ítem 17 — "Al menos uno": una fórmula mal aplicada (rigor)
+
+**Enunciado:** dos eventos ocurren con $\pi_1=0.4$ y $\pi_2=0.5$, y $P(A\cap B)=0.2$. Calcule la probabilidad de que ocurra al menos uno de los dos y verifique por simulación.
+
+::: {.ficha-prediccion}
+Antes de mirar el código: ¿la expresión $1-(\pi_1+\pi_2-\pi_{12})$ calcula "al menos uno" o calcula otra cosa?
+:::
+
+```{r}
+p1 <- 0.4
+p2 <- 0.5
+p12 <- 0.2
+
+# Fórmula correcta de "al menos uno"
+prob_al_menos_uno <- p1 + p2 - p12
+prob_al_menos_uno
+
+set.seed(456)
+eventos <- matrix(runif(10000 * 2), ncol = 2)
+resultados <- rowSums(eventos < c(p1, p2)) > 0
+frecuencia <- mean(resultados)
+frecuencia
+```
+
+::: {.callout-important}
+## Corrección de rigor
+La solución oficial del laboratorio calcula "al menos uno" como `1-(p1+p2-p12)` y obtiene 0.3 — pero esa expresión es en realidad $P(\text{ninguno de los dos})=1-P(A\cup B)$, no $P(\text{al menos uno})$. La simulación honesta del propio laboratorio lo delata: da 0.6945, muy lejos de 0.3 pero razonablemente cerca del valor correcto $P(A\cup B)=p_1+p_2-p_{12}=0.7$. Cuando el resultado simulado y el teórico no coinciden, el primer sospechoso es la fórmula, no la simulación — aquí, la clave es leer la fórmula de complemento con cuidado: $1-P(A\cup B)$ es el complemento de "al menos uno", es decir, "ninguno". Este es el mismo error que se documentó en el banco de ejercicios del Módulo 2 (ejercicio 1), donde se dejó explícitamente como ejercicio de detección de errores.
+:::
+
+## Bloque 4 · Probabilidad condicional, total y Bayes
+
+### Ítem 18 — Probabilidad condicional (sistema de refrigeración)
+
+**Enunciado:** en un sistema de refrigeración, $P(\text{compresor falla})=0.12$, $P(\text{condensador falla})=0.08$, $P(\text{ambos fallan})=0.05$. Determine la probabilidad de que el condensador falle dado que el compresor ya falló.
+
+```{r}
+p_C <- 0.12
+p_D <- 0.08
+p_C_int_D <- 0.05
+
+p_D_dado_C <- p_C_int_D / p_C
+p_D_dado_C
+```
+
+### Ítem 19 — Probabilidad total (dos máquinas)
+
+**Enunciado:** una empresa tiene dos máquinas: A produce el 60% de los productos con 20% de defectuosos, B produce el 40% con 50% de defectuosos. Calcule la probabilidad total de que un producto sea defectuoso.
+
+```{r}
+p_maquina_A <- 0.6
+p_maquina_B <- 0.4
+p_def_dado_A <- 0.2
+p_def_dado_B <- 0.5
+
+p_defectuoso <- p_def_dado_A * p_maquina_A + p_def_dado_B * p_maquina_B
+p_defectuoso
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+La probabilidad total es un promedio ponderado: cada tasa de defectos se pondera por qué tan probable es esa "rama" del árbol. Si tres líneas de producción tuvieran participaciones 40%/35%/25% con tasas de defecto 2%/5%/3%, la lógica es idéntica — solo se suman más términos. [Ver más trucos →](../recursos.qmd)
+:::
+
+### Ítem 20 — Teorema de Bayes (defectos y quejas)
+
+**Enunciado:** el 30% de los productos de una fábrica son defectuosos. Un producto defectuoso causa una queja con probabilidad 0.8; uno no defectuoso, con probabilidad 0.1. Calcule la probabilidad de que un producto sea defectuoso, dado que causó una queja.
+
+::: {.ficha-prediccion}
+¿Esperas que esta probabilidad "a posteriori" sea mayor, menor o igual al 30% original?
+:::
+
+```{r}
+p_defectuoso <- 0.3
+p_no_defectuoso <- 1 - p_defectuoso
+p_queja_dado_def <- 0.8
+p_queja_dado_no_def <- 0.1
+
+p_queja <- p_queja_dado_def * p_defectuoso + p_queja_dado_no_def * p_no_defectuoso
+p_defectuoso_dado_queja <- (p_queja_dado_def * p_defectuoso) / p_queja
+p_defectuoso_dado_queja
+```
+
+::: {.ficha-resultado}
+Pasa de 30% a casi 77%: observar la queja es información muy fuerte, porque un defecto la produce 8 veces más seguido que un producto bueno. Así funciona Bayes — actualiza una creencia previa con nueva evidencia.
+:::
+
+### Ítem 21 — Independencia y "al menos uno" (versión correcta)
+
+**Enunciado:** $P(A)=0.4$, $P(B)=0.5$, $P(A\cap B)=0.2$. (i) Verifique si A y B son independientes. (ii) Calcule $P(A\cup B)$.
+
+```{r}
+p_A <- 0.4
+p_B <- 0.5
+p_A_int_B <- 0.2
+
+son_independientes <- isTRUE(all.equal(p_A_int_B, p_A * p_B))
+p_al_menos_uno <- p_A + p_B - p_A_int_B
+
+list(independientes = son_independientes, al_menos_uno = p_al_menos_uno)
+```
+
+::: {.callout-note}
+## Compara con el Ítem 17
+Aquí $P(A\cup B)=0.7$ se calcula con la misma fórmula correcta del Ítem 17 — sin el complemento de más que causaba el error allá. Tenerlos uno junto al otro ayuda a fijar cuál es cuál.
+:::
+
+## Bloque 5 · Variables aleatorias y función de distribución acumulada
+
+### Ítem 22 — FDA empírica de tiempos de resistencia
+
+**Enunciado:** analice el comportamiento de 30 datos de tiempo de resistencia (horas) a partir de su función de distribución acumulada (FDA), su valor esperado y su varianza.
+
+```{r}
+tiempo <- c(500, 520, 510, 530, 550, 540, 560, 520, 500, 580,
+            590, 600, 610, 620, 630, 640, 650, 620, 630, 640,
+            620, 610, 600, 590, 580, 570, 550, 540, 530, 520)
+
+tiempo_ordenado <- sort(tiempo)
+frecuencia_acumulada <- cumsum(table(factor(tiempo_ordenado, levels = unique(tiempo_ordenado))))
+fda <- frecuencia_acumulada / length(tiempo)
+
+valor_esperado <- mean(tiempo)
+varianza <- var(tiempo)
+
+valor_esperado
+varianza
+
+plot(as.numeric(names(fda)), as.numeric(fda), type = "s",
+     col = "#004B85", lwd = 2, xlab = "Tiempo (horas)", ylab = "FDA empírica",
+     main = "Función de distribución acumulada empírica")
+```
+
+### Ítem 23 — FDA de la distribución exponencial
+
+**Enunciado:** para $f(x)=\lambda e^{-\lambda x}$, $x\ge 0$, determine la expresión analítica de la FDA y grafíquela para $\lambda=0.5$.
+
+::: {.panel-tabset}
+
+## Teoría
+
+$$F(x) = \int_0^x \lambda e^{-\lambda t}\,dt = 1 - e^{-\lambda x}, \quad x \ge 0$$
+
+## Código
+
+```{r}
+lambda <- 0.5
+fda_exp <- function(x, lambda) ifelse(x < 0, 0, 1 - exp(-lambda * x))
+
+valores <- seq(0, 10, by = 0.1)
+plot(valores, fda_exp(valores, lambda), type = "l", col = "#004B85", lwd = 2,
+     xlab = "Tiempo", ylab = "FDA",
+     main = "FDA de la exponencial (λ = 0.5)")
+abline(h = 1, col = "#FFB903", lty = 2, lwd = 2)
+```
+
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+La exponencial modela "tiempo hasta que pasa algo" (fallas, llegadas, duraciones) y es la contraparte continua de la Poisson (Tema P6-P7): si los conteos de eventos por unidad de tiempo son Poisson($\lambda$), el tiempo *entre* eventos es exponencial($\lambda$). [Ver más trucos →](../recursos.qmd)
+:::
+
+## Bloque 6 · Distribuciones discretas
+
+### Ítem 24 — Binomial: verificando $\mu=np$, $\sigma^2=np(1-p)$
+
+**Enunciado:** demuestre mediante simulación que la media y varianza de una binomial con $n=50$, $p=0.3$ son, respectivamente, $\mu=np$ y $\sigma^2=np(1-p)$.
+
+```{r}
+n_sim <- 1000
+n_binom <- 50
+p_binom <- 0.3
+
+set.seed(1)
+simulacion <- rbinom(n_sim, size = n_binom, prob = p_binom)
+
+c(media_simulada = mean(simulacion), media_teorica = n_binom * p_binom)
+c(varianza_simulada = var(simulacion), varianza_teorica = n_binom * p_binom * (1 - p_binom))
+```
+
+### Ítem 25 — Poisson: verificando $\mu=\sigma^2=\lambda$
+
+**Enunciado:** demuestre que la media y la varianza de una Poisson($\lambda=5$) son ambas iguales a $\lambda$.
+
+```{r}
+lambda_poisson <- 5
+set.seed(1)
+simulacion_poisson <- rpois(n_sim, lambda = lambda_poisson)
+
+c(media = mean(simulacion_poisson), varianza = var(simulacion_poisson), lambda = lambda_poisson)
+```
+
+::: {.callout-note}
+## Interpretación
+La propiedad $\mu=\sigma^2$ es exclusiva de la Poisson entre las distribuciones discretas comunes — si en datos reales de conteos la varianza es mucho mayor que la media (sobredispersión), la Poisson deja de ser un buen modelo y se recurre a alternativas como la binomial negativa (fuera del alcance de este curso, pero bueno saber que existe la señal de alerta).
+:::
+
+### Ítem 26 — Convergencia Binomial → Poisson
+
+**Enunciado:** ilustre que una binomial con $n$ grande y $p$ pequeño se aproxima a una Poisson con $\lambda=np$ constante.
+
+```{r}
+n_grande <- 10000
+p_chico <- 0.005
+lambda_constante <- n_grande * p_chico  # = 50
+
+set.seed(1)
+sim_binomial <- rbinom(n_grande, size = n_grande, prob = p_chico)
+sim_poisson <- rpois(n_grande, lambda = lambda_constante)
+
+library(tidyverse)
+tibble(valor = c(sim_binomial, sim_poisson),
+       distribucion = rep(c("Binomial(n grande, p chico)", "Poisson(λ=np)"), each = n_grande)) |>
+  ggplot(aes(x = valor, fill = distribucion)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = 30) +
+  scale_fill_manual(values = c("#004B85", "#FFB903")) +
+  theme_bw() + labs(x = "Valor", y = "Frecuencia", fill = NULL)
+```
+
+## Bloque 7 · Distribuciones continuas
+
+### Ítem 27 — Uniforme: media y varianza estimadas vs. teóricas
+
+**Enunciado:** para una uniforme continua en $[2,5]$, estime media y varianza con una muestra de $n=1000$ y compárelas con las teóricas $\frac{a+b}{2}$ y $\frac{(b-a)^2}{12}$.
+
+```{r}
+a <- 2; b <- 5; n <- 1000
+set.seed(1)
+muestra_unif <- a + (b - a) * runif(n)
+
+list(
+  media_estimada = mean(muestra_unif), media_teorica = (a + b) / 2,
+  varianza_estimada = var(muestra_unif), varianza_teorica = (b - a)^2 / 12
+)
+```
+
+### Ítem 28 — Normal: probabilidades y percentiles (satisfacción de usuario)
+
+**Enunciado:** las puntuaciones de satisfacción siguen $N(7, 1.5^2)$. (i) ¿probabilidad de calificar con menos de 6? (ii) ¿intervalo del 80% central? (iii) ¿qué puntuación corresponde al percentil 85?
+
+```{r}
+media_sat <- 7
+sd_sat <- 1.5
+
+prob_menor_6 <- pnorm(6, mean = media_sat, sd = sd_sat)
+intervalo_80 <- qnorm(c(0.10, 0.90), mean = media_sat, sd = sd_sat)
+percentil_85 <- qnorm(0.85, mean = media_sat, sd = sd_sat)
+
+list(prob_menor_6 = prob_menor_6, intervalo_80 = intervalo_80, percentil_85 = percentil_85)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+`pnorm()` va de un valor de x a una probabilidad acumulada; `qnorm()` hace lo inverso, de una probabilidad a un valor de x (un cuantil). Si necesitas "¿qué proporción está por debajo de...?" usa `pnorm()`; si necesitas "¿qué valor deja tal proporción por debajo?" usa `qnorm()`. [Ver más trucos →](../recursos.qmd)
+:::
+
+---
+
+# Laboratorio 3 · Distribución de probabilidad multivariada
+
+::: {.hero-motivacion}
+## 🔗 Cuando dos variables aleatorias interactúan
+Aquí el foco pasa de una sola variable aleatoria a **dos o más a la vez**: distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias. Corresponde al Módulo 2, temas P8-P10.
+:::
+
+## Bloque 8 · Distribución de probabilidad conjunta
+
+### Ítem 29 — Monedas: conjunta, marginal y condicional (con corrección)
+
+**Enunciado:** se lanzan 3 monedas balanceadas. $Y_1$ = número de caras. $Y_2$ = ganancia de una apuesta: \$1 si la primera cara sale en el tiro 1, \$2 si sale en el tiro 2, \$3 si sale en el tiro 3, y $-\$1$ si no sale ninguna cara. Encuentre la función de probabilidad conjunta, la marginal de $Y_2$, y $P(Y_1=3\,|\,Y_2=1)$.
+
+::: {.ficha-prediccion}
+$Y_2$ depende del *momento* de la primera cara, y $Y_1$ del *número total* de caras — dos aspectos distintos del mismo lanzamiento. ¿Esperas que sean independientes?
+:::
+
+```{r}
+monedas <- expand.grid(t1 = c("C", "S"), t2 = c("C", "S"), t3 = c("C", "S"))
+monedas$Y1 <- rowSums(monedas[, 1:3] == "C")
+monedas$Y2 <- apply(monedas[, 1:3], 1, function(fila) {
+  pos <- which(fila == "C")
+  if (length(pos) == 0) return(-1)
+  min(pos)
+})
+
+prob_matrix <- table(monedas$Y1, monedas$Y2) / nrow(monedas)
+prob_matrix
+
+marginal_Y2 <- colSums(prob_matrix)
+marginal_Y2
+
+p_Y1_3_dado_Y2_1 <- prob_matrix["3", "1"] / marginal_Y2["1"]
+p_Y1_3_dado_Y2_1
+```
+
+::: {.callout-important}
+## Corrección de rigor
+La solución oficial de este laboratorio construye la tabla conjunta con una función que solo cubre la diagonal ($Y_1=y \Rightarrow Y_2=y$), lo que deja fuera combinaciones reales: por ejemplo, `CCS` y `CSC` dan ambas $Y_1=2$ pero con la primera cara en el tiro 1 ($Y_2=1$), no en el tiro 2. Esa función asigna probabilidad 0 a `(Y1=2, Y2=1)` cuando en realidad vale $2/8$, y de paso hace que la marginal de $Y_2$ salga uniforme (0.125 en cada valor) cuando la real es $P(Y_2{=}1){=}0.5$, $P(Y_2{=}2){=}0.25$, $P(Y_2{=}3){=}0.125$, $P(Y_2{=}{-1}){=}0.125$. La forma robusta de evitar este tipo de error — y la que se usa arriba — es **enumerar los 8 resultados del espacio muestral y contar**, en vez de escribir de memoria una fórmula cerrada para la probabilidad conjunta. Esta misma corrección ya se aplicó al Tema P8 del Módulo 2.
+:::
+
+::: {.ficha-resultado}
+Con la tabla corregida, $P(Y_1{=}3\,|\,Y_2{=}1)=0.25$: saber que ganaste \$1 (la cara salió en el primer tiro) sí cambia la probabilidad de haber sacado 3 caras respecto a la marginal $P(Y_1{=}3)=0.125$ — confirma que **no son independientes**.
+:::
+
+### Ítem 30 — Ejecutivos: conjunta hipergeométrica y condicional (con corrección)
+
+**Enunciado:** de 9 ejecutivos (4 casados, 3 solteros, 2 divorciados) se seleccionan 3 al azar. $Y_1$ = número de casados, $Y_2$ = número de solteros seleccionados. (1) Encuentre la conjunta. (2) La marginal de $Y_1$. (3) $P(Y_1{=}1\,|\,Y_2{=}2)$. (4) Si $Y_3=3-Y_1-Y_2$ es el número de divorciados, calcule $P(Y_3{=}1\,|\,Y_2{=}1)$.
+
+```{r}
+total <- 9; casados <- 4; solteros <- 3; divorciados <- 2; sel <- 3
+
+prob_conjunta <- function(y1, y2) {
+  y3 <- sel - y1 - y2
+  if (y3 < 0 || y3 > divorciados) return(0)
+  (choose(casados, y1) * choose(solteros, y2) * choose(divorciados, y3)) / choose(total, sel)
+}
+
+Y1 <- 0:3; Y2 <- 0:3
+prob_matrix <- outer(Y1, Y2, Vectorize(prob_conjunta))
+rownames(prob_matrix) <- paste0("Y1=", Y1); colnames(prob_matrix) <- paste0("Y2=", Y2)
+round(prob_matrix, 4)
+
+marginal_Y1 <- rowSums(prob_matrix)
+marginal_Y1
+
+# (3) P(Y1=1 | Y2=2)
+p_Y1_1_dado_Y2_2 <- prob_conjunta(1, 2) / sum(prob_matrix[, "Y2=2"])
+p_Y1_1_dado_Y2_2
+
+# (4) P(Y3=1 | Y2=1): si Y2=1, Y3=1 exige Y1 = 3-1-1 = 1 (no Y1=2)
+p_Y2_1 <- sum(prob_matrix[, "Y2=1"])
+p_Y3_1_dado_Y2_1 <- prob_conjunta(1, 1) / p_Y2_1
+p_Y3_1_dado_Y2_1
+```
+
+::: {.callout-important}
+## Corrección de rigor
+La solución oficial calcula el punto (4) así: `prob_Y1_2_Y2_1 <- prob_joint(2, 1)` dividido entre una variable `prob_Y2_1` que **no se redefine** en ese punto del documento — sigue guardando el valor 0.125 de un ejercicio anterior (el de las monedas), no la marginal de este problema. El resultado que imprime, 1.714286, ya es una señal de alerta por sí sola: **ninguna probabilidad puede ser mayor que 1**. Además, usa $Y_1{=}2$ cuando la condición $Y_3{=}1, Y_2{=}1$ en realidad exige $Y_1{=}3-1-1{=}1$. Al corregir ambos puntos (variable correcta y valor de $Y_1$ correcto), $P(Y_3{=}1\,|\,Y_2{=}1)\approx0.533$. La lección: reutilizar nombres de variable entre secciones de un mismo script es una fuente común de errores silenciosos — y un resultado fuera del rango válido (aquí, una "probabilidad" mayor a 1) siempre debe hacer sospechar del código antes que del modelo.
+:::
+
+## Bloque 9 · Covarianza y correlación de variables aleatorias
+
+### Ítem 31 — Sistema de producción: demanda, tiempo y costo correlacionados
+
+**Enunciado:** simule tres variables — demanda $D\sim N(1000, 200^2)$, tiempo $T\sim N(50,10^2)$, costo $C\sim N(5000,800^2)$ — con correlaciones $\text{cor}(D,T)=0.6$, $\text{cor}(D,C)=0.4$, $\text{cor}(T,C)=0.3$. Calcule la covarianza entre cada par y la matriz de correlación resultante.
+
+```{r}
+#| message: false
+library(MASS)
+
+mean_D <- 1000; sd_D <- 200
+mean_T <- 50;   sd_T <- 10
+mean_C <- 5000; sd_C <- 800
+cor_DT <- 0.6; cor_DC <- 0.4; cor_TC <- 0.3
+
+cov_matrix <- matrix(c(
+  sd_D^2,             cor_DT * sd_D * sd_T, cor_DC * sd_D * sd_C,
+  cor_DT * sd_D * sd_T, sd_T^2,             cor_TC * sd_T * sd_C,
+  cor_DC * sd_D * sd_C, cor_TC * sd_T * sd_C, sd_C^2
+), nrow = 3)
+
+set.seed(123)
+variables <- mvrnorm(10000, mu = c(mean_D, mean_T, mean_C), Sigma = cov_matrix)
+colnames(variables) <- c("Demanda", "Tiempo", "Costo")
+
+cov(variables)
+cor(variables)
+```
+
+::: {.callout-note}
+## Conecta con el Tema 8
+Esta es exactamente la misma lógica de covarianza y correlación del Módulo 1 (mtcars: peso vs. consumo), pero ahora generando los datos correlacionados en vez de solo medirlos en datos ya existentes — `mvrnorm()` es la herramienta que permite *simular* con una estructura de correlación específica.
+:::
+
+### Ítem 32 — Propagación: vida útil como función de dos variables correlacionadas
+
+**Enunciado:** resistencia $R\sim N(500,50^2)$ MPa y módulo de elasticidad $E\sim N(200,20^2)$ GPa, con $\text{cor}(R,E)=0.6$. La vida útil se modela como $L=R^2/E$. Simule 10,000 escenarios y calcule media y desviación estándar de $L$, y la correlación entre $L$ y $R$.
+
+```{r}
+mean_R <- 500; sd_R <- 50
+mean_E <- 200; sd_E <- 20
+cor_RE <- 0.6
+
+cov_matrix <- matrix(c(sd_R^2, cor_RE * sd_R * sd_E,
+                        cor_RE * sd_R * sd_E, sd_E^2), 2, 2)
+
+set.seed(123)
+propiedades <- mvrnorm(10000, mu = c(mean_R, mean_E), Sigma = cov_matrix)
+R <- propiedades[, 1]; E <- propiedades[, 2]
+vida_util <- R^2 / E
+
+list(
+  media_vida_util = mean(vida_util),
+  sd_vida_util = sd(vida_util),
+  correlacion_L_R = cor(vida_util, R)
+)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+$L$ es una función **no lineal** de $R$ y $E$, así que no hay una fórmula cerrada simple para su media o varianza (a diferencia de una combinación lineal). Por eso se simula: generar miles de escenarios y calcular la media/varianza empíricas es, en la práctica, la manera más directa de propagar la incertidumbre a través de una función complicada. [Ver más trucos →](../recursos.qmd)
+:::
+
+## Bloque 10 · Funciones de variables aleatorias
+
+### Ítem 33 — ¿Cuál componente falla primero?
+
+**Enunciado:** dos componentes A y B tienen tiempos de falla exponenciales independientes, con tasas $\lambda_A=0.1$ y $\lambda_B=0.2$. Determine, por simulación, la probabilidad de que el sistema falle por A antes que por B.
+
+::: {.ficha-prediccion}
+Si B falla en promedio el doble de rápido que A (tasa el doble de grande), ¿esperas que P(A falla primero) sea mayor o menor a 0.5?
+:::
+
+```{r}
+lambda_A <- 0.1
+lambda_B <- 0.2
+
+set.seed(123)
+tiempos_A <- rexp(10000, rate = lambda_A)
+tiempos_B <- rexp(10000, rate = lambda_B)
+
+prob_A_antes_B <- mean(tiempos_A < tiempos_B)
+prob_A_antes_B
+```
+
+::: {.ficha-resultado}
+Para dos exponenciales independientes, existe una fórmula cerrada exacta: $P(A<B)=\dfrac{\lambda_A}{\lambda_A+\lambda_B}$. Aquí eso da $0.1/(0.1+0.2)=0.333$, prácticamente idéntico al valor simulado — una buena verificación cruzada entre teoría y simulación.
+:::
+
+```{r}
+lambda_A / (lambda_A + lambda_B)  # verificación teórica
+```
+
+### Ítem 34 — Rentabilidad de un portafolio de inversión
+
+**Enunciado:** un portafolio combina el activo A ($\mu=8\%$, $\sigma=12\%$) y el activo B ($\mu=6\%$, $\sigma=10\%$), correlacionados con $\rho=0.5$, en proporciones 60%/40%. Simule la rentabilidad del portafolio y calcule su media y desviación estándar.
+
+```{r}
+mean_A <- 0.08; sd_A <- 0.12
+mean_B <- 0.06; sd_B <- 0.10
+rho <- 0.5
+
+cov_matrix <- matrix(c(sd_A^2, rho * sd_A * sd_B,
+                        rho * sd_A * sd_B, sd_B^2), 2, 2)
+
+set.seed(123)
+normales <- mvrnorm(10000, mu = c(mean_A, mean_B), Sigma = cov_matrix)
+rentabilidad_portafolio <- 0.6 * normales[, 1] + 0.4 * normales[, 2]
+
+c(media = mean(rentabilidad_portafolio), sd = sd(rentabilidad_portafolio))
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Compara la desviación estándar del portafolio (~9.8%) con el promedio ponderado de las desviaciones individuales ($0.6\times12\%+0.4\times10\%=11.2\%$): el portafolio combinado es **menos volátil** que ese promedio simple. Esa reducción es el efecto de la diversificación — funciona precisamente porque los activos no están perfectamente correlacionados ($\rho=0.5<1$). [Ver más trucos →](../recursos.qmd)
+:::
+
+---
+
+# Laboratorio de Inferencia Estadística
+
+::: {.hero-motivacion}
+## 📐 De la muestra a la población
+Hasta ahora describiste datos (Módulo 1) y modelaste incertidumbre (Módulo 2). La inferencia cierra el círculo: ¿qué tan bien una muestra permite decir algo sobre la población completa? Distribuciones muestrales, Teorema Central del Límite, estimación puntual, intervalos de confianza y pruebas de hipótesis.
+:::
+
+::: {.callout-note}
+## Nota sobre este bloque
+Este material corresponde a un laboratorio real de Inferencia del curso y actualmente vive **solo aquí**, como bloque de práctica dentro de la pestaña Laboratorios — todavía no existe un Módulo 3 con temas de estudiante dedicados a inferencia (ver pendientes del proyecto).
+:::
+
+## Bloque 11 · Distribuciones muestrales
+
+### Ítem 35 — Distribución muestral de la media según el tamaño de muestra
+
+**Enunciado:** simule la distribución muestral de la media de una $N(100, 15^2)$ para tamaños de muestra $n=10,30,50$ y compare.
+
+```{r}
+set.seed(123)
+mean_pob <- 100; sd_pob <- 15
+tamanos <- c(10, 30, 50)
+
+simular_medias <- function(n, n_sim = 1000) {
+  replicate(n_sim, mean(rnorm(n, mean = mean_pob, sd = sd_pob)))
+}
+
+resultados <- lapply(tamanos, simular_medias)
+
+par(mfrow = c(1, 3))
+for (i in seq_along(tamanos)) {
+  hist(resultados[[i]], main = paste("n =", tamanos[i]), xlab = "Media muestral",
+       col = "#4B8BC2", breaks = 20, xlim = c(80, 120))
+}
+par(mfrow = c(1, 1))
+```
+
+::: {.ficha-resultado}
+Las tres distribuciones están centradas en 100 (la media poblacional no cambia), pero se **angostan** a medida que $n$ crece: con $n=50$ la media muestral varía mucho menos entre repeticiones que con $n=10$. Esto es consecuencia directa de que $\text{sd}(\bar{X}) = \sigma/\sqrt{n}$.
+:::
+
+### Ítem 36 — Distribución muestral de la diferencia de medias
+
+**Enunciado:** dos versiones de un algoritmo tienen tiempos de ejecución $V_1\sim N(200,25^2)$ y $V_2\sim N(220,30^2)$. Simule la distribución muestral de la diferencia de medias con $n=40$ por grupo.
+
+```{r}
+set.seed(789)
+n_muestra <- 40
+mean_V1 <- 200; sd_V1 <- 25
+mean_V2 <- 220; sd_V2 <- 30
+
+diferencias <- replicate(1000,
+  mean(rnorm(n_muestra, mean_V1, sd_V1)) - mean(rnorm(n_muestra, mean_V2, sd_V2))
+)
+
+hist(diferencias, main = "Distribución muestral de la diferencia de medias",
+     xlab = "Diferencia de medias (V1 - V2)", col = "#FFB903", breaks = 25)
+abline(v = mean_V1 - mean_V2, col = "#004B85", lwd = 2, lty = 2)
+```
+
+## Bloque 12 · Teorema Central del Límite
+
+### Ítem 37 — TCL con tiempos de interacción no observados como normales
+
+**Enunciado:** el tiempo de interacción de usuarios con un prototipo tiene $\mu=30$, $\sigma=10$ segundos. Tome muestras de tamaño 50 y muestre que la distribución de las medias muestrales se aproxima a una normal, aunque los datos individuales no lo sean.
+
+```{r}
+set.seed(123)
+media_interaccion <- 30; sd_interaccion <- 10
+n_muestra <- 50
+
+medias_muestrales <- replicate(1000, mean(rnorm(n_muestra, media_interaccion, sd_interaccion)))
+sd_teorica <- sd_interaccion / sqrt(n_muestra)
+
+hist(medias_muestrales, breaks = 25, col = "#4B8BC2", probability = TRUE,
+     main = "TCL: distribución de medias muestrales (n = 50)",
+     xlab = "Media muestral")
+curve(dnorm(x, mean = media_interaccion, sd = sd_teorica), add = TRUE, col = "#FFB903", lwd = 2)
+abline(v = media_interaccion, col = "#004B85", lty = 2, lwd = 2)
+```
+
+::: {.callout-important}
+## Por qué importa el TCL
+El Teorema Central del Límite es la razón por la que casi todos los intervalos de confianza y pruebas de hipótesis "clásicas" (las que vienen en el Bloque 14 y 15) pueden usar la distribución normal como referencia, **sin importar la forma de la distribución original de los datos individuales** — siempre que el tamaño de muestra sea razonablemente grande.
+:::
+
+## Bloque 13 · Estimación puntual
+
+### Ítem 38 — Estimación puntual de una media
+
+**Enunciado:** un ingeniero necesita estimar la conductividad térmica media de un material. Genere una muestra de 500 datos y calcule la media muestral como estimación puntual.
+
+```{r}
+set.seed(42)
+muestras <- rnorm(500, mean = 15, sd = 0.3)
+mean(muestras)
+```
+
+### Ítem 39 — Estimación de una proporción y efecto del tamaño de muestra
+
+**Enunciado:** estime la tasa de fallos de un componente electrónico (50 fallos observados en un lote) para distintos tamaños de muestra, y observe el efecto del tamaño de muestra sobre la precisión de la estimación.
+
+```{r}
+set.seed(123)
+n_fallos_total <- 50
+tamanos <- c(50, 100, 200, 500)
+
+simular_tasa <- function(n_componentes, n_sim = 1000) {
+  replicate(n_sim, {
+    n_fallos <- rbinom(1, size = n_componentes, prob = n_fallos_total / (n_componentes + n_fallos_total))
+    n_fallos / n_componentes
+  })
+}
+
+resultados <- lapply(tamanos, simular_tasa)
+
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
+for (i in seq_along(tamanos)) {
+  hist(resultados[[i]], main = paste("n =", tamanos[i]), xlab = "Proporción de fallos",
+       col = "#4B8BC2", breaks = 20, xlim = c(0, 0.6))
+}
+par(mfrow = c(1, 1))
+```
+
+::: {.ficha-resultado}
+Con $n$ pequeño (50), la proporción estimada varía muchísimo entre repeticiones y suele sobreestimar la tasa real; con $n=500$, las estimaciones se concentran de forma mucho más ajustada alrededor del valor verdadero. Ilustra por qué el tamaño de muestra es la palanca más directa para reducir el error de estimación.
+:::
+
+## Bloque 14 · Estimación por intervalos
+
+### Ítem 40 — Intervalo de confianza del 95% para una media
+
+**Enunciado:** una muestra de 120 estudiantes reporta un tiempo promedio de trabajo independiente de 15 horas/semana, con desviación estándar 3 horas. Calcule el intervalo de confianza del 95% para la media poblacional.
+
+```{r}
+media_muestral <- 15; sd_muestral <- 3; n <- 120
+confianza <- 0.95
+
+SE <- sd_muestral / sqrt(n)
+valor_critico <- qnorm(1 - (1 - confianza) / 2)
+margen_error <- valor_critico * SE
+
+c(inferior = media_muestral - margen_error, superior = media_muestral + margen_error)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+La estructura **estimación ± (valor crítico × error estándar)** es la misma para casi cualquier intervalo de confianza clásico — solo cambian el valor crítico (normal, t, etc.) y la fórmula del error estándar según qué parámetro se está estimando. [Ver más trucos →](../recursos.qmd)
+:::
+
+### Ítem 41 — Intervalo de confianza del 95% para una proporción (Wilson)
+
+**Enunciado:** de una muestra de 300 estudiantes, 60% tienen empleo de medio tiempo. Calcule el intervalo de confianza del 95% para la proporción poblacional, usando el método de Wilson.
+
+```{r}
+#| message: false
+library(Hmisc)
+
+proporcion <- 0.60
+n <- 300
+
+binconf(n * proporcion, n, method = "wilson")
+```
+
+::: {.callout-note}
+## ¿Por qué Wilson y no la fórmula clásica?
+El método clásico ($\hat{p}\pm z\sqrt{\hat{p}(1-\hat{p})/n}$) puede dar intervalos mal calibrados cuando $\hat{p}$ está cerca de 0 o 1, o con $n$ moderado. Wilson corrige ese problema y es el método que recomiendan la mayoría de paquetes estadísticos modernos como opción por defecto.
+:::
+
+## Bloque 15 · Pruebas de hipótesis
+
+### Ítem 42 — Prueba t: ¿son distintos dos algoritmos?
+
+**Enunciado:** se comparan dos algoritmos de interacción midiendo su tiempo de respuesta ($A\sim N(55,15^2)$, $B\sim N(50,5^2)$, 1000 usuarios cada uno). Plantee el contraste de hipótesis y concluya.
+
+::: {.panel-tabset}
+
+## Hipótesis
+$H_0: \mu_A = \mu_B$ vs. $H_1: \mu_A \ne \mu_B$ (contraste bilateral). El estadístico de prueba sigue una distribución t de Student (Welch, porque no se asume igualdad de varianzas).
+
+## Código y conclusión
+
+```{r}
+set.seed(42)
+n_A <- 1000; n_B <- 1000
+tiempos_A <- rnorm(n_A, mean = 55, sd = 15)
+tiempos_B <- rnorm(n_B, mean = 50, sd = 5)
+
+t.test(tiempos_A, tiempos_B)
+```
+
+Con un p-valor prácticamente cero (< 2.2e-16), se **rechaza $H_0$**: hay evidencia estadística muy fuerte de que los tiempos de respuesta promedio de los dos algoritmos son distintos. El intervalo de confianza de la diferencia (aprox. 3.7 a 5.6) tampoco incluye el cero, lo cual es consistente con el rechazo.
+
+:::
+
+### Ítem 43 — Comparando varianzas y medias: instrumento nuevo vs. estándar
+
+**Enunciado:** se comparan mediciones de un instrumento nuevo ($\mu=0.07$, $\sigma=0.05$) contra uno estándar ($\mu=0.08$, $\sigma=0.010$), 100 mediciones cada uno. Evalúe si difieren en varianza y en media.
+
+```{r}
+set.seed(42)
+n <- 100
+nuevo <- rnorm(n, mean = 0.07, sd = 0.05)
+estandar <- rnorm(n, mean = 0.08, sd = 0.010)
+
+var.test(nuevo, estandar)
+t.test(nuevo, estandar)
+```
+
+::: {.ficha-resultado}
+La prueba F de varianzas da un p-valor prácticamente cero: el instrumento nuevo es **significativamente más disperso** (menos preciso) que el estándar — su desviación estándar real (0.05) es 5 veces mayor. Sin embargo, la prueba t sobre las medias da p ≈ 0.16: **no hay evidencia suficiente para decir que difieran en promedio**. Es un buen ejemplo de que "distinto en precisión" y "distinto en promedio" son preguntas independientes — un instrumento puede ser igual de "centrado" pero mucho más ruidoso.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+No confundas "no rechazar $H_0$" con "demostrar que $H_0$ es cierta". Un p-valor de 0.16 en la prueba t solo dice que los datos no dan evidencia suficiente para descartar medias iguales — no prueba que las medias sean exactamente iguales. [Ver más trucos →](../recursos.qmd)
+:::
+
+---
+
+## 🗂️ Cierre general · Los cuatro laboratorios
+
+::: {.card-lab}
+- **Laboratorio 1 (descriptiva):** clasificar variables, resumir con medidas de tendencia central y dispersión, y usar medidas robustas basadas en cuantiles — la base evaluada en el Taller 1.
+- **Laboratorio 2 (fenómenos aleatorios):** las reglas de probabilidad (adición, complemento, diferencia simétrica) y el paso de eventos sueltos a variables aleatorias, distribuciones discretas y continuas.
+- **Laboratorio 3 (multivariada):** cuando dos variables aleatorias se relacionan — distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias.
+- **Laboratorio de Inferencia:** el puente entre una muestra y la población — distribuciones muestrales, Teorema Central del Límite, estimación puntual e intervalos de confianza, y pruebas de hipótesis.
+- A lo largo de los cuatro laboratorios encontrarás varios **callouts de corrección de rigor** — errores reales de las soluciones oficiales, verificados de forma independiente y documentados como lección, no escondidos.
+:::
+
+::: {.callout-important}
+## Sobre el Taller 1
+El Laboratorio 1 (Bloques 0-2, Ítems 1-12) sigue la misma estructura de preguntas que se evalúa en el Taller 1 (20% de la nota, según el programa del curso). Practica cada ítem por tu cuenta antes de consultar la solución oficial.
 :::
