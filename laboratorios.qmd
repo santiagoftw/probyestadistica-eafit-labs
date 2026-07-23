@@ -1037,14 +1037,18 @@ La estructura **estimación ± (valor crítico × error estándar)** es la misma
 **Enunciado:** de una muestra de 300 estudiantes, 60% tienen empleo de medio tiempo. Calcule el intervalo de confianza del 95% para la proporción poblacional, usando el método de Wilson.
 
 ```{r}
-#| message: false
-library(Hmisc)
-
 proporcion <- 0.60
 n <- 300
 
-binconf(n * proporcion, n, method = "wilson")
+# prop.test() viene en el paquete `stats` (base R, no requiere instalar nada)
+# y calcula el intervalo de Wilson cuando correct = FALSE
+prop.test(n * proporcion, n, correct = FALSE)$conf.int
 ```
+
+::: {.callout-important}
+## Nota de compatibilidad
+La solución oficial del laboratorio usa `Hmisc::binconf(..., method = "wilson")`, pero `Hmisc` **no viene instalado por defecto** en R/RStudio — hay que instalarlo aparte (`install.packages("Hmisc")`), y en algunos entornos (como Posit Cloud gratuito) la instalación puede fallar o tardar mucho por sus dependencias. `prop.test()` calcula exactamente el mismo intervalo de Wilson (verificado: da el mismo resultado, 0.544 a 0.654) sin depender de ningún paquete externo — viene incluido en el paquete `stats`, que R carga automáticamente al iniciar. Si en algún momento necesitas `Hmisc` específicamente, instálalo con `install.packages("Hmisc")` antes de tu primer `library(Hmisc)`.
+:::
 
 ::: {.callout-note}
 ## ¿Por qué Wilson y no la fórmula clásica?
