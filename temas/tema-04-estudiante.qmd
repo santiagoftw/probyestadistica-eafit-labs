@@ -136,6 +136,51 @@ median(grietas)
 Aquí la media (≈1.618) resulta ligeramente **menor** que la mediana (1.63) — casi iguales, sin una asimetría marcada en ninguna dirección, a pesar de que el dato 2.21 podría hacerte suponer a simple vista que "hay un valor grande jalando la media hacia arriba". Este caso es justo el recordatorio del truco de interpretación del Tema 4: **compara siempre los números reales, no la impresión visual de un solo dato que te llama la atención** — un valor que parece "extremo" no siempre domina lo suficiente como para mover la media por encima de la mediana.
 :::
 
+**Caso 5 — Moda: unimodal, sin moda y bimodal, con los mismos "ingredientes":**
+
+Tres series muy parecidas entre sí ilustran que la moda no siempre existe, ni es única:
+
+```{r}
+serie_a <- c(3, 5, 6, 6, 6, 8, 9, 9, 11, 14)   # 6 se repite 3 veces
+serie_b <- c(3, 5, 6, 8, 9, 11, 14, 16, 18, 19) # ningún valor se repite
+serie_c <- c(3, 5, 6, 6, 6, 8, 9, 9, 9, 16)     # 6 y 9 se repiten 3 veces cada uno
+
+moda <- function(x) {
+  tabla <- table(x)
+  as.numeric(names(tabla)[tabla == max(tabla)])
+}
+
+moda(serie_a)  # 6 (unimodal)
+moda(serie_b)  # ninguno se repite: la función devuelve los 10 valores, todos con frecuencia 1
+moda(serie_c)  # 6 y 9 (bimodal)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+`moda(serie_b)` no da un error — devuelve *todos* los valores, porque todos comparten la frecuencia máxima (1). Es la propia función la que "avisa" que no hay una moda útil: cuando el resultado tiene tantos valores como datos originales, en la práctica quiere decir que no hay moda.
+:::
+
+**Caso 6 — Mediana con `n` par, impar y desde una tabla de frecuencias:**
+
+```{r}
+# n impar (5 edades): la mediana es el valor central directo
+edades <- c(32, 42, 46, 46, 54)
+median(edades)
+
+# n par (12 salarios): la mediana promedia los dos valores centrales
+salarios <- c(135, 164, 168, 172, 176, 184, 189, 190, 210, 220, 225, 235)
+median(salarios)
+
+# Desde una tabla de frecuencias (31 registros de ingresos por consulta externa)
+ingresos <- rep(0:5, times = c(5, 7, 7, 4, 5, 3))
+length(ingresos)  # confirma que son 31 registros en total
+median(ingresos)
+```
+
+::: {.ficha-resultado}
+Con `n` par, `median()` promedia automáticamente los dos valores centrales (aquí, 184 y 189, dan 186.5) — no hace falta identificarlos a mano como en el cálculo manual, pero es exactamente lo mismo que está pasando por dentro. Y `rep(valores, times = frecuencias)` es un atajo útil para "desempacar" una tabla de frecuencias de vuelta a un vector de datos individuales, cuando quieres aplicarle funciones como `median()` directamente.
+:::
+
 ## 🧑‍🔬 Laboratorio
 
 Con `mtcars$hp` (caballos de fuerza, dataset ya conocido del curso):

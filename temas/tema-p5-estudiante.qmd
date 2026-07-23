@@ -30,6 +30,24 @@ fda
 Cada valor de `fda` es la proporción de datos menores o iguales al valor correspondiente. ¿En qué se parece esto a la frecuencia relativa acumulada que ya usaste en el Tema 2 del Módulo 1?
 :::
 
+También con `tidyverse` — la misma tabla de frecuencia acumulada, pero como data frame que se puede seguir encadenando (por ejemplo, para graficarla después con `ggplot2`):
+
+```{r}
+#| message: false
+library(tidyverse)
+
+fda_tidy <- tibble(tiempo = tiempo_resistencia) |>
+  count(tiempo, name = "Frec_absoluta") |>
+  arrange(tiempo) |>
+  mutate(
+    Frec_acumulada = cumsum(Frec_absoluta),
+    FDA            = Frec_acumulada / sum(Frec_absoluta)
+  )
+fda_tidy
+```
+
+Nota que `ecdf()`, la función nativa de R para la FDA empírica, hace exactamente este cálculo internamente — `ecdf(tiempo_resistencia)(600)` te da directamente la proporción de datos $\le 600$ sin construir la tabla completa.
+
 ::: {.callout-tip}
 ## Pregunta guía
 La FDA sube en "escalones" en vez de suavemente. ¿Por qué? ¿Qué tendría que pasar para que se viera más suave?

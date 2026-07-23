@@ -134,6 +134,8 @@ Es decir: bajo un cambio de escala, el CV puede cambiar de **signo**, pero nunca
 ## Por qué esto importa en la práctica
 Estas propiedades explican, por ejemplo, por qué **estandarizar** una variable ($z_i = (x_i - \bar{x})/s$) siempre produce media 0 y varianza 1 — es una aplicación directa de la traslación por $c=-\bar{x}$ y la escala por $a = 1/s$. Este resultado será la base de la distribución normal estándar en el módulo de probabilidad.
 :::
+::: {.callout-tip}
+## 💡 Truco de interpretación
 El coeficiente de variación solo tiene sentido en variables de **escala de razón** (con cero absoluto real, como peso o tiempo). Nunca lo calcules para una variable de intervalo como la temperatura en °C — el resultado cambia según dónde pongas el cero de la escala, y deja de significar algo estable. [Ver más trucos →](../recursos.qmd)
 :::
 
@@ -166,6 +168,24 @@ sd(playa_b) / mean(playa_b)  # Playa B
 ::: {.callout-important}
 ## Comparando pH y temperatura (ejemplo de Contento Rubio)
 Si el coeficiente de variación del pH de un grupo de estanques es 18% y el de la temperatura es 25%, se concluye que los estanques son más similares entre sí en pH que en temperatura — aunque ambas variables se midan en escalas totalmente distintas.
+:::
+
+**Paso 5 — El mismo problema, con monedas distintas:**
+
+El CV es especialmente útil cuando ni siquiera las *unidades* coinciden — comparar salarios en dólares con salarios en pesos colombianos directamente no tiene sentido, pero comparar su variabilidad relativa sí:
+
+```{r}
+media_eeuu <- 3540;    sd_eeuu    <- 165.65    # USD
+media_col  <- 8500000; sd_col     <- 256000    # COP
+
+cv_eeuu <- sd_eeuu / media_eeuu * 100
+cv_col  <- sd_col  / media_col  * 100
+
+c(CV_EEUU = round(cv_eeuu, 2), CV_Colombia = round(cv_col, 2))
+```
+
+::: {.ficha-resultado}
+Aunque las cifras en pesos colombianos son miles de veces más grandes que en dólares, eso no dice nada sobre cuál grupo es *relativamente* más disperso — para eso está el CV. Aquí, el grupo de Colombia tiene menor variabilidad relativa (≈3.0%) que el de EE.UU. (≈4.7%), a pesar de que su desviación estándar en términos absolutos (256,000) parece "enorme" comparada con 165.65.
 :::
 
 ## 🧑‍🔬 Laboratorio

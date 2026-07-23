@@ -130,6 +130,39 @@ table(msleep$vore)
 
 Contrasta lo que R llama `chr`, `num`, `int`, `factor` con la clasificación estadística que acabas de construir — no siempre coinciden.
 
+### Otro ejemplo: clasificar 5 variables de un dataset de hábitos
+
+Un dataset de hábitos de TV/streaming trae las variables `id`, `Tv Source` (plataforma), `Hours per week`, `Binge Frequency` (frecuencia con la que se ve "en maratón": nunca/a veces/siempre) y `Sex`. Antes de graficar nada, clasifícalas:
+
+| Variable | Tipo |
+|---|---|
+| `id` | Cualitativa nominal (es un identificador, no tiene sentido "promediarlo") |
+| `Tv Source` | Cualitativa nominal (no hay orden entre plataformas) |
+| `Hours per week` | Cuantitativa continua / de razón |
+| `Binge Frequency` | Cualitativa **ordinal** (nunca < a veces < siempre — sí hay orden) |
+| `Sex` | Cualitativa nominal (caso particular: binaria) |
+
+::: {.callout-note}
+## Lo que deberías notar
+`Tv Source` y `Sex` son ambas nominales, pero por razones distintas: `Sex` es nominal *porque* solo tiene dos categorías sin orden (binaria), mientras que `Tv Source` podría tener muchas categorías (Netflix, HBO, Disney+, ...) y sigue sin haber un orden natural entre ellas. "Binaria" describe cuántas categorías tiene una variable; "nominal vs. ordinal" describe si esas categorías tienen orden — son dos preguntas distintas que pueden combinarse.
+:::
+
+Una vez clasificadas, `Hours per week` (continua) se puede **recodificar** en una variable categórica binaria — la misma idea que ya viste con el índice de masa corporal (IMC) al clasificarlo en "Saludable"/"No saludable": aquí, un umbral de 20 horas/semana separa "riesgo" de "no riesgo".
+
+```{r}
+horas <- c(5, 22, 18, 30, 12, 25, 8, 40)
+
+riesgo <- ifelse(horas >= 20, 1, 0)
+riesgo_label <- factor(riesgo, levels = c(0, 1), labels = c("no", "yes"))
+
+table(riesgo_label)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Recodificar una variable continua en categórica (como aquí, o como el IMC en "Saludable"/"No saludable") **siempre pierde información** — dos personas con 21 y 39 horas/semana quedan en la misma categoría "riesgo", aunque su situación real sea muy distinta. Tiene sentido hacerlo cuando el umbral tiene un significado clínico o práctico claro (aquí, un punto de corte de riesgo), no solo por comodidad para graficar. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧑‍🔬 Laboratorio
 
 Con el dataset `starwars` (incluido en `dplyr`), clasifica `species`, `eye_color`, `height`, `mass` y `gender`:

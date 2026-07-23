@@ -133,6 +133,47 @@ mean(mtcars$mpg)
 table(mtcars$cyl)
 ```
 
+### Otro ejemplo: definir tu propia función (Índice de Masa Corporal)
+
+No todo tiene que venir de una función que ya existe en R — tú también puedes definir las tuyas. Este es el mismo principio de "encapsular una fórmula" que usaste para el IMC:
+
+```{r}
+IMC <- function(peso, talla) {
+  peso / (talla^2)
+}
+
+# Prueba con una persona de 80 kg y 1.75 m
+IMC(peso = 80, talla = 1.75)
+```
+
+Y la misma función, aplicada a la vez sobre varios individuos (aprovechando que R vectoriza las operaciones aritméticas):
+
+```{r}
+nombre <- c("Emilia", "Maximo", "Axel", "Diana")
+peso   <- c(60, 82, 75, 65)
+talla  <- c(1.70, 1.78, 1.67, 1.68)
+
+imcs <- IMC(peso, talla)
+names(imcs) <- nombre
+round(imcs, 2)
+```
+
+Con los datos ya en un data frame, la indexación `[fila, columna]` te permite consultar un dato puntual sin filtrar por nombre — por ejemplo, si `dosis` es la columna 5 y Maximo ocupa la fila 2:
+
+```{r}
+datos_vacunas <- data.frame(
+  nombre = nombre, peso = peso, talla = talla,
+  vacunado = c(TRUE, FALSE, FALSE, TRUE),
+  dosis = c(2, 0, 1, 2)
+)
+datos_vacunas[2, 5]   # fila 2 (Maximo), columna 5 (dosis)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+`datos_vacunas[2, 5]` funciona, pero es frágil: si alguien reordena las columnas, deja de apuntar a `dosis`. `datos_vacunas[2, "dosis"]` o `datos_vacunas$dosis[2]` dan el mismo resultado y no se rompen si cambia el orden de las columnas — prefiérelos en código que vayas a reutilizar. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 🧑‍🔬 Laboratorio
 
 Con el mismo dataset `mtcars`:

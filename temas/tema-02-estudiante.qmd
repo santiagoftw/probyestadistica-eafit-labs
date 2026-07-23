@@ -116,9 +116,9 @@ Cada categoría es una porción de un círculo, proporcional a su frecuencia rel
 Si te muestran una tabla con solo porcentajes (sin el total de observaciones, n), no puedes verificar ni comparar nada con seriedad — un 60% de 5 personas y un 60% de 5.000 comunican una certeza completamente distinta. Pide siempre el n antes de interpretar un porcentaje. [Ver más trucos →](../recursos.qmd)
 :::
 
-## 🛠️ Tres maneras de hacerlo en R
+## 🛠️ Cuatro maneras de hacerlo en R
 
-El mismo resultado — tabla de frecuencias y gráfica — se puede lograr de tres formas distintas. Conocer las tres te da alternativas según el contexto: la manual te enseña qué calcula R por dentro, la de R base es la más rápida, y ggplot2 es la más flexible para gráficos de calidad profesional.
+El mismo resultado — tabla de frecuencias y gráfica — se puede lograr de cuatro formas distintas. Conocer las cuatro te da alternativas según el contexto: la manual te enseña qué calcula R por dentro, la de R base es la más rápida para explorar, `tidyverse` es la más legible cuando encadenas varios pasos de análisis, y ggplot2 es la más flexible para gráficos de calidad profesional.
 
 ::: {.panel-tabset}
 
@@ -171,7 +171,26 @@ barplot(tabla_base, col = "#004B85", border = "white", main = "barplot()")
 pie(tabla_base, col = c("#004B85","#4B8BC2","#FFB903","#D9DEE4"), main = "pie()")
 ```
 
-## Manera 3 · ggplot2
+## Manera 3 · `tidyverse` (`dplyr`)
+
+Con datos crudos, `count()` hace lo mismo que `table()` pero devuelve un data frame que se puede seguir transformando con `%>%`/`|>` — útil cuando la tabla de frecuencias es solo un paso intermedio de un análisis más largo:
+
+```{r}
+#| message: false
+library(tidyverse)
+
+tabla_tidy <- datos_sangre |>
+  count(grupo, name = "Frec_absoluta") |>
+  mutate(
+    Frec_relativa   = Frec_absoluta / sum(Frec_absoluta),
+    Frec_porcentual = round(100 * Frec_relativa, 1)
+  )
+tabla_tidy
+```
+
+`count()` agrupa y cuenta en un solo paso (es un atajo de `group_by() |> summarise(n = n())`), y como el resultado es un data frame normal, `mutate()` puede agregar directamente las columnas de frecuencia relativa y porcentual sin pasos manuales aparte.
+
+## Manera 4 · ggplot2
 
 `ggplot2` cuenta las frecuencias automáticamente con `geom_bar()` cuando le das los datos crudos. Es el estándar para gráficos publicables:
 
@@ -204,7 +223,8 @@ ggplot(datos_sangre, aes(x = "", fill = grupo)) +
 ::: {.callout-tip}
 ## ¿Cuál usar?
 - **Manual** cuando el enunciado te da las frecuencias ya contadas (como en muchos ejercicios de Rincón), o cuando quieres verificar a mano lo que hace R.
-- **R base** para exploración rápida en la consola.
+- **R base** (`table()`) para exploración rápida en la consola.
+- **`tidyverse` (`count()`)** cuando la tabla de frecuencias es un paso dentro de un análisis más largo (filtrar, agrupar por otra variable, graficar después) — se encadena naturalmente con `%>%`/`|>`.
 - **ggplot2** para informes y trabajos finales — permite personalizar todo y combina con el resto del `tidyverse`.
 :::
 
@@ -226,6 +246,36 @@ prop.table(table(mpg$drv)) * 100
 barplot(table(mpg$drv), col = "#004B85", border = "white",
         main = "Tipo de tracción", xlab = "drv", ylab = "Frecuencia")
 ```
+
+### Lo mismo, pero con una variable cuantitativa discreta
+
+Todo lo anterior también aplica a una variable **cuantitativa discreta con pocos valores distintos** — la única diferencia es que, al haber un orden numérico real, la frecuencia acumulada sí tiene sentido (a diferencia del grupo sanguíneo, que es nominal).
+
+**Enunciado:** en un centro médico se registra la cantidad de pacientes que ingresan por consulta externa durante 30 días:
+
+```
+1, 1, 2, 0, 0, 5, 1, 2, 3, 4, 1, 1, 2, 2, 3, 4, 4, 3, 2, 0,
+0, 1, 2, 2, 3, 4, 4, 5, 0, 1
+```
+
+```{r}
+pacientes <- c(1,1,2,0,0,5,1,2,3,4,1,1,2,2,3,4,4,3,2,0,
+               0,1,2,2,3,4,4,5,0,1)
+
+f_abs <- table(pacientes)
+tabla_pacientes <- data.frame(
+  Pacientes         = as.numeric(names(f_abs)),
+  Frec_absoluta     = as.vector(f_abs),
+  Frec_acumulada    = cumsum(as.vector(f_abs)),
+  Frec_relativa     = round(as.vector(f_abs) / length(pacientes), 2),
+  Frec_rel_acumulada = round(cumsum(as.vector(f_abs)) / length(pacientes), 2)
+)
+tabla_pacientes
+```
+
+::: {.ficha-resultado}
+El valor más frecuente es 1 y 2 pacientes por día (7 días cada uno, empatados). La frecuencia relativa acumulada hasta "2 pacientes" es 0.63 — es decir, en el 63% de los 30 días se atendieron 2 pacientes o menos. Esa lectura acumulada solo tiene sentido *porque* la variable es cuantitativa (hay un "menos que" real entre 1 y 2 pacientes) — no la podrías hacer con el grupo sanguíneo del ejemplo anterior.
+:::
 
 ## 🧑‍🔬 Laboratorio
 

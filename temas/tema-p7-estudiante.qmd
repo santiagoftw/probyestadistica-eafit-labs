@@ -85,6 +85,24 @@ qnorm(c(0.1, 0.9), mean = media_satisfaccion, sd = sd_satisfaccion)
 qnorm(0.85, mean = media_satisfaccion, sd = sd_satisfaccion)
 ```
 
+**Caso 3 — Presión arterial: de la tipificación $Z$ a la probabilidad:**
+
+**Enunciado:** la tensión arterial sistólica de una población sigue $N(120, 25^2)$ (mmHg). ¿Qué proporción de personas tiene tensión superior a 170 mmHg?
+
+```{r}
+# Paso 1: tipificar - a cuántas desviaciones estándar está 170 de la media
+z <- (170 - 120) / 25
+z
+
+# Paso 2: la cola superior a partir de ese valor de Z
+pnorm(q = 170, mean = 120, sd = 25, lower.tail = FALSE)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+$Z=2$ significa "170 está a 2 desviaciones estándar por encima de la media" — y la regla empírica del 68-95-99.7% te dice que aproximadamente el 95% de los datos cae dentro de $\pm2$ desviaciones estándar. Por eso el 2.3% que sobra por encima de $Z=2$ no debería sorprenderte: es, a grandes rasgos, la mitad del 5% que queda *fuera* del intervalo central del 95% (el otro 2.5% cae en la cola inferior). [Ver más trucos →](../recursos.qmd)
+:::
+
 ::: {.callout-note}
 ## Lo que deberías notar
 `pnorm()` va de un valor $x$ a una probabilidad; `qnorm()` hace exactamente lo inverso: de una probabilidad a un valor $x$. Son funciones inversas entre sí — como `sqrt()` y elevar al cuadrado.

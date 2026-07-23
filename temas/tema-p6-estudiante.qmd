@@ -88,6 +88,18 @@ hist(sim_pois, breaks = 20, col = rgb(1, 0.72, 0.01, 0.5), border = "white", add
 Los dos histogramas se superponen casi por completo — evidencia visual de que, con $n$ grande y $p$ pequeño, la binomial y la Poisson con $\lambda=np$ son prácticamente indistinguibles.
 :::
 
+### Otro ejemplo: tasa de ataque de un virus
+
+**Enunciado:** en una comunidad de $n=20$ individuos se introduce un virus con una tasa de ataque (probabilidad de infección) de $p=0.60$. ¿Cuál es la probabilidad de que se infecten 10 o menos individuos?
+
+```{r}
+pbinom(q = 10, size = 20, prob = 0.60)
+```
+
+::: {.ficha-resultado}
+$P(X\le10)\approx0.245$: aunque la probabilidad individual de infección (60%) es alta, hay casi un 25% de probabilidad de que la comunidad "se salve" con 10 o menos infectados de 20 — un buen recordatorio de que la probabilidad de un evento individual no se traduce directamente en la proporción esperada del grupo completo, sobre todo cuando el umbral (10 de 20 = 50%) está por debajo de la media teórica ($np=12$).
+:::
+
 ## 🧑‍🔬 Laboratorio
 
 1. Simula 500,000 valores de una Poisson con $\lambda=5$ (`rpois()`). Calcula media y varianza simuladas — ¿qué tan cerca están de $\lambda=5$ comparado con cuando usaste solo 1000 simulaciones?

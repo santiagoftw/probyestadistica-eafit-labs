@@ -5,7 +5,7 @@ title: "Laboratorios del curso · Ejercicios y prácticas resueltas"
 ::: {.hero-motivacion}
 ## 🧪 Los cuatro laboratorios reales del curso, resueltos y comentados
 
-Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: **Laboratorio 1** (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), **Laboratorio 2** (fenómenos aleatorios), **Laboratorio 3** (distribución multivariada) y el **Laboratorio de Inferencia Estadística**. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.
+Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: **Laboratorio 1** (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), **Laboratorio 2** (fenómenos aleatorios), **Laboratorio 3** (distribución multivariada), el **Laboratorio de Inferencia Estadística** y un **Laboratorio complementario** con ejercicios adicionales de binomial, Poisson, FGM y un taller Grupo B. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.
 :::
 
 ::: {.callout-note}
@@ -14,6 +14,7 @@ Esta página consolida los laboratorios oficiales de Estadística y Probabilidad
 - [Laboratorio 2 · Análisis de fenómenos aleatorios](#laboratorio-2-análisis-de-fenómenos-aleatorios) — Ítems 13 a 28
 - [Laboratorio 3 · Distribución de probabilidad multivariada](#laboratorio-3-distribución-de-probabilidad-multivariada) — Ítems 29 a 34
 - [Laboratorio de Inferencia Estadística](#laboratorio-de-inferencia-estadística) — Ítems 35 a 43
+- [Laboratorio complementario · Ejercicios adicionales verificados](#laboratorio-complementario-ejercicios-adicionales-verificados) — Ítems 44 a 56 (binomial, Poisson, FGM, conjuntas adicionales, taller Grupo B, indicadores epidemiológicos, taller de clasificación/recodificación)
 :::
 
 ::: {.callout-note}
@@ -136,10 +137,27 @@ El dataset tiene 7 variables. Dos son categóricas: **Year** y **Country**; el r
 
 **Enunciado:** para las variables cualitativas, presente la distribución de frecuencias (absoluta, relativa, porcentual) y comente los resultados.
 
+::: {.panel-tabset}
+
+## Con R base
+
 ```{r}
 table(datos$Country)
 prop.table(table(datos$Country)) * 100
 ```
+
+## Con `tidyverse`
+
+```{r}
+#| message: false
+library(tidyverse)
+
+datos |>
+  count(Country, name = "Frec_absoluta") |>
+  mutate(Frec_porcentual = round(100 * Frec_absoluta / sum(Frec_absoluta), 1))
+```
+
+:::
 
 ::: {.callout-note}
 ## Resultado esperado
@@ -1106,14 +1124,449 @@ No confundas "no rechazar $H_0$" con "demostrar que $H_0$ es cierta". Un p-valor
 
 ---
 
-## 🗂️ Cierre general · Los cuatro laboratorios
+# Laboratorio complementario · Ejercicios adicionales verificados
+
+::: {.hero-motivacion}
+## 📚 Material adicional de práctica
+
+Estos ítems provienen de talleres y guías de ejercicios adicionales (Grupo B) — binomial, Poisson, funciones generadoras de momentos y casos nuevos de distribuciones conjuntas. Se seleccionó un subconjunto representativo de cada fuente (se omitieron variantes redundantes del mismo concepto), siguiendo el mismo criterio usado con el resto del laboratorio. Cada resultado numérico se verificó de forma independiente (Python) antes de incluirlo — ver Bloque 19 para un caso donde esa verificación encontró un error real en la fuente.
+:::
+
+## Bloque 16 · Binomial y Poisson: ejercicios adicionales
+
+### Ítem 44 — Binomial: proporciones fijas y muestras grandes
+
+**Enunciado:** tres escenarios con probabilidad de éxito fija y $n$ variable — (a) en un Internet Café hay al menos un computador disponible con probabilidad 0.75; de 16 visitas, ¿cuál es la probabilidad de que ocurra exactamente en 10?; (b) el 12% de los cepillos de dientes de una fábrica tiene cerdas firmes; de una muestra de 50, ¿cuál es la probabilidad de encontrar exactamente 6?; (c) un examen de opción múltiple de 15 preguntas se aprueba con al menos 10 aciertos — si un estudiante adivina al azar con $k$ opciones por pregunta, ¿qué $k$ mínimo hace que la probabilidad de aprobar por azar sea menor a 0.001?
+
+```{r}
+# (a) Internet café
+dbinom(10, size = 16, prob = 0.75)
+
+# (b) cepillos de dientes
+dbinom(6, size = 50, prob = 0.12)
+
+# (c) adivinar en un examen: P(X>=10) para distintos k
+n_preguntas <- 15
+aprobar_por_azar <- function(k) {
+  p <- 1 / k
+  1 - pbinom(9, size = n_preguntas, prob = p)
+}
+sapply(3:5, aprobar_por_azar)
+```
+
+::: {.callout-important}
+## Corrección de rigor
+La fuente original de este ejercicio (c) reportaba $P(X\ge10)\approx6.9\times10^{-3}$ para $k=3$ y $\approx1.27\times10^{-4}$ para $k=4$. Calculando de forma independiente (arriba, y confirmado sumando la fórmula binomial término a término) los valores correctos son $\approx8.50\times10^{-3}$ para $k=3$ y $\approx7.95\times10^{-4}$ para $k=4$ — ambos más altos que los reportados, aunque de un orden de magnitud comparable. La conclusión práctica de la fuente no cambia: $k=3$ sigue sin cumplir el umbral de 0.001 y $k=4$ sí lo cumple, por lo que $k=4$ sigue siendo la respuesta correcta — pero el número intermedio estaba mal y había que recalcularlo, no solo confiar en que la conclusión final "sonaba bien".
+:::
+
+### Ítem 45 — Poisson: eventos raros en un intervalo
+
+**Enunciado:** tres escenarios de conteo de eventos raros — (a) el número de goles de dos equipos en un partido de hockey son Poisson independientes con medias 2.5 y 1.5; ¿cuál es la probabilidad de que el total de goles sea a lo sumo 3?; (b) un corrector de estilo encuentra errores a una tasa de 0.09 por página; en un documento de 50 páginas, ¿cuál es la probabilidad de encontrar 3 o más errores?; (c) un catálogo tiene una tasa de defectos del 5%; en una muestra de 100 artículos (aproximando la binomial con Poisson), ¿cuál es la probabilidad de encontrar a lo sumo 10 defectuosos?
+
+```{r}
+# (a) suma de dos Poisson independientes: Pois(2.5) + Pois(1.5) = Pois(4)
+ppois(3, lambda = 2.5 + 1.5)
+
+# (b) errores por documento: lambda = 50 paginas * 0.09 errores/pagina
+lambda_doc <- 50 * 0.09
+1 - ppois(2, lambda = lambda_doc)
+
+# (c) aproximacion Binomial(100, 0.05) por Poisson(5)
+ppois(10, lambda = 100 * 0.05)
+```
+
+::: {.callout-note}
+## Propiedad usada en (a)
+La suma de Poisson independientes también es Poisson, con parámetro igual a la suma de las tasas — es la misma propiedad que usa el Ítem 26 para la convergencia Binomial→Poisson, y se puede demostrar formalmente con funciones generadoras de momentos (ver Bloque 17, Ítem 47).
+:::
+
+## Bloque 17 · Funciones generadoras de momentos (FGM)
+
+::: {.hero-motivacion}
+## 🧮 Una "huella digital" para cada distribución
+
+La función generadora de momentos $m_X(t)=E(e^{tX})$ empaqueta todos los momentos de una variable aleatoria ($E[X]$, $E[X^2]$, ...) en una sola expresión, y tiene una propiedad clave: si dos variables tienen la misma FGM, tienen la misma distribución. Es la herramienta que permite, por ejemplo, demostrar que la suma de Poisson independientes es Poisson (Ítem 45) sin tener que enumerar combinaciones.
+:::
+
+### Ítem 46 — Reconstruir una distribución a partir de su FGM
+
+**Enunciado:** un dado de 4 caras (valores 1 a 4, equiprobables) tiene función de probabilidad conocida. (a) Encuentre su FGM. (b) A partir de $m_X'(0)$ y $m_X''(0)$, calcule $E[X]$, $E[X^2]$ y $\text{Var}(X)$.
+
+```{r}
+# Verificación simbólica no está disponible en R base sin paquetes adicionales,
+# así que verificamos las derivadas evaluadas en t=0 por simulación y por fórmula directa
+valores <- 1:4
+prob <- rep(1/4, 4)
+
+# E[X] y E[X^2] directos (equivalen a m'(0) y m''(0))
+E_X  <- sum(valores * prob)
+E_X2 <- sum(valores^2 * prob)
+var_X <- E_X2 - E_X^2
+
+c(E_X = E_X, E_X2 = E_X2, Var_X = var_X)
+```
+
+::: {.ficha-resultado}
+$E[X]=2.5$, $E[X^2]=7.5$, $\text{Var}(X)=1.25$ — los mismos valores que se obtienen derivando $m_X(t)=\frac{1}{4}(e^t+e^{2t}+e^{3t}+e^{4t})$ dos veces y evaluando en $t=0$. La FGM no es más que una forma compacta de "empacar" estos cálculos: derivar y evaluar en 0 siempre reproduce $E[X^k]$.
+:::
+
+### Ítem 47 — FGM de una suma de variables independientes
+
+**Enunciado:** si $X$ y $Y$ son independientes con $m_X(t)=\frac{1}{1-5t}$ y $m_Y(t)=\frac{1}{(1-5t)^2}$ (ambas exponenciales tipo Gamma), la FGM de la suma es el producto $m_{X+Y}(t)=m_X(t)\cdot m_Y(t)$. Verifique que $E[(X+Y)^2]=300$.
+
+```{r}
+# m_{X+Y}(t) = 1 / (1-5t)^3  -> es la FGM de una Gamma(forma = k = 3, escala = theta = 5)
+# Para una Gamma(k, escala=theta): E[W] = k*theta, Var(W) = k*theta^2
+k <- 3; theta <- 5
+E_W  <- k * theta
+Var_W <- k * theta^2
+E_W2 <- Var_W + E_W^2
+c(E_W = E_W, Var_W = Var_W, E_W2 = E_W2)
+```
+
+::: {.callout-tip}
+## 💡 Por qué importa
+Sumar FGMs (multiplicándolas, porque $m_{X+Y}=m_X\cdot m_Y$ cuando hay independencia) evita tener que encontrar la distribución de $X+Y$ por convolución. Es exactamente el mismo principio detrás del Ítem 45(a): $\text{Pois}(\lambda_1)+\text{Pois}(\lambda_2)=\text{Pois}(\lambda_1+\lambda_2)$ porque sus FGMs, al multiplicarse, dan la FGM de una Poisson con parámetro $\lambda_1+\lambda_2$. **Advertencia:** esta propiedad de "cerradura bajo sumas" no es automática para cualquier familia — por ejemplo, la suma de dos exponenciales independientes **no** es exponencial (su FGM producto no tiene la forma $\frac{\lambda}{\lambda-t}$ de una exponencial), aunque sí es Gamma. [Ver más trucos →](../recursos.qmd)
+:::
+
+## Bloque 18 · Distribuciones conjuntas: casos adicionales
+
+### Ítem 48 — Deducibles de seguro: conjunta, covarianza e independencia
+
+**Enunciado:** una aseguradora modela conjuntamente el deducible de una póliza de auto ($X\in\{1,2,3\}$, en unidades de \$100) y de vivienda ($Y\in\{1,2\}$) con la matriz de probabilidad conjunta:
+
+$$P(X=x,Y=y) = \begin{pmatrix} 0.20 & 0.10 \\ 0.15 & 0.25 \\ 0.10 & 0.20 \end{pmatrix}$$
+
+Encuentre las marginales, $E[X]$, $E[Y]$, $\text{Cov}(X,Y)$, y determine si son independientes.
+
+```{r}
+P <- matrix(c(0.20, 0.10,
+              0.15, 0.25,
+              0.10, 0.20), nrow = 3, byrow = TRUE,
+            dimnames = list(X = 1:3, Y = 1:2))
+P
+
+marginal_X <- rowSums(P); marginal_X
+marginal_Y <- colSums(P); marginal_Y
+
+E_X <- sum(as.numeric(rownames(P)) * marginal_X)
+E_Y <- sum(as.numeric(colnames(P)) * marginal_Y)
+
+E_XY <- sum(outer(as.numeric(rownames(P)), as.numeric(colnames(P))) * P)
+Cov_XY <- E_XY - E_X * E_Y
+c(E_X = E_X, E_Y = E_Y, E_XY = E_XY, Cov_XY = Cov_XY)
+
+# Independencia: comparar la conjunta contra el producto de marginales
+producto_marginales <- outer(marginal_X, marginal_Y)
+all.equal(as.matrix(P), producto_marginales, check.attributes = FALSE)
+```
+
+::: {.ficha-resultado}
+$E[X]=2$, $E[Y]=1.55$, $\text{Cov}(X,Y)=0.10$: covarianza positiva pero pequeña. Al comparar la celda $(X{=}1,Y{=}1)$: $P(X{=}1,Y{=}1)=0.20$ mientras que $P_X(1)\cdot P_Y(1)=0.30\times0.45=0.135$ — no coinciden, así que **no son independientes**, consistente con una covarianza distinta de cero.
+:::
+
+### Ítem 49 — Cuatro monedas: extensión del caso de 3 monedas
+
+**Enunciado:** se lanzan 4 monedas balanceadas (en vez de 3, como en el Ítem 29). $Y_1$ = número de caras. $Y_2$ = ganancia de una apuesta: \$2 si la primera cara sale en el tiro 1, \$3/\$4/\$5 si sale en el tiro 2/3/4, y $-\$2$ si no sale ninguna cara. Encuentre la conjunta, la marginal de $Y_2$, $P(Y_1{=}4\mid Y_2{=}2)$, y determine si $Y_1,Y_2$ son independientes.
+
+```{r}
+monedas4 <- expand.grid(t1 = c("C","S"), t2 = c("C","S"), t3 = c("C","S"), t4 = c("C","S"))
+monedas4$Y1 <- rowSums(monedas4[, 1:4] == "C")
+monedas4$Y2 <- apply(monedas4[, 1:4], 1, function(fila) {
+  pos <- which(fila == "C")
+  if (length(pos) == 0) return(-2)
+  1 + min(pos)
+})
+
+prob_matrix4 <- table(monedas4$Y1, monedas4$Y2) / nrow(monedas4)
+prob_matrix4
+
+marginal_Y2_4 <- colSums(prob_matrix4)
+marginal_Y2_4
+
+p_Y1_4_dado_Y2_2 <- prob_matrix4["4", "2"] / marginal_Y2_4["2"]
+p_Y1_4_dado_Y2_2
+
+# Independencia: (Y1=4, Y2=2)
+marginal_Y1_4 <- rowSums(prob_matrix4)
+p_conjunta <- prob_matrix4["4", "2"]
+p_producto <- marginal_Y1_4["4"] * marginal_Y2_4["2"]
+c(conjunta = p_conjunta, producto_marginales = p_producto)
+```
+
+::: {.ficha-resultado}
+$P(Y_1{=}4\mid Y_2{=}2)=1/8=0.125$ y $E[Y_2]=39/16=2.4375$. Para $(Y_1{=}4,Y_2{=}2)$: la conjunta es $1/16$ pero el producto de marginales es $\frac{1}{16}\times\frac{8}{16}=\frac{1}{32}$ — no coinciden, así que tampoco aquí son independientes, igual que en el caso de 3 monedas del Ítem 29. Construir la tabla **enumerando los 16 resultados** (en vez de una fórmula cerrada escrita de memoria) es lo que evita el tipo de error ya documentado en los Ítems 29 y 30.
+:::
+
+## Bloque 19 · Taller Grupo B: el dataset `pressure`
+
+::: {.hero-motivacion}
+## 🌡️ La misma estructura del Taller 1, con otros datos
+
+Este taller (Grupo B) usa el dataset `pressure`, incluido en R base — 19 mediciones de la presión de vapor del mercurio a distintas temperaturas —, en vez del dataset de energía renovable. Es una buena forma de practicar los mismos conceptos del Laboratorio 1 con datos distintos.
+:::
+
+### Ítem 50 — Frecuencias de `temperature` tratada como niveles
+
+**Enunciado:** aunque `temperature` es numérica, trátela como niveles de un experimento. Calcule la tabla de frecuencias absolutas y relativas, y grafíquela con un diagrama de barras y un diagrama de puntos (`dotchart`).
+
+::: {.panel-tabset}
+
+## Con R base
+
+```{r}
+data(pressure)
+table(pressure$temperature)
+prop.table(table(pressure$temperature))
+```
+
+```{r}
+#| layout-ncol: 2
+barplot(table(pressure$temperature), col = "#004B85", border = "white",
+        main = "Niveles de temperature", xlab = "Temperatura", ylab = "Frecuencia")
+dotchart(pressure$temperature, main = "Dot chart de temperature",
+         pch = 19, color = "#004B85")
+```
+
+## Con `tidyverse`
+
+```{r}
+#| message: false
+library(tidyverse)
+
+pressure |>
+  count(temperature, name = "Frec_absoluta") |>
+  mutate(Frec_relativa = round(Frec_absoluta / sum(Frec_absoluta), 3))
+```
+
+:::
+
+::: {.callout-note}
+## Resultado esperado
+Como `temperature` en este dataset no tiene valores repetidos, cada nivel aparece exactamente una vez: la tabla de frecuencias es perfectamente uniforme (frecuencia relativa $1/19$ para cada nivel), y por eso la pregunta "¿elegir una observación al azar?" del taller original tiene una respuesta directa: cualquier temperatura es igual de probable de salir seleccionada.
+:::
+
+### Ítem 51 — Tendencia central, dispersión y forma de `pressure`
+
+**Enunciado:** calcule las medidas de tendencia central y dispersión de la variable `pressure` (presión de vapor). Genere un histograma y un diagrama de caja, y calcule el percentil 75 y el coeficiente de variación.
+
+```{r}
+resumen_presion <- list(
+  media    = mean(pressure$pressure),
+  mediana  = median(pressure$pressure),
+  sd       = sd(pressure$pressure),
+  rango    = diff(range(pressure$pressure)),
+  p75      = quantile(pressure$pressure, 0.75),
+  cv       = sd(pressure$pressure) / mean(pressure$pressure) * 100
+)
+resumen_presion
+```
+
+```{r}
+#| layout-ncol: 2
+hist(pressure$pressure, col = "#004B85", border = "white",
+     main = "Histograma de pressure", xlab = "Presión (mm Hg)")
+boxplot(pressure$pressure, col = "#FFB903",
+        main = "Boxplot de pressure", horizontal = TRUE)
+```
+
+::: {.ficha-resultado}
+La presión de vapor del mercurio crece de forma exponencial con la temperatura (es la relación física real, no un artefacto de los datos), por lo que se espera una distribución **fuertemente sesgada a la derecha**: pocos valores altos (a temperaturas extremas) estiran la cola, la media queda por encima de la mediana, y el coeficiente de variación sale **alto** — corre el chunk para confirmar el valor exacto con tus propios datos, en vez de memorizar una cifra de este documento.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Cuando una relación física de fondo (aquí, la ecuación de Clausius-Clapeyron que gobierna la presión de vapor) es exponencial, **espera** asimetría en los datos — no es un error de medición ni una casualidad de la muestra. El truco de interpretación no es "¿por qué está sesgado?" sino "¿qué mecanismo físico explica el sesgo?". [Ver más trucos →](../recursos.qmd)
+:::
+
+### Ítem 52 — Preguntas de selección múltiple (con justificación)
+
+**Enunciado:** para cada pregunta, justifique la respuesta correcta.
+
+::: {.panel-tabset}
+
+## Pregunta 1 — Precisión de dos procesos
+
+Dos procesos A y B tienen la misma media (100Ω); A tiene desviación estándar 2Ω y B tiene 8Ω. Para minimizar componentes fuera de especificación, ¿cuál preferir?
+
+**Respuesta: preferir A.** Con la misma media, una menor desviación estándar significa que las mediciones individuales se alejan menos del valor central — es decir, mayor precisión y consistencia. Un valor extremo ocasional en B (con 4 veces más dispersión) tiene mucha más probabilidad de caer fuera de especificación, aunque el promedio de B sea idéntico al de A.
+
+## Pregunta 2 — Clasificación de variables
+
+Un ingeniero clasifica "número de revoluciones" y "tiempo para alcanzar cierta temperatura". ¿Cuál es la clasificación correcta?
+
+**Respuesta: revoluciones es discreta; tiempo es continua.** Las revoluciones se cuentan (números enteros, con saltos entre valores posibles); el tiempo es el resultado de una medición y puede tomar, en principio, cualquier valor dentro de un intervalo, limitado solo por la precisión del instrumento — la misma distinción que se trabajó en el Tema 1 del Módulo 1.
+
+## Pregunta 3 — Media recortada
+
+Un analista usa la "media recortada al 10%" para evitar que errores de registro muy altos o bajos distorsionen el resultado. ¿Cuál es el objetivo?
+
+**Respuesta: generar un estimador robusto, no influenciado por los extremos.** Recortar el 10% superior e inferior antes de promediar es un punto intermedio entre la media (sensible a outliers) y la mediana (totalmente robusta) — mismo espíritu que el Ítem 12 (rango intercuartil e interpercentil) del Laboratorio 1.
+
+## Pregunta 4 — Boxplot comparativo
+
+En un boxplot comparativo, la Marca X tiene la caja más ancha que la Marca Y, con las mismas medianas. ¿Qué se concluye?
+
+**Respuesta: la Marca Y es más confiable en consistencia (menor IQR).** Una caja más ancha significa un rango intercuartílico mayor — el 50% central de los datos está más disperso. Con medianas iguales, la diferencia no está en el "centro típico" sino en qué tan predecible es cada marca.
+
+## Pregunta 5 — IQR vs. rango total
+
+¿Cuál es la ventaja del rango intercuartílico (IQR) sobre el rango total (R) para describir precios de vivienda?
+
+**Respuesta: el IQR ignora los precios extremos** (mansiones o propiedades en ruina) que distorsionarían la variabilidad típica del mercado. El rango total usa solo el máximo y el mínimo, así que un único valor atípico —en cualquiera de los dos extremos— puede inflarlo por completo; el IQR, al basarse en el 50% central, es una medida de dispersión mucho más **robusta** para este tipo de datos.
+
+:::
+
+## Bloque 20 · Indicadores epidemiológicos: razones, proporciones y tasas
+
+::: {.hero-motivacion}
+## 🏥 Cuando "dividir dos números" no siempre significa lo mismo
+
+Razón, proporción y tasa se calculan todas dividiendo un número entre otro — pero no son intercambiables. Distinguirlas es clave en cualquier contexto de salud pública o epidemiología, donde un mismo cociente mal etiquetado puede llevar a una interpretación equivocada.
+:::
+
+### Ítem 53 — Razón y proporción
+
+**Enunciado:** (a) una clínica con 500 camas de hospitalización tiene 83 médicos generales de piso — calcule e interprete la razón cama/médico. (b) en una población de 32,000 habitantes se diagnostican 1,789 pacientes con Infarto Agudo del Miocardio (IAM) — calcule la proporción en porcentaje y por cada 1,000 habitantes.
+
+```{r}
+# (a) Razón: numerador y denominador son conjuntos DISTINTOS (camas vs. médicos)
+camas <- 500; medicos <- 83
+razon_cama_medico <- camas / medicos
+razon_cama_medico
+
+# (b) Proporción: el numerador es UN SUBCONJUNTO del denominador (los IAM están dentro de la población)
+iam <- 1789; poblacion <- 32000
+proporcion_pct   <- iam / poblacion * 100
+proporcion_x1000 <- iam / poblacion * 1000
+c(porcentaje = round(proporcion_pct, 2), por_1000_hab = round(proporcion_x1000, 2))
+```
+
+::: {.callout-note}
+## Razón vs. proporción: la diferencia que importa
+En una **razón**, numerador y denominador son conjuntos distintos que no se solapan (camas y médicos son cosas diferentes). En una **proporción**, el numerador es un subconjunto del denominador (los 1,789 casos de IAM están *incluidos* en los 32,000 habitantes). Esta distinción determina, entre otras cosas, si el cociente puede superar 1 (una razón sí puede; una proporción, por definición, no).
+:::
+
+### Ítem 54 — Tasas de mortalidad (general y específica)
+
+**Enunciado:** (a) en México durante 2010 fallecieron 93,000 personas por todas las causas, con una población de 16,598,074 — calcule la tasa de mortalidad general por 1,000 habitantes. (b) en una ciudad, en 2023 se registraron 345 defunciones por cáncer de próstata, con una población de 2,453,310 (1,210,425 hombres) — calcule la tasa específica por 100,000 hombres **en riesgo**.
+
+```{r}
+# (a) Tasa de mortalidad general
+defunciones <- 93000; poblacion_mx <- 16598074
+tasa_general <- defunciones / poblacion_mx * 1000
+tasa_general
+
+# (b) Tasa específica: el denominador es la población EN RIESGO (solo hombres), no la población total
+defunciones_prostata <- 345; hombres <- 1210425
+tasa_especifica <- defunciones_prostata / hombres * 100000
+tasa_especifica
+```
+
+::: {.ficha-resultado}
+La tasa de mortalidad general de México (2010) es de aproximadamente 5.6 fallecidos por cada 1,000 habitantes. En la tasa específica de próstata, el detalle que no se puede pasar por alto es el denominador: el cáncer de próstata solo puede afectar a hombres, así que la "población en riesgo" son los 1,210,425 hombres, **no** los 2,453,310 habitantes totales — usar la población total subestimaría la tasa real a la mitad, aproximadamente.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Antes de calcular cualquier tasa, pregúntate: **¿quién puede realmente experimentar el evento que estoy midiendo?** Esa es la población en riesgo, y es la que va en el denominador — no automáticamente "la población total" solo porque es el número más a la mano. [Ver más trucos →](../recursos.qmd)
+:::
+
+## Bloque 21 · Taller adicional: clasificación, recodificación y visualización
+
+### Ítem 55 — Recodificar una variable continua en categórica (IMC saludable/no saludable)
+
+**Enunciado:** a partir de la variable `bmi` (índice de masa corporal) de un dataset clínico, cree una variable categórica `"Saludable"` ($18.5\le\text{BMI}<25$) / `"No saludable"` (en cualquier otro caso), y grafique la distribución resultante.
+
+```{r}
+set.seed(7)
+bmi <- round(rnorm(65, mean = 24, sd = 5), 1)  # simulación ilustrativa de 65 pacientes
+
+healthy_bmi <- ifelse(bmi >= 18.5 & bmi < 25, 1, 0)
+healthy_bmi_label <- factor(healthy_bmi, levels = c(0, 1),
+                             labels = c("No saludable", "Saludable"))
+
+table(healthy_bmi_label)
+
+barplot(table(healthy_bmi_label), col = "skyblue", border = "white",
+        xlab = "Índice de masa corporal", ylab = "Frecuencia",
+        main = "Clasificación del IMC")
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+`ifelse()` con dos condiciones (`bmi >= 18.5 & bmi < 25`) crea directamente la variable binaria (1/0); `factor()` con `labels` la convierte en las etiquetas legibles. Es exactamente el mismo patrón de dos líneas que se usó para recodificar `Hours per week` en el Tema 1 del Módulo 1 — la técnica de "continua → binaria con un umbral" se repite todo el tiempo en análisis aplicado.
+:::
+
+### Ítem 56 — Taller completo: hábitos de TV/streaming
+
+**Enunciado:** con un dataset de hábitos de TV/streaming (`id`, `Tv Source`, `Hours per week`, `Binge Frequency`, `Sex`): (1) clasifique las 5 variables; (2) grafique las variables categóricas; (3) recodifique `Hours per week` en riesgo ($\ge20$ horas/semana) / no riesgo, con etiquetas `"yes"`/`"no"`; (4) grafique y comente la distribución de riesgo resultante.
+
+```{r}
+set.seed(3)
+n <- 120
+tv_data <- data.frame(
+  id               = 1:n,
+  Tv_Source        = sample(c("Netflix","HBO Max","Disney+","Prime Video"), n, replace = TRUE),
+  Hours_per_week   = round(rgamma(n, shape = 4, scale = 5), 1),
+  Binge_Frequency  = factor(sample(c("Nunca","A veces","Siempre"), n, replace = TRUE),
+                             levels = c("Nunca","A veces","Siempre"), ordered = TRUE),
+  Sex              = sample(c("F","M"), n, replace = TRUE)
+)
+
+# (3) Recodificación de horas semanales
+tv_data$Hours_per_week_new <- ifelse(tv_data$Hours_per_week >= 20, 1, 0)
+tv_data$Hours_per_week_new_label <- factor(tv_data$Hours_per_week_new,
+                                            levels = c(0, 1), labels = c("no", "yes"))
+
+# (4) Distribución de riesgo
+barplot(table(tv_data$Hours_per_week_new_label),
+        main = "Riesgo por consumo de TV/streaming (>= 20 hrs/semana)",
+        xlab = "Riesgo", ylab = "Frecuencia de personas",
+        col = c("green", "red"))
+```
+
+::: {.panel-tabset}
+
+## Clasificación de las 5 variables
+
+| Variable | Tipo |
+|---|---|
+| `id` | Cualitativa nominal (identificador) |
+| `Tv Source` | Cualitativa nominal |
+| `Hours per week` | Cuantitativa continua / de razón |
+| `Binge Frequency` | Cualitativa **ordinal** (nunca < a veces < siempre) |
+| `Sex` | Cualitativa nominal (binaria) |
+
+## Variables categóricas graficadas
+
+```{r}
+#| layout-ncol: 3
+barplot(table(tv_data$Tv_Source), col = "#004B85", border = "white",
+        main = "Plataforma", las = 2, cex.names = 0.7)
+barplot(table(tv_data$Binge_Frequency), col = "#FFB903", border = "white",
+        main = "Frecuencia de maratón")
+barplot(table(tv_data$Sex), col = "#4B8BC2", border = "white", main = "Sexo")
+```
+
+:::
+
+::: {.callout-important}
+## Sobre los datos de este ítem
+Los valores de `Tv_Source`, `Hours_per_week`, `Binge_Frequency` y `Sex` se **simulan** aquí (con `set.seed()` para reproducibilidad) porque el dataset original de hábitos de TV/streaming no se subió como archivo a este curso — solo su estructura de columnas y el enunciado del taller. Si tienes el archivo real, reemplaza el bloque de simulación por `read.csv("tv_habits.csv")` (o el nombre real del archivo) y el resto del código funciona igual, porque opera sobre los nombres de columna, no sobre los valores simulados.
+:::
+
+---
+
+## 🗂️ Cierre general · Los cinco laboratorios
 
 ::: {.card-lab}
 - **Laboratorio 1 (descriptiva):** clasificar variables, resumir con medidas de tendencia central y dispersión, y usar medidas robustas basadas en cuantiles — la base evaluada en el Taller 1.
 - **Laboratorio 2 (fenómenos aleatorios):** las reglas de probabilidad (adición, complemento, diferencia simétrica) y el paso de eventos sueltos a variables aleatorias, distribuciones discretas y continuas.
 - **Laboratorio 3 (multivariada):** cuando dos variables aleatorias se relacionan — distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias.
 - **Laboratorio de Inferencia:** el puente entre una muestra y la población — distribuciones muestrales, Teorema Central del Límite, estimación puntual e intervalos de confianza, y pruebas de hipótesis.
-- A lo largo de los cuatro laboratorios encontrarás varios **callouts de corrección de rigor** — errores reales de las soluciones oficiales, verificados de forma independiente y documentados como lección, no escondidos.
+- **Laboratorio complementario:** ejercicios adicionales de binomial y Poisson, una introducción a las funciones generadoras de momentos (FGM), casos nuevos de distribuciones conjuntas, un taller Grupo B con el dataset `pressure`, indicadores epidemiológicos (razones, proporciones, tasas), y un taller de clasificación/recodificación de variables.
+- A lo largo de todos los laboratorios encontrarás varios **callouts de corrección de rigor** — errores reales de las soluciones oficiales, verificados de forma independiente y documentados como lección, no escondidos.
 :::
 
 ::: {.callout-important}
