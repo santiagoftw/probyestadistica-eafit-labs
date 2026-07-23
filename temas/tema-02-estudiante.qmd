@@ -179,6 +179,8 @@ Con datos crudos, `count()` hace lo mismo que `table()` pero devuelve un data fr
 #| message: false
 library(tidyverse)
 
+datos_sangre <- data.frame(grupo = sangre)
+
 tabla_tidy <- datos_sangre |>
   count(grupo, name = "Frec_absoluta") |>
   mutate(
@@ -192,12 +194,11 @@ tabla_tidy
 
 ## Manera 4 · ggplot2
 
-`ggplot2` cuenta las frecuencias automáticamente con `geom_bar()` cuando le das los datos crudos. Es el estándar para gráficos publicables:
+`ggplot2` cuenta las frecuencias automáticamente con `geom_bar()` cuando le das los datos crudos (el mismo data frame `datos_sangre` de la pestaña anterior). Es el estándar para gráficos publicables:
 
 ```{r}
 #| message: false
 library(ggplot2)
-datos_sangre <- data.frame(grupo = sangre)
 
 ggplot(datos_sangre, aes(x = grupo, fill = grupo)) +
   geom_bar() +
