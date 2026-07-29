@@ -14,21 +14,20 @@ Antes de seguir: de estas cuatro variables — género, calificación en estrell
 
 ## 🔬 Exploremos
 
-Vamos a clasificar variables reales de un conjunto de datos de mamíferos y su sueño (`msleep`, incluido en `ggplot2`), **sin definiciones todavía**. Solo con tu intuición.
+De aquí en adelante usamos el mismo dataset en todo el módulo: `house-prices.csv`, 128 casas vendidas con su precio, área, habitaciones, baños, ofertas recibidas, fachada de ladrillo y barrio (dataset real, clásico de los cursos de estadística). Vamos a clasificar sus variables **sin definiciones todavía**, solo con tu intuición.
 
 ```{r}
-library(ggplot2)
-head(msleep[, c("name", "vore", "order", "conservation",
-                "sleep_total", "sleep_rem", "bodywt")])
+houses <- read.csv("../data/house-prices.csv")
+head(houses)
 ```
 
 ::: {.ficha-resultado}
-En grupos, separen estas variables en dos montones: "se puede promediar directamente" vs. "no tiene sentido promediarla". Dentro del segundo montón, ¿alguna tiene un orden natural?
+En grupos, separen estas 8 variables en dos montones: "se puede promediar directamente" vs. "no tiene sentido promediarla". Dentro del segundo montón, ¿alguna tiene un orden natural?
 :::
 
 ::: {.callout-tip}
 ## Pregunta guía
-¿Qué pasaría si calculas el "promedio" del nombre de los animales? ¿Y el "promedio" del estado de conservación?
+¿Qué pasaría si calculas el "promedio" de `Neighborhood`? ¿Y el "promedio" de `Home` (el identificador de la casa)?
 :::
 
 ## 🎛️ Practica la clasificación
@@ -37,13 +36,13 @@ Elige una variable, decide su tipo, y compara tu respuesta contra la clasificaci
 
 ```{r}
 #| label: fig-tipos-variable
-#| fig-cap: "Variables de msleep clasificadas por tipo"
+#| fig-cap: "Variables de houses clasificadas por tipo"
 library(plotly)
 library(ggplot2)
 
 clasificacion <- data.frame(
   tipo = c("Nominal", "Ordinal", "Discreta", "Continua"),
-  cantidad = c(4, 1, 1, 5)  # ajustar según las 11 columnas reales de msleep
+  cantidad = c(3, 0, 3, 2)  # Home+Brick+Neighborhood, (ninguna), Bedrooms+Bathrooms+Offers, Price+SqFt
 )
 
 p <- ggplot(clasificacion, aes(x = tipo, y = cantidad, fill = tipo)) +
@@ -59,7 +58,7 @@ ggplotly(p)
 
 ::: {.callout-note}
 ## Lo que deberías notar
-La mayoría de las variables "obvias" (nombre, peso) se clasifican fácil. Las que generan discusión —como el estado de conservación— son las que mejor enseñan la diferencia entre nominal y ordinal.
+Este dataset real no tiene, entre sus 8 columnas originales, ninguna variable ordinal — tiene nominales (`Brick`, `Neighborhood`, y el identificador `Home`), discretas (`Bedrooms`, `Bathrooms`, `Offers`) y continuas (`Price`, `SqFt`), pero ninguna con categorías ordenadas. Eso es normal: no todos los datasets reales traen los 4 tipos de variable de fábrica. Más abajo vas a **crear** una variable ordinal a partir de `Price`.
 :::
 
 ## 💡 Discusión
@@ -120,56 +119,47 @@ Antes de analizar cualquier dataset nuevo, corre primero `str()` o `glimpse()` y
 **Paso 1 — Ver el tipo de dato que R asigna a cada columna:**
 ```{r}
 library(dplyr)
-glimpse(msleep)
+glimpse(houses)
 ```
 
-**Paso 2 — Tabla de frecuencias de la variable `vore` (tipo de dieta):**
+**Paso 2 — Tabla de frecuencias de `Neighborhood` (nominal, 3 categorías):**
 ```{r}
-table(msleep$vore)
+table(houses$Neighborhood)
 ```
 
-Contrasta lo que R llama `chr`, `num`, `int`, `factor` con la clasificación estadística que acabas de construir — no siempre coinciden.
+Contrasta lo que R llama `chr`, `int` con la clasificación estadística que acabas de construir — no siempre coinciden. En particular, R guarda `Neighborhood` como texto (`chr`), exactamente igual que `Brick` — ambas son nominales, pero por razones distintas: `Brick` es binaria (2 categorías) y `Neighborhood` tiene 3, sin que eso cambie que ninguna de las dos tenga orden.
 
-### Otro ejemplo: clasificar 5 variables de un dataset de hábitos
+### Otro ejemplo: recodificar una variable continua en ordinal (categorías de precio)
 
-Un dataset de hábitos de TV/streaming trae las variables `id`, `Tv Source` (plataforma), `Hours per week`, `Binge Frequency` (frecuencia con la que se ve "en maratón": nunca/a veces/siempre) y `Sex`. Antes de graficar nada, clasifícalas:
+Como viste arriba, este dataset no trae ninguna variable ordinal de fábrica — pero `Price` (continua) se puede recodificar en una variable *ordinal* con categorías de mercado (bajo / medio / alto):
 
-| Variable | Tipo |
-|---|---|
-| `id` | Cualitativa nominal (es un identificador, no tiene sentido "promediarlo") |
-| `Tv Source` | Cualitativa nominal (no hay orden entre plataformas) |
-| `Hours per week` | Cuantitativa continua / de razón |
-| `Binge Frequency` | Cualitativa **ordinal** (nunca < a veces < siempre — sí hay orden) |
-| `Sex` | Cualitativa nominal (caso particular: binaria) |
+```{r}
+houses$price_tier <- cut(
+  houses$Price,
+  breaks = c(0, 110000, 150000, Inf),
+  labels = c("Bajo", "Medio", "Alto")
+)
+
+table(houses$price_tier)
+```
 
 ::: {.callout-note}
 ## Lo que deberías notar
-`Tv Source` y `Sex` son ambas nominales, pero por razones distintas: `Sex` es nominal *porque* solo tiene dos categorías sin orden (binaria), mientras que `Tv Source` podría tener muchas categorías (Netflix, HBO, Disney+, ...) y sigue sin haber un orden natural entre ellas. "Binaria" describe cuántas categorías tiene una variable; "nominal vs. ordinal" describe si esas categorías tienen orden — son dos preguntas distintas que pueden combinarse.
+`price_tier` sí es ordinal (bajo < medio < alto tiene un orden de mercado claro), a diferencia de `Brick` o `Neighborhood` como texto libre. `cut()` con el argumento `labels` es la forma más directa de pasar de una variable continua a una categórica *con orden* — si quisieras que R recuerde ese orden (para que "Alto" no aparezca antes que "Bajo" en una tabla, por ejemplo), tendrías que además marcar el factor como `ordered = TRUE`.
 :::
-
-Una vez clasificadas, `Hours per week` (continua) se puede **recodificar** en una variable categórica binaria — la misma idea que ya viste con el índice de masa corporal (IMC) al clasificarlo en "Saludable"/"No saludable": aquí, un umbral de 20 horas/semana separa "riesgo" de "no riesgo".
-
-```{r}
-horas <- c(5, 22, 18, 30, 12, 25, 8, 40)
-
-riesgo <- ifelse(horas >= 20, 1, 0)
-riesgo_label <- factor(riesgo, levels = c(0, 1), labels = c("no", "yes"))
-
-table(riesgo_label)
-```
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-Recodificar una variable continua en categórica (como aquí, o como el IMC en "Saludable"/"No saludable") **siempre pierde información** — dos personas con 21 y 39 horas/semana quedan en la misma categoría "riesgo", aunque su situación real sea muy distinta. Tiene sentido hacerlo cuando el umbral tiene un significado clínico o práctico claro (aquí, un punto de corte de riesgo), no solo por comodidad para graficar. [Ver más trucos →](../recursos.qmd)
+Recodificar una variable continua en categórica **siempre pierde información** — dos casas de \$109,000 y \$69,100 quedan en la misma categoría "Bajo", aunque estén en extremos distintos de ese rango. Tiene sentido hacerlo cuando el umbral tiene un significado práctico claro (como aquí, rangos de mercado redondos), no solo por comodidad para graficar. [Ver más trucos →](../recursos.qmd)
 :::
 
 ## 🧑‍🔬 Laboratorio
 
-Con el dataset `starwars` (incluido en `dplyr`), clasifica `species`, `eye_color`, `height`, `mass` y `gender`:
+Con el mismo dataset `houses`:
 
-1. ¿Cuáles son cualitativas y cuáles cuantitativas?
-2. De las cualitativas, ¿cuáles son ordinales y cuáles nominales?
-3. De las cuantitativas, ¿son de intervalo o de razón? Justifica con el criterio del "cero absoluto".
+1. Clasifica las 8 variables originales (`Home`, `Price`, `SqFt`, `Bedrooms`, `Bathrooms`, `Offers`, `Brick`, `Neighborhood`) en una tabla como la del Tema — tipo (nominal/ordinal/discreta/continua) y una justificación de una frase para cada una.
+2. Ahora clasifica la variable que creaste en este Tema: `price_tier`. ¿Es del mismo tipo que `Price`, la variable de la que proviene?
+3. Para `Bedrooms` (cuantitativa discreta): ¿tiene sentido calcular su promedio? ¿Y decir que una casa de 4 habitaciones tiene "el doble" que una de 2? Justifica con el criterio de escala de medición (nominal / ordinal / intervalo / razón) del Tema.
 
 ## ✅ Ejercicios autocorregibles
 
@@ -178,14 +168,14 @@ Con el dataset `starwars` (incluido en `dplyr`), clasifica `species`, `eye_color
 Copia esto en tu propia sesión de RStudio y complétalo (reemplaza `___`):
 
 ```r
-# ¿Qué tipo de dato le asigna R a la variable msleep$vore?
+# ¿Qué tipo de dato le asigna R a la variable houses$Neighborhood?
 # Completa con la función correcta:
-___(msleep$vore)
+___(houses$Neighborhood)
 ```
 
 <details>
 <summary>Ver respuesta</summary>
-`class(msleep$vore)` — devuelve `"character"`. Es la misma función que usaste en la exploración del tema para ver `chr`, `num`, `int`, `factor` por columna, ahora aplicada a una sola columna.
+`class(houses$Neighborhood)` — devuelve `"character"`. Es la misma función que usaste en la exploración del tema para ver `chr`, `int` por columna, ahora aplicada a una sola columna.
 </details>
 
 ### Ejercicio 2 — Verdadero o falso

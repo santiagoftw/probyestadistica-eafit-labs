@@ -183,11 +183,15 @@ Con `n` par, `median()` promedia automáticamente los dos valores centrales (aqu
 
 ## 🧑‍🔬 Laboratorio
 
-Con `mtcars$hp` (caballos de fuerza, dataset ya conocido del curso):
+Con el dataset `houses` (el mismo de los Temas 0-3):
 
-1. Calcula media, mediana y moda (usa `names(sort(-table(...)))[1]`, siguiendo el estilo de Rincón, 2017).
-2. ¿Media y mediana están cerca o lejos? ¿Qué sugiere eso sobre la forma de la distribución?
-3. Calcula la media truncada al 10% y compárala con la media simple.
+```{r}
+houses <- read.csv("../data/house-prices.csv")
+```
+
+1. Calcula la media y la mediana de `SqFt`. ¿Están cerca o lejos una de otra? ¿Qué sugiere eso sobre la forma de la distribución?
+2. Calcula la moda de `Bedrooms` (usa `names(sort(-table(...)))[1]`, siguiendo el estilo de Rincón, 2017) — a diferencia de `SqFt`, esta sí es una variable donde "la moda" tiene un valor claro y útil. ¿Por qué crees que es así?
+3. Calcula la media truncada al 10% de `Price` y compárala con la media simple. ¿Cambia mucho? ¿Qué te dice eso sobre si hay valores atípicos fuertes en `Price`?
 
 ## ✅ Ejercicios autocorregibles
 

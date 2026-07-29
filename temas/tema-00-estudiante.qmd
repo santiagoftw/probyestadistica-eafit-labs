@@ -111,76 +111,69 @@ Si alguien te muestra "el resultado" de un solo experimento aleatorio (una encue
 
 ## 🧪 Ejemplo con datos reales
 
-`mtcars` es un conjunto de datos real de 32 autos, incluido en R (no necesitas descargar nada). Vamos paso a paso.
+De aquí en adelante, el dataset que vamos a usar en **todos los Temas del Módulo 1** es `house-prices.csv`: 128 casas vendidas, con su precio, área, número de habitaciones y baños, cantidad de ofertas recibidas, si tienen fachada de ladrillo y el barrio (real, un clásico de los cursos de estadística/regresión — puedes [descargarlo aquí](../data/house-prices.csv)).
 
 **Paso 1 — Cargar los datos:**
 ```{r}
-data(mtcars)
+houses <- read.csv("../data/house-prices.csv")
 ```
 
-**Paso 2 — ¿Cuántos autos hay?**
+**Paso 2 — ¿Cuántas casas hay, y qué columnas tiene?**
 ```{r}
-length(mtcars$mpg)
+dim(houses)
+str(houses)
 ```
 
-**Paso 3 — Rendimiento promedio (millas por galón):**
+**Paso 3 — Precio promedio:**
 ```{r}
-mean(mtcars$mpg)
+mean(houses$Price)
 ```
 
-**Paso 4 — ¿Cuántos autos hay de 4, 6 y 8 cilindros?**
+**Paso 4 — ¿Cuántas casas hay en cada barrio?**
 ```{r}
-table(mtcars$cyl)
+table(houses$Neighborhood)
 ```
 
-### Otro ejemplo: definir tu propia función (Índice de Masa Corporal)
+### Otro ejemplo: definir tu propia función (precio por pie cuadrado)
 
-No todo tiene que venir de una función que ya existe en R — tú también puedes definir las tuyas. Este es el mismo principio de "encapsular una fórmula" que usaste para el IMC:
+No todo tiene que venir de una función que ya existe en R — tú también puedes definir las tuyas. El precio por pie cuadrado es la fórmula perfecta para practicarlo, porque la vamos a poder aplicar directamente sobre las columnas que ya cargaste:
 
 ```{r}
-IMC <- function(peso, talla) {
-  peso / (talla^2)
+precio_por_pie2 <- function(precio, sqft) {
+  precio / sqft
 }
 
-# Prueba con una persona de 80 kg y 1.75 m
-IMC(peso = 80, talla = 1.75)
+# Prueba con una casa de $150,000 y 2,000 pies cuadrados
+precio_por_pie2(precio = 150000, sqft = 2000)
 ```
 
-Y la misma función, aplicada a la vez sobre varios individuos (aprovechando que R vectoriza las operaciones aritméticas):
+Y la misma función, aplicada a la vez sobre las 128 casas (aprovechando que R vectoriza las operaciones aritméticas):
 
 ```{r}
-nombre <- c("Emilia", "Maximo", "Axel", "Diana")
-peso   <- c(60, 82, 75, 65)
-talla  <- c(1.70, 1.78, 1.67, 1.68)
-
-imcs <- IMC(peso, talla)
-names(imcs) <- nombre
-round(imcs, 2)
+houses$precio_pie2 <- precio_por_pie2(houses$Price, houses$SqFt)
+mean(houses$precio_pie2)
+range(houses$precio_pie2)
 ```
 
-Con los datos ya en un data frame, la indexación `[fila, columna]` te permite consultar un dato puntual sin filtrar por nombre — por ejemplo, si `dosis` es la columna 5 y Maximo ocupa la fila 2:
+Con los datos ya en un data frame, la indexación `[fila, columna]` te permite consultar un dato puntual sin filtrar por nombre — por ejemplo, el área en pies cuadrados (columna 3) de la casa en la fila 5:
 
 ```{r}
-datos_vacunas <- data.frame(
-  nombre = nombre, peso = peso, talla = talla,
-  vacunado = c(TRUE, FALSE, FALSE, TRUE),
-  dosis = c(2, 0, 1, 2)
-)
-datos_vacunas[2, 5]   # fila 2 (Maximo), columna 5 (dosis)
+houses[5, 3]   # fila 5, columna 3 (SqFt)
 ```
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-`datos_vacunas[2, 5]` funciona, pero es frágil: si alguien reordena las columnas, deja de apuntar a `dosis`. `datos_vacunas[2, "dosis"]` o `datos_vacunas$dosis[2]` dan el mismo resultado y no se rompen si cambia el orden de las columnas — prefiérelos en código que vayas a reutilizar. [Ver más trucos →](../recursos.qmd)
+`houses[5, 3]` funciona, pero es frágil: si alguien reordena las columnas, deja de apuntar a `SqFt`. `houses[5, "SqFt"]` o `houses$SqFt[5]` dan el mismo resultado y no se rompen si cambia el orden de las columnas — prefiérelos en código que vayas a reutilizar. [Ver más trucos →](../recursos.qmd)
 :::
 
 ## 🧑‍🔬 Laboratorio
 
-Con el mismo dataset `mtcars`:
+Con el mismo dataset `houses`:
 
-1. ¿Cuántos autos hay en total?
-2. ¿Cuál es el rendimiento promedio en millas por galón?
-3. Construye una tabla de frecuencias de `cyl` y grafícala con `ggplot2::geom_bar()`. ¿Cuál número de cilindros es más común?
+1. ¿Cuántas casas hay en total, y cuántas columnas tiene el data frame?
+2. ¿Cuál es el área promedio, en pies cuadrados?
+3. Construye una tabla de frecuencias de `Brick` y grafícala con `ggplot2::geom_bar()`. ¿Hay más casas con fachada de ladrillo o sin ella?
+4. Usando tu función `precio_por_pie2()`, calcula el precio por pie cuadrado de la primera casa del data frame (fila 1) sin usar el nombre de la columna, solo indexación `[fila, columna]`.
 
 ## ✅ Ejercicios autocorregibles
 

@@ -116,9 +116,9 @@ Cada categoría es una porción de un círculo, proporcional a su frecuencia rel
 Si te muestran una tabla con solo porcentajes (sin el total de observaciones, n), no puedes verificar ni comparar nada con seriedad — un 60% de 5 personas y un 60% de 5.000 comunican una certeza completamente distinta. Pide siempre el n antes de interpretar un porcentaje. [Ver más trucos →](../recursos.qmd)
 :::
 
-## 🛠️ Cuatro maneras de hacerlo en R
+## 🛠️ Cinco maneras de hacerlo en R
 
-El mismo resultado — tabla de frecuencias y gráfica — se puede lograr de cuatro formas distintas. Conocer las cuatro te da alternativas según el contexto: la manual te enseña qué calcula R por dentro, la de R base es la más rápida para explorar, `tidyverse` es la más legible cuando encadenas varios pasos de análisis, y ggplot2 es la más flexible para gráficos de calidad profesional.
+El mismo resultado — tabla de frecuencias y gráfica — se puede lograr de cinco formas distintas. Conocer las cinco te da alternativas según el contexto: la manual te enseña qué calcula R por dentro, la de R base es la más rápida para explorar, `tidyverse` es la más legible cuando encadenas varios pasos de análisis, ggplot2 es la más flexible para gráficos de calidad profesional, y `summarytools` es la que más detalle da de una sola vez — especialmente útil cuando tus datos reales tienen valores faltantes (`NA`).
 
 ::: {.panel-tabset}
 
@@ -219,6 +219,30 @@ ggplot(datos_sangre, aes(x = "", fill = grupo)) +
   theme_void()
 ```
 
+## Manera 5 · `summarytools`
+
+`summarytools::freq()` construye, en una sola línea, una tabla más completa que las anteriores: además de la frecuencia absoluta y relativa, separa automáticamente el porcentaje **válido** (sin contar los `NA`) del porcentaje **total** (contándolos) — algo que ninguna de las cuatro maneras anteriores hace por defecto.
+
+```{r}
+#| message: false
+library(summarytools)
+
+freq(datos_sangre$grupo)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Como `datos_sangre$grupo` no tiene valores faltantes, aquí "`% Valid`" y "`% Total`" salen idénticos. La diferencia se nota cuando el vector sí tiene `NA` — por ejemplo, una encuesta real donde algunas personas no respondieron una pregunta:
+
+```{r}
+respuestas <- c(sangre, rep(NA, 15))  # simulamos 15 no-respuestas agregadas al mismo vector
+
+freq(respuestas)
+```
+
+Con `NA` presentes, `"% Valid"` recalcula los porcentajes **solo sobre quienes sí respondieron**, mientras que `"% Total"` los calcula sobre **todos los registros, incluyendo los que no respondieron** — la fila `<NA>` de la tabla muestra cuántos fueron. Es exactamente la distinción que necesitas para reportar correctamente una tasa de no-respuesta en una encuesta real, y es la razón por la que `summarytools` es tan popular para procesar datos de encuestas.
+:::
+
 :::
 
 ::: {.callout-tip}
@@ -227,64 +251,57 @@ ggplot(datos_sangre, aes(x = "", fill = grupo)) +
 - **R base** (`table()`) para exploración rápida en la consola.
 - **`tidyverse` (`count()`)** cuando la tabla de frecuencias es un paso dentro de un análisis más largo (filtrar, agrupar por otra variable, graficar después) — se encadena naturalmente con `%>%`/`|>`.
 - **ggplot2** para informes y trabajos finales — permite personalizar todo y combina con el resto del `tidyverse`.
+- **`summarytools`** cuando tus datos tienen (o podrían tener) valores faltantes y necesitas distinguir "porcentaje entre quienes respondieron" de "porcentaje del total" — típico en encuestas reales, donde una pregunta puede tener un buen número de personas que no la contestaron.
 :::
 
 ## 🧪 Ejemplo con datos reales
 
-**Paso 1 — Cargar los datos y ver la frecuencia absoluta:**
+**Paso 1 — Cargar los datos y ver la frecuencia absoluta de `Neighborhood`:**
 ```{r}
-library(ggplot2)
-table(mpg$drv)
+houses <- read.csv("../data/house-prices.csv")
+table(houses$Neighborhood)
 ```
 
 **Paso 2 — Frecuencia relativa porcentual:**
 ```{r}
-prop.table(table(mpg$drv)) * 100
+prop.table(table(houses$Neighborhood)) * 100
 ```
 
 **Paso 3 — Graficarla:**
 ```{r}
-barplot(table(mpg$drv), col = "#004B85", border = "white",
-        main = "Tipo de tracción", xlab = "drv", ylab = "Frecuencia")
+barplot(table(houses$Neighborhood), col = "#004B85", border = "white",
+        main = "Barrio", xlab = "Neighborhood", ylab = "Frecuencia")
 ```
 
 ### Lo mismo, pero con una variable cuantitativa discreta
 
-Todo lo anterior también aplica a una variable **cuantitativa discreta con pocos valores distintos** — la única diferencia es que, al haber un orden numérico real, la frecuencia acumulada sí tiene sentido (a diferencia del grupo sanguíneo, que es nominal).
+Todo lo anterior también aplica a una variable **cuantitativa discreta con pocos valores distintos** — la única diferencia es que, al haber un orden numérico real, la frecuencia acumulada sí tiene sentido (a diferencia de `Neighborhood`, que es nominal, sin ningún orden).
 
-**Enunciado:** en un centro médico se registra la cantidad de pacientes que ingresan por consulta externa durante 30 días:
-
-```
-1, 1, 2, 0, 0, 5, 1, 2, 3, 4, 1, 1, 2, 2, 3, 4, 4, 3, 2, 0,
-0, 1, 2, 2, 3, 4, 4, 5, 0, 1
-```
+**Enunciado:** `Offers` es el número de ofertas de compra que recibió cada una de las 128 casas.
 
 ```{r}
-pacientes <- c(1,1,2,0,0,5,1,2,3,4,1,1,2,2,3,4,4,3,2,0,
-               0,1,2,2,3,4,4,5,0,1)
-
-f_abs <- table(pacientes)
-tabla_pacientes <- data.frame(
-  Pacientes         = as.numeric(names(f_abs)),
-  Frec_absoluta     = as.vector(f_abs),
-  Frec_acumulada    = cumsum(as.vector(f_abs)),
-  Frec_relativa     = round(as.vector(f_abs) / length(pacientes), 2),
-  Frec_rel_acumulada = round(cumsum(as.vector(f_abs)) / length(pacientes), 2)
+f_abs <- table(houses$Offers)
+tabla_ofertas <- data.frame(
+  Ofertas            = as.numeric(names(f_abs)),
+  Frec_absoluta      = as.vector(f_abs),
+  Frec_acumulada     = cumsum(as.vector(f_abs)),
+  Frec_relativa      = round(as.vector(f_abs) / nrow(houses), 3),
+  Frec_rel_acumulada = round(cumsum(as.vector(f_abs)) / nrow(houses), 3)
 )
-tabla_pacientes
+tabla_ofertas
 ```
 
 ::: {.ficha-resultado}
-El valor más frecuente es 1 y 2 pacientes por día (7 días cada uno, empatados). La frecuencia relativa acumulada hasta "2 pacientes" es 0.63 — es decir, en el 63% de los 30 días se atendieron 2 pacientes o menos. Esa lectura acumulada solo tiene sentido *porque* la variable es cuantitativa (hay un "menos que" real entre 1 y 2 pacientes) — no la podrías hacer con el grupo sanguíneo del ejemplo anterior.
+El valor más frecuente es "3 ofertas" (46 de 128 casas, 35.9%). La frecuencia relativa acumulada hasta "3 ofertas" es 0.82 — es decir, el 82% de las casas recibió como máximo 3 ofertas. Esa lectura acumulada solo tiene sentido *porque* la variable es cuantitativa (hay un "menos que" real entre 1, 2, 3... ofertas) — no la podrías hacer con `Neighborhood`, que no tiene ningún orden.
 :::
 
 ## 🧑‍🔬 Laboratorio
 
-Con `mpg` (incluido en `ggplot2`), variable `class` (tipo de vehículo):
+Con el mismo dataset `houses`, variable `Brick`:
 
-1. Construye la tabla de frecuencias absolutas y porcentuales de `class`.
+1. Construye la tabla de frecuencias absolutas y porcentuales de `Brick`.
 2. Grafícala con `barplot()` y con `pie()`.
-3. Escribe 3-4 líneas: si tuvieras que presentarle esto a la dirección de una concesionaria, ¿cuál gráfica usarías y por qué?
+3. Escribe 3-4 líneas: ¿tiene sentido calcular la frecuencia acumulada de `Brick`? Justifica con lo que aprendiste en este Tema sobre variables nominales vs. ordinales.
 
 ## ✅ Ejercicios autocorregibles
 

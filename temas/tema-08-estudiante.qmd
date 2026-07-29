@@ -3,23 +3,25 @@ title: "Tema 8 · Datos conjuntos: covarianza, correlación y regresión"
 ---
 
 ::: {.hero-motivacion}
-## 🚗 ¿El peso de un auto predice su rendimiento?
+## 🏠 ¿El área de una casa predice su precio?
 
-Hasta ahora hemos descrito **una** variable a la vez. Pero muchas preguntas reales son sobre la relación entre dos: ¿un auto más pesado rinde menos millas por galón? ¿Cuánto menos, y con qué tan cerca ese patrón queda de ser una línea recta?
+Hasta ahora hemos descrito **una** variable a la vez. Pero muchas preguntas reales son sobre la relación entre dos: ¿una casa más grande cuesta más? ¿Cuánto más, y con qué tan cerca ese patrón queda de ser una línea recta?
 :::
 
 ::: {.ficha-prediccion}
-Antes de seguir: ¿esperas que el peso y el rendimiento (mpg) de un auto tengan relación positiva, negativa, o ninguna? ¿Qué tan "fuerte" crees que sería esa relación?
+Antes de seguir: ¿esperas que el área (`SqFt`) y el precio de las 128 casas tengan relación positiva, negativa, o ninguna? ¿Qué tan "fuerte" crees que sería esa relación?
 :::
 
 ## 🔬 Exploremos: el diagrama de dispersión
 
 ```{r}
-#| label: fig-dispersión-peso-mpg
-#| fig-cap: "Peso vs. rendimiento en mtcars"
-plot(mtcars$wt, mtcars$mpg, pch = 19, col = "#004B85",
-     xlab = "Peso (1000 lb)", ylab = "Rendimiento (mpg)",
-     main = "Peso vs. rendimiento")
+#| label: fig-dispersión-sqft-price
+#| fig-cap: "Área vs. precio en las 128 casas"
+houses <- read.csv("../data/house-prices.csv")
+
+plot(houses$SqFt, houses$Price, pch = 19, col = "#004B85",
+     xlab = "Área (pies²)", ylab = "Precio ($)",
+     main = "Área vs. precio")
 ```
 
 ::: {.ficha-resultado}
@@ -106,31 +108,31 @@ Estimar $y_0$ para un $x_0$ **fuera** del rango de los datos observados se llama
 
 **Paso 1 — Covarianza y correlación:**
 ```{r}
-cov(mtcars$wt, mtcars$mpg)
-cor(mtcars$wt, mtcars$mpg)
+cov(houses$SqFt, houses$Price)
+cor(houses$SqFt, houses$Price)
 ```
 
 **Paso 2 — Recta de regresión (visual):**
 ```{r}
-plot(mtcars$wt, mtcars$mpg, pch = 19, col = "#004B85",
-     xlab = "Peso (1000 lb)", ylab = "Rendimiento (mpg)")
-abline(lm(mpg ~ wt, data = mtcars), col = "#FFB903", lwd = 2)
+plot(houses$SqFt, houses$Price, pch = 19, col = "#004B85",
+     xlab = "Área (pies²)", ylab = "Precio ($)")
+abline(lm(Price ~ SqFt, data = houses), col = "#FFB903", lwd = 2)
 ```
 
-**Paso 3 — Estimar mpg para un auto de 3.5 mil libras (dentro del rango observado):**
+**Paso 3 — Estimar el precio de una casa de 2,200 pies² (dentro del rango observado):**
 ```{r}
-x_bar <- mean(mtcars$wt)
-y_bar <- mean(mtcars$mpg)
-pendiente <- cov(mtcars$wt, mtcars$mpg) / var(mtcars$wt)
+x_bar <- mean(houses$SqFt)
+y_bar <- mean(houses$Price)
+pendiente <- cov(houses$SqFt, houses$Price) / var(houses$SqFt)
 
-x0 <- 3.5
+x0 <- 2200
 y0 <- y_bar + pendiente * (x0 - x_bar)
 y0
 ```
 
 ::: {.callout-note}
 ## Lo que deberías notar
-La correlación entre peso y rendimiento debería salir fuertemente negativa (cercana a -0.87) — confirma numéricamente lo que ya viste en el diagrama de dispersión: a mayor peso, menor rendimiento, con una relación bastante fuerte.
+La correlación entre área y precio debería salir positiva y moderada (cercana a 0.55) — confirma numéricamente lo que ya viste en el diagrama de dispersión: a mayor área, mayor precio, pero con una relación menos fuerte que la que verás en otros pares de variables. Tiene sentido: el precio de una casa depende de mucho más que su tamaño (barrio, número de baños, fachada de ladrillo, cuántas ofertas recibió) — el área explica *parte* de la variación en precio, no toda.
 :::
 
 ## 📊 Gráfica Q-Q (bono)
@@ -138,11 +140,11 @@ La correlación entre peso y rendimiento debería salir fuertemente negativa (ce
 La gráfica Q-Q compara los cuantiles de dos conjuntos de datos para ver si provienen de distribuciones con características similares — o, comparada contra cuantiles teóricos, si un conjunto de datos se parece a una distribución conocida (como la normal):
 
 ```{r}
-qqnorm(mtcars$mpg, col = "#004B85", pch = 19)
-qqline(mtcars$mpg, col = "#FFB903", lwd = 2)
+qqnorm(houses$SqFt, col = "#004B85", pch = 19)
+qqline(houses$SqFt, col = "#FFB903", lwd = 2)
 ```
 
-Si los puntos siguen aproximadamente la línea diagonal, es evidencia de que los datos podrían modelarse razonablemente con una distribución normal — idea que se retomará formalmente en el módulo de probabilidad.
+Si los puntos siguen aproximadamente la línea diagonal, es evidencia de que los datos podrían modelarse razonablemente con una distribución normal — idea que se retomará formalmente en el módulo de probabilidad. Prueba repetir esta gráfica con `houses$Price` en vez de `houses$SqFt`: como el precio tiene asimetría notoria (Tema 7), deberías ver los puntos desviarse de la diagonal en el extremo superior — la gráfica Q-Q "delata" visualmente el sesgo que ya detectaste numéricamente.
 
 ## 🧑‍🔬 Laboratorio
 

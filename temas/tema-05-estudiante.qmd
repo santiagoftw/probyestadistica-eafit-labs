@@ -141,33 +141,36 @@ El coeficiente de variación solo tiene sentido en variables de **escala de raz�
 
 ## 🧪 Ejemplo con datos reales
 
-**Paso 1 — Los datos:**
+**Paso 1 — Cargar los datos:**
 ```{r}
-playa_a <- c(66, 70, 75, 80, 85, 88, 90, 92, 95, 98, 100, 102, 105, 108, 110)
-playa_b <- c(95, 96, 97, 98, 99, 100, 100, 101, 102, 103, 104, 105)
+houses <- read.csv("../data/house-prices.csv")
 ```
 
-**Paso 2 — Rango de cada playa:**
+**Paso 2 — Rango de `SqFt` y `Price`:**
 ```{r}
-range(playa_a)
-range(playa_b)
+range(houses$SqFt)
+range(houses$Price)
 ```
 
-**Paso 3 — Desviación estándar de cada playa:**
+**Paso 3 — Desviación estándar de cada una:**
 ```{r}
-sd(playa_a)
-sd(playa_b)
+sd(houses$SqFt)
+sd(houses$Price)
 ```
 
-**Paso 4 — Coeficiente de variación (para comparar dispersión relativa):**
+**Paso 4 — Coeficiente de variación (para comparar dispersión relativa entre dos variables en unidades distintas — pies² vs. dólares):**
 ```{r}
-sd(playa_a) / mean(playa_a)  # Playa A
-sd(playa_b) / mean(playa_b)  # Playa B
+sd(houses$SqFt) / mean(houses$SqFt) * 100    # CV del área
+sd(houses$Price) / mean(houses$Price) * 100  # CV del precio
 ```
+
+::: {.ficha-resultado}
+El precio tiene una dispersión relativa notablemente mayor (CV≈20.6%) que el área (CV≈10.6%) — el precio de las casas varía, en proporción a su propia media, casi el doble que su tamaño. Tiene sentido: el precio depende de muchos factores además del área (barrio, acabados, número de ofertas recibidas), así que es natural que sea relativamente más disperso que una medida física directa como los pies cuadrados.
+:::
 
 ::: {.callout-important}
 ## Comparando pH y temperatura (ejemplo de Contento Rubio)
-Si el coeficiente de variación del pH de un grupo de estanques es 18% y el de la temperatura es 25%, se concluye que los estanques son más similares entre sí en pH que en temperatura — aunque ambas variables se midan en escalas totalmente distintas.
+Si el coeficiente de variación del pH de un grupo de estanques es 18% y el de la temperatura es 25%, se concluye que los estanques son más similares entre sí en pH que en temperatura — aunque ambas variables se midan en escalas totalmente distintas. Es exactamente el mismo tipo de comparación que acabas de hacer entre área y precio.
 :::
 
 **Paso 5 — El mismo problema, con monedas distintas:**
@@ -190,11 +193,11 @@ Aunque las cifras en pesos colombianos son miles de veces más grandes que en d�
 
 ## 🧑‍🔬 Laboratorio
 
-Con `mtcars$mpg` y `mtcars$hp`:
+Con el dataset `houses`, comparando por `Neighborhood`:
 
-1. Calcula rango, varianza, desviación estándar y coeficiente de variación para ambas variables.
-2. ¿Cuál de las dos variables es relativamente más dispersa, según el coeficiente de variación? (No te dejes engañar por cuál tiene mayor desviación estándar en términos absolutos — están en unidades distintas.)
-3. Elimina el auto con mayor `hp` del dataset y recalcula. ¿Cuánto cambió el rango? ¿Cuánto cambió la desviación estándar?
+1. Calcula rango, varianza, desviación estándar y coeficiente de variación de `Price` para el barrio East y, por separado, para West.
+2. ¿Cuál de los dos barrios es relativamente más disperso en precio, según el coeficiente de variación? (No te dejes engañar por cuál grupo tiene mayor desviación estándar en términos absolutos.)
+3. Elimina la casa con mayor `Price` del dataset y recalcula el rango y la desviación estándar de `Price`. ¿Cuánto cambió cada uno?
 
 ## ✅ Ejercicios autocorregibles
 

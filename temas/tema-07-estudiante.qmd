@@ -126,28 +126,28 @@ La curtosis por sí sola no dice "qué tan alta" es la campana visualmente — u
 
 ## 🧪 Ejemplo con datos reales
 
-**Paso 1 — Cargar y explorar `mtcars$mpg`:**
+**Paso 1 — Cargar y explorar `Price`:**
 ```{r}
-mpg_data <- mtcars$mpg
-mean(mpg_data)
-sd(mpg_data)
+houses <- read.csv("../data/house-prices.csv")
+mean(houses$Price)
+sd(houses$Price)
 ```
 
 **Paso 2 — Calcular asimetría y curtosis:**
 ```{r}
-asimetria(mpg_data)
-curtosis(mpg_data)
+asimetria(houses$Price)
+curtosis(houses$Price)
 ```
 
 **Paso 3 — Interpretar con el histograma:**
 ```{r}
-hist(mpg_data, breaks = 8, col = "#004B85", border = "white",
-     main = "Millas por galón (mtcars)", xlab = "mpg")
+hist(houses$Price, breaks = 10, col = "#004B85", border = "white",
+     main = "Precio de las casas", xlab = "Precio ($)")
 ```
 
 ::: {.callout-note}
 ## Lo que deberías notar
-Si `asimetria(mpg_data)` dio un valor positivo, el histograma debería mostrar una cola más larga hacia la derecha — confirma con tus propios ojos que el número y la forma cuentan la misma historia.
+`asimetria(houses$Price)` debería dar un valor positivo notorio (≈0.47) — el histograma debería mostrar una cola claramente más larga hacia la derecha: unas pocas casas bastante más caras que el grueso de la muestra, jalando la media por encima de la mediana. Es el mismo patrón que ya reconoces del Tema 4 (media > mediana → sesgo a la derecha), ahora confirmado con un número en vez de solo la comparación de dos estadísticos.
 :::
 
 ## 🧑‍🔬 Laboratorio
@@ -156,7 +156,7 @@ Con `faithful$eruptions` (el dataset bimodal del Tema 3):
 
 1. Calcula media, varianza, asimetría y curtosis.
 2. ¿La curtosis es mayor o menor que 3? ¿Tiene sentido ese resultado considerando que la distribución es bimodal (dos picos, no una sola campana)?
-3. Compara la asimetría de `faithful$eruptions` con la de `mtcars$mpg`. ¿Cuál está más lejos de la simetría perfecta?
+3. Compara la asimetría de `faithful$eruptions` con la de `houses$Price` (calculada en el ejemplo de arriba). ¿Cuál está más lejos de la simetría perfecta?
 
 ## ✅ Ejercicios autocorregibles
 

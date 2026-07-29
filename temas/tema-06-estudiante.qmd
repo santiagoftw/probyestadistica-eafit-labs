@@ -134,11 +134,15 @@ Con estos datos: $Q_1 = 158$, $Q_2 = 178$, $Q_3 = 208$, por lo que $RIC = 50$. L
 
 ## 🧑‍🔬 Laboratorio
 
-Con `mtcars$mpg`:
+Con el dataset `houses` (el mismo de los Temas anteriores):
 
-1. Calcula $Q_1$, $Q_2$, $Q_3$ y el RIC.
-2. Construye el boxplot con `boxplot()`.
-3. ¿Hay algún valor atípico? Si lo hay, identifica de qué auto se trata (pista: `rownames(mtcars)[which.max(mtcars$mpg)]`).
+```{r}
+houses <- read.csv("../data/house-prices.csv")
+```
+
+1. Calcula $Q_1$, $Q_2$, $Q_3$ y el RIC de `Price`.
+2. Construye un boxplot **comparativo** de `Price` por `Neighborhood` (pista: `boxplot(Price ~ Neighborhood, data = houses)`).
+3. ¿Hay algún valor atípico en alguno de los tres barrios? Compara con el caso de las brocas: ¿qué tan parecida es la regla que usó R aquí a la que aplicaste a mano con la duración de las brocas?
 
 ## ✅ Ejercicios autocorregibles
 
