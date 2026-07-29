@@ -395,7 +395,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#el-peso-de-un-auto-predice-su-rendimiento" id="toc-el-peso-de-un-auto-predice-su-rendimiento" class="nav-link active" data-scroll-target="#el-peso-de-un-auto-predice-su-rendimiento">🚗 ¿El peso de un auto predice su rendimiento?</a></li>
+  <li><a href="#el-área-de-una-casa-predice-su-precio" id="toc-el-área-de-una-casa-predice-su-precio" class="nav-link active" data-scroll-target="#el-área-de-una-casa-predice-su-precio">🏠 ¿El área de una casa predice su precio?</a></li>
   <li><a href="#exploremos-el-diagrama-de-dispersión" id="toc-exploremos-el-diagrama-de-dispersión" class="nav-link" data-scroll-target="#exploremos-el-diagrama-de-dispersión">🔬 Exploremos: el diagrama de dispersión</a></li>
   <li><a href="#el-aparato-matemático-covarianza" id="toc-el-aparato-matemático-covarianza" class="nav-link" data-scroll-target="#el-aparato-matemático-covarianza">📖 El aparato matemático: covarianza</a></li>
   <li><a href="#coeficiente-de-correlación" id="toc-coeficiente-de-correlación" class="nav-link" data-scroll-target="#coeficiente-de-correlación">📈 Coeficiente de correlación</a></li>
@@ -430,30 +430,32 @@ window.Quarto = {
 </header>
 
 
-<section id="el-peso-de-un-auto-predice-su-rendimiento" class="level2 hero-motivacion">
-<h2 class="anchored" data-anchor-id="el-peso-de-un-auto-predice-su-rendimiento">🚗 ¿El peso de un auto predice su rendimiento?</h2>
-<p>Hasta ahora hemos descrito <strong>una</strong> variable a la vez. Pero muchas preguntas reales son sobre la relación entre dos: ¿un auto más pesado rinde menos millas por galón? ¿Cuánto menos, y con qué tan cerca ese patrón queda de ser una línea recta?</p>
+<section id="el-área-de-una-casa-predice-su-precio" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="el-área-de-una-casa-predice-su-precio">🏠 ¿El área de una casa predice su precio?</h2>
+<p>Hasta ahora hemos descrito <strong>una</strong> variable a la vez. Pero muchas preguntas reales son sobre la relación entre dos: ¿una casa más grande cuesta más? ¿Cuánto más, y con qué tan cerca ese patrón queda de ser una línea recta?</p>
 </section>
 <div class="ficha-prediccion">
-<p>Antes de seguir: ¿esperas que el peso y el rendimiento (mpg) de un auto tengan relación positiva, negativa, o ninguna? ¿Qué tan “fuerte” crees que sería esa relación?</p>
+<p>Antes de seguir: ¿esperas que el área (<code>SqFt</code>) y el precio de las 128 casas tengan relación positiva, negativa, o ninguna? ¿Qué tan “fuerte” crees que sería esa relación?</p>
 </div>
 <section id="exploremos-el-diagrama-de-dispersión" class="level2">
 <h2 class="anchored" data-anchor-id="exploremos-el-diagrama-de-dispersión">🔬 Exploremos: el diagrama de dispersión</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Peso (1000 lb)"</span>, <span class="at">ylab =</span> <span class="st">"Rendimiento (mpg)"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Peso vs. rendimiento"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Área (pies²)"</span>, <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Área vs. precio"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-dispersión-peso-mpg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-dispersión-sqft-price" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-dispersión-peso-mpg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="tema-08-estudiante_files/figure-html/fig-dispersión-peso-mpg-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-dispersión-sqft-price-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tema-08-estudiante_files/figure-html/fig-dispersión-sqft-price-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dispersión-peso-mpg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Peso vs.&nbsp;rendimiento en mtcars
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dispersión-sqft-price-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Área vs.&nbsp;precio en las 128 casas
 </figcaption>
 </figure>
 </div>
@@ -560,26 +562,26 @@ Figure&nbsp;1: Peso vs.&nbsp;rendimiento en mtcars
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -5.116685</code></pre>
+<pre><code>[1] 3143533</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.8676594</code></pre>
+<pre><code>[1] 0.5529822</code></pre>
 </div>
 </div>
 <p><strong>Paso 2 — Recta de regresión (visual):</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Peso (1000 lb)"</span>, <span class="at">ylab =</span> <span class="st">"Rendimiento (mpg)"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars), <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Área (pies²)"</span>, <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> SqFt, <span class="at">data =</span> houses), <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -589,20 +591,20 @@ Figure&nbsp;1: Peso vs.&nbsp;rendimiento en mtcars
 </div>
 </div>
 </div>
-<p><strong>Paso 3 — Estimar mpg para un auto de 3.5 mil libras (dentro del rango observado):</strong></p>
+<p><strong>Paso 3 — Estimar el precio de una casa de 2,200 pies² (dentro del rango observado):</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>wt)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pendiente <span class="ot">&lt;-</span> <span class="fu">cov</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg) <span class="sc">/</span> <span class="fu">var</span>(mtcars<span class="sc">$</span>wt)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(houses<span class="sc">$</span>SqFt)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(houses<span class="sc">$</span>Price)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pendiente <span class="ot">&lt;-</span> <span class="fu">cov</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price) <span class="sc">/</span> <span class="fu">var</span>(houses<span class="sc">$</span>SqFt)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fl">3.5</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="dv">2200</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> y_bar <span class="sc">+</span> pendiente <span class="sc">*</span> (x0 <span class="sc">-</span> x_bar)</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>y0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 18.57948</code></pre>
+<pre><code>[1] 144406.8</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -615,7 +617,7 @@ Figure&nbsp;1: Peso vs.&nbsp;rendimiento en mtcars
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>La correlación entre peso y rendimiento debería salir fuertemente negativa (cercana a -0.87) — confirma numéricamente lo que ya viste en el diagrama de dispersión: a mayor peso, menor rendimiento, con una relación bastante fuerte.</p>
+<p>La correlación entre área y precio debería salir positiva y moderada (cercana a 0.55) — confirma numéricamente lo que ya viste en el diagrama de dispersión: a mayor área, mayor precio, pero con una relación menos fuerte que la que verás en otros pares de variables. Tiene sentido: el precio de una casa depende de mucho más que su tamaño (barrio, número de baños, fachada de ladrillo, cuántas ofertas recibió) — el área explica <em>parte</em> de la variación en precio, no toda.</p>
 </div>
 </div>
 </section>
@@ -625,8 +627,8 @@ Figure&nbsp;1: Peso vs.&nbsp;rendimiento en mtcars
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(mtcars<span class="sc">$</span>mpg, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(mtcars<span class="sc">$</span>mpg, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(houses<span class="sc">$</span>SqFt, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(houses<span class="sc">$</span>SqFt, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -636,7 +638,7 @@ Figure&nbsp;1: Peso vs.&nbsp;rendimiento en mtcars
 </div>
 </div>
 </div>
-<p>Si los puntos siguen aproximadamente la línea diagonal, es evidencia de que los datos podrían modelarse razonablemente con una distribución normal — idea que se retomará formalmente en el módulo de probabilidad.</p>
+<p>Si los puntos siguen aproximadamente la línea diagonal, es evidencia de que los datos podrían modelarse razonablemente con una distribución normal — idea que se retomará formalmente en el módulo de probabilidad. Prueba repetir esta gráfica con <code>houses$Price</code> en vez de <code>houses$SqFt</code>: como el precio tiene asimetría notoria (Tema 7), deberías ver los puntos desviarse de la diagonal en el extremo superior — la gráfica Q-Q “delata” visualmente el sesgo que ya detectaste numéricamente.</p>
 </section>
 <section id="laboratorio" class="level2">
 <h2 class="anchored" data-anchor-id="laboratorio">🧑‍🔬 Laboratorio</h2>
@@ -1189,215 +1191,217 @@ function revisarQuizTema8() {
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🚗 ¿El peso de un auto predice su rendimiento?</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🏠 ¿El área de una casa predice su precio?</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>Hasta ahora hemos descrito **una** variable a la vez. Pero muchas preguntas reales son sobre la relación entre dos: ¿un auto más pesado rinde menos millas por galón? ¿Cuánto menos, y con qué tan cerca ese patrón queda de ser una línea recta?</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>Hasta ahora hemos descrito **una** variable a la vez. Pero muchas preguntas reales son sobre la relación entre dos: ¿una casa más grande cuesta más? ¿Cuánto más, y con qué tan cerca ese patrón queda de ser una línea recta?</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>Antes de seguir: ¿esperas que el peso y el rendimiento (mpg) de un auto tengan relación positiva, negativa, o ninguna? ¿Qué tan "fuerte" crees que sería esa relación?</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>Antes de seguir: ¿esperas que el área (<span class="in">`SqFt`</span>) y el precio de las 128 casas tengan relación positiva, negativa, o ninguna? ¿Qué tan "fuerte" crees que sería esa relación?</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: el diagrama de dispersión</span></span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-dispersión-peso-mpg</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Peso vs. rendimiento en mtcars"</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Peso (1000 lb)"</span>, <span class="at">ylab =</span> <span class="st">"Rendimiento (mpg)"</span>,</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Peso vs. rendimiento"</span>)</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>Mira el patrón: ¿los puntos suben o bajan de izquierda a derecha? ¿Qué tan "pegados" están a una posible línea recta imaginaria, comparado con qué tan dispersos están alrededor de ella?</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>¿Cómo convertirías esa impresión visual ("suben", "bajan", "están pegados") en un número?</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 El aparato matemático: covarianza</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-dispersión-sqft-price</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Área vs. precio en las 128 casas"</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Área (pies²)"</span>, <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Área vs. precio"</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>Mira el patrón: ¿los puntos suben o bajan de izquierda a derecha? ¿Qué tan "pegados" están a una posible línea recta imaginaria, comparado con qué tan dispersos están alrededor de ella?</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>¿Cómo convertirías esa impresión visual ("suben", "bajan", "están pegados") en un número?</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 El aparato matemático: covarianza</span></span>
 <span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Definición</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>Para un conjunto de datos conjuntos $(x_1,y_1), \dots, (x_n,y_n)$:</span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>$$cov(x,y) = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})$$</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Definición</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>Para un conjunto de datos conjuntos $(x_1,y_1), \dots, (x_n,y_n)$:</span>
 <span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>Cuando $cov(x,y) &gt; 0$, indica correlación lineal positiva (y crece cuando x crece); si es negativa, correlación lineal negativa; si es cercana a 0, ausencia de dependencia lineal (aunque podría existir una relación no lineal que la covarianza no detecta).</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>$$cov(x,y) = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})$$</span>
 <span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Propiedades (con demostración)</span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>**a) $cov(x,x) = var(x)$** — inmediato de la definición, reemplazando $y_i$ por $x_i$.</span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>**b) Simetría: $cov(x,y) = cov(y,x)$** — el orden de los factores no altera el producto.</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>Cuando $cov(x,y) &gt; 0$, indica correlación lineal positiva (y crece cuando x crece); si es negativa, correlación lineal negativa; si es cercana a 0, ausencia de dependencia lineal (aunque podría existir una relación no lineal que la covarianza no detecta).</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Propiedades (con demostración)</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>**a) $cov(x,x) = var(x)$** — inmediato de la definición, reemplazando $y_i$ por $x_i$.</span>
 <span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>**c) Bajo escala: $cov(ax, y) = a \cdot cov(x,y)$.**</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>$$cov(ax,y) = \frac{1}{n}\sum (ax_i - a\bar{x})(y_i-\bar{y}) = a\cdot\frac{1}{n}\sum(x_i-\bar{x})(y_i-\bar{y}) = a\cdot cov(x,y)$$</span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>**d) Bajo traslación: $cov(x+c, y) = cov(x,y)$** — trasladar una variable no cambia su covarianza con otra, porque $\overline{x+c} = \bar{x}+c$ cancela el término agregado.</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>**b) Simetría: $cov(x,y) = cov(y,x)$** — el orden de los factores no altera el producto.</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>**c) Bajo escala: $cov(ax, y) = a \cdot cov(x,y)$.**</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>$$cov(ax,y) = \frac{1}{n}\sum (ax_i - a\bar{x})(y_i-\bar{y}) = a\cdot\frac{1}{n}\sum(x_i-\bar{x})(y_i-\bar{y}) = a\cdot cov(x,y)$$</span>
 <span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>**e) Fórmula de cómputo:**</span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>$$cov(x,y) = \frac{1}{n}\sum_{i=1}^n x_i y_i - \bar{x}\,\bar{y}$$</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>**f) $cov(x,c) = 0$** para cualquier constante $c$ — una variable constante no covaría con nada.</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>**d) Bajo traslación: $cov(x+c, y) = cov(x,y)$** — trasladar una variable no cambia su covarianza con otra, porque $\overline{x+c} = \bar{x}+c$ cancela el término agregado.</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>**e) Fórmula de cómputo:**</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>$$cov(x,y) = \frac{1}{n}\sum_{i=1}^n x_i y_i - \bar{x}\,\bar{y}$$</span>
 <span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>**f) $cov(x,c) = 0$** para cualquier constante $c$ — una variable constante no covaría con nada.</span>
 <span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📈 Coeficiente de correlación</span></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📈 Coeficiente de correlación</span></span>
 <span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Definición</span></span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>$$\rho(x,y) = \frac{cov(x,y)}{\sqrt{var(x)\cdot var(y)}}$$</span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>Es la covarianza "normalizada" para que no dependa de las unidades de medición — a diferencia de la covarianza, siempre toma valores en $<span class="co">[</span><span class="ot">-1, 1</span><span class="co">]</span>$.</span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## Definición</span></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>$$\rho(x,y) = \frac{cov(x,y)}{\sqrt{var(x)\cdot var(y)}}$$</span>
 <span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## Propiedades formales</span></span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Acotación:** $-1 \le \rho(x,y) \le 1$ para cualesquiera observaciones.</span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Correlación perfecta positiva:** $\rho(x,y) = 1$ si y solo si existen constantes $a&gt;0, b$ tales que $y_i = ax_i + b$ para todo $i$.</span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Correlación perfecta negativa:** $\rho(x,y) = -1$ si y solo si existen constantes $a&lt;0, b$ tales que $y_i = ax_i + b$.</span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Bajo transformaciones lineales:** $\rho(ax+b,\ cy+d) = \frac{a}{|a|}\cdot\frac{c}{|c|}\cdot \rho(x,y)$ — la correlación es invariante en magnitud ante cambios de escala y traslación; solo puede cambiar de signo.</span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demostración del caso extremo</span></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>Si $y_i = ax_i + b$ (relación lineal exacta, $a \ne 0$), usando las propiedades de covarianza y varianza:</span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>$$\rho(x, ax+b) = \frac{cov(x, ax+b)}{\sqrt{var(x)\cdot var(ax+b)}} = \frac{a\cdot cov(x,x)}{\sqrt{var(x)}\cdot|a|\sqrt{var(x)}} = \frac{a\cdot var(x)}{|a|\cdot var(x)} = \frac{a}{|a|}$$</span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>que vale $+1$ si $a&gt;0$ y $-1$ si $a&lt;0$ — exactamente lo que garantizan las propiedades 2 y 3.</span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>Es la covarianza "normalizada" para que no dependa de las unidades de medición — a diferencia de la covarianza, siempre toma valores en $<span class="co">[</span><span class="ot">-1, 1</span><span class="co">]</span>$.</span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Propiedades formales</span></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Acotación:** $-1 \le \rho(x,y) \le 1$ para cualesquiera observaciones.</span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Correlación perfecta positiva:** $\rho(x,y) = 1$ si y solo si existen constantes $a&gt;0, b$ tales que $y_i = ax_i + b$ para todo $i$.</span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Correlación perfecta negativa:** $\rho(x,y) = -1$ si y solo si existen constantes $a&lt;0, b$ tales que $y_i = ax_i + b$.</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Bajo transformaciones lineales:** $\rho(ax+b,\ cy+d) = \frac{a}{|a|}\cdot\frac{c}{|c|}\cdot \rho(x,y)$ — la correlación es invariante en magnitud ante cambios de escala y traslación; solo puede cambiar de signo.</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demostración del caso extremo</span></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>Si $y_i = ax_i + b$ (relación lineal exacta, $a \ne 0$), usando las propiedades de covarianza y varianza:</span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>$$\rho(x, ax+b) = \frac{cov(x, ax+b)}{\sqrt{var(x)\cdot var(ax+b)}} = \frac{a\cdot cov(x,x)}{\sqrt{var(x)}\cdot|a|\sqrt{var(x)}} = \frac{a\cdot var(x)}{|a|\cdot var(x)} = \frac{a}{|a|}$$</span>
 <span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>que vale $+1$ si $a&gt;0$ y $-1$ si $a&lt;0$ — exactamente lo que garantizan las propiedades 2 y 3.</span>
 <span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Advertencia clásica (Rincón, 2017)</span></span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>Una correlación alta **no implica causalidad**. El ejemplo clásico: el número de premios Nobel por país y el consumo de chocolate per cápita están correlacionados, sin que exista una relación causal directa entre ambos.</span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📐 Recta de regresión</span></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Advertencia clásica (Rincón, 2017)</span></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>Una correlación alta **no implica causalidad**. El ejemplo clásico: el número de premios Nobel por país y el consumo de chocolate per cápita están correlacionados, sin que exista una relación causal directa entre ambos.</span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>Una vez que la correlación sugiere dependencia lineal, se puede ajustar la recta que mejor se adapta a los datos (por mínimos cuadrados):</span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📐 Recta de regresión</span></span>
 <span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>$$y - \bar{y} = \frac{cov(x,y)}{var(x)}(x - \bar{x})$$</span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>Una vez que la correlación sugiere dependencia lineal, se puede ajustar la recta que mejor se adapta a los datos (por mínimos cuadrados):</span>
 <span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a>Esta recta **siempre pasa por el punto $(\bar{x}, \bar{y})$**. Dado un valor $x_0$, se puede estimar $y_0$:</span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a>$$y - \bar{y} = \frac{cov(x,y)}{var(x)}(x - \bar{x})$$</span>
 <span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>$$y_0 = \bar{y} + \frac{cov(x,y)}{var(x)}(x_0 - \bar{x})$$</span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>Esta recta **siempre pasa por el punto $(\bar{x}, \bar{y})$**. Dado un valor $x_0$, se puede estimar $y_0$:</span>
 <span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>Estimar $y_0$ para un $x_0$ **fuera** del rango de los datos observados se llama **extrapolación** — y es peligroso: el patrón lineal que ajustaste solo está garantizado dentro de la ventana de tus datos. Fuera de ella, el modelo puede fallar por completo. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>$$y_0 = \bar{y} + \frac{cov(x,y)}{var(x)}(x_0 - \bar{x})$$</span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>Estimar $y_0$ para un $x_0$ **fuera** del rango de los datos observados se llama **extrapolación** — y es peligroso: el patrón lineal que ajustaste solo está garantizado dentro de la ventana de tus datos. Fuera de ella, el modelo puede fallar por completo. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Covarianza y correlación:**</span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Recta de regresión (visual):**</span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Peso (1000 lb)"</span>, <span class="at">ylab =</span> <span class="st">"Rendimiento (mpg)"</span>)</span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars), <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a>**Paso 3 — Estimar mpg para un auto de 3.5 mil libras (dentro del rango observado):**</span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>wt)</span>
-<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>pendiente <span class="ot">&lt;-</span> <span class="fu">cov</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg) <span class="sc">/</span> <span class="fu">var</span>(mtcars<span class="sc">$</span>wt)</span>
-<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fl">3.5</span></span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> y_bar <span class="sc">+</span> pendiente <span class="sc">*</span> (x0 <span class="sc">-</span> x_bar)</span>
-<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>y0</span>
-<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>La correlación entre peso y rendimiento debería salir fuertemente negativa (cercana a -0.87) — confirma numéricamente lo que ya viste en el diagrama de dispersión: a mayor peso, menor rendimiento, con una relación bastante fuerte.</span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📊 Gráfica Q-Q (bono)</span></span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Covarianza y correlación:**</span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price)</span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price)</span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Recta de regresión (visual):**</span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Área (pies²)"</span>, <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>)</span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> SqFt, <span class="at">data =</span> houses), <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>**Paso 3 — Estimar el precio de una casa de 2,200 pies² (dentro del rango observado):**</span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(houses<span class="sc">$</span>SqFt)</span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(houses<span class="sc">$</span>Price)</span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>pendiente <span class="ot">&lt;-</span> <span class="fu">cov</span>(houses<span class="sc">$</span>SqFt, houses<span class="sc">$</span>Price) <span class="sc">/</span> <span class="fu">var</span>(houses<span class="sc">$</span>SqFt)</span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="dv">2200</span></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> y_bar <span class="sc">+</span> pendiente <span class="sc">*</span> (x0 <span class="sc">-</span> x_bar)</span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>y0</span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>La correlación entre área y precio debería salir positiva y moderada (cercana a 0.55) — confirma numéricamente lo que ya viste en el diagrama de dispersión: a mayor área, mayor precio, pero con una relación menos fuerte que la que verás en otros pares de variables. Tiene sentido: el precio de una casa depende de mucho más que su tamaño (barrio, número de baños, fachada de ladrillo, cuántas ofertas recibió) — el área explica *parte* de la variación en precio, no toda.</span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a>La gráfica Q-Q compara los cuantiles de dos conjuntos de datos para ver si provienen de distribuciones con características similares — o, comparada contra cuantiles teóricos, si un conjunto de datos se parece a una distribución conocida (como la normal):</span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📊 Gráfica Q-Q (bono)</span></span>
 <span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(mtcars<span class="sc">$</span>mpg, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(mtcars<span class="sc">$</span>mpg, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>Si los puntos siguen aproximadamente la línea diagonal, es evidencia de que los datos podrían modelarse razonablemente con una distribución normal — idea que se retomará formalmente en el módulo de probabilidad.</span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>La gráfica Q-Q compara los cuantiles de dos conjuntos de datos para ver si provienen de distribuciones con características similares — o, comparada contra cuantiles teóricos, si un conjunto de datos se parece a una distribución conocida (como la normal):</span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(houses<span class="sc">$</span>SqFt, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(houses<span class="sc">$</span>SqFt, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>Si los puntos siguen aproximadamente la línea diagonal, es evidencia de que los datos podrían modelarse razonablemente con una distribución normal — idea que se retomará formalmente en el módulo de probabilidad. Prueba repetir esta gráfica con <span class="in">`houses$Price`</span> en vez de <span class="in">`houses$SqFt`</span>: como el precio tiene asimetría notoria (Tema 7), deberías ver los puntos desviarse de la diagonal en el extremo superior — la gráfica Q-Q "delata" visualmente el sesgo que ya detectaste numéricamente.</span>
 <span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>Con el dataset real de energía renovable (<span class="in">`data/BaseLaboratorio1.csv`</span>, Laboratorio integrador):</span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
 <span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula la covarianza y la correlación entre <span class="in">`SolarEnergy`</span> y <span class="in">`WindEnergy`</span>.</span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construye el diagrama de dispersión y agrega la recta de regresión.</span>
-<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>¿La correlación es fuerte o débil? ¿Tiene sentido, considerando que ambas son fuentes de energía distintas, no relacionadas físicamente entre sí?</span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Repite el análisis entre <span class="in">`HydroEnergy`</span> y <span class="in">`TotalRenewableEnergy`</span>. ¿Por qué esperarías una correlación distinta en este caso?</span>
-<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>Con el dataset real de energía renovable (<span class="in">`data/BaseLaboratorio1.csv`</span>, Laboratorio integrador):</span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula la covarianza y la correlación entre <span class="in">`SolarEnergy`</span> y <span class="in">`WindEnergy`</span>.</span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construye el diagrama de dispersión y agrega la recta de regresión.</span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>¿La correlación es fuerte o débil? ¿Tiene sentido, considerando que ambas son fuentes de energía distintas, no relacionadas físicamente entre sí?</span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Repite el análisis entre <span class="in">`HydroEnergy`</span> y <span class="in">`TotalRenewableEnergy`</span>. ¿Por qué esperarías una correlación distinta en este caso?</span>
 <span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
 <span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a><span class="co"># Coeficiente de correlación: completa la función correcta</span></span>
-<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(x, y)</span>
-<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a><span class="in">`cor(x, y)`</span> — calcula directamente $\rho(x,y)$.</span>
-<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a><span class="co"># Coeficiente de correlación: completa la función correcta</span></span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(x, y)</span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a><span class="in">`cor(x, y)`</span> — calcula directamente $\rho(x,y)$.</span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema8"</span><span class="dt">&gt;</span></span>
-<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La correlación puede tomar valores mayores a 1.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. cov(x,x) = var(x).<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Una correlación alta implica causalidad.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema8()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema8"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema8</span>() {</span>
-<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"F"</span> }<span class="op">;</span></span>
-<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema8"</span>)<span class="op">;</span></span>
-<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema8"</span>)<span class="op">;</span></span>
-<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema8"</span><span class="dt">&gt;</span></span>
+<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La correlación puede tomar valores mayores a 1.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. cov(x,x) = var(x).<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Una correlación alta implica causalidad.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema8()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema8"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema8</span>() {</span>
+<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"F"</span> }<span class="op">;</span></span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema8"</span>)<span class="op">;</span></span>
+<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema8"</span>)<span class="op">;</span></span>
+<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
 <span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La covarianza mide la dirección de la relación lineal entre dos variables; el coeficiente de correlación la normaliza a $<span class="co">[</span><span class="ot">-1,1</span><span class="co">]</span>$ para que sea comparable entre pares de variables distintas.</span>
-<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\rho = \pm 1$ ocurre única y exactamente cuando la relación es perfectamente lineal — esto se puede demostrar, no solo observar.</span>
-<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La recta de regresión siempre pasa por $(\bar{x}, \bar{y})$ y permite estimar valores dentro del rango observado — nunca fuera de él (extrapolación).</span>
-<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Correlación no es causalidad: una correlación alta es evidencia de asociación lineal, no de una relación causal.</span>
-<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La covarianza mide la dirección de la relación lineal entre dos variables; el coeficiente de correlación la normaliza a $<span class="co">[</span><span class="ot">-1,1</span><span class="co">]</span>$ para que sea comparable entre pares de variables distintas.</span>
+<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\rho = \pm 1$ ocurre única y exactamente cuando la relación es perfectamente lineal — esto se puede demostrar, no solo observar.</span>
+<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La recta de regresión siempre pasa por $(\bar{x}, \bar{y})$ y permite estimar valores dentro del rango observado — nunca fuera de él (extrapolación).</span>
+<span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Correlación no es causalidad: una correlación alta es evidencia de asociación lineal, no de una relación causal.</span>
+<span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

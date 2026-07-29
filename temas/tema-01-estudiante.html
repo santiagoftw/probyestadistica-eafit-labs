@@ -427,28 +427,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="exploremos" class="level2">
 <h2 class="anchored" data-anchor-id="exploremos">🔬 Exploremos</h2>
-<p>Vamos a clasificar variables reales de un conjunto de datos de mamíferos y su sueño (<code>msleep</code>, incluido en <code>ggplot2</code>), <strong>sin definiciones todavía</strong>. Solo con tu intuición.</p>
+<p>De aquí en adelante usamos el mismo dataset en todo el módulo: <code>house-prices.csv</code>, 128 casas vendidas con su precio, área, habitaciones, baños, ofertas recibidas, fachada de ladrillo y barrio (dataset real, clásico de los cursos de estadística). Vamos a clasificar sus variables <strong>sin definiciones todavía</strong>, solo con tu intuición.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(msleep[, <span class="fu">c</span>(<span class="st">"name"</span>, <span class="st">"vore"</span>, <span class="st">"order"</span>, <span class="st">"conservation"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"sleep_total"</span>, <span class="st">"sleep_rem"</span>, <span class="st">"bodywt"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(houses)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  name                    vore  order conservation sleep_total sleep_rem  bodywt
-  &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-1 Cheetah                 carni Carn… lc                  12.1      NA    50    
-2 Owl monkey              omni  Prim… &lt;NA&gt;                17         1.8   0.48 
-3 Mountain beaver         herbi Rode… nt                  14.4       2.4   1.35 
-4 Greater short-tailed s… omni  Sori… lc                  14.9       2.3   0.019
-5 Cow                     herbi Arti… domesticated         4         0.7 600    
-6 Three-toed sloth        herbi Pilo… &lt;NA&gt;                14.4       2.2   3.85 </code></pre>
+<pre><code>  Home  Price SqFt Bedrooms Bathrooms Offers Brick Neighborhood
+1    1 114300 1790        2         2      2    No         East
+2    2 114200 2030        4         2      3    No         East
+3    3 114800 1740        3         2      1    No         East
+4    4  94700 1980        3         2      3    No         East
+5    5 119800 2130        3         3      3    No         East
+6    6 114600 1780        3         2      2    No        North</code></pre>
 </div>
 </div>
 <div class="ficha-resultado">
-<p>En grupos, separen estas variables en dos montones: “se puede promediar directamente” vs.&nbsp;“no tiene sentido promediarla”. Dentro del segundo montón, ¿alguna tiene un orden natural?</p>
+<p>En grupos, separen estas 8 variables en dos montones: “se puede promediar directamente” vs.&nbsp;“no tiene sentido promediarla”. Dentro del segundo montón, ¿alguna tiene un orden natural?</p>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -460,7 +457,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>¿Qué pasaría si calculas el “promedio” del nombre de los animales? ¿Y el “promedio” del estado de conservación?</p>
+<p>¿Qué pasaría si calculas el “promedio” de <code>Neighborhood</code>? ¿Y el “promedio” de <code>Home</code> (el identificador de la casa)?</p>
 </div>
 </div>
 </section>
@@ -475,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>clasificacion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tipo =</span> <span class="fu">c</span>(<span class="st">"Nominal"</span>, <span class="st">"Ordinal"</span>, <span class="st">"Discreta"</span>, <span class="st">"Continua"</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cantidad =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)  <span class="co"># ajustar según las 11 columnas reales de msleep</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cantidad =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>)  <span class="co"># Home+Brick+Neighborhood, (ninguna), Bedrooms+Bathrooms+Offers, Price+SqFt</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(clasificacion, <span class="fu">aes</span>(<span class="at">x =</span> tipo, <span class="at">y =</span> cantidad, <span class="at">fill =</span> tipo)) <span class="sc">+</span></span>
@@ -491,11 +488,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="fig-tipos-variable" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tipos-variable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-3c95e4bb831f90992963" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-3c95e4bb831f90992963">{"x":{"data":[{"orientation":"v","width":0.89999999999999991,"base":0,"x":[1],"y":[5],"text":"tipo: Continua<br />cantidad: 5<br />tipo: Continua","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(217,222,228,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Continua","legendgroup":"Continua","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000013,"base":0,"x":[2],"y":[1],"text":"tipo: Discreta<br />cantidad: 1<br />tipo: Discreta","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,185,3,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Discreta","legendgroup":"Discreta","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000036,"base":0,"x":[3],"y":[4],"text":"tipo: Nominal<br />cantidad: 4<br />tipo: Nominal","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,75,133,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Nominal","legendgroup":"Nominal","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000036,"base":0,"x":[4],"y":[1],"text":"tipo: Ordinal<br />cantidad: 1<br />tipo: Ordinal","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(75,139,194,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Ordinal","legendgroup":"Ordinal","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.305936073059364,"r":7.3059360730593621,"b":22.648401826484022,"l":31.415525114155255},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["Continua","Discreta","Nominal","Ordinal"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["Continua","Discreta","Nominal","Ordinal"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBM Plex Mono","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.25,5.25],"tickmode":"array","ticktext":["0","1","2","3","4","5"],"tickvals":[0,1,2,3,4,5],"categoryorder":"array","categoryarray":["0","1","2","3","4","5"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBM Plex Mono","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Número de variables","font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1ca453ad106e":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"1ca453ad106e","visdat":{"1ca453ad106e":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-adeb9788295ec5bc8342" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-adeb9788295ec5bc8342">{"x":{"data":[{"orientation":"v","width":0.89999999999999991,"base":0,"x":[1],"y":[2],"text":"tipo: Continua<br />cantidad: 2<br />tipo: Continua","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(217,222,228,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Continua","legendgroup":"Continua","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000013,"base":0,"x":[2],"y":[3],"text":"tipo: Discreta<br />cantidad: 3<br />tipo: Discreta","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,185,3,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Discreta","legendgroup":"Discreta","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000036,"base":0,"x":[3],"y":[3],"text":"tipo: Nominal<br />cantidad: 3<br />tipo: Nominal","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,75,133,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Nominal","legendgroup":"Nominal","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000036,"base":0,"x":[4],"y":[0],"text":"tipo: Ordinal<br />cantidad: 0<br />tipo: Ordinal","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(75,139,194,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Ordinal","legendgroup":"Ordinal","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.305936073059364,"r":7.3059360730593621,"b":22.648401826484022,"l":31.415525114155255},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["Continua","Discreta","Nominal","Ordinal"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["Continua","Discreta","Nominal","Ordinal"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBM Plex Mono","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.15000000000000002,3.1499999999999999],"tickmode":"array","ticktext":["0","1","2","3"],"tickvals":[0,0.99999999999999989,2,3],"categoryorder":"array","categoryarray":["0","1","2","3"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBM Plex Mono","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Número de variables","font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"IBM Plex Mono","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"784457e43035":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"784457e43035","visdat":{"784457e43035":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tipos-variable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Variables de msleep clasificadas por tipo
+Figure&nbsp;1: Variables de houses clasificadas por tipo
 </figcaption>
 </figure>
 </div>
@@ -510,7 +507,7 @@ Figure&nbsp;1: Variables de msleep clasificadas por tipo
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>La mayoría de las variables “obvias” (nombre, peso) se clasifican fácil. Las que generan discusión —como el estado de conservación— son las que mejor enseñan la diferencia entre nominal y ordinal.</p>
+<p>Este dataset real no tiene, entre sus 8 columnas originales, ninguna variable ordinal — tiene nominales (<code>Brick</code>, <code>Neighborhood</code>, y el identificador <code>Home</code>), discretas (<code>Bedrooms</code>, <code>Bathrooms</code>, <code>Offers</code>) y continuas (<code>Price</code>, <code>SqFt</code>), pero ninguna con categorías ordenadas. Eso es normal: no todos los datasets reales traen los 4 tipos de variable de fábrica. Más abajo vas a <strong>crear</strong> una variable ordinal a partir de <code>Price</code>.</p>
 </div>
 </div>
 </section>
@@ -593,74 +590,54 @@ Figure&nbsp;1: Variables de msleep clasificadas por tipo
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(msleep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(houses)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 83
-Columns: 11
-$ name         &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver", "Greater shor…
-$ genus        &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Bra…
-$ vore         &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi", "herbi", "carn…
-$ order        &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Art…
-$ conservation &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dome…
-$ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5…
-$ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, …
-$ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, N…
-$ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 1…
-$ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0…
-$ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.04…</code></pre>
+<pre><code>Rows: 128
+Columns: 8
+$ Home         &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+$ Price        &lt;int&gt; 114300, 114200, 114800, 94700, 119800, 114600, 151600, 15…
+$ SqFt         &lt;int&gt; 1790, 2030, 1740, 1980, 2130, 1780, 1830, 2160, 2110, 173…
+$ Bedrooms     &lt;int&gt; 2, 4, 3, 3, 3, 3, 3, 4, 4, 3, 3, 2, 3, 3, 4, 4, 3, 3, 2, …
+$ Bathrooms    &lt;int&gt; 2, 2, 2, 2, 3, 2, 3, 2, 2, 3, 2, 2, 2, 3, 3, 2, 3, 3, 2, …
+$ Offers       &lt;int&gt; 2, 3, 1, 3, 3, 2, 3, 2, 3, 3, 3, 2, 4, 5, 4, 1, 4, 4, 1, …
+$ Brick        &lt;chr&gt; "No", "No", "No", "No", "No", "No", "Yes", "No", "No", "N…
+$ Neighborhood &lt;chr&gt; "East", "East", "East", "East", "East", "North", "West", …</code></pre>
 </div>
 </div>
-<p><strong>Paso 2 — Tabla de frecuencias de la variable <code>vore</code> (tipo de dieta):</strong></p>
+<p><strong>Paso 2 — Tabla de frecuencias de <code>Neighborhood</code> (nominal, 3 categorías):</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(msleep<span class="sc">$</span>vore)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(houses<span class="sc">$</span>Neighborhood)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-  carni   herbi insecti    omni 
-     19      32       5      20 </code></pre>
+ East North  West 
+   45    44    39 </code></pre>
 </div>
 </div>
-<p>Contrasta lo que R llama <code>chr</code>, <code>num</code>, <code>int</code>, <code>factor</code> con la clasificación estadística que acabas de construir — no siempre coinciden.</p>
-<section id="otro-ejemplo-clasificar-5-variables-de-un-dataset-de-hábitos" class="level3">
-<h3 class="anchored" data-anchor-id="otro-ejemplo-clasificar-5-variables-de-un-dataset-de-hábitos">Otro ejemplo: clasificar 5 variables de un dataset de hábitos</h3>
-<p>Un dataset de hábitos de TV/streaming trae las variables <code>id</code>, <code>Tv Source</code> (plataforma), <code>Hours per week</code>, <code>Binge Frequency</code> (frecuencia con la que se ve “en maratón”: nunca/a veces/siempre) y <code>Sex</code>. Antes de graficar nada, clasifícalas:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Tipo</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id</code></td>
-<td>Cualitativa nominal (es un identificador, no tiene sentido “promediarlo”)</td>
-</tr>
-<tr class="even">
-<td><code>Tv Source</code></td>
-<td>Cualitativa nominal (no hay orden entre plataformas)</td>
-</tr>
-<tr class="odd">
-<td><code>Hours per week</code></td>
-<td>Cuantitativa continua / de razón</td>
-</tr>
-<tr class="even">
-<td><code>Binge Frequency</code></td>
-<td>Cualitativa <strong>ordinal</strong> (nunca &lt; a veces &lt; siempre — sí hay orden)</td>
-</tr>
-<tr class="odd">
-<td><code>Sex</code></td>
-<td>Cualitativa nominal (caso particular: binaria)</td>
-</tr>
-</tbody>
-</table>
+<p>Contrasta lo que R llama <code>chr</code>, <code>int</code> con la clasificación estadística que acabas de construir — no siempre coinciden. En particular, R guarda <code>Neighborhood</code> como texto (<code>chr</code>), exactamente igual que <code>Brick</code> — ambas son nominales, pero por razones distintas: <code>Brick</code> es binaria (2 categorías) y <code>Neighborhood</code> tiene 3, sin que eso cambie que ninguna de las dos tenga orden.</p>
+<section id="otro-ejemplo-recodificar-una-variable-continua-en-ordinal-categorías-de-precio" class="level3">
+<h3 class="anchored" data-anchor-id="otro-ejemplo-recodificar-una-variable-continua-en-ordinal-categorías-de-precio">Otro ejemplo: recodificar una variable continua en ordinal (categorías de precio)</h3>
+<p>Como viste arriba, este dataset no trae ninguna variable ordinal de fábrica — pero <code>Price</code> (continua) se puede recodificar en una variable <em>ordinal</em> con categorías de mercado (bajo / medio / alto):</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>houses<span class="sc">$</span>price_tier <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  houses<span class="sc">$</span>Price,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">110000</span>, <span class="dv">150000</span>, <span class="cn">Inf</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bajo"</span>, <span class="st">"Medio"</span>, <span class="st">"Alto"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(houses<span class="sc">$</span>price_tier)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Bajo Medio  Alto 
+   30    68    30 </code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -671,24 +648,7 @@ $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>Tv Source</code> y <code>Sex</code> son ambas nominales, pero por razones distintas: <code>Sex</code> es nominal <em>porque</em> solo tiene dos categorías sin orden (binaria), mientras que <code>Tv Source</code> podría tener muchas categorías (Netflix, HBO, Disney+, …) y sigue sin haber un orden natural entre ellas. “Binaria” describe cuántas categorías tiene una variable; “nominal vs.&nbsp;ordinal” describe si esas categorías tienen orden — son dos preguntas distintas que pueden combinarse.</p>
-</div>
-</div>
-<p>Una vez clasificadas, <code>Hours per week</code> (continua) se puede <strong>recodificar</strong> en una variable categórica binaria — la misma idea que ya viste con el índice de masa corporal (IMC) al clasificarlo en “Saludable”/“No saludable”: aquí, un umbral de 20 horas/semana separa “riesgo” de “no riesgo”.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>horas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">22</span>, <span class="dv">18</span>, <span class="dv">30</span>, <span class="dv">12</span>, <span class="dv">25</span>, <span class="dv">8</span>, <span class="dv">40</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>riesgo <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(horas <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>riesgo_label <span class="ot">&lt;-</span> <span class="fu">factor</span>(riesgo, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(riesgo_label)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>riesgo_label
- no yes 
-  4   4 </code></pre>
+<p><code>price_tier</code> sí es ordinal (bajo &lt; medio &lt; alto tiene un orden de mercado claro), a diferencia de <code>Brick</code> o <code>Neighborhood</code> como texto libre. <code>cut()</code> con el argumento <code>labels</code> es la forma más directa de pasar de una variable continua a una categórica <em>con orden</em> — si quisieras que R recuerde ese orden (para que “Alto” no aparezca antes que “Bajo” en una tabla, por ejemplo), tendrías que además marcar el factor como <code>ordered = TRUE</code>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -701,18 +661,18 @@ $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recodificar una variable continua en categórica (como aquí, o como el IMC en “Saludable”/“No saludable”) <strong>siempre pierde información</strong> — dos personas con 21 y 39 horas/semana quedan en la misma categoría “riesgo”, aunque su situación real sea muy distinta. Tiene sentido hacerlo cuando el umbral tiene un significado clínico o práctico claro (aquí, un punto de corte de riesgo), no solo por comodidad para graficar. <a href="../recursos.html">Ver más trucos →</a></p>
+<p>Recodificar una variable continua en categórica <strong>siempre pierde información</strong> — dos casas de $109,000 y $69,100 quedan en la misma categoría “Bajo”, aunque estén en extremos distintos de ese rango. Tiene sentido hacerlo cuando el umbral tiene un significado práctico claro (como aquí, rangos de mercado redondos), no solo por comodidad para graficar. <a href="../recursos.html">Ver más trucos →</a></p>
 </div>
 </div>
 </section>
 </section>
 <section id="laboratorio" class="level2">
 <h2 class="anchored" data-anchor-id="laboratorio">🧑‍🔬 Laboratorio</h2>
-<p>Con el dataset <code>starwars</code> (incluido en <code>dplyr</code>), clasifica <code>species</code>, <code>eye_color</code>, <code>height</code>, <code>mass</code> y <code>gender</code>:</p>
+<p>Con el mismo dataset <code>houses</code>:</p>
 <ol type="1">
-<li>¿Cuáles son cualitativas y cuáles cuantitativas?</li>
-<li>De las cualitativas, ¿cuáles son ordinales y cuáles nominales?</li>
-<li>De las cuantitativas, ¿son de intervalo o de razón? Justifica con el criterio del “cero absoluto”.</li>
+<li>Clasifica las 8 variables originales (<code>Home</code>, <code>Price</code>, <code>SqFt</code>, <code>Bedrooms</code>, <code>Bathrooms</code>, <code>Offers</code>, <code>Brick</code>, <code>Neighborhood</code>) en una tabla como la del Tema — tipo (nominal/ordinal/discreta/continua) y una justificación de una frase para cada una.</li>
+<li>Ahora clasifica la variable que creaste en este Tema: <code>price_tier</code>. ¿Es del mismo tipo que <code>Price</code>, la variable de la que proviene?</li>
+<li>Para <code>Bedrooms</code> (cuantitativa discreta): ¿tiene sentido calcular su promedio? ¿Y decir que una casa de 4 habitaciones tiene “el doble” que una de 2? Justifica con el criterio de escala de medición (nominal / ordinal / intervalo / razón) del Tema.</li>
 </ol>
 </section>
 <section id="ejercicios-autocorregibles" class="level2">
@@ -720,14 +680,14 @@ $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
 <p>Copia esto en tu propia sesión de RStudio y complétalo (reemplaza <code>___</code>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Qué tipo de dato le asigna R a la variable msleep$vore?</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Qué tipo de dato le asigna R a la variable houses$Neighborhood?</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Completa con la función correcta:</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(msleep<span class="sc">$</span>vore)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(houses<span class="sc">$</span>Neighborhood)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
 </summary>
-<code>class(msleep$vore)</code> — devuelve <code>"character"</code>. Es la misma función que usaste en la exploración del tema para ver <code>chr</code>, <code>num</code>, <code>int</code>, <code>factor</code> por columna, ahora aplicada a una sola columna.
+<code>class(houses$Neighborhood)</code> — devuelve <code>"character"</code>. Es la misma función que usaste en la exploración del tema para ver <code>chr</code>, <code>int</code> por columna, ahora aplicada a una sola columna.
 </details>
 </section>
 <section id="ejercicio-2-verdadero-o-falso" class="level3">
@@ -1284,244 +1244,234 @@ function revisarQuizTema1() {
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos</span></span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>Vamos a clasificar variables reales de un conjunto de datos de mamíferos y su sueño (<span class="in">`msleep`</span>, incluido en <span class="in">`ggplot2`</span>), **sin definiciones todavía**. Solo con tu intuición.</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>De aquí en adelante usamos el mismo dataset en todo el módulo: <span class="in">`house-prices.csv`</span>, 128 casas vendidas con su precio, área, habitaciones, baños, ofertas recibidas, fachada de ladrillo y barrio (dataset real, clásico de los cursos de estadística). Vamos a clasificar sus variables **sin definiciones todavía**, solo con tu intuición.</span>
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(msleep[, <span class="fu">c</span>(<span class="st">"name"</span>, <span class="st">"vore"</span>, <span class="st">"order"</span>, <span class="st">"conservation"</span>,</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                <span class="st">"sleep_total"</span>, <span class="st">"sleep_rem"</span>, <span class="st">"bodywt"</span>)])</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>En grupos, separen estas variables en dos montones: "se puede promediar directamente" vs. "no tiene sentido promediarla". Dentro del segundo montón, ¿alguna tiene un orden natural?</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>¿Qué pasaría si calculas el "promedio" del nombre de los animales? ¿Y el "promedio" del estado de conservación?</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎛️ Practica la clasificación</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>Elige una variable, decide su tipo, y compara tu respuesta contra la clasificación correcta.</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-tipos-variable</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Variables de msleep clasificadas por tipo"</span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>clasificacion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">tipo =</span> <span class="fu">c</span>(<span class="st">"Nominal"</span>, <span class="st">"Ordinal"</span>, <span class="st">"Discreta"</span>, <span class="st">"Continua"</span>),</span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">cantidad =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)  <span class="co"># ajustar según las 11 columnas reales de msleep</span></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(clasificacion, <span class="fu">aes</span>(<span class="at">x =</span> tipo, <span class="at">y =</span> cantidad, <span class="at">fill =</span> tipo)) <span class="sc">+</span></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Nominal"</span> <span class="ot">=</span> <span class="st">"#004B85"</span>, <span class="st">"Ordinal"</span> <span class="ot">=</span> <span class="st">"#4B8BC2"</span>,</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Discreta"</span> <span class="ot">=</span> <span class="st">"#FFB903"</span>, <span class="st">"Continua"</span> <span class="ot">=</span> <span class="st">"#D9DEE4"</span>)) <span class="sc">+</span></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Número de variables"</span>) <span class="sc">+</span></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"IBM Plex Mono"</span>) <span class="sc">+</span></span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>La mayoría de las variables "obvias" (nombre, peso) se clasifican fácil. Las que generan discusión —como el estado de conservación— son las que mejor enseñan la diferencia entre nominal y ordinal.</span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Discusión</span></span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Qué variable les costó más clasificar? ¿Por qué?</span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Coincidió su clasificación grupal con la de sus compañeros?</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Por qué esto importa antes de graficar o resumir datos (temas siguientes)?</span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### El árbol de las variables</span></span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>Toda variable se clasifica primero en cualitativa o cuantitativa, y dentro de cada rama, en dos subtipos más:</span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="al">![Árbol de clasificación de variables](../images/arbol-variables.svg)</span></span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Población y muestra</span></span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>**Población:** el conjunto completo de individuos, objetos o eventos de los cuales nos interesa estudiar alguna característica (Rincón, 2017). Debe especificarse con la mayor precisión posible: no es lo mismo "estudiantes universitarios" que "estudiantes de pregrado matriculados en 2026-2".</span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>**Muestra:** un subconjunto de la población, seleccionado para el análisis porque estudiar la población completa suele ser costoso, lento o imposible.</span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>**Unidad de observación (o unidad experimental):** el objeto o individuo específico del cual se toma cada medición — un estudiante, un producto fabricado, un animal.</span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cualitativa nominal</span></span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>Variable que clasifica en categorías **sin ningún orden natural entre ellas** — son etiquetas puras. Ejemplos: sexo, tipo de sangre (A, B, AB, O), estado civil. No tiene sentido preguntar "¿cuál categoría es mayor?".</span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cualitativa ordinal</span></span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>Variable que clasifica en categorías **con un orden o jerarquía implícita**, pero sin que la distancia entre categorías esté definida numéricamente. Ejemplos: nivel educativo, calificación (excelente/bueno/malo), rango militar. Sí tiene sentido decir "excelente es mejor que bueno", pero no "cuánto mejor" en términos numéricos exactos.</span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuantitativa discreta</span></span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>Variable numérica cuyos valores son **contables**, generalmente resultado de un conteo, con "huecos" o brechas entre valores posibles (0, 1, 2, 3...). Ejemplos: número de hijos en una familia, número de defectos en un lote.</span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuantitativa continua</span></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>Variable numérica que puede tomar **cualquier valor dentro de un intervalo**, sin huecos entre valores posibles, resultado típicamente de una medición. Ejemplos: peso, tiempo, temperatura. Esta es la razón por la que, como veremos en el Tema 3, no se puede tabular "un valor a la vez": hay que agrupar en intervalos.</span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Escalas de medición</span></span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a>Independientemente de si una variable es cualitativa o cuantitativa, también se clasifica según qué **operaciones matemáticas tienen sentido** sobre ella. Son 4 escalas, cada una más "permisiva" que la anterior:</span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a><span class="al">![Escalera de escalas de medición](../images/escala-medicion.svg)</span></span>
-<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Nominal:** solo permite identificar y contar categorías (no se puede ordenar).</span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ordinal:** permite además ordenar, pero no restar (no sabemos "cuánto" separa a dos niveles).</span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**De intervalo:** permite además restar (las distancias son iguales), pero no existe un cero absoluto — por eso 20°C no es "el doble de caliente" que 10°C.</span>
-<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**De razón:** permite además dividir y hablar de proporciones, porque existe un cero absoluto real — 20 kg sí es el doble de 10 kg.</span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a>Antes de analizar cualquier dataset nuevo, corre primero <span class="in">`str()`</span> o <span class="in">`glimpse()`</span> y clasifica cada columna a mano. Un error clásico es tratar un código numérico (código postal, número de identificación) como si fuera cuantitativo solo porque R lo guarda como número — el tipo de dato en R no siempre coincide con el tipo estadístico real de la variable. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Ver el tipo de dato que R asigna a cada columna:**</span>
-<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(msleep)</span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Tabla de frecuencias de la variable `vore` (tipo de dieta):**</span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(msleep<span class="sc">$</span>vore)</span>
-<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>Contrasta lo que R llama <span class="in">`chr`</span>, <span class="in">`num`</span>, <span class="in">`int`</span>, <span class="in">`factor`</span> con la clasificación estadística que acabas de construir — no siempre coinciden.</span>
-<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Otro ejemplo: clasificar 5 variables de un dataset de hábitos</span></span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>Un dataset de hábitos de TV/streaming trae las variables <span class="in">`id`</span>, <span class="in">`Tv Source`</span> (plataforma), <span class="in">`Hours per week`</span>, <span class="in">`Binge Frequency`</span> (frecuencia con la que se ve "en maratón": nunca/a veces/siempre) y <span class="in">`Sex`</span>. Antes de graficar nada, clasifícalas:</span>
-<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variable <span class="pp">|</span> Tipo <span class="pp">|</span></span>
-<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`id`</span> <span class="pp">|</span> Cualitativa nominal (es un identificador, no tiene sentido "promediarlo") <span class="pp">|</span></span>
-<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Tv Source`</span> <span class="pp">|</span> Cualitativa nominal (no hay orden entre plataformas) <span class="pp">|</span></span>
-<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Hours per week`</span> <span class="pp">|</span> Cuantitativa continua / de razón <span class="pp">|</span></span>
-<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Binge Frequency`</span> <span class="pp">|</span> Cualitativa **ordinal** (nunca &lt; a veces &lt; siempre — sí hay orden) <span class="pp">|</span></span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Sex`</span> <span class="pp">|</span> Cualitativa nominal (caso particular: binaria) <span class="pp">|</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(houses)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>En grupos, separen estas 8 variables en dos montones: "se puede promediar directamente" vs. "no tiene sentido promediarla". Dentro del segundo montón, ¿alguna tiene un orden natural?</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>¿Qué pasaría si calculas el "promedio" de <span class="in">`Neighborhood`</span>? ¿Y el "promedio" de <span class="in">`Home`</span> (el identificador de la casa)?</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎛️ Practica la clasificación</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>Elige una variable, decide su tipo, y compara tu respuesta contra la clasificación correcta.</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-tipos-variable</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Variables de houses clasificadas por tipo"</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>clasificacion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">tipo =</span> <span class="fu">c</span>(<span class="st">"Nominal"</span>, <span class="st">"Ordinal"</span>, <span class="st">"Discreta"</span>, <span class="st">"Continua"</span>),</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">cantidad =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>)  <span class="co"># Home+Brick+Neighborhood, (ninguna), Bedrooms+Bathrooms+Offers, Price+SqFt</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(clasificacion, <span class="fu">aes</span>(<span class="at">x =</span> tipo, <span class="at">y =</span> cantidad, <span class="at">fill =</span> tipo)) <span class="sc">+</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Nominal"</span> <span class="ot">=</span> <span class="st">"#004B85"</span>, <span class="st">"Ordinal"</span> <span class="ot">=</span> <span class="st">"#4B8BC2"</span>,</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Discreta"</span> <span class="ot">=</span> <span class="st">"#FFB903"</span>, <span class="st">"Continua"</span> <span class="ot">=</span> <span class="st">"#D9DEE4"</span>)) <span class="sc">+</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Número de variables"</span>) <span class="sc">+</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"IBM Plex Mono"</span>) <span class="sc">+</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>Este dataset real no tiene, entre sus 8 columnas originales, ninguna variable ordinal — tiene nominales (<span class="in">`Brick`</span>, <span class="in">`Neighborhood`</span>, y el identificador <span class="in">`Home`</span>), discretas (<span class="in">`Bedrooms`</span>, <span class="in">`Bathrooms`</span>, <span class="in">`Offers`</span>) y continuas (<span class="in">`Price`</span>, <span class="in">`SqFt`</span>), pero ninguna con categorías ordenadas. Eso es normal: no todos los datasets reales traen los 4 tipos de variable de fábrica. Más abajo vas a **crear** una variable ordinal a partir de <span class="in">`Price`</span>.</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Discusión</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Qué variable les costó más clasificar? ¿Por qué?</span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Coincidió su clasificación grupal con la de sus compañeros?</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Por qué esto importa antes de graficar o resumir datos (temas siguientes)?</span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### El árbol de las variables</span></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>Toda variable se clasifica primero en cualitativa o cuantitativa, y dentro de cada rama, en dos subtipos más:</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="al">![Árbol de clasificación de variables](../images/arbol-variables.svg)</span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Población y muestra</span></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>**Población:** el conjunto completo de individuos, objetos o eventos de los cuales nos interesa estudiar alguna característica (Rincón, 2017). Debe especificarse con la mayor precisión posible: no es lo mismo "estudiantes universitarios" que "estudiantes de pregrado matriculados en 2026-2".</span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>**Muestra:** un subconjunto de la población, seleccionado para el análisis porque estudiar la población completa suele ser costoso, lento o imposible.</span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>**Unidad de observación (o unidad experimental):** el objeto o individuo específico del cual se toma cada medición — un estudiante, un producto fabricado, un animal.</span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cualitativa nominal</span></span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>Variable que clasifica en categorías **sin ningún orden natural entre ellas** — son etiquetas puras. Ejemplos: sexo, tipo de sangre (A, B, AB, O), estado civil. No tiene sentido preguntar "¿cuál categoría es mayor?".</span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cualitativa ordinal</span></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>Variable que clasifica en categorías **con un orden o jerarquía implícita**, pero sin que la distancia entre categorías esté definida numéricamente. Ejemplos: nivel educativo, calificación (excelente/bueno/malo), rango militar. Sí tiene sentido decir "excelente es mejor que bueno", pero no "cuánto mejor" en términos numéricos exactos.</span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuantitativa discreta</span></span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a>Variable numérica cuyos valores son **contables**, generalmente resultado de un conteo, con "huecos" o brechas entre valores posibles (0, 1, 2, 3...). Ejemplos: número de hijos en una familia, número de defectos en un lote.</span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuantitativa continua</span></span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>Variable numérica que puede tomar **cualquier valor dentro de un intervalo**, sin huecos entre valores posibles, resultado típicamente de una medición. Ejemplos: peso, tiempo, temperatura. Esta es la razón por la que, como veremos en el Tema 3, no se puede tabular "un valor a la vez": hay que agrupar en intervalos.</span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### Escalas de medición</span></span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>Independientemente de si una variable es cualitativa o cuantitativa, también se clasifica según qué **operaciones matemáticas tienen sentido** sobre ella. Son 4 escalas, cada una más "permisiva" que la anterior:</span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="al">![Escalera de escalas de medición](../images/escala-medicion.svg)</span></span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Nominal:** solo permite identificar y contar categorías (no se puede ordenar).</span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ordinal:** permite además ordenar, pero no restar (no sabemos "cuánto" separa a dos niveles).</span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**De intervalo:** permite además restar (las distancias son iguales), pero no existe un cero absoluto — por eso 20°C no es "el doble de caliente" que 10°C.</span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**De razón:** permite además dividir y hablar de proporciones, porque existe un cero absoluto real — 20 kg sí es el doble de 10 kg.</span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a>Antes de analizar cualquier dataset nuevo, corre primero <span class="in">`str()`</span> o <span class="in">`glimpse()`</span> y clasifica cada columna a mano. Un error clásico es tratar un código numérico (código postal, número de identificación) como si fuera cuantitativo solo porque R lo guarda como número — el tipo de dato en R no siempre coincide con el tipo estadístico real de la variable. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Ver el tipo de dato que R asigna a cada columna:**</span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(houses)</span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Tabla de frecuencias de `Neighborhood` (nominal, 3 categorías):**</span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(houses<span class="sc">$</span>Neighborhood)</span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>Contrasta lo que R llama <span class="in">`chr`</span>, <span class="in">`int`</span> con la clasificación estadística que acabas de construir — no siempre coinciden. En particular, R guarda <span class="in">`Neighborhood`</span> como texto (<span class="in">`chr`</span>), exactamente igual que <span class="in">`Brick`</span> — ambas son nominales, pero por razones distintas: <span class="in">`Brick`</span> es binaria (2 categorías) y <span class="in">`Neighborhood`</span> tiene 3, sin que eso cambie que ninguna de las dos tenga orden.</span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a><span class="fu">### Otro ejemplo: recodificar una variable continua en ordinal (categorías de precio)</span></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>Como viste arriba, este dataset no trae ninguna variable ordinal de fábrica — pero <span class="in">`Price`</span> (continua) se puede recodificar en una variable *ordinal* con categorías de mercado (bajo / medio / alto):</span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a>houses<span class="sc">$</span>price_tier <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>  houses<span class="sc">$</span>Price,</span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">110000</span>, <span class="dv">150000</span>, <span class="cn">Inf</span>),</span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bajo"</span>, <span class="st">"Medio"</span>, <span class="st">"Alto"</span>)</span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a><span class="in">`Tv Source`</span> y <span class="in">`Sex`</span> son ambas nominales, pero por razones distintas: <span class="in">`Sex`</span> es nominal *porque* solo tiene dos categorías sin orden (binaria), mientras que <span class="in">`Tv Source`</span> podría tener muchas categorías (Netflix, HBO, Disney+, ...) y sigue sin haber un orden natural entre ellas. "Binaria" describe cuántas categorías tiene una variable; "nominal vs. ordinal" describe si esas categorías tienen orden — son dos preguntas distintas que pueden combinarse.</span>
-<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>Una vez clasificadas, <span class="in">`Hours per week`</span> (continua) se puede **recodificar** en una variable categórica binaria — la misma idea que ya viste con el índice de masa corporal (IMC) al clasificarlo en "Saludable"/"No saludable": aquí, un umbral de 20 horas/semana separa "riesgo" de "no riesgo".</span>
-<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>horas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">22</span>, <span class="dv">18</span>, <span class="dv">30</span>, <span class="dv">12</span>, <span class="dv">25</span>, <span class="dv">8</span>, <span class="dv">40</span>)</span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>riesgo <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(horas <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>riesgo_label <span class="ot">&lt;-</span> <span class="fu">factor</span>(riesgo, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>))</span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(houses<span class="sc">$</span>price_tier)</span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a><span class="in">`price_tier`</span> sí es ordinal (bajo &lt; medio &lt; alto tiene un orden de mercado claro), a diferencia de <span class="in">`Brick`</span> o <span class="in">`Neighborhood`</span> como texto libre. <span class="in">`cut()`</span> con el argumento <span class="in">`labels`</span> es la forma más directa de pasar de una variable continua a una categórica *con orden* — si quisieras que R recuerde ese orden (para que "Alto" no aparezca antes que "Bajo" en una tabla, por ejemplo), tendrías que además marcar el factor como <span class="in">`ordered = TRUE`</span>.</span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>Recodificar una variable continua en categórica **siempre pierde información** — dos casas de \$109,000 y \$69,100 quedan en la misma categoría "Bajo", aunque estén en extremos distintos de ese rango. Tiene sentido hacerlo cuando el umbral tiene un significado práctico claro (como aquí, rangos de mercado redondos), no solo por comodidad para graficar. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
 <span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(riesgo_label)</span>
-<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>Recodificar una variable continua en categórica (como aquí, o como el IMC en "Saludable"/"No saludable") **siempre pierde información** — dos personas con 21 y 39 horas/semana quedan en la misma categoría "riesgo", aunque su situación real sea muy distinta. Tiene sentido hacerlo cuando el umbral tiene un significado clínico o práctico claro (aquí, un punto de corte de riesgo), no solo por comodidad para graficar. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>Con el mismo dataset <span class="in">`houses`</span>:</span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Clasifica las 8 variables originales (<span class="in">`Home`</span>, <span class="in">`Price`</span>, <span class="in">`SqFt`</span>, <span class="in">`Bedrooms`</span>, <span class="in">`Bathrooms`</span>, <span class="in">`Offers`</span>, <span class="in">`Brick`</span>, <span class="in">`Neighborhood`</span>) en una tabla como la del Tema — tipo (nominal/ordinal/discreta/continua) y una justificación de una frase para cada una.</span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Ahora clasifica la variable que creaste en este Tema: <span class="in">`price_tier`</span>. ¿Es del mismo tipo que <span class="in">`Price`</span>, la variable de la que proviene?</span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Para <span class="in">`Bedrooms`</span> (cuantitativa discreta): ¿tiene sentido calcular su promedio? ¿Y decir que una casa de 4 habitaciones tiene "el doble" que una de 2? Justifica con el criterio de escala de medición (nominal / ordinal / intervalo / razón) del Tema.</span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
 <span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
 <span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a>Con el dataset <span class="in">`starwars`</span> (incluido en <span class="in">`dplyr`</span>), clasifica <span class="in">`species`</span>, <span class="in">`eye_color`</span>, <span class="in">`height`</span>, <span class="in">`mass`</span> y <span class="in">`gender`</span>:</span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a>Copia esto en tu propia sesión de RStudio y complétalo (reemplaza <span class="in">`___`</span>):</span>
 <span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>¿Cuáles son cualitativas y cuáles cuantitativas?</span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>De las cualitativas, ¿cuáles son ordinales y cuáles nominales?</span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>De las cuantitativas, ¿son de intervalo o de razón? Justifica con el criterio del "cero absoluto".</span>
-<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Qué tipo de dato le asigna R a la variable houses$Neighborhood?</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="co"># Completa con la función correcta:</span></span>
+<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(houses<span class="sc">$</span>Neighborhood)</span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a>Copia esto en tu propia sesión de RStudio y complétalo (reemplaza <span class="in">`___`</span>):</span>
-<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Qué tipo de dato le asigna R a la variable msleep$vore?</span></span>
-<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a><span class="co"># Completa con la función correcta:</span></span>
-<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(msleep<span class="sc">$</span>vore)</span>
-<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a><span class="in">`class(msleep$vore)`</span> — devuelve <span class="in">`"character"`</span>. Es la misma función que usaste en la exploración del tema para ver <span class="in">`chr`</span>, <span class="in">`num`</span>, <span class="in">`int`</span>, <span class="in">`factor`</span> por columna, ahora aplicada a una sola columna.</span>
-<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema1"</span><span class="dt">&gt;</span></span>
+<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="in">`class(houses$Neighborhood)`</span> — devuelve <span class="in">`"character"`</span>. Es la misma función que usaste en la exploración del tema para ver <span class="in">`chr`</span>, <span class="in">`int`</span> por columna, ahora aplicada a una sola columna.</span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema1"</span><span class="dt">&gt;</span></span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;</span></span>
+<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Toda variable numérica es de escala de razón.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;</span></span>
+<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. El código postal de una dirección es una variable cuantitativa porque R lo puede guardar como número.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
 <span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;</span></span>
-<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Toda variable numérica es de escala de razón.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
-<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. El estado de conservación de un animal (least concern, vulnerable, endangered...) es una variable ordinal.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
 <span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;</span></span>
-<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. El código postal de una dirección es una variable cuantitativa porque R lo puede guardar como número.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
-<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
-<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;</span></span>
-<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. El estado de conservación de un animal (least concern, vulnerable, endangered...) es una variable ordinal.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
-<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
-<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema1()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema1"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema1</span>() {</span>
-<span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb11-228"><a href="#cb11-228" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb11-229"><a href="#cb11-229" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb11-230"><a href="#cb11-230" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema1"</span>)<span class="op">;</span></span>
-<span id="cb11-231"><a href="#cb11-231" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb11-232"><a href="#cb11-232" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb11-233"><a href="#cb11-233" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb11-234"><a href="#cb11-234" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-236"><a href="#cb11-236" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> total <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
-<span id="cb11-238"><a href="#cb11-238" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [pregunta<span class="op">,</span> correcta] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> seleccionado <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>pregunta<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb11-240"><a href="#cb11-240" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (seleccionado <span class="op">&amp;&amp;</span> seleccionado<span class="op">.</span><span class="at">value</span> <span class="op">===</span> correcta) correctas<span class="op">++;</span></span>
-<span id="cb11-241"><a href="#cb11-241" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-242"><a href="#cb11-242" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultado <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema1"</span>)<span class="op">;</span></span>
-<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span>total<span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb11-244"><a href="#cb11-244" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> total <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb11-245"><a href="#cb11-245" aria-hidden="true" tabindex="-1"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"explicacion-quiz-tema1"</span>)<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">display</span> <span class="op">=</span> <span class="st">"block"</span><span class="op">;</span></span>
-<span id="cb11-246"><a href="#cb11-246" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-247"><a href="#cb11-247" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb11-248"><a href="#cb11-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-249"><a href="#cb11-249" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">"explicacion-quiz-tema1"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"display: none;"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="dt">&gt;</span></span>
-<span id="cb11-250"><a href="#cb11-250" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Explicación de las respuestas<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span></span>
-<span id="cb11-251"><a href="#cb11-251" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
-<span id="cb11-252"><a href="#cb11-252" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Falso<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — la temperatura en °C es numérica pero de intervalo, no de razón.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
-<span id="cb11-253"><a href="#cb11-253" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Falso<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — es el error clásico del Tema 1: el tipo de dato en R no determina la escala estadística.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
-<span id="cb11-254"><a href="#cb11-254" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Verdadero<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — tiene un orden natural de severidad, aunque no una distancia numérica definida entre niveles.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
-<span id="cb11-255"><a href="#cb11-255" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
-<span id="cb11-256"><a href="#cb11-256" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-257"><a href="#cb11-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-258"><a href="#cb11-258" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb11-259"><a href="#cb11-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-260"><a href="#cb11-260" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb11-261"><a href="#cb11-261" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No todos los datos son iguales: primero se clasifica, después se resume o grafica.</span>
-<span id="cb11-262"><a href="#cb11-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El tipo de dato que usa R (<span class="in">`num`</span>, <span class="in">`chr`</span>, <span class="in">`int`</span>) no siempre coincide con la clasificación estadística.</span>
-<span id="cb11-263"><a href="#cb11-263" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cualitativa (nominal/ordinal) vs. cuantitativa (discreta/continua) determina qué gráfico y qué resumen tienen sentido — eso es justo lo que viene en los próximos temas.</span>
-<span id="cb11-264"><a href="#cb11-264" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema1()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema1"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema1</span>() {</span>
+<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
+<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema1"</span>)<span class="op">;</span></span>
+<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> total <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb11-228"><a href="#cb11-228" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [pregunta<span class="op">,</span> correcta] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb11-229"><a href="#cb11-229" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> seleccionado <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>pregunta<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb11-230"><a href="#cb11-230" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (seleccionado <span class="op">&amp;&amp;</span> seleccionado<span class="op">.</span><span class="at">value</span> <span class="op">===</span> correcta) correctas<span class="op">++;</span></span>
+<span id="cb11-231"><a href="#cb11-231" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-232"><a href="#cb11-232" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultado <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema1"</span>)<span class="op">;</span></span>
+<span id="cb11-233"><a href="#cb11-233" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span>total<span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb11-234"><a href="#cb11-234" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> total <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"explicacion-quiz-tema1"</span>)<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">display</span> <span class="op">=</span> <span class="st">"block"</span><span class="op">;</span></span>
+<span id="cb11-236"><a href="#cb11-236" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb11-238"><a href="#cb11-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">"explicacion-quiz-tema1"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"display: none;"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="dt">&gt;</span></span>
+<span id="cb11-240"><a href="#cb11-240" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Explicación de las respuestas<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span></span>
+<span id="cb11-241"><a href="#cb11-241" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
+<span id="cb11-242"><a href="#cb11-242" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Falso<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — la temperatura en °C es numérica pero de intervalo, no de razón.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Falso<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — es el error clásico del Tema 1: el tipo de dato en R no determina la escala estadística.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb11-244"><a href="#cb11-244" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Verdadero<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — tiene un orden natural de severidad, aunque no una distancia numérica definida entre niveles.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb11-245"><a href="#cb11-245" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
+<span id="cb11-246"><a href="#cb11-246" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb11-247"><a href="#cb11-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-248"><a href="#cb11-248" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb11-249"><a href="#cb11-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-250"><a href="#cb11-250" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb11-251"><a href="#cb11-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No todos los datos son iguales: primero se clasifica, después se resume o grafica.</span>
+<span id="cb11-252"><a href="#cb11-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El tipo de dato que usa R (<span class="in">`num`</span>, <span class="in">`chr`</span>, <span class="in">`int`</span>) no siempre coincide con la clasificación estadística.</span>
+<span id="cb11-253"><a href="#cb11-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cualitativa (nominal/ordinal) vs. cuantitativa (discreta/continua) determina qué gráfico y qué resumen tienen sentido — eso es justo lo que viene en los próximos temas.</span>
+<span id="cb11-254"><a href="#cb11-254" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

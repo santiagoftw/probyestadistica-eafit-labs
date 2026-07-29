@@ -748,19 +748,25 @@ Figure&nbsp;1: Cómo reaccionan media y mediana ante un valor extremo creciente
 </section>
 <section id="laboratorio" class="level2">
 <h2 class="anchored" data-anchor-id="laboratorio">🧑‍🔬 Laboratorio</h2>
-<p>Con <code>mtcars$hp</code> (caballos de fuerza, dataset ya conocido del curso):</p>
+<p>Con el dataset <code>houses</code> (el mismo de los Temas 0-3):</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
 <ol type="1">
-<li>Calcula media, mediana y moda (usa <code>names(sort(-table(...)))[1]</code>, siguiendo el estilo de Rincón, 2017).</li>
-<li>¿Media y mediana están cerca o lejos? ¿Qué sugiere eso sobre la forma de la distribución?</li>
-<li>Calcula la media truncada al 10% y compárala con la media simple.</li>
+<li>Calcula la media y la mediana de <code>SqFt</code>. ¿Están cerca o lejos una de otra? ¿Qué sugiere eso sobre la forma de la distribución?</li>
+<li>Calcula la moda de <code>Bedrooms</code> (usa <code>names(sort(-table(...)))[1]</code>, siguiendo el estilo de Rincón, 2017) — a diferencia de <code>SqFt</code>, esta sí es una variable donde “la moda” tiene un valor claro y útil. ¿Por qué crees que es así?</li>
+<li>Calcula la media truncada al 10% de <code>Price</code> y compárala con la media simple. ¿Cambia mucho? ¿Qué te dice eso sobre si hay valores atípicos fuertes en <code>Price</code>?</li>
 </ol>
 </section>
 <section id="ejercicios-autocorregibles" class="level2">
 <h2 class="anchored" data-anchor-id="ejercicios-autocorregibles">✅ Ejercicios autocorregibles</h2>
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Media truncada al 10%: completa el argumento correcto</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">___ =</span> <span class="fl">0.10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Media truncada al 10%: completa el argumento correcto</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">___ =</span> <span class="fl">0.10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
@@ -1290,255 +1296,259 @@ function revisarQuizTema4() {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema 4 · Medidas de tendencia central"</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🚒 ¿Cuál es el consumo de oxígeno "típico" de un bombero?</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>Devore registró el consumo de oxígeno (ml/kg/min) de 10 bomberos durante un simulacro: 29.5, 49.3, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6. Uno de esos números es muy distinto a los demás. ¿Cómo resumirías "el bombero típico" en un solo número?</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>Antes de calcular nada: mirando la lista, ¿cuál crees que es un valor razonable para describir el centro? ¿Te parece que el 49.3 debería pesar igual que los demás en ese cálculo?</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: el efecto de un valor extremo</span></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>oxigeno <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">29.5</span>, <span class="fl">49.3</span>, <span class="fl">30.6</span>, <span class="fl">28.2</span>, <span class="fl">28.0</span>, <span class="fl">26.3</span>, <span class="fl">33.9</span>, <span class="fl">29.4</span>, <span class="fl">23.5</span>, <span class="fl">31.6</span>)</span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(oxigeno)</span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(oxigeno)</span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>Corre el código. ¿La media y la mediana están cerca o lejos una de otra? Ahora quita el 49.3 del vector (imagina que fue un error de medición) y vuelve a calcular ambas. ¿Cuál de las dos cambió más?</span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
-<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>Si un solo dato puede mover tanto la media, ¿por qué seguimos usándola tan seguido en vez de usar siempre la mediana?</span>
-<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎛️ Simulación: media vs. mediana bajo valores extremos</span></span>
-<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-media-mediana-outlier</span></span>
-<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Cómo reaccionan media y mediana ante un valor extremo creciente"</span></span>
-<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7</span>)</span>
-<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">29.5</span>, <span class="fl">30.6</span>, <span class="fl">28.2</span>, <span class="fl">28.0</span>, <span class="fl">26.3</span>, <span class="fl">33.9</span>, <span class="fl">29.4</span>, <span class="fl">23.5</span>, <span class="fl">31.6</span>)</span>
-<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a>extremos <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">35</span>, <span class="dv">150</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
-<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a>medias <span class="ot">&lt;-</span> <span class="fu">sapply</span>(extremos, <span class="cf">function</span>(e) <span class="fu">mean</span>(<span class="fu">c</span>(base, e)))</span>
-<span id="cb37-46"><a href="#cb37-46" aria-hidden="true" tabindex="-1"></a>medianas <span class="ot">&lt;-</span> <span class="fu">sapply</span>(extremos, <span class="cf">function</span>(e) <span class="fu">median</span>(<span class="fu">c</span>(base, e)))</span>
-<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(extremos, medias, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"#B37D00"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(<span class="fu">c</span>(medias, medianas)),</span>
-<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Valor del dato extremo agregado"</span>, <span class="at">ylab =</span> <span class="st">"Estadístico"</span>,</span>
-<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Sensibilidad a un valor extremo"</span>)</span>
-<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(extremos, medianas, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Media"</span>, <span class="st">"Mediana"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#B37D00"</span>, <span class="st">"#004B85"</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">bty =</span> <span class="st">"n"</span>)</span>
-<span id="cb37-54"><a href="#cb37-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a>La línea de la media sube sin parar a medida que el valor extremo crece — la mediana apenas se mueve. Esto es exactamente lo que dice la teoría: la mediana es **robusta** ante valores atípicos; la media no.</span>
-<span id="cb37-59"><a href="#cb37-59" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-60"><a href="#cb37-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-61"><a href="#cb37-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Discusión</span></span>
-<span id="cb37-62"><a href="#cb37-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-63"><a href="#cb37-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿En qué tipo de variable preferirías reportar la mediana en vez de la media? (piensa en salarios, precios de vivienda)</span>
-<span id="cb37-64"><a href="#cb37-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Tiene sentido calcular una "media" del color favorito de un grupo de personas? ¿Y una moda?</span>
-<span id="cb37-65"><a href="#cb37-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Devore también sugiere una **media truncada al 20%**: eliminar el 20% de datos más bajos y el 20% más altos antes de promediar. ¿Por qué alguien haría eso en vez de solo usar la mediana?</span>
-<span id="cb37-66"><a href="#cb37-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-67"><a href="#cb37-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb37-68"><a href="#cb37-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-69"><a href="#cb37-69" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb37-70"><a href="#cb37-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-71"><a href="#cb37-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Media (Rincón, 2017)</span></span>
-<span id="cb37-72"><a href="#cb37-72" aria-hidden="true" tabindex="-1"></a>La medida de localización más utilizada. Para un conjunto de datos $x_1, \dots, x_n$:</span>
-<span id="cb37-73"><a href="#cb37-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-74"><a href="#cb37-74" aria-hidden="true" tabindex="-1"></a>$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$</span>
-<span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-76"><a href="#cb37-76" aria-hidden="true" tabindex="-1"></a>Usa **todos** los valores del conjunto — por eso es sensible a valores extremos: un solo dato muy grande o muy pequeño puede desplazarla notablemente.</span>
-<span id="cb37-77"><a href="#cb37-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-78"><a href="#cb37-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mediana</span></span>
-<span id="cb37-79"><a href="#cb37-79" aria-hidden="true" tabindex="-1"></a>El valor que queda exactamente en medio cuando los datos se ordenan de menor a mayor.</span>
-<span id="cb37-80"><a href="#cb37-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si $n$ es impar, es el valor en la posición $(n+1)/2$.</span>
-<span id="cb37-81"><a href="#cb37-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si $n$ es par, es el promedio de los dos valores centrales.</span>
-<span id="cb37-82"><a href="#cb37-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-83"><a href="#cb37-83" aria-hidden="true" tabindex="-1"></a>No usa los valores numéricos exactos de los extremos, solo su posición — por eso es **robusta** ante valores atípicos, y es la medida preferida para distribuciones sesgadas (ingresos, precios de vivienda).</span>
-<span id="cb37-84"><a href="#cb37-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-85"><a href="#cb37-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Moda</span></span>
-<span id="cb37-86"><a href="#cb37-86" aria-hidden="true" tabindex="-1"></a>El valor (o categoría) que aparece con mayor frecuencia. Es la **única** medida de tendencia central que tiene sentido para variables cualitativas — no existe una "media" del color favorito de un grupo, pero sí una moda. Un conjunto de datos puede no tener moda, tener una (unimodal) o varias (bimodal, multimodal).</span>
-<span id="cb37-87"><a href="#cb37-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-88"><a href="#cb37-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Media ponderada</span></span>
-<span id="cb37-89"><a href="#cb37-89" aria-hidden="true" tabindex="-1"></a>Cuando no todos los valores tienen la misma importancia, se usa una media ponderada:</span>
-<span id="cb37-90"><a href="#cb37-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-91"><a href="#cb37-91" aria-hidden="true" tabindex="-1"></a>$$\bar{x}_w = \frac{\sum w_i x_i}{\sum w_i}$$</span>
-<span id="cb37-92"><a href="#cb37-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-93"><a href="#cb37-93" aria-hidden="true" tabindex="-1"></a>Ejemplo típico: el costo promedio de mano de obra cuando distintas tarifas por hora se aplican a distintas cantidades de horas trabajadas — un promedio simple de las tarifas ignoraría cuánto pesa cada una.</span>
-<span id="cb37-94"><a href="#cb37-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-95"><a href="#cb37-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-96"><a href="#cb37-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-97"><a href="#cb37-97" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb37-98"><a href="#cb37-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb37-99"><a href="#cb37-99" aria-hidden="true" tabindex="-1"></a>Antes de aceptar cualquier promedio, calcula también la mediana — te toma dos líneas de código. Si están cerca, la distribución probablemente es simétrica. Si la media es mayor, sospecha de sesgo a la derecha (valores altos poco frecuentes); si es menor, sesgo a la izquierda. Esta comparación detecta asimetría sin necesitar todavía un histograma. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb37-100"><a href="#cb37-100" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-101"><a href="#cb37-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-102"><a href="#cb37-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplos reales (Devore)</span></span>
-<span id="cb37-103"><a href="#cb37-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-104"><a href="#cb37-104" aria-hidden="true" tabindex="-1"></a>Cuatro casos reales, cada uno enseña algo distinto sobre cuándo confiar en la media y cuándo no.</span>
-<span id="cb37-105"><a href="#cb37-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-106"><a href="#cb37-106" aria-hidden="true" tabindex="-1"></a>**Caso 1 — Consumo de oxígeno de bomberos (sensibilidad a un extremo):**</span>
-<span id="cb37-109"><a href="#cb37-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-110"><a href="#cb37-110" aria-hidden="true" tabindex="-1"></a>oxigeno <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">29.5</span>, <span class="fl">49.3</span>, <span class="fl">30.6</span>, <span class="fl">28.2</span>, <span class="fl">28.0</span>, <span class="fl">26.3</span>, <span class="fl">33.9</span>, <span class="fl">29.4</span>, <span class="fl">23.5</span>, <span class="fl">31.6</span>)</span>
-<span id="cb37-111"><a href="#cb37-111" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(oxigeno)</span>
-<span id="cb37-112"><a href="#cb37-112" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(oxigeno)</span>
-<span id="cb37-113"><a href="#cb37-113" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(oxigeno, <span class="at">trim =</span> <span class="fl">0.20</span>)  <span class="co"># media truncada al 20%</span></span>
-<span id="cb37-114"><a href="#cb37-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-115"><a href="#cb37-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-116"><a href="#cb37-116" aria-hidden="true" tabindex="-1"></a>**Caso 2 — Resistencia a la tensión de alambre de cobre (distribución casi simétrica):**</span>
-<span id="cb37-119"><a href="#cb37-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-120"><a href="#cb37-120" aria-hidden="true" tabindex="-1"></a>tension <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">113.4</span>, <span class="fl">116.5</span>, <span class="fl">116.9</span>, <span class="fl">117.2</span>, <span class="fl">117.4</span>, <span class="fl">117.6</span>,</span>
-<span id="cb37-121"><a href="#cb37-121" aria-hidden="true" tabindex="-1"></a>             <span class="fl">118.1</span>, <span class="fl">118.5</span>, <span class="fl">119.2</span>, <span class="fl">120.1</span>, <span class="fl">122.1</span>, <span class="fl">125.0</span>)</span>
-<span id="cb37-122"><a href="#cb37-122" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(tension)</span>
-<span id="cb37-123"><a href="#cb37-123" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(tension)  <span class="co"># deberían quedar muy cerca</span></span>
-<span id="cb37-124"><a href="#cb37-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-125"><a href="#cb37-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-126"><a href="#cb37-126" aria-hidden="true" tabindex="-1"></a>**Caso 3 — Transductores defectuosos por lote (caso bimodal):**</span>
-<span id="cb37-129"><a href="#cb37-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-130"><a href="#cb37-130" aria-hidden="true" tabindex="-1"></a>defectos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,</span>
-<span id="cb37-131"><a href="#cb37-131" aria-hidden="true" tabindex="-1"></a>              <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,</span>
-<span id="cb37-132"><a href="#cb37-132" aria-hidden="true" tabindex="-1"></a>              <span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,</span>
-<span id="cb37-133"><a href="#cb37-133" aria-hidden="true" tabindex="-1"></a>              <span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>, <span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
-<span id="cb37-134"><a href="#cb37-134" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(defectos)  <span class="co"># busca las dos modas</span></span>
-<span id="cb37-135"><a href="#cb37-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-136"><a href="#cb37-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-137"><a href="#cb37-137" aria-hidden="true" tabindex="-1"></a>**Caso 4 — Ancho de grietas en placas:**</span>
-<span id="cb37-140"><a href="#cb37-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-141"><a href="#cb37-141" aria-hidden="true" tabindex="-1"></a>grietas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.25</span>, <span class="fl">1.31</span>, <span class="fl">1.38</span>, <span class="fl">1.48</span>, <span class="fl">1.59</span>, <span class="fl">1.63</span>, <span class="fl">1.66</span>, <span class="fl">1.70</span>, <span class="fl">1.78</span>, <span class="fl">1.81</span>, <span class="fl">2.21</span>)</span>
-<span id="cb37-142"><a href="#cb37-142" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(grietas)</span>
-<span id="cb37-143"><a href="#cb37-143" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(grietas)</span>
-<span id="cb37-144"><a href="#cb37-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-145"><a href="#cb37-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-146"><a href="#cb37-146" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb37-147"><a href="#cb37-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretación del Caso 4 (y una lección de rigor)</span></span>
-<span id="cb37-148"><a href="#cb37-148" aria-hidden="true" tabindex="-1"></a>Aquí la media (≈1.618) resulta ligeramente **menor** que la mediana (1.63) — casi iguales, sin una asimetría marcada en ninguna dirección, a pesar de que el dato 2.21 podría hacerte suponer a simple vista que "hay un valor grande jalando la media hacia arriba". Este caso es justo el recordatorio del truco de interpretación del Tema 4: **compara siempre los números reales, no la impresión visual de un solo dato que te llama la atención** — un valor que parece "extremo" no siempre domina lo suficiente como para mover la media por encima de la mediana.</span>
-<span id="cb37-149"><a href="#cb37-149" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-150"><a href="#cb37-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-151"><a href="#cb37-151" aria-hidden="true" tabindex="-1"></a>**Caso 5 — Moda: unimodal, sin moda y bimodal, con los mismos "ingredientes":**</span>
-<span id="cb37-152"><a href="#cb37-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-153"><a href="#cb37-153" aria-hidden="true" tabindex="-1"></a>Tres series muy parecidas entre sí ilustran que la moda no siempre existe, ni es única:</span>
-<span id="cb37-154"><a href="#cb37-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-157"><a href="#cb37-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-158"><a href="#cb37-158" aria-hidden="true" tabindex="-1"></a>serie_a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">14</span>)   <span class="co"># 6 se repite 3 veces</span></span>
-<span id="cb37-159"><a href="#cb37-159" aria-hidden="true" tabindex="-1"></a>serie_b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">19</span>) <span class="co"># ningún valor se repite</span></span>
-<span id="cb37-160"><a href="#cb37-160" aria-hidden="true" tabindex="-1"></a>serie_c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">16</span>)     <span class="co"># 6 y 9 se repiten 3 veces cada uno</span></span>
-<span id="cb37-161"><a href="#cb37-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-162"><a href="#cb37-162" aria-hidden="true" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb37-163"><a href="#cb37-163" aria-hidden="true" tabindex="-1"></a>  tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(x)</span>
-<span id="cb37-164"><a href="#cb37-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">names</span>(tabla)[tabla <span class="sc">==</span> <span class="fu">max</span>(tabla)])</span>
-<span id="cb37-165"><a href="#cb37-165" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb37-166"><a href="#cb37-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-167"><a href="#cb37-167" aria-hidden="true" tabindex="-1"></a><span class="fu">moda</span>(serie_a)  <span class="co"># 6 (unimodal)</span></span>
-<span id="cb37-168"><a href="#cb37-168" aria-hidden="true" tabindex="-1"></a><span class="fu">moda</span>(serie_b)  <span class="co"># ninguno se repite: la función devuelve los 10 valores, todos con frecuencia 1</span></span>
-<span id="cb37-169"><a href="#cb37-169" aria-hidden="true" tabindex="-1"></a><span class="fu">moda</span>(serie_c)  <span class="co"># 6 y 9 (bimodal)</span></span>
-<span id="cb37-170"><a href="#cb37-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-171"><a href="#cb37-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-172"><a href="#cb37-172" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb37-173"><a href="#cb37-173" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb37-174"><a href="#cb37-174" aria-hidden="true" tabindex="-1"></a><span class="in">`moda(serie_b)`</span> no da un error — devuelve *todos* los valores, porque todos comparten la frecuencia máxima (1). Es la propia función la que "avisa" que no hay una moda útil: cuando el resultado tiene tantos valores como datos originales, en la práctica quiere decir que no hay moda.</span>
-<span id="cb37-175"><a href="#cb37-175" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-176"><a href="#cb37-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-177"><a href="#cb37-177" aria-hidden="true" tabindex="-1"></a>**Caso 6 — Mediana con `n` par, impar y desde una tabla de frecuencias:**</span>
-<span id="cb37-178"><a href="#cb37-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-181"><a href="#cb37-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb37-182"><a href="#cb37-182" aria-hidden="true" tabindex="-1"></a><span class="co"># n impar (5 edades): la mediana es el valor central directo</span></span>
-<span id="cb37-183"><a href="#cb37-183" aria-hidden="true" tabindex="-1"></a>edades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">46</span>, <span class="dv">54</span>)</span>
-<span id="cb37-184"><a href="#cb37-184" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(edades)</span>
-<span id="cb37-185"><a href="#cb37-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-186"><a href="#cb37-186" aria-hidden="true" tabindex="-1"></a><span class="co"># n par (12 salarios): la mediana promedia los dos valores centrales</span></span>
-<span id="cb37-187"><a href="#cb37-187" aria-hidden="true" tabindex="-1"></a>salarios <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">135</span>, <span class="dv">164</span>, <span class="dv">168</span>, <span class="dv">172</span>, <span class="dv">176</span>, <span class="dv">184</span>, <span class="dv">189</span>, <span class="dv">190</span>, <span class="dv">210</span>, <span class="dv">220</span>, <span class="dv">225</span>, <span class="dv">235</span>)</span>
-<span id="cb37-188"><a href="#cb37-188" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(salarios)</span>
-<span id="cb37-189"><a href="#cb37-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-190"><a href="#cb37-190" aria-hidden="true" tabindex="-1"></a><span class="co"># Desde una tabla de frecuencias (31 registros de ingresos por consulta externa)</span></span>
-<span id="cb37-191"><a href="#cb37-191" aria-hidden="true" tabindex="-1"></a>ingresos <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>))</span>
-<span id="cb37-192"><a href="#cb37-192" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(ingresos)  <span class="co"># confirma que son 31 registros en total</span></span>
-<span id="cb37-193"><a href="#cb37-193" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(ingresos)</span>
-<span id="cb37-194"><a href="#cb37-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-195"><a href="#cb37-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-196"><a href="#cb37-196" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb37-197"><a href="#cb37-197" aria-hidden="true" tabindex="-1"></a>Con <span class="in">`n`</span> par, <span class="in">`median()`</span> promedia automáticamente los dos valores centrales (aquí, 184 y 189, dan 186.5) — no hace falta identificarlos a mano como en el cálculo manual, pero es exactamente lo mismo que está pasando por dentro. Y <span class="in">`rep(valores, times = frecuencias)`</span> es un atajo útil para "desempacar" una tabla de frecuencias de vuelta a un vector de datos individuales, cuando quieres aplicarle funciones como <span class="in">`median()`</span> directamente.</span>
-<span id="cb37-198"><a href="#cb37-198" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-199"><a href="#cb37-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-200"><a href="#cb37-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb37-201"><a href="#cb37-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-202"><a href="#cb37-202" aria-hidden="true" tabindex="-1"></a>Con <span class="in">`mtcars$hp`</span> (caballos de fuerza, dataset ya conocido del curso):</span>
-<span id="cb37-203"><a href="#cb37-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-204"><a href="#cb37-204" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula media, mediana y moda (usa <span class="in">`names(sort(-table(...)))[1]`</span>, siguiendo el estilo de Rincón, 2017).</span>
-<span id="cb37-205"><a href="#cb37-205" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>¿Media y mediana están cerca o lejos? ¿Qué sugiere eso sobre la forma de la distribución?</span>
-<span id="cb37-206"><a href="#cb37-206" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calcula la media truncada al 10% y compárala con la media simple.</span>
-<span id="cb37-207"><a href="#cb37-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-208"><a href="#cb37-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb37-209"><a href="#cb37-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-210"><a href="#cb37-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb37-211"><a href="#cb37-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-212"><a href="#cb37-212" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb37-213"><a href="#cb37-213" aria-hidden="true" tabindex="-1"></a><span class="co"># Media truncada al 10%: completa el argumento correcto</span></span>
-<span id="cb37-214"><a href="#cb37-214" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">___ =</span> <span class="fl">0.10</span>)</span>
-<span id="cb37-215"><a href="#cb37-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-216"><a href="#cb37-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-217"><a href="#cb37-217" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb37-218"><a href="#cb37-218" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb37-219"><a href="#cb37-219" aria-hidden="true" tabindex="-1"></a><span class="in">`trim = 0.10`</span> — elimina el 10% de los datos más bajos y el 10% más altos antes de promediar.</span>
-<span id="cb37-220"><a href="#cb37-220" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb37-221"><a href="#cb37-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-222"><a href="#cb37-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb37-223"><a href="#cb37-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-224"><a href="#cb37-224" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema4"</span><span class="dt">&gt;</span></span>
-<span id="cb37-225"><a href="#cb37-225" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La mediana es más sensible a valores atípicos que la media.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb37-226"><a href="#cb37-226" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb37-227"><a href="#cb37-227" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. La moda es la única medida de tendencia central válida para variables cualitativas.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb37-228"><a href="#cb37-228" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb37-229"><a href="#cb37-229" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Si media &gt; mediana, hay indicio de sesgo a la izquierda.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb37-230"><a href="#cb37-230" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb37-231"><a href="#cb37-231" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema4()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb37-232"><a href="#cb37-232" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema4"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb37-233"><a href="#cb37-233" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb37-234"><a href="#cb37-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-235"><a href="#cb37-235" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb37-236"><a href="#cb37-236" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema4</span>() {</span>
-<span id="cb37-237"><a href="#cb37-237" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"F"</span> }<span class="op">;</span></span>
-<span id="cb37-238"><a href="#cb37-238" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb37-239"><a href="#cb37-239" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb37-240"><a href="#cb37-240" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb37-241"><a href="#cb37-241" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb37-242"><a href="#cb37-242" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema4"</span>)<span class="op">;</span></span>
-<span id="cb37-243"><a href="#cb37-243" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb37-244"><a href="#cb37-244" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb37-245"><a href="#cb37-245" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb37-246"><a href="#cb37-246" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb37-247"><a href="#cb37-247" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb37-248"><a href="#cb37-248" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb37-249"><a href="#cb37-249" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb37-250"><a href="#cb37-250" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb37-251"><a href="#cb37-251" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb37-252"><a href="#cb37-252" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb37-253"><a href="#cb37-253" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema4"</span>)<span class="op">;</span></span>
-<span id="cb37-254"><a href="#cb37-254" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb37-255"><a href="#cb37-255" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb37-256"><a href="#cb37-256" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb37-257"><a href="#cb37-257" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb37-258"><a href="#cb37-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-259"><a href="#cb37-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb37-260"><a href="#cb37-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-261"><a href="#cb37-261" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb37-262"><a href="#cb37-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La media usa todos los datos pero es sensible a valores extremos; la mediana es robusta pero ignora las magnitudes exactas.</span>
-<span id="cb37-263"><a href="#cb37-263" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La moda es la única medida válida para variables cualitativas, y puede haber más de una.</span>
-<span id="cb37-264"><a href="#cb37-264" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si media &gt; mediana, hay indicio de sesgo a la derecha; si media &lt; mediana, sesgo a la izquierda; si son casi iguales, la distribución tiende a ser simétrica.</span>
-<span id="cb37-265"><a href="#cb37-265" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema 4 · Medidas de tendencia central"</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🚒 ¿Cuál es el consumo de oxígeno "típico" de un bombero?</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>Devore registró el consumo de oxígeno (ml/kg/min) de 10 bomberos durante un simulacro: 29.5, 49.3, 30.6, 28.2, 28.0, 26.3, 33.9, 29.4, 23.5, 31.6. Uno de esos números es muy distinto a los demás. ¿Cómo resumirías "el bombero típico" en un solo número?</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>Antes de calcular nada: mirando la lista, ¿cuál crees que es un valor razonable para describir el centro? ¿Te parece que el 49.3 debería pesar igual que los demás en ese cálculo?</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: el efecto de un valor extremo</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>oxigeno <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">29.5</span>, <span class="fl">49.3</span>, <span class="fl">30.6</span>, <span class="fl">28.2</span>, <span class="fl">28.0</span>, <span class="fl">26.3</span>, <span class="fl">33.9</span>, <span class="fl">29.4</span>, <span class="fl">23.5</span>, <span class="fl">31.6</span>)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(oxigeno)</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(oxigeno)</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>Corre el código. ¿La media y la mediana están cerca o lejos una de otra? Ahora quita el 49.3 del vector (imagina que fue un error de medición) y vuelve a calcular ambas. ¿Cuál de las dos cambió más?</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>Si un solo dato puede mover tanto la media, ¿por qué seguimos usándola tan seguido en vez de usar siempre la mediana?</span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎛️ Simulación: media vs. mediana bajo valores extremos</span></span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-media-mediana-outlier</span></span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Cómo reaccionan media y mediana ante un valor extremo creciente"</span></span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7</span>)</span>
+<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">29.5</span>, <span class="fl">30.6</span>, <span class="fl">28.2</span>, <span class="fl">28.0</span>, <span class="fl">26.3</span>, <span class="fl">33.9</span>, <span class="fl">29.4</span>, <span class="fl">23.5</span>, <span class="fl">31.6</span>)</span>
+<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a>extremos <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">35</span>, <span class="dv">150</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a>medias <span class="ot">&lt;-</span> <span class="fu">sapply</span>(extremos, <span class="cf">function</span>(e) <span class="fu">mean</span>(<span class="fu">c</span>(base, e)))</span>
+<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a>medianas <span class="ot">&lt;-</span> <span class="fu">sapply</span>(extremos, <span class="cf">function</span>(e) <span class="fu">median</span>(<span class="fu">c</span>(base, e)))</span>
+<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(extremos, medias, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"#B37D00"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(<span class="fu">c</span>(medias, medianas)),</span>
+<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Valor del dato extremo agregado"</span>, <span class="at">ylab =</span> <span class="st">"Estadístico"</span>,</span>
+<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Sensibilidad a un valor extremo"</span>)</span>
+<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(extremos, medianas, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb38-53"><a href="#cb38-53" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Media"</span>, <span class="st">"Mediana"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#B37D00"</span>, <span class="st">"#004B85"</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">bty =</span> <span class="st">"n"</span>)</span>
+<span id="cb38-54"><a href="#cb38-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-55"><a href="#cb38-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-56"><a href="#cb38-56" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb38-57"><a href="#cb38-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb38-58"><a href="#cb38-58" aria-hidden="true" tabindex="-1"></a>La línea de la media sube sin parar a medida que el valor extremo crece — la mediana apenas se mueve. Esto es exactamente lo que dice la teoría: la mediana es **robusta** ante valores atípicos; la media no.</span>
+<span id="cb38-59"><a href="#cb38-59" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-60"><a href="#cb38-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-61"><a href="#cb38-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Discusión</span></span>
+<span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿En qué tipo de variable preferirías reportar la mediana en vez de la media? (piensa en salarios, precios de vivienda)</span>
+<span id="cb38-64"><a href="#cb38-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Tiene sentido calcular una "media" del color favorito de un grupo de personas? ¿Y una moda?</span>
+<span id="cb38-65"><a href="#cb38-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Devore también sugiere una **media truncada al 20%**: eliminar el 20% de datos más bajos y el 20% más altos antes de promediar. ¿Por qué alguien haría eso en vez de solo usar la mediana?</span>
+<span id="cb38-66"><a href="#cb38-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-67"><a href="#cb38-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb38-68"><a href="#cb38-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-69"><a href="#cb38-69" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb38-70"><a href="#cb38-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-71"><a href="#cb38-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Media (Rincón, 2017)</span></span>
+<span id="cb38-72"><a href="#cb38-72" aria-hidden="true" tabindex="-1"></a>La medida de localización más utilizada. Para un conjunto de datos $x_1, \dots, x_n$:</span>
+<span id="cb38-73"><a href="#cb38-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-74"><a href="#cb38-74" aria-hidden="true" tabindex="-1"></a>$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$</span>
+<span id="cb38-75"><a href="#cb38-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-76"><a href="#cb38-76" aria-hidden="true" tabindex="-1"></a>Usa **todos** los valores del conjunto — por eso es sensible a valores extremos: un solo dato muy grande o muy pequeño puede desplazarla notablemente.</span>
+<span id="cb38-77"><a href="#cb38-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-78"><a href="#cb38-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mediana</span></span>
+<span id="cb38-79"><a href="#cb38-79" aria-hidden="true" tabindex="-1"></a>El valor que queda exactamente en medio cuando los datos se ordenan de menor a mayor.</span>
+<span id="cb38-80"><a href="#cb38-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si $n$ es impar, es el valor en la posición $(n+1)/2$.</span>
+<span id="cb38-81"><a href="#cb38-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si $n$ es par, es el promedio de los dos valores centrales.</span>
+<span id="cb38-82"><a href="#cb38-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-83"><a href="#cb38-83" aria-hidden="true" tabindex="-1"></a>No usa los valores numéricos exactos de los extremos, solo su posición — por eso es **robusta** ante valores atípicos, y es la medida preferida para distribuciones sesgadas (ingresos, precios de vivienda).</span>
+<span id="cb38-84"><a href="#cb38-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-85"><a href="#cb38-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Moda</span></span>
+<span id="cb38-86"><a href="#cb38-86" aria-hidden="true" tabindex="-1"></a>El valor (o categoría) que aparece con mayor frecuencia. Es la **única** medida de tendencia central que tiene sentido para variables cualitativas — no existe una "media" del color favorito de un grupo, pero sí una moda. Un conjunto de datos puede no tener moda, tener una (unimodal) o varias (bimodal, multimodal).</span>
+<span id="cb38-87"><a href="#cb38-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-88"><a href="#cb38-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Media ponderada</span></span>
+<span id="cb38-89"><a href="#cb38-89" aria-hidden="true" tabindex="-1"></a>Cuando no todos los valores tienen la misma importancia, se usa una media ponderada:</span>
+<span id="cb38-90"><a href="#cb38-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-91"><a href="#cb38-91" aria-hidden="true" tabindex="-1"></a>$$\bar{x}_w = \frac{\sum w_i x_i}{\sum w_i}$$</span>
+<span id="cb38-92"><a href="#cb38-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-93"><a href="#cb38-93" aria-hidden="true" tabindex="-1"></a>Ejemplo típico: el costo promedio de mano de obra cuando distintas tarifas por hora se aplican a distintas cantidades de horas trabajadas — un promedio simple de las tarifas ignoraría cuánto pesa cada una.</span>
+<span id="cb38-94"><a href="#cb38-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-95"><a href="#cb38-95" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-96"><a href="#cb38-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-97"><a href="#cb38-97" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb38-98"><a href="#cb38-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb38-99"><a href="#cb38-99" aria-hidden="true" tabindex="-1"></a>Antes de aceptar cualquier promedio, calcula también la mediana — te toma dos líneas de código. Si están cerca, la distribución probablemente es simétrica. Si la media es mayor, sospecha de sesgo a la derecha (valores altos poco frecuentes); si es menor, sesgo a la izquierda. Esta comparación detecta asimetría sin necesitar todavía un histograma. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb38-100"><a href="#cb38-100" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-101"><a href="#cb38-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-102"><a href="#cb38-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplos reales (Devore)</span></span>
+<span id="cb38-103"><a href="#cb38-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-104"><a href="#cb38-104" aria-hidden="true" tabindex="-1"></a>Cuatro casos reales, cada uno enseña algo distinto sobre cuándo confiar en la media y cuándo no.</span>
+<span id="cb38-105"><a href="#cb38-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-106"><a href="#cb38-106" aria-hidden="true" tabindex="-1"></a>**Caso 1 — Consumo de oxígeno de bomberos (sensibilidad a un extremo):**</span>
+<span id="cb38-109"><a href="#cb38-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-110"><a href="#cb38-110" aria-hidden="true" tabindex="-1"></a>oxigeno <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">29.5</span>, <span class="fl">49.3</span>, <span class="fl">30.6</span>, <span class="fl">28.2</span>, <span class="fl">28.0</span>, <span class="fl">26.3</span>, <span class="fl">33.9</span>, <span class="fl">29.4</span>, <span class="fl">23.5</span>, <span class="fl">31.6</span>)</span>
+<span id="cb38-111"><a href="#cb38-111" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(oxigeno)</span>
+<span id="cb38-112"><a href="#cb38-112" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(oxigeno)</span>
+<span id="cb38-113"><a href="#cb38-113" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(oxigeno, <span class="at">trim =</span> <span class="fl">0.20</span>)  <span class="co"># media truncada al 20%</span></span>
+<span id="cb38-114"><a href="#cb38-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-115"><a href="#cb38-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-116"><a href="#cb38-116" aria-hidden="true" tabindex="-1"></a>**Caso 2 — Resistencia a la tensión de alambre de cobre (distribución casi simétrica):**</span>
+<span id="cb38-119"><a href="#cb38-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-120"><a href="#cb38-120" aria-hidden="true" tabindex="-1"></a>tension <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">113.4</span>, <span class="fl">116.5</span>, <span class="fl">116.9</span>, <span class="fl">117.2</span>, <span class="fl">117.4</span>, <span class="fl">117.6</span>,</span>
+<span id="cb38-121"><a href="#cb38-121" aria-hidden="true" tabindex="-1"></a>             <span class="fl">118.1</span>, <span class="fl">118.5</span>, <span class="fl">119.2</span>, <span class="fl">120.1</span>, <span class="fl">122.1</span>, <span class="fl">125.0</span>)</span>
+<span id="cb38-122"><a href="#cb38-122" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(tension)</span>
+<span id="cb38-123"><a href="#cb38-123" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(tension)  <span class="co"># deberían quedar muy cerca</span></span>
+<span id="cb38-124"><a href="#cb38-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-125"><a href="#cb38-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-126"><a href="#cb38-126" aria-hidden="true" tabindex="-1"></a>**Caso 3 — Transductores defectuosos por lote (caso bimodal):**</span>
+<span id="cb38-129"><a href="#cb38-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-130"><a href="#cb38-130" aria-hidden="true" tabindex="-1"></a>defectos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,</span>
+<span id="cb38-131"><a href="#cb38-131" aria-hidden="true" tabindex="-1"></a>              <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,</span>
+<span id="cb38-132"><a href="#cb38-132" aria-hidden="true" tabindex="-1"></a>              <span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,</span>
+<span id="cb38-133"><a href="#cb38-133" aria-hidden="true" tabindex="-1"></a>              <span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>, <span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
+<span id="cb38-134"><a href="#cb38-134" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(defectos)  <span class="co"># busca las dos modas</span></span>
+<span id="cb38-135"><a href="#cb38-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-136"><a href="#cb38-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-137"><a href="#cb38-137" aria-hidden="true" tabindex="-1"></a>**Caso 4 — Ancho de grietas en placas:**</span>
+<span id="cb38-140"><a href="#cb38-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-141"><a href="#cb38-141" aria-hidden="true" tabindex="-1"></a>grietas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.25</span>, <span class="fl">1.31</span>, <span class="fl">1.38</span>, <span class="fl">1.48</span>, <span class="fl">1.59</span>, <span class="fl">1.63</span>, <span class="fl">1.66</span>, <span class="fl">1.70</span>, <span class="fl">1.78</span>, <span class="fl">1.81</span>, <span class="fl">2.21</span>)</span>
+<span id="cb38-142"><a href="#cb38-142" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(grietas)</span>
+<span id="cb38-143"><a href="#cb38-143" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(grietas)</span>
+<span id="cb38-144"><a href="#cb38-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-145"><a href="#cb38-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-146"><a href="#cb38-146" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb38-147"><a href="#cb38-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretación del Caso 4 (y una lección de rigor)</span></span>
+<span id="cb38-148"><a href="#cb38-148" aria-hidden="true" tabindex="-1"></a>Aquí la media (≈1.618) resulta ligeramente **menor** que la mediana (1.63) — casi iguales, sin una asimetría marcada en ninguna dirección, a pesar de que el dato 2.21 podría hacerte suponer a simple vista que "hay un valor grande jalando la media hacia arriba". Este caso es justo el recordatorio del truco de interpretación del Tema 4: **compara siempre los números reales, no la impresión visual de un solo dato que te llama la atención** — un valor que parece "extremo" no siempre domina lo suficiente como para mover la media por encima de la mediana.</span>
+<span id="cb38-149"><a href="#cb38-149" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-150"><a href="#cb38-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-151"><a href="#cb38-151" aria-hidden="true" tabindex="-1"></a>**Caso 5 — Moda: unimodal, sin moda y bimodal, con los mismos "ingredientes":**</span>
+<span id="cb38-152"><a href="#cb38-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-153"><a href="#cb38-153" aria-hidden="true" tabindex="-1"></a>Tres series muy parecidas entre sí ilustran que la moda no siempre existe, ni es única:</span>
+<span id="cb38-154"><a href="#cb38-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-157"><a href="#cb38-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-158"><a href="#cb38-158" aria-hidden="true" tabindex="-1"></a>serie_a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">14</span>)   <span class="co"># 6 se repite 3 veces</span></span>
+<span id="cb38-159"><a href="#cb38-159" aria-hidden="true" tabindex="-1"></a>serie_b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">19</span>) <span class="co"># ningún valor se repite</span></span>
+<span id="cb38-160"><a href="#cb38-160" aria-hidden="true" tabindex="-1"></a>serie_c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">16</span>)     <span class="co"># 6 y 9 se repiten 3 veces cada uno</span></span>
+<span id="cb38-161"><a href="#cb38-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-162"><a href="#cb38-162" aria-hidden="true" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb38-163"><a href="#cb38-163" aria-hidden="true" tabindex="-1"></a>  tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(x)</span>
+<span id="cb38-164"><a href="#cb38-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">names</span>(tabla)[tabla <span class="sc">==</span> <span class="fu">max</span>(tabla)])</span>
+<span id="cb38-165"><a href="#cb38-165" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-166"><a href="#cb38-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-167"><a href="#cb38-167" aria-hidden="true" tabindex="-1"></a><span class="fu">moda</span>(serie_a)  <span class="co"># 6 (unimodal)</span></span>
+<span id="cb38-168"><a href="#cb38-168" aria-hidden="true" tabindex="-1"></a><span class="fu">moda</span>(serie_b)  <span class="co"># ninguno se repite: la función devuelve los 10 valores, todos con frecuencia 1</span></span>
+<span id="cb38-169"><a href="#cb38-169" aria-hidden="true" tabindex="-1"></a><span class="fu">moda</span>(serie_c)  <span class="co"># 6 y 9 (bimodal)</span></span>
+<span id="cb38-170"><a href="#cb38-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-171"><a href="#cb38-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-172"><a href="#cb38-172" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb38-173"><a href="#cb38-173" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb38-174"><a href="#cb38-174" aria-hidden="true" tabindex="-1"></a><span class="in">`moda(serie_b)`</span> no da un error — devuelve *todos* los valores, porque todos comparten la frecuencia máxima (1). Es la propia función la que "avisa" que no hay una moda útil: cuando el resultado tiene tantos valores como datos originales, en la práctica quiere decir que no hay moda.</span>
+<span id="cb38-175"><a href="#cb38-175" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-176"><a href="#cb38-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-177"><a href="#cb38-177" aria-hidden="true" tabindex="-1"></a>**Caso 6 — Mediana con `n` par, impar y desde una tabla de frecuencias:**</span>
+<span id="cb38-178"><a href="#cb38-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-181"><a href="#cb38-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-182"><a href="#cb38-182" aria-hidden="true" tabindex="-1"></a><span class="co"># n impar (5 edades): la mediana es el valor central directo</span></span>
+<span id="cb38-183"><a href="#cb38-183" aria-hidden="true" tabindex="-1"></a>edades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">42</span>, <span class="dv">46</span>, <span class="dv">46</span>, <span class="dv">54</span>)</span>
+<span id="cb38-184"><a href="#cb38-184" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(edades)</span>
+<span id="cb38-185"><a href="#cb38-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-186"><a href="#cb38-186" aria-hidden="true" tabindex="-1"></a><span class="co"># n par (12 salarios): la mediana promedia los dos valores centrales</span></span>
+<span id="cb38-187"><a href="#cb38-187" aria-hidden="true" tabindex="-1"></a>salarios <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">135</span>, <span class="dv">164</span>, <span class="dv">168</span>, <span class="dv">172</span>, <span class="dv">176</span>, <span class="dv">184</span>, <span class="dv">189</span>, <span class="dv">190</span>, <span class="dv">210</span>, <span class="dv">220</span>, <span class="dv">225</span>, <span class="dv">235</span>)</span>
+<span id="cb38-188"><a href="#cb38-188" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(salarios)</span>
+<span id="cb38-189"><a href="#cb38-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-190"><a href="#cb38-190" aria-hidden="true" tabindex="-1"></a><span class="co"># Desde una tabla de frecuencias (31 registros de ingresos por consulta externa)</span></span>
+<span id="cb38-191"><a href="#cb38-191" aria-hidden="true" tabindex="-1"></a>ingresos <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>))</span>
+<span id="cb38-192"><a href="#cb38-192" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(ingresos)  <span class="co"># confirma que son 31 registros en total</span></span>
+<span id="cb38-193"><a href="#cb38-193" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(ingresos)</span>
+<span id="cb38-194"><a href="#cb38-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-195"><a href="#cb38-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-196"><a href="#cb38-196" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb38-197"><a href="#cb38-197" aria-hidden="true" tabindex="-1"></a>Con <span class="in">`n`</span> par, <span class="in">`median()`</span> promedia automáticamente los dos valores centrales (aquí, 184 y 189, dan 186.5) — no hace falta identificarlos a mano como en el cálculo manual, pero es exactamente lo mismo que está pasando por dentro. Y <span class="in">`rep(valores, times = frecuencias)`</span> es un atajo útil para "desempacar" una tabla de frecuencias de vuelta a un vector de datos individuales, cuando quieres aplicarle funciones como <span class="in">`median()`</span> directamente.</span>
+<span id="cb38-198"><a href="#cb38-198" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb38-199"><a href="#cb38-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-200"><a href="#cb38-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb38-201"><a href="#cb38-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-202"><a href="#cb38-202" aria-hidden="true" tabindex="-1"></a>Con el dataset <span class="in">`houses`</span> (el mismo de los Temas 0-3):</span>
+<span id="cb38-203"><a href="#cb38-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-206"><a href="#cb38-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-207"><a href="#cb38-207" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb38-208"><a href="#cb38-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-209"><a href="#cb38-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-210"><a href="#cb38-210" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula la media y la mediana de <span class="in">`SqFt`</span>. ¿Están cerca o lejos una de otra? ¿Qué sugiere eso sobre la forma de la distribución?</span>
+<span id="cb38-211"><a href="#cb38-211" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calcula la moda de <span class="in">`Bedrooms`</span> (usa <span class="in">`names(sort(-table(...)))[1]`</span>, siguiendo el estilo de Rincón, 2017) — a diferencia de <span class="in">`SqFt`</span>, esta sí es una variable donde "la moda" tiene un valor claro y útil. ¿Por qué crees que es así?</span>
+<span id="cb38-212"><a href="#cb38-212" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calcula la media truncada al 10% de <span class="in">`Price`</span> y compárala con la media simple. ¿Cambia mucho? ¿Qué te dice eso sobre si hay valores atípicos fuertes en <span class="in">`Price`</span>?</span>
+<span id="cb38-213"><a href="#cb38-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-214"><a href="#cb38-214" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb38-215"><a href="#cb38-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-216"><a href="#cb38-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb38-217"><a href="#cb38-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-218"><a href="#cb38-218" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb38-219"><a href="#cb38-219" aria-hidden="true" tabindex="-1"></a><span class="co"># Media truncada al 10%: completa el argumento correcto</span></span>
+<span id="cb38-220"><a href="#cb38-220" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">___ =</span> <span class="fl">0.10</span>)</span>
+<span id="cb38-221"><a href="#cb38-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-222"><a href="#cb38-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-223"><a href="#cb38-223" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb38-224"><a href="#cb38-224" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb38-225"><a href="#cb38-225" aria-hidden="true" tabindex="-1"></a><span class="in">`trim = 0.10`</span> — elimina el 10% de los datos más bajos y el 10% más altos antes de promediar.</span>
+<span id="cb38-226"><a href="#cb38-226" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb38-227"><a href="#cb38-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-228"><a href="#cb38-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb38-229"><a href="#cb38-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-230"><a href="#cb38-230" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema4"</span><span class="dt">&gt;</span></span>
+<span id="cb38-231"><a href="#cb38-231" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La mediana es más sensible a valores atípicos que la media.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb38-232"><a href="#cb38-232" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb38-233"><a href="#cb38-233" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. La moda es la única medida de tendencia central válida para variables cualitativas.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb38-234"><a href="#cb38-234" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb38-235"><a href="#cb38-235" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Si media &gt; mediana, hay indicio de sesgo a la izquierda.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb38-236"><a href="#cb38-236" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb38-237"><a href="#cb38-237" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema4()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb38-238"><a href="#cb38-238" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema4"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb38-239"><a href="#cb38-239" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb38-240"><a href="#cb38-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-241"><a href="#cb38-241" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb38-242"><a href="#cb38-242" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema4</span>() {</span>
+<span id="cb38-243"><a href="#cb38-243" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"F"</span> }<span class="op">;</span></span>
+<span id="cb38-244"><a href="#cb38-244" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb38-245"><a href="#cb38-245" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb38-246"><a href="#cb38-246" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb38-247"><a href="#cb38-247" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb38-248"><a href="#cb38-248" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema4"</span>)<span class="op">;</span></span>
+<span id="cb38-249"><a href="#cb38-249" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb38-250"><a href="#cb38-250" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb38-251"><a href="#cb38-251" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb38-252"><a href="#cb38-252" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb38-253"><a href="#cb38-253" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-254"><a href="#cb38-254" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb38-255"><a href="#cb38-255" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb38-256"><a href="#cb38-256" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb38-257"><a href="#cb38-257" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb38-258"><a href="#cb38-258" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-259"><a href="#cb38-259" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema4"</span>)<span class="op">;</span></span>
+<span id="cb38-260"><a href="#cb38-260" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb38-261"><a href="#cb38-261" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb38-262"><a href="#cb38-262" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-263"><a href="#cb38-263" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb38-264"><a href="#cb38-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-265"><a href="#cb38-265" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb38-266"><a href="#cb38-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-267"><a href="#cb38-267" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb38-268"><a href="#cb38-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La media usa todos los datos pero es sensible a valores extremos; la mediana es robusta pero ignora las magnitudes exactas.</span>
+<span id="cb38-269"><a href="#cb38-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La moda es la única medida válida para variables cualitativas, y puede haber más de una.</span>
+<span id="cb38-270"><a href="#cb38-270" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si media &gt; mediana, hay indicio de sesgo a la derecha; si media &lt; mediana, sesgo a la izquierda; si son casi iguales, la distribución tiende a ser simétrica.</span>
+<span id="cb38-271"><a href="#cb38-271" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

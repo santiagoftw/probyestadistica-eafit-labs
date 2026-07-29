@@ -614,47 +614,47 @@ Figure&nbsp;2: Dos distribuciones con media y varianza casi idénticas, pero for
 </section>
 <section id="ejemplo-con-datos-reales" class="level2">
 <h2 class="anchored" data-anchor-id="ejemplo-con-datos-reales">🧪 Ejemplo con datos reales</h2>
-<p><strong>Paso 1 — Cargar y explorar <code>mtcars$mpg</code>:</strong></p>
+<p><strong>Paso 1 — Cargar y explorar <code>Price</code>:</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mpg_data <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mpg_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(houses<span class="sc">$</span>Price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 20.09062</code></pre>
+<pre><code>[1] 130427.3</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(mpg_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(houses<span class="sc">$</span>Price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.026948</code></pre>
+<pre><code>[1] 26868.77</code></pre>
 </div>
 </div>
 <p><strong>Paso 2 — Calcular asimetría y curtosis:</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">asimetria</span>(mpg_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">asimetria</span>(houses<span class="sc">$</span>Price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6404399</code></pre>
+<pre><code>[1] 0.4673797</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curtosis</span>(mpg_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curtosis</span>(houses<span class="sc">$</span>Price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.799467</code></pre>
+<pre><code>[1] 2.943963</code></pre>
 </div>
 </div>
 <p><strong>Paso 3 — Interpretar con el histograma:</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mpg_data, <span class="at">breaks =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Millas por galón (mtcars)"</span>, <span class="at">xlab =</span> <span class="st">"mpg"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(houses<span class="sc">$</span>Price, <span class="at">breaks =</span> <span class="dv">10</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Precio de las casas"</span>, <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -674,7 +674,7 @@ Figure&nbsp;2: Dos distribuciones con media y varianza casi idénticas, pero for
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Si <code>asimetria(mpg_data)</code> dio un valor positivo, el histograma debería mostrar una cola más larga hacia la derecha — confirma con tus propios ojos que el número y la forma cuentan la misma historia.</p>
+<p><code>asimetria(houses$Price)</code> debería dar un valor positivo notorio (≈0.47) — el histograma debería mostrar una cola claramente más larga hacia la derecha: unas pocas casas bastante más caras que el grueso de la muestra, jalando la media por encima de la mediana. Es el mismo patrón que ya reconoces del Tema 4 (media &gt; mediana → sesgo a la derecha), ahora confirmado con un número en vez de solo la comparación de dos estadísticos.</p>
 </div>
 </div>
 </section>
@@ -684,7 +684,7 @@ Figure&nbsp;2: Dos distribuciones con media y varianza casi idénticas, pero for
 <ol type="1">
 <li>Calcula media, varianza, asimetría y curtosis.</li>
 <li>¿La curtosis es mayor o menor que 3? ¿Tiene sentido ese resultado considerando que la distribución es bimodal (dos picos, no una sola campana)?</li>
-<li>Compara la asimetría de <code>faithful$eruptions</code> con la de <code>mtcars$mpg</code>. ¿Cuál está más lejos de la simetría perfecta?</li>
+<li>Compara la asimetría de <code>faithful$eruptions</code> con la de <code>houses$Price</code> (calculada en el ejemplo de arriba). ¿Cuál está más lejos de la simetría perfecta?</li>
 </ol>
 </section>
 <section id="ejercicios-autocorregibles" class="level2">
@@ -1350,28 +1350,28 @@ function revisarQuizTema7() {
 <span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-135"><a href="#cb24-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
 <span id="cb24-136"><a href="#cb24-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Cargar y explorar `mtcars$mpg`:**</span>
+<span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Cargar y explorar `Price`:**</span>
 <span id="cb24-140"><a href="#cb24-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a>mpg_data <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
-<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mpg_data)</span>
-<span id="cb24-143"><a href="#cb24-143" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(mpg_data)</span>
+<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(houses<span class="sc">$</span>Price)</span>
+<span id="cb24-143"><a href="#cb24-143" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(houses<span class="sc">$</span>Price)</span>
 <span id="cb24-144"><a href="#cb24-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Calcular asimetría y curtosis:**</span>
 <span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-150"><a href="#cb24-150" aria-hidden="true" tabindex="-1"></a><span class="fu">asimetria</span>(mpg_data)</span>
-<span id="cb24-151"><a href="#cb24-151" aria-hidden="true" tabindex="-1"></a><span class="fu">curtosis</span>(mpg_data)</span>
+<span id="cb24-150"><a href="#cb24-150" aria-hidden="true" tabindex="-1"></a><span class="fu">asimetria</span>(houses<span class="sc">$</span>Price)</span>
+<span id="cb24-151"><a href="#cb24-151" aria-hidden="true" tabindex="-1"></a><span class="fu">curtosis</span>(houses<span class="sc">$</span>Price)</span>
 <span id="cb24-152"><a href="#cb24-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb24-153"><a href="#cb24-153" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a>**Paso 3 — Interpretar con el histograma:**</span>
 <span id="cb24-157"><a href="#cb24-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mpg_data, <span class="at">breaks =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Millas por galón (mtcars)"</span>, <span class="at">xlab =</span> <span class="st">"mpg"</span>)</span>
+<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(houses<span class="sc">$</span>Price, <span class="at">breaks =</span> <span class="dv">10</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Precio de las casas"</span>, <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>)</span>
 <span id="cb24-160"><a href="#cb24-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
 <span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a>Si <span class="in">`asimetria(mpg_data)`</span> dio un valor positivo, el histograma debería mostrar una cola más larga hacia la derecha — confirma con tus propios ojos que el número y la forma cuentan la misma historia.</span>
+<span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a><span class="in">`asimetria(houses$Price)`</span> debería dar un valor positivo notorio (≈0.47) — el histograma debería mostrar una cola claramente más larga hacia la derecha: unas pocas casas bastante más caras que el grueso de la muestra, jalando la media por encima de la mediana. Es el mismo patrón que ya reconoces del Tema 4 (media &gt; mediana → sesgo a la derecha), ahora confirmado con un número en vez de solo la comparación de dos estadísticos.</span>
 <span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb24-166"><a href="#cb24-166" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
@@ -1380,7 +1380,7 @@ function revisarQuizTema7() {
 <span id="cb24-170"><a href="#cb24-170" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-171"><a href="#cb24-171" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula media, varianza, asimetría y curtosis.</span>
 <span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>¿La curtosis es mayor o menor que 3? ¿Tiene sentido ese resultado considerando que la distribución es bimodal (dos picos, no una sola campana)?</span>
-<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Compara la asimetría de <span class="in">`faithful$eruptions`</span> con la de <span class="in">`mtcars$mpg`</span>. ¿Cuál está más lejos de la simetría perfecta?</span>
+<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Compara la asimetría de <span class="in">`faithful$eruptions`</span> con la de <span class="in">`houses$Price`</span> (calculada en el ejemplo de arriba). ¿Cuál está más lejos de la simetría perfecta?</span>
 <span id="cb24-174"><a href="#cb24-174" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-175"><a href="#cb24-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
 <span id="cb24-176"><a href="#cb24-176" aria-hidden="true" tabindex="-1"></a></span>

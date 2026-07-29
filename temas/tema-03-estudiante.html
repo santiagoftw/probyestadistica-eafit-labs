@@ -638,22 +638,23 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Manera 1 · Construcción manual (con <code>cut()</code>)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Manera 2 · <code>hist()</code> de R base</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Manera 3 · <code>tidyverse</code> (<code>dplyr</code>)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">Manera 4 · ggplot2</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Replica a mano los 5 pasos: rango → k (Sturges) → ancho de clase → límites → conteo. La función <code>cut()</code> asigna cada dato a su intervalo, y <code>table()</code> cuenta:</p>
+<p>Replica a mano los 5 pasos: rango → k (Sturges) → ancho de clase → límites → conteo. La función <code>cut()</code> asigna cada dato a su intervalo, y <code>table()</code> cuenta. De aquí en adelante usamos <code>SqFt</code> (área en pies cuadrados) del dataset <code>houses</code> (el mismo de los Temas 0-2):</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> faithful<span class="sc">$</span>eruptions</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 1-3: rango, k por Sturges, ancho de clase</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>rango <span class="ot">&lt;-</span> <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> rango <span class="sc">/</span> k</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> rango, <span class="at">k =</span> k, <span class="at">ancho =</span> <span class="fu">round</span>(w, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> houses<span class="sc">$</span>SqFt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 1-3: rango, k por Sturges, ancho de clase</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>rango <span class="ot">&lt;-</span> <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> rango <span class="sc">/</span> k</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> rango, <span class="at">k =</span> k, <span class="at">ancho =</span> <span class="fu">round</span>(w, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>rango     k ancho 
- 3.50 10.00  0.35 </code></pre>
+<pre><code> rango      k  ancho 
+1140.0    8.0  142.5 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -671,17 +672,15 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>tabla_agrupada</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>    Intervalo Frec_absoluta Frec_relativa Frec_acumulada
-1  [1.6,1.95]            45         0.165             45
-2  (1.95,2.3]            37         0.136             82
-3  (2.3,2.65]            12         0.044             94
-4    (2.65,3]             3         0.011             97
-5    (3,3.35]             4         0.015            101
-6  (3.35,3.7]            12         0.044            113
-7  (3.7,4.05]            30         0.110            143
-8  (4.05,4.4]            52         0.191            195
-9  (4.4,4.75]            54         0.199            249
-10 (4.75,5.1]            23         0.085            272</code></pre>
+<pre><code>            Intervalo Frec_absoluta Frec_relativa Frec_acumulada
+1 [1.45e+03,1.59e+03]             3         0.023              3
+2 (1.59e+03,1.73e+03]            12         0.094             15
+3 (1.73e+03,1.88e+03]            16         0.125             31
+4 (1.88e+03,2.02e+03]            40         0.312             71
+5 (2.02e+03,2.16e+03]            33         0.258            104
+6  (2.16e+03,2.3e+03]            17         0.133            121
+7  (2.3e+03,2.45e+03]             5         0.039            126
+8 (2.45e+03,2.59e+03]             2         0.016            128</code></pre>
 </div>
 </div>
 <p>El “histograma manual” es un <code>barplot()</code> de esa tabla, con las barras pegadas (<code>space = 0</code>):</p>
@@ -689,9 +688,9 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tabla_agrupada<span class="sc">$</span>Frec_absoluta, <span class="at">space =</span> <span class="dv">0</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">round</span>(limites[<span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>),</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">round</span>(limites[<span class="sc">-</span><span class="dv">1</span>], <span class="dv">1</span>),</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Duración (min)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Histograma construido manualmente"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
@@ -708,9 +707,9 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(faithful<span class="sc">$</span>eruptions, <span class="at">breaks =</span> k,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(houses<span class="sc">$</span>SqFt, <span class="at">breaks =</span> k,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"Duración (min)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">main =</span> <span class="st">"hist() de R base"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
@@ -728,14 +727,14 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>h<span class="sc">$</span>breaks   <span class="co"># límites de clase que usó</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5</code></pre>
+<pre><code>[1] 1400 1600 1800 2000 2200 2400 2600</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>h<span class="sc">$</span>counts   <span class="co"># frecuencias absolutas por clase</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 55 37  5  9 34 75 54  3</code></pre>
+<pre><code>[1]  4 19 44 41 13  7</code></pre>
 </div>
 </div>
 </div>
@@ -746,8 +745,8 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>tabla_tidy <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">duracion =</span> faithful<span class="sc">$</span>eruptions) <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">clase =</span> <span class="fu">cut</span>(duracion, <span class="at">breaks =</span> limites, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>tabla_tidy <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">estatura =</span> houses<span class="sc">$</span>SqFt) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">clase =</span> <span class="fu">cut</span>(estatura, <span class="at">breaks =</span> limites, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(clase, <span class="at">name =</span> <span class="st">"Frec_absoluta"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Frec_relativa  =</span> <span class="fu">round</span>(Frec_absoluta <span class="sc">/</span> <span class="fu">sum</span>(Frec_absoluta), <span class="dv">3</span>),</span>
@@ -756,19 +755,17 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>tabla_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 4
-   clase      Frec_absoluta Frec_relativa Frec_acumulada
-   &lt;fct&gt;              &lt;int&gt;         &lt;dbl&gt;          &lt;int&gt;
- 1 [1.6,1.95]            45         0.165             45
- 2 (1.95,2.3]            37         0.136             82
- 3 (2.3,2.65]            12         0.044             94
- 4 (2.65,3]               3         0.011             97
- 5 (3,3.35]               4         0.015            101
- 6 (3.35,3.7]            12         0.044            113
- 7 (3.7,4.05]            30         0.11             143
- 8 (4.05,4.4]            52         0.191            195
- 9 (4.4,4.75]            54         0.199            249
-10 (4.75,5.1]            23         0.085            272</code></pre>
+<pre><code># A tibble: 8 × 4
+  clase               Frec_absoluta Frec_relativa Frec_acumulada
+  &lt;fct&gt;                       &lt;int&gt;         &lt;dbl&gt;          &lt;int&gt;
+1 [1.45e+03,1.59e+03]             3         0.023              3
+2 (1.59e+03,1.73e+03]            12         0.094             15
+3 (1.73e+03,1.88e+03]            16         0.125             31
+4 (1.88e+03,2.02e+03]            40         0.312             71
+5 (2.02e+03,2.16e+03]            33         0.258            104
+6 (2.16e+03,2.3e+03]             17         0.133            121
+7 (2.3e+03,2.45e+03]              5         0.039            126
+8 (2.45e+03,2.59e+03]             2         0.016            128</code></pre>
 </div>
 </div>
 <p>Y el histograma correspondiente, graficando directamente esa tabla ya agrupada con <code>geom_col()</code> (la versión de <code>geom_bar()</code> para cuando las alturas ya están calculadas):</p>
@@ -777,7 +774,7 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_tidy, <span class="fu">aes</span>(<span class="at">x =</span> clase, <span class="at">y =</span> Frec_absoluta)) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#004B85"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Duración (min)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Histograma construido con tidyverse"</span>) <span class="sc">+</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -798,11 +795,11 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x =</span> eruptions)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(houses, <span class="fu">aes</span>(<span class="at">x =</span> SqFt)) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> k, <span class="at">fill =</span> <span class="st">"#004B85"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(eruptions)),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(SqFt)),</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#FFB903"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Duración (min)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"geom_histogram() con la media marcada"</span>) <span class="sc">+</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -838,32 +835,32 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 </section>
 <section id="ejemplo-con-datos-reales" class="level2">
 <h2 class="anchored" data-anchor-id="ejemplo-con-datos-reales">🧪 Ejemplo con datos reales</h2>
-<p><strong>Paso 1 — Calcular <span class="math inline">\(k\)</span> con la regla de Sturges:</strong></p>
+<p><strong>Paso 1 — Calcular <span class="math inline">\(k\)</span> con la regla de Sturges, para la variable <code>Price</code>:</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(faithful)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(houses)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 272</code></pre>
+<pre><code>[1] 128</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>k</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>k_precio <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>k_precio</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.034077</code></pre>
+<pre><code>[1] 7.953793</code></pre>
 </div>
 </div>
 <p><strong>Paso 2 — Redondear y construir el histograma:</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(faithful<span class="sc">$</span>eruptions, <span class="at">breaks =</span> <span class="fu">round</span>(k),</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Duración de erupciones (Sturges)"</span>,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Duración (min)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(houses<span class="sc">$</span>Price, <span class="at">breaks =</span> <span class="fu">round</span>(k_precio),</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Precio de las casas (Sturges)"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
@@ -874,48 +871,59 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 </div>
 </div>
 </div>
-<section id="otro-ejemplo-la-tabla-agrupada-completa-paso-a-paso" class="level3">
-<h3 class="anchored" data-anchor-id="otro-ejemplo-la-tabla-agrupada-completa-paso-a-paso">Otro ejemplo: la tabla agrupada completa, paso a paso</h3>
-<p>El ejemplo anterior se detuvo en el histograma. Aquí completamos los 5 pasos hasta la tabla de frecuencias agrupada, con otro dataset — el peso (kg) de 30 estudiantes:</p>
+<section id="otro-ejemplo-la-tabla-agrupada-completa-paso-a-paso-con-límites-redondos" class="level3">
+<h3 class="anchored" data-anchor-id="otro-ejemplo-la-tabla-agrupada-completa-paso-a-paso-con-límites-redondos">Otro ejemplo: la tabla agrupada completa, paso a paso, con límites “redondos”</h3>
+<p>El ejemplo anterior se detuvo en el histograma. Aquí completamos los 5 pasos hasta la tabla de frecuencias agrupada, redondeando la amplitud de clase a un valor práctico (en vez de usar la amplitud exacta que da la fórmula):</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pesos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">47</span>,<span class="dv">48</span>,<span class="dv">52</span>,<span class="dv">54</span>,<span class="dv">55</span>,<span class="dv">56</span>,<span class="dv">57</span>,<span class="dv">58</span>,<span class="dv">60</span>,<span class="dv">61</span>,<span class="dv">63</span>,<span class="dv">65</span>,<span class="dv">66</span>,<span class="dv">67</span>,<span class="dv">68</span>,<span class="dv">69</span>,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>           <span class="dv">70</span>,<span class="dv">71</span>,<span class="dv">71</span>,<span class="dv">72</span>,<span class="dv">74</span>,<span class="dv">74</span>,<span class="dv">76</span>,<span class="dv">79</span>,<span class="dv">82</span>,<span class="dv">83</span>,<span class="dv">85</span>,<span class="dv">88</span>,<span class="dv">92</span>,<span class="dv">94</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 1-3: rango, k (Sturges) y amplitud de clase</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rango  <span class="ot">&lt;-</span> <span class="fu">max</span>(pesos) <span class="sc">-</span> <span class="fu">min</span>(pesos)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>k      <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(<span class="fu">length</span>(pesos)))</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>amplitud <span class="ot">&lt;-</span> rango <span class="sc">/</span> k</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> rango, <span class="at">k =</span> k, <span class="at">amplitud =</span> <span class="fu">round</span>(amplitud, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>precios <span class="ot">&lt;-</span> houses<span class="sc">$</span>Price</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 1-3: rango, k (Sturges) y amplitud de clase</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>rango  <span class="ot">&lt;-</span> <span class="fu">max</span>(precios) <span class="sc">-</span> <span class="fu">min</span>(precios)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>k      <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(<span class="fu">length</span>(precios)))</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>amplitud <span class="ot">&lt;-</span> rango <span class="sc">/</span> k</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> <span class="fu">round</span>(rango,<span class="dv">1</span>), <span class="at">k =</span> k, <span class="at">amplitud =</span> <span class="fu">round</span>(amplitud, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   rango        k amplitud 
-   47.00     6.00     7.83 </code></pre>
+142100.0      8.0  17762.5 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 4-5: límites e intervalos, y conteo</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>limites <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(pesos), <span class="at">by =</span> <span class="fu">ceiling</span>(amplitud), <span class="at">length.out =</span> k <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>clases  <span class="ot">&lt;-</span> <span class="fu">cut</span>(pesos, <span class="at">breaks =</span> limites, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>tabla_pesos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Intervalo          =</span> <span class="fu">levels</span>(clases),</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_absoluta      =</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(clases)),</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_acumulada     =</span> <span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))),</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_relativa      =</span> <span class="fu">round</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)) <span class="sc">/</span> <span class="fu">length</span>(pesos), <span class="dv">2</span>),</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_rel_acumulada =</span> <span class="fu">round</span>(<span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))) <span class="sc">/</span> <span class="fu">length</span>(pesos), <span class="dv">2</span>)</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>tabla_pesos</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 4-5: límites e intervalos (amplitud redondeada a un valor práctico), y conteo</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>amplitud_practica <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(amplitud <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>limites <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(precios) <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">*</span> <span class="dv">1000</span>, <span class="at">by =</span> amplitud_practica, <span class="at">length.out =</span> k <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>clases  <span class="ot">&lt;-</span> <span class="fu">cut</span>(precios, <span class="at">breaks =</span> limites, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>tabla_precios <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Intervalo          =</span> <span class="fu">levels</span>(clases),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_absoluta      =</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(clases)),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_acumulada     =</span> <span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))),</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_relativa      =</span> <span class="fu">round</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)) <span class="sc">/</span> <span class="fu">length</span>(precios), <span class="dv">3</span>),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_rel_acumulada =</span> <span class="fu">round</span>(<span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))) <span class="sc">/</span> <span class="fu">length</span>(precios), <span class="dv">3</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>tabla_precios</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Intervalo Frec_absoluta Frec_acumulada Frec_relativa Frec_rel_acumulada
-1   [47,55)             4              4          0.13               0.13
-2   [55,63)             6             10          0.20               0.33
-3   [63,71)             7             17          0.23               0.57
-4   [71,79)             6             23          0.20               0.77
-5   [79,87)             4             27          0.13               0.90
-6   [87,95]             3             30          0.10               1.00</code></pre>
+<pre><code>            Intervalo Frec_absoluta Frec_acumulada Frec_relativa
+1   [6.9e+04,8.7e+04)             4              4         0.031
+2  [8.7e+04,1.05e+05)            15             19         0.117
+3 [1.05e+05,1.23e+05)            38             57         0.297
+4 [1.23e+05,1.41e+05)            26             83         0.203
+5 [1.41e+05,1.59e+05)            27            110         0.211
+6 [1.59e+05,1.77e+05)            11            121         0.086
+7 [1.77e+05,1.95e+05)             5            126         0.039
+8 [1.95e+05,2.13e+05]             2            128         0.016
+  Frec_rel_acumulada
+1              0.031
+2              0.148
+3              0.445
+4              0.648
+5              0.859
+6              0.945
+7              0.984
+8              1.000</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -928,18 +936,18 @@ Figure&nbsp;3: Las cuatro formas típicas de una distribución, generadas con da
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Aquí se redondeó la amplitud <strong>hacia arriba</strong> (<code>ceiling(amplitud)</code>, de 7.83 a 8) antes de construir los límites, en vez de usar <code>seq(..., length.out = k+1)</code> con la amplitud exacta como en el ejemplo de Old Faithful. Es la diferencia que menciona la teoría de este tema: cuando el ejercicio pide límites “redondos” (aquí, intervalos de amplitud 8 en vez de 7.83), redondeas la amplitud antes de construir los cortes — el número de intervalos (<span class="math inline">\(k\)</span>) puede quedar en 6 de cualquier forma, pero los límites concretos sí cambian.</p>
+<p>Aquí se redondeó la amplitud <strong>hacia arriba, al millar más cercano</strong> (de $17,762.5 a $18,000) antes de construir los límites, en vez de usar <code>seq(..., length.out = k+1)</code> con la amplitud exacta como en la sección de “Cuatro maneras” (con <code>SqFt</code>). Es la diferencia que menciona la teoría de este tema: cuando quieres límites “redondos” y fáciles de leer en un informe (aquí, precios en miles cerrados en vez de decimales), redondeas la amplitud antes de construir los cortes — el número de intervalos (<span class="math inline">\(k\)</span>) es el mismo de cualquier forma, pero los límites concretos cambian.</p>
 </div>
 </div>
 </section>
 </section>
 <section id="laboratorio" class="level2">
 <h2 class="anchored" data-anchor-id="laboratorio">🧑‍🔬 Laboratorio</h2>
-<p>Con <code>mtcars$mpg</code> (el mismo dataset del Tema 0):</p>
+<p>Con <code>houses$SqFt</code> (separando por <code>Neighborhood</code> con <code>subset()</code> o <code>filter()</code>):</p>
 <ol type="1">
-<li>Calcula <span class="math inline">\(k\)</span> con la regla de Sturges para <span class="math inline">\(n = 32\)</span>.</li>
-<li>Construye el histograma con ese <span class="math inline">\(k\)</span>, con la mitad y con el doble.</li>
-<li>Describe la forma en cada caso (simetría, sesgo, modalidad) y decide cuál usarías en un informe.</li>
+<li>Calcula <span class="math inline">\(k\)</span> con la regla de Sturges para el barrio East y, por separado, para West.</li>
+<li>Construye el histograma de cada grupo con su propio <span class="math inline">\(k\)</span>.</li>
+<li>Describe la forma en cada caso (simetría, sesgo, modalidad) y compara: ¿los dos barrios tienen la misma forma, o se nota alguna diferencia?</li>
 </ol>
 </section>
 <section id="ejercicios-autocorregibles" class="level2">
@@ -1619,233 +1627,234 @@ function revisarQuizTema3() {
 <span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manera 1 · Construcción manual (con `cut()`)</span></span>
 <span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a>Replica a mano los 5 pasos: rango → k (Sturges) → ancho de clase → límites → conteo. La función <span class="in">`cut()`</span> asigna cada dato a su intervalo, y <span class="in">`table()`</span> cuenta:</span>
+<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a>Replica a mano los 5 pasos: rango → k (Sturges) → ancho de clase → límites → conteo. La función <span class="in">`cut()`</span> asigna cada dato a su intervalo, y <span class="in">`table()`</span> cuenta. De aquí en adelante usamos <span class="in">`SqFt`</span> (área en pies cuadrados) del dataset <span class="in">`houses`</span> (el mismo de los Temas 0-2):</span>
 <span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-151"><a href="#cb28-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> faithful<span class="sc">$</span>eruptions</span>
-<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 1-3: rango, k por Sturges, ancho de clase</span></span>
-<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a>rango <span class="ot">&lt;-</span> <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)</span>
-<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n))</span>
-<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> rango <span class="sc">/</span> k</span>
-<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> rango, <span class="at">k =</span> k, <span class="at">ancho =</span> <span class="fu">round</span>(w, <span class="dv">3</span>))</span>
-<span id="cb28-160"><a href="#cb28-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-161"><a href="#cb28-161" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 4: límites de clase</span></span>
-<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a>limites <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length.out =</span> k <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 5: asignar cada dato a su clase y contar</span></span>
-<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a>clases <span class="ot">&lt;-</span> <span class="fu">cut</span>(x, <span class="at">breaks =</span> limites, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a>tabla_agrupada <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a>  <span class="at">Intervalo       =</span> <span class="fu">levels</span>(clases),</span>
-<span id="cb28-168"><a href="#cb28-168" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_absoluta   =</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(clases)),</span>
-<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_relativa   =</span> <span class="fu">round</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)) <span class="sc">/</span> n, <span class="dv">3</span>),</span>
-<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_acumulada  =</span> <span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)))</span>
-<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a>tabla_agrupada</span>
-<span id="cb28-173"><a href="#cb28-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-175"><a href="#cb28-175" aria-hidden="true" tabindex="-1"></a>El "histograma manual" es un <span class="in">`barplot()`</span> de esa tabla, con las barras pegadas (<span class="in">`space = 0`</span>):</span>
-<span id="cb28-176"><a href="#cb28-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tabla_agrupada<span class="sc">$</span>Frec_absoluta, <span class="at">space =</span> <span class="dv">0</span>,</span>
-<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">round</span>(limites[<span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>),</span>
-<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Duración (min)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
-<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Histograma construido manualmente"</span>)</span>
-<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manera 2 · `hist()` de R base</span></span>
-<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a>Todo lo anterior en una sola línea — R aplica internamente una regla tipo Sturges, o puedes forzar el número de cortes con <span class="in">`breaks`</span>:</span>
-<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(faithful<span class="sc">$</span>eruptions, <span class="at">breaks =</span> k,</span>
-<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"Duración (min)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
-<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a>          <span class="at">main =</span> <span class="st">"hist() de R base"</span>)</span>
-<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a>Un detalle útil: <span class="in">`hist()`</span> **devuelve un objeto** con toda la tabla agrupada calculada — puedes inspeccionarlo:</span>
-<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a>h<span class="sc">$</span>breaks   <span class="co"># límites de clase que usó</span></span>
-<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a>h<span class="sc">$</span>counts   <span class="co"># frecuencias absolutas por clase</span></span>
-<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manera 3 · `tidyverse` (`dplyr`)</span></span>
-<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a>La misma idea de <span class="in">`cut()`</span> + <span class="in">`table()`</span>, pero encadenada con <span class="in">`mutate()`</span> y <span class="in">`count()`</span> — el resultado es directamente un data frame, sin pasos de conversión aparte:</span>
-<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a>tabla_tidy <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">duracion =</span> faithful<span class="sc">$</span>eruptions) <span class="sc">|&gt;</span></span>
-<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">clase =</span> <span class="fu">cut</span>(duracion, <span class="at">breaks =</span> limites, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(clase, <span class="at">name =</span> <span class="st">"Frec_absoluta"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a>    <span class="at">Frec_relativa  =</span> <span class="fu">round</span>(Frec_absoluta <span class="sc">/</span> <span class="fu">sum</span>(Frec_absoluta), <span class="dv">3</span>),</span>
-<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a>    <span class="at">Frec_acumulada =</span> <span class="fu">cumsum</span>(Frec_absoluta)</span>
-<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a>tabla_tidy</span>
-<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a>Y el histograma correspondiente, graficando directamente esa tabla ya agrupada con <span class="in">`geom_col()`</span> (la versión de <span class="in">`geom_bar()`</span> para cuando las alturas ya están calculadas):</span>
-<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-233"><a href="#cb28-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_tidy, <span class="fu">aes</span>(<span class="at">x =</span> clase, <span class="at">y =</span> Frec_absoluta)) <span class="sc">+</span></span>
-<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#004B85"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Duración (min)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
-<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Histograma construido con tidyverse"</span>) <span class="sc">+</span></span>
-<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manera 4 · ggplot2</span></span>
-<span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_histogram()`</span> con control del número de barras (<span class="in">`bins`</span>) o del ancho de clase (<span class="in">`binwidth`</span>) — más una línea de la media, como en el laboratorio del curso:</span>
-<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x =</span> eruptions)) <span class="sc">+</span></span>
-<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> k, <span class="at">fill =</span> <span class="st">"#004B85"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(eruptions)),</span>
-<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#FFB903"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Duración (min)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
-<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"geom_histogram() con la media marcada"</span>) <span class="sc">+</span></span>
-<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## ¿Cuál usar?</span></span>
-<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Manual (`cut()` + `table()`)** cuando el ejercicio pide *la tabla de distribución de frecuencias* explícita, o cuando los límites de clase deben ser valores "redondos" con sentido práctico (por ejemplo, de 10 en 10) en vez de los que da la fórmula.</span>
-<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`hist()`** para explorar rápido y para acceder a la tabla interna con <span class="in">`h$breaks`</span> y <span class="in">`h$counts`</span>.</span>
-<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`tidyverse` (`cut()` + `count()`)** cuando quieres la tabla agrupada como data frame para seguir filtrando, uniendo con otras tablas, o graficando con <span class="in">`ggplot2`</span> a partir de ahí.</span>
-<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ggplot2** para informes, y cuando quieras superponer capas (media, densidad, comparación por grupos con <span class="in">`color = Grupo`</span>).</span>
-<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
-<span id="cb28-272"><a href="#cb28-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Calcular $k$ con la regla de Sturges:**</span>
-<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(faithful)</span>
-<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a>n</span>
-<span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n)</span>
-<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a>k</span>
-<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Redondear y construir el histograma:**</span>
-<span id="cb28-286"><a href="#cb28-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(faithful<span class="sc">$</span>eruptions, <span class="at">breaks =</span> <span class="fu">round</span>(k),</span>
-<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Duración de erupciones (Sturges)"</span>,</span>
-<span id="cb28-289"><a href="#cb28-289" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Duración (min)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
-<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>)</span>
-<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a><span class="fu">### Otro ejemplo: la tabla agrupada completa, paso a paso</span></span>
-<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a>El ejemplo anterior se detuvo en el histograma. Aquí completamos los 5 pasos hasta la tabla de frecuencias agrupada, con otro dataset — el peso (kg) de 30 estudiantes:</span>
-<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a>pesos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">47</span>,<span class="dv">48</span>,<span class="dv">52</span>,<span class="dv">54</span>,<span class="dv">55</span>,<span class="dv">56</span>,<span class="dv">57</span>,<span class="dv">58</span>,<span class="dv">60</span>,<span class="dv">61</span>,<span class="dv">63</span>,<span class="dv">65</span>,<span class="dv">66</span>,<span class="dv">67</span>,<span class="dv">68</span>,<span class="dv">69</span>,</span>
-<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>           <span class="dv">70</span>,<span class="dv">71</span>,<span class="dv">71</span>,<span class="dv">72</span>,<span class="dv">74</span>,<span class="dv">74</span>,<span class="dv">76</span>,<span class="dv">79</span>,<span class="dv">82</span>,<span class="dv">83</span>,<span class="dv">85</span>,<span class="dv">88</span>,<span class="dv">92</span>,<span class="dv">94</span>)</span>
+<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> houses<span class="sc">$</span>SqFt</span>
+<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 1-3: rango, k por Sturges, ancho de clase</span></span>
+<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a>rango <span class="ot">&lt;-</span> <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)</span>
+<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n))</span>
+<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> rango <span class="sc">/</span> k</span>
+<span id="cb28-160"><a href="#cb28-160" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> rango, <span class="at">k =</span> k, <span class="at">ancho =</span> <span class="fu">round</span>(w, <span class="dv">3</span>))</span>
+<span id="cb28-161"><a href="#cb28-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 4: límites de clase</span></span>
+<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a>limites <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length.out =</span> k <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 5: asignar cada dato a su clase y contar</span></span>
+<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a>clases <span class="ot">&lt;-</span> <span class="fu">cut</span>(x, <span class="at">breaks =</span> limites, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a>tabla_agrupada <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-168"><a href="#cb28-168" aria-hidden="true" tabindex="-1"></a>  <span class="at">Intervalo       =</span> <span class="fu">levels</span>(clases),</span>
+<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_absoluta   =</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(clases)),</span>
+<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_relativa   =</span> <span class="fu">round</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)) <span class="sc">/</span> n, <span class="dv">3</span>),</span>
+<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_acumulada  =</span> <span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)))</span>
+<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-173"><a href="#cb28-173" aria-hidden="true" tabindex="-1"></a>tabla_agrupada</span>
+<span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-175"><a href="#cb28-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-176"><a href="#cb28-176" aria-hidden="true" tabindex="-1"></a>El "histograma manual" es un <span class="in">`barplot()`</span> de esa tabla, con las barras pegadas (<span class="in">`space = 0`</span>):</span>
+<span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tabla_agrupada<span class="sc">$</span>Frec_absoluta, <span class="at">space =</span> <span class="dv">0</span>,</span>
+<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">round</span>(limites[<span class="sc">-</span><span class="dv">1</span>], <span class="dv">1</span>),</span>
+<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Histograma construido manualmente"</span>)</span>
+<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manera 2 · `hist()` de R base</span></span>
+<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a>Todo lo anterior en una sola línea — R aplica internamente una regla tipo Sturges, o puedes forzar el número de cortes con <span class="in">`breaks`</span>:</span>
+<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(houses<span class="sc">$</span>SqFt, <span class="at">breaks =</span> k,</span>
+<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a>          <span class="at">main =</span> <span class="st">"hist() de R base"</span>)</span>
+<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a>Un detalle útil: <span class="in">`hist()`</span> **devuelve un objeto** con toda la tabla agrupada calculada — puedes inspeccionarlo:</span>
+<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a>h<span class="sc">$</span>breaks   <span class="co"># límites de clase que usó</span></span>
+<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a>h<span class="sc">$</span>counts   <span class="co"># frecuencias absolutas por clase</span></span>
+<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manera 3 · `tidyverse` (`dplyr`)</span></span>
+<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a>La misma idea de <span class="in">`cut()`</span> + <span class="in">`table()`</span>, pero encadenada con <span class="in">`mutate()`</span> y <span class="in">`count()`</span> — el resultado es directamente un data frame, sin pasos de conversión aparte:</span>
+<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a>tabla_tidy <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">estatura =</span> houses<span class="sc">$</span>SqFt) <span class="sc">|&gt;</span></span>
+<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">clase =</span> <span class="fu">cut</span>(estatura, <span class="at">breaks =</span> limites, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(clase, <span class="at">name =</span> <span class="st">"Frec_absoluta"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a>    <span class="at">Frec_relativa  =</span> <span class="fu">round</span>(Frec_absoluta <span class="sc">/</span> <span class="fu">sum</span>(Frec_absoluta), <span class="dv">3</span>),</span>
+<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>    <span class="at">Frec_acumulada =</span> <span class="fu">cumsum</span>(Frec_absoluta)</span>
+<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a>tabla_tidy</span>
+<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a>Y el histograma correspondiente, graficando directamente esa tabla ya agrupada con <span class="in">`geom_col()`</span> (la versión de <span class="in">`geom_bar()`</span> para cuando las alturas ya están calculadas):</span>
+<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_tidy, <span class="fu">aes</span>(<span class="at">x =</span> clase, <span class="at">y =</span> Frec_absoluta)) <span class="sc">+</span></span>
+<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#004B85"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Histograma construido con tidyverse"</span>) <span class="sc">+</span></span>
+<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manera 4 · ggplot2</span></span>
+<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_histogram()`</span> con control del número de barras (<span class="in">`bins`</span>) o del ancho de clase (<span class="in">`binwidth`</span>) — más una línea de la media, como en el laboratorio del curso:</span>
+<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(houses, <span class="fu">aes</span>(<span class="at">x =</span> SqFt)) <span class="sc">+</span></span>
+<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> k, <span class="at">fill =</span> <span class="st">"#004B85"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(SqFt)),</span>
+<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#FFB903"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estatura (cm)"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"geom_histogram() con la media marcada"</span>) <span class="sc">+</span></span>
+<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a><span class="fu">## ¿Cuál usar?</span></span>
+<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Manual (`cut()` + `table()`)** cuando el ejercicio pide *la tabla de distribución de frecuencias* explícita, o cuando los límites de clase deben ser valores "redondos" con sentido práctico (por ejemplo, de 10 en 10) en vez de los que da la fórmula.</span>
+<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`hist()`** para explorar rápido y para acceder a la tabla interna con <span class="in">`h$breaks`</span> y <span class="in">`h$counts`</span>.</span>
+<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`tidyverse` (`cut()` + `count()`)** cuando quieres la tabla agrupada como data frame para seguir filtrando, uniendo con otras tablas, o graficando con <span class="in">`ggplot2`</span> a partir de ahí.</span>
+<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ggplot2** para informes, y cuando quieras superponer capas (media, densidad, comparación por grupos con <span class="in">`color = Grupo`</span>).</span>
+<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-272"><a href="#cb28-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
+<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Calcular $k$ con la regla de Sturges, para la variable `Price`:**</span>
+<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(houses)</span>
+<span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a>n</span>
+<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a>k_precio <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(n)</span>
+<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a>k_precio</span>
+<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Redondear y construir el histograma:**</span>
+<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(houses<span class="sc">$</span>Price, <span class="at">breaks =</span> <span class="fu">round</span>(k_precio),</span>
+<span id="cb28-289"><a href="#cb28-289" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Precio de las casas (Sturges)"</span>,</span>
+<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a><span class="fu">### Otro ejemplo: la tabla agrupada completa, paso a paso, con límites "redondos"</span></span>
+<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a>El ejemplo anterior se detuvo en el histograma. Aquí completamos los 5 pasos hasta la tabla de frecuencias agrupada, redondeando la amplitud de clase a un valor práctico (en vez de usar la amplitud exacta que da la fórmula):</span>
+<span id="cb28-297"><a href="#cb28-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>precios <span class="ot">&lt;-</span> houses<span class="sc">$</span>Price</span>
 <span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 1-3: rango, k (Sturges) y amplitud de clase</span></span>
-<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a>rango  <span class="ot">&lt;-</span> <span class="fu">max</span>(pesos) <span class="sc">-</span> <span class="fu">min</span>(pesos)</span>
-<span id="cb28-305"><a href="#cb28-305" aria-hidden="true" tabindex="-1"></a>k      <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(<span class="fu">length</span>(pesos)))</span>
+<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a>rango  <span class="ot">&lt;-</span> <span class="fu">max</span>(precios) <span class="sc">-</span> <span class="fu">min</span>(precios)</span>
+<span id="cb28-305"><a href="#cb28-305" aria-hidden="true" tabindex="-1"></a>k      <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">log10</span>(<span class="fu">length</span>(precios)))</span>
 <span id="cb28-306"><a href="#cb28-306" aria-hidden="true" tabindex="-1"></a>amplitud <span class="ot">&lt;-</span> rango <span class="sc">/</span> k</span>
-<span id="cb28-307"><a href="#cb28-307" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> rango, <span class="at">k =</span> k, <span class="at">amplitud =</span> <span class="fu">round</span>(amplitud, <span class="dv">2</span>))</span>
+<span id="cb28-307"><a href="#cb28-307" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">rango =</span> <span class="fu">round</span>(rango,<span class="dv">1</span>), <span class="at">k =</span> k, <span class="at">amplitud =</span> <span class="fu">round</span>(amplitud, <span class="dv">2</span>))</span>
 <span id="cb28-308"><a href="#cb28-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-309"><a href="#cb28-309" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 4-5: límites e intervalos, y conteo</span></span>
-<span id="cb28-310"><a href="#cb28-310" aria-hidden="true" tabindex="-1"></a>limites <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(pesos), <span class="at">by =</span> <span class="fu">ceiling</span>(amplitud), <span class="at">length.out =</span> k <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb28-311"><a href="#cb28-311" aria-hidden="true" tabindex="-1"></a>clases  <span class="ot">&lt;-</span> <span class="fu">cut</span>(pesos, <span class="at">breaks =</span> limites, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb28-312"><a href="#cb28-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-313"><a href="#cb28-313" aria-hidden="true" tabindex="-1"></a>tabla_pesos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb28-314"><a href="#cb28-314" aria-hidden="true" tabindex="-1"></a>  <span class="at">Intervalo          =</span> <span class="fu">levels</span>(clases),</span>
-<span id="cb28-315"><a href="#cb28-315" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_absoluta      =</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(clases)),</span>
-<span id="cb28-316"><a href="#cb28-316" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_acumulada     =</span> <span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))),</span>
-<span id="cb28-317"><a href="#cb28-317" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_relativa      =</span> <span class="fu">round</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)) <span class="sc">/</span> <span class="fu">length</span>(pesos), <span class="dv">2</span>),</span>
-<span id="cb28-318"><a href="#cb28-318" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_rel_acumulada =</span> <span class="fu">round</span>(<span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))) <span class="sc">/</span> <span class="fu">length</span>(pesos), <span class="dv">2</span>)</span>
-<span id="cb28-319"><a href="#cb28-319" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-320"><a href="#cb28-320" aria-hidden="true" tabindex="-1"></a>tabla_pesos</span>
-<span id="cb28-321"><a href="#cb28-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-322"><a href="#cb28-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-323"><a href="#cb28-323" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb28-324"><a href="#cb28-324" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb28-325"><a href="#cb28-325" aria-hidden="true" tabindex="-1"></a>Aquí se redondeó la amplitud **hacia arriba** (<span class="in">`ceiling(amplitud)`</span>, de 7.83 a 8) antes de construir los límites, en vez de usar <span class="in">`seq(..., length.out = k+1)`</span> con la amplitud exacta como en el ejemplo de Old Faithful. Es la diferencia que menciona la teoría de este tema: cuando el ejercicio pide límites "redondos" (aquí, intervalos de amplitud 8 en vez de 7.83), redondeas la amplitud antes de construir los cortes — el número de intervalos ($k$) puede quedar en 6 de cualquier forma, pero los límites concretos sí cambian.</span>
-<span id="cb28-326"><a href="#cb28-326" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-327"><a href="#cb28-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-328"><a href="#cb28-328" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb28-329"><a href="#cb28-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-330"><a href="#cb28-330" aria-hidden="true" tabindex="-1"></a>Con <span class="in">`mtcars$mpg`</span> (el mismo dataset del Tema 0):</span>
-<span id="cb28-331"><a href="#cb28-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-332"><a href="#cb28-332" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula $k$ con la regla de Sturges para $n = 32$.</span>
-<span id="cb28-333"><a href="#cb28-333" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construye el histograma con ese $k$, con la mitad y con el doble.</span>
-<span id="cb28-334"><a href="#cb28-334" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Describe la forma en cada caso (simetría, sesgo, modalidad) y decide cuál usarías en un informe.</span>
-<span id="cb28-335"><a href="#cb28-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-336"><a href="#cb28-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb28-337"><a href="#cb28-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-338"><a href="#cb28-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb28-339"><a href="#cb28-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-340"><a href="#cb28-340" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb28-341"><a href="#cb28-341" aria-hidden="true" tabindex="-1"></a><span class="co"># Regla de Sturges: completa la función correcta</span></span>
-<span id="cb28-342"><a href="#cb28-342" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">___</span>(n)</span>
-<span id="cb28-343"><a href="#cb28-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-344"><a href="#cb28-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-345"><a href="#cb28-345" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb28-346"><a href="#cb28-346" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb28-347"><a href="#cb28-347" aria-hidden="true" tabindex="-1"></a><span class="in">`log10(n)`</span> — el logaritmo en base 10 del número de observaciones.</span>
-<span id="cb28-348"><a href="#cb28-348" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb28-349"><a href="#cb28-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-350"><a href="#cb28-350" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb28-351"><a href="#cb28-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-352"><a href="#cb28-352" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema3"</span><span class="dt">&gt;</span></span>
-<span id="cb28-353"><a href="#cb28-353" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Un histograma siempre debe tener espacios entre las barras.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb28-354"><a href="#cb28-354" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb28-355"><a href="#cb28-355" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. La regla de Sturges da un número exacto y obligatorio de intervalos.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb28-356"><a href="#cb28-356" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb28-357"><a href="#cb28-357" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Una distribución bimodal tiene dos picos.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb28-358"><a href="#cb28-358" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb28-359"><a href="#cb28-359" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema3()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb28-360"><a href="#cb28-360" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema3"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb28-361"><a href="#cb28-361" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb28-362"><a href="#cb28-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-363"><a href="#cb28-363" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb28-364"><a href="#cb28-364" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema3</span>() {</span>
-<span id="cb28-365"><a href="#cb28-365" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb28-366"><a href="#cb28-366" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb28-367"><a href="#cb28-367" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb28-368"><a href="#cb28-368" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb28-369"><a href="#cb28-369" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb28-370"><a href="#cb28-370" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema3"</span>)<span class="op">;</span></span>
-<span id="cb28-371"><a href="#cb28-371" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb28-372"><a href="#cb28-372" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb28-373"><a href="#cb28-373" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb28-374"><a href="#cb28-374" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb28-375"><a href="#cb28-375" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb28-376"><a href="#cb28-376" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb28-377"><a href="#cb28-377" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb28-378"><a href="#cb28-378" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb28-379"><a href="#cb28-379" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb28-380"><a href="#cb28-380" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb28-381"><a href="#cb28-381" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema3"</span>)<span class="op">;</span></span>
-<span id="cb28-382"><a href="#cb28-382" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb28-383"><a href="#cb28-383" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb28-384"><a href="#cb28-384" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-385"><a href="#cb28-385" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb28-386"><a href="#cb28-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-387"><a href="#cb28-387" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb28-388"><a href="#cb28-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-389"><a href="#cb28-389" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb28-390"><a href="#cb28-390" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Una variable continua se agrupa en intervalos antes de tabular — "una fila por valor" no resume nada.</span>
-<span id="cb28-391"><a href="#cb28-391" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La regla de Sturges ($k = 1 + 3.3 \log_{10} n$) da un punto de partida razonable para el número de clases, no una respuesta única.</span>
-<span id="cb28-392"><a href="#cb28-392" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Un histograma puede revelar formas (sesgo, bimodalidad) que un solo número como el promedio no muestra — como en el caso real de Old Faithful.</span>
-<span id="cb28-393"><a href="#cb28-393" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-309"><a href="#cb28-309" aria-hidden="true" tabindex="-1"></a><span class="co"># Paso 4-5: límites e intervalos (amplitud redondeada a un valor práctico), y conteo</span></span>
+<span id="cb28-310"><a href="#cb28-310" aria-hidden="true" tabindex="-1"></a>amplitud_practica <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(amplitud <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb28-311"><a href="#cb28-311" aria-hidden="true" tabindex="-1"></a>limites <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(precios) <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">*</span> <span class="dv">1000</span>, <span class="at">by =</span> amplitud_practica, <span class="at">length.out =</span> k <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb28-312"><a href="#cb28-312" aria-hidden="true" tabindex="-1"></a>clases  <span class="ot">&lt;-</span> <span class="fu">cut</span>(precios, <span class="at">breaks =</span> limites, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-313"><a href="#cb28-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-314"><a href="#cb28-314" aria-hidden="true" tabindex="-1"></a>tabla_precios <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-315"><a href="#cb28-315" aria-hidden="true" tabindex="-1"></a>  <span class="at">Intervalo          =</span> <span class="fu">levels</span>(clases),</span>
+<span id="cb28-316"><a href="#cb28-316" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_absoluta      =</span> <span class="fu">as.vector</span>(<span class="fu">table</span>(clases)),</span>
+<span id="cb28-317"><a href="#cb28-317" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_acumulada     =</span> <span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))),</span>
+<span id="cb28-318"><a href="#cb28-318" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_relativa      =</span> <span class="fu">round</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases)) <span class="sc">/</span> <span class="fu">length</span>(precios), <span class="dv">3</span>),</span>
+<span id="cb28-319"><a href="#cb28-319" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frec_rel_acumulada =</span> <span class="fu">round</span>(<span class="fu">cumsum</span>(<span class="fu">as.vector</span>(<span class="fu">table</span>(clases))) <span class="sc">/</span> <span class="fu">length</span>(precios), <span class="dv">3</span>)</span>
+<span id="cb28-320"><a href="#cb28-320" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-321"><a href="#cb28-321" aria-hidden="true" tabindex="-1"></a>tabla_precios</span>
+<span id="cb28-322"><a href="#cb28-322" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-323"><a href="#cb28-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-324"><a href="#cb28-324" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb28-325"><a href="#cb28-325" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb28-326"><a href="#cb28-326" aria-hidden="true" tabindex="-1"></a>Aquí se redondeó la amplitud **hacia arriba, al millar más cercano** (de \$17,762.5 a \$18,000) antes de construir los límites, en vez de usar <span class="in">`seq(..., length.out = k+1)`</span> con la amplitud exacta como en la sección de "Cuatro maneras" (con <span class="in">`SqFt`</span>). Es la diferencia que menciona la teoría de este tema: cuando quieres límites "redondos" y fáciles de leer en un informe (aquí, precios en miles cerrados en vez de decimales), redondeas la amplitud antes de construir los cortes — el número de intervalos ($k$) es el mismo de cualquier forma, pero los límites concretos cambian.</span>
+<span id="cb28-327"><a href="#cb28-327" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-328"><a href="#cb28-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-329"><a href="#cb28-329" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb28-330"><a href="#cb28-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-331"><a href="#cb28-331" aria-hidden="true" tabindex="-1"></a>Con <span class="in">`houses$SqFt`</span> (separando por <span class="in">`Neighborhood`</span> con <span class="in">`subset()`</span> o <span class="in">`filter()`</span>):</span>
+<span id="cb28-332"><a href="#cb28-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-333"><a href="#cb28-333" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula $k$ con la regla de Sturges para el barrio East y, por separado, para West.</span>
+<span id="cb28-334"><a href="#cb28-334" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construye el histograma de cada grupo con su propio $k$.</span>
+<span id="cb28-335"><a href="#cb28-335" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Describe la forma en cada caso (simetría, sesgo, modalidad) y compara: ¿los dos barrios tienen la misma forma, o se nota alguna diferencia?</span>
+<span id="cb28-336"><a href="#cb28-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-337"><a href="#cb28-337" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb28-338"><a href="#cb28-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-339"><a href="#cb28-339" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb28-340"><a href="#cb28-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-341"><a href="#cb28-341" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-342"><a href="#cb28-342" aria-hidden="true" tabindex="-1"></a><span class="co"># Regla de Sturges: completa la función correcta</span></span>
+<span id="cb28-343"><a href="#cb28-343" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">3.3</span> <span class="sc">*</span> <span class="fu">___</span>(n)</span>
+<span id="cb28-344"><a href="#cb28-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-345"><a href="#cb28-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-346"><a href="#cb28-346" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb28-347"><a href="#cb28-347" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb28-348"><a href="#cb28-348" aria-hidden="true" tabindex="-1"></a><span class="in">`log10(n)`</span> — el logaritmo en base 10 del número de observaciones.</span>
+<span id="cb28-349"><a href="#cb28-349" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb28-350"><a href="#cb28-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-351"><a href="#cb28-351" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb28-352"><a href="#cb28-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-353"><a href="#cb28-353" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema3"</span><span class="dt">&gt;</span></span>
+<span id="cb28-354"><a href="#cb28-354" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Un histograma siempre debe tener espacios entre las barras.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb28-355"><a href="#cb28-355" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb28-356"><a href="#cb28-356" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. La regla de Sturges da un número exacto y obligatorio de intervalos.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb28-357"><a href="#cb28-357" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb28-358"><a href="#cb28-358" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Una distribución bimodal tiene dos picos.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb28-359"><a href="#cb28-359" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb28-360"><a href="#cb28-360" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema3()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb28-361"><a href="#cb28-361" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema3"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb28-362"><a href="#cb28-362" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb28-363"><a href="#cb28-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-364"><a href="#cb28-364" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb28-365"><a href="#cb28-365" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema3</span>() {</span>
+<span id="cb28-366"><a href="#cb28-366" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
+<span id="cb28-367"><a href="#cb28-367" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb28-368"><a href="#cb28-368" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb28-369"><a href="#cb28-369" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb28-370"><a href="#cb28-370" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb28-371"><a href="#cb28-371" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema3"</span>)<span class="op">;</span></span>
+<span id="cb28-372"><a href="#cb28-372" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb28-373"><a href="#cb28-373" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb28-374"><a href="#cb28-374" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb28-375"><a href="#cb28-375" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb28-376"><a href="#cb28-376" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb28-377"><a href="#cb28-377" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb28-378"><a href="#cb28-378" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb28-379"><a href="#cb28-379" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb28-380"><a href="#cb28-380" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb28-381"><a href="#cb28-381" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb28-382"><a href="#cb28-382" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema3"</span>)<span class="op">;</span></span>
+<span id="cb28-383"><a href="#cb28-383" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb28-384"><a href="#cb28-384" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb28-385"><a href="#cb28-385" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-386"><a href="#cb28-386" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb28-387"><a href="#cb28-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-388"><a href="#cb28-388" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb28-389"><a href="#cb28-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-390"><a href="#cb28-390" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb28-391"><a href="#cb28-391" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Una variable continua se agrupa en intervalos antes de tabular — "una fila por valor" no resume nada.</span>
+<span id="cb28-392"><a href="#cb28-392" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La regla de Sturges ($k = 1 + 3.3 \log_{10} n$) da un punto de partida razonable para el número de clases, no una respuesta única.</span>
+<span id="cb28-393"><a href="#cb28-393" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Un histograma puede revelar formas (sesgo, bimodalidad) que un solo número como el promedio no muestra — como en el caso real de Old Faithful.</span>
+<span id="cb28-394"><a href="#cb28-394" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
