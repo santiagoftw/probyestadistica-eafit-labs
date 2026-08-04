@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Preparación del Examen 1 · Guía práctica de análisis estadístico en R – Estadística Descriptiva — Curso interactivo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../temas/ejercicios-modulo1.html" rel="next">
+<link href="../temas/tema-08-estudiante.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Descriptiva — Curso interactivo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentacion.html"> 
+<span class="menu-text">Presentación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../programa.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../laboratorios.html"> 
+<span class="menu-text">Laboratorios</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recursos.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/tema-00-estudiante.html">Módulo 1 — Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../temas/preparacion-examen-1.html">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../presentacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación del curso</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../programa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 1 — Estadística descriptiva</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 0 · R como laboratorio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 1 · Datos, población y variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 2 · Variables cualitativas: tablas y gráficas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 3 · Variables cuantitativas: histograma y forma de los datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 4 · Medidas de tendencia central</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 5 · Medidas de dispersión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 6 · Cuantiles y boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 7 · Momentos, asimetría y curtosis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/preparacion-examen-1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 2 — Probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Módulo 2 · Probabilidad — Arquitectura</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P1 · Reglas básicas de probabilidad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P2 · Probabilidad condicional y regla multiplicativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P3 · Probabilidad total y Teorema de Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P4 · Independencia de eventos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P5 · Variables aleatorias y función de distribución acumulada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6 · Distribuciones discretas: Binomial y Poisson</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P7 · Distribuciones continuas: Uniforme y Normal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P8 · Distribución de probabilidad multivariada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P9 · Covarianza y correlación de variables aleatorias</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P10 · Funciones de variables aleatorias y simulación de sistemas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laboratorios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratorios del curso · Ejercicios y prácticas resueltas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trucos de interpretación estadística</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#todo-el-módulo-1-en-una-sola-pasada" id="toc-todo-el-módulo-1-en-una-sola-pasada" class="nav-link active" data-scroll-target="#todo-el-módulo-1-en-una-sola-pasada">🎯 Todo el Módulo 1, en una sola pasada</a></li>
+  <li><a href="#preparación-del-entorno" id="toc-preparación-del-entorno" class="nav-link" data-scroll-target="#preparación-del-entorno">Preparación del entorno</a></li>
+  <li><a href="#representación-tabular-y-gráfica" id="toc-representación-tabular-y-gráfica" class="nav-link" data-scroll-target="#representación-tabular-y-gráfica">1. Representación tabular y gráfica</a></li>
+  <li><a href="#medidas-de-tendencia-central" id="toc-medidas-de-tendencia-central" class="nav-link" data-scroll-target="#medidas-de-tendencia-central">2. Medidas de tendencia central</a></li>
+  <li><a href="#medidas-de-dispersión" id="toc-medidas-de-dispersión" class="nav-link" data-scroll-target="#medidas-de-dispersión">3. Medidas de dispersión</a></li>
+  <li><a href="#cuantiles-y-boxplot" id="toc-cuantiles-y-boxplot" class="nav-link" data-scroll-target="#cuantiles-y-boxplot">4. Cuantiles y boxplot</a></li>
+  <li><a href="#cómo-se-complementan-el-histograma-y-el-boxplot" id="toc-cómo-se-complementan-el-histograma-y-el-boxplot" class="nav-link" data-scroll-target="#cómo-se-complementan-el-histograma-y-el-boxplot">5. ¿Cómo se complementan el histograma y el boxplot?</a></li>
+  <li><a href="#preguntas-de-estudio-conceptuales" id="toc-preguntas-de-estudio-conceptuales" class="nav-link" data-scroll-target="#preguntas-de-estudio-conceptuales">📝 Preguntas de estudio conceptuales</a>
+  <ul class="collapse">
+  <li><a href="#tema-1-variables-cuantitativas-discretas-vs.-continuas" id="toc-tema-1-variables-cuantitativas-discretas-vs.-continuas" class="nav-link" data-scroll-target="#tema-1-variables-cuantitativas-discretas-vs.-continuas">Tema 1 · Variables cuantitativas: discretas vs.&nbsp;continuas</a></li>
+  <li><a href="#tema-2-tendencia-central-y-valores-atípicos" id="toc-tema-2-tendencia-central-y-valores-atípicos" class="nav-link" data-scroll-target="#tema-2-tendencia-central-y-valores-atípicos">Tema 2 · Tendencia central y valores atípicos</a></li>
+  <li><a href="#tema-3-dispersión-y-toma-de-decisiones-en-ingeniería" id="toc-tema-3-dispersión-y-toma-de-decisiones-en-ingeniería" class="nav-link" data-scroll-target="#tema-3-dispersión-y-toma-de-decisiones-en-ingeniería">Tema 3 · Dispersión y toma de decisiones en ingeniería</a></li>
+  <li><a href="#tema-4-medidas-de-posición-relativa-percentiles" id="toc-tema-4-medidas-de-posición-relativa-percentiles" class="nav-link" data-scroll-target="#tema-4-medidas-de-posición-relativa-percentiles">Tema 4 · Medidas de posición relativa (percentiles)</a></li>
+  <li><a href="#tema-5-interpretación-de-boxplots-y-asimetría" id="toc-tema-5-interpretación-de-boxplots-y-asimetría" class="nav-link" data-scroll-target="#tema-5-interpretación-de-boxplots-y-asimetría">Tema 5 · Interpretación de boxplots y asimetría</a></li>
+  <li><a href="#autoevaluación-final" id="toc-autoevaluación-final" class="nav-link" data-scroll-target="#autoevaluación-final">✅ Autoevaluación final</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/tema-00-estudiante.html">Módulo 1 — Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../temas/preparacion-examen-1.html">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="todo-el-módulo-1-en-una-sola-pasada" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="todo-el-módulo-1-en-una-sola-pasada">🎯 Todo el Módulo 1, en una sola pasada</h2>
+<p>Esta guía recorre en orden el flujo completo de un análisis descriptivo — tabla → gráfica → tendencia central → dispersión → cuantiles → boxplot — usando el mismo dataset <code>house-prices.csv</code> de todos los Temas. No introduce conceptos nuevos: es un repaso integrado, pensado para que llegues al examen habiendo hecho el recorrido completo de principio a fin, en vez de tema por tema aislado.</p>
+</section>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Cómo usar esta guía
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ejecuta cada bloque en tu propia sesión de RStudio, en orden. La segunda mitad son <strong>preguntas de estudio conceptuales</strong> con respuesta desarrollada: son el tipo de pregunta que puede aparecer en el examen pidiendo justificación escrita, no solo un número.</p>
+</div>
+</div>
+<section id="preparación-del-entorno" class="level2">
+<h2 class="anchored" data-anchor-id="preparación-del-entorno">Preparación del entorno</h2>
+<p>Usaremos <code>summarytools</code>, la librería que ya conociste en el Tema 2 como la “Manera 5” de construir tablas de frecuencia:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Si no la tienes instalada:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("summarytools")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># La variable cuantitativa continua que vamos a analizar</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>precios <span class="ot">&lt;-</span> houses<span class="sc">$</span>Price</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="representación-tabular-y-gráfica" class="level2">
+<h2 class="anchored" data-anchor-id="representación-tabular-y-gráfica">1. Representación tabular y gráfica</h2>
+<section id="representación-tabular" class="level3">
+<h3 class="anchored" data-anchor-id="representación-tabular">1.1 Representación tabular</h3>
+<p><code>descr()</code> produce un resumen numérico completo de una variable cuantitativa de una sola vez — media, desviación estándar, cuartiles, asimetría y curtosis incluidas:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(precios)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+precios  
+N: 128  
+
+                      precios
+----------------- -----------
+             Mean   130427.34
+          Std.Dev    26868.77
+              Min    69100.00
+               Q1   111250.00
+           Median   125950.00
+               Q3   148600.00
+              Max   211200.00
+              MAD    27798.75
+              IQR    36925.00
+               CV        0.21
+         Skewness        0.46
+      SE.Skewness        0.21
+         Kurtosis       -0.10
+          N.Valid      128.00
+                N      128.00
+        Pct.Valid      100.00</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Truco de interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>descr()</code> te da en una sola salida casi todo lo que calculaste a mano en los Temas 4 a 7. Úsalo para <strong>verificar</strong> tus cálculos manuales, no para reemplazarlos: en el examen te pueden pedir el procedimiento, no solo el resultado. <a href="../recursos.html">Ver más trucos →</a></p>
+</div>
+</div>
+</section>
+<section id="representación-gráfica-histograma-y-diagrama-de-pastel" class="level3">
+<h3 class="anchored" data-anchor-id="representación-gráfica-histograma-y-diagrama-de-pastel">1.2 Representación gráfica (histograma y diagrama de pastel)</h3>
+<p>El histograma es una serie de rectángulos cuyo ancho es proporcional al rango de valores dentro de una clase, y cuya altura es proporcional al número de elementos que caen en esa clase:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(precios,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histograma de precios de vivienda"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"lightblue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="preparacion-examen-1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Nota sobre el diagrama de pastel
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El diagrama de pastel se usa principalmente para variables <strong>cualitativas</strong>. Para aplicarlo a una variable cuantitativa como <code>Price</code>, primero hay que agrupar o categorizar los datos en intervalos — exactamente la operación de recodificación que viste en el Tema 1:</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Categorizar la variable cuantitativa en 3 grupos</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>categorias_precio <span class="ot">&lt;-</span> <span class="fu">cut</span>(precios, <span class="at">breaks =</span> <span class="dv">3</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bajo"</span>, <span class="st">"Medio"</span>, <span class="st">"Alto"</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(categorias_precio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>categorias_precio
+ Bajo Medio  Alto 
+   45    67    16 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(<span class="fu">table</span>(categorias_precio),</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Distribución de precios por rango"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"tomato"</span>, <span class="st">"gold"</span>, <span class="st">"lightgreen"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="preparacion-examen-1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="ficha-resultado">
+<p>Con <code>breaks = 3</code>, R parte el rango completo de precios en tres intervalos <strong>de igual ancho</strong> (no de igual cantidad de casas): quedan 45 casas en “Bajo”, 67 en “Medio” y solo 16 en “Alto”. Esa concentración desigual ya te está diciendo algo sobre la forma de la distribución — que confirmarás formalmente con la asimetría más abajo.</p>
+</div>
+</section>
+</section>
+<section id="medidas-de-tendencia-central" class="level2">
+<h2 class="anchored" data-anchor-id="medidas-de-tendencia-central">2. Medidas de tendencia central</h2>
+<ul>
+<li><strong>Media:</strong> el promedio aritmético de las observaciones.</li>
+<li><strong>Mediana:</strong> el valor exactamente en el centro cuando ordenamos los datos de menor a mayor.</li>
+<li><strong>Moda:</strong> el valor que ocurre con mayor frecuencia en la muestra.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(precios)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La media es:"</span>, <span class="fu">round</span>(media, <span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "La media es: 130427.34"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mediana <span class="ot">&lt;-</span> <span class="fu">median</span>(precios)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La mediana es:"</span>, <span class="fu">round</span>(mediana, <span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "La mediana es: 125950"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R no tiene una función directa para la moda: se construye desde la tabla de frecuencias</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tabla_frecuencias <span class="ot">&lt;-</span> <span class="fu">table</span>(precios)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="fu">names</span>(tabla_frecuencias)[<span class="fu">which.max</span>(tabla_frecuencias)]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La moda es:"</span>, moda))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "La moda es: 103200"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Cuidado con la moda en variables continuas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aquí la “moda” que devuelve el código es engañosa: en <code>Price</code> hay <strong>123 valores distintos entre 128 casas</strong>, y el valor más repetido aparece solo 2 veces — empatado con otros 4 valores. <code>which.max()</code> devuelve arbitrariamente el primero de esos empates, sin avisarte.</p>
+<p>La moda es útil en variables <strong>discretas con pocos valores</strong> (como <code>Bedrooms</code>), no en continuas casi sin repeticiones:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(houses<span class="sc">$</span>Bedrooms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 2  3  4  5 
+30 67 29  2 </code></pre>
+</div>
+</div>
+<p>Aquí sí: 3 habitaciones es la moda clara, con 67 de 128 casas. Si en el examen te piden la moda de una variable continua, vale la pena señalar esta limitación en vez de reportar un número sin contexto.</p>
+</div>
+</div>
+<section id="histograma-con-media-y-mediana-superpuestas" class="level3">
+<h3 class="anchored" data-anchor-id="histograma-con-media-y-mediana-superpuestas">Histograma con media y mediana superpuestas</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(precios, <span class="at">col =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Precios con media y mediana"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(precios),   <span class="at">col =</span> <span class="st">"red"</span>,  <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(precios), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Media"</span>, <span class="st">"Mediana"</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="preparacion-examen-1_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="ficha-resultado">
+<p>La media (≈$130,427) queda a la <strong>derecha</strong> de la mediana ($125,950). Como aprendiste en el Tema 4, esa es la firma de una distribución sesgada a la derecha: unas pocas casas caras jalan el promedio hacia arriba, mientras la mediana se queda donde está el grueso de los datos.</p>
+</div>
+</section>
+</section>
+<section id="medidas-de-dispersión" class="level2">
+<h2 class="anchored" data-anchor-id="medidas-de-dispersión">3. Medidas de dispersión</h2>
+<ul>
+<li><strong>Rango:</strong> la diferencia entre el valor más grande y el más pequeño.</li>
+<li><strong>Varianza:</strong> el promedio de los cuadrados de las desviaciones respecto a la media.</li>
+<li><strong>Desviación estándar:</strong> la raíz cuadrada positiva de la varianza — devuelve la dispersión en las unidades originales.</li>
+<li><strong>Coeficiente de variación:</strong> la desviación estándar como porcentaje de la media, para comparar variabilidad relativa.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rango <span class="ot">&lt;-</span> <span class="fu">max</span>(precios) <span class="sc">-</span> <span class="fu">min</span>(precios)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"El rango es:"</span>, rango))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "El rango es: 142100"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>varianza <span class="ot">&lt;-</span> <span class="fu">var</span>(precios)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La varianza es:"</span>, <span class="fu">round</span>(varianza, <span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "La varianza es: 721930821.24"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>desviacion <span class="ot">&lt;-</span> <span class="fu">sd</span>(precios)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La desviacion estandar es:"</span>, <span class="fu">round</span>(desviacion, <span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "La desviacion estandar es: 26868.77"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> (desviacion <span class="sc">/</span> media) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"El Coeficiente de Variacion es:"</span>, <span class="fu">round</span>(cv, <span class="dv">2</span>), <span class="st">"%"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "El Coeficiente de Variacion es: 20.6 %"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lo que deberías notar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fíjate en las unidades: la varianza (≈721,930,821) está en <strong>dólares al cuadrado</strong>, una unidad sin interpretación práctica. Por eso casi siempre se reporta la desviación estándar (≈$26,869, en dólares) y no la varianza. El CV (≈20.6%) no tiene unidades en absoluto, que es justo lo que lo hace comparable entre variables distintas.</p>
+</div>
+</div>
+</section>
+<section id="cuantiles-y-boxplot" class="level2">
+<h2 class="anchored" data-anchor-id="cuantiles-y-boxplot">4. Cuantiles y boxplot</h2>
+<p>Los cuantiles dividen los datos en partes iguales. Los más usados son los cuartiles, que separan los datos en cuatro partes (25%, 50%, 75%).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cuantiles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(precios)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cuantiles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    0%    25%    50%    75%   100% 
+ 69100 111325 125950 148250 211200 </code></pre>
+</div>
+</div>
+<p>El boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende “bigotes” hacia los valores extremos:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(precios,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot de precios de vivienda"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightgreen"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>)   <span class="co"># horizontal facilita la lectura</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="preparacion-examen-1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="ficha-resultado">
+<p><span class="math inline">\(Q_1 =\)</span> $111,325, <span class="math inline">\(Q_2 =\)</span> $125,950 y <span class="math inline">\(Q_3 =\)</span> $148,250, así que el RIC <span class="math inline">\(=\)</span> $36,925. Las vallas quedan en $55,937.5 y $203,637.5 — y hay <strong>exactamente una casa</strong> por encima de la valla superior (la casa 104, de $211,200), que R dibuja como punto aislado. Es un atípico real de este dataset, no un artefacto.</p>
+</div>
+</section>
+<section id="cómo-se-complementan-el-histograma-y-el-boxplot" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-se-complementan-el-histograma-y-el-boxplot">5. ¿Cómo se complementan el histograma y el boxplot?</h2>
+<p>Conviene mirar ambas gráficas juntas, porque cuentan historias complementarias:</p>
+<ol type="1">
+<li><strong>Forma general vs.&nbsp;resumen exacto.</strong> El histograma es ideal para ver la <em>forma</em> de la distribución (campana, asimétrica, con varios picos). Pero agrupa los datos en barras, lo que hace perder el detalle exacto de dónde están los cuartiles.</li>
+<li><strong>Detección de valores atípicos.</strong> El boxplot esconde los picos (las modas), pero es la herramienta perfecta para identificar de inmediato la mediana, la dispersión exacta del 50% central, y sobre todo, los valores extremos representados como puntos aislados fuera de los bigotes.</li>
+</ol>
+<p><strong>En resumen:</strong> usa el histograma para entender cómo se agrupan las masas de datos a simple vista, y el boxplot para un análisis de dispersión riguroso y para detectar anomalías.</p>
+<hr>
+</section>
+<section id="preguntas-de-estudio-conceptuales" class="level1">
+<h1>📝 Preguntas de estudio conceptuales</h1>
+<p>Estas cinco preguntas son del tipo que pide <strong>justificación escrita</strong>, no solo un cálculo. Intenta responderlas por tu cuenta antes de abrir la respuesta.</p>
+<section id="tema-1-variables-cuantitativas-discretas-vs.-continuas" class="level2">
+<h2 class="anchored" data-anchor-id="tema-1-variables-cuantitativas-discretas-vs.-continuas">Tema 1 · Variables cuantitativas: discretas vs.&nbsp;continuas</h2>
+<p><strong>Pregunta:</strong> en una planta de envasado, el gerente registra diariamente dos datos: el volumen exacto de líquido introducido en cada botella, y la cantidad de botellas con la tapa mal colocada por cada lote. ¿Cómo se clasifican estas dos variables y por qué es fundamental diferenciarlas?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Volumen de líquido (continua):</strong> es el resultado de una <em>medición</em> y, teóricamente, puede tomar cualquier valor dentro de un intervalo (2.001 litros, 2.0015 litros…), dependiendo de la precisión del instrumento.</li>
+<li><strong>Cantidad de botellas defectuosas (discreta):</strong> resulta de un <em>conteo</em>. Solo puede tomar valores enteros (0, 1, 2, 3 botellas) y hay “saltos” entre sus posibles valores.</li>
+<li><strong>Por qué importa:</strong> la distinción define el tratamiento matemático posterior. Las variables discretas usan sumas (funciones de masa de probabilidad); las continuas usan integrales y cálculo (funciones de densidad) — algo que verás en detalle en el Módulo 2.</li>
+</ul>
+<p><em>Conexión con este dataset:</em> <code>Bedrooms</code> y <code>Offers</code> son discretas (conteos); <code>Price</code> y <code>SqFt</code> son continuas (mediciones).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tema-2-tendencia-central-y-valores-atípicos" class="level2">
+<h2 class="anchored" data-anchor-id="tema-2-tendencia-central-y-valores-atípicos">Tema 2 · Tendencia central y valores atípicos</h2>
+<p><strong>Pregunta:</strong> en una empresa de 10 personas, nueve empleados ganan entre $40,000 y $50,000 anuales. El décimo es el CEO, que gana $500,000. Si se quiere publicar una cifra que represente el “salario típico” para atraer nuevos empleados, ¿se debe usar la media o la mediana?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Se debe usar la mediana.</strong></p>
+<ul>
+<li>La media aritmética es muy sensible a valores extremos. El salario de $500,000 jalaría el promedio drásticamente hacia arriba, distorsionando la realidad de la empresa y dando una cifra irreal para un nuevo empleado.</li>
+<li>La mediana, al ser el valor que divide la muestra ordenada exactamente a la mitad, no se ve afectada por valores extremos. Es una medida <strong>robusta</strong>, y reflejaría fielmente el centro de los salarios de los empleados regulares.</li>
+</ul>
+<p><em>Conexión con este dataset:</em> es el mismo fenómeno, más suave, que ya viste arriba — la casa de $211,200 empuja la media de <code>Price</code> por encima de la mediana.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tema-3-dispersión-y-toma-de-decisiones-en-ingeniería" class="level2">
+<h2 class="anchored" data-anchor-id="tema-3-dispersión-y-toma-de-decisiones-en-ingeniería">Tema 3 · Dispersión y toma de decisiones en ingeniería</h2>
+<p><strong>Pregunta:</strong> debe comprar cables de acero para un puente. El Proveedor X ofrece cables con resistencia media de 10,000 kg y desviación estándar de 20 kg. El Proveedor Y ofrece la misma resistencia media de 10,000 kg, pero con desviación estándar de 500 kg. ¿Cuál elegir y por qué?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Se debe elegir al Proveedor X.</strong></p>
+<p>La desviación estándar mide qué tan dispersos están los datos alrededor del promedio.</p>
+<ul>
+<li>El <strong>Proveedor Y</strong> tiene alta variabilidad (500 kg): el comportamiento de sus cables es inconsistente. Aunque el promedio sea bueno, un cable individual podría resistir muy por debajo de los 10,000 kg — inaceptable para la seguridad de un puente.</li>
+<li>El <strong>Proveedor X</strong> tiene baja variabilidad (20 kg): sus productos son mucho más uniformes, predecibles y confiables.</li>
+</ul>
+<p>La lección de fondo: <strong>dos distribuciones con la misma media pueden implicar riesgos completamente distintos.</strong> En decisiones de seguridad, la dispersión suele importar más que el promedio.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tema-4-medidas-de-posición-relativa-percentiles" class="level2">
+<h2 class="anchored" data-anchor-id="tema-4-medidas-de-posición-relativa-percentiles">Tema 4 · Medidas de posición relativa (percentiles)</h2>
+<p><strong>Pregunta:</strong> una estudiante obtuvo 720 puntos en un examen estandarizado nacional, y le informan que su calificación está en el “Percentil 85”. ¿Cómo se interpreta correctamente ese resultado?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Los percentiles dividen los datos ordenados en cien partes iguales, y sirven para conocer la posición relativa de una observación.</p>
+<p>Estar en el <strong>Percentil 85</strong> significa que la calificación de 720 puntos es mayor a la puntuación obtenida por el <strong>85% de todas las personas</strong> que presentaron el examen. Indica un alto rendimiento: solo el 15% restante obtuvo una calificación superior.</p>
+<p><strong>Error común a evitar:</strong> el percentil 85 <em>no</em> significa “sacó 85 puntos” ni “acertó el 85% de las preguntas” — se refiere a su posición frente a los demás, no a su puntaje absoluto.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tema-5-interpretación-de-boxplots-y-asimetría" class="level2">
+<h2 class="anchored" data-anchor-id="tema-5-interpretación-de-boxplots-y-asimetría">Tema 5 · Interpretación de boxplots y asimetría</h2>
+<p><strong>Pregunta:</strong> al comparar dos procesos de manufactura con diagramas de caja, se observa que (1) el Proceso A tiene una caja muy ancha, la mediana desplazada hacia el lado izquierdo de la caja, y el bigote derecho muy largo; (2) el Proceso B tiene una caja muy estrecha, la mediana centrada, pero muestra tres asteriscos aislados por encima del bigote superior. Describa la variabilidad y simetría de cada proceso.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Proceso A:</strong> presenta <strong>alta variabilidad</strong> (caja ancha = rango intercuartílico grande). La distribución está fuertemente <strong>sesgada a la derecha</strong> (asimetría positiva), lo cual se evidencia por dos señales que apuntan en la misma dirección: la mediana no está en el centro sino a la izquierda, y el bigote derecho es prolongado — hay datos dispersos hacia valores altos.</p>
+<p><strong>Proceso B:</strong> es un proceso <strong>altamente simétrico y consistente</strong>: el 50% central se concentra en una caja muy estrecha y la mediana está centrada. Los asteriscos son <strong>valores atípicos</strong>: eventos aislados que se salen del patrón general y deben investigarse individualmente (errores o fallas puntuales), pero que no cambian el hecho de que el cuerpo principal del proceso es estable.</p>
+<p><strong>La lección:</strong> un proceso puede tener atípicos y aun así ser más confiable que otro sin ellos. La presencia de outliers no es, por sí sola, evidencia de un proceso malo.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="autoevaluación-final" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación-final">✅ Autoevaluación final</h2>
+<p>Antes del examen, comprueba que puedes hacer todo esto <strong>sin mirar la guía</strong>:</p>
+<ol type="1">
+<li>Cargar un CSV y producir un resumen tabular completo de una variable cuantitativa.</li>
+<li>Construir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).</li>
+<li>Calcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.</li>
+<li>Calcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.</li>
+<li>Calcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.</li>
+<li>Ver un boxplot y describir en palabras su variabilidad, simetría y atípicos.</li>
+<li>Clasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Siguiente paso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 2 → Temas 2-3, 3 → Tema 4, 4 → Tema 5, 5 y 6 → Tema 6, 7 → Tema 1).</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/santiagoftw\.github\.io\/probyestadistica-eafit-labs\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../temas/tema-08-estudiante.html" class="pagination-link" aria-label="Tema 8 · Datos conjuntos: covarianza, correlación y regresión">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../temas/ejercicios-modulo1.html" class="pagination-link" aria-label="Ejercicios propuestos · Módulo 1 (Estadística descriptiva)">
+        <span class="nav-page-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Todo el Módulo 1, en una sola pasada</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>Esta guía recorre en orden el flujo completo de un análisis descriptivo — tabla → gráfica → tendencia central → dispersión → cuantiles → boxplot — usando el mismo dataset <span class="in">`house-prices.csv`</span> de todos los Temas. No introduce conceptos nuevos: es un repaso integrado, pensado para que llegues al examen habiendo hecho el recorrido completo de principio a fin, en vez de tema por tema aislado.</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cómo usar esta guía</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>Ejecuta cada bloque en tu propia sesión de RStudio, en orden. La segunda mitad son **preguntas de estudio conceptuales** con respuesta desarrollada: son el tipo de pregunta que puede aparecer en el examen pidiendo justificación escrita, no solo un número.</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preparación del entorno</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>Usaremos <span class="in">`summarytools`</span>, la librería que ya conociste en el Tema 2 como la "Manera 5" de construir tablas de frecuencia:</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Si no la tienes instalada:</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("summarytools")</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="co"># La variable cuantitativa continua que vamos a analizar</span></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>precios <span class="ot">&lt;-</span> houses<span class="sc">$</span>Price</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Representación tabular y gráfica</span></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1.1 Representación tabular</span></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="in">`descr()`</span> produce un resumen numérico completo de una variable cuantitativa de una sola vez — media, desviación estándar, cuartiles, asimetría y curtosis incluidas:</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(precios)</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="in">`descr()`</span> te da en una sola salida casi todo lo que calculaste a mano en los Temas 4 a 7. Úsalo para **verificar** tus cálculos manuales, no para reemplazarlos: en el examen te pueden pedir el procedimiento, no solo el resultado. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1.2 Representación gráfica (histograma y diagrama de pastel)</span></span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>El histograma es una serie de rectángulos cuyo ancho es proporcional al rango de valores dentro de una clase, y cuya altura es proporcional al número de elementos que caen en esa clase:</span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(precios,</span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histograma de precios de vivienda"</span>,</span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>,</span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Nota sobre el diagrama de pastel</span></span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a>El diagrama de pastel se usa principalmente para variables **cualitativas**. Para aplicarlo a una variable cuantitativa como <span class="in">`Price`</span>, primero hay que agrupar o categorizar los datos en intervalos — exactamente la operación de recodificación que viste en el Tema 1:</span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Categorizar la variable cuantitativa en 3 grupos</span></span>
+<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a>categorias_precio <span class="ot">&lt;-</span> <span class="fu">cut</span>(precios, <span class="at">breaks =</span> <span class="dv">3</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Bajo"</span>, <span class="st">"Medio"</span>, <span class="st">"Alto"</span>))</span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(categorias_precio)</span>
+<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(<span class="fu">table</span>(categorias_precio),</span>
+<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Distribución de precios por rango"</span>,</span>
+<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"tomato"</span>, <span class="st">"gold"</span>, <span class="st">"lightgreen"</span>))</span>
+<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a>Con <span class="in">`breaks = 3`</span>, R parte el rango completo de precios en tres intervalos **de igual ancho** (no de igual cantidad de casas): quedan 45 casas en "Bajo", 67 en "Medio" y solo 16 en "Alto". Esa concentración desigual ya te está diciendo algo sobre la forma de la distribución — que confirmarás formalmente con la asimetría más abajo.</span>
+<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Medidas de tendencia central</span></span>
+<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Media:** el promedio aritmético de las observaciones.</span>
+<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Mediana:** el valor exactamente en el centro cuando ordenamos los datos de menor a mayor.</span>
+<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Moda:** el valor que ocurre con mayor frecuencia en la muestra.</span>
+<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-95"><a href="#cb28-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-96"><a href="#cb28-96" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(precios)</span>
+<span id="cb28-97"><a href="#cb28-97" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La media es:"</span>, <span class="fu">round</span>(media, <span class="dv">2</span>)))</span>
+<span id="cb28-98"><a href="#cb28-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a>mediana <span class="ot">&lt;-</span> <span class="fu">median</span>(precios)</span>
+<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La mediana es:"</span>, <span class="fu">round</span>(mediana, <span class="dv">2</span>)))</span>
+<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a><span class="co"># R no tiene una función directa para la moda: se construye desde la tabla de frecuencias</span></span>
+<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a>tabla_frecuencias <span class="ot">&lt;-</span> <span class="fu">table</span>(precios)</span>
+<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="fu">names</span>(tabla_frecuencias)[<span class="fu">which.max</span>(tabla_frecuencias)]</span>
+<span id="cb28-105"><a href="#cb28-105" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La moda es:"</span>, moda))</span>
+<span id="cb28-106"><a href="#cb28-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-107"><a href="#cb28-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-108"><a href="#cb28-108" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuidado con la moda en variables continuas</span></span>
+<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a>Aquí la "moda" que devuelve el código es engañosa: en <span class="in">`Price`</span> hay **123 valores distintos entre 128 casas**, y el valor más repetido aparece solo 2 veces — empatado con otros 4 valores. <span class="in">`which.max()`</span> devuelve arbitrariamente el primero de esos empates, sin avisarte.</span>
+<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a>La moda es útil en variables **discretas con pocos valores** (como <span class="in">`Bedrooms`</span>), no en continuas casi sin repeticiones:</span>
+<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(houses<span class="sc">$</span>Bedrooms)</span>
+<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a>Aquí sí: 3 habitaciones es la moda clara, con 67 de 128 casas. Si en el examen te piden la moda de una variable continua, vale la pena señalar esta limitación en vez de reportar un número sin contexto.</span>
+<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-123"><a href="#cb28-123" aria-hidden="true" tabindex="-1"></a><span class="fu">### Histograma con media y mediana superpuestas</span></span>
+<span id="cb28-124"><a href="#cb28-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-127"><a href="#cb28-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-128"><a href="#cb28-128" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(precios, <span class="at">col =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb28-129"><a href="#cb28-129" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Precios con media y mediana"</span>,</span>
+<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Precio ($)"</span>, <span class="at">ylab =</span> <span class="st">"Frecuencia"</span>)</span>
+<span id="cb28-131"><a href="#cb28-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-132"><a href="#cb28-132" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(precios),   <span class="at">col =</span> <span class="st">"red"</span>,  <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(precios), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Media"</span>, <span class="st">"Mediana"</span>),</span>
+<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a>La media (≈\$130,427) queda a la **derecha** de la mediana (\$125,950). Como aprendiste en el Tema 4, esa es la firma de una distribución sesgada a la derecha: unas pocas casas caras jalan el promedio hacia arriba, mientras la mediana se queda donde está el grueso de los datos.</span>
+<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-143"><a href="#cb28-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Medidas de dispersión</span></span>
+<span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Rango:** la diferencia entre el valor más grande y el más pequeño.</span>
+<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Varianza:** el promedio de los cuadrados de las desviaciones respecto a la media.</span>
+<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Desviación estándar:** la raíz cuadrada positiva de la varianza — devuelve la dispersión en las unidades originales.</span>
+<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Coeficiente de variación:** la desviación estándar como porcentaje de la media, para comparar variabilidad relativa.</span>
+<span id="cb28-149"><a href="#cb28-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a>rango <span class="ot">&lt;-</span> <span class="fu">max</span>(precios) <span class="sc">-</span> <span class="fu">min</span>(precios)</span>
+<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"El rango es:"</span>, rango))</span>
+<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a>varianza <span class="ot">&lt;-</span> <span class="fu">var</span>(precios)</span>
+<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La varianza es:"</span>, <span class="fu">round</span>(varianza, <span class="dv">2</span>)))</span>
+<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a>desviacion <span class="ot">&lt;-</span> <span class="fu">sd</span>(precios)</span>
+<span id="cb28-160"><a href="#cb28-160" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"La desviacion estandar es:"</span>, <span class="fu">round</span>(desviacion, <span class="dv">2</span>)))</span>
+<span id="cb28-161"><a href="#cb28-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> (desviacion <span class="sc">/</span> media) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"El Coeficiente de Variacion es:"</span>, <span class="fu">round</span>(cv, <span class="dv">2</span>), <span class="st">"%"</span>))</span>
+<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb28-168"><a href="#cb28-168" aria-hidden="true" tabindex="-1"></a>Fíjate en las unidades: la varianza (≈721,930,821) está en **dólares al cuadrado**, una unidad sin interpretación práctica. Por eso casi siempre se reporta la desviación estándar (≈\$26,869, en dólares) y no la varianza. El CV (≈20.6%) no tiene unidades en absoluto, que es justo lo que lo hace comparable entre variables distintas.</span>
+<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Cuantiles y boxplot</span></span>
+<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-173"><a href="#cb28-173" aria-hidden="true" tabindex="-1"></a>Los cuantiles dividen los datos en partes iguales. Los más usados son los cuartiles, que separan los datos en cuatro partes (25%, 50%, 75%).</span>
+<span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-178"><a href="#cb28-178" aria-hidden="true" tabindex="-1"></a>cuantiles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(precios)</span>
+<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cuantiles)</span>
+<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a>El boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende "bigotes" hacia los valores extremos:</span>
+<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(precios,</span>
+<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot de precios de vivienda"</span>,</span>
+<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightgreen"</span>,</span>
+<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>,</span>
+<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>)   <span class="co"># horizontal facilita la lectura</span></span>
+<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a>$Q_1 =$ \$111,325, $Q_2 =$ \$125,950 y $Q_3 =$ \$148,250, así que el RIC $=$ \$36,925. Las vallas quedan en \$55,937.5 y \$203,637.5 — y hay **exactamente una casa** por encima de la valla superior (la casa 104, de \$211,200), que R dibuja como punto aislado. Es un atípico real de este dataset, no un artefacto.</span>
+<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. ¿Cómo se complementan el histograma y el boxplot?</span></span>
+<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a>Conviene mirar ambas gráficas juntas, porque cuentan historias complementarias:</span>
+<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Forma general vs. resumen exacto.** El histograma es ideal para ver la *forma* de la distribución (campana, asimétrica, con varios picos). Pero agrupa los datos en barras, lo que hace perder el detalle exacto de dónde están los cuartiles.</span>
+<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Detección de valores atípicos.** El boxplot esconde los picos (las modas), pero es la herramienta perfecta para identificar de inmediato la mediana, la dispersión exacta del 50% central, y sobre todo, los valores extremos representados como puntos aislados fuera de los bigotes.</span>
+<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a>**En resumen:** usa el histograma para entender cómo se agrupan las masas de datos a simple vista, y el boxplot para un análisis de dispersión riguroso y para detectar anomalías.</span>
+<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a><span class="fu"># 📝 Preguntas de estudio conceptuales</span></span>
+<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a>Estas cinco preguntas son del tipo que pide **justificación escrita**, no solo un cálculo. Intenta responderlas por tu cuenta antes de abrir la respuesta.</span>
+<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 1 · Variables cuantitativas: discretas vs. continuas</span></span>
+<span id="cb28-214"><a href="#cb28-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a>**Pregunta:** en una planta de envasado, el gerente registra diariamente dos datos: el volumen exacto de líquido introducido en cada botella, y la cantidad de botellas con la tapa mal colocada por cada lote. ¿Cómo se clasifican estas dos variables y por qué es fundamental diferenciarlas?</span>
+<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Volumen de líquido (continua):** es el resultado de una *medición* y, teóricamente, puede tomar cualquier valor dentro de un intervalo (2.001 litros, 2.0015 litros...), dependiendo de la precisión del instrumento.</span>
+<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cantidad de botellas defectuosas (discreta):** resulta de un *conteo*. Solo puede tomar valores enteros (0, 1, 2, 3 botellas) y hay "saltos" entre sus posibles valores.</span>
+<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Por qué importa:** la distinción define el tratamiento matemático posterior. Las variables discretas usan sumas (funciones de masa de probabilidad); las continuas usan integrales y cálculo (funciones de densidad) — algo que verás en detalle en el Módulo 2.</span>
+<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a>*Conexión con este dataset:* <span class="in">`Bedrooms`</span> y <span class="in">`Offers`</span> son discretas (conteos); <span class="in">`Price`</span> y <span class="in">`SqFt`</span> son continuas (mediciones).</span>
+<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 2 · Tendencia central y valores atípicos</span></span>
+<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a>**Pregunta:** en una empresa de 10 personas, nueve empleados ganan entre \$40,000 y \$50,000 anuales. El décimo es el CEO, que gana \$500,000. Si se quiere publicar una cifra que represente el "salario típico" para atraer nuevos empleados, ¿se debe usar la media o la mediana?</span>
+<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-233"><a href="#cb28-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a>**Se debe usar la mediana.**</span>
+<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La media aritmética es muy sensible a valores extremos. El salario de \$500,000 jalaría el promedio drásticamente hacia arriba, distorsionando la realidad de la empresa y dando una cifra irreal para un nuevo empleado.</span>
+<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La mediana, al ser el valor que divide la muestra ordenada exactamente a la mitad, no se ve afectada por valores extremos. Es una medida **robusta**, y reflejaría fielmente el centro de los salarios de los empleados regulares.</span>
+<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>*Conexión con este dataset:* es el mismo fenómeno, más suave, que ya viste arriba — la casa de \$211,200 empuja la media de <span class="in">`Price`</span> por encima de la mediana.</span>
+<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 3 · Dispersión y toma de decisiones en ingeniería</span></span>
+<span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a>**Pregunta:** debe comprar cables de acero para un puente. El Proveedor X ofrece cables con resistencia media de 10,000 kg y desviación estándar de 20 kg. El Proveedor Y ofrece la misma resistencia media de 10,000 kg, pero con desviación estándar de 500 kg. ¿Cuál elegir y por qué?</span>
+<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a>**Se debe elegir al Proveedor X.**</span>
+<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a>La desviación estándar mide qué tan dispersos están los datos alrededor del promedio.</span>
+<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El **Proveedor Y** tiene alta variabilidad (500 kg): el comportamiento de sus cables es inconsistente. Aunque el promedio sea bueno, un cable individual podría resistir muy por debajo de los 10,000 kg — inaceptable para la seguridad de un puente.</span>
+<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El **Proveedor X** tiene baja variabilidad (20 kg): sus productos son mucho más uniformes, predecibles y confiables.</span>
+<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a>La lección de fondo: **dos distribuciones con la misma media pueden implicar riesgos completamente distintos.** En decisiones de seguridad, la dispersión suele importar más que el promedio.</span>
+<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 4 · Medidas de posición relativa (percentiles)</span></span>
+<span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a>**Pregunta:** una estudiante obtuvo 720 puntos en un examen estandarizado nacional, y le informan que su calificación está en el "Percentil 85". ¿Cómo se interpreta correctamente ese resultado?</span>
+<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a>Los percentiles dividen los datos ordenados en cien partes iguales, y sirven para conocer la posición relativa de una observación.</span>
+<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a>Estar en el **Percentil 85** significa que la calificación de 720 puntos es mayor a la puntuación obtenida por el **85% de todas las personas** que presentaron el examen. Indica un alto rendimiento: solo el 15% restante obtuvo una calificación superior.</span>
+<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a>**Error común a evitar:** el percentil 85 *no* significa "sacó 85 puntos" ni "acertó el 85% de las preguntas" — se refiere a su posición frente a los demás, no a su puntaje absoluto.</span>
+<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-272"><a href="#cb28-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 5 · Interpretación de boxplots y asimetría</span></span>
+<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-275"><a href="#cb28-275" aria-hidden="true" tabindex="-1"></a>**Pregunta:** al comparar dos procesos de manufactura con diagramas de caja, se observa que (1) el Proceso A tiene una caja muy ancha, la mediana desplazada hacia el lado izquierdo de la caja, y el bigote derecho muy largo; (2) el Proceso B tiene una caja muy estrecha, la mediana centrada, pero muestra tres asteriscos aislados por encima del bigote superior. Describa la variabilidad y simetría de cada proceso.</span>
+<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a>**Proceso A:** presenta **alta variabilidad** (caja ancha = rango intercuartílico grande). La distribución está fuertemente **sesgada a la derecha** (asimetría positiva), lo cual se evidencia por dos señales que apuntan en la misma dirección: la mediana no está en el centro sino a la izquierda, y el bigote derecho es prolongado — hay datos dispersos hacia valores altos.</span>
+<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a>**Proceso B:** es un proceso **altamente simétrico y consistente**: el 50% central se concentra en una caja muy estrecha y la mediana está centrada. Los asteriscos son **valores atípicos**: eventos aislados que se salen del patrón general y deben investigarse individualmente (errores o fallas puntuales), pero que no cambian el hecho de que el cuerpo principal del proceso es estable.</span>
+<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a>**La lección:** un proceso puede tener atípicos y aun así ser más confiable que otro sin ellos. La presencia de outliers no es, por sí sola, evidencia de un proceso malo.</span>
+<span id="cb28-285"><a href="#cb28-285" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-286"><a href="#cb28-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-289"><a href="#cb28-289" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Autoevaluación final</span></span>
+<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a>Antes del examen, comprueba que puedes hacer todo esto **sin mirar la guía**:</span>
+<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Cargar un CSV y producir un resumen tabular completo de una variable cuantitativa.</span>
+<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).</span>
+<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.</span>
+<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Calcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.</span>
+<span id="cb28-297"><a href="#cb28-297" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Calcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.</span>
+<span id="cb28-298"><a href="#cb28-298" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Ver un boxplot y describir en palabras su variabilidad, simetría y atípicos.</span>
+<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Clasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.</span>
+<span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a>Si algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 2 → Temas 2-3, 3 → Tema 4, 4 → Tema 5, 5 y 6 → Tema 6, 7 → Tema 1).</span>
+<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
