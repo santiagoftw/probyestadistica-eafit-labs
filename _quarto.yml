@@ -42,6 +42,7 @@ website:
           - temas/tema-06-estudiante.qmd
           - temas/tema-07-estudiante.qmd
           - temas/tema-08-estudiante.qmd
+          - temas/preparacion-examen-1.qmd
           - temas/ejercicios-modulo1.qmd
       - section: "Módulo 2 — Probabilidad"
         contents:
