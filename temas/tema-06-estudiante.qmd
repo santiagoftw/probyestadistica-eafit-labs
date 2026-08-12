@@ -95,42 +95,172 @@ Los datos que caen fuera de estos brazos se consideran **valores atípicos**. Co
 Un boxplot es excelente para detectar atípicos y comparar dispersión, pero **oculta la forma exacta** de la distribución: no distingue una distribución unimodal de una bimodal, porque ambas pueden producir una caja parecida. Combínalo siempre con un histograma antes de sacar conclusiones sobre la forma de los datos. Y recuerda: un valor atípico no se elimina automáticamente — primero se investiga su origen. [Ver más trucos →](../recursos.qmd)
 :::
 
-## 🧪 Ejemplo con datos reales
+## 📐 Guía paso a paso: construir un boxplot a mano
 
-**Paso 1 — Los datos y los tres cuartiles:**
+::: {.callout-note}
+## Por qué hacerlo a mano al menos una vez
+`boxplot()` te dibuja la caja en una línea, pero en el examen te pueden pedir los cinco números o justificar por qué un dato es atípico. Estos 7 pasos son el procedimiento completo: hazlos con lápiz y papel una vez, y después usa R con la seguridad de saber qué está calculando.
+:::
+
+Vamos a construir el boxplot de las 49 brocas, paso por paso.
+
+### Paso 1 — Ordenar los datos de menor a mayor
+
+Todo el procedimiento depende del orden. Sin este paso, ningún cuantil tiene sentido:
+
 ```{r}
 duracion <- c(30,118,120,123,125,127,130,136,139,141,155,156,158,159,
               160,160,161,168,170,171,172,174,175,178,178,177,184,185,
               187,191,191,194,197,199,201,206,208,210,211,217,248,263,
               265,270,289,322,388,513,520)
 
-Q1 <- quantile(duracion, 0.25)
-Q2 <- quantile(duracion, 0.50)
-Q3 <- quantile(duracion, 0.75)
-Q1
-Q2
-Q3
+x <- sort(duracion)
+n <- length(x)
+n
+x
 ```
 
-**Paso 2 — Rango intercuartílico:**
+### Paso 2 — Localizar la posición de cada cuartil
+
+R usa por defecto esta fórmula para ubicar el cuantil $p$ dentro de los datos ordenados:
+
+$$h = (n-1)\cdot p + 1$$
+
+donde $h$ es la **posición** (no el valor). Con $n = 49$:
+
 ```{r}
-ric <- IQR(duracion)
+posicion <- function(p, n) (n - 1) * p + 1
+
+posicion(0.25, n)  # posición de Q1
+posicion(0.50, n)  # posición de Q2 (mediana)
+posicion(0.75, n)  # posición de Q3
+```
+
+::: {.ficha-resultado}
+Con $n=49$ las tres posiciones dan **números enteros exactos** (13, 25 y 37), así que los cuartiles son directamente el dato que ocupa esa posición — no hay que interpolar. Es un caso cómodo: $n-1 = 48$ es divisible entre 4.
+:::
+
+### Paso 3 — Leer el valor en esa posición
+
+```{r}
+Q1 <- x[13]
+Q2 <- x[25]
+Q3 <- x[37]
+c(Q1 = Q1, Q2 = Q2, Q3 = Q3)
+```
+
+Y comprobamos que coincide con lo que calcula R directamente:
+
+```{r}
+quantile(duracion, c(0.25, 0.50, 0.75))
+```
+
+::: {.callout-important}
+## ¿Y si la posición no da un número entero?
+Con otros valores de $n$, $h$ puede caer entre dos datos — por ejemplo, $h = 12.75$. Entonces se **interpola** entre el dato 12 y el 13, tomando el 75% del camino entre ellos:
+
+$$Q = x_{(12)} + 0.75\cdot\left(x_{(13)} - x_{(12)}\right)$$
+
+En R esto es automático. En el examen, si te toca a mano, di explícitamente qué método usaste — existen varias convenciones válidas y por eso `quantile()` y `summarytools::descr()` a veces difieren en unas décimas.
+:::
+
+### Paso 4 — Calcular el rango intercuartílico
+
+```{r}
+ric <- Q3 - Q1
 ric
+
+IQR(duracion)   # la función de R hace lo mismo
 ```
 
-**Paso 3 — Vallas internas (límite de valores atípicos):**
+### Paso 5 — Calcular las vallas
+
+Las **vallas internas** marcan el límite de los valores atípicos; las **externas**, el de los atípicos extremos:
+
 ```{r}
-Q1 - 1.5 * ric  # valla interna inferior
-Q3 + 1.5 * ric  # valla interna superior
+valla_inf <- Q1 - 1.5 * ric
+valla_sup <- Q3 + 1.5 * ric
+c(valla_inferior = valla_inf, valla_superior = valla_sup)
+
+ext_inf <- Q1 - 3 * ric
+ext_sup <- Q3 + 3 * ric
+c(externa_inferior = ext_inf, externa_superior = ext_sup)
 ```
 
-**Paso 4 — Vallas externas (límite de atípicos extremos):**
+### Paso 6 — Identificar los valores atípicos
+
+Un dato es atípico si cae **fuera** de las vallas internas. Ojo: hay que revisar **los dos extremos**, no solo el superior:
+
 ```{r}
-Q1 - 3 * ric  # valla externa inferior
-Q3 + 3 * ric  # valla externa superior
+atipicos <- x[x < valla_inf | x > valla_sup]
+atipicos
+
+# ¿Cuáles son además atípicos extremos?
+x[x < ext_inf | x > ext_sup]
 ```
 
-Con estos datos: $Q_1 = 158$, $Q_2 = 178$, $Q_3 = 208$, por lo que $RIC = 50$. La valla interna superior queda en $208 + 1.5(50) = 283$ — por lo tanto, **289, 322, 388, 513 y 520 son valores atípicos** según esta regla (los cinco valores del conjunto que superan 283, no solo los tres más extremos).
+::: {.callout-important}
+## Corrección de rigor
+Una versión anterior de este material afirmaba que los atípicos eran "289, 322, 388, 513 y 520" — cinco valores, todos por arriba. **Faltaba uno:** el dato **30** también es atípico, porque cae por debajo de la valla inferior ($30 < 83$). Son **seis** valores atípicos, no cinco.
+
+El error es instructivo: al mirar los datos ordenados, el salto de la cola superior (289 → 520) salta a la vista, mientras que el 30 se ve como "solo el mínimo". Por eso el criterio de las vallas es una **regla**, no una impresión visual — y hay que aplicarla a los dos lados siempre. De los seis atípicos, solo 388, 513 y 520 superan además la valla externa (358), así que esos tres son atípicos *extremos*.
+:::
+
+### Paso 7 — Determinar dónde terminan los bigotes
+
+Este es el paso que más se malinterpreta: **los bigotes no llegan hasta las vallas**, sino hasta el dato real más extremo que todavía está *dentro* de ellas:
+
+```{r}
+dentro <- x[x >= valla_inf & x <= valla_sup]
+
+bigote_inf <- min(dentro)
+bigote_sup <- max(dentro)
+c(bigote_inferior = bigote_inf, bigote_superior = bigote_sup)
+```
+
+::: {.ficha-resultado}
+El bigote inferior termina en **118** (no en 83, que es la valla) y el superior en **270** (no en 283). La valla es el criterio para decidir qué es atípico; el bigote se dibuja hasta el último dato que sobrevive ese criterio.
+:::
+
+### Resumen: los cinco números del boxplot
+
+```{r}
+c(bigote_inf = bigote_inf, Q1 = Q1, mediana = Q2, Q3 = Q3, bigote_sup = bigote_sup)
+```
+
+Y la comprobación definitiva — `boxplot()` guarda internamente estos mismos valores en `$stats`:
+
+```{r}
+b <- boxplot(duracion, plot = FALSE)
+b$stats   # bigote inf, Q1, mediana, Q3, bigote sup
+b$out     # los valores atípicos que dibuja como puntos sueltos
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+`boxplot(x, plot = FALSE)` es la mejor forma de **verificar tus cálculos manuales**: te devuelve los cinco números y los atípicos sin dibujar nada. Si tu resultado a mano no coincide con `b$stats`, revisa el Paso 2 (la fórmula de posición) antes que ninguna otra cosa — ahí es donde se concentran casi todos los errores. [Ver más trucos →](../recursos.qmd)
+:::
+
+### El dibujo final, con todo señalado
+
+```{r}
+#| fig-cap: "Los cinco números y las vallas sobre el boxplot"
+boxplot(duracion, horizontal = TRUE, col = "#004B85",
+        main = "Duración de 49 brocas: anatomía del boxplot",
+        xlab = "No. de huecos antes de romperse")
+
+abline(v = c(valla_inf, valla_sup), col = "#D9534F", lty = 2)
+abline(v = c(ext_inf, ext_sup), col = "#B37D00", lty = 3)
+
+legend("topright",
+       legend = c("Vallas internas (1.5·RIC)", "Vallas externas (3·RIC)"),
+       col = c("#D9534F", "#B37D00"), lty = c(2, 3), bty = "n", cex = 0.8)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Fíjate en la distancia entre la línea roja de la derecha (valla interna, 283) y donde realmente termina el bigote (270): ese espacio vacío es normal y confirma el Paso 7. Y observa que el 30, a la izquierda, queda fuera de su valla roja — es el atípico que se pasa por alto si uno solo mira la cola larga.
+:::
 
 ## 🧑‍🔬 Laboratorio
 
@@ -140,9 +270,10 @@ Con el dataset `houses` (el mismo de los Temas anteriores):
 houses <- read.csv("../data/house-prices.csv")
 ```
 
-1. Calcula $Q_1$, $Q_2$, $Q_3$ y el RIC de `Price`.
-2. Construye un boxplot **comparativo** de `Price` por `Neighborhood` (pista: `boxplot(Price ~ Neighborhood, data = houses)`).
-3. ¿Hay algún valor atípico en alguno de los tres barrios? Compara con el caso de las brocas: ¿qué tan parecida es la regla que usó R aquí a la que aplicaste a mano con la duración de las brocas?
+1. **Aplica los 7 pasos de la guía a `Price`, a mano** (sin usar `boxplot()` todavía): ordena, localiza las posiciones de los cuartiles, léelos, calcula el RIC, las vallas, identifica los atípicos y determina dónde terminan los bigotes. Ojo: con $n = 128$, las posiciones **no** dan enteros — vas a tener que interpolar como se explicó en el Paso 3.
+2. Verifica tu resultado con `boxplot(houses$Price, plot = FALSE)$stats` y `$out`. ¿Coincide?
+3. Construye un boxplot **comparativo** de `Price` por `Neighborhood` (pista: `boxplot(Price ~ Neighborhood, data = houses)`). ¿En qué barrio aparecen atípicos, y hacia qué lado?
+4. Compara con el caso de las brocas: allí encontramos atípicos en **ambos** extremos. ¿Pasa lo mismo con los precios de vivienda, o solo hacia un lado? ¿Qué te dice eso sobre la forma de cada distribución?
 
 ## ✅ Ejercicios autocorregibles
 
@@ -167,13 +298,17 @@ ___(x)
 <label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
 <div style="margin-bottom: 1rem;"><strong>3. El rango intercuartílico es Q3 menos Q1.</strong><br>
 <label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Los bigotes del boxplot se dibujan exactamente hasta las vallas (Q1 − 1.5·RIC y Q3 + 1.5·RIC).</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. Solo hay que buscar valores atípicos por encima de Q3, porque son los que estiran la distribución.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
 <button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTema6()">Revisar respuestas</button>
 <p id="resultado-quiz-tema6" style="margin-top: 1rem; font-weight: 700;"></p>
 </div>
 
 <script>
 function revisarQuizTema6() {
-  const respuestas = { q1: "V", q2: "F", q3: "V" };
+  const respuestas = { q1: "V", q2: "F", q3: "V", q4: "F", q5: "F" };
   // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
   const sinResponder = Object.keys(respuestas).filter(
     p => !document.querySelector(`input[name="${p}"]:checked`)
@@ -199,6 +334,9 @@ function revisarQuizTema6() {
 
 ::: {.card-lab}
 - Los cuartiles dividen los datos ordenados en cuatro partes iguales; el RIC mide la dispersión del 50% central, sin verse afectado por valores extremos.
-- La regla estándar de valores atípicos usa $Q_3 + 1.5 \cdot RIC$ y $Q_1 - 1.5 \cdot RIC$ como límites.
-- Un boxplot resume 5 números (mínimo, Q1, mediana, Q3, máximo) y hace visibles la mediana, la dispersión y los atípicos en un solo vistazo — sin necesitar el promedio.
+- **El procedimiento completo son 7 pasos:** ordenar → posición del cuartil ($h=(n-1)p+1$) → leer el valor → RIC → vallas → identificar atípicos → ubicar los bigotes.
+- La regla estándar de valores atípicos usa $Q_3 + 1.5 \cdot RIC$ y $Q_1 - 1.5 \cdot RIC$ como límites — y hay que aplicarla **a los dos extremos**, no solo al que salta a la vista.
+- **Los bigotes no llegan hasta las vallas:** llegan hasta el último dato real que queda dentro de ellas.
+- Un boxplot resume 5 números (bigote inferior, Q1, mediana, Q3, bigote superior) y hace visibles la mediana, la dispersión y los atípicos en un solo vistazo — sin necesitar el promedio.
+- `boxplot(x, plot = FALSE)$stats` te devuelve esos cinco números para verificar tus cálculos a mano.
 :::

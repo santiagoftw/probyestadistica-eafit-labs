@@ -14,5 +14,3 @@ _freeze/
 # Sistema
 .DS_Store
 Thumbs.db
-
-**/*.quarto_ipynb

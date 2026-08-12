@@ -161,6 +161,16 @@ cuantiles <- quantile(precios)
 print(cuantiles)
 ```
 
+::: {.callout-important}
+## ¿Por qué `descr()` y `quantile()` dan cuartiles distintos?
+
+Si comparas esta salida con la de `descr()` al inicio de la guía, vas a notar algo raro: `quantile()` reporta $Q_1 =$ \$111,325 y $Q_3 =$ \$148,250, mientras que `descr()` reporta \$111,250 y \$148,600. **Ninguno está mal.**
+
+Cuando $n$ no es divisible de forma exacta, el cuartil cae "entre" dos observaciones y hay que interpolar — y existen **nueve métodos de interpolación distintos**, todos legítimos. `quantile()` de R base usa el tipo 7 por defecto; `summarytools` usa otro. Con $n = 128$ la diferencia es de unos pocos cientos de dólares, irrelevante para cualquier interpretación práctica, pero conviene saber de dónde viene.
+
+**Qué hacer en el examen:** usa `quantile()` (el método por defecto de R base) salvo que te pidan otra cosa, y si comparas resultados con un compañero y difieren un poco, revisa primero si usaron funciones distintas antes de asumir que alguien se equivocó. Puedes ver los otros métodos con `quantile(precios, type = 6)`, por ejemplo.
+:::
+
 El boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende "bigotes" hacia los valores extremos:
 
 ```{r}

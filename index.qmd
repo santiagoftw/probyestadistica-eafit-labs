@@ -26,7 +26,7 @@ Pierde el miedo a R lanzando monedas simuladas y viendo cómo se estabiliza el a
 
 ::: {.g-col-6 .card-lab}
 ### Tema 1 · Datos, población y variables
-Clasifica variables reales de animales y personajes de Star Wars antes de aprender las definiciones formales.
+Clasifica las variables reales de un dataset de precios de vivienda antes de aprender las definiciones formales.
 
 [Empezar →](temas/tema-01-estudiante.qmd)
 :::
@@ -40,7 +40,7 @@ Compara barras contra pastel con el ejemplo real de grupos sanguíneos de Rincó
 
 ::: {.g-col-6 .card-lab}
 ### Tema 3 · Histograma y forma de los datos
-Descubre la distribución bimodal real de Old Faithful moviendo el número de intervalos.
+Descubre la distribución bimodal real de Old Faithful, y construye la tabla agrupada del dataset de vivienda de cuatro maneras distintas.
 
 [Empezar →](temas/tema-03-estudiante.qmd)
 :::
@@ -54,14 +54,14 @@ Media, mediana y moda puestas a prueba con 4 casos reales de Devore.
 
 ::: {.g-col-6 .card-lab}
 ### Tema 5 · Dispersión
-Rango, varianza, desviación estándar y coeficiente de variación con tortugas golfinas.
+Rango, varianza, desviación estándar y coeficiente de variación — de las tortugas golfinas a los precios de vivienda.
 
 [Empezar →](temas/tema-05-estudiante.qmd)
 :::
 
 ::: {.g-col-6 .card-lab}
 ### Tema 6 · Cuantiles y boxplot
-49 brocas reales puestas a prueba hasta romperse — encuentra los valores atípicos.
+49 brocas reales puestas a prueba hasta romperse — aprende el paso a paso para construir un boxplot a mano.
 
 [Empezar →](temas/tema-06-estudiante.qmd)
 :::
@@ -75,7 +75,7 @@ El aparato matemático completo — con demostraciones — que conecta la descri
 
 ::: {.g-col-6 .card-lab}
 ### Tema 8 · Datos conjuntos
-Covarianza, correlación y regresión — con las demostraciones completas de Rincón (2017).
+Covarianza, correlación y regresión — ¿el área de una casa predice su precio? Con las demostraciones completas de Rincón (2017).
 
 [Empezar →](temas/tema-08-estudiante.qmd)
 :::
@@ -85,6 +85,13 @@ Covarianza, correlación y regresión — con las demostraciones completas de Ri
 10 temas completos (P1-P10), desde reglas básicas hasta simulación de sistemas correlacionados.
 
 [Ver arquitectura →](temas/modulo-2-arquitectura.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### 🎯 Preparación del Examen 1
+Repaso integrado de todo el Módulo 1 en una sola pasada, más 5 preguntas conceptuales con respuesta.
+
+[Prepararme →](temas/preparacion-examen-1.qmd)
 :::
 
 ::: {.g-col-6 .card-lab}
