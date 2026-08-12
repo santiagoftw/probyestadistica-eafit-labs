@@ -406,7 +406,7 @@ window.Quarto = {
   <li><a href="#simulación-construyendo-el-boxplot-paso-a-paso" id="toc-simulación-construyendo-el-boxplot-paso-a-paso" class="nav-link" data-scroll-target="#simulación-construyendo-el-boxplot-paso-a-paso">🎛️ Simulación: construyendo el boxplot paso a paso</a></li>
   <li><a href="#discusión" id="toc-discusión" class="nav-link" data-scroll-target="#discusión">💡 Discusión</a></li>
   <li><a href="#ahora-sí-la-teoría" id="toc-ahora-sí-la-teoría" class="nav-link" data-scroll-target="#ahora-sí-la-teoría">📖 Ahora sí, la teoría</a></li>
-  <li><a href="#ejemplo-con-datos-reales" id="toc-ejemplo-con-datos-reales" class="nav-link" data-scroll-target="#ejemplo-con-datos-reales">🧪 Ejemplo con datos reales</a></li>
+  <li><a href="#guía-paso-a-paso-construir-un-boxplot-a-mano" id="toc-guía-paso-a-paso-construir-un-boxplot-a-mano" class="nav-link" data-scroll-target="#guía-paso-a-paso-construir-un-boxplot-a-mano">📐 Guía paso a paso: construir un boxplot a mano</a></li>
   <li><a href="#laboratorio" id="toc-laboratorio" class="nav-link" data-scroll-target="#laboratorio">🧑‍🔬 Laboratorio</a></li>
   <li><a href="#ejercicios-autocorregibles" id="toc-ejercicios-autocorregibles" class="nav-link" data-scroll-target="#ejercicios-autocorregibles">✅ Ejercicios autocorregibles</a></li>
   <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">🗂️ Resumen</a></li>
@@ -573,9 +573,25 @@ Figure&nbsp;1: Boxplot de la duración de 49 brocas (Contento Rubio)
 </div>
 </div>
 </section>
-<section id="ejemplo-con-datos-reales" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-con-datos-reales">🧪 Ejemplo con datos reales</h2>
-<p><strong>Paso 1 — Los datos y los tres cuartiles:</strong></p>
+<section id="guía-paso-a-paso-construir-un-boxplot-a-mano" class="level2">
+<h2 class="anchored" data-anchor-id="guía-paso-a-paso-construir-un-boxplot-a-mano">📐 Guía paso a paso: construir un boxplot a mano</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Por qué hacerlo a mano al menos una vez
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>boxplot()</code> te dibuja la caja en una línea, pero en el examen te pueden pedir los cinco números o justificar por qué un dato es atípico. Estos 7 pasos son el procedimiento completo: hazlos con lápiz y papel una vez, y después usa R con la seguridad de saber qué está calculando.</p>
+</div>
+</div>
+<p>Vamos a construir el boxplot de las 49 brocas, paso por paso.</p>
+<section id="paso-1-ordenar-los-datos-de-menor-a-mayor" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-ordenar-los-datos-de-menor-a-mayor">Paso 1 — Ordenar los datos de menor a mayor</h3>
+<p>Todo el procedimiento depende del orden. Sin este paso, ningún cuantil tiene sentido:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -584,82 +600,291 @@ Figure&nbsp;1: Boxplot de la duración de 49 brocas (Contento Rubio)
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">187</span>,<span class="dv">191</span>,<span class="dv">191</span>,<span class="dv">194</span>,<span class="dv">197</span>,<span class="dv">199</span>,<span class="dv">201</span>,<span class="dv">206</span>,<span class="dv">208</span>,<span class="dv">210</span>,<span class="dv">211</span>,<span class="dv">217</span>,<span class="dv">248</span>,<span class="dv">263</span>,</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>              <span class="dv">265</span>,<span class="dv">270</span>,<span class="dv">289</span>,<span class="dv">322</span>,<span class="dv">388</span>,<span class="dv">513</span>,<span class="dv">520</span>)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(duracion, <span class="fl">0.25</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(duracion, <span class="fl">0.50</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(duracion, <span class="fl">0.75</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Q1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(duracion)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>25% 
-158 </code></pre>
+<pre><code>[1] 49</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Q2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>50% 
-178 </code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Q3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>75% 
-208 </code></pre>
+<pre><code> [1]  30 118 120 123 125 127 130 136 139 141 155 156 158 159 160 160 161 168 170
+[20] 171 172 174 175 177 178 178 184 185 187 191 191 194 197 199 201 206 208 210
+[39] 211 217 248 263 265 270 289 322 388 513 520</code></pre>
 </div>
 </div>
-<p><strong>Paso 2 — Rango intercuartílico:</strong></p>
+</section>
+<section id="paso-2-localizar-la-posición-de-cada-cuartil" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-localizar-la-posición-de-cada-cuartil">Paso 2 — Localizar la posición de cada cuartil</h3>
+<p>R usa por defecto esta fórmula para ubicar el cuantil <span class="math inline">\(p\)</span> dentro de los datos ordenados:</p>
+<p><span class="math display">\[h = (n-1)\cdot p + 1\]</span></p>
+<p>donde <span class="math inline">\(h\)</span> es la <strong>posición</strong> (no el valor). Con <span class="math inline">\(n = 49\)</span>:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ric <span class="ot">&lt;-</span> <span class="fu">IQR</span>(duracion)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ric</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>posicion <span class="ot">&lt;-</span> <span class="cf">function</span>(p, n) (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> p <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">posicion</span>(<span class="fl">0.25</span>, n)  <span class="co"># posición de Q1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">posicion</span>(<span class="fl">0.50</span>, n)  <span class="co"># posición de Q2 (mediana)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">posicion</span>(<span class="fl">0.75</span>, n)  <span class="co"># posición de Q3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37</code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p>Con <span class="math inline">\(n=49\)</span> las tres posiciones dan <strong>números enteros exactos</strong> (13, 25 y 37), así que los cuartiles son directamente el dato que ocupa esa posición — no hay que interpolar. Es un caso cómodo: <span class="math inline">\(n-1 = 48\)</span> es divisible entre 4.</p>
+</div>
+</section>
+<section id="paso-3-leer-el-valor-en-esa-posición" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3-leer-el-valor-en-esa-posición">Paso 3 — Leer el valor en esa posición</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> x[<span class="dv">13</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> x[<span class="dv">25</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Q3 <span class="ot">&lt;-</span> x[<span class="dv">37</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">Q1 =</span> Q1, <span class="at">Q2 =</span> Q2, <span class="at">Q3 =</span> Q3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Q1  Q2  Q3 
+158 178 208 </code></pre>
+</div>
+</div>
+<p>Y comprobamos que coincide con lo que calcula R directamente:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(duracion, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>25% 50% 75% 
+158 178 208 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>¿Y si la posición no da un número entero?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con otros valores de <span class="math inline">\(n\)</span>, <span class="math inline">\(h\)</span> puede caer entre dos datos — por ejemplo, <span class="math inline">\(h = 12.75\)</span>. Entonces se <strong>interpola</strong> entre el dato 12 y el 13, tomando el 75% del camino entre ellos:</p>
+<p><span class="math display">\[Q = x_{(12)} + 0.75\cdot\left(x_{(13)} - x_{(12)}\right)\]</span></p>
+<p>En R esto es automático. En el examen, si te toca a mano, di explícitamente qué método usaste — existen varias convenciones válidas y por eso <code>quantile()</code> y <code>summarytools::descr()</code> a veces difieren en unas décimas.</p>
+</div>
+</div>
+</section>
+<section id="paso-4-calcular-el-rango-intercuartílico" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4-calcular-el-rango-intercuartílico">Paso 4 — Calcular el rango intercuartílico</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ric <span class="ot">&lt;-</span> Q3 <span class="sc">-</span> Q1</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ric</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 50</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(duracion)   <span class="co"># la función de R hace lo mismo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50</code></pre>
 </div>
 </div>
-<p><strong>Paso 3 — Vallas internas (límite de valores atípicos):</strong></p>
+</section>
+<section id="paso-5-calcular-las-vallas" class="level3">
+<h3 class="anchored" data-anchor-id="paso-5-calcular-las-vallas">Paso 5 — Calcular las vallas</h3>
+<p>Las <strong>vallas internas</strong> marcan el límite de los valores atípicos; las <strong>externas</strong>, el de los atípicos extremos:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> ric  <span class="co"># valla interna inferior</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>valla_inf <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>valla_sup <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">valla_inferior =</span> valla_inf, <span class="at">valla_superior =</span> valla_sup)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>25% 
- 83 </code></pre>
+<pre><code>valla_inferior valla_superior 
+            83            283 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> ric  <span class="co"># valla interna superior</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ext_inf <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> ric</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>ext_sup <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> ric</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">externa_inferior =</span> ext_inf, <span class="at">externa_superior =</span> ext_sup)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>75% 
-283 </code></pre>
+<pre><code>externa_inferior externa_superior 
+               8              358 </code></pre>
 </div>
 </div>
-<p><strong>Paso 4 — Vallas externas (límite de atípicos extremos):</strong></p>
+</section>
+<section id="paso-6-identificar-los-valores-atípicos" class="level3">
+<h3 class="anchored" data-anchor-id="paso-6-identificar-los-valores-atípicos">Paso 6 — Identificar los valores atípicos</h3>
+<p>Un dato es atípico si cae <strong>fuera</strong> de las vallas internas. Ojo: hay que revisar <strong>los dos extremos</strong>, no solo el superior:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Q1 <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> ric  <span class="co"># valla externa inferior</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>atipicos <span class="ot">&lt;-</span> x[x <span class="sc">&lt;</span> valla_inf <span class="sc">|</span> x <span class="sc">&gt;</span> valla_sup]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>atipicos</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>25% 
-  8 </code></pre>
+<pre><code>[1]  30 289 322 388 513 520</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Q3 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> ric  <span class="co"># valla externa superior</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cuáles son además atípicos extremos?</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&lt;</span> ext_inf <span class="sc">|</span> x <span class="sc">&gt;</span> ext_sup]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>75% 
-358 </code></pre>
+<pre><code>[1] 388 513 520</code></pre>
 </div>
 </div>
-<p>Con estos datos: <span class="math inline">\(Q_1 = 158\)</span>, <span class="math inline">\(Q_2 = 178\)</span>, <span class="math inline">\(Q_3 = 208\)</span>, por lo que <span class="math inline">\(RIC = 50\)</span>. La valla interna superior queda en <span class="math inline">\(208 + 1.5(50) = 283\)</span> — por lo tanto, <strong>289, 322, 388, 513 y 520 son valores atípicos</strong> según esta regla (los cinco valores del conjunto que superan 283, no solo los tres más extremos).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Corrección de rigor
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una versión anterior de este material afirmaba que los atípicos eran “289, 322, 388, 513 y 520” — cinco valores, todos por arriba. <strong>Faltaba uno:</strong> el dato <strong>30</strong> también es atípico, porque cae por debajo de la valla inferior (<span class="math inline">\(30 &lt; 83\)</span>). Son <strong>seis</strong> valores atípicos, no cinco.</p>
+<p>El error es instructivo: al mirar los datos ordenados, el salto de la cola superior (289 → 520) salta a la vista, mientras que el 30 se ve como “solo el mínimo”. Por eso el criterio de las vallas es una <strong>regla</strong>, no una impresión visual — y hay que aplicarla a los dos lados siempre. De los seis atípicos, solo 388, 513 y 520 superan además la valla externa (358), así que esos tres son atípicos <em>extremos</em>.</p>
+</div>
+</div>
+</section>
+<section id="paso-7-determinar-dónde-terminan-los-bigotes" class="level3">
+<h3 class="anchored" data-anchor-id="paso-7-determinar-dónde-terminan-los-bigotes">Paso 7 — Determinar dónde terminan los bigotes</h3>
+<p>Este es el paso que más se malinterpreta: <strong>los bigotes no llegan hasta las vallas</strong>, sino hasta el dato real más extremo que todavía está <em>dentro</em> de ellas:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dentro <span class="ot">&lt;-</span> x[x <span class="sc">&gt;=</span> valla_inf <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> valla_sup]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>bigote_inf <span class="ot">&lt;-</span> <span class="fu">min</span>(dentro)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>bigote_sup <span class="ot">&lt;-</span> <span class="fu">max</span>(dentro)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">bigote_inferior =</span> bigote_inf, <span class="at">bigote_superior =</span> bigote_sup)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>bigote_inferior bigote_superior 
+            118             270 </code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p>El bigote inferior termina en <strong>118</strong> (no en 83, que es la valla) y el superior en <strong>270</strong> (no en 283). La valla es el criterio para decidir qué es atípico; el bigote se dibuja hasta el último dato que sobrevive ese criterio.</p>
+</div>
+</section>
+<section id="resumen-los-cinco-números-del-boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="resumen-los-cinco-números-del-boxplot">Resumen: los cinco números del boxplot</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">bigote_inf =</span> bigote_inf, <span class="at">Q1 =</span> Q1, <span class="at">mediana =</span> Q2, <span class="at">Q3 =</span> Q3, <span class="at">bigote_sup =</span> bigote_sup)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>bigote_inf         Q1    mediana         Q3 bigote_sup 
+       118        158        178        208        270 </code></pre>
+</div>
+</div>
+<p>Y la comprobación definitiva — <code>boxplot()</code> guarda internamente estos mismos valores en <code>$stats</code>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">boxplot</span>(duracion, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>stats   <span class="co"># bigote inf, Q1, mediana, Q3, bigote sup</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]  118
+[2,]  158
+[3,]  178
+[4,]  208
+[5,]  270</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>out     <span class="co"># los valores atípicos que dibuja como puntos sueltos</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  30 289 322 388 513 520</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Truco de interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>boxplot(x, plot = FALSE)</code> es la mejor forma de <strong>verificar tus cálculos manuales</strong>: te devuelve los cinco números y los atípicos sin dibujar nada. Si tu resultado a mano no coincide con <code>b$stats</code>, revisa el Paso 2 (la fórmula de posición) antes que ninguna otra cosa — ahí es donde se concentran casi todos los errores. <a href="../recursos.html">Ver más trucos →</a></p>
+</div>
+</div>
+</section>
+<section id="el-dibujo-final-con-todo-señalado" class="level3">
+<h3 class="anchored" data-anchor-id="el-dibujo-final-con-todo-señalado">El dibujo final, con todo señalado</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(duracion, <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Duración de 49 brocas: anatomía del boxplot"</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"No. de huecos antes de romperse"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(valla_inf, valla_sup), <span class="at">col =</span> <span class="st">"#D9534F"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(ext_inf, ext_sup), <span class="at">col =</span> <span class="st">"#B37D00"</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Vallas internas (1.5·RIC)"</span>, <span class="st">"Vallas externas (3·RIC)"</span>),</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#D9534F"</span>, <span class="st">"#B37D00"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tema-06-estudiante_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Los cinco números y las vallas sobre el boxplot</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lo que deberías notar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fíjate en la distancia entre la línea roja de la derecha (valla interna, 283) y donde realmente termina el bigote (270): ese espacio vacío es normal y confirma el Paso 7. Y observa que el 30, a la izquierda, queda fuera de su valla roja — es el atípico que se pasa por alto si uno solo mira la cola larga.</p>
+</div>
+</div>
+</section>
 </section>
 <section id="laboratorio" class="level2">
 <h2 class="anchored" data-anchor-id="laboratorio">🧑‍🔬 Laboratorio</h2>
@@ -667,21 +892,22 @@ Figure&nbsp;1: Boxplot de la duración de 49 brocas (Contento Rubio)
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <ol type="1">
-<li>Calcula <span class="math inline">\(Q_1\)</span>, <span class="math inline">\(Q_2\)</span>, <span class="math inline">\(Q_3\)</span> y el RIC de <code>Price</code>.</li>
-<li>Construye un boxplot <strong>comparativo</strong> de <code>Price</code> por <code>Neighborhood</code> (pista: <code>boxplot(Price ~ Neighborhood, data = houses)</code>).</li>
-<li>¿Hay algún valor atípico en alguno de los tres barrios? Compara con el caso de las brocas: ¿qué tan parecida es la regla que usó R aquí a la que aplicaste a mano con la duración de las brocas?</li>
+<li><strong>Aplica los 7 pasos de la guía a <code>Price</code>, a mano</strong> (sin usar <code>boxplot()</code> todavía): ordena, localiza las posiciones de los cuartiles, léelos, calcula el RIC, las vallas, identifica los atípicos y determina dónde terminan los bigotes. Ojo: con <span class="math inline">\(n = 128\)</span>, las posiciones <strong>no</strong> dan enteros — vas a tener que interpolar como se explicó en el Paso 3.</li>
+<li>Verifica tu resultado con <code>boxplot(houses$Price, plot = FALSE)$stats</code> y <code>$out</code>. ¿Coincide?</li>
+<li>Construye un boxplot <strong>comparativo</strong> de <code>Price</code> por <code>Neighborhood</code> (pista: <code>boxplot(Price ~ Neighborhood, data = houses)</code>). ¿En qué barrio aparecen atípicos, y hacia qué lado?</li>
+<li>Compara con el caso de las brocas: allí encontramos atípicos en <strong>ambos</strong> extremos. ¿Pasa lo mismo con los precios de vivienda, o solo hacia un lado? ¿Qué te dice eso sobre la forma de cada distribución?</li>
 </ol>
 </section>
 <section id="ejercicios-autocorregibles" class="level2">
 <h2 class="anchored" data-anchor-id="ejercicios-autocorregibles">✅ Ejercicios autocorregibles</h2>
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rango intercuartílico: completa la función correcta</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rango intercuartílico: completa la función correcta</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
@@ -701,6 +927,12 @@ Ver respuesta
 <div style="margin-bottom: 1rem;">
 <strong>3. El rango intercuartílico es Q3 menos Q1.</strong><br> <label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label>
 </div>
+<div style="margin-bottom: 1rem;">
+<strong>4. Los bigotes del boxplot se dibujan exactamente hasta las vallas (Q1 − 1.5·RIC y Q3 + 1.5·RIC).</strong><br> <label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label>
+</div>
+<div style="margin-bottom: 1rem;">
+<strong>5. Solo hay que buscar valores atípicos por encima de Q3, porque son los que estiran la distribución.</strong><br> <label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label>
+</div>
 <button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTema6()">
 Revisar respuestas
 </button>
@@ -709,7 +941,7 @@ Revisar respuestas
 </div>
 <script>
 function revisarQuizTema6() {
-  const respuestas = { q1: "V", q2: "F", q3: "V" };
+  const respuestas = { q1: "V", q2: "F", q3: "V", q4: "F", q5: "F" };
   // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
   const sinResponder = Object.keys(respuestas).filter(
     p => !document.querySelector(`input[name="${p}"]:checked`)
@@ -737,8 +969,11 @@ function revisarQuizTema6() {
 <div class="card-lab">
 <ul>
 <li>Los cuartiles dividen los datos ordenados en cuatro partes iguales; el RIC mide la dispersión del 50% central, sin verse afectado por valores extremos.</li>
-<li>La regla estándar de valores atípicos usa <span class="math inline">\(Q_3 + 1.5 \cdot RIC\)</span> y <span class="math inline">\(Q_1 - 1.5 \cdot RIC\)</span> como límites.</li>
-<li>Un boxplot resume 5 números (mínimo, Q1, mediana, Q3, máximo) y hace visibles la mediana, la dispersión y los atípicos en un solo vistazo — sin necesitar el promedio.</li>
+<li><strong>El procedimiento completo son 7 pasos:</strong> ordenar → posición del cuartil (<span class="math inline">\(h=(n-1)p+1\)</span>) → leer el valor → RIC → vallas → identificar atípicos → ubicar los bigotes.</li>
+<li>La regla estándar de valores atípicos usa <span class="math inline">\(Q_3 + 1.5 \cdot RIC\)</span> y <span class="math inline">\(Q_1 - 1.5 \cdot RIC\)</span> como límites — y hay que aplicarla <strong>a los dos extremos</strong>, no solo al que salta a la vista.</li>
+<li><strong>Los bigotes no llegan hasta las vallas:</strong> llegan hasta el último dato real que queda dentro de ellas.</li>
+<li>Un boxplot resume 5 números (bigote inferior, Q1, mediana, Q3, bigote superior) y hace visibles la mediana, la dispersión y los atípicos en un solo vistazo — sin necesitar el promedio.</li>
+<li><code>boxplot(x, plot = FALSE)$stats</code> te devuelve esos cinco números para verificar tus cálculos a mano.</li>
 </ul>
 </div>
 
@@ -1211,210 +1446,348 @@ function revisarQuizTema6() {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema 6 · Cuantiles y boxplot"</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔩 ¿Cuántos huecos aguanta una broca antes de romperse?</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>Se probaron 49 brocas idénticas, perforando una aleación de latón hasta que cada una se rompió. Se registró cuántos huecos alcanzó a hacer cada una antes de fracturarse (Contento Rubio). Algunas duraron muchísimo más que las demás.</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>Antes de ver los datos: si la mayoría de las brocas duran entre 150 y 220 huecos, pero una llegó a 520, ¿esa broca de 520 es simplemente "una muy buena", o podría tratarse de un dato atípico que merece investigarse aparte?</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: los datos reales</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>duracion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">118</span>,<span class="dv">120</span>,<span class="dv">123</span>,<span class="dv">125</span>,<span class="dv">127</span>,<span class="dv">130</span>,<span class="dv">136</span>,<span class="dv">139</span>,<span class="dv">141</span>,<span class="dv">155</span>,<span class="dv">156</span>,<span class="dv">158</span>,<span class="dv">159</span>,</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>              <span class="dv">160</span>,<span class="dv">160</span>,<span class="dv">161</span>,<span class="dv">168</span>,<span class="dv">170</span>,<span class="dv">171</span>,<span class="dv">172</span>,<span class="dv">174</span>,<span class="dv">175</span>,<span class="dv">178</span>,<span class="dv">178</span>,<span class="dv">177</span>,<span class="dv">184</span>,<span class="dv">185</span>,</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>              <span class="dv">187</span>,<span class="dv">191</span>,<span class="dv">191</span>,<span class="dv">194</span>,<span class="dv">197</span>,<span class="dv">199</span>,<span class="dv">201</span>,<span class="dv">206</span>,<span class="dv">208</span>,<span class="dv">210</span>,<span class="dv">211</span>,<span class="dv">217</span>,<span class="dv">248</span>,<span class="dv">263</span>,</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>              <span class="dv">265</span>,<span class="dv">270</span>,<span class="dv">289</span>,<span class="dv">322</span>,<span class="dv">388</span>,<span class="dv">513</span>,<span class="dv">520</span>)</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(duracion)</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(duracion)</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>Ordena los datos y mira los últimos 5 valores. ¿Ves un salto brusco entre la mayoría de los datos y los últimos dos?</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>¿Cómo definirías, con una regla clara y no solo "a ojo", a partir de qué valor un dato se considera atípico?</span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎛️ Simulación: construyendo el boxplot paso a paso</span></span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-brocas</span></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Boxplot de la duración de 49 brocas (Contento Rubio)"</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>duracion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">118</span>,<span class="dv">120</span>,<span class="dv">123</span>,<span class="dv">125</span>,<span class="dv">127</span>,<span class="dv">130</span>,<span class="dv">136</span>,<span class="dv">139</span>,<span class="dv">141</span>,<span class="dv">155</span>,<span class="dv">156</span>,<span class="dv">158</span>,<span class="dv">159</span>,</span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>              <span class="dv">160</span>,<span class="dv">160</span>,<span class="dv">161</span>,<span class="dv">168</span>,<span class="dv">170</span>,<span class="dv">171</span>,<span class="dv">172</span>,<span class="dv">174</span>,<span class="dv">175</span>,<span class="dv">178</span>,<span class="dv">178</span>,<span class="dv">177</span>,<span class="dv">184</span>,<span class="dv">185</span>,</span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>              <span class="dv">187</span>,<span class="dv">191</span>,<span class="dv">191</span>,<span class="dv">194</span>,<span class="dv">197</span>,<span class="dv">199</span>,<span class="dv">201</span>,<span class="dv">206</span>,<span class="dv">208</span>,<span class="dv">210</span>,<span class="dv">211</span>,<span class="dv">217</span>,<span class="dv">248</span>,<span class="dv">263</span>,</span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>              <span class="dv">265</span>,<span class="dv">270</span>,<span class="dv">289</span>,<span class="dv">322</span>,<span class="dv">388</span>,<span class="dv">513</span>,<span class="dv">520</span>)</span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(duracion, <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Número de huecos antes de romperse"</span>, <span class="at">xlab =</span> <span class="st">"No. de huecos"</span>)</span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">mean</span>(duracion), <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
-<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="st">"media (*)"</span>, <span class="at">pch =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">bty =</span> <span class="st">"n"</span>)</span>
-<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>Los puntos que aparecen sueltos fuera de los "bigotes" son justamente los valores atípicos que ya habías notado al ordenar los datos — R los identifica automáticamente con la misma regla que vamos a formalizar ahora.</span>
-<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Discusión</span></span>
-<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Por qué la mediana está más cerca de Q1 que de Q3 en este boxplot? ¿Qué te dice eso sobre la forma de la distribución?</span>
-<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si tuvieras que decidir si estas brocas cumplen un estándar de calidad, ¿usarías la media o la mediana como referencia? ¿Por qué?</span>
-<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuantiles y cuartiles</span></span>
-<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a>Un cuantil es un número que separa los datos ordenados en dos partes, según una proporción $p$: el $100p\%$ de los datos son menores o iguales al cuantil, y el $100(1-p)\%$ restante es mayor o igual (Rincón, 2017). Los **cuartiles** son los cuantiles al 25%, 50% y 75%:</span>
-<span id="cb24-71"><a href="#cb24-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Q_1$ (25%): un cuarto de los datos son menores o iguales a este valor.</span>
-<span id="cb24-72"><a href="#cb24-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Q_2$ (50%): es la mediana.</span>
-<span id="cb24-73"><a href="#cb24-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Q_3$ (75%): tres cuartos de los datos son menores o iguales a este valor.</span>
-<span id="cb24-74"><a href="#cb24-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-75"><a href="#cb24-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rango intercuartílico (RIC / IQR)</span></span>
-<span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a>La altura de la "caja" del boxplot: la distancia entre el primer y tercer cuartil.</span>
-<span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a>$$RIC = Q_3 - Q_1$$</span>
-<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a>Mide qué tan dispersas están el 50% de las observaciones centrales, sin que le afecten los valores extremos — es una medida de dispersión robusta, análoga a como la mediana es una medida de tendencia central robusta.</span>
-<span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vallas y valores atípicos</span></span>
-<span id="cb24-83"><a href="#cb24-83" aria-hidden="true" tabindex="-1"></a>Rincón y Contento Rubio coinciden en la misma regla estándar (la que usa <span class="in">`boxplot()`</span> en R):</span>
-<span id="cb24-84"><a href="#cb24-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-85"><a href="#cb24-85" aria-hidden="true" tabindex="-1"></a>$$\text{Brazo superior} = \min<span class="sc">\{</span>x_{(n)},\ Q_3 + 1.5 \cdot RIC<span class="sc">\}</span>$$</span>
-<span id="cb24-86"><a href="#cb24-86" aria-hidden="true" tabindex="-1"></a>$$\text{Brazo inferior} = \max<span class="sc">\{</span>x_{(1)},\ Q_1 - 1.5 \cdot RIC<span class="sc">\}</span>$$</span>
-<span id="cb24-87"><a href="#cb24-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-88"><a href="#cb24-88" aria-hidden="true" tabindex="-1"></a>Los datos que caen fuera de estos brazos se consideran **valores atípicos**. Contento Rubio añade un segundo nivel: las **vallas externas**, a $1.5 \cdot RIC$ más allá de las internas — los datos más allá de esas se consideran **atípicos extremos**.</span>
-<span id="cb24-89"><a href="#cb24-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-90"><a href="#cb24-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lectura del boxplot</span></span>
-<span id="cb24-91"><a href="#cb24-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si la mediana está centrada en la caja y los bigotes son de largo similar → indicio de simetría.</span>
-<span id="cb24-92"><a href="#cb24-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si la mediana está desplazada hacia un extremo de la caja, o un bigote es mucho más largo que el otro → indicio de sesgo.</span>
-<span id="cb24-93"><a href="#cb24-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El ancho de la caja es directamente proporcional a la variabilidad — útil para comparar dos o más boxplots lado a lado.</span>
-<span id="cb24-94"><a href="#cb24-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-95"><a href="#cb24-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-96"><a href="#cb24-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-97"><a href="#cb24-97" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb24-98"><a href="#cb24-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb24-99"><a href="#cb24-99" aria-hidden="true" tabindex="-1"></a>Un boxplot es excelente para detectar atípicos y comparar dispersión, pero **oculta la forma exacta** de la distribución: no distingue una distribución unimodal de una bimodal, porque ambas pueden producir una caja parecida. Combínalo siempre con un histograma antes de sacar conclusiones sobre la forma de los datos. Y recuerda: un valor atípico no se elimina automáticamente — primero se investiga su origen. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb24-100"><a href="#cb24-100" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-101"><a href="#cb24-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-102"><a href="#cb24-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
-<span id="cb24-103"><a href="#cb24-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-104"><a href="#cb24-104" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Los datos y los tres cuartiles:**</span>
-<span id="cb24-107"><a href="#cb24-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-108"><a href="#cb24-108" aria-hidden="true" tabindex="-1"></a>duracion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">118</span>,<span class="dv">120</span>,<span class="dv">123</span>,<span class="dv">125</span>,<span class="dv">127</span>,<span class="dv">130</span>,<span class="dv">136</span>,<span class="dv">139</span>,<span class="dv">141</span>,<span class="dv">155</span>,<span class="dv">156</span>,<span class="dv">158</span>,<span class="dv">159</span>,</span>
-<span id="cb24-109"><a href="#cb24-109" aria-hidden="true" tabindex="-1"></a>              <span class="dv">160</span>,<span class="dv">160</span>,<span class="dv">161</span>,<span class="dv">168</span>,<span class="dv">170</span>,<span class="dv">171</span>,<span class="dv">172</span>,<span class="dv">174</span>,<span class="dv">175</span>,<span class="dv">178</span>,<span class="dv">178</span>,<span class="dv">177</span>,<span class="dv">184</span>,<span class="dv">185</span>,</span>
-<span id="cb24-110"><a href="#cb24-110" aria-hidden="true" tabindex="-1"></a>              <span class="dv">187</span>,<span class="dv">191</span>,<span class="dv">191</span>,<span class="dv">194</span>,<span class="dv">197</span>,<span class="dv">199</span>,<span class="dv">201</span>,<span class="dv">206</span>,<span class="dv">208</span>,<span class="dv">210</span>,<span class="dv">211</span>,<span class="dv">217</span>,<span class="dv">248</span>,<span class="dv">263</span>,</span>
-<span id="cb24-111"><a href="#cb24-111" aria-hidden="true" tabindex="-1"></a>              <span class="dv">265</span>,<span class="dv">270</span>,<span class="dv">289</span>,<span class="dv">322</span>,<span class="dv">388</span>,<span class="dv">513</span>,<span class="dv">520</span>)</span>
-<span id="cb24-112"><a href="#cb24-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-113"><a href="#cb24-113" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(duracion, <span class="fl">0.25</span>)</span>
-<span id="cb24-114"><a href="#cb24-114" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(duracion, <span class="fl">0.50</span>)</span>
-<span id="cb24-115"><a href="#cb24-115" aria-hidden="true" tabindex="-1"></a>Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(duracion, <span class="fl">0.75</span>)</span>
-<span id="cb24-116"><a href="#cb24-116" aria-hidden="true" tabindex="-1"></a>Q1</span>
-<span id="cb24-117"><a href="#cb24-117" aria-hidden="true" tabindex="-1"></a>Q2</span>
-<span id="cb24-118"><a href="#cb24-118" aria-hidden="true" tabindex="-1"></a>Q3</span>
-<span id="cb24-119"><a href="#cb24-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-120"><a href="#cb24-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-121"><a href="#cb24-121" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Rango intercuartílico:**</span>
-<span id="cb24-124"><a href="#cb24-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-125"><a href="#cb24-125" aria-hidden="true" tabindex="-1"></a>ric <span class="ot">&lt;-</span> <span class="fu">IQR</span>(duracion)</span>
-<span id="cb24-126"><a href="#cb24-126" aria-hidden="true" tabindex="-1"></a>ric</span>
-<span id="cb24-127"><a href="#cb24-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-128"><a href="#cb24-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-129"><a href="#cb24-129" aria-hidden="true" tabindex="-1"></a>**Paso 3 — Vallas internas (límite de valores atípicos):**</span>
-<span id="cb24-132"><a href="#cb24-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-133"><a href="#cb24-133" aria-hidden="true" tabindex="-1"></a>Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> ric  <span class="co"># valla interna inferior</span></span>
-<span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a>Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> ric  <span class="co"># valla interna superior</span></span>
-<span id="cb24-135"><a href="#cb24-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-136"><a href="#cb24-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a>**Paso 4 — Vallas externas (límite de atípicos extremos):**</span>
-<span id="cb24-140"><a href="#cb24-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a>Q1 <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> ric  <span class="co"># valla externa inferior</span></span>
-<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a>Q3 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> ric  <span class="co"># valla externa superior</span></span>
-<span id="cb24-143"><a href="#cb24-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-144"><a href="#cb24-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a>Con estos datos: $Q_1 = 158$, $Q_2 = 178$, $Q_3 = 208$, por lo que $RIC = 50$. La valla interna superior queda en $208 + 1.5(50) = 283$ — por lo tanto, **289, 322, 388, 513 y 520 son valores atípicos** según esta regla (los cinco valores del conjunto que superan 283, no solo los tres más extremos).</span>
-<span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-147"><a href="#cb24-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb24-148"><a href="#cb24-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a>Con el dataset <span class="in">`houses`</span> (el mismo de los Temas anteriores):</span>
-<span id="cb24-150"><a href="#cb24-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-153"><a href="#cb24-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
-<span id="cb24-155"><a href="#cb24-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-156"><a href="#cb24-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-157"><a href="#cb24-157" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calcula $Q_1$, $Q_2$, $Q_3$ y el RIC de <span class="in">`Price`</span>.</span>
-<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construye un boxplot **comparativo** de <span class="in">`Price`</span> por <span class="in">`Neighborhood`</span> (pista: <span class="in">`boxplot(Price ~ Neighborhood, data = houses)`</span>).</span>
-<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>¿Hay algún valor atípico en alguno de los tres barrios? Compara con el caso de las brocas: ¿qué tan parecida es la regla que usó R aquí a la que aplicaste a mano con la duración de las brocas?</span>
-<span id="cb24-160"><a href="#cb24-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb24-166"><a href="#cb24-166" aria-hidden="true" tabindex="-1"></a><span class="co"># Rango intercuartílico: completa la función correcta</span></span>
-<span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(x)</span>
-<span id="cb24-168"><a href="#cb24-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-169"><a href="#cb24-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-170"><a href="#cb24-170" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb24-171"><a href="#cb24-171" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a><span class="in">`IQR(x)`</span> — calcula directamente $Q_3 - Q_1$.</span>
-<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb24-174"><a href="#cb24-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-175"><a href="#cb24-175" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb24-176"><a href="#cb24-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-177"><a href="#cb24-177" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema6"</span><span class="dt">&gt;</span></span>
-<span id="cb24-178"><a href="#cb24-178" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La caja del boxplot representa el 50% central de los datos.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb24-179"><a href="#cb24-179" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb24-180"><a href="#cb24-180" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Todo punto fuera de los bigotes es necesariamente un error de medición.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb24-181"><a href="#cb24-181" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb24-182"><a href="#cb24-182" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. El rango intercuartílico es Q3 menos Q1.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb24-183"><a href="#cb24-183" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb24-184"><a href="#cb24-184" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema6()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb24-185"><a href="#cb24-185" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema6"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb24-186"><a href="#cb24-186" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb24-187"><a href="#cb24-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-188"><a href="#cb24-188" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb24-189"><a href="#cb24-189" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema6</span>() {</span>
-<span id="cb24-190"><a href="#cb24-190" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb24-191"><a href="#cb24-191" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb24-192"><a href="#cb24-192" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb24-193"><a href="#cb24-193" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb24-194"><a href="#cb24-194" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb24-195"><a href="#cb24-195" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema6"</span>)<span class="op">;</span></span>
-<span id="cb24-196"><a href="#cb24-196" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb24-197"><a href="#cb24-197" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb24-198"><a href="#cb24-198" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb24-199"><a href="#cb24-199" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb24-200"><a href="#cb24-200" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-201"><a href="#cb24-201" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb24-202"><a href="#cb24-202" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb24-203"><a href="#cb24-203" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb24-204"><a href="#cb24-204" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb24-205"><a href="#cb24-205" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-206"><a href="#cb24-206" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema6"</span>)<span class="op">;</span></span>
-<span id="cb24-207"><a href="#cb24-207" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb24-208"><a href="#cb24-208" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb24-209"><a href="#cb24-209" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-210"><a href="#cb24-210" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb24-211"><a href="#cb24-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-212"><a href="#cb24-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb24-213"><a href="#cb24-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-214"><a href="#cb24-214" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb24-215"><a href="#cb24-215" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Los cuartiles dividen los datos ordenados en cuatro partes iguales; el RIC mide la dispersión del 50% central, sin verse afectado por valores extremos.</span>
-<span id="cb24-216"><a href="#cb24-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La regla estándar de valores atípicos usa $Q_3 + 1.5 \cdot RIC$ y $Q_1 - 1.5 \cdot RIC$ como límites.</span>
-<span id="cb24-217"><a href="#cb24-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Un boxplot resume 5 números (mínimo, Q1, mediana, Q3, máximo) y hace visibles la mediana, la dispersión y los atípicos en un solo vistazo — sin necesitar el promedio.</span>
-<span id="cb24-218"><a href="#cb24-218" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema 6 · Cuantiles y boxplot"</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔩 ¿Cuántos huecos aguanta una broca antes de romperse?</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>Se probaron 49 brocas idénticas, perforando una aleación de latón hasta que cada una se rompió. Se registró cuántos huecos alcanzó a hacer cada una antes de fracturarse (Contento Rubio). Algunas duraron muchísimo más que las demás.</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>Antes de ver los datos: si la mayoría de las brocas duran entre 150 y 220 huecos, pero una llegó a 520, ¿esa broca de 520 es simplemente "una muy buena", o podría tratarse de un dato atípico que merece investigarse aparte?</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: los datos reales</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>duracion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">118</span>,<span class="dv">120</span>,<span class="dv">123</span>,<span class="dv">125</span>,<span class="dv">127</span>,<span class="dv">130</span>,<span class="dv">136</span>,<span class="dv">139</span>,<span class="dv">141</span>,<span class="dv">155</span>,<span class="dv">156</span>,<span class="dv">158</span>,<span class="dv">159</span>,</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>              <span class="dv">160</span>,<span class="dv">160</span>,<span class="dv">161</span>,<span class="dv">168</span>,<span class="dv">170</span>,<span class="dv">171</span>,<span class="dv">172</span>,<span class="dv">174</span>,<span class="dv">175</span>,<span class="dv">178</span>,<span class="dv">178</span>,<span class="dv">177</span>,<span class="dv">184</span>,<span class="dv">185</span>,</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>              <span class="dv">187</span>,<span class="dv">191</span>,<span class="dv">191</span>,<span class="dv">194</span>,<span class="dv">197</span>,<span class="dv">199</span>,<span class="dv">201</span>,<span class="dv">206</span>,<span class="dv">208</span>,<span class="dv">210</span>,<span class="dv">211</span>,<span class="dv">217</span>,<span class="dv">248</span>,<span class="dv">263</span>,</span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>              <span class="dv">265</span>,<span class="dv">270</span>,<span class="dv">289</span>,<span class="dv">322</span>,<span class="dv">388</span>,<span class="dv">513</span>,<span class="dv">520</span>)</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(duracion)</span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(duracion)</span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>Ordena los datos y mira los últimos 5 valores. ¿Ves un salto brusco entre la mayoría de los datos y los últimos dos?</span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-32"><a href="#cb43-32" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb43-33"><a href="#cb43-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
+<span id="cb43-34"><a href="#cb43-34" aria-hidden="true" tabindex="-1"></a>¿Cómo definirías, con una regla clara y no solo "a ojo", a partir de qué valor un dato se considera atípico?</span>
+<span id="cb43-35"><a href="#cb43-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-36"><a href="#cb43-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-37"><a href="#cb43-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎛️ Simulación: construyendo el boxplot paso a paso</span></span>
+<span id="cb43-38"><a href="#cb43-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-41"><a href="#cb43-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-42"><a href="#cb43-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-brocas</span></span>
+<span id="cb43-43"><a href="#cb43-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Boxplot de la duración de 49 brocas (Contento Rubio)"</span></span>
+<span id="cb43-44"><a href="#cb43-44" aria-hidden="true" tabindex="-1"></a>duracion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">118</span>,<span class="dv">120</span>,<span class="dv">123</span>,<span class="dv">125</span>,<span class="dv">127</span>,<span class="dv">130</span>,<span class="dv">136</span>,<span class="dv">139</span>,<span class="dv">141</span>,<span class="dv">155</span>,<span class="dv">156</span>,<span class="dv">158</span>,<span class="dv">159</span>,</span>
+<span id="cb43-45"><a href="#cb43-45" aria-hidden="true" tabindex="-1"></a>              <span class="dv">160</span>,<span class="dv">160</span>,<span class="dv">161</span>,<span class="dv">168</span>,<span class="dv">170</span>,<span class="dv">171</span>,<span class="dv">172</span>,<span class="dv">174</span>,<span class="dv">175</span>,<span class="dv">178</span>,<span class="dv">178</span>,<span class="dv">177</span>,<span class="dv">184</span>,<span class="dv">185</span>,</span>
+<span id="cb43-46"><a href="#cb43-46" aria-hidden="true" tabindex="-1"></a>              <span class="dv">187</span>,<span class="dv">191</span>,<span class="dv">191</span>,<span class="dv">194</span>,<span class="dv">197</span>,<span class="dv">199</span>,<span class="dv">201</span>,<span class="dv">206</span>,<span class="dv">208</span>,<span class="dv">210</span>,<span class="dv">211</span>,<span class="dv">217</span>,<span class="dv">248</span>,<span class="dv">263</span>,</span>
+<span id="cb43-47"><a href="#cb43-47" aria-hidden="true" tabindex="-1"></a>              <span class="dv">265</span>,<span class="dv">270</span>,<span class="dv">289</span>,<span class="dv">322</span>,<span class="dv">388</span>,<span class="dv">513</span>,<span class="dv">520</span>)</span>
+<span id="cb43-48"><a href="#cb43-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-49"><a href="#cb43-49" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(duracion, <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
+<span id="cb43-50"><a href="#cb43-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Número de huecos antes de romperse"</span>, <span class="at">xlab =</span> <span class="st">"No. de huecos"</span>)</span>
+<span id="cb43-51"><a href="#cb43-51" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">mean</span>(duracion), <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb43-52"><a href="#cb43-52" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="st">"media (*)"</span>, <span class="at">pch =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">bty =</span> <span class="st">"n"</span>)</span>
+<span id="cb43-53"><a href="#cb43-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-54"><a href="#cb43-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-55"><a href="#cb43-55" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb43-56"><a href="#cb43-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb43-57"><a href="#cb43-57" aria-hidden="true" tabindex="-1"></a>Los puntos que aparecen sueltos fuera de los "bigotes" son justamente los valores atípicos que ya habías notado al ordenar los datos — R los identifica automáticamente con la misma regla que vamos a formalizar ahora.</span>
+<span id="cb43-58"><a href="#cb43-58" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-59"><a href="#cb43-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-60"><a href="#cb43-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Discusión</span></span>
+<span id="cb43-61"><a href="#cb43-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-62"><a href="#cb43-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Por qué la mediana está más cerca de Q1 que de Q3 en este boxplot? ¿Qué te dice eso sobre la forma de la distribución?</span>
+<span id="cb43-63"><a href="#cb43-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si tuvieras que decidir si estas brocas cumplen un estándar de calidad, ¿usarías la media o la mediana como referencia? ¿Por qué?</span>
+<span id="cb43-64"><a href="#cb43-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-65"><a href="#cb43-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb43-66"><a href="#cb43-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-67"><a href="#cb43-67" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb43-68"><a href="#cb43-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-69"><a href="#cb43-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuantiles y cuartiles</span></span>
+<span id="cb43-70"><a href="#cb43-70" aria-hidden="true" tabindex="-1"></a>Un cuantil es un número que separa los datos ordenados en dos partes, según una proporción $p$: el $100p\%$ de los datos son menores o iguales al cuantil, y el $100(1-p)\%$ restante es mayor o igual (Rincón, 2017). Los **cuartiles** son los cuantiles al 25%, 50% y 75%:</span>
+<span id="cb43-71"><a href="#cb43-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Q_1$ (25%): un cuarto de los datos son menores o iguales a este valor.</span>
+<span id="cb43-72"><a href="#cb43-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Q_2$ (50%): es la mediana.</span>
+<span id="cb43-73"><a href="#cb43-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Q_3$ (75%): tres cuartos de los datos son menores o iguales a este valor.</span>
+<span id="cb43-74"><a href="#cb43-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-75"><a href="#cb43-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rango intercuartílico (RIC / IQR)</span></span>
+<span id="cb43-76"><a href="#cb43-76" aria-hidden="true" tabindex="-1"></a>La altura de la "caja" del boxplot: la distancia entre el primer y tercer cuartil.</span>
+<span id="cb43-77"><a href="#cb43-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-78"><a href="#cb43-78" aria-hidden="true" tabindex="-1"></a>$$RIC = Q_3 - Q_1$$</span>
+<span id="cb43-79"><a href="#cb43-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-80"><a href="#cb43-80" aria-hidden="true" tabindex="-1"></a>Mide qué tan dispersas están el 50% de las observaciones centrales, sin que le afecten los valores extremos — es una medida de dispersión robusta, análoga a como la mediana es una medida de tendencia central robusta.</span>
+<span id="cb43-81"><a href="#cb43-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-82"><a href="#cb43-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vallas y valores atípicos</span></span>
+<span id="cb43-83"><a href="#cb43-83" aria-hidden="true" tabindex="-1"></a>Rincón y Contento Rubio coinciden en la misma regla estándar (la que usa <span class="in">`boxplot()`</span> en R):</span>
+<span id="cb43-84"><a href="#cb43-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-85"><a href="#cb43-85" aria-hidden="true" tabindex="-1"></a>$$\text{Brazo superior} = \min<span class="sc">\{</span>x_{(n)},\ Q_3 + 1.5 \cdot RIC<span class="sc">\}</span>$$</span>
+<span id="cb43-86"><a href="#cb43-86" aria-hidden="true" tabindex="-1"></a>$$\text{Brazo inferior} = \max<span class="sc">\{</span>x_{(1)},\ Q_1 - 1.5 \cdot RIC<span class="sc">\}</span>$$</span>
+<span id="cb43-87"><a href="#cb43-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-88"><a href="#cb43-88" aria-hidden="true" tabindex="-1"></a>Los datos que caen fuera de estos brazos se consideran **valores atípicos**. Contento Rubio añade un segundo nivel: las **vallas externas**, a $1.5 \cdot RIC$ más allá de las internas — los datos más allá de esas se consideran **atípicos extremos**.</span>
+<span id="cb43-89"><a href="#cb43-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-90"><a href="#cb43-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lectura del boxplot</span></span>
+<span id="cb43-91"><a href="#cb43-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si la mediana está centrada en la caja y los bigotes son de largo similar → indicio de simetría.</span>
+<span id="cb43-92"><a href="#cb43-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si la mediana está desplazada hacia un extremo de la caja, o un bigote es mucho más largo que el otro → indicio de sesgo.</span>
+<span id="cb43-93"><a href="#cb43-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El ancho de la caja es directamente proporcional a la variabilidad — útil para comparar dos o más boxplots lado a lado.</span>
+<span id="cb43-94"><a href="#cb43-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-95"><a href="#cb43-95" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-96"><a href="#cb43-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-97"><a href="#cb43-97" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb43-98"><a href="#cb43-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb43-99"><a href="#cb43-99" aria-hidden="true" tabindex="-1"></a>Un boxplot es excelente para detectar atípicos y comparar dispersión, pero **oculta la forma exacta** de la distribución: no distingue una distribución unimodal de una bimodal, porque ambas pueden producir una caja parecida. Combínalo siempre con un histograma antes de sacar conclusiones sobre la forma de los datos. Y recuerda: un valor atípico no se elimina automáticamente — primero se investiga su origen. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb43-100"><a href="#cb43-100" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-101"><a href="#cb43-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-102"><a href="#cb43-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📐 Guía paso a paso: construir un boxplot a mano</span></span>
+<span id="cb43-103"><a href="#cb43-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-104"><a href="#cb43-104" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb43-105"><a href="#cb43-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Por qué hacerlo a mano al menos una vez</span></span>
+<span id="cb43-106"><a href="#cb43-106" aria-hidden="true" tabindex="-1"></a><span class="in">`boxplot()`</span> te dibuja la caja en una línea, pero en el examen te pueden pedir los cinco números o justificar por qué un dato es atípico. Estos 7 pasos son el procedimiento completo: hazlos con lápiz y papel una vez, y después usa R con la seguridad de saber qué está calculando.</span>
+<span id="cb43-107"><a href="#cb43-107" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-108"><a href="#cb43-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-109"><a href="#cb43-109" aria-hidden="true" tabindex="-1"></a>Vamos a construir el boxplot de las 49 brocas, paso por paso.</span>
+<span id="cb43-110"><a href="#cb43-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-111"><a href="#cb43-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 1 — Ordenar los datos de menor a mayor</span></span>
+<span id="cb43-112"><a href="#cb43-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-113"><a href="#cb43-113" aria-hidden="true" tabindex="-1"></a>Todo el procedimiento depende del orden. Sin este paso, ningún cuantil tiene sentido:</span>
+<span id="cb43-114"><a href="#cb43-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-117"><a href="#cb43-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-118"><a href="#cb43-118" aria-hidden="true" tabindex="-1"></a>duracion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">118</span>,<span class="dv">120</span>,<span class="dv">123</span>,<span class="dv">125</span>,<span class="dv">127</span>,<span class="dv">130</span>,<span class="dv">136</span>,<span class="dv">139</span>,<span class="dv">141</span>,<span class="dv">155</span>,<span class="dv">156</span>,<span class="dv">158</span>,<span class="dv">159</span>,</span>
+<span id="cb43-119"><a href="#cb43-119" aria-hidden="true" tabindex="-1"></a>              <span class="dv">160</span>,<span class="dv">160</span>,<span class="dv">161</span>,<span class="dv">168</span>,<span class="dv">170</span>,<span class="dv">171</span>,<span class="dv">172</span>,<span class="dv">174</span>,<span class="dv">175</span>,<span class="dv">178</span>,<span class="dv">178</span>,<span class="dv">177</span>,<span class="dv">184</span>,<span class="dv">185</span>,</span>
+<span id="cb43-120"><a href="#cb43-120" aria-hidden="true" tabindex="-1"></a>              <span class="dv">187</span>,<span class="dv">191</span>,<span class="dv">191</span>,<span class="dv">194</span>,<span class="dv">197</span>,<span class="dv">199</span>,<span class="dv">201</span>,<span class="dv">206</span>,<span class="dv">208</span>,<span class="dv">210</span>,<span class="dv">211</span>,<span class="dv">217</span>,<span class="dv">248</span>,<span class="dv">263</span>,</span>
+<span id="cb43-121"><a href="#cb43-121" aria-hidden="true" tabindex="-1"></a>              <span class="dv">265</span>,<span class="dv">270</span>,<span class="dv">289</span>,<span class="dv">322</span>,<span class="dv">388</span>,<span class="dv">513</span>,<span class="dv">520</span>)</span>
+<span id="cb43-122"><a href="#cb43-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-123"><a href="#cb43-123" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(duracion)</span>
+<span id="cb43-124"><a href="#cb43-124" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb43-125"><a href="#cb43-125" aria-hidden="true" tabindex="-1"></a>n</span>
+<span id="cb43-126"><a href="#cb43-126" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb43-127"><a href="#cb43-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-128"><a href="#cb43-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-129"><a href="#cb43-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 2 — Localizar la posición de cada cuartil</span></span>
+<span id="cb43-130"><a href="#cb43-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-131"><a href="#cb43-131" aria-hidden="true" tabindex="-1"></a>R usa por defecto esta fórmula para ubicar el cuantil $p$ dentro de los datos ordenados:</span>
+<span id="cb43-132"><a href="#cb43-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-133"><a href="#cb43-133" aria-hidden="true" tabindex="-1"></a>$$h = (n-1)\cdot p + 1$$</span>
+<span id="cb43-134"><a href="#cb43-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-135"><a href="#cb43-135" aria-hidden="true" tabindex="-1"></a>donde $h$ es la **posición** (no el valor). Con $n = 49$:</span>
+<span id="cb43-136"><a href="#cb43-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-139"><a href="#cb43-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-140"><a href="#cb43-140" aria-hidden="true" tabindex="-1"></a>posicion <span class="ot">&lt;-</span> <span class="cf">function</span>(p, n) (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> p <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb43-141"><a href="#cb43-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-142"><a href="#cb43-142" aria-hidden="true" tabindex="-1"></a><span class="fu">posicion</span>(<span class="fl">0.25</span>, n)  <span class="co"># posición de Q1</span></span>
+<span id="cb43-143"><a href="#cb43-143" aria-hidden="true" tabindex="-1"></a><span class="fu">posicion</span>(<span class="fl">0.50</span>, n)  <span class="co"># posición de Q2 (mediana)</span></span>
+<span id="cb43-144"><a href="#cb43-144" aria-hidden="true" tabindex="-1"></a><span class="fu">posicion</span>(<span class="fl">0.75</span>, n)  <span class="co"># posición de Q3</span></span>
+<span id="cb43-145"><a href="#cb43-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-146"><a href="#cb43-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-147"><a href="#cb43-147" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb43-148"><a href="#cb43-148" aria-hidden="true" tabindex="-1"></a>Con $n=49$ las tres posiciones dan **números enteros exactos** (13, 25 y 37), así que los cuartiles son directamente el dato que ocupa esa posición — no hay que interpolar. Es un caso cómodo: $n-1 = 48$ es divisible entre 4.</span>
+<span id="cb43-149"><a href="#cb43-149" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-150"><a href="#cb43-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-151"><a href="#cb43-151" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 3 — Leer el valor en esa posición</span></span>
+<span id="cb43-152"><a href="#cb43-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-155"><a href="#cb43-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-156"><a href="#cb43-156" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> x[<span class="dv">13</span>]</span>
+<span id="cb43-157"><a href="#cb43-157" aria-hidden="true" tabindex="-1"></a>Q2 <span class="ot">&lt;-</span> x[<span class="dv">25</span>]</span>
+<span id="cb43-158"><a href="#cb43-158" aria-hidden="true" tabindex="-1"></a>Q3 <span class="ot">&lt;-</span> x[<span class="dv">37</span>]</span>
+<span id="cb43-159"><a href="#cb43-159" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">Q1 =</span> Q1, <span class="at">Q2 =</span> Q2, <span class="at">Q3 =</span> Q3)</span>
+<span id="cb43-160"><a href="#cb43-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-161"><a href="#cb43-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-162"><a href="#cb43-162" aria-hidden="true" tabindex="-1"></a>Y comprobamos que coincide con lo que calcula R directamente:</span>
+<span id="cb43-163"><a href="#cb43-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-166"><a href="#cb43-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-167"><a href="#cb43-167" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(duracion, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>))</span>
+<span id="cb43-168"><a href="#cb43-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-169"><a href="#cb43-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-170"><a href="#cb43-170" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb43-171"><a href="#cb43-171" aria-hidden="true" tabindex="-1"></a><span class="fu">## ¿Y si la posición no da un número entero?</span></span>
+<span id="cb43-172"><a href="#cb43-172" aria-hidden="true" tabindex="-1"></a>Con otros valores de $n$, $h$ puede caer entre dos datos — por ejemplo, $h = 12.75$. Entonces se **interpola** entre el dato 12 y el 13, tomando el 75% del camino entre ellos:</span>
+<span id="cb43-173"><a href="#cb43-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-174"><a href="#cb43-174" aria-hidden="true" tabindex="-1"></a>$$Q = x_{(12)} + 0.75\cdot\left(x_{(13)} - x_{(12)}\right)$$</span>
+<span id="cb43-175"><a href="#cb43-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-176"><a href="#cb43-176" aria-hidden="true" tabindex="-1"></a>En R esto es automático. En el examen, si te toca a mano, di explícitamente qué método usaste — existen varias convenciones válidas y por eso <span class="in">`quantile()`</span> y <span class="in">`summarytools::descr()`</span> a veces difieren en unas décimas.</span>
+<span id="cb43-177"><a href="#cb43-177" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-178"><a href="#cb43-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-179"><a href="#cb43-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 4 — Calcular el rango intercuartílico</span></span>
+<span id="cb43-180"><a href="#cb43-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-183"><a href="#cb43-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-184"><a href="#cb43-184" aria-hidden="true" tabindex="-1"></a>ric <span class="ot">&lt;-</span> Q3 <span class="sc">-</span> Q1</span>
+<span id="cb43-185"><a href="#cb43-185" aria-hidden="true" tabindex="-1"></a>ric</span>
+<span id="cb43-186"><a href="#cb43-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-187"><a href="#cb43-187" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(duracion)   <span class="co"># la función de R hace lo mismo</span></span>
+<span id="cb43-188"><a href="#cb43-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-189"><a href="#cb43-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-190"><a href="#cb43-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 5 — Calcular las vallas</span></span>
+<span id="cb43-191"><a href="#cb43-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-192"><a href="#cb43-192" aria-hidden="true" tabindex="-1"></a>Las **vallas internas** marcan el límite de los valores atípicos; las **externas**, el de los atípicos extremos:</span>
+<span id="cb43-193"><a href="#cb43-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-196"><a href="#cb43-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-197"><a href="#cb43-197" aria-hidden="true" tabindex="-1"></a>valla_inf <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
+<span id="cb43-198"><a href="#cb43-198" aria-hidden="true" tabindex="-1"></a>valla_sup <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
+<span id="cb43-199"><a href="#cb43-199" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">valla_inferior =</span> valla_inf, <span class="at">valla_superior =</span> valla_sup)</span>
+<span id="cb43-200"><a href="#cb43-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-201"><a href="#cb43-201" aria-hidden="true" tabindex="-1"></a>ext_inf <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> ric</span>
+<span id="cb43-202"><a href="#cb43-202" aria-hidden="true" tabindex="-1"></a>ext_sup <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> ric</span>
+<span id="cb43-203"><a href="#cb43-203" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">externa_inferior =</span> ext_inf, <span class="at">externa_superior =</span> ext_sup)</span>
+<span id="cb43-204"><a href="#cb43-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-205"><a href="#cb43-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-206"><a href="#cb43-206" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 6 — Identificar los valores atípicos</span></span>
+<span id="cb43-207"><a href="#cb43-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-208"><a href="#cb43-208" aria-hidden="true" tabindex="-1"></a>Un dato es atípico si cae **fuera** de las vallas internas. Ojo: hay que revisar **los dos extremos**, no solo el superior:</span>
+<span id="cb43-209"><a href="#cb43-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-212"><a href="#cb43-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-213"><a href="#cb43-213" aria-hidden="true" tabindex="-1"></a>atipicos <span class="ot">&lt;-</span> x[x <span class="sc">&lt;</span> valla_inf <span class="sc">|</span> x <span class="sc">&gt;</span> valla_sup]</span>
+<span id="cb43-214"><a href="#cb43-214" aria-hidden="true" tabindex="-1"></a>atipicos</span>
+<span id="cb43-215"><a href="#cb43-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-216"><a href="#cb43-216" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cuáles son además atípicos extremos?</span></span>
+<span id="cb43-217"><a href="#cb43-217" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&lt;</span> ext_inf <span class="sc">|</span> x <span class="sc">&gt;</span> ext_sup]</span>
+<span id="cb43-218"><a href="#cb43-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-219"><a href="#cb43-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-220"><a href="#cb43-220" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb43-221"><a href="#cb43-221" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrección de rigor</span></span>
+<span id="cb43-222"><a href="#cb43-222" aria-hidden="true" tabindex="-1"></a>Una versión anterior de este material afirmaba que los atípicos eran "289, 322, 388, 513 y 520" — cinco valores, todos por arriba. **Faltaba uno:** el dato **30** también es atípico, porque cae por debajo de la valla inferior ($30 &lt; 83$). Son **seis** valores atípicos, no cinco.</span>
+<span id="cb43-223"><a href="#cb43-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-224"><a href="#cb43-224" aria-hidden="true" tabindex="-1"></a>El error es instructivo: al mirar los datos ordenados, el salto de la cola superior (289 → 520) salta a la vista, mientras que el 30 se ve como "solo el mínimo". Por eso el criterio de las vallas es una **regla**, no una impresión visual — y hay que aplicarla a los dos lados siempre. De los seis atípicos, solo 388, 513 y 520 superan además la valla externa (358), así que esos tres son atípicos *extremos*.</span>
+<span id="cb43-225"><a href="#cb43-225" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-226"><a href="#cb43-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-227"><a href="#cb43-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 7 — Determinar dónde terminan los bigotes</span></span>
+<span id="cb43-228"><a href="#cb43-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-229"><a href="#cb43-229" aria-hidden="true" tabindex="-1"></a>Este es el paso que más se malinterpreta: **los bigotes no llegan hasta las vallas**, sino hasta el dato real más extremo que todavía está *dentro* de ellas:</span>
+<span id="cb43-230"><a href="#cb43-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-233"><a href="#cb43-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-234"><a href="#cb43-234" aria-hidden="true" tabindex="-1"></a>dentro <span class="ot">&lt;-</span> x[x <span class="sc">&gt;=</span> valla_inf <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> valla_sup]</span>
+<span id="cb43-235"><a href="#cb43-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-236"><a href="#cb43-236" aria-hidden="true" tabindex="-1"></a>bigote_inf <span class="ot">&lt;-</span> <span class="fu">min</span>(dentro)</span>
+<span id="cb43-237"><a href="#cb43-237" aria-hidden="true" tabindex="-1"></a>bigote_sup <span class="ot">&lt;-</span> <span class="fu">max</span>(dentro)</span>
+<span id="cb43-238"><a href="#cb43-238" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">bigote_inferior =</span> bigote_inf, <span class="at">bigote_superior =</span> bigote_sup)</span>
+<span id="cb43-239"><a href="#cb43-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-240"><a href="#cb43-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-241"><a href="#cb43-241" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb43-242"><a href="#cb43-242" aria-hidden="true" tabindex="-1"></a>El bigote inferior termina en **118** (no en 83, que es la valla) y el superior en **270** (no en 283). La valla es el criterio para decidir qué es atípico; el bigote se dibuja hasta el último dato que sobrevive ese criterio.</span>
+<span id="cb43-243"><a href="#cb43-243" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-244"><a href="#cb43-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-245"><a href="#cb43-245" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resumen: los cinco números del boxplot</span></span>
+<span id="cb43-246"><a href="#cb43-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-249"><a href="#cb43-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-250"><a href="#cb43-250" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">bigote_inf =</span> bigote_inf, <span class="at">Q1 =</span> Q1, <span class="at">mediana =</span> Q2, <span class="at">Q3 =</span> Q3, <span class="at">bigote_sup =</span> bigote_sup)</span>
+<span id="cb43-251"><a href="#cb43-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-252"><a href="#cb43-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-253"><a href="#cb43-253" aria-hidden="true" tabindex="-1"></a>Y la comprobación definitiva — <span class="in">`boxplot()`</span> guarda internamente estos mismos valores en <span class="in">`$stats`</span>:</span>
+<span id="cb43-254"><a href="#cb43-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-257"><a href="#cb43-257" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-258"><a href="#cb43-258" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">boxplot</span>(duracion, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb43-259"><a href="#cb43-259" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>stats   <span class="co"># bigote inf, Q1, mediana, Q3, bigote sup</span></span>
+<span id="cb43-260"><a href="#cb43-260" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>out     <span class="co"># los valores atípicos que dibuja como puntos sueltos</span></span>
+<span id="cb43-261"><a href="#cb43-261" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-262"><a href="#cb43-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-263"><a href="#cb43-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb43-264"><a href="#cb43-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb43-265"><a href="#cb43-265" aria-hidden="true" tabindex="-1"></a><span class="in">`boxplot(x, plot = FALSE)`</span> es la mejor forma de **verificar tus cálculos manuales**: te devuelve los cinco números y los atípicos sin dibujar nada. Si tu resultado a mano no coincide con <span class="in">`b$stats`</span>, revisa el Paso 2 (la fórmula de posición) antes que ninguna otra cosa — ahí es donde se concentran casi todos los errores. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb43-266"><a href="#cb43-266" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-267"><a href="#cb43-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-268"><a href="#cb43-268" aria-hidden="true" tabindex="-1"></a><span class="fu">### El dibujo final, con todo señalado</span></span>
+<span id="cb43-269"><a href="#cb43-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-272"><a href="#cb43-272" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-273"><a href="#cb43-273" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Los cinco números y las vallas sobre el boxplot"</span></span>
+<span id="cb43-274"><a href="#cb43-274" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(duracion, <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>,</span>
+<span id="cb43-275"><a href="#cb43-275" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Duración de 49 brocas: anatomía del boxplot"</span>,</span>
+<span id="cb43-276"><a href="#cb43-276" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"No. de huecos antes de romperse"</span>)</span>
+<span id="cb43-277"><a href="#cb43-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-278"><a href="#cb43-278" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(valla_inf, valla_sup), <span class="at">col =</span> <span class="st">"#D9534F"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb43-279"><a href="#cb43-279" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(ext_inf, ext_sup), <span class="at">col =</span> <span class="st">"#B37D00"</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb43-280"><a href="#cb43-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-281"><a href="#cb43-281" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,</span>
+<span id="cb43-282"><a href="#cb43-282" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Vallas internas (1.5·RIC)"</span>, <span class="st">"Vallas externas (3·RIC)"</span>),</span>
+<span id="cb43-283"><a href="#cb43-283" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#D9534F"</span>, <span class="st">"#B37D00"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb43-284"><a href="#cb43-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-285"><a href="#cb43-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-286"><a href="#cb43-286" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb43-287"><a href="#cb43-287" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb43-288"><a href="#cb43-288" aria-hidden="true" tabindex="-1"></a>Fíjate en la distancia entre la línea roja de la derecha (valla interna, 283) y donde realmente termina el bigote (270): ese espacio vacío es normal y confirma el Paso 7. Y observa que el 30, a la izquierda, queda fuera de su valla roja — es el atípico que se pasa por alto si uno solo mira la cola larga.</span>
+<span id="cb43-289"><a href="#cb43-289" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb43-290"><a href="#cb43-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-291"><a href="#cb43-291" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb43-292"><a href="#cb43-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-293"><a href="#cb43-293" aria-hidden="true" tabindex="-1"></a>Con el dataset <span class="in">`houses`</span> (el mismo de los Temas anteriores):</span>
+<span id="cb43-294"><a href="#cb43-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-297"><a href="#cb43-297" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb43-298"><a href="#cb43-298" aria-hidden="true" tabindex="-1"></a>houses <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/house-prices.csv"</span>)</span>
+<span id="cb43-299"><a href="#cb43-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-300"><a href="#cb43-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-301"><a href="#cb43-301" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Aplica los 7 pasos de la guía a `Price`, a mano** (sin usar `boxplot()` todavía): ordena, localiza las posiciones de los cuartiles, léelos, calcula el RIC, las vallas, identifica los atípicos y determina dónde terminan los bigotes. Ojo: con $n = 128$, las posiciones **no** dan enteros — vas a tener que interpolar como se explicó en el Paso 3.</span>
+<span id="cb43-302"><a href="#cb43-302" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Verifica tu resultado con <span class="in">`boxplot(houses$Price, plot = FALSE)$stats`</span> y <span class="in">`$out`</span>. ¿Coincide?</span>
+<span id="cb43-303"><a href="#cb43-303" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Construye un boxplot **comparativo** de <span class="in">`Price`</span> por <span class="in">`Neighborhood`</span> (pista: <span class="in">`boxplot(Price ~ Neighborhood, data = houses)`</span>). ¿En qué barrio aparecen atípicos, y hacia qué lado?</span>
+<span id="cb43-304"><a href="#cb43-304" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Compara con el caso de las brocas: allí encontramos atípicos en **ambos** extremos. ¿Pasa lo mismo con los precios de vivienda, o solo hacia un lado? ¿Qué te dice eso sobre la forma de cada distribución?</span>
+<span id="cb43-305"><a href="#cb43-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-306"><a href="#cb43-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb43-307"><a href="#cb43-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-308"><a href="#cb43-308" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb43-309"><a href="#cb43-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-310"><a href="#cb43-310" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb43-311"><a href="#cb43-311" aria-hidden="true" tabindex="-1"></a><span class="co"># Rango intercuartílico: completa la función correcta</span></span>
+<span id="cb43-312"><a href="#cb43-312" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(x)</span>
+<span id="cb43-313"><a href="#cb43-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb43-314"><a href="#cb43-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-315"><a href="#cb43-315" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb43-316"><a href="#cb43-316" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb43-317"><a href="#cb43-317" aria-hidden="true" tabindex="-1"></a><span class="in">`IQR(x)`</span> — calcula directamente $Q_3 - Q_1$.</span>
+<span id="cb43-318"><a href="#cb43-318" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb43-319"><a href="#cb43-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-320"><a href="#cb43-320" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb43-321"><a href="#cb43-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-322"><a href="#cb43-322" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-tema6"</span><span class="dt">&gt;</span></span>
+<span id="cb43-323"><a href="#cb43-323" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La caja del boxplot representa el 50% central de los datos.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb43-324"><a href="#cb43-324" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-325"><a href="#cb43-325" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Todo punto fuera de los bigotes es necesariamente un error de medición.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb43-326"><a href="#cb43-326" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-327"><a href="#cb43-327" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. El rango intercuartílico es Q3 menos Q1.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb43-328"><a href="#cb43-328" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-329"><a href="#cb43-329" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>4. Los bigotes del boxplot se dibujan exactamente hasta las vallas (Q1 − 1.5·RIC y Q3 + 1.5·RIC).<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb43-330"><a href="#cb43-330" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-331"><a href="#cb43-331" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>5. Solo hay que buscar valores atípicos por encima de Q3, porque son los que estiran la distribución.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb43-332"><a href="#cb43-332" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-333"><a href="#cb43-333" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTema6()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb43-334"><a href="#cb43-334" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-tema6"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb43-335"><a href="#cb43-335" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-336"><a href="#cb43-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-337"><a href="#cb43-337" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb43-338"><a href="#cb43-338" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTema6</span>() {</span>
+<span id="cb43-339"><a href="#cb43-339" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q4</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q5</span><span class="op">:</span> <span class="st">"F"</span> }<span class="op">;</span></span>
+<span id="cb43-340"><a href="#cb43-340" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb43-341"><a href="#cb43-341" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb43-342"><a href="#cb43-342" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb43-343"><a href="#cb43-343" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb43-344"><a href="#cb43-344" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema6"</span>)<span class="op">;</span></span>
+<span id="cb43-345"><a href="#cb43-345" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb43-346"><a href="#cb43-346" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb43-347"><a href="#cb43-347" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb43-348"><a href="#cb43-348" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb43-349"><a href="#cb43-349" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-350"><a href="#cb43-350" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb43-351"><a href="#cb43-351" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb43-352"><a href="#cb43-352" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb43-353"><a href="#cb43-353" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb43-354"><a href="#cb43-354" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-355"><a href="#cb43-355" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-tema6"</span>)<span class="op">;</span></span>
+<span id="cb43-356"><a href="#cb43-356" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb43-357"><a href="#cb43-357" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb43-358"><a href="#cb43-358" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-359"><a href="#cb43-359" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb43-360"><a href="#cb43-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-361"><a href="#cb43-361" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb43-362"><a href="#cb43-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-363"><a href="#cb43-363" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb43-364"><a href="#cb43-364" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Los cuartiles dividen los datos ordenados en cuatro partes iguales; el RIC mide la dispersión del 50% central, sin verse afectado por valores extremos.</span>
+<span id="cb43-365"><a href="#cb43-365" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**El procedimiento completo son 7 pasos:** ordenar → posición del cuartil ($h=(n-1)p+1$) → leer el valor → RIC → vallas → identificar atípicos → ubicar los bigotes.</span>
+<span id="cb43-366"><a href="#cb43-366" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La regla estándar de valores atípicos usa $Q_3 + 1.5 \cdot RIC$ y $Q_1 - 1.5 \cdot RIC$ como límites — y hay que aplicarla **a los dos extremos**, no solo al que salta a la vista.</span>
+<span id="cb43-367"><a href="#cb43-367" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Los bigotes no llegan hasta las vallas:** llegan hasta el último dato real que queda dentro de ellas.</span>
+<span id="cb43-368"><a href="#cb43-368" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Un boxplot resume 5 números (bigote inferior, Q1, mediana, Q3, bigote superior) y hace visibles la mediana, la dispersión y los atípicos en un solo vistazo — sin necesitar el promedio.</span>
+<span id="cb43-369"><a href="#cb43-369" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`boxplot(x, plot = FALSE)$stats`</span> te devuelve esos cinco números para verificar tus cálculos a mano.</span>
+<span id="cb43-370"><a href="#cb43-370" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

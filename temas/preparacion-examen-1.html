@@ -749,6 +749,21 @@ N: 128
  69100 111325 125950 148250 211200 </code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>¿Por qué <code>descr()</code> y <code>quantile()</code> dan cuartiles distintos?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si comparas esta salida con la de <code>descr()</code> al inicio de la guía, vas a notar algo raro: <code>quantile()</code> reporta <span class="math inline">\(Q_1 =\)</span> $111,325 y <span class="math inline">\(Q_3 =\)</span> $148,250, mientras que <code>descr()</code> reporta $111,250 y $148,600. <strong>Ninguno está mal.</strong></p>
+<p>Cuando <span class="math inline">\(n\)</span> no es divisible de forma exacta, el cuartil cae “entre” dos observaciones y hay que interpolar — y existen <strong>nueve métodos de interpolación distintos</strong>, todos legítimos. <code>quantile()</code> de R base usa el tipo 7 por defecto; <code>summarytools</code> usa otro. Con <span class="math inline">\(n = 128\)</span> la diferencia es de unos pocos cientos de dólares, irrelevante para cualquier interpretación práctica, pero conviene saber de dónde viene.</p>
+<p><strong>Qué hacer en el examen:</strong> usa <code>quantile()</code> (el método por defecto de R base) salvo que te pidan otra cosa, y si comparas resultados con un compañero y difieren un poco, revisa primero si usaron funciones distintas antes de asumir que alguien se equivocó. Puedes ver los otros métodos con <code>quantile(precios, type = 6)</code>, por ejemplo.</p>
+</div>
+</div>
 <p>El boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende “bigotes” hacia los valores extremos:</p>
 <div class="cell">
 <details class="code-fold">
@@ -788,7 +803,7 @@ N: 128
 <h2 class="anchored" data-anchor-id="tema-1-variables-cuantitativas-discretas-vs.-continuas">Tema 1 · Variables cuantitativas: discretas vs.&nbsp;continuas</h2>
 <p><strong>Pregunta:</strong> en una planta de envasado, el gerente registra diariamente dos datos: el volumen exacto de líquido introducido en cada botella, y la cantidad de botellas con la tapa mal colocada por cada lote. ¿Cómo se clasifican estas dos variables y por qué es fundamental diferenciarlas?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -797,7 +812,7 @@ N: 128
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>Volumen de líquido (continua):</strong> es el resultado de una <em>medición</em> y, teóricamente, puede tomar cualquier valor dentro de un intervalo (2.001 litros, 2.0015 litros…), dependiendo de la precisión del instrumento.</li>
@@ -813,7 +828,7 @@ N: 128
 <h2 class="anchored" data-anchor-id="tema-2-tendencia-central-y-valores-atípicos">Tema 2 · Tendencia central y valores atípicos</h2>
 <p><strong>Pregunta:</strong> en una empresa de 10 personas, nueve empleados ganan entre $40,000 y $50,000 anuales. El décimo es el CEO, que gana $500,000. Si se quiere publicar una cifra que represente el “salario típico” para atraer nuevos empleados, ¿se debe usar la media o la mediana?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -822,7 +837,7 @@ N: 128
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Se debe usar la mediana.</strong></p>
 <ul>
@@ -838,7 +853,7 @@ N: 128
 <h2 class="anchored" data-anchor-id="tema-3-dispersión-y-toma-de-decisiones-en-ingeniería">Tema 3 · Dispersión y toma de decisiones en ingeniería</h2>
 <p><strong>Pregunta:</strong> debe comprar cables de acero para un puente. El Proveedor X ofrece cables con resistencia media de 10,000 kg y desviación estándar de 20 kg. El Proveedor Y ofrece la misma resistencia media de 10,000 kg, pero con desviación estándar de 500 kg. ¿Cuál elegir y por qué?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -847,7 +862,7 @@ N: 128
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Se debe elegir al Proveedor X.</strong></p>
 <p>La desviación estándar mide qué tan dispersos están los datos alrededor del promedio.</p>
@@ -864,7 +879,7 @@ N: 128
 <h2 class="anchored" data-anchor-id="tema-4-medidas-de-posición-relativa-percentiles">Tema 4 · Medidas de posición relativa (percentiles)</h2>
 <p><strong>Pregunta:</strong> una estudiante obtuvo 720 puntos en un examen estandarizado nacional, y le informan que su calificación está en el “Percentil 85”. ¿Cómo se interpreta correctamente ese resultado?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -873,7 +888,7 @@ N: 128
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Los percentiles dividen los datos ordenados en cien partes iguales, y sirven para conocer la posición relativa de una observación.</p>
 <p>Estar en el <strong>Percentil 85</strong> significa que la calificación de 720 puntos es mayor a la puntuación obtenida por el <strong>85% de todas las personas</strong> que presentaron el examen. Indica un alto rendimiento: solo el 15% restante obtuvo una calificación superior.</p>
@@ -886,7 +901,7 @@ N: 128
 <h2 class="anchored" data-anchor-id="tema-5-interpretación-de-boxplots-y-asimetría">Tema 5 · Interpretación de boxplots y asimetría</h2>
 <p><strong>Pregunta:</strong> al comparar dos procesos de manufactura con diagramas de caja, se observa que (1) el Proceso A tiene una caja muy ancha, la mediana desplazada hacia el lado izquierdo de la caja, y el bigote derecho muy largo; (2) el Proceso B tiene una caja muy estrecha, la mediana centrada, pero muestra tres asteriscos aislados por encima del bigote superior. Describa la variabilidad y simetría de cada proceso.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -895,7 +910,7 @@ N: 128
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Proceso A:</strong> presenta <strong>alta variabilidad</strong> (caja ancha = rango intercuartílico grande). La distribución está fuertemente <strong>sesgada a la derecha</strong> (asimetría positiva), lo cual se evidencia por dos señales que apuntan en la misma dirección: la mediana no está en el centro sino a la izquierda, y el bigote derecho es prolongado — hay datos dispersos hacia valores altos.</p>
 <p><strong>Proceso B:</strong> es un proceso <strong>altamente simétrico y consistente</strong>: el 50% central se concentra en una caja muy estrecha y la mediana está centrada. Los asteriscos son <strong>valores atípicos</strong>: eventos aislados que se salen del patrón general y deben investigarse individualmente (errores o fallas puntuales), pero que no cambian el hecho de que el cuerpo principal del proceso es estable.</p>
@@ -1564,127 +1579,137 @@ N: 128
 <span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cuantiles)</span>
 <span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a>El boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende "bigotes" hacia los valores extremos:</span>
-<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(precios,</span>
-<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot de precios de vivienda"</span>,</span>
-<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightgreen"</span>,</span>
-<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>,</span>
-<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>)   <span class="co"># horizontal facilita la lectura</span></span>
-<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a><span class="fu">## ¿Por qué `descr()` y `quantile()` dan cuartiles distintos?</span></span>
+<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a>Si comparas esta salida con la de <span class="in">`descr()`</span> al inicio de la guía, vas a notar algo raro: <span class="in">`quantile()`</span> reporta $Q_1 =$ \$111,325 y $Q_3 =$ \$148,250, mientras que <span class="in">`descr()`</span> reporta \$111,250 y \$148,600. **Ninguno está mal.**</span>
+<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a>Cuando $n$ no es divisible de forma exacta, el cuartil cae "entre" dos observaciones y hay que interpolar — y existen **nueve métodos de interpolación distintos**, todos legítimos. <span class="in">`quantile()`</span> de R base usa el tipo 7 por defecto; <span class="in">`summarytools`</span> usa otro. Con $n = 128$ la diferencia es de unos pocos cientos de dólares, irrelevante para cualquier interpretación práctica, pero conviene saber de dónde viene.</span>
+<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a>**Qué hacer en el examen:** usa <span class="in">`quantile()`</span> (el método por defecto de R base) salvo que te pidan otra cosa, y si comparas resultados con un compañero y difieren un poco, revisa primero si usaron funciones distintas antes de asumir que alguien se equivocó. Puedes ver los otros métodos con <span class="in">`quantile(precios, type = 6)`</span>, por ejemplo.</span>
+<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a>El boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende "bigotes" hacia los valores extremos:</span>
 <span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a>$Q_1 =$ \$111,325, $Q_2 =$ \$125,950 y $Q_3 =$ \$148,250, así que el RIC $=$ \$36,925. Las vallas quedan en \$55,937.5 y \$203,637.5 — y hay **exactamente una casa** por encima de la valla superior (la casa 104, de \$211,200), que R dibuja como punto aislado. Es un atípico real de este dataset, no un artefacto.</span>
-<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. ¿Cómo se complementan el histograma y el boxplot?</span></span>
-<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a>Conviene mirar ambas gráficas juntas, porque cuentan historias complementarias:</span>
-<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Forma general vs. resumen exacto.** El histograma es ideal para ver la *forma* de la distribución (campana, asimétrica, con varios picos). Pero agrupa los datos en barras, lo que hace perder el detalle exacto de dónde están los cuartiles.</span>
-<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Detección de valores atípicos.** El boxplot esconde los picos (las modas), pero es la herramienta perfecta para identificar de inmediato la mediana, la dispersión exacta del 50% central, y sobre todo, los valores extremos representados como puntos aislados fuera de los bigotes.</span>
-<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a>**En resumen:** usa el histograma para entender cómo se agrupan las masas de datos a simple vista, y el boxplot para un análisis de dispersión riguroso y para detectar anomalías.</span>
-<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a><span class="fu"># 📝 Preguntas de estudio conceptuales</span></span>
-<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a>Estas cinco preguntas son del tipo que pide **justificación escrita**, no solo un cálculo. Intenta responderlas por tu cuenta antes de abrir la respuesta.</span>
-<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 1 · Variables cuantitativas: discretas vs. continuas</span></span>
+<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(precios,</span>
+<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot de precios de vivienda"</span>,</span>
+<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightgreen"</span>,</span>
+<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Precio ($)"</span>,</span>
+<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>)   <span class="co"># horizontal facilita la lectura</span></span>
+<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a>$Q_1 =$ \$111,325, $Q_2 =$ \$125,950 y $Q_3 =$ \$148,250, así que el RIC $=$ \$36,925. Las vallas quedan en \$55,937.5 y \$203,637.5 — y hay **exactamente una casa** por encima de la valla superior (la casa 104, de \$211,200), que R dibuja como punto aislado. Es un atípico real de este dataset, no un artefacto.</span>
+<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. ¿Cómo se complementan el histograma y el boxplot?</span></span>
+<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a>Conviene mirar ambas gráficas juntas, porque cuentan historias complementarias:</span>
+<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Forma general vs. resumen exacto.** El histograma es ideal para ver la *forma* de la distribución (campana, asimétrica, con varios picos). Pero agrupa los datos en barras, lo que hace perder el detalle exacto de dónde están los cuartiles.</span>
+<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Detección de valores atípicos.** El boxplot esconde los picos (las modas), pero es la herramienta perfecta para identificar de inmediato la mediana, la dispersión exacta del 50% central, y sobre todo, los valores extremos representados como puntos aislados fuera de los bigotes.</span>
 <span id="cb28-214"><a href="#cb28-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a>**Pregunta:** en una planta de envasado, el gerente registra diariamente dos datos: el volumen exacto de líquido introducido en cada botella, y la cantidad de botellas con la tapa mal colocada por cada lote. ¿Cómo se clasifican estas dos variables y por qué es fundamental diferenciarlas?</span>
+<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a>**En resumen:** usa el histograma para entender cómo se agrupan las masas de datos a simple vista, y el boxplot para un análisis de dispersión riguroso y para detectar anomalías.</span>
 <span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
-<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Volumen de líquido (continua):** es el resultado de una *medición* y, teóricamente, puede tomar cualquier valor dentro de un intervalo (2.001 litros, 2.0015 litros...), dependiendo de la precisión del instrumento.</span>
-<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cantidad de botellas defectuosas (discreta):** resulta de un *conteo*. Solo puede tomar valores enteros (0, 1, 2, 3 botellas) y hay "saltos" entre sus posibles valores.</span>
-<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Por qué importa:** la distinción define el tratamiento matemático posterior. Las variables discretas usan sumas (funciones de masa de probabilidad); las continuas usan integrales y cálculo (funciones de densidad) — algo que verás en detalle en el Módulo 2.</span>
-<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a>*Conexión con este dataset:* <span class="in">`Bedrooms`</span> y <span class="in">`Offers`</span> son discretas (conteos); <span class="in">`Price`</span> y <span class="in">`SqFt`</span> son continuas (mediciones).</span>
-<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a><span class="fu"># 📝 Preguntas de estudio conceptuales</span></span>
+<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a>Estas cinco preguntas son del tipo que pide **justificación escrita**, no solo un cálculo. Intenta responderlas por tu cuenta antes de abrir la respuesta.</span>
+<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 1 · Variables cuantitativas: discretas vs. continuas</span></span>
+<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>**Pregunta:** en una planta de envasado, el gerente registra diariamente dos datos: el volumen exacto de líquido introducido en cada botella, y la cantidad de botellas con la tapa mal colocada por cada lote. ¿Cómo se clasifican estas dos variables y por qué es fundamental diferenciarlas?</span>
 <span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 2 · Tendencia central y valores atípicos</span></span>
-<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a>**Pregunta:** en una empresa de 10 personas, nueve empleados ganan entre \$40,000 y \$50,000 anuales. El décimo es el CEO, que gana \$500,000. Si se quiere publicar una cifra que represente el "salario típico" para atraer nuevos empleados, ¿se debe usar la media o la mediana?</span>
-<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Volumen de líquido (continua):** es el resultado de una *medición* y, teóricamente, puede tomar cualquier valor dentro de un intervalo (2.001 litros, 2.0015 litros...), dependiendo de la precisión del instrumento.</span>
+<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cantidad de botellas defectuosas (discreta):** resulta de un *conteo*. Solo puede tomar valores enteros (0, 1, 2, 3 botellas) y hay "saltos" entre sus posibles valores.</span>
+<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Por qué importa:** la distinción define el tratamiento matemático posterior. Las variables discretas usan sumas (funciones de masa de probabilidad); las continuas usan integrales y cálculo (funciones de densidad) — algo que verás en detalle en el Módulo 2.</span>
 <span id="cb28-233"><a href="#cb28-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a>**Se debe usar la mediana.**</span>
-<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La media aritmética es muy sensible a valores extremos. El salario de \$500,000 jalaría el promedio drásticamente hacia arriba, distorsionando la realidad de la empresa y dando una cifra irreal para un nuevo empleado.</span>
-<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La mediana, al ser el valor que divide la muestra ordenada exactamente a la mitad, no se ve afectada por valores extremos. Es una medida **robusta**, y reflejaría fielmente el centro de los salarios de los empleados regulares.</span>
+<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a>*Conexión con este dataset:* <span class="in">`Bedrooms`</span> y <span class="in">`Offers`</span> son discretas (conteos); <span class="in">`Price`</span> y <span class="in">`SqFt`</span> son continuas (mediciones).</span>
+<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 2 · Tendencia central y valores atípicos</span></span>
 <span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>*Conexión con este dataset:* es el mismo fenómeno, más suave, que ya viste arriba — la casa de \$211,200 empuja la media de <span class="in">`Price`</span> por encima de la mediana.</span>
-<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 3 · Dispersión y toma de decisiones en ingeniería</span></span>
+<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>**Pregunta:** en una empresa de 10 personas, nueve empleados ganan entre \$40,000 y \$50,000 anuales. El décimo es el CEO, que gana \$500,000. Si se quiere publicar una cifra que represente el "salario típico" para atraer nuevos empleados, ¿se debe usar la media o la mediana?</span>
+<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
 <span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a>**Pregunta:** debe comprar cables de acero para un puente. El Proveedor X ofrece cables con resistencia media de 10,000 kg y desviación estándar de 20 kg. El Proveedor Y ofrece la misma resistencia media de 10,000 kg, pero con desviación estándar de 500 kg. ¿Cuál elegir y por qué?</span>
+<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a>**Se debe usar la mediana.**</span>
 <span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La media aritmética es muy sensible a valores extremos. El salario de \$500,000 jalaría el promedio drásticamente hacia arriba, distorsionando la realidad de la empresa y dando una cifra irreal para un nuevo empleado.</span>
+<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La mediana, al ser el valor que divide la muestra ordenada exactamente a la mitad, no se ve afectada por valores extremos. Es una medida **robusta**, y reflejaría fielmente el centro de los salarios de los empleados regulares.</span>
 <span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a>**Se debe elegir al Proveedor X.**</span>
-<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a>La desviación estándar mide qué tan dispersos están los datos alrededor del promedio.</span>
-<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El **Proveedor Y** tiene alta variabilidad (500 kg): el comportamiento de sus cables es inconsistente. Aunque el promedio sea bueno, un cable individual podría resistir muy por debajo de los 10,000 kg — inaceptable para la seguridad de un puente.</span>
-<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El **Proveedor X** tiene baja variabilidad (20 kg): sus productos son mucho más uniformes, predecibles y confiables.</span>
+<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a>*Conexión con este dataset:* es el mismo fenómeno, más suave, que ya viste arriba — la casa de \$211,200 empuja la media de <span class="in">`Price`</span> por encima de la mediana.</span>
+<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 3 · Dispersión y toma de decisiones en ingeniería</span></span>
+<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a>**Pregunta:** debe comprar cables de acero para un puente. El Proveedor X ofrece cables con resistencia media de 10,000 kg y desviación estándar de 20 kg. El Proveedor Y ofrece la misma resistencia media de 10,000 kg, pero con desviación estándar de 500 kg. ¿Cuál elegir y por qué?</span>
 <span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a>La lección de fondo: **dos distribuciones con la misma media pueden implicar riesgos completamente distintos.** En decisiones de seguridad, la dispersión suele importar más que el promedio.</span>
-<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
 <span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 4 · Medidas de posición relativa (percentiles)</span></span>
+<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a>**Se debe elegir al Proveedor X.**</span>
 <span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a>**Pregunta:** una estudiante obtuvo 720 puntos en un examen estandarizado nacional, y le informan que su calificación está en el "Percentil 85". ¿Cómo se interpreta correctamente ese resultado?</span>
+<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a>La desviación estándar mide qué tan dispersos están los datos alrededor del promedio.</span>
 <span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El **Proveedor Y** tiene alta variabilidad (500 kg): el comportamiento de sus cables es inconsistente. Aunque el promedio sea bueno, un cable individual podría resistir muy por debajo de los 10,000 kg — inaceptable para la seguridad de un puente.</span>
+<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El **Proveedor X** tiene baja variabilidad (20 kg): sus productos son mucho más uniformes, predecibles y confiables.</span>
 <span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a>Los percentiles dividen los datos ordenados en cien partes iguales, y sirven para conocer la posición relativa de una observación.</span>
-<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a>Estar en el **Percentil 85** significa que la calificación de 720 puntos es mayor a la puntuación obtenida por el **85% de todas las personas** que presentaron el examen. Indica un alto rendimiento: solo el 15% restante obtuvo una calificación superior.</span>
-<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a>**Error común a evitar:** el percentil 85 *no* significa "sacó 85 puntos" ni "acertó el 85% de las preguntas" — se refiere a su posición frente a los demás, no a su puntaje absoluto.</span>
-<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a>La lección de fondo: **dos distribuciones con la misma media pueden implicar riesgos completamente distintos.** En decisiones de seguridad, la dispersión suele importar más que el promedio.</span>
+<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 4 · Medidas de posición relativa (percentiles)</span></span>
+<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a>**Pregunta:** una estudiante obtuvo 720 puntos en un examen estandarizado nacional, y le informan que su calificación está en el "Percentil 85". ¿Cómo se interpreta correctamente ese resultado?</span>
 <span id="cb28-272"><a href="#cb28-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 5 · Interpretación de boxplots y asimetría</span></span>
-<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-275"><a href="#cb28-275" aria-hidden="true" tabindex="-1"></a>**Pregunta:** al comparar dos procesos de manufactura con diagramas de caja, se observa que (1) el Proceso A tiene una caja muy ancha, la mediana desplazada hacia el lado izquierdo de la caja, y el bigote derecho muy largo; (2) el Proceso B tiene una caja muy estrecha, la mediana centrada, pero muestra tres asteriscos aislados por encima del bigote superior. Describa la variabilidad y simetría de cada proceso.</span>
-<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-275"><a href="#cb28-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a>Los percentiles dividen los datos ordenados en cien partes iguales, y sirven para conocer la posición relativa de una observación.</span>
+<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a>Estar en el **Percentil 85** significa que la calificación de 720 puntos es mayor a la puntuación obtenida por el **85% de todas las personas** que presentaron el examen. Indica un alto rendimiento: solo el 15% restante obtuvo una calificación superior.</span>
 <span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a>**Proceso A:** presenta **alta variabilidad** (caja ancha = rango intercuartílico grande). La distribución está fuertemente **sesgada a la derecha** (asimetría positiva), lo cual se evidencia por dos señales que apuntan en la misma dirección: la mediana no está en el centro sino a la izquierda, y el bigote derecho es prolongado — hay datos dispersos hacia valores altos.</span>
-<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a>**Proceso B:** es un proceso **altamente simétrico y consistente**: el 50% central se concentra en una caja muy estrecha y la mediana está centrada. Los asteriscos son **valores atípicos**: eventos aislados que se salen del patrón general y deben investigarse individualmente (errores o fallas puntuales), pero que no cambian el hecho de que el cuerpo principal del proceso es estable.</span>
-<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a>**La lección:** un proceso puede tener atípicos y aun así ser más confiable que otro sin ellos. La presencia de outliers no es, por sí sola, evidencia de un proceso malo.</span>
-<span id="cb28-285"><a href="#cb28-285" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a>**Error común a evitar:** el percentil 85 *no* significa "sacó 85 puntos" ni "acertó el 85% de las preguntas" — se refiere a su posición frente a los demás, no a su puntaje absoluto.</span>
+<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 5 · Interpretación de boxplots y asimetría</span></span>
+<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-285"><a href="#cb28-285" aria-hidden="true" tabindex="-1"></a>**Pregunta:** al comparar dos procesos de manufactura con diagramas de caja, se observa que (1) el Proceso A tiene una caja muy ancha, la mediana desplazada hacia el lado izquierdo de la caja, y el bigote derecho muy largo; (2) el Proceso B tiene una caja muy estrecha, la mediana centrada, pero muestra tres asteriscos aislados por encima del bigote superior. Describa la variabilidad y simetría de cada proceso.</span>
 <span id="cb28-286"><a href="#cb28-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-289"><a href="#cb28-289" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Autoevaluación final</span></span>
-<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a>Antes del examen, comprueba que puedes hacer todo esto **sin mirar la guía**:</span>
-<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Cargar un CSV y producir un resumen tabular completo de una variable cuantitativa.</span>
-<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).</span>
-<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.</span>
-<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Calcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.</span>
-<span id="cb28-297"><a href="#cb28-297" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Calcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.</span>
-<span id="cb28-298"><a href="#cb28-298" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Ver un boxplot y describir en palabras su variabilidad, simetría y atípicos.</span>
-<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Clasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.</span>
+<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb28-289"><a href="#cb28-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a>**Proceso A:** presenta **alta variabilidad** (caja ancha = rango intercuartílico grande). La distribución está fuertemente **sesgada a la derecha** (asimetría positiva), lo cual se evidencia por dos señales que apuntan en la misma dirección: la mediana no está en el centro sino a la izquierda, y el bigote derecho es prolongado — hay datos dispersos hacia valores altos.</span>
+<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a>**Proceso B:** es un proceso **altamente simétrico y consistente**: el 50% central se concentra en una caja muy estrecha y la mediana está centrada. Los asteriscos son **valores atípicos**: eventos aislados que se salen del patrón general y deben investigarse individualmente (errores o fallas puntuales), pero que no cambian el hecho de que el cuerpo principal del proceso es estable.</span>
+<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a>**La lección:** un proceso puede tener atípicos y aun así ser más confiable que otro sin ellos. La presencia de outliers no es, por sí sola, evidencia de un proceso malo.</span>
+<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-297"><a href="#cb28-297" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb28-298"><a href="#cb28-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Autoevaluación final</span></span>
 <span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
-<span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a>Si algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 2 → Temas 2-3, 3 → Tema 4, 4 → Tema 5, 5 y 6 → Tema 6, 7 → Tema 1).</span>
-<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>Antes del examen, comprueba que puedes hacer todo esto **sin mirar la guía**:</span>
+<span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Cargar un CSV y producir un resumen tabular completo de una variable cuantitativa.</span>
+<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Construir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).</span>
+<span id="cb28-305"><a href="#cb28-305" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.</span>
+<span id="cb28-306"><a href="#cb28-306" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Calcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.</span>
+<span id="cb28-307"><a href="#cb28-307" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Calcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.</span>
+<span id="cb28-308"><a href="#cb28-308" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Ver un boxplot y describir en palabras su variabilidad, simetría y atípicos.</span>
+<span id="cb28-309"><a href="#cb28-309" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Clasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.</span>
+<span id="cb28-310"><a href="#cb28-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-311"><a href="#cb28-311" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb28-312"><a href="#cb28-312" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb28-313"><a href="#cb28-313" aria-hidden="true" tabindex="-1"></a>Si algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 2 → Temas 2-3, 3 → Tema 4, 4 → Tema 5, 5 y 6 → Tema 6, 7 → Tema 1).</span>
+<span id="cb28-314"><a href="#cb28-314" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
