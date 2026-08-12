@@ -76,6 +76,114 @@ pie(table(categorias_precio),
 Con `breaks = 3`, R parte el rango completo de precios en tres intervalos **de igual ancho** (no de igual cantidad de casas): quedan 45 casas en "Bajo", 67 en "Medio" y solo 16 en "Alto". Esa concentración desigual ya te está diciendo algo sobre la forma de la distribución — que confirmarás formalmente con la asimetría más abajo.
 :::
 
+### 1.3 Histograma manual con la regla de Sturges
+
+::: {.callout-note}
+## Por qué hacerlo a mano
+En el bloque anterior, `hist()` eligió los intervalos por su cuenta. En el examen te pueden pedir **la tabla de distribución de frecuencias agrupada** — con los límites, las marcas de clase y las cuatro columnas de frecuencias — y ahí no basta con llamar a `hist()`. Estos 6 pasos son el procedimiento completo, siguiendo la regla de Sturges del Tema 3.
+:::
+
+#### Paso 1 — Rango
+
+```{r}
+n <- length(precios)
+rango <- max(precios) - min(precios)
+c(n = n, minimo = min(precios), maximo = max(precios), rango = rango)
+```
+
+#### Paso 2 — Número de clases (regla de Sturges)
+
+$$k = 1 + \log_2(n) = 1 + 3.322\cdot\log_{10}(n)$$
+
+```{r}
+k_log2  <- 1 + log2(n)
+k_aprox <- 1 + 3.322 * log10(n)
+c(con_log2 = k_log2, con_aproximacion = k_aprox)
+```
+
+::: {.callout-important}
+## Un detalle de redondeo que vale oro en el examen
+Fíjate en lo que pasó: $n = 128 = 2^7$, así que $\log_2(128) = 7$ **exacto** y $k = 8$ redondo. Pero la versión con la constante aproximada 3.322 da **8.0001…** — y si aplicas `ceiling()` mecánicamente, obtienes $k = 9$ en vez de 8.
+
+Los dos caminos deberían dar lo mismo; la diferencia viene de que 3.322 es un redondeo de $1/\log_{10}(2) = 3.3219\ldots$. La lección: **la regla de Sturges da una sugerencia, no un mandato**, y cuando el resultado cae justo sobre un entero conviene quedarse con ese entero en vez de redondear hacia arriba a ciegas. Aquí usamos $k = 8$.
+:::
+
+```{r}
+k <- 8
+k
+```
+
+#### Paso 3 — Amplitud de clase
+
+```{r}
+amplitud_exacta <- rango / k
+amplitud_exacta
+
+# Se redondea hacia arriba a un valor "de informe" (miles cerrados)
+amplitud <- ceiling(amplitud_exacta / 1000) * 1000
+amplitud
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Siempre redondea la amplitud **hacia arriba**, nunca hacia abajo: si redondearas 17,762.5 a 17,000, las 8 clases cubrirían solo 136,000 de los 142,100 del rango y algunos datos quedarían fuera de la tabla. Con 18,000 sobra un poco, y eso está bien. [Ver más trucos →](../recursos.qmd)
+:::
+
+#### Paso 4 — Límites de clase
+
+```{r}
+inicio <- floor(min(precios) / 1000) * 1000   # arrancamos en un millar cerrado
+limites <- seq(from = inicio, by = amplitud, length.out = k + 1)
+limites
+
+# Comprobación obligatoria: el último límite debe cubrir el máximo
+max(limites) >= max(precios)
+```
+
+#### Paso 5 — Conteo y tabla de frecuencias completa
+
+```{r}
+clases <- cut(precios, breaks = limites, right = FALSE, include.lowest = TRUE)
+
+f_abs <- as.vector(table(clases))
+marcas <- (limites[-length(limites)] + limites[-1]) / 2   # marca de clase = punto medio
+
+tabla_sturges <- data.frame(
+  Intervalo          = levels(clases),
+  Marca_clase        = marcas,
+  Frec_absoluta      = f_abs,
+  Frec_acumulada     = cumsum(f_abs),
+  Frec_relativa      = round(f_abs / n, 4),
+  Frec_rel_acumulada = round(cumsum(f_abs) / n, 4)
+)
+tabla_sturges
+
+sum(tabla_sturges$Frec_absoluta)   # debe dar n = 128
+```
+
+::: {.callout-important}
+## `right = FALSE`: el detalle que cambia los conteos
+Por defecto `cut()` usa intervalos **abiertos por la izquierda**: $(a, b]$. Con `right = FALSE` los volvemos **cerrados por la izquierda**: $[a, b)$, que es la convención habitual en las tablas de frecuencia de los libros de texto — un dato de exactamente \$105,000 entra en la clase $[105000, 123000)$ y no en la anterior. Si tu tabla no coincide con la de un compañero, este suele ser el motivo: revísenlo antes de buscar el error en otro lado.
+:::
+
+#### Paso 6 — Dibujar el histograma con esos límites
+
+```{r}
+hist(precios, breaks = limites,
+     main = "Histograma de precios (regla de Sturges, k = 8)",
+     xlab = "Precio ($)", ylab = "Frecuencia",
+     col = "#004B85", border = "white")
+```
+
+::: {.ficha-resultado}
+La clase modal es $[105{,}000,\ 123{,}000)$ con **38 casas** — casi el 30% de la muestra. Y mira la columna de frecuencia relativa acumulada: al terminar la cuarta clase ya llevamos el 64.8% de los datos, mientras que las tres últimas clases juntas reúnen apenas el 14%. Esa caída lenta hacia la derecha es la **cola larga** que vas a reconocer también en el boxplot.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Antes de entregar cualquier tabla agrupada, haz estas tres verificaciones: (1) las frecuencias absolutas suman $n$; (2) la última frecuencia relativa acumulada da exactamente 1; (3) el último límite superior es mayor o igual que el máximo de los datos. Si alguna falla, el error está en los pasos 3 o 4. [Ver más trucos →](../recursos.qmd)
+:::
+
 ## 2. Medidas de tendencia central
 
 - **Media:** el promedio aritmético de las observaciones.
@@ -185,7 +293,7 @@ boxplot(precios,
 $Q_1 =$ \$111,325, $Q_2 =$ \$125,950 y $Q_3 =$ \$148,250, así que el RIC $=$ \$36,925. Las vallas quedan en \$55,937.5 y \$203,637.5 — y hay **exactamente una casa** por encima de la valla superior (la casa 104, de \$211,200), que R dibuja como punto aislado. Es un atípico real de este dataset, no un artefacto.
 :::
 
-## 5. ¿Cómo se complementan el histograma y el boxplot?
+## 5. Análisis conjunto: del histograma y el boxplot a las conclusiones
 
 Conviene mirar ambas gráficas juntas, porque cuentan historias complementarias:
 
@@ -193,6 +301,75 @@ Conviene mirar ambas gráficas juntas, porque cuentan historias complementarias:
 2. **Detección de valores atípicos.** El boxplot esconde los picos (las modas), pero es la herramienta perfecta para identificar de inmediato la mediana, la dispersión exacta del 50% central, y sobre todo, los valores extremos representados como puntos aislados fuera de los bigotes.
 
 **En resumen:** usa el histograma para entender cómo se agrupan las masas de datos a simple vista, y el boxplot para un análisis de dispersión riguroso y para detectar anomalías.
+
+### Las dos gráficas, lado a lado
+
+```{r}
+#| fig-height: 7
+par(mfrow = c(2, 1), mar = c(4, 4, 3, 2))
+
+hist(precios, breaks = limites,
+     main = "Histograma", xlab = "", ylab = "Frecuencia",
+     col = "#004B85", border = "white")
+
+boxplot(precios, horizontal = TRUE, col = "lightgreen",
+        main = "Boxplot", xlab = "Precio ($)")
+
+par(mfrow = c(1, 1))
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Al alinear las dos gráficas en el mismo eje horizontal, la correspondencia salta a la vista: el pico del histograma cae justo dentro de la caja, y la cola larga de la derecha del histograma es exactamente la región donde el boxplot dibuja su bigote largo y el punto atípico.
+:::
+
+### 🧭 Marco de 5 pasos para redactar la conclusión
+
+::: {.callout-important}
+## Cómo usar este marco
+En el examen rara vez basta con "el histograma está sesgado". Se espera una lectura que **conecte la gráfica con los números y con el contexto**. Sigue estos 5 pasos en orden y tendrás un análisis completo, sin olvidar nada.
+:::
+
+**Paso 1 — Forma (mira el histograma).** ¿Simétrica, sesgada a la derecha o a la izquierda? ¿Un solo pico (unimodal) o varios? La evidencia numérica que respalda esto es el coeficiente de asimetría y la comparación media-vs-mediana.
+
+**Paso 2 — Centro (mira el boxplot y las medidas).** ¿Dónde está el "valor típico"? Y sobre todo: ¿media o mediana? Si hay sesgo o atípicos, la mediana es la referencia honesta.
+
+**Paso 3 — Dispersión (mira el ancho de la caja).** ¿Qué tan concentrados están los datos? Reporta el RIC (robusto) y/o la desviación estándar, y usa el CV si necesitas comparar contra otra variable en otras unidades.
+
+**Paso 4 — Atípicos (mira los puntos sueltos del boxplot).** ¿Existen? ¿En qué extremo? ¿Cuántos? Nunca digas que "hay que eliminarlos": lo correcto es señalarlos e indicar que deben investigarse.
+
+**Paso 5 — Interpretación en contexto.** Traduce todo lo anterior al lenguaje del problema. Esta es la parte que más puntos vale y la que más se olvida.
+
+### Ejemplo de conclusión bien redactada
+
+::: {.callout-tip collapse="true"}
+## Ver cómo se aplica el marco a los precios de vivienda
+
+**Forma.** La distribución de precios es **unimodal y sesgada a la derecha**. El histograma muestra la clase modal en $[105{,}000,\ 123{,}000)$ con 38 de las 128 casas, y una cola que se extiende hacia los precios altos. Lo confirman los números: la asimetría es positiva (≈0.46) y la media (\$130,427) supera a la mediana (\$125,950).
+
+**Centro.** El precio típico ronda los **\$125,950 (mediana)**. Se prefiere la mediana sobre la media porque el sesgo y la presencia de un atípico superior inflan el promedio: reportar \$130,427 daría una idea algo optimista del mercado.
+
+**Dispersión.** El 50% central de las casas se concentra entre \$111,325 y \$148,250, es decir, un **RIC de \$36,925**. La desviación estándar es de \$26,869 y el coeficiente de variación de 20.6%, una dispersión moderada.
+
+**Atípicos.** Hay **un solo valor atípico**, por encima de la valla superior (\$203,637.5): la casa de **\$211,200**. No hay atípicos en el extremo inferior. Al tratarse de un único caso y de una magnitud plausible para una vivienda, lo razonable es conservarlo y verificar sus características (área, barrio) antes de tomar cualquier decisión sobre él.
+
+**Interpretación en contexto.** El mercado de esta muestra está dominado por vivienda de rango medio-bajo: casi dos tercios de las casas cuestan menos de \$141,000, y el segmento premium es marginal. Para alguien que fija precios, la mediana (\$125,950) es mejor referencia de "precio de mercado" que el promedio, y el RIC indica que una casa que se salga del rango \$111,000–\$148,000 debería justificar su precio con características diferenciadoras.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Cuando el histograma y el boxplot parecen contradecirse, casi siempre gana el histograma en lo que respecta a la **forma**, y el boxplot en lo que respecta a **atípicos y cuartiles**. El caso clásico: una distribución bimodal (dos picos) puede producir un boxplot de aspecto perfectamente simétrico y aburrido — por eso nunca concluyas sobre la forma mirando solo la caja. [Ver más trucos →](../recursos.qmd)
+:::
+
+::: {.callout-important}
+## Errores frecuentes en el análisis (evítalos)
+- **Describir sin interpretar.** "La media es 130,427" no es una conclusión; "el precio promedio supera al típico porque unas pocas casas caras lo empujan" sí lo es.
+- **Usar la media cuando hay sesgo fuerte**, sin mencionar siquiera que la mediana existe.
+- **Llamar "error" a todo atípico.** Un atípico es un dato que se sale del patrón; puede ser un error de registro *o* un caso real y valioso.
+- **Confundir la valla con el bigote** al describir el boxplot (repasa el Paso 7 del Tema 6).
+- **Concluir sobre la forma usando solo el boxplot** — no distingue unimodal de bimodal.
+- **Olvidar el contexto.** Los números sin unidades ni interpretación práctica valen la mitad.
+:::
 
 ---
 
@@ -281,14 +458,16 @@ Estar en el **Percentil 85** significa que la calificación de 720 puntos es may
 Antes del examen, comprueba que puedes hacer todo esto **sin mirar la guía**:
 
 1. Cargar un CSV y producir un resumen tabular completo de una variable cuantitativa.
-2. Construir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).
-3. Calcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.
-4. Calcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.
-5. Calcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.
-6. Ver un boxplot y describir en palabras su variabilidad, simetría y atípicos.
-7. Clasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.
+2. **Construir a mano la tabla de frecuencias agrupada** con la regla de Sturges: rango, $k$, amplitud, límites, marcas de clase y las cuatro columnas de frecuencias — y verificar que sumen $n$.
+3. Construir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).
+4. Calcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.
+5. Calcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.
+6. Calcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.
+7. Ver un boxplot y describir en palabras su variabilidad, simetría y atípicos.
+8. **Redactar una conclusión completa** siguiendo los 5 pasos: forma → centro → dispersión → atípicos → interpretación en contexto.
+9. Clasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.
 
 ::: {.callout-note}
 ## Siguiente paso
-Si algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 2 → Temas 2-3, 3 → Tema 4, 4 → Tema 5, 5 y 6 → Tema 6, 7 → Tema 1).
+Si algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 3 → Temas 2-3, 2 → Tema 3, 4 → Tema 4, 5 → Tema 5, 6 y 7 → Tema 6, 8 → sección 5 de esta guía, 9 → Tema 1).
 :::
