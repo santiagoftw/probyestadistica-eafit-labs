@@ -176,7 +176,7 @@ ggplot(datos, aes(x = Year, fill = Country)) +
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-Este gráfico circular en particular es un buen ejemplo de **cuándo NO usar pastel**: con 10 países y 24 años, hay demasiadas rebanadas para comparar visualmente algo útil — ilustra bien la advertencia del Tema 2. [Ver más trucos →](../recursos.qmd)
+Este gráfico circular en particular es un buen ejemplo de **cuándo NO usar pastel**: con 10 países y 24 años, hay demasiadas rebanadas para comparar visualmente algo útil — ilustra bien la advertencia del Tema 2. [Ver más trucos →](recursos.qmd)
 :::
 
 ## Ítem 6 — Comparar distribuciones de tres tipos de energía
@@ -342,7 +342,7 @@ RIP / 98  # desviación interpercentil
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-Estas tres "desviaciones" son generalizaciones de la misma idea que el RIC del Tema 6, pero usando distintas proporciones centrales de los datos (50%, 80%, 98%). Todas son medidas de dispersión **robustas** frente a valores atípicos — a diferencia de la desviación estándar, que sí les da peso completo. [Ver más trucos →](../recursos.qmd)
+Estas tres "desviaciones" son generalizaciones de la misma idea que el RIC del Tema 6, pero usando distintas proporciones centrales de los datos (50%, 80%, 98%). Todas son medidas de dispersión **robustas** frente a valores atípicos — a diferencia de la desviación estándar, que sí les da peso completo. [Ver más trucos →](recursos.qmd)
 :::
 
 ## 🗂️ Cierre del Laboratorio 1
@@ -429,7 +429,7 @@ list(diferencia_simetrica = p_diferencia_simetrica, al_menos_uno = p_al_menos_un
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-$A\Delta B$ resta la intersección **dos veces** (en vez de una, como en $A\cup B$) porque quiere excluir por completo los casos donde ocurren ambos eventos a la vez, no solo contarlos una vez. Compara la fórmula con la de $P(A\cup B)$ del ítem anterior. [Ver más trucos →](../recursos.qmd)
+$A\Delta B$ resta la intersección **dos veces** (en vez de una, como en $A\cup B$) porque quiere excluir por completo los casos donde ocurren ambos eventos a la vez, no solo contarlos una vez. Compara la fórmula con la de $P(A\cup B)$ del ítem anterior. [Ver más trucos →](recursos.qmd)
 :::
 
 ### Ítem 16 — Complemento en análisis de fiabilidad
@@ -502,7 +502,7 @@ p_defectuoso
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-La probabilidad total es un promedio ponderado: cada tasa de defectos se pondera por qué tan probable es esa "rama" del árbol. Si tres líneas de producción tuvieran participaciones 40%/35%/25% con tasas de defecto 2%/5%/3%, la lógica es idéntica — solo se suman más términos. [Ver más trucos →](../recursos.qmd)
+La probabilidad total es un promedio ponderado: cada tasa de defectos se pondera por qué tan probable es esa "rama" del árbol. Si tres líneas de producción tuvieran participaciones 40%/35%/25% con tasas de defecto 2%/5%/3%, la lógica es idéntica — solo se suman más términos. [Ver más trucos →](recursos.qmd)
 :::
 
 ### Ítem 20 — Teorema de Bayes (defectos y quejas)
@@ -601,7 +601,7 @@ abline(h = 1, col = "#FFB903", lty = 2, lwd = 2)
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-La exponencial modela "tiempo hasta que pasa algo" (fallas, llegadas, duraciones) y es la contraparte continua de la Poisson (Tema P6-P7): si los conteos de eventos por unidad de tiempo son Poisson($\lambda$), el tiempo *entre* eventos es exponencial($\lambda$). [Ver más trucos →](../recursos.qmd)
+La exponencial modela "tiempo hasta que pasa algo" (fallas, llegadas, duraciones) y es la contraparte continua de la Poisson (Tema P6-P7): si los conteos de eventos por unidad de tiempo son Poisson($\lambda$), el tiempo *entre* eventos es exponencial($\lambda$). [Ver más trucos →](recursos.qmd)
 :::
 
 ## Bloque 6 · Distribuciones discretas
@@ -695,7 +695,7 @@ list(prob_menor_6 = prob_menor_6, intervalo_80 = intervalo_80, percentil_85 = pe
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-`pnorm()` va de un valor de x a una probabilidad acumulada; `qnorm()` hace lo inverso, de una probabilidad a un valor de x (un cuantil). Si necesitas "¿qué proporción está por debajo de...?" usa `pnorm()`; si necesitas "¿qué valor deja tal proporción por debajo?" usa `qnorm()`. [Ver más trucos →](../recursos.qmd)
+`pnorm()` va de un valor de x a una probabilidad acumulada; `qnorm()` hace lo inverso, de una probabilidad a un valor de x (un cuantil). Si necesitas "¿qué proporción está por debajo de...?" usa `pnorm()`; si necesitas "¿qué valor deja tal proporción por debajo?" usa `qnorm()`. [Ver más trucos →](recursos.qmd)
 :::
 
 ---
@@ -841,7 +841,7 @@ list(
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-$L$ es una función **no lineal** de $R$ y $E$, así que no hay una fórmula cerrada simple para su media o varianza (a diferencia de una combinación lineal). Por eso se simula: generar miles de escenarios y calcular la media/varianza empíricas es, en la práctica, la manera más directa de propagar la incertidumbre a través de una función complicada. [Ver más trucos →](../recursos.qmd)
+$L$ es una función **no lineal** de $R$ y $E$, así que no hay una fórmula cerrada simple para su media o varianza (a diferencia de una combinación lineal). Por eso se simula: generar miles de escenarios y calcular la media/varianza empíricas es, en la práctica, la manera más directa de propagar la incertidumbre a través de una función complicada. [Ver más trucos →](recursos.qmd)
 :::
 
 ## Bloque 10 · Funciones de variables aleatorias
@@ -895,7 +895,7 @@ c(media = mean(rentabilidad_portafolio), sd = sd(rentabilidad_portafolio))
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-Compara la desviación estándar del portafolio (~9.8%) con el promedio ponderado de las desviaciones individuales ($0.6\times12\%+0.4\times10\%=11.2\%$): el portafolio combinado es **menos volátil** que ese promedio simple. Esa reducción es el efecto de la diversificación — funciona precisamente porque los activos no están perfectamente correlacionados ($\rho=0.5<1$). [Ver más trucos →](../recursos.qmd)
+Compara la desviación estándar del portafolio (~9.8%) con el promedio ponderado de las desviaciones individuales ($0.6\times12\%+0.4\times10\%=11.2\%$): el portafolio combinado es **menos volátil** que ese promedio simple. Esa reducción es el efecto de la diversificación — funciona precisamente porque los activos no están perfectamente correlacionados ($\rho=0.5<1$). [Ver más trucos →](recursos.qmd)
 :::
 
 ---
@@ -1047,7 +1047,7 @@ c(inferior = media_muestral - margen_error, superior = media_muestral + margen_e
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-La estructura **estimación ± (valor crítico × error estándar)** es la misma para casi cualquier intervalo de confianza clásico — solo cambian el valor crítico (normal, t, etc.) y la fórmula del error estándar según qué parámetro se está estimando. [Ver más trucos →](../recursos.qmd)
+La estructura **estimación ± (valor crítico × error estándar)** es la misma para casi cualquier intervalo de confianza clásico — solo cambian el valor crítico (normal, t, etc.) y la fórmula del error estándar según qué parámetro se está estimando. [Ver más trucos →](recursos.qmd)
 :::
 
 ### Ítem 41 — Intervalo de confianza del 95% para una proporción (Wilson)
@@ -1119,7 +1119,7 @@ La prueba F de varianzas da un p-valor prácticamente cero: el instrumento nuevo
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-No confundas "no rechazar $H_0$" con "demostrar que $H_0$ es cierta". Un p-valor de 0.16 en la prueba t solo dice que los datos no dan evidencia suficiente para descartar medias iguales — no prueba que las medias sean exactamente iguales. [Ver más trucos →](../recursos.qmd)
+No confundas "no rechazar $H_0$" con "demostrar que $H_0$ es cierta". Un p-valor de 0.16 en la prueba t solo dice que los datos no dan evidencia suficiente para descartar medias iguales — no prueba que las medias sean exactamente iguales. [Ver más trucos →](recursos.qmd)
 :::
 
 ---
@@ -1226,7 +1226,7 @@ c(E_W = E_W, Var_W = Var_W, E_W2 = E_W2)
 
 ::: {.callout-tip}
 ## 💡 Por qué importa
-Sumar FGMs (multiplicándolas, porque $m_{X+Y}=m_X\cdot m_Y$ cuando hay independencia) evita tener que encontrar la distribución de $X+Y$ por convolución. Es exactamente el mismo principio detrás del Ítem 45(a): $\text{Pois}(\lambda_1)+\text{Pois}(\lambda_2)=\text{Pois}(\lambda_1+\lambda_2)$ porque sus FGMs, al multiplicarse, dan la FGM de una Poisson con parámetro $\lambda_1+\lambda_2$. **Advertencia:** esta propiedad de "cerradura bajo sumas" no es automática para cualquier familia — por ejemplo, la suma de dos exponenciales independientes **no** es exponencial (su FGM producto no tiene la forma $\frac{\lambda}{\lambda-t}$ de una exponencial), aunque sí es Gamma. [Ver más trucos →](../recursos.qmd)
+Sumar FGMs (multiplicándolas, porque $m_{X+Y}=m_X\cdot m_Y$ cuando hay independencia) evita tener que encontrar la distribución de $X+Y$ por convolución. Es exactamente el mismo principio detrás del Ítem 45(a): $\text{Pois}(\lambda_1)+\text{Pois}(\lambda_2)=\text{Pois}(\lambda_1+\lambda_2)$ porque sus FGMs, al multiplicarse, dan la FGM de una Poisson con parámetro $\lambda_1+\lambda_2$. **Advertencia:** esta propiedad de "cerradura bajo sumas" no es automática para cualquier familia — por ejemplo, la suma de dos exponenciales independientes **no** es exponencial (su FGM producto no tiene la forma $\frac{\lambda}{\lambda-t}$ de una exponencial), aunque sí es Gamma. [Ver más trucos →](recursos.qmd)
 :::
 
 ## Bloque 18 · Distribuciones conjuntas: casos adicionales
@@ -1376,7 +1376,7 @@ La presión de vapor del mercurio crece de forma exponencial con la temperatura 
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-Cuando una relación física de fondo (aquí, la ecuación de Clausius-Clapeyron que gobierna la presión de vapor) es exponencial, **espera** asimetría en los datos — no es un error de medición ni una casualidad de la muestra. El truco de interpretación no es "¿por qué está sesgado?" sino "¿qué mecanismo físico explica el sesgo?". [Ver más trucos →](../recursos.qmd)
+Cuando una relación física de fondo (aquí, la ecuación de Clausius-Clapeyron que gobierna la presión de vapor) es exponencial, **espera** asimetría en los datos — no es un error de medición ni una casualidad de la muestra. El truco de interpretación no es "¿por qué está sesgado?" sino "¿qué mecanismo físico explica el sesgo?". [Ver más trucos →](recursos.qmd)
 :::
 
 ### Ítem 52 — Preguntas de selección múltiple (con justificación)
@@ -1469,7 +1469,7 @@ La tasa de mortalidad general de México (2010) es de aproximadamente 5.6 fallec
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-Antes de calcular cualquier tasa, pregúntate: **¿quién puede realmente experimentar el evento que estoy midiendo?** Esa es la población en riesgo, y es la que va en el denominador — no automáticamente "la población total" solo porque es el número más a la mano. [Ver más trucos →](../recursos.qmd)
+Antes de calcular cualquier tasa, pregúntate: **¿quién puede realmente experimentar el evento que estoy midiendo?** Esa es la población en riesgo, y es la que va en el denominador — no automáticamente "la población total" solo porque es el número más a la mano. [Ver más trucos →](recursos.qmd)
 :::
 
 ## Bloque 21 · Taller adicional: clasificación, recodificación y visualización

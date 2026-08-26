@@ -57,10 +57,20 @@ Los 10 temas (P1-P10) ya están construidos como experiencias interactivas compl
 **Motivación real:** tiempos de resistencia de materiales — ordenar, acumular frecuencias, calcular valor esperado y varianza; y la FDA teórica de una distribución exponencial $f(x)=\lambda e^{-\lambda x}$.
 **Estado:** ✅ construido — [ir al tema](tema-p5-estudiante.qmd)
 
-## P6 — Binomial y Poisson
-**Objetivo:** demostrar por simulación que $\mu=np,\ \sigma^2=np(1-p)$ para la binomial, y que la binomial converge a Poisson cuando $n\to\infty$, $p\to 0$, con $np$ constante.
-**Motivación real:** simular 500,000 valores de una Poisson($\lambda=5$) y verificar que media y varianza convergen a $\lambda$.
-**Estado:** ✅ construido — [ir al tema](tema-p6-estudiante.qmd), dado el nivel del curso.
+## P6a — Conteo: permutaciones y combinaciones
+**Objetivo:** que el estudiante entienda de dónde sale el número combinatorio de la fórmula binomial, contando secuencias a mano antes de ver la fórmula.
+**Motivación real:** enumerar las 32 secuencias de 5 lanzamientos y descubrir que 10 de ellas tienen exactamente 2 caras — es decir, $\binom{5}{2}$.
+**Estado:** ✅ construido — [ir al tema](tema-p6a-estudiante.qmd)
+
+## P6 — Distribución Binomial y ensayos de Bernoulli
+**Objetivo:** presentar la binomial como suma de $n$ ensayos de Bernoulli independientes, de donde salen $\mu=np$ y $\sigma^2=np(1-p)$; y enfatizar las cuatro condiciones BINS que deben cumplirse para poder aplicarla.
+**Motivación real:** control de calidad con 5% de piezas defectuosas, y cuatro casos para decidir si la binomial aplica o no (incluye muestreo sin reemplazo, donde falla la independencia).
+**Estado:** ✅ construido — [ir al tema](tema-p6-estudiante.qmd)
+
+## P6b — Distribución de Poisson
+**Objetivo:** modelar conteos de eventos en un intervalo continuo; la firma $\mu=\sigma^2=\lambda$, el escalamiento de $\lambda$ con el intervalo, y el límite binomial → Poisson.
+**Motivación real:** los datos históricos de von Bortkiewicz (1898) sobre muertes por coz de caballo en el ejército prusiano, más ejemplos de servicios, manufactura, texto, fenómenos naturales y deportes.
+**Estado:** ✅ construido — [ir al tema](tema-p6b-estudiante.qmd)
 
 ## P7 — Uniforme y Normal
 **Objetivo:** estimar media/varianza de una uniforme continua por simulación; calcular probabilidades, percentiles e intervalos con la normal.

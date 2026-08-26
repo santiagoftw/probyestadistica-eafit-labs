@@ -1,0 +1,345 @@
+---
+title: "Tema P6b · Distribución de Poisson"
+---
+
+::: {.hero-motivacion}
+## ☎️ ¿Cuántas llamadas entrarán en la próxima hora?
+
+Un call center recibe en promedio 12 llamadas por hora. No hay un número fijo de "intentos": las llamadas simplemente **ocurren** a lo largo del tiempo, y en principio podrían ser 5, 12 o 40. Con la binomial no se puede modelar esto, porque no existe un $n$ que contar.
+
+La distribución de Poisson responde exactamente esa clase de pregunta: **¿cuántas veces ocurrirá un evento en un intervalo dado**, cuando lo único que sabemos es la tasa promedio a la que ocurre?
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: si el promedio es 12 llamadas por hora, ¿cuál crees que es la probabilidad de recibir **exactamente 12**? Escribe tu intuición. ¿Dirías que es cercana al 50%? ¿Al 30%? ¿Menos?
+:::
+
+## 🔬 Exploremos: la firma de la Poisson
+
+```{r}
+set.seed(2026)
+lambda <- 12
+
+llamadas <- rpois(10000, lambda = lambda)
+head(llamadas, 20)
+
+mean(llamadas)     # ¿a qué se parece?
+var(llamadas)      # ¿y esto?
+```
+
+::: {.ficha-resultado}
+Compara los dos números. En la binomial la media ($np$) y la varianza ($np(1-p)$) son **distintas**. En la Poisson son **iguales**, ambas valen $\lambda$. Esa coincidencia es la huella dactilar de la distribución.
+:::
+
+```{r}
+# ¿Qué tan probable es recibir exactamente el promedio?
+dpois(12, lambda = 12)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+La probabilidad de recibir exactamente 12 llamadas —el valor promedio— es solo **0.114**, alrededor de 1 de cada 9 horas. Esto suele sorprender: el promedio no es un valor "típico" que se repita a menudo, sino el centro de una distribución bastante ancha. Con $\lambda=12$, la desviación estándar es $\sqrt{12}\approx3.5$, así que fluctuar entre 8 y 16 llamadas es completamente normal.
+:::
+
+## 📖 Ahora sí, la teoría
+
+### La fórmula
+
+$$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}, \quad k=0,1,2,\dots$$
+
+$$\mu = \lambda \qquad \sigma^2 = \lambda \qquad \sigma = \sqrt{\lambda}$$
+
+Fíjate en algo que la diferencia de la binomial: $k$ **no tiene límite superior**. En la binomial, $k$ solo llega hasta $n$ (no puedes tener 25 éxitos en 20 ensayos). En la Poisson, en principio podrían ocurrir 100 eventos — con probabilidad ínfima, pero no imposible.
+
+### Las tres condiciones de un proceso de Poisson
+
+| Condición | Qué significa | Qué la rompe |
+|---|---|---|
+| **Tasa constante** | El promedio $\lambda$ por unidad de intervalo no cambia | Un call center con hora pico: la tasa de las 9 a. m. no es la de las 3 a. m. |
+| **Independencia** | Que ocurra un evento no cambia la probabilidad de los siguientes | Accidentes en cadena: uno provoca otro |
+| **No simultáneos** | Dos eventos no ocurren exactamente al mismo instante | Llegadas en grupo: un bus que descarga 30 pasajeros de golpe |
+
+::: {.callout-important}
+## Cómo detectar que un conteo NO es Poisson
+Como en la Poisson media y varianza deben coincidir, comparar $\bar{x}$ con $s^2$ en datos reales es una prueba rápida:
+
+- Si $s^2 \approx \bar{x}$ → compatible con Poisson.
+- Si $s^2 \gg \bar{x}$ (**sobredispersión**) → los eventos se agrupan en rachas; suele indicar que falla la independencia o que la tasa no es constante.
+- Si $s^2 \ll \bar{x}$ (**subdispersión**) → los eventos están más regularmente espaciados de lo que el azar produciría.
+
+La sobredispersión es muy común en datos reales de conteo, y es la razón por la que existen modelos alternativos como la binomial negativa.
+:::
+
+### La propiedad más útil: λ escala con el intervalo
+
+Si los eventos ocurren a razón de $\lambda$ por unidad de tiempo, entonces en $t$ unidades el parámetro es $\lambda t$:
+
+$$X_t \sim \text{Poisson}(\lambda \cdot t)$$
+
+Esto permite cambiar de escala libremente: de horas a minutos, de metros a kilómetros, de páginas a capítulos.
+
+```{r}
+# 12 llamadas por hora...
+dpois(3, lambda = 12)          # P(3 llamadas en 1 hora)
+
+# ...son 6 por media hora
+ppois(3, lambda = 6)           # P(3 o menos en 30 minutos)
+
+# ...y 24 en dos horas
+1 - ppois(30, lambda = 24)     # P(más de 30 en 2 horas)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+El error más frecuente en los problemas de Poisson es **no ajustar $\lambda$ al intervalo de la pregunta**. Si el enunciado da una tasa por hora y pregunta por 15 minutos, hay que usar $\lambda/4$. Antes de calcular, pregúntate siempre: *"¿el $\lambda$ que voy a escribir corresponde al mismo intervalo por el que me preguntan?"* [Ver más trucos →](../recursos.qmd)
+:::
+
+### Las funciones de R
+
+| Función | Qué devuelve | Ejemplo |
+|---|---|---|
+| `dpois(k, lambda)` | $P(X=k)$ exacto | `dpois(3, 12)` |
+| `ppois(k, lambda)` | $P(X\le k)$ acumulada | `ppois(3, 12)` |
+| `qpois(q, lambda)` | El cuantil $q$ | `qpois(0.95, 12)` |
+| `rpois(m, lambda)` | $m$ simulaciones | `rpois(1000, 12)` |
+
+## 🐴 El ejemplo histórico: las coces de caballo
+
+En 1898, el estadístico ruso Ladislaus von Bortkiewicz analizó un conjunto de datos peculiar: el número de soldados del ejército prusiano que morían cada año por la coz de un caballo, en 10 cuerpos del ejército durante 20 años (200 observaciones de "cuerpo-año").
+
+Es el ejemplo clásico de Poisson porque cumple perfectamente las tres condiciones: la muerte por coz es un evento **raro**, **independiente** (la muerte de un soldado no afecta a otro) y con **tasa aproximadamente constante**.
+
+```{r}
+# Datos publicados por von Bortkiewicz (1898)
+muertes     <- 0:4
+observados  <- c(109, 65, 22, 3, 1)
+
+total_obs      <- sum(observados)              # 200 cuerpo-años
+total_muertes  <- sum(muertes * observados)    # muertes en total
+lambda_est     <- total_muertes / total_obs    # tasa estimada
+
+c(observaciones = total_obs, muertes = total_muertes, lambda = lambda_est)
+```
+
+```{r}
+# ¿Qué predice la Poisson con ese lambda?
+esperados <- total_obs * dpois(muertes, lambda = lambda_est)
+
+comparacion <- data.frame(
+  Muertes    = muertes,
+  Observado  = observados,
+  Esperado   = round(esperados, 1)
+)
+comparacion
+```
+
+::: {.ficha-resultado}
+El ajuste es notable: la Poisson predice 108.7 años sin muertes y se observaron 109; predice 66.3 con una muerte y se observaron 65. Esta coincidencia, publicada hace más de un siglo, es la razón por la que este conjunto de datos aparece en casi todos los libros de probabilidad.
+:::
+
+```{r}
+#| label: fig-bortkiewicz
+#| fig-cap: "Muertes por coz de caballo: datos observados vs. modelo de Poisson"
+barplot(rbind(observados, esperados), beside = TRUE,
+        names.arg = muertes, col = c("#004B85", "#FFB903"),
+        main = "Coces de caballo (von Bortkiewicz, 1898)",
+        xlab = "Muertes en un cuerpo-año", ylab = "Frecuencia")
+legend("topright", legend = c("Observado", "Poisson esperado"),
+       fill = c("#004B85", "#FFB903"), bty = "n")
+```
+
+```{r}
+# La prueba de la firma: ¿media ≈ varianza en los datos reales?
+datos_crudos <- rep(muertes, times = observados)
+c(media = mean(datos_crudos), varianza = var(datos_crudos))
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+Media 0.610 y varianza 0.611: prácticamente idénticas. Es la confirmación empírica de la firma de la Poisson, sobre datos reales recogidos hace más de 120 años.
+:::
+
+## 🌍 Dónde más aparece la Poisson
+
+::: {.panel-tabset}
+
+## Servicios y filas
+**Urgencias de un hospital** que recibe en promedio 4.5 pacientes por hora.
+
+```{r}
+dpois(0, lambda = 4.5)      # P(ninguna llegada en una hora)
+```
+
+Solo el **1.1%** de las horas transcurre sin ningún paciente. Este tipo de cálculo es la base de la *teoría de colas*, que se usa para dimensionar cuánto personal debe estar de turno.
+
+## Manufactura
+**Defectos en una tela** que presenta en promedio 0.8 fallas por metro. Un cliente compra 5 metros.
+
+```{r}
+lambda_5m <- 0.8 * 5        # la tasa escala con la longitud
+ppois(2, lambda = lambda_5m)  # P(a lo sumo 2 defectos en 5 metros)
+```
+
+Aquí el "intervalo" no es tiempo sino **longitud**. La Poisson funciona igual sobre espacio: defectos por metro cuadrado de lámina, bacterias por mililitro, baches por kilómetro de vía.
+
+## Texto y edición
+**Erratas en un libro** que tiene en promedio 0.09 errores por página. En un capítulo de 50 páginas:
+
+```{r}
+lambda_cap <- 0.09 * 50
+1 - ppois(2, lambda = lambda_cap)   # P(3 o más erratas en el capítulo)
+```
+
+Es el Ítem 45 del laboratorio del curso. Nota de nuevo el escalamiento: la tasa por página se multiplica por el número de páginas.
+
+## Fenómenos naturales
+**Terremotos, erupciones, impactos de meteoritos.** Son eventos raros, independientes entre sí y con tasa aproximadamente constante en escalas largas de tiempo — las tres condiciones.
+
+También en biología: **mutaciones** por generación, **colonias de bacterias** por placa de cultivo, o el número de **glóbulos rojos** en un cuadrado del hemocitómetro.
+
+## Deportes
+**Goles en un partido de fútbol.** Se modelan razonablemente con Poisson (tasas del orden de 1 a 3 goles por equipo por partido), y de hecho es la base de muchos modelos de predicción deportiva.
+
+Aquí la condición de independencia es la más discutible: hay quien argumenta que marcar un gol cambia la estrategia de ambos equipos, y por tanto la tasa posterior.
+
+:::
+
+## 🔗 El puente con la binomial
+
+La Poisson no es una distribución aislada: **es el límite de la binomial** cuando hay muchísimos ensayos y cada uno tiene probabilidad diminuta.
+
+Piénsalo así: una hora tiene 3600 segundos. En cada segundo, o entra una llamada o no entra — eso es un ensayo de Bernoulli. Si $n=3600$ y $p$ es minúsculo, con $np=\lambda$, la binomial converge a la Poisson.
+
+```{r}
+n <- 10000; p <- 0.0002
+lambda_eq <- n * p          # = 2
+
+comparar <- data.frame(
+  k        = 0:6,
+  Binomial = round(dbinom(0:6, size = n, prob = p), 6),
+  Poisson  = round(dpois(0:6, lambda = lambda_eq), 6)
+)
+comparar
+```
+
+::: {.ficha-resultado}
+Las dos columnas coinciden hasta el cuarto o quinto decimal. **Regla práctica:** la aproximación es buena cuando $n \ge 20$ y $p \le 0.05$, y muy buena cuando $n \ge 100$ y $np \le 10$.
+:::
+
+::: {.callout-note}
+## Las dos preguntas, lado a lado
+| | Binomial | Poisson |
+|---|---|---|
+| **Pregunta** | ¿Cuántos éxitos en $n$ ensayos? | ¿Cuántos eventos en un intervalo? |
+| **Se necesita** | $n$ y $p$ | Solo $\lambda$ |
+| **Valores de $k$** | De 0 a $n$ (acotado) | De 0 a ∞ (no acotado) |
+| **Media** | $np$ | $\lambda$ |
+| **Varianza** | $np(1-p)$ | $\lambda$ (¡igual a la media!) |
+| **Ejemplo** | 20 piezas revisadas, ¿cuántas fallan? | ¿Cuántas fallas por turno de 8 horas? |
+
+La pregunta que decide cuál usar: **¿puedo contar los "no ocurrió"?** Si puedo (revisé 20 piezas y 19 estaban bien), es binomial. Si no tiene sentido preguntarlo (¿cuántas llamadas *no* entraron esta hora?), es Poisson.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **Escalar la tasa.** Una panadería vende en promedio 3 tortas por día. Calcule: (a) la probabilidad de no vender ninguna en un día; (b) la de vender exactamente 20 en una semana; (c) la de vender más de 25 en una semana. Verifique que ajustó $\lambda$ correctamente en cada caso.
+
+2. **La firma media = varianza.** Simule 5000 valores de una Poisson con $\lambda=7$ y de una binomial con $n=20$, $p=0.35$ (que tiene la misma media, $np=7$). Compare `mean()` y `var()` de cada una. ¿Cuál de las dos cumple la firma, y por qué la otra no?
+
+3. **Diagnosticar datos reales.** Un supermercado registra el número de clientes que llegan por minuto durante 60 minutos:
+
+   ```r
+   clientes <- c(2,1,3,0,4,2,2,1,5,3,1,2,0,3,2,4,1,2,3,2,
+                 1,0,2,3,1,4,2,1,3,2,2,5,1,0,3,2,4,1,2,3,
+                 2,1,3,2,0,4,1,2,3,1,2,2,4,3,1,2,0,3,2,1)
+   ```
+
+   Calcule la media y la varianza. ¿Son compatibles con una Poisson? Estime $\lambda$, construya la tabla de frecuencias observadas vs. esperadas y grafíquelas como en el ejemplo de las coces.
+
+4. **Discutir las condiciones (sin R).** Para cada situación, decida si un modelo de Poisson es razonable y qué condición podría fallar:
+   - Número de correos electrónicos recibidos entre las 2 y las 3 de la madrugada.
+   - Número de pasajeros que llegan a una parada de bus cada 5 minutos.
+   - Número de goles de un equipo por partido a lo largo de una temporada.
+   - Número de accidentes en una vía durante una tormenta.
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# Una imprenta produce 0.5 errores por página. P(exactamente 2 errores en 4 páginas)
+dpois(2, lambda = ___)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`0.5 * 4`, es decir **2**. La tasa está dada por página, pero la pregunta es por 4 páginas: hay que escalar $\lambda$ multiplicando por el número de páginas. Escribir `lambda = 0.5` sería el error más común del tema.
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# Con lambda = 6, probabilidad de MÁS de 8 eventos
+1 - ppois(___, lambda = 6)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`8`. Como $P(X>8) = 1 - P(X\le 8)$, se resta la acumulada hasta 8. Si el enunciado dijera "al menos 8", habría que usar `1 - ppois(7, 6)`.
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap6b">
+<div style="margin-bottom: 1rem;"><strong>1. En la Poisson, la media y la varianza son ambas iguales a λ.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Si la tasa es 4 por hora, para media hora se debe usar λ = 2.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. En una Poisson, el valor de k tiene un límite superior, igual que en la binomial.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Si en datos reales la varianza es mucho mayor que la media, el modelo de Poisson es cuestionable.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. La probabilidad de observar exactamente el valor promedio λ suele ser alta, cercana al 50%.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP6b()">Revisar respuestas</button>
+<p id="resultado-quiz-temap6b" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP6b() {
+  const respuestas = { q1: "V", q2: "V", q3: "F", q4: "V", q5: "F" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temap6b");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La Poisson cuenta **eventos en un intervalo** continuo (tiempo, longitud, área, volumen), cuando no existe un número fijo de ensayos.
+- Su firma: $\mu = \sigma^2 = \lambda$. Comparar media y varianza en datos reales es la prueba diagnóstica más rápida.
+- Tres condiciones: **tasa constante**, **independencia** y **eventos no simultáneos**.
+- $\lambda$ **escala con el intervalo**: si la tasa es $\lambda$ por hora, en $t$ horas se usa $\lambda t$. Es el error más común no ajustarlo.
+- A diferencia de la binomial, $k$ **no tiene límite superior**.
+- Es el **límite de la binomial** cuando $n$ es grande y $p$ pequeño con $np=\lambda$ (buena aproximación si $n\ge20$ y $p\le0.05$).
+- Para decidir cuál usar: **¿puedo contar los "no ocurrió"?** Si sí → binomial. Si no → Poisson.
+:::
+
+::: {.callout-note}
+## Siguiente paso
+El [Tema P7](tema-p7-estudiante.qmd) pasa a las distribuciones continuas (Uniforme y Normal), y allí aparecerá la tercera conexión de esta familia: cuando $np$ es grande, la **binomial se aproxima por la normal**.
+:::

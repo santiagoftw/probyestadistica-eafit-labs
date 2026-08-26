@@ -1,142 +1,246 @@
 ---
-title: "Tema P6 · Distribuciones discretas: Binomial y Poisson"
+title: "Tema P6 · Distribución Binomial y ensayos de Bernoulli"
 ---
 
 ::: {.hero-motivacion}
-## 🧬 Dos fórmulas que puedes demostrar tú mismo, por simulación
+## 🎯 Una sola pregunta, repetida n veces
 
-Para una binomial con parámetros $n$ y $p$: $\mu = np$, $\sigma^2 = np(1-p)$. Para una Poisson con parámetro $\lambda$: $\mu = \lambda$, $\sigma^2 = \lambda$. No hace falta memorizarlas a ciegas — puedes comprobarlas simulando miles de repeticiones.
+Un control de calidad revisa 20 piezas y cuenta cuántas salen defectuosas. Una encuesta pregunta a 500 personas si votarían por cierto candidato y cuenta cuántas dicen que sí. Un examen tiene 10 preguntas de opción múltiple y cuenta cuántas acierta quien responde al azar.
+
+Los tres problemas parecen distintos, pero tienen **exactamente la misma estructura**: una pregunta de sí/no que se repite un número fijo de veces, y lo que interesa es contar los "sí". Reconocer esa estructura es lo que permite usar una sola fórmula para los tres.
 :::
 
 ::: {.ficha-prediccion}
-Antes de seguir: si simulas 1000 repeticiones de una binomial con $n=50$, $p=0.3$, ¿qué valor esperas que dé la media simulada? ¿Y la varianza?
+Antes de seguir: en un lote donde el 5% de las piezas es defectuoso, se revisan 20 piezas. ¿Cuál crees que es el número **más probable** de defectuosas? ¿Y qué tan probable crees que es no encontrar ninguna?
 :::
 
-## 🔬 Exploremos: comprobando la fórmula de la binomial
+## 🔬 Exploremos: el ladrillo básico
+
+Antes de la binomial está el **ensayo de Bernoulli**: un único experimento con solo dos resultados posibles. Lo llamamos "éxito" (que vale 1) y "fracaso" (que vale 0), sin ninguna connotación de bueno o malo — en control de calidad, el "éxito" suele ser encontrar un defecto.
 
 ```{r}
-set.seed(1)
-n_sim <- 1000
-n_binomial <- 50
-p_binomial <- 0.3
+set.seed(2026)
+p <- 0.3
 
-simulacion_binomial <- rbinom(n_sim, size = n_binomial, prob = p_binomial)
+# Un solo ensayo de Bernoulli, repetido muchas veces
+bernoulli <- rbinom(10000, size = 1, prob = p)
+head(bernoulli, 20)
 
-mean(simulacion_binomial)
-n_binomial * p_binomial                      # μ teórico = np
-
-var(simulacion_binomial)
-n_binomial * p_binomial * (1 - p_binomial)    # σ² teórico = np(1-p)
+mean(bernoulli)          # ¿a qué se parece?
+var(bernoulli)           # ¿y esto?
+p * (1 - p)              # varianza teórica de un Bernoulli
 ```
 
 ::: {.ficha-resultado}
-Compara cada par de números. ¿Qué tan cerca están la media/varianza simuladas de las teóricas? Aumenta `n_sim` a 100000 y vuelve a correr — ¿se acercan aún más?
+La media de un Bernoulli es $p$ y su varianza es $p(1-p)$. Compara los números simulados con los teóricos. Ahora la pregunta clave: **¿qué pasa si sumo $n$ de estos ensayos?**
 :::
 
 ```{r}
-#| label: fig-binomial-simulada
-#| fig-cap: "Distribución simulada de una binomial(n=50, p=0.3)"
-hist(simulacion_binomial, breaks = 20, col = "#004B85", border = "white",
-     main = "Binomial simulada", xlab = "Número de éxitos")
-```
+# La binomial NO es más que la suma de n ensayos de Bernoulli independientes
+n <- 20
 
-## 📖 Ahora sí, la teoría
+suma_manual <- replicate(10000, sum(rbinom(n, size = 1, prob = p)))
+directo     <- rbinom(10000, size = n, prob = p)
 
-::: {.panel-tabset}
-
-## Distribución Binomial
-Modela el número de éxitos en $n$ ensayos independientes, cada uno con probabilidad de éxito $p$:
-
-$$P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\dots,n$$
-$$\mu = np \qquad \sigma^2 = np(1-p)$$
-
-En R: `rbinom(n_sim, size = n, prob = p)` genera simulaciones; `dbinom()`, `pbinom()` y `qbinom()` dan la función de probabilidad, la FDA y los cuantiles teóricos.
-
-## Distribución Poisson
-Modela el número de eventos que ocurren en un intervalo fijo, cuando esos eventos suceden a una tasa promedio constante $\lambda$:
-
-$$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}, \quad k=0,1,2,\dots$$
-$$\mu = \lambda \qquad \sigma^2 = \lambda$$
-
-Nota la propiedad distintiva: **media y varianza son iguales**, ambas $\lambda$ — una forma rápida de sospechar si un conteo real sigue (aproximadamente) una Poisson.
-
-## Binomial → Poisson (teorema límite)
-Cuando $n\to\infty$ y $p\to 0$, con $np=\lambda$ constante, la distribución Binomial$(n,p)$ se aproxima a una Poisson$(\lambda)$. Es útil cuando hay muchísimas oportunidades de que ocurra un evento raro (defectos en un lote enorme, llamadas en un conmutador).
-
-:::
-
-## 🧪 Ejemplo con datos reales: la convergencia Binomial → Poisson
-
-```{r}
-#| label: fig-binomial-poisson
-#| fig-cap: "Binomial con n grande y p pequeño vs. Poisson con λ=np"
-n_grande <- 5000
-p_chico <- 0.005
-lambda_equiv <- n_grande * p_chico
-
-sim_binom <- rbinom(n_grande, size = n_grande, prob = p_chico)
-sim_pois <- rpois(n_grande, lambda = lambda_equiv)
-
-hist(sim_binom, breaks = 20, col = rgb(0, 0.29, 0.52, 0.5), border = "white",
-     main = "Binomial (azul) vs. Poisson (amarillo)", xlab = "Valor",
-     xlim = range(c(sim_binom, sim_pois)))
-hist(sim_pois, breaks = 20, col = rgb(1, 0.72, 0.01, 0.5), border = "white", add = TRUE)
+c(media_suma = mean(suma_manual), media_directa = mean(directo), teorica = n * p)
+c(var_suma   = var(suma_manual),  var_directa   = var(directo),  teorica = n * p * (1 - p))
 ```
 
 ::: {.callout-note}
 ## Lo que deberías notar
-Los dos histogramas se superponen casi por completo — evidencia visual de que, con $n$ grande y $p$ pequeño, la binomial y la Poisson con $\lambda=np$ son prácticamente indistinguibles.
+Sumar 20 Bernoulli independientes y pedirle directamente a R una binomial con $n=20$ producen **la misma distribución**. Esto no es una casualidad: es la definición. Una variable binomial *es* la suma de $n$ ensayos de Bernoulli independientes, y de ahí salen sus fórmulas sin necesidad de memorizarlas.
 :::
 
-### Otro ejemplo: tasa de ataque de un virus
+## 📖 Ahora sí, la teoría
 
-**Enunciado:** en una comunidad de $n=20$ individuos se introduce un virus con una tasa de ataque (probabilidad de infección) de $p=0.60$. ¿Cuál es la probabilidad de que se infecten 10 o menos individuos?
+### Las cuatro condiciones (el corazón del tema)
+
+Una variable sigue una distribución binomial **solo si** se cumplen las cuatro condiciones a la vez. Un atajo para recordarlas es **BINS**:
+
+| | Condición | Qué significa | Qué la rompe |
+|---|---|---|---|
+| **B** | **B**inario | Cada ensayo tiene exactamente dos resultados posibles | Una encuesta con tres opciones: sí / no / no sabe |
+| **I** | **I**ndependientes | El resultado de un ensayo no afecta a los demás | Extraer cartas **sin** devolverlas al mazo |
+| **N** | **N**úmero fijo | $n$ se decide **antes** de empezar, no depende de los resultados | "Lanzar hasta obtener la primera cara" |
+| **S** | **S**iempre la misma $p$ | La probabilidad de éxito es constante en todos los ensayos | Un tirador que se cansa y falla más al final |
+
+Si se cumplen las cuatro, entonces $X$ = "número de éxitos en los $n$ ensayos" sigue una $\text{Binomial}(n,p)$:
+
+$$P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\dots,n$$
+
+::: {.callout-important}
+## La condición que más se viola: la independencia
+De las cuatro, la que falla con más frecuencia en problemas reales es la **I**. El caso clásico es el **muestreo sin reemplazo**: si una caja tiene 12 piezas con 3 defectuosas y saco 4 sin devolverlas, la probabilidad de defecto cambia en cada extracción (empieza en 3/12, y después de sacar una defectuosa pasa a 2/11). Ahí **no** aplica la binomial, sino la distribución hipergeométrica — es exactamente el reto del Laboratorio del Tema P6a.
+
+**Regla práctica:** si el muestreo es sin reemplazo pero la población es mucho mayor que la muestra (digamos, $n < 5\%$ de la población), la dependencia es tan pequeña que la binomial funciona bien como aproximación. Por eso las encuestas nacionales sí se modelan con la binomial.
+:::
+
+### De dónde salen la media y la varianza
+
+Como $X = Y_1 + Y_2 + \cdots + Y_n$, donde cada $Y_i$ es un Bernoulli con media $p$ y varianza $p(1-p)$:
+
+$$E[X] = \underbrace{p + p + \cdots + p}_{n \text{ veces}} = np$$
+
+$$\text{Var}(X) = \underbrace{p(1-p) + \cdots + p(1-p)}_{n \text{ veces}} = np(1-p)$$
+
+::: {.callout-note}
+## Dónde entra la independencia
+La media se suma **siempre**, haya o no independencia. Pero la varianza solo se suma así **si los ensayos son independientes**: en general $\text{Var}(A+B)=\text{Var}(A)+\text{Var}(B)+2\,\text{Cov}(A,B)$, y el término de covarianza desaparece únicamente cuando no hay relación entre los ensayos. Es decir, la fórmula $\sigma^2=np(1-p)$ **depende** de la condición I.
+:::
+
+### Las funciones de R
+
+| Función | Qué devuelve | Ejemplo |
+|---|---|---|
+| `dbinom(k, n, p)` | $P(X=k)$ exacto | `dbinom(2, 20, 0.05)` |
+| `pbinom(k, n, p)` | $P(X\le k)$ acumulada | `pbinom(2, 20, 0.05)` |
+| `qbinom(q, n, p)` | El cuantil $q$ | `qbinom(0.95, 20, 0.05)` |
+| `rbinom(m, n, p)` | $m$ simulaciones | `rbinom(1000, 20, 0.05)` |
+
+## 🧪 Ejemplo con datos reales: control de calidad
+
+**Enunciado:** en un lote, el 5% de las piezas es defectuoso. Se revisan 20 piezas tomadas al azar de una producción muy grande.
+
+**Primero, verifiquemos las condiciones BINS:**
+
+- **B**: cada pieza es defectuosa o no. ✅
+- **I**: la producción es muy grande frente a 20 piezas, así que revisar una no cambia apreciablemente la probabilidad de la siguiente. ✅
+- **N**: se revisan exactamente 20, decidido de antemano. ✅
+- **S**: el 5% es constante en el lote. ✅
 
 ```{r}
-pbinom(q = 10, size = 20, prob = 0.60)
+n <- 20; p <- 0.05
+
+# ¿Ninguna defectuosa?
+dbinom(0, size = n, prob = p)
+
+# ¿Al menos dos defectuosas?
+1 - pbinom(1, size = n, prob = p)
+
+# Media, varianza y desviación estándar
+c(media = n * p, varianza = n * p * (1 - p), sd = sqrt(n * p * (1 - p)))
 ```
 
 ::: {.ficha-resultado}
-$P(X\le10)\approx0.245$: aunque la probabilidad individual de infección (60%) es alta, hay casi un 25% de probabilidad de que la comunidad "se salve" con 10 o menos infectados de 20 — un buen recordatorio de que la probabilidad de un evento individual no se traduce directamente en la proporción esperada del grupo completo, sobre todo cuando el umbral (10 de 20 = 50%) está por debajo de la media teórica ($np=12$).
+La probabilidad de no encontrar ninguna defectuosa es 0.358, es decir, algo más de una de cada tres revisiones. Y la de encontrar dos o más es 0.264. En promedio se espera **1 defectuosa** por cada 20 piezas ($np = 1$) — compara con lo que predijiste al inicio.
+:::
+
+```{r}
+#| label: fig-binomial-control
+#| fig-cap: "Distribución del número de piezas defectuosas en una muestra de 20"
+k <- 0:8
+probs <- dbinom(k, size = n, prob = p)
+
+barplot(probs, names.arg = k, col = "#004B85", border = "white",
+        main = "Binomial(n = 20, p = 0.05)",
+        xlab = "Número de defectuosas", ylab = "Probabilidad")
+abline(v = which.max(probs) - 0.5, col = "#FFB903", lwd = 2, lty = 2)
+```
+
+## 🎲 Un segundo caso: responder un examen al azar
+
+**Enunciado:** un examen tiene 10 preguntas de opción múltiple con 4 alternativas cada una. Un estudiante responde todo al azar. ¿Cuál es la probabilidad de que apruebe, si aprobar exige al menos 6 aciertos?
+
+```{r}
+n <- 10; p <- 1/4
+
+# P(X >= 6)
+1 - pbinom(5, size = n, prob = p)
+
+# Aciertos esperados
+n * p
+```
+
+::: {.ficha-resultado}
+La probabilidad de aprobar adivinando es de apenas **0.0197**, menos de 2 de cada 100 intentos, y lo esperado son 2.5 aciertos de 10. Este es el mismo razonamiento del Ítem 44 del laboratorio, donde se calcula cuántas alternativas debe tener cada pregunta para que aprobar por azar sea prácticamente imposible.
+:::
+
+## ✔️ ¿Es binomial o no? Cuatro situaciones para decidir
+
+::: {.panel-tabset}
+
+## Caso 1
+**"Se lanza una moneda 30 veces y se cuenta el número de caras."**
+
+**Sí es binomial.** B: cara o sello. I: cada lanzamiento es independiente. N: 30 fijo. S: $p=0.5$ constante. → $\text{Binomial}(30, 0.5)$
+
+## Caso 2
+**"Se lanza una moneda hasta obtener la primera cara y se cuenta el número de lanzamientos."**
+
+**No es binomial.** Falla la condición **N**: el número de ensayos no está fijado de antemano, depende del resultado. Esta situación corresponde a la distribución **geométrica**.
+
+## Caso 3
+**"De una baraja de 52 cartas se extraen 5 sin devolverlas y se cuenta cuántos corazones salen."**
+
+**No es binomial.** Falla la condición **I** (y con ella la **S**): al no devolver las cartas, la probabilidad cambia en cada extracción (13/52, luego 12/51 o 13/51...). Corresponde a la **hipergeométrica**. Si las cartas se devolvieran al mazo cada vez, sí sería binomial.
+
+## Caso 4
+**"Se pregunta a 500 personas de una ciudad si aprueban una medida (sí / no)."**
+
+**Sí es binomial, en la práctica.** Técnicamente el muestreo es sin reemplazo, pero 500 personas frente a una ciudad de cientos de miles es una fracción despreciable, así que la dependencia es insignificante. → $\text{Binomial}(500, p)$
+
 :::
 
 ## 🧑‍🔬 Laboratorio
 
-1. Simula 500,000 valores de una Poisson con $\lambda=5$ (`rpois()`). Calcula media y varianza simuladas — ¿qué tan cerca están de $\lambda=5$ comparado con cuando usaste solo 1000 simulaciones?
-2. Simula una binomial con $n=1000$, $p=0.5$. ¿La forma del histograma se parece a alguna de las formas típicas del Tema 3 (Módulo 1)?
-3. Verifica: para una Poisson simulada, ¿`mean()` y `var()` dan resultados más parecidos entre sí que para una binomial con $p$ lejos de 0 o 1? ¿Por qué tendría sentido esa diferencia?
+1. **Verificar las condiciones.** Para cada situación, indique si es binomial y cuál condición BINS falla si no lo es:
+   - Contar cuántos de 12 huevos de una cubeta están rotos.
+   - Contar cuántas veces hay que marcar un teléfono hasta que contesten.
+   - Contar cuántos de 8 pacientes responden a un tratamiento con 70% de efectividad.
+   - Contar cuántas bolas rojas salen al extraer 5 de una urna con 6 rojas y 4 azules, sin reemplazo.
+
+2. **Simular la construcción.** Genere 5000 sumas de 12 ensayos de Bernoulli con $p=0.4$ usando `replicate()` y `rbinom(12, 1, 0.4)`. Compare su media y varianza con $np$ y $np(1-p)$, y con `rbinom(5000, 12, 0.4)`.
+
+3. **Una vacuna con 90% de eficacia** se aplica a 15 personas. Calcule: (a) la probabilidad de que funcione en las 15; (b) la probabilidad de que funcione en al menos 13; (c) el número esperado de personas protegidas.
+
+4. **El efecto de $p$ en la forma.** Grafique en tres paneles las distribuciones $\text{Binomial}(20, 0.1)$, $\text{Binomial}(20, 0.5)$ y $\text{Binomial}(20, 0.9)$. Describa cómo cambia la simetría y explique qué valor de $p$ produce la distribución simétrica.
 
 ## ✅ Ejercicios autocorregibles
 
 ### Ejercicio 1 — Completa el código
 
 ```r
-# Simulación de una Poisson: completa el parámetro
-rpois(1000, ___ = 5)
+# Probabilidad de exactamente 3 éxitos en 12 ensayos con p = 0.25
+___(3, size = 12, prob = 0.25)
 ```
 
 <details>
 <summary>Ver respuesta</summary>
-`lambda` — el parámetro que define tanto la media como la varianza de la Poisson.
+`dbinom` — la letra **d** indica "densidad" o función de probabilidad puntual, es decir, $P(X=k)$ exacto. Si se usara `pbinom` se obtendría $P(X\le 3)$, que es otra cosa.
 </details>
 
-### Ejercicio 2 — Verdadero o falso
+### Ejercicio 2 — Completa el código
+
+```r
+# Probabilidad de AL MENOS 4 éxitos en 12 ensayos con p = 0.25
+1 - pbinom(___, size = 12, prob = 0.25)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`3`. Como $P(X\ge4) = 1 - P(X\le3)$, hay que restar la acumulada hasta **3**, no hasta 4. Este desfase por uno es el error más común al usar `pbinom()` con variables discretas.
+</details>
+
+### Ejercicio 3 — Verdadero o falso
 
 <div class="card-lab" id="quiz-temap6">
-<div style="margin-bottom: 1rem;"><strong>1. En la Poisson, la media y la varianza son iguales.</strong><br>
+<div style="margin-bottom: 1rem;"><strong>1. Una variable binomial es la suma de n ensayos de Bernoulli independientes.</strong><br>
 <label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
-<div style="margin-bottom: 1rem;"><strong>2. La binomial converge a la Poisson cuando n es pequeño y p es grande.</strong><br>
+<div style="margin-bottom: 1rem;"><strong>2. "Lanzar un dado hasta que salga un 6" se modela con una binomial.</strong><br>
 <label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
-<div style="margin-bottom: 1rem;"><strong>3. μ = np es la media de la binomial.</strong><br>
+<div style="margin-bottom: 1rem;"><strong>3. Extraer cartas sin reemplazo mantiene constante la probabilidad de éxito.</strong><br>
 <label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. La fórmula σ² = np(1−p) requiere que los ensayos sean independientes.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. En una binomial, "éxito" siempre significa algo bueno o deseable.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
 <button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP6()">Revisar respuestas</button>
 <p id="resultado-quiz-temap6" style="margin-top: 1rem; font-weight: 700;"></p>
 </div>
 
 <script>
 function revisarQuizTemaP6() {
-  const respuestas = { q1: "V", q2: "F", q3: "V" };
-  // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
+  const respuestas = { q1: "V", q2: "F", q3: "F", q4: "V", q5: "F" };
   const sinResponder = Object.keys(respuestas).filter(
     p => !document.querySelector(`input[name="${p}"]:checked`)
   );
@@ -151,16 +255,23 @@ function revisarQuizTemaP6() {
     const s = document.querySelector(`input[name="${p}"]:checked`);
     if (s && s.value === c) correctas++;
   }
-  const r = document.getElementById("resultado-quiz-temap6");
-  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
-  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
 }
 </script>
 
 ## 🗂️ Resumen
 
 ::: {.card-lab}
-- Binomial: cuenta éxitos en $n$ ensayos independientes con probabilidad fija $p$; $\mu=np$, $\sigma^2=np(1-p)$.
-- Poisson: cuenta eventos en un intervalo con tasa constante $\lambda$; $\mu=\sigma^2=\lambda$ — su propiedad distintiva.
-- Con $n$ grande y $p$ pequeño ($np=\lambda$ constante), la binomial converge a la Poisson — útil para modelar eventos raros sobre muchas oportunidades.
+- Un **ensayo de Bernoulli** es un experimento con dos resultados; su media es $p$ y su varianza $p(1-p)$.
+- Una variable **binomial es la suma de $n$ ensayos de Bernoulli independientes**. De ahí salen directamente $\mu=np$ y $\sigma^2=np(1-p)$.
+- Las cuatro condiciones **BINS**: **B**inario, **I**ndependientes, **N**úmero fijo de ensayos, **S**iempre la misma $p$. Deben cumplirse **todas**.
+- La que más se viola es la independencia, típicamente por **muestreo sin reemplazo** (ahí corresponde la hipergeométrica). Si la muestra es menos del 5% de la población, la binomial sirve como aproximación.
+- "Éxito" es solo una etiqueta para uno de los dos resultados: puede ser encontrar un defecto o una falla.
+- En R: `dbinom()` para $P(X=k)$, `pbinom()` para $P(X\le k)$, `rbinom()` para simular.
+:::
+
+::: {.callout-note}
+## Siguiente paso
+El [Tema P6b](tema-p6b-estudiante.qmd) presenta la distribución de Poisson, que responde una pregunta distinta: en vez de contar éxitos en un número fijo de ensayos, cuenta **eventos que ocurren en un intervalo continuo** de tiempo o espacio.
 :::
