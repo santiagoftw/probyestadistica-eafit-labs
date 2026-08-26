@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tema P6 · Distribuciones discretas: Binomial y Poisson – Estadística Descriptiva — Curso interactivo</title>
+<title>Tema P6 · Distribución Binomial y ensayos de Bernoulli – Estadística Descriptiva — Curso interactivo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../temas/tema-p7-estudiante.html" rel="next">
+<link href="../temas/tema-p6b-estudiante.html" rel="next">
 <link href="../temas/tema-p6a-estudiante.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -189,7 +189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/tema-p6-estudiante.html">Tema P6 · Distribuciones discretas: Binomial y Poisson</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/tema-p6-estudiante.html">Tema P6 · Distribución Binomial y ensayos de Bernoulli</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -350,7 +350,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Tema P6 · Distribuciones discretas: Binomial y Poisson</span></a>
+ <span class="menu-text">Tema P6 · Distribución Binomial y ensayos de Bernoulli</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6b-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6b · Distribución de Poisson</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -407,10 +413,12 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#dos-fórmulas-que-puedes-demostrar-tú-mismo-por-simulación" id="toc-dos-fórmulas-que-puedes-demostrar-tú-mismo-por-simulación" class="nav-link active" data-scroll-target="#dos-fórmulas-que-puedes-demostrar-tú-mismo-por-simulación">🧬 Dos fórmulas que puedes demostrar tú mismo, por simulación</a></li>
-  <li><a href="#exploremos-comprobando-la-fórmula-de-la-binomial" id="toc-exploremos-comprobando-la-fórmula-de-la-binomial" class="nav-link" data-scroll-target="#exploremos-comprobando-la-fórmula-de-la-binomial">🔬 Exploremos: comprobando la fórmula de la binomial</a></li>
+  <li><a href="#una-sola-pregunta-repetida-n-veces" id="toc-una-sola-pregunta-repetida-n-veces" class="nav-link active" data-scroll-target="#una-sola-pregunta-repetida-n-veces">🎯 Una sola pregunta, repetida n veces</a></li>
+  <li><a href="#exploremos-el-ladrillo-básico" id="toc-exploremos-el-ladrillo-básico" class="nav-link" data-scroll-target="#exploremos-el-ladrillo-básico">🔬 Exploremos: el ladrillo básico</a></li>
   <li><a href="#ahora-sí-la-teoría" id="toc-ahora-sí-la-teoría" class="nav-link" data-scroll-target="#ahora-sí-la-teoría">📖 Ahora sí, la teoría</a></li>
-  <li><a href="#ejemplo-con-datos-reales-la-convergencia-binomial-poisson" id="toc-ejemplo-con-datos-reales-la-convergencia-binomial-poisson" class="nav-link" data-scroll-target="#ejemplo-con-datos-reales-la-convergencia-binomial-poisson">🧪 Ejemplo con datos reales: la convergencia Binomial → Poisson</a></li>
+  <li><a href="#ejemplo-con-datos-reales-control-de-calidad" id="toc-ejemplo-con-datos-reales-control-de-calidad" class="nav-link" data-scroll-target="#ejemplo-con-datos-reales-control-de-calidad">🧪 Ejemplo con datos reales: control de calidad</a></li>
+  <li><a href="#un-segundo-caso-responder-un-examen-al-azar" id="toc-un-segundo-caso-responder-un-examen-al-azar" class="nav-link" data-scroll-target="#un-segundo-caso-responder-un-examen-al-azar">🎲 Un segundo caso: responder un examen al azar</a></li>
+  <li><a href="#es-binomial-o-no-cuatro-situaciones-para-decidir" id="toc-es-binomial-o-no-cuatro-situaciones-para-decidir" class="nav-link" data-scroll-target="#es-binomial-o-no-cuatro-situaciones-para-decidir">✔️ ¿Es binomial o no? Cuatro situaciones para decidir</a></li>
   <li><a href="#laboratorio" id="toc-laboratorio" class="nav-link" data-scroll-target="#laboratorio">🧑‍🔬 Laboratorio</a></li>
   <li><a href="#ejercicios-autocorregibles" id="toc-ejercicios-autocorregibles" class="nav-link" data-scroll-target="#ejercicios-autocorregibles">✅ Ejercicios autocorregibles</a></li>
   <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">🗂️ Resumen</a></li>
@@ -420,9 +428,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/tema-p6-estudiante.html">Tema P6 · Distribuciones discretas: Binomial y Poisson</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/tema-p6-estudiante.html">Tema P6 · Distribución Binomial y ensayos de Bernoulli</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Tema P6 · Distribuciones discretas: Binomial y Poisson</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Tema P6 · Distribución Binomial y ensayos de Bernoulli</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -439,124 +447,77 @@ window.Quarto = {
 </header>
 
 
-<section id="dos-fórmulas-que-puedes-demostrar-tú-mismo-por-simulación" class="level2 hero-motivacion">
-<h2 class="anchored" data-anchor-id="dos-fórmulas-que-puedes-demostrar-tú-mismo-por-simulación">🧬 Dos fórmulas que puedes demostrar tú mismo, por simulación</h2>
-<p>Para una binomial con parámetros <span class="math inline">\(n\)</span> y <span class="math inline">\(p\)</span>: <span class="math inline">\(\mu = np\)</span>, <span class="math inline">\(\sigma^2 = np(1-p)\)</span>. Para una Poisson con parámetro <span class="math inline">\(\lambda\)</span>: <span class="math inline">\(\mu = \lambda\)</span>, <span class="math inline">\(\sigma^2 = \lambda\)</span>. No hace falta memorizarlas a ciegas — puedes comprobarlas simulando miles de repeticiones.</p>
+<section id="una-sola-pregunta-repetida-n-veces" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="una-sola-pregunta-repetida-n-veces">🎯 Una sola pregunta, repetida n veces</h2>
+<p>Un control de calidad revisa 20 piezas y cuenta cuántas salen defectuosas. Una encuesta pregunta a 500 personas si votarían por cierto candidato y cuenta cuántas dicen que sí. Un examen tiene 10 preguntas de opción múltiple y cuenta cuántas acierta quien responde al azar.</p>
+<p>Los tres problemas parecen distintos, pero tienen <strong>exactamente la misma estructura</strong>: una pregunta de sí/no que se repite un número fijo de veces, y lo que interesa es contar los “sí”. Reconocer esa estructura es lo que permite usar una sola fórmula para los tres.</p>
 </section>
 <div class="ficha-prediccion">
-<p>Antes de seguir: si simulas 1000 repeticiones de una binomial con <span class="math inline">\(n=50\)</span>, <span class="math inline">\(p=0.3\)</span>, ¿qué valor esperas que dé la media simulada? ¿Y la varianza?</p>
+<p>Antes de seguir: en un lote donde el 5% de las piezas es defectuoso, se revisan 20 piezas. ¿Cuál crees que es el número <strong>más probable</strong> de defectuosas? ¿Y qué tan probable crees que es no encontrar ninguna?</p>
 </div>
-<section id="exploremos-comprobando-la-fórmula-de-la-binomial" class="level2">
-<h2 class="anchored" data-anchor-id="exploremos-comprobando-la-fórmula-de-la-binomial">🔬 Exploremos: comprobando la fórmula de la binomial</h2>
+<section id="exploremos-el-ladrillo-básico" class="level2">
+<h2 class="anchored" data-anchor-id="exploremos-el-ladrillo-básico">🔬 Exploremos: el ladrillo básico</h2>
+<p>Antes de la binomial está el <strong>ensayo de Bernoulli</strong>: un único experimento con solo dos resultados posibles. Lo llamamos “éxito” (que vale 1) y “fracaso” (que vale 0), sin ninguna connotación de bueno o malo — en control de calidad, el “éxito” suele ser encontrar un defecto.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n_binomial <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>p_binomial <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>simulacion_binomial <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, <span class="at">size =</span> n_binomial, <span class="at">prob =</span> p_binomial)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(simulacion_binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Un solo ensayo de Bernoulli, repetido muchas veces</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>bernoulli <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bernoulli, <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.031</code></pre>
+<pre><code> [1] 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n_binomial <span class="sc">*</span> p_binomial                      <span class="co"># μ teórico = np</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bernoulli)          <span class="co"># ¿a qué se parece?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 15</code></pre>
+<pre><code>[1] 0.2966</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(simulacion_binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bernoulli)           <span class="co"># ¿y esto?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.58262</code></pre>
+<pre><code>[1] 0.2086493</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n_binomial <span class="sc">*</span> p_binomial <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_binomial)    <span class="co"># σ² teórico = np(1-p)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)              <span class="co"># varianza teórica de un Bernoulli</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.5</code></pre>
+<pre><code>[1] 0.21</code></pre>
 </div>
 </div>
 <div class="ficha-resultado">
-<p>Compara cada par de números. ¿Qué tan cerca están la media/varianza simuladas de las teóricas? Aumenta <code>n_sim</code> a 100000 y vuelve a correr — ¿se acercan aún más?</p>
+<p>La media de un Bernoulli es <span class="math inline">\(p\)</span> y su varianza es <span class="math inline">\(p(1-p)\)</span>. Compara los números simulados con los teóricos. Ahora la pregunta clave: <strong>¿qué pasa si sumo <span class="math inline">\(n\)</span> de estos ensayos?</strong></p>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(simulacion_binomial, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Binomial simulada"</span>, <span class="at">xlab =</span> <span class="st">"Número de éxitos"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># La binomial NO es más que la suma de n ensayos de Bernoulli independientes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>suma_manual <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">sum</span>(<span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>directo     <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_suma =</span> <span class="fu">mean</span>(suma_manual), <span class="at">media_directa =</span> <span class="fu">mean</span>(directo), <span class="at">teorica =</span> n <span class="sc">*</span> p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output-display">
-<div id="fig-binomial-simulada" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-binomial-simulada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="tema-p6-estudiante_files/figure-html/fig-binomial-simulada-1.png" class="img-fluid figure-img" width="672">
+<div class="cell-output cell-output-stdout">
+<pre><code>   media_suma media_directa       teorica 
+       6.0500        5.9921        6.0000 </code></pre>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-binomial-simulada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Distribución simulada de una binomial(n=50, p=0.3)
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="ahora-sí-la-teoría" class="level2">
-<h2 class="anchored" data-anchor-id="ahora-sí-la-teoría">📖 Ahora sí, la teoría</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Distribución Binomial</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Distribución Poisson</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Binomial → Poisson (teorema límite)</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Modela el número de éxitos en <span class="math inline">\(n\)</span> ensayos independientes, cada uno con probabilidad de éxito <span class="math inline">\(p\)</span>:</p>
-<p><span class="math display">\[P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\dots,n\]</span> <span class="math display">\[\mu = np \qquad \sigma^2 = np(1-p)\]</span></p>
-<p>En R: <code>rbinom(n_sim, size = n, prob = p)</code> genera simulaciones; <code>dbinom()</code>, <code>pbinom()</code> y <code>qbinom()</code> dan la función de probabilidad, la FDA y los cuantiles teóricos.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Modela el número de eventos que ocurren en un intervalo fijo, cuando esos eventos suceden a una tasa promedio constante <span class="math inline">\(\lambda\)</span>:</p>
-<p><span class="math display">\[P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}, \quad k=0,1,2,\dots\]</span> <span class="math display">\[\mu = \lambda \qquad \sigma^2 = \lambda\]</span></p>
-<p>Nota la propiedad distintiva: <strong>media y varianza son iguales</strong>, ambas <span class="math inline">\(\lambda\)</span> — una forma rápida de sospechar si un conteo real sigue (aproximadamente) una Poisson.</p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>Cuando <span class="math inline">\(n\to\infty\)</span> y <span class="math inline">\(p\to 0\)</span>, con <span class="math inline">\(np=\lambda\)</span> constante, la distribución Binomial<span class="math inline">\((n,p)\)</span> se aproxima a una Poisson<span class="math inline">\((\lambda)\)</span>. Es útil cuando hay muchísimas oportunidades de que ocurra un evento raro (defectos en un lote enorme, llamadas en un conmutador).</p>
-</div>
-</div>
-</div>
-</section>
-<section id="ejemplo-con-datos-reales-la-convergencia-binomial-poisson" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-con-datos-reales-la-convergencia-binomial-poisson">🧪 Ejemplo con datos reales: la convergencia Binomial → Poisson</h2>
-<div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n_grande <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p_chico <span class="ot">&lt;-</span> <span class="fl">0.005</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>lambda_equiv <span class="ot">&lt;-</span> n_grande <span class="sc">*</span> p_chico</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>sim_binom <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_grande, <span class="at">size =</span> n_grande, <span class="at">prob =</span> p_chico)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>sim_pois <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_grande, <span class="at">lambda =</span> lambda_equiv)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sim_binom, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="fl">0.29</span>, <span class="fl">0.52</span>, <span class="fl">0.5</span>), <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Binomial (azul) vs. Poisson (amarillo)"</span>, <span class="at">xlab =</span> <span class="st">"Valor"</span>,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(sim_binom, sim_pois)))</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sim_pois, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="fl">0.72</span>, <span class="fl">0.01</span>, <span class="fl">0.5</span>), <span class="at">border =</span> <span class="st">"white"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_suma   =</span> <span class="fu">var</span>(suma_manual),  <span class="at">var_directa   =</span> <span class="fu">var</span>(directo),  <span class="at">teorica =</span> n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output-display">
-<div id="fig-binomial-poisson" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-binomial-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="tema-p6-estudiante_files/figure-html/fig-binomial-poisson-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-binomial-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Binomial con n grande y p pequeño vs.&nbsp;Poisson con λ=np
-</figcaption>
-</figure>
-</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   var_suma var_directa     teorica 
+   4.277928    4.139252    4.200000 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -569,58 +530,302 @@ Figure&nbsp;2: Binomial con n grande y p pequeño vs.&nbsp;Poisson con λ=np
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Los dos histogramas se superponen casi por completo — evidencia visual de que, con <span class="math inline">\(n\)</span> grande y <span class="math inline">\(p\)</span> pequeño, la binomial y la Poisson con <span class="math inline">\(\lambda=np\)</span> son prácticamente indistinguibles.</p>
+<p>Sumar 20 Bernoulli independientes y pedirle directamente a R una binomial con <span class="math inline">\(n=20\)</span> producen <strong>la misma distribución</strong>. Esto no es una casualidad: es la definición. Una variable binomial <em>es</em> la suma de <span class="math inline">\(n\)</span> ensayos de Bernoulli independientes, y de ahí salen sus fórmulas sin necesidad de memorizarlas.</p>
 </div>
 </div>
-<section id="otro-ejemplo-tasa-de-ataque-de-un-virus" class="level3">
-<h3 class="anchored" data-anchor-id="otro-ejemplo-tasa-de-ataque-de-un-virus">Otro ejemplo: tasa de ataque de un virus</h3>
-<p><strong>Enunciado:</strong> en una comunidad de <span class="math inline">\(n=20\)</span> individuos se introduce un virus con una tasa de ataque (probabilidad de infección) de <span class="math inline">\(p=0.60\)</span>. ¿Cuál es la probabilidad de que se infecten 10 o menos individuos?</p>
+</section>
+<section id="ahora-sí-la-teoría" class="level2">
+<h2 class="anchored" data-anchor-id="ahora-sí-la-teoría">📖 Ahora sí, la teoría</h2>
+<section id="las-cuatro-condiciones-el-corazón-del-tema" class="level3">
+<h3 class="anchored" data-anchor-id="las-cuatro-condiciones-el-corazón-del-tema">Las cuatro condiciones (el corazón del tema)</h3>
+<p>Una variable sigue una distribución binomial <strong>solo si</strong> se cumplen las cuatro condiciones a la vez. Un atajo para recordarlas es <strong>BINS</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Condición</th>
+<th>Qué significa</th>
+<th>Qué la rompe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>B</strong></td>
+<td><strong>B</strong>inario</td>
+<td>Cada ensayo tiene exactamente dos resultados posibles</td>
+<td>Una encuesta con tres opciones: sí / no / no sabe</td>
+</tr>
+<tr class="even">
+<td><strong>I</strong></td>
+<td><strong>I</strong>ndependientes</td>
+<td>El resultado de un ensayo no afecta a los demás</td>
+<td>Extraer cartas <strong>sin</strong> devolverlas al mazo</td>
+</tr>
+<tr class="odd">
+<td><strong>N</strong></td>
+<td><strong>N</strong>úmero fijo</td>
+<td><span class="math inline">\(n\)</span> se decide <strong>antes</strong> de empezar, no depende de los resultados</td>
+<td>“Lanzar hasta obtener la primera cara”</td>
+</tr>
+<tr class="even">
+<td><strong>S</strong></td>
+<td><strong>S</strong>iempre la misma <span class="math inline">\(p\)</span></td>
+<td>La probabilidad de éxito es constante en todos los ensayos</td>
+<td>Un tirador que se cansa y falla más al final</td>
+</tr>
+</tbody>
+</table>
+<p>Si se cumplen las cuatro, entonces <span class="math inline">\(X\)</span> = “número de éxitos en los <span class="math inline">\(n\)</span> ensayos” sigue una <span class="math inline">\(\text{Binomial}(n,p)\)</span>:</p>
+<p><span class="math display">\[P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\dots,n\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>La condición que más se viola: la independencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>De las cuatro, la que falla con más frecuencia en problemas reales es la <strong>I</strong>. El caso clásico es el <strong>muestreo sin reemplazo</strong>: si una caja tiene 12 piezas con 3 defectuosas y saco 4 sin devolverlas, la probabilidad de defecto cambia en cada extracción (empieza en 3/12, y después de sacar una defectuosa pasa a 2/11). Ahí <strong>no</strong> aplica la binomial, sino la distribución hipergeométrica — es exactamente el reto del Laboratorio del Tema P6a.</p>
+<p><strong>Regla práctica:</strong> si el muestreo es sin reemplazo pero la población es mucho mayor que la muestra (digamos, <span class="math inline">\(n &lt; 5\%\)</span> de la población), la dependencia es tan pequeña que la binomial funciona bien como aproximación. Por eso las encuestas nacionales sí se modelan con la binomial.</p>
+</div>
+</div>
+</section>
+<section id="de-dónde-salen-la-media-y-la-varianza" class="level3">
+<h3 class="anchored" data-anchor-id="de-dónde-salen-la-media-y-la-varianza">De dónde salen la media y la varianza</h3>
+<p>Como <span class="math inline">\(X = Y_1 + Y_2 + \cdots + Y_n\)</span>, donde cada <span class="math inline">\(Y_i\)</span> es un Bernoulli con media <span class="math inline">\(p\)</span> y varianza <span class="math inline">\(p(1-p)\)</span>:</p>
+<p><span class="math display">\[E[X] = \underbrace{p + p + \cdots + p}_{n \text{ veces}} = np\]</span></p>
+<p><span class="math display">\[\text{Var}(X) = \underbrace{p(1-p) + \cdots + p(1-p)}_{n \text{ veces}} = np(1-p)\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Dónde entra la independencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La media se suma <strong>siempre</strong>, haya o no independencia. Pero la varianza solo se suma así <strong>si los ensayos son independientes</strong>: en general <span class="math inline">\(\text{Var}(A+B)=\text{Var}(A)+\text{Var}(B)+2\,\text{Cov}(A,B)\)</span>, y el término de covarianza desaparece únicamente cuando no hay relación entre los ensayos. Es decir, la fórmula <span class="math inline">\(\sigma^2=np(1-p)\)</span> <strong>depende</strong> de la condición I.</p>
+</div>
+</div>
+</section>
+<section id="las-funciones-de-r" class="level3">
+<h3 class="anchored" data-anchor-id="las-funciones-de-r">Las funciones de R</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Qué devuelve</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>dbinom(k, n, p)</code></td>
+<td><span class="math inline">\(P(X=k)\)</span> exacto</td>
+<td><code>dbinom(2, 20, 0.05)</code></td>
+</tr>
+<tr class="even">
+<td><code>pbinom(k, n, p)</code></td>
+<td><span class="math inline">\(P(X\le k)\)</span> acumulada</td>
+<td><code>pbinom(2, 20, 0.05)</code></td>
+</tr>
+<tr class="odd">
+<td><code>qbinom(q, n, p)</code></td>
+<td>El cuantil <span class="math inline">\(q\)</span></td>
+<td><code>qbinom(0.95, 20, 0.05)</code></td>
+</tr>
+<tr class="even">
+<td><code>rbinom(m, n, p)</code></td>
+<td><span class="math inline">\(m\)</span> simulaciones</td>
+<td><code>rbinom(1000, 20, 0.05)</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ejemplo-con-datos-reales-control-de-calidad" class="level2">
+<h2 class="anchored" data-anchor-id="ejemplo-con-datos-reales-control-de-calidad">🧪 Ejemplo con datos reales: control de calidad</h2>
+<p><strong>Enunciado:</strong> en un lote, el 5% de las piezas es defectuoso. Se revisan 20 piezas tomadas al azar de una producción muy grande.</p>
+<p><strong>Primero, verifiquemos las condiciones BINS:</strong></p>
+<ul>
+<li><strong>B</strong>: cada pieza es defectuosa o no. ✅</li>
+<li><strong>I</strong>: la producción es muy grande frente a 20 piezas, así que revisar una no cambia apreciablemente la probabilidad de la siguiente. ✅</li>
+<li><strong>N</strong>: se revisan exactamente 20, decidido de antemano. ✅</li>
+<li><strong>S</strong>: el 5% es constante en el lote. ✅</li>
+</ul>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.60</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Ninguna defectuosa?</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2446628</code></pre>
+<pre><code>[1] 0.3584859</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Al menos dos defectuosas?</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2641605</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Media, varianza y desviación estándar</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media =</span> n <span class="sc">*</span> p, <span class="at">varianza =</span> n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p), <span class="at">sd =</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    media  varianza        sd 
+1.0000000 0.9500000 0.9746794 </code></pre>
 </div>
 </div>
 <div class="ficha-resultado">
-<p><span class="math inline">\(P(X\le10)\approx0.245\)</span>: aunque la probabilidad individual de infección (60%) es alta, hay casi un 25% de probabilidad de que la comunidad “se salve” con 10 o menos infectados de 20 — un buen recordatorio de que la probabilidad de un evento individual no se traduce directamente en la proporción esperada del grupo completo, sobre todo cuando el umbral (10 de 20 = 50%) está por debajo de la media teórica (<span class="math inline">\(np=12\)</span>).</p>
+<p>La probabilidad de no encontrar ninguna defectuosa es 0.358, es decir, algo más de una de cada tres revisiones. Y la de encontrar dos o más es 0.264. En promedio se espera <strong>1 defectuosa</strong> por cada 20 piezas (<span class="math inline">\(np = 1\)</span>) — compara con lo que predijiste al inicio.</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(k, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(probs, <span class="at">names.arg =</span> k, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Binomial(n = 20, p = 0.05)"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Número de defectuosas"</span>, <span class="at">ylab =</span> <span class="st">"Probabilidad"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">which.max</span>(probs) <span class="sc">-</span> <span class="fl">0.5</span>, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-binomial-control" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-binomial-control-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tema-p6-estudiante_files/figure-html/fig-binomial-control-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-binomial-control-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribución del número de piezas defectuosas en una muestra de 20
+</figcaption>
+</figure>
+</div>
+</div>
 </div>
 </section>
+<section id="un-segundo-caso-responder-un-examen-al-azar" class="level2">
+<h2 class="anchored" data-anchor-id="un-segundo-caso-responder-un-examen-al-azar">🎲 Un segundo caso: responder un examen al azar</h2>
+<p><strong>Enunciado:</strong> un examen tiene 10 preguntas de opción múltiple con 4 alternativas cada una. Un estudiante responde todo al azar. ¿Cuál es la probabilidad de que apruebe, si aprobar exige al menos 6 aciertos?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span>; p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &gt;= 6)</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01972771</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aciertos esperados</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>n <span class="sc">*</span> p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.5</code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p>La probabilidad de aprobar adivinando es de apenas <strong>0.0197</strong>, menos de 2 de cada 100 intentos, y lo esperado son 2.5 aciertos de 10. Este es el mismo razonamiento del Ítem 44 del laboratorio, donde se calcula cuántas alternativas debe tener cada pregunta para que aprobar por azar sea prácticamente imposible.</p>
+</div>
+</section>
+<section id="es-binomial-o-no-cuatro-situaciones-para-decidir" class="level2">
+<h2 class="anchored" data-anchor-id="es-binomial-o-no-cuatro-situaciones-para-decidir">✔️ ¿Es binomial o no? Cuatro situaciones para decidir</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Caso 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Caso 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Caso 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Caso 4</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>“Se lanza una moneda 30 veces y se cuenta el número de caras.”</strong></p>
+<p><strong>Sí es binomial.</strong> B: cara o sello. I: cada lanzamiento es independiente. N: 30 fijo. S: <span class="math inline">\(p=0.5\)</span> constante. → <span class="math inline">\(\text{Binomial}(30, 0.5)\)</span></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>“Se lanza una moneda hasta obtener la primera cara y se cuenta el número de lanzamientos.”</strong></p>
+<p><strong>No es binomial.</strong> Falla la condición <strong>N</strong>: el número de ensayos no está fijado de antemano, depende del resultado. Esta situación corresponde a la distribución <strong>geométrica</strong>.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>“De una baraja de 52 cartas se extraen 5 sin devolverlas y se cuenta cuántos corazones salen.”</strong></p>
+<p><strong>No es binomial.</strong> Falla la condición <strong>I</strong> (y con ella la <strong>S</strong>): al no devolver las cartas, la probabilidad cambia en cada extracción (13/52, luego 12/51 o 13/51…). Corresponde a la <strong>hipergeométrica</strong>. Si las cartas se devolvieran al mazo cada vez, sí sería binomial.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>“Se pregunta a 500 personas de una ciudad si aprueban una medida (sí / no).”</strong></p>
+<p><strong>Sí es binomial, en la práctica.</strong> Técnicamente el muestreo es sin reemplazo, pero 500 personas frente a una ciudad de cientos de miles es una fracción despreciable, así que la dependencia es insignificante. → <span class="math inline">\(\text{Binomial}(500, p)\)</span></p>
+</div>
+</div>
+</div>
 </section>
 <section id="laboratorio" class="level2">
 <h2 class="anchored" data-anchor-id="laboratorio">🧑‍🔬 Laboratorio</h2>
 <ol type="1">
-<li>Simula 500,000 valores de una Poisson con <span class="math inline">\(\lambda=5\)</span> (<code>rpois()</code>). Calcula media y varianza simuladas — ¿qué tan cerca están de <span class="math inline">\(\lambda=5\)</span> comparado con cuando usaste solo 1000 simulaciones?</li>
-<li>Simula una binomial con <span class="math inline">\(n=1000\)</span>, <span class="math inline">\(p=0.5\)</span>. ¿La forma del histograma se parece a alguna de las formas típicas del Tema 3 (Módulo 1)?</li>
-<li>Verifica: para una Poisson simulada, ¿<code>mean()</code> y <code>var()</code> dan resultados más parecidos entre sí que para una binomial con <span class="math inline">\(p\)</span> lejos de 0 o 1? ¿Por qué tendría sentido esa diferencia?</li>
+<li><p><strong>Verificar las condiciones.</strong> Para cada situación, indique si es binomial y cuál condición BINS falla si no lo es:</p>
+<ul>
+<li>Contar cuántos de 12 huevos de una cubeta están rotos.</li>
+<li>Contar cuántas veces hay que marcar un teléfono hasta que contesten.</li>
+<li>Contar cuántos de 8 pacientes responden a un tratamiento con 70% de efectividad.</li>
+<li>Contar cuántas bolas rojas salen al extraer 5 de una urna con 6 rojas y 4 azules, sin reemplazo.</li>
+</ul></li>
+<li><p><strong>Simular la construcción.</strong> Genere 5000 sumas de 12 ensayos de Bernoulli con <span class="math inline">\(p=0.4\)</span> usando <code>replicate()</code> y <code>rbinom(12, 1, 0.4)</code>. Compare su media y varianza con <span class="math inline">\(np\)</span> y <span class="math inline">\(np(1-p)\)</span>, y con <code>rbinom(5000, 12, 0.4)</code>.</p></li>
+<li><p><strong>Una vacuna con 90% de eficacia</strong> se aplica a 15 personas. Calcule: (a) la probabilidad de que funcione en las 15; (b) la probabilidad de que funcione en al menos 13; (c) el número esperado de personas protegidas.</p></li>
+<li><p><strong>El efecto de <span class="math inline">\(p\)</span> en la forma.</strong> Grafique en tres paneles las distribuciones <span class="math inline">\(\text{Binomial}(20, 0.1)\)</span>, <span class="math inline">\(\text{Binomial}(20, 0.5)\)</span> y <span class="math inline">\(\text{Binomial}(20, 0.9)\)</span>. Describa cómo cambia la simetría y explique qué valor de <span class="math inline">\(p\)</span> produce la distribución simétrica.</p></li>
 </ol>
 </section>
 <section id="ejercicios-autocorregibles" class="level2">
 <h2 class="anchored" data-anchor-id="ejercicios-autocorregibles">✅ Ejercicios autocorregibles</h2>
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulación de una Poisson: completa el parámetro</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">1000</span>, <span class="at">___ =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidad de exactamente 3 éxitos en 12 ensayos con p = 0.25</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(<span class="dv">3</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
 </summary>
-<code>lambda</code> — el parámetro que define tanto la media como la varianza de la Poisson.
+<code>dbinom</code> — la letra <strong>d</strong> indica “densidad” o función de probabilidad puntual, es decir, <span class="math inline">\(P(X=k)\)</span> exacto. Si se usara <code>pbinom</code> se obtendría <span class="math inline">\(P(X\le 3)\)</span>, que es otra cosa.
 </details>
 </section>
-<section id="ejercicio-2-verdadero-o-falso" class="level3">
-<h3 class="anchored" data-anchor-id="ejercicio-2-verdadero-o-falso">Ejercicio 2 — Verdadero o falso</h3>
+<section id="ejercicio-2-completa-el-código" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2-completa-el-código">Ejercicio 2 — Completa el código</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidad de AL MENOS 4 éxitos en 12 ensayos con p = 0.25</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(___, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details>
+<summary>
+Ver respuesta
+</summary>
+<code>3</code>. Como <span class="math inline">\(P(X\ge4) = 1 - P(X\le3)\)</span>, hay que restar la acumulada hasta <strong>3</strong>, no hasta 4. Este desfase por uno es el error más común al usar <code>pbinom()</code> con variables discretas.
+</details>
+</section>
+<section id="ejercicio-3-verdadero-o-falso" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-3-verdadero-o-falso">Ejercicio 3 — Verdadero o falso</h3>
 <div id="quiz-temap6" class="card-lab">
 <div style="margin-bottom: 1rem;">
-<strong>1. En la Poisson, la media y la varianza son iguales.</strong><br> <label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label>
+<strong>1. Una variable binomial es la suma de n ensayos de Bernoulli independientes.</strong><br> <label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label>
 </div>
 <div style="margin-bottom: 1rem;">
-<strong>2. La binomial converge a la Poisson cuando n es pequeño y p es grande.</strong><br> <label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label>
+<strong>2. “Lanzar un dado hasta que salga un 6” se modela con una binomial.</strong><br> <label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label>
 </div>
 <div style="margin-bottom: 1rem;">
-<strong>3. μ = np es la media de la binomial.</strong><br> <label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label>
+<strong>3. Extraer cartas sin reemplazo mantiene constante la probabilidad de éxito.</strong><br> <label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label>
+</div>
+<div style="margin-bottom: 1rem;">
+<strong>4. La fórmula σ² = np(1−p) requiere que los ensayos sean independientes.</strong><br> <label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label>
+</div>
+<div style="margin-bottom: 1rem;">
+<strong>5. En una binomial, “éxito” siempre significa algo bueno o deseable.</strong><br> <label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label>
 </div>
 <button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP6()">
 Revisar respuestas
@@ -630,8 +835,7 @@ Revisar respuestas
 </div>
 <script>
 function revisarQuizTemaP6() {
-  const respuestas = { q1: "V", q2: "F", q3: "V" };
-  // Exigir que todas las preguntas estén respondidas antes de revelar el resultado
+  const respuestas = { q1: "V", q2: "F", q3: "F", q4: "V", q5: "F" };
   const sinResponder = Object.keys(respuestas).filter(
     p => !document.querySelector(`input[name="${p}"]:checked`)
   );
@@ -646,9 +850,8 @@ function revisarQuizTemaP6() {
     const s = document.querySelector(`input[name="${p}"]:checked`);
     if (s && s.value === c) correctas++;
   }
-  const r = document.getElementById("resultado-quiz-temap6");
-  r.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
-  r.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
 }
 </script>
 </section>
@@ -657,10 +860,26 @@ function revisarQuizTemaP6() {
 <h2 class="anchored" data-anchor-id="resumen">🗂️ Resumen</h2>
 <div class="card-lab">
 <ul>
-<li>Binomial: cuenta éxitos en <span class="math inline">\(n\)</span> ensayos independientes con probabilidad fija <span class="math inline">\(p\)</span>; <span class="math inline">\(\mu=np\)</span>, <span class="math inline">\(\sigma^2=np(1-p)\)</span>.</li>
-<li>Poisson: cuenta eventos en un intervalo con tasa constante <span class="math inline">\(\lambda\)</span>; <span class="math inline">\(\mu=\sigma^2=\lambda\)</span> — su propiedad distintiva.</li>
-<li>Con <span class="math inline">\(n\)</span> grande y <span class="math inline">\(p\)</span> pequeño (<span class="math inline">\(np=\lambda\)</span> constante), la binomial converge a la Poisson — útil para modelar eventos raros sobre muchas oportunidades.</li>
+<li>Un <strong>ensayo de Bernoulli</strong> es un experimento con dos resultados; su media es <span class="math inline">\(p\)</span> y su varianza <span class="math inline">\(p(1-p)\)</span>.</li>
+<li>Una variable <strong>binomial es la suma de <span class="math inline">\(n\)</span> ensayos de Bernoulli independientes</strong>. De ahí salen directamente <span class="math inline">\(\mu=np\)</span> y <span class="math inline">\(\sigma^2=np(1-p)\)</span>.</li>
+<li>Las cuatro condiciones <strong>BINS</strong>: <strong>B</strong>inario, <strong>I</strong>ndependientes, <strong>N</strong>úmero fijo de ensayos, <strong>S</strong>iempre la misma <span class="math inline">\(p\)</span>. Deben cumplirse <strong>todas</strong>.</li>
+<li>La que más se viola es la independencia, típicamente por <strong>muestreo sin reemplazo</strong> (ahí corresponde la hipergeométrica). Si la muestra es menos del 5% de la población, la binomial sirve como aproximación.</li>
+<li>“Éxito” es solo una etiqueta para uno de los dos resultados: puede ser encontrar un defecto o una falla.</li>
+<li>En R: <code>dbinom()</code> para <span class="math inline">\(P(X=k)\)</span>, <code>pbinom()</code> para <span class="math inline">\(P(X\le k)\)</span>, <code>rbinom()</code> para simular.</li>
 </ul>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Siguiente paso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El <a href="../temas/tema-p6b-estudiante.html">Tema P6b</a> presenta la distribución de Poisson, que responde una pregunta distinta: en vez de contar éxitos en un número fijo de ensayos, cuenta <strong>eventos que ocurren en un intervalo continuo</strong> de tiempo o espacio.</p>
+</div>
 </div>
 
 
@@ -1127,177 +1346,288 @@ function revisarQuizTemaP6() {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../temas/tema-p7-estudiante.html" class="pagination-link" aria-label="Tema P7 · Distribuciones continuas: Uniforme y Normal">
-        <span class="nav-page-text">Tema P7 · Distribuciones continuas: Uniforme y Normal</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../temas/tema-p6b-estudiante.html" class="pagination-link" aria-label="Tema P6b · Distribución de Poisson">
+        <span class="nav-page-text">Tema P6b · Distribución de Poisson</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P6 · Distribuciones discretas: Binomial y Poisson"</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧬 Dos fórmulas que puedes demostrar tú mismo, por simulación</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>Para una binomial con parámetros $n$ y $p$: $\mu = np$, $\sigma^2 = np(1-p)$. Para una Poisson con parámetro $\lambda$: $\mu = \lambda$, $\sigma^2 = \lambda$. No hace falta memorizarlas a ciegas — puedes comprobarlas simulando miles de repeticiones.</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>Antes de seguir: si simulas 1000 repeticiones de una binomial con $n=50$, $p=0.3$, ¿qué valor esperas que dé la media simulada? ¿Y la varianza?</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: comprobando la fórmula de la binomial</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>n_binomial <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>p_binomial <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>simulacion_binomial <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, <span class="at">size =</span> n_binomial, <span class="at">prob =</span> p_binomial)</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(simulacion_binomial)</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>n_binomial <span class="sc">*</span> p_binomial                      <span class="co"># μ teórico = np</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(simulacion_binomial)</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>n_binomial <span class="sc">*</span> p_binomial <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_binomial)    <span class="co"># σ² teórico = np(1-p)</span></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>Compara cada par de números. ¿Qué tan cerca están la media/varianza simuladas de las teóricas? Aumenta <span class="in">`n_sim`</span> a 100000 y vuelve a correr — ¿se acercan aún más?</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-binomial-simulada</span></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Distribución simulada de una binomial(n=50, p=0.3)"</span></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(simulacion_binomial, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Binomial simulada"</span>, <span class="at">xlab =</span> <span class="st">"Número de éxitos"</span>)</span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución Binomial</span></span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>Modela el número de éxitos en $n$ ensayos independientes, cada uno con probabilidad de éxito $p$:</span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>$$P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\dots,n$$</span>
-<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>$$\mu = np \qquad \sigma^2 = np(1-p)$$</span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>En R: <span class="in">`rbinom(n_sim, size = n, prob = p)`</span> genera simulaciones; <span class="in">`dbinom()`</span>, <span class="in">`pbinom()`</span> y <span class="in">`qbinom()`</span> dan la función de probabilidad, la FDA y los cuantiles teóricos.</span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución Poisson</span></span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>Modela el número de eventos que ocurren en un intervalo fijo, cuando esos eventos suceden a una tasa promedio constante $\lambda$:</span>
-<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>$$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}, \quad k=0,1,2,\dots$$</span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>$$\mu = \lambda \qquad \sigma^2 = \lambda$$</span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>Nota la propiedad distintiva: **media y varianza son iguales**, ambas $\lambda$ — una forma rápida de sospechar si un conteo real sigue (aproximadamente) una Poisson.</span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Binomial → Poisson (teorema límite)</span></span>
-<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>Cuando $n\to\infty$ y $p\to 0$, con $np=\lambda$ constante, la distribución Binomial$(n,p)$ se aproxima a una Poisson$(\lambda)$. Es útil cuando hay muchísimas oportunidades de que ocurra un evento raro (defectos en un lote enorme, llamadas en un conmutador).</span>
-<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: la convergencia Binomial → Poisson</span></span>
-<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-binomial-poisson</span></span>
-<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Binomial con n grande y p pequeño vs. Poisson con λ=np"</span></span>
-<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>n_grande <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a>p_chico <span class="ot">&lt;-</span> <span class="fl">0.005</span></span>
-<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>lambda_equiv <span class="ot">&lt;-</span> n_grande <span class="sc">*</span> p_chico</span>
-<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a>sim_binom <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_grande, <span class="at">size =</span> n_grande, <span class="at">prob =</span> p_chico)</span>
-<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>sim_pois <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_grande, <span class="at">lambda =</span> lambda_equiv)</span>
-<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sim_binom, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="fl">0.29</span>, <span class="fl">0.52</span>, <span class="fl">0.5</span>), <span class="at">border =</span> <span class="st">"white"</span>,</span>
-<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Binomial (azul) vs. Poisson (amarillo)"</span>, <span class="at">xlab =</span> <span class="st">"Valor"</span>,</span>
-<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(sim_binom, sim_pois)))</span>
-<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sim_pois, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="fl">0.72</span>, <span class="fl">0.01</span>, <span class="fl">0.5</span>), <span class="at">border =</span> <span class="st">"white"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a>Los dos histogramas se superponen casi por completo — evidencia visual de que, con $n$ grande y $p$ pequeño, la binomial y la Poisson con $\lambda=np$ son prácticamente indistinguibles.</span>
-<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Otro ejemplo: tasa de ataque de un virus</span></span>
-<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a>**Enunciado:** en una comunidad de $n=20$ individuos se introduce un virus con una tasa de ataque (probabilidad de infección) de $p=0.60$. ¿Cuál es la probabilidad de que se infecten 10 o menos individuos?</span>
-<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.60</span>)</span>
-<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a>$P(X\le10)\approx0.245$: aunque la probabilidad individual de infección (60%) es alta, hay casi un 25% de probabilidad de que la comunidad "se salve" con 10 o menos infectados de 20 — un buen recordatorio de que la probabilidad de un evento individual no se traduce directamente en la proporción esperada del grupo completo, sobre todo cuando el umbral (10 de 20 = 50%) está por debajo de la media teórica ($np=12$).</span>
-<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Simula 500,000 valores de una Poisson con $\lambda=5$ (<span class="in">`rpois()`</span>). Calcula media y varianza simuladas — ¿qué tan cerca están de $\lambda=5$ comparado con cuando usaste solo 1000 simulaciones?</span>
-<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Simula una binomial con $n=1000$, $p=0.5$. ¿La forma del histograma se parece a alguna de las formas típicas del Tema 3 (Módulo 1)?</span>
-<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Verifica: para una Poisson simulada, ¿<span class="in">`mean()`</span> y <span class="in">`var()`</span> dan resultados más parecidos entre sí que para una binomial con $p$ lejos de 0 o 1? ¿Por qué tendría sentido esa diferencia?</span>
-<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulación de una Poisson: completa el parámetro</span></span>
-<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">1000</span>, <span class="at">___ =</span> <span class="dv">5</span>)</span>
-<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a><span class="in">`lambda`</span> — el parámetro que define tanto la media como la varianza de la Poisson.</span>
-<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-131"><a href="#cb14-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb14-132"><a href="#cb14-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap6"</span><span class="dt">&gt;</span></span>
-<span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. En la Poisson, la media y la varianza son iguales.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. La binomial converge a la Poisson cuando n es pequeño y p es grande.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. μ = np es la media de la binomial.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP6()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap6"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP6</span>() {</span>
-<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap6"</span>)<span class="op">;</span></span>
-<span id="cb14-152"><a href="#cb14-152" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb14-159"><a href="#cb14-159" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb14-161"><a href="#cb14-161" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-162"><a href="#cb14-162" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap6"</span>)<span class="op">;</span></span>
-<span id="cb14-163"><a href="#cb14-163" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb14-165"><a href="#cb14-165" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Binomial: cuenta éxitos en $n$ ensayos independientes con probabilidad fija $p$; $\mu=np$, $\sigma^2=np(1-p)$.</span>
-<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Poisson: cuenta eventos en un intervalo con tasa constante $\lambda$; $\mu=\sigma^2=\lambda$ — su propiedad distintiva.</span>
-<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Con $n$ grande y $p$ pequeño ($np=\lambda$ constante), la binomial converge a la Poisson — útil para modelar eventos raros sobre muchas oportunidades.</span>
-<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P6 · Distribución Binomial y ensayos de Bernoulli"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Una sola pregunta, repetida n veces</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>Un control de calidad revisa 20 piezas y cuenta cuántas salen defectuosas. Una encuesta pregunta a 500 personas si votarían por cierto candidato y cuenta cuántas dicen que sí. Un examen tiene 10 preguntas de opción múltiple y cuenta cuántas acierta quien responde al azar.</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>Los tres problemas parecen distintos, pero tienen **exactamente la misma estructura**: una pregunta de sí/no que se repite un número fijo de veces, y lo que interesa es contar los "sí". Reconocer esa estructura es lo que permite usar una sola fórmula para los tres.</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>Antes de seguir: en un lote donde el 5% de las piezas es defectuoso, se revisan 20 piezas. ¿Cuál crees que es el número **más probable** de defectuosas? ¿Y qué tan probable crees que es no encontrar ninguna?</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: el ladrillo básico</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>Antes de la binomial está el **ensayo de Bernoulli**: un único experimento con solo dos resultados posibles. Lo llamamos "éxito" (que vale 1) y "fracaso" (que vale 0), sin ninguna connotación de bueno o malo — en control de calidad, el "éxito" suele ser encontrar un defecto.</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Un solo ensayo de Bernoulli, repetido muchas veces</span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>bernoulli <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bernoulli, <span class="dv">20</span>)</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bernoulli)          <span class="co"># ¿a qué se parece?</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bernoulli)           <span class="co"># ¿y esto?</span></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)              <span class="co"># varianza teórica de un Bernoulli</span></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>La media de un Bernoulli es $p$ y su varianza es $p(1-p)$. Compara los números simulados con los teóricos. Ahora la pregunta clave: **¿qué pasa si sumo $n$ de estos ensayos?**</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a><span class="co"># La binomial NO es más que la suma de n ensayos de Bernoulli independientes</span></span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>suma_manual <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">sum</span>(<span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)))</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>directo     <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_suma =</span> <span class="fu">mean</span>(suma_manual), <span class="at">media_directa =</span> <span class="fu">mean</span>(directo), <span class="at">teorica =</span> n <span class="sc">*</span> p)</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_suma   =</span> <span class="fu">var</span>(suma_manual),  <span class="at">var_directa   =</span> <span class="fu">var</span>(directo),  <span class="at">teorica =</span> n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>Sumar 20 Bernoulli independientes y pedirle directamente a R una binomial con $n=20$ producen **la misma distribución**. Esto no es una casualidad: es la definición. Una variable binomial *es* la suma de $n$ ensayos de Bernoulli independientes, y de ahí salen sus fórmulas sin necesidad de memorizarlas.</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Las cuatro condiciones (el corazón del tema)</span></span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>Una variable sigue una distribución binomial **solo si** se cumplen las cuatro condiciones a la vez. Un atajo para recordarlas es **BINS**:</span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> Condición <span class="pp">|</span> Qué significa <span class="pp">|</span> Qué la rompe <span class="pp">|</span></span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **B** | **B**inario <span class="pp">|</span> Cada ensayo tiene exactamente dos resultados posibles <span class="pp">|</span> Una encuesta con tres opciones: sí / no / no sabe <span class="pp">|</span></span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **I** | **I**ndependientes | El resultado de un ensayo no afecta a los demás | Extraer cartas **sin** devolverlas al mazo <span class="pp">|</span></span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **N** | **N**úmero fijo | $n$ se decide **antes** de empezar, no depende de los resultados <span class="pp">|</span> "Lanzar hasta obtener la primera cara" <span class="pp">|</span></span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **S** | **S**iempre la misma $p$ <span class="pp">|</span> La probabilidad de éxito es constante en todos los ensayos <span class="pp">|</span> Un tirador que se cansa y falla más al final <span class="pp">|</span></span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a>Si se cumplen las cuatro, entonces $X$ = "número de éxitos en los $n$ ensayos" sigue una $\text{Binomial}(n,p)$:</span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a>$$P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\dots,n$$</span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a><span class="fu">## La condición que más se viola: la independencia</span></span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a>De las cuatro, la que falla con más frecuencia en problemas reales es la **I**. El caso clásico es el **muestreo sin reemplazo**: si una caja tiene 12 piezas con 3 defectuosas y saco 4 sin devolverlas, la probabilidad de defecto cambia en cada extracción (empieza en 3/12, y después de sacar una defectuosa pasa a 2/11). Ahí **no** aplica la binomial, sino la distribución hipergeométrica — es exactamente el reto del Laboratorio del Tema P6a.</span>
+<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a>**Regla práctica:** si el muestreo es sin reemplazo pero la población es mucho mayor que la muestra (digamos, $n &lt; 5\%$ de la población), la dependencia es tan pequeña que la binomial funciona bien como aproximación. Por eso las encuestas nacionales sí se modelan con la binomial.</span>
+<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### De dónde salen la media y la varianza</span></span>
+<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a>Como $X = Y_1 + Y_2 + \cdots + Y_n$, donde cada $Y_i$ es un Bernoulli con media $p$ y varianza $p(1-p)$:</span>
+<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> = \underbrace{p + p + \cdots + p}_{n \text{ veces}} = np$$</span>
+<span id="cb26-87"><a href="#cb26-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-88"><a href="#cb26-88" aria-hidden="true" tabindex="-1"></a>$$\text{Var}(X) = \underbrace{p(1-p) + \cdots + p(1-p)}_{n \text{ veces}} = np(1-p)$$</span>
+<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-90"><a href="#cb26-90" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb26-91"><a href="#cb26-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dónde entra la independencia</span></span>
+<span id="cb26-92"><a href="#cb26-92" aria-hidden="true" tabindex="-1"></a>La media se suma **siempre**, haya o no independencia. Pero la varianza solo se suma así **si los ensayos son independientes**: en general $\text{Var}(A+B)=\text{Var}(A)+\text{Var}(B)+2\,\text{Cov}(A,B)$, y el término de covarianza desaparece únicamente cuando no hay relación entre los ensayos. Es decir, la fórmula $\sigma^2=np(1-p)$ **depende** de la condición I.</span>
+<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Las funciones de R</span></span>
+<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-97"><a href="#cb26-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Función <span class="pp">|</span> Qué devuelve <span class="pp">|</span> Ejemplo <span class="pp">|</span></span>
+<span id="cb26-98"><a href="#cb26-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb26-99"><a href="#cb26-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dbinom(k, n, p)`</span> <span class="pp">|</span> $P(X=k)$ exacto <span class="pp">|</span> <span class="in">`dbinom(2, 20, 0.05)`</span> <span class="pp">|</span></span>
+<span id="cb26-100"><a href="#cb26-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`pbinom(k, n, p)`</span> <span class="pp">|</span> $P(X\le k)$ acumulada <span class="pp">|</span> <span class="in">`pbinom(2, 20, 0.05)`</span> <span class="pp">|</span></span>
+<span id="cb26-101"><a href="#cb26-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`qbinom(q, n, p)`</span> <span class="pp">|</span> El cuantil $q$ <span class="pp">|</span> <span class="in">`qbinom(0.95, 20, 0.05)`</span> <span class="pp">|</span></span>
+<span id="cb26-102"><a href="#cb26-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`rbinom(m, n, p)`</span> <span class="pp">|</span> $m$ simulaciones <span class="pp">|</span> <span class="in">`rbinom(1000, 20, 0.05)`</span> <span class="pp">|</span></span>
+<span id="cb26-103"><a href="#cb26-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-104"><a href="#cb26-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: control de calidad</span></span>
+<span id="cb26-105"><a href="#cb26-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-106"><a href="#cb26-106" aria-hidden="true" tabindex="-1"></a>**Enunciado:** en un lote, el 5% de las piezas es defectuoso. Se revisan 20 piezas tomadas al azar de una producción muy grande.</span>
+<span id="cb26-107"><a href="#cb26-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-108"><a href="#cb26-108" aria-hidden="true" tabindex="-1"></a>**Primero, verifiquemos las condiciones BINS:**</span>
+<span id="cb26-109"><a href="#cb26-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-110"><a href="#cb26-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B**: cada pieza es defectuosa o no. ✅</span>
+<span id="cb26-111"><a href="#cb26-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**I**: la producción es muy grande frente a 20 piezas, así que revisar una no cambia apreciablemente la probabilidad de la siguiente. ✅</span>
+<span id="cb26-112"><a href="#cb26-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**N**: se revisan exactamente 20, decidido de antemano. ✅</span>
+<span id="cb26-113"><a href="#cb26-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**S**: el 5% es constante en el lote. ✅</span>
+<span id="cb26-114"><a href="#cb26-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-117"><a href="#cb26-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-118"><a href="#cb26-118" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb26-119"><a href="#cb26-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-120"><a href="#cb26-120" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Ninguna defectuosa?</span></span>
+<span id="cb26-121"><a href="#cb26-121" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb26-122"><a href="#cb26-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-123"><a href="#cb26-123" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Al menos dos defectuosas?</span></span>
+<span id="cb26-124"><a href="#cb26-124" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb26-125"><a href="#cb26-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-126"><a href="#cb26-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Media, varianza y desviación estándar</span></span>
+<span id="cb26-127"><a href="#cb26-127" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media =</span> n <span class="sc">*</span> p, <span class="at">varianza =</span> n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p), <span class="at">sd =</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)))</span>
+<span id="cb26-128"><a href="#cb26-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-129"><a href="#cb26-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-130"><a href="#cb26-130" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb26-131"><a href="#cb26-131" aria-hidden="true" tabindex="-1"></a>La probabilidad de no encontrar ninguna defectuosa es 0.358, es decir, algo más de una de cada tres revisiones. Y la de encontrar dos o más es 0.264. En promedio se espera **1 defectuosa** por cada 20 piezas ($np = 1$) — compara con lo que predijiste al inicio.</span>
+<span id="cb26-132"><a href="#cb26-132" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-133"><a href="#cb26-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-136"><a href="#cb26-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-137"><a href="#cb26-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-binomial-control</span></span>
+<span id="cb26-138"><a href="#cb26-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Distribución del número de piezas defectuosas en una muestra de 20"</span></span>
+<span id="cb26-139"><a href="#cb26-139" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb26-140"><a href="#cb26-140" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(k, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb26-141"><a href="#cb26-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-142"><a href="#cb26-142" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(probs, <span class="at">names.arg =</span> k, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb26-143"><a href="#cb26-143" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Binomial(n = 20, p = 0.05)"</span>,</span>
+<span id="cb26-144"><a href="#cb26-144" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Número de defectuosas"</span>, <span class="at">ylab =</span> <span class="st">"Probabilidad"</span>)</span>
+<span id="cb26-145"><a href="#cb26-145" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">which.max</span>(probs) <span class="sc">-</span> <span class="fl">0.5</span>, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb26-146"><a href="#cb26-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-147"><a href="#cb26-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-148"><a href="#cb26-148" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎲 Un segundo caso: responder un examen al azar</span></span>
+<span id="cb26-149"><a href="#cb26-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-150"><a href="#cb26-150" aria-hidden="true" tabindex="-1"></a>**Enunciado:** un examen tiene 10 preguntas de opción múltiple con 4 alternativas cada una. Un estudiante responde todo al azar. ¿Cuál es la probabilidad de que apruebe, si aprobar exige al menos 6 aciertos?</span>
+<span id="cb26-151"><a href="#cb26-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-154"><a href="#cb26-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-155"><a href="#cb26-155" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span>; p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb26-156"><a href="#cb26-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-157"><a href="#cb26-157" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &gt;= 6)</span></span>
+<span id="cb26-158"><a href="#cb26-158" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb26-159"><a href="#cb26-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-160"><a href="#cb26-160" aria-hidden="true" tabindex="-1"></a><span class="co"># Aciertos esperados</span></span>
+<span id="cb26-161"><a href="#cb26-161" aria-hidden="true" tabindex="-1"></a>n <span class="sc">*</span> p</span>
+<span id="cb26-162"><a href="#cb26-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-163"><a href="#cb26-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-164"><a href="#cb26-164" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb26-165"><a href="#cb26-165" aria-hidden="true" tabindex="-1"></a>La probabilidad de aprobar adivinando es de apenas **0.0197**, menos de 2 de cada 100 intentos, y lo esperado son 2.5 aciertos de 10. Este es el mismo razonamiento del Ítem 44 del laboratorio, donde se calcula cuántas alternativas debe tener cada pregunta para que aprobar por azar sea prácticamente imposible.</span>
+<span id="cb26-166"><a href="#cb26-166" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-167"><a href="#cb26-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-168"><a href="#cb26-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✔️ ¿Es binomial o no? Cuatro situaciones para decidir</span></span>
+<span id="cb26-169"><a href="#cb26-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-170"><a href="#cb26-170" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb26-171"><a href="#cb26-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-172"><a href="#cb26-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caso 1</span></span>
+<span id="cb26-173"><a href="#cb26-173" aria-hidden="true" tabindex="-1"></a>**"Se lanza una moneda 30 veces y se cuenta el número de caras."**</span>
+<span id="cb26-174"><a href="#cb26-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-175"><a href="#cb26-175" aria-hidden="true" tabindex="-1"></a>**Sí es binomial.** B: cara o sello. I: cada lanzamiento es independiente. N: 30 fijo. S: $p=0.5$ constante. → $\text{Binomial}(30, 0.5)$</span>
+<span id="cb26-176"><a href="#cb26-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-177"><a href="#cb26-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caso 2</span></span>
+<span id="cb26-178"><a href="#cb26-178" aria-hidden="true" tabindex="-1"></a>**"Se lanza una moneda hasta obtener la primera cara y se cuenta el número de lanzamientos."**</span>
+<span id="cb26-179"><a href="#cb26-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-180"><a href="#cb26-180" aria-hidden="true" tabindex="-1"></a>**No es binomial.** Falla la condición **N**: el número de ensayos no está fijado de antemano, depende del resultado. Esta situación corresponde a la distribución **geométrica**.</span>
+<span id="cb26-181"><a href="#cb26-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-182"><a href="#cb26-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caso 3</span></span>
+<span id="cb26-183"><a href="#cb26-183" aria-hidden="true" tabindex="-1"></a>**"De una baraja de 52 cartas se extraen 5 sin devolverlas y se cuenta cuántos corazones salen."**</span>
+<span id="cb26-184"><a href="#cb26-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-185"><a href="#cb26-185" aria-hidden="true" tabindex="-1"></a>**No es binomial.** Falla la condición **I** (y con ella la **S**): al no devolver las cartas, la probabilidad cambia en cada extracción (13/52, luego 12/51 o 13/51...). Corresponde a la **hipergeométrica**. Si las cartas se devolvieran al mazo cada vez, sí sería binomial.</span>
+<span id="cb26-186"><a href="#cb26-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-187"><a href="#cb26-187" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caso 4</span></span>
+<span id="cb26-188"><a href="#cb26-188" aria-hidden="true" tabindex="-1"></a>**"Se pregunta a 500 personas de una ciudad si aprueban una medida (sí / no)."**</span>
+<span id="cb26-189"><a href="#cb26-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-190"><a href="#cb26-190" aria-hidden="true" tabindex="-1"></a>**Sí es binomial, en la práctica.** Técnicamente el muestreo es sin reemplazo, pero 500 personas frente a una ciudad de cientos de miles es una fracción despreciable, así que la dependencia es insignificante. → $\text{Binomial}(500, p)$</span>
+<span id="cb26-191"><a href="#cb26-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-192"><a href="#cb26-192" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-193"><a href="#cb26-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-194"><a href="#cb26-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb26-195"><a href="#cb26-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-196"><a href="#cb26-196" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Verificar las condiciones.** Para cada situación, indique si es binomial y cuál condición BINS falla si no lo es:</span>
+<span id="cb26-197"><a href="#cb26-197" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Contar cuántos de 12 huevos de una cubeta están rotos.</span>
+<span id="cb26-198"><a href="#cb26-198" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Contar cuántas veces hay que marcar un teléfono hasta que contesten.</span>
+<span id="cb26-199"><a href="#cb26-199" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Contar cuántos de 8 pacientes responden a un tratamiento con 70% de efectividad.</span>
+<span id="cb26-200"><a href="#cb26-200" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Contar cuántas bolas rojas salen al extraer 5 de una urna con 6 rojas y 4 azules, sin reemplazo.</span>
+<span id="cb26-201"><a href="#cb26-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-202"><a href="#cb26-202" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Simular la construcción.** Genere 5000 sumas de 12 ensayos de Bernoulli con $p=0.4$ usando <span class="in">`replicate()`</span> y <span class="in">`rbinom(12, 1, 0.4)`</span>. Compare su media y varianza con $np$ y $np(1-p)$, y con <span class="in">`rbinom(5000, 12, 0.4)`</span>.</span>
+<span id="cb26-203"><a href="#cb26-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-204"><a href="#cb26-204" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Una vacuna con 90% de eficacia** se aplica a 15 personas. Calcule: (a) la probabilidad de que funcione en las 15; (b) la probabilidad de que funcione en al menos 13; (c) el número esperado de personas protegidas.</span>
+<span id="cb26-205"><a href="#cb26-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-206"><a href="#cb26-206" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**El efecto de $p$ en la forma.** Grafique en tres paneles las distribuciones $\text{Binomial}(20, 0.1)$, $\text{Binomial}(20, 0.5)$ y $\text{Binomial}(20, 0.9)$. Describa cómo cambia la simetría y explique qué valor de $p$ produce la distribución simétrica.</span>
+<span id="cb26-207"><a href="#cb26-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-208"><a href="#cb26-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb26-209"><a href="#cb26-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-210"><a href="#cb26-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb26-211"><a href="#cb26-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-212"><a href="#cb26-212" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb26-213"><a href="#cb26-213" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidad de exactamente 3 éxitos en 12 ensayos con p = 0.25</span></span>
+<span id="cb26-214"><a href="#cb26-214" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(<span class="dv">3</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span>
+<span id="cb26-215"><a href="#cb26-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-216"><a href="#cb26-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-217"><a href="#cb26-217" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb26-218"><a href="#cb26-218" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb26-219"><a href="#cb26-219" aria-hidden="true" tabindex="-1"></a><span class="in">`dbinom`</span> — la letra **d** indica "densidad" o función de probabilidad puntual, es decir, $P(X=k)$ exacto. Si se usara <span class="in">`pbinom`</span> se obtendría $P(X\le 3)$, que es otra cosa.</span>
+<span id="cb26-220"><a href="#cb26-220" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb26-221"><a href="#cb26-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-222"><a href="#cb26-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Completa el código</span></span>
+<span id="cb26-223"><a href="#cb26-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-224"><a href="#cb26-224" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb26-225"><a href="#cb26-225" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidad de AL MENOS 4 éxitos en 12 ensayos con p = 0.25</span></span>
+<span id="cb26-226"><a href="#cb26-226" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(___, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span>
+<span id="cb26-227"><a href="#cb26-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-228"><a href="#cb26-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-229"><a href="#cb26-229" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb26-230"><a href="#cb26-230" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb26-231"><a href="#cb26-231" aria-hidden="true" tabindex="-1"></a><span class="in">`3`</span>. Como $P(X\ge4) = 1 - P(X\le3)$, hay que restar la acumulada hasta **3**, no hasta 4. Este desfase por uno es el error más común al usar <span class="in">`pbinom()`</span> con variables discretas.</span>
+<span id="cb26-232"><a href="#cb26-232" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb26-233"><a href="#cb26-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-234"><a href="#cb26-234" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 3 — Verdadero o falso</span></span>
+<span id="cb26-235"><a href="#cb26-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-236"><a href="#cb26-236" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap6"</span><span class="dt">&gt;</span></span>
+<span id="cb26-237"><a href="#cb26-237" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Una variable binomial es la suma de n ensayos de Bernoulli independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb26-238"><a href="#cb26-238" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb26-239"><a href="#cb26-239" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. "Lanzar un dado hasta que salga un 6" se modela con una binomial.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb26-240"><a href="#cb26-240" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb26-241"><a href="#cb26-241" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Extraer cartas sin reemplazo mantiene constante la probabilidad de éxito.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb26-242"><a href="#cb26-242" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb26-243"><a href="#cb26-243" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>4. La fórmula σ² = np(1−p) requiere que los ensayos sean independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb26-244"><a href="#cb26-244" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb26-245"><a href="#cb26-245" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>5. En una binomial, "éxito" siempre significa algo bueno o deseable.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb26-246"><a href="#cb26-246" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb26-247"><a href="#cb26-247" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP6()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb26-248"><a href="#cb26-248" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap6"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb26-249"><a href="#cb26-249" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb26-250"><a href="#cb26-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-251"><a href="#cb26-251" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb26-252"><a href="#cb26-252" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP6</span>() {</span>
+<span id="cb26-253"><a href="#cb26-253" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q4</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q5</span><span class="op">:</span> <span class="st">"F"</span> }<span class="op">;</span></span>
+<span id="cb26-254"><a href="#cb26-254" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb26-255"><a href="#cb26-255" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb26-256"><a href="#cb26-256" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb26-257"><a href="#cb26-257" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap6"</span>)<span class="op">;</span></span>
+<span id="cb26-258"><a href="#cb26-258" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb26-259"><a href="#cb26-259" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb26-260"><a href="#cb26-260" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb26-261"><a href="#cb26-261" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb26-262"><a href="#cb26-262" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb26-263"><a href="#cb26-263" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb26-264"><a href="#cb26-264" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb26-265"><a href="#cb26-265" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb26-266"><a href="#cb26-266" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb26-267"><a href="#cb26-267" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb26-268"><a href="#cb26-268" aria-hidden="true" tabindex="-1"></a>  resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb26-269"><a href="#cb26-269" aria-hidden="true" tabindex="-1"></a>  resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb26-270"><a href="#cb26-270" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-271"><a href="#cb26-271" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb26-272"><a href="#cb26-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-273"><a href="#cb26-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb26-274"><a href="#cb26-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-275"><a href="#cb26-275" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb26-276"><a href="#cb26-276" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Un **ensayo de Bernoulli** es un experimento con dos resultados; su media es $p$ y su varianza $p(1-p)$.</span>
+<span id="cb26-277"><a href="#cb26-277" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Una variable **binomial es la suma de $n$ ensayos de Bernoulli independientes**. De ahí salen directamente $\mu=np$ y $\sigma^2=np(1-p)$.</span>
+<span id="cb26-278"><a href="#cb26-278" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las cuatro condiciones **BINS**: **B**inario, **I**ndependientes, **N**úmero fijo de ensayos, **S**iempre la misma $p$. Deben cumplirse **todas**.</span>
+<span id="cb26-279"><a href="#cb26-279" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La que más se viola es la independencia, típicamente por **muestreo sin reemplazo** (ahí corresponde la hipergeométrica). Si la muestra es menos del 5% de la población, la binomial sirve como aproximación.</span>
+<span id="cb26-280"><a href="#cb26-280" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"Éxito" es solo una etiqueta para uno de los dos resultados: puede ser encontrar un defecto o una falla.</span>
+<span id="cb26-281"><a href="#cb26-281" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>En R: <span class="in">`dbinom()`</span> para $P(X=k)$, <span class="in">`pbinom()`</span> para $P(X\le k)$, <span class="in">`rbinom()`</span> para simular.</span>
+<span id="cb26-282"><a href="#cb26-282" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb26-283"><a href="#cb26-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-284"><a href="#cb26-284" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb26-285"><a href="#cb26-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb26-286"><a href="#cb26-286" aria-hidden="true" tabindex="-1"></a>El <span class="co">[</span><span class="ot">Tema P6b</span><span class="co">](tema-p6b-estudiante.qmd)</span> presenta la distribución de Poisson, que responde una pregunta distinta: en vez de contar éxitos en un número fijo de ensayos, cuenta **eventos que ocurren en un intervalo continuo** de tiempo o espacio.</span>
+<span id="cb26-287"><a href="#cb26-287" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
