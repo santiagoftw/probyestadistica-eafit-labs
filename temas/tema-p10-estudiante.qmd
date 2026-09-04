@@ -158,6 +158,6 @@ function revisarQuizTemaP10() {
 ---
 
 ::: {.callout-tip}
-## 🎓 Fin del Módulo 2 (arquitectura completa)
-Con este tema se completan los 10 temas planeados del Módulo 2 — desde reglas básicas de probabilidad hasta simulación de sistemas correlacionados. El siguiente paso natural del curso sería un Módulo 3 de inferencia estadística (estimación, intervalos de confianza, pruebas de hipótesis), construido con la misma filosofía de descubrimiento.
+## 🎓 Fin de la Sesión 14 (Unidad 3)
+Con este tema se completa la Sesión 14 del cronograma — variables aleatorias independientes y valor esperado de una función de variables aleatorias. Ya tienes todo lo necesario para el último tramo del curso: la [Sesión 15](tema-i1-estudiante.qmd) da el salto de "modelar la incertidumbre" a "decidir con ella" — pruebas de hipótesis (Temas I1-I2) e intervalos de confianza (Tema I3).
 :::

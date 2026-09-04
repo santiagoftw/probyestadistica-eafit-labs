@@ -178,5 +178,5 @@ data.frame(confianza = niveles, z = round(z_vals, 3), ancho_total = round(anchos
 ::: {.card-lab}
 - Los tres primeros casos (IC1-IC4) comparten la misma estructura: estimación $\pm$ valor crítico $\times$ error estándar — memoriza el patrón, no tres fórmulas distintas.
 - Las demostraciones (IC5, IC6) usan álgebra directa sobre la desigualdad de probabilidad original — el mismo estilo de manipulación que ya viste al derivar la fórmula general del IC en la teoría del Tema I3.
-- IC7 es un recordatorio de que los temas de este curso no viven aislados: "confianza" (Módulo 3) y "binomial" (Módulo 2) son, en el fondo, la misma idea de conteo de éxitos aplicada a contextos distintos.
+- IC7 es un recordatorio de que los temas de este curso no viven aislados: "confianza" (Unidad 3) y "binomial" (Módulo 2) son, en el fondo, la misma idea de conteo de éxitos aplicada a contextos distintos.
 :::

@@ -82,9 +82,16 @@ Covarianza, correlación y regresión — ¿el área de una casa predice su prec
 
 ::: {.g-col-6 .card-lab}
 ### Módulo 2 · Probabilidad
-10 temas completos (P1-P10), desde reglas básicas hasta simulación de sistemas correlacionados.
+7 temas completos (P1-P7), desde reglas básicas hasta distribuciones continuas.
 
 [Ver arquitectura →](temas/modulo-2-arquitectura.qmd)
+:::
+
+::: {.g-col-6 .card-lab}
+### Unidad 3 · Bivariadas e Inferencia
+8 temas (P8-P10, I1-I3): dos variables a la vez, y el salto final de una muestra a una conclusión sobre la población.
+
+[Ver arquitectura →](temas/unidad-3-arquitectura.qmd)
 :::
 
 ::: {.g-col-6 .card-lab}
@@ -112,5 +119,5 @@ Repaso integrado de todo el Módulo 1 en una sola pasada, más 5 preguntas conce
 
 ::: {.callout-note}
 ## Próximos pasos
-Planes de profesor (plantilla 90 min) para todos los temas · Tutoriales learnr reales · Módulo 3: Inferencia estadística.
+Planes de profesor (plantilla 90 min) para todos los temas · Tutoriales learnr reales · Temas de estudiante dedicados para distribuciones muestrales, TCL y estimación puntual (Unidad 3) · Pruebas de dos muestras.
 :::

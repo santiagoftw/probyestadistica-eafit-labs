@@ -705,7 +705,7 @@ list(prob_menor_6 = prob_menor_6, intervalo_80 = intervalo_80, percentil_85 = pe
 
 ::: {.hero-motivacion}
 ## 🔗 Cuando dos variables aleatorias interactúan
-Aquí el foco pasa de una sola variable aleatoria a **dos o más a la vez**: distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias. Corresponde al Módulo 2, temas P8-P10.
+Aquí el foco pasa de una sola variable aleatoria a **dos o más a la vez**: distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias. Corresponde a la Unidad 3, Sesiones 12-14 (Temas P8-P10).
 :::
 
 ## Bloque 8 · Distribución de probabilidad conjunta
@@ -739,7 +739,7 @@ p_Y1_3_dado_Y2_1
 
 ::: {.callout-important}
 ## Corrección de rigor
-La solución oficial de este laboratorio construye la tabla conjunta con una función que solo cubre la diagonal ($Y_1=y \Rightarrow Y_2=y$), lo que deja fuera combinaciones reales: por ejemplo, `CCS` y `CSC` dan ambas $Y_1=2$ pero con la primera cara en el tiro 1 ($Y_2=1$), no en el tiro 2. Esa función asigna probabilidad 0 a `(Y1=2, Y2=1)` cuando en realidad vale $2/8$, y de paso hace que la marginal de $Y_2$ salga uniforme (0.125 en cada valor) cuando la real es $P(Y_2{=}1){=}0.5$, $P(Y_2{=}2){=}0.25$, $P(Y_2{=}3){=}0.125$, $P(Y_2{=}{-1}){=}0.125$. La forma robusta de evitar este tipo de error — y la que se usa arriba — es **enumerar los 8 resultados del espacio muestral y contar**, en vez de escribir de memoria una fórmula cerrada para la probabilidad conjunta. Esta misma corrección ya se aplicó al Tema P8 del Módulo 2.
+La solución oficial de este laboratorio construye la tabla conjunta con una función que solo cubre la diagonal ($Y_1=y \Rightarrow Y_2=y$), lo que deja fuera combinaciones reales: por ejemplo, `CCS` y `CSC` dan ambas $Y_1=2$ pero con la primera cara en el tiro 1 ($Y_2=1$), no en el tiro 2. Esa función asigna probabilidad 0 a `(Y1=2, Y2=1)` cuando en realidad vale $2/8$, y de paso hace que la marginal de $Y_2$ salga uniforme (0.125 en cada valor) cuando la real es $P(Y_2{=}1){=}0.5$, $P(Y_2{=}2){=}0.25$, $P(Y_2{=}3){=}0.125$, $P(Y_2{=}{-1}){=}0.125$. La forma robusta de evitar este tipo de error — y la que se usa arriba — es **enumerar los 8 resultados del espacio muestral y contar**, en vez de escribir de memoria una fórmula cerrada para la probabilidad conjunta. Esta misma corrección ya se aplicó al Tema P8 de la Unidad 3.
 :::
 
 ::: {.ficha-resultado}
@@ -905,12 +905,12 @@ Compara la desviación estándar del portafolio (~9.8%) con el promedio ponderad
 
 ::: {.hero-motivacion}
 ## 📐 De la muestra a la población
-Hasta ahora describiste datos (Módulo 1) y modelaste incertidumbre (Módulo 2). La inferencia cierra el círculo: ¿qué tan bien una muestra permite decir algo sobre la población completa? Distribuciones muestrales, Teorema Central del Límite, estimación puntual, intervalos de confianza y pruebas de hipótesis.
+Hasta ahora describiste datos (Módulo 1), modelaste incertidumbre de una variable (Módulo 2) y de dos variables a la vez (Unidad 3, Sesiones 12-14). La inferencia cierra el círculo: ¿qué tan bien una muestra permite decir algo sobre la población completa? Distribuciones muestrales, Teorema Central del Límite, estimación puntual, intervalos de confianza y pruebas de hipótesis.
 :::
 
 ::: {.callout-note}
 ## Nota sobre este bloque
-Este material corresponde a un laboratorio real de Inferencia del curso y actualmente vive **solo aquí**, como bloque de práctica dentro de la pestaña Laboratorios — todavía no existe un Módulo 3 con temas de estudiante dedicados a inferencia (ver pendientes del proyecto).
+Este material corresponde a un laboratorio real de Inferencia del curso. La parte de pruebas de hipótesis y valores P, y la de intervalos de confianza, ya tienen además su tratamiento completo como temas de estudiante — [Tema I1](temas/tema-i1-estudiante.qmd), [I2](temas/tema-i2-estudiante.qmd) e [I3](temas/tema-i3-estudiante.qmd), Sesión 15 de la Unidad 3. Las distribuciones muestrales, el TCL y la estimación puntual (Bloques 11-13 de aquí abajo) todavía viven **solo** en este laboratorio — sin tema de estudiante dedicado (ver pendientes en [Unidad 3 · Arquitectura](temas/unidad-3-arquitectura.qmd)).
 :::
 
 ## Bloque 11 · Distribuciones muestrales

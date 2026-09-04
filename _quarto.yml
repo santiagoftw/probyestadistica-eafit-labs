@@ -58,23 +58,31 @@ website:
           - temas/tema-p6c-estudiante.qmd
           - temas/tema-p6d-estudiante.qmd
           - temas/tema-p7-estudiante.qmd
-          - temas/tema-p8-estudiante.qmd
-          - temas/tema-p8b-estudiante.qmd
-          - temas/tema-p8c-estudiante.qmd
-          - temas/tema-p9-estudiante.qmd
-          - temas/tema-p10-estudiante.qmd
           - temas/ejercicios-modulo2.qmd
           - temas/ejercicios-manual-taller2.qmd
           - temas/ejercicios-manual-taller2-resueltos.qmd
           - temas/preparacion-examen-2.qmd
           - temas/examen-2-resueltos.qmd
           - temas/examen-2-simulacro.qmd
-      - section: "Módulo 3 — Inferencia Estadística"
+      - section: "Unidad 3 — Bivariadas e Inferencia"
         contents:
-          - temas/modulo-3-arquitectura.qmd
-          - temas/tema-i1-estudiante.qmd
-          - temas/tema-i2-estudiante.qmd
-          - temas/tema-i3-estudiante.qmd
+          - temas/unidad-3-arquitectura.qmd
+          - section: "Sesión 12 · Distribución de probabilidad bivariada"
+            contents:
+              - temas/tema-p8-estudiante.qmd
+              - temas/tema-p8b-estudiante.qmd
+          - section: "Sesión 13 · Marginal y condicional"
+            contents:
+              - temas/tema-p8c-estudiante.qmd
+          - section: "Sesión 14 · Independencia y valor esperado de función de v.a."
+            contents:
+              - temas/tema-p9-estudiante.qmd
+              - temas/tema-p10-estudiante.qmd
+          - section: "Sesión 15 · Pruebas de hipótesis e intervalos de confianza"
+            contents:
+              - temas/tema-i1-estudiante.qmd
+              - temas/tema-i2-estudiante.qmd
+              - temas/tema-i3-estudiante.qmd
           - temas/ejercicios-manual-taller3.qmd
           - temas/ejercicios-manual-taller3-resueltos.qmd
       - laboratorios.qmd

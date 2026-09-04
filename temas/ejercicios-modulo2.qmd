@@ -10,7 +10,7 @@ Estos son ítems reales de tus Laboratorios 2 y 3 que **no** se usaron como ejem
 
 ::: {.callout-note}
 ## Cómo usar esta página
-Resuelve primero el cálculo teórico a mano; verifica después con una simulación en R, como practicaste en cada tema.
+Resuelve primero el cálculo teórico a mano; verifica después con una simulación en R, como practicaste en cada tema. Nota: los ítems de los Temas P8 y P9 (más abajo) corresponden hoy a temas de la [Unidad 3](unidad-3-arquitectura.qmd), no del Módulo 2 — se dejaron aquí porque ya estaban escritos junto con el resto del banco, pero el tema correspondiente vive en la otra sección.
 :::
 
 ---

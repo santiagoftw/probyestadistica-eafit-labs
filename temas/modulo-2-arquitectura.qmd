@@ -5,12 +5,12 @@ title: "Módulo 2 · Probabilidad — Arquitectura"
 ::: {.hero-motivacion}
 ## 🎲 De describir datos a modelar incertidumbre
 
-El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salto: ¿cómo se modela lo que **todavía no ha ocurrido**? Esta arquitectura está construida directamente sobre los Laboratorios 2 y 3 reales del curso.
+El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salto: ¿cómo se modela lo que **todavía no ha ocurrido**? Esta arquitectura está construida directamente sobre el Laboratorio 2 real del curso.
 :::
 
 ::: {.callout-note}
 ## Estado de este módulo
-Los 10 temas principales (P1-P10) están construidos como experiencias interactivas completas, siguiendo la misma progresión que los Laboratorios 2 y 3 reales del curso — más seis subtemas: P6a-P6d (que desglosan P6 en conteo, binomial, Poisson, aproximación normal y FGM), y P8b-P8c (que extienden P8 con distribución conjunta continua y densidad condicional, con base en Blanco Castañeda (2010), *Probabilidad*).
+Los 7 temas principales (P1-P7) están construidos como experiencias interactivas completas, siguiendo la misma progresión que el Laboratorio 2 real del curso — más cuatro subtemas (P6a-P6d) que desglosan P6 en conteo, binomial, Poisson, aproximación normal y FGM. El bloque de variables **bivariadas** (P8-P10) y de **inferencia** (I1-I3) ya no vive aquí — se movió a la [Unidad 3](unidad-3-arquitectura.qmd), siguiendo el cronograma oficial del curso (sesiones 12-15).
 :::
 
 ## Mapa de temas
@@ -28,11 +28,6 @@ Los 10 temas principales (P1-P10) están construidos como experiencias interacti
 | P6c | Aproximación normal a la binomial | Programa del curso, sesión 9 |
 | P6d | Función generadora de momentos (FGM) | Programa del curso, sesión 10 |
 | P7 | Distribuciones continuas: Uniforme y Normal | Laboratorio 2, Bloque 5 |
-| P8 | Distribución de probabilidad multivariada (discreta) | Laboratorio 3, Bloque 1 |
-| P8b | Distribución conjunta continua | Blanco Castañeda (2010), Cap. 5 |
-| P8c | Densidad condicional | Blanco Castañeda (2010), Cap. 6 |
-| P9 | Covarianza y correlación de variables aleatorias | Laboratorio 3, Bloque 2 |
-| P10 | Funciones de variables aleatorias y simulación de sistemas | Laboratorio 3, Bloque 3 |
 
 ## Detalle por tema
 
@@ -93,34 +88,14 @@ Los 10 temas principales (P1-P10) están construidos como experiencias interacti
 **Motivación real:** puntuaciones de satisfacción de usuario ~ N(7, 1.5²) — ¿qué percentil corresponde a una puntuación de 8.5?
 **Estado:** ✅ construido — [ir al tema](tema-p7-estudiante.qmd)
 
-## P8 — Distribución multivariada
-**Objetivo:** construir una función de probabilidad conjunta, obtener marginales y condicionales, verificar independencia.
-**Motivación real (Laboratorio 3):** tres monedas lanzadas, con una variable de apuesta ligada al resultado — ¿son independientes el número de caras y las ganancias?
-**Estado:** ✅ construido — [ir al tema](tema-p8-estudiante.qmd)
-
-## P8b — Distribución conjunta continua
-**Objetivo:** extender el Tema P8 al caso continuo — densidad de probabilidad conjunta, marginales por integración, y el criterio de factorización $f(x,y)=h(x)g(y)$ para verificar independencia sin integrar.
-**Motivación real:** dos mediciones continuas a la vez (ej. tiempo y distancia) — ¿qué significa "volumen bajo la superficie = 1"?
-**Estado:** ✅ construido — [ir al tema](tema-p8b-estudiante.qmd). Basado en Blanco Castañeda (2010), Cap. 5.
-
-## P8c — Densidad condicional
-**Objetivo:** resolver la aparente contradicción de condicionar sobre $P(Y=y)=0$, definiendo $f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)$; valor esperado condicional; regla de Bayes continua.
-**Motivación real:** ¿cuál es la distribución de $X$ dado que $Y$ vale exactamente $y$, si esa probabilidad puntual es cero?
-**Estado:** ✅ construido — [ir al tema](tema-p8c-estudiante.qmd). Basado en Blanco Castañeda (2010), Cap. 6.
-
-## P9 — Covarianza y correlación de v.a.
-**Objetivo:** simular variables correlacionadas con `MASS::mvrnorm()` y verificar la matriz de covarianza/correlación resultante.
-**Motivación real:** sistema de producción con demanda, tiempo y costo correlacionados — evaluación de riesgo.
-**Estado:** ✅ construido — [ir al tema](tema-p9-estudiante.qmd), conecta directamente con el Tema 8 del Módulo 1.
-
-## P10 — Funciones de variables aleatorias
-**Objetivo:** simular sistemas completos (tiempos de falla exponenciales, fuerzas combinadas, portafolios de inversión) y comparar resultados simulados contra los teóricos.
-**Motivación real:** ¿cuál de dos componentes falla primero, si sus tiempos de falla son exponenciales con tasas distintas?
-**Estado:** ✅ construido — [ir al tema](tema-p10-estudiante.qmd)
-
 :::
 
 ::: {.callout-tip}
 ## Por qué este orden
-Sigue exactamente la progresión de los laboratorios reales: reglas → condicional → total/Bayes → independencia → variables aleatorias → distribuciones discretas → continuas → multivariado → covarianza → simulación de sistemas. Es la misma escalera de dificultad que ya evaluó el curso en semestres anteriores.
+Sigue exactamente la progresión del Laboratorio 2 real: reglas → condicional → total/Bayes → independencia → variables aleatorias → distribuciones discretas → continuas. Es la misma escalera de dificultad que ya evaluó el curso en semestres anteriores.
+:::
+
+::: {.callout-note}
+## Siguiente paso
+Con P7 se completa la parte de una sola variable aleatoria. La [Unidad 3](unidad-3-arquitectura.qmd) retoma el hilo con **dos** variables a la vez (distribución bivariada, marginal y condicional, independencia y covarianza) y cierra con inferencia estadística (pruebas de hipótesis e intervalos de confianza) — exactamente las Sesiones 12-15 del cronograma.
 :::

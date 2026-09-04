@@ -1,0 +1,82 @@
+---
+title: "Unidad 3 · Bivariadas e Inferencia — Arquitectura"
+---
+
+::: {.hero-motivacion}
+## 🗺️ Cuatro sesiones, el mismo hilo conductor
+
+La Unidad 3 tiene una progresión clara: primero aprendes a describir **dos** variables aleatorias a la vez (bivariada → marginal/condicional → independencia y valor esperado de una función), y luego usas todo eso para dar el salto final del curso — de una muestra a una conclusión sobre la población completa (pruebas de hipótesis e intervalos de confianza). Esta página sigue exactamente el cronograma oficial del curso, sesión por sesión.
+:::
+
+::: {.callout-note}
+## Estado de esta unidad
+Las 4 sesiones están completamente construidas — 8 temas de estudiante en total, más un banco de ejercicios manuales con desarrollo teórico y en R. Los Temas P8-P10 están basados en Blanco Castañeda (2010), *Probabilidad* (Universidad Nacional de Colombia); los Temas I1-I3 están basados en Walpole, Myers, Myers y Ye, *Probabilidad y Estadística para Ingeniería y Ciencias*.
+:::
+
+## Cronograma de la unidad
+
+| Sesión | Fecha | Tema del cronograma | Temas del sitio |
+|---|---|---|---|
+| 12 | 30-sep | Distribución de probabilidad bivariada | P8, P8b |
+| 13 | 14-oct | Distribución de probabilidad marginal y condicional | P8c |
+| 14 | 21-oct | Variables aleatorias independientes y valor esperado de una función de variables aleatorias | P9, P10 |
+| 15 | 04-nov | Pruebas de hipótesis e intervalos de confianza | I1, I2, I3 |
+
+---
+
+## Sesión 12 · Distribución de probabilidad bivariada
+
+**P8 — Distribución multivariada (caso discreto)**
+**Objetivo:** construir una función de probabilidad conjunta, obtener marginales y condicionales, verificar independencia — con tablas finitas.
+**Motivación real (Laboratorio 3):** tres monedas lanzadas, con una variable de apuesta ligada al resultado — ¿son independientes el número de caras y las ganancias?
+**Estado:** ✅ construido — [ir al tema](tema-p8-estudiante.qmd)
+
+**P8b — Distribución conjunta continua**
+**Objetivo:** extender la idea al caso continuo — densidad de probabilidad conjunta, marginales por integración, y el criterio de factorización $f(x,y)=h(x)g(y)$ para verificar independencia sin integrar.
+**Motivación real:** dos mediciones continuas a la vez (ej. tiempo y distancia) — ¿qué significa "volumen bajo la superficie = 1"?
+**Estado:** ✅ construido — [ir al tema](tema-p8b-estudiante.qmd). Basado en Blanco Castañeda (2010), Cap. 5.
+
+## Sesión 13 · Distribución de probabilidad marginal y condicional
+
+**P8c — Densidad condicional**
+**Objetivo:** resolver la aparente contradicción de condicionar sobre $P(Y=y)=0$, definiendo $f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)$; valor esperado condicional; regla de Bayes continua.
+**Motivación real:** ¿cuál es la distribución de $X$ dado que $Y$ vale exactamente $y$, si esa probabilidad puntual es cero?
+**Estado:** ✅ construido — [ir al tema](tema-p8c-estudiante.qmd). Basado en Blanco Castañeda (2010), Cap. 6.
+
+## Sesión 14 · Independencia y valor esperado de función de variables aleatorias
+
+**P9 — Covarianza y correlación de variables aleatorias**
+**Objetivo:** simular variables correlacionadas con `MASS::mvrnorm()` y verificar la matriz de covarianza/correlación resultante — la covarianza es, en el fondo, $E\big[(X-\mu_X)(Y-\mu_Y)\big]$, un caso particular de valor esperado de una función de dos variables.
+**Motivación real:** sistema de producción con demanda, tiempo y costo correlacionados — evaluación de riesgo.
+**Estado:** ✅ construido — [ir al tema](tema-p9-estudiante.qmd), conecta directamente con el Tema 8 del Módulo 1.
+
+**P10 — Funciones de variables aleatorias**
+**Objetivo:** calcular el valor esperado y la distribución de $g(X,Y)$ — sumas, productos, cocientes — combinando simulación con verificación teórica (FGM, convolución).
+**Motivación real (Laboratorio 3):** tiempo de falla de un sistema en serie, rentabilidad de un portafolio de dos activos.
+**Estado:** ✅ construido — [ir al tema](tema-p10-estudiante.qmd)
+
+## Sesión 15 · Pruebas de hipótesis e intervalos de confianza
+
+**I1 — Fundamentos de pruebas de hipótesis y prueba Z**
+**Objetivo:** hipótesis nula y alternativa, errores de tipo I y II, el compromiso ineludible entre $\alpha$ y $\beta$, y el procedimiento completo de la prueba Z (varianza conocida).
+**Motivación real:** la analogía judicial (inocente hasta que se demuestre lo contrario) — y ejemplos reales del libro: colisiones de auto, tiempo de secado de pintura, temperatura de activación de rociadores contra incendios.
+**Estado:** ✅ construido — [ir al tema](tema-i1-estudiante.qmd)
+
+**I2 — Prueba t y valores P**
+**Objetivo:** qué hacer cuando $\sigma$ es desconocida (prueba t con $n-1$ grados de libertad), y cómo cuantificar la fuerza de la evidencia contra $H_0$ con el valor P.
+**Motivación real:** peso máximo de elevación (ejemplo real de *Ergonomics*, 1992) y la comparación de conclusiones a distintos niveles $\alpha$ para el mismo dato.
+**Estado:** ✅ construido — [ir al tema](tema-i2-estudiante.qmd)
+
+**I3 — Intervalos de confianza**
+**Objetivo:** qué significa realmente "95% de confianza" (interpretación de muestreo repetido, no probabilidad sobre el intervalo ya calculado), y los tres casos prácticos: $\sigma$ conocida, $\sigma$ desconocida con muestra grande, y la distribución $t$ para muestra pequeña.
+**Motivación real:** dos conjuntos de datos reales completos — 48 mediciones de tensión disruptiva de un líquido aislante, y 16 mediciones del módulo de elasticidad de madera de pino escocés.
+**Estado:** ✅ construido — [ir al tema](tema-i3-estudiante.qmd)
+
+---
+
+::: {.callout-important}
+## Pendientes explícitos de esta unidad
+- Distribuciones muestrales, Teorema Central del Límite y estimación puntual (el puente conceptual entre la Sesión 14 y la Sesión 15) todavía viven solo como ítems de laboratorio resueltos — [Laboratorio de Inferencia Estadística](../laboratorios.qmd#laboratorio-de-inferencia-estadística), Ítems 35-39 — sin el tratamiento pedagógico completo (predicción, teoría formal, quiz) que sí tienen los demás temas de esta unidad.
+- Pruebas de dos muestras (comparación de dos medias, dos proporciones, dos varianzas) — Ítems 42-43 del mismo laboratorio, o Capítulo 9 de Walpole et al. — sin tema de estudiante dedicado todavía.
+- Una sección explícita de "Taller 3" en `laboratorios.qmd`, con los cuatro criterios exactos de esa rúbrica — análoga a la que ya existe para el Taller 2.
+:::
