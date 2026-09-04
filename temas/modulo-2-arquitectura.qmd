@@ -10,7 +10,7 @@ El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salt
 
 ::: {.callout-note}
 ## Estado de este módulo
-Los 10 temas (P1-P10) ya están construidos como experiencias interactivas completas, siguiendo la misma progresión que los Laboratorios 2 y 3 reales del curso.
+Los 10 temas principales (P1-P10) están construidos como experiencias interactivas completas, siguiendo la misma progresión que los Laboratorios 2 y 3 reales del curso — más cuatro subtemas (P6a, P6b, P6c, P6d) que desglosan P6 en sus piezas: conteo, binomial, Poisson, la aproximación normal y la función generadora de momentos.
 :::
 
 ## Mapa de temas
@@ -22,7 +22,11 @@ Los 10 temas (P1-P10) ya están construidos como experiencias interactivas compl
 | P3 | Probabilidad total y Teorema de Bayes | Laboratorio 2, Bloque 2 |
 | P4 | Independencia de eventos | Laboratorio 2, Bloque 2 |
 | P5 | Variables aleatorias y función de distribución acumulada | Laboratorio 2, Bloque 3 |
-| P6 | Distribuciones discretas: Binomial y Poisson | Laboratorio 2, Bloque 4 |
+| P6a | Conteo: permutaciones y combinaciones | Origen de la fórmula binomial |
+| P6 | Distribución Binomial y ensayos de Bernoulli | Laboratorio 2, Bloque 4 |
+| P6b | Distribución de Poisson | Laboratorio 2, Bloque 4 |
+| P6c | Aproximación normal a la binomial | Programa del curso, sesión 9 |
+| P6d | Función generadora de momentos (FGM) | Programa del curso, sesión 10 |
 | P7 | Distribuciones continuas: Uniforme y Normal | Laboratorio 2, Bloque 5 |
 | P8 | Distribución de probabilidad multivariada | Laboratorio 3, Bloque 1 |
 | P9 | Covarianza y correlación de variables aleatorias | Laboratorio 3, Bloque 2 |
@@ -71,6 +75,16 @@ Los 10 temas (P1-P10) ya están construidos como experiencias interactivas compl
 **Objetivo:** modelar conteos de eventos en un intervalo continuo; la firma $\mu=\sigma^2=\lambda$, el escalamiento de $\lambda$ con el intervalo, y el límite binomial → Poisson.
 **Motivación real:** los datos históricos de von Bortkiewicz (1898) sobre muertes por coz de caballo en el ejército prusiano, más ejemplos de servicios, manufactura, texto, fenómenos naturales y deportes.
 **Estado:** ✅ construido — [ir al tema](tema-p6b-estudiante.qmd)
+
+## P6c — Aproximación normal a la binomial
+**Objetivo:** el teorema de De Moivre-Laplace ($\text{Binomial}(n,p)\approx N(np, np(1-p))$ para $n$ grande), la regla práctica $np\ge5$ y $n(1-p)\ge5$, y la corrección de continuidad — con un caso explícito donde la aproximación falla y hay que usar Poisson en su lugar.
+**Motivación real:** una encuesta electoral con 150 votantes y 60% de apoyo — calcular $P(X\ge100)$ sin sumar 51 términos de la binomial a mano.
+**Estado:** ✅ construido — [ir al tema](tema-p6c-estudiante.qmd)
+
+## P6d — Función generadora de momentos (FGM)
+**Objetivo:** definir $M_X(t)=E[e^{tX}]$, extraer momentos derivando en $t=0$, construir la tabla de FGM de las distribuciones ya vistas, y usar las dos propiedades clave (unicidad, FGM de una suma = producto de FGM) para *demostrar* — no solo observar por simulación — que la suma de Poisson independientes es Poisson y que la suma de Binomiales independientes con el mismo $p$ es Binomial.
+**Motivación real:** ¿qué distribución tiene la suma de dos variables aleatorias independientes, sin convolucionar sus distribuciones directamente?
+**Estado:** ✅ construido — [ir al tema](tema-p6d-estudiante.qmd)
 
 ## P7 — Uniforme y Normal
 **Objetivo:** estimar media/varianza de una uniforme continua por simulación; calcular probabilidades, percentiles e intervalos con la normal.

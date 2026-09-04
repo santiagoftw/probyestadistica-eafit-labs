@@ -55,11 +55,16 @@ website:
           - temas/tema-p6a-estudiante.qmd
           - temas/tema-p6-estudiante.qmd
           - temas/tema-p6b-estudiante.qmd
+          - temas/tema-p6c-estudiante.qmd
+          - temas/tema-p6d-estudiante.qmd
           - temas/tema-p7-estudiante.qmd
           - temas/tema-p8-estudiante.qmd
           - temas/tema-p9-estudiante.qmd
           - temas/tema-p10-estudiante.qmd
           - temas/ejercicios-modulo2.qmd
+          - temas/preparacion-examen-2.qmd
+          - temas/examen-2-resueltos.qmd
+          - temas/examen-2-simulacro.qmd
       - laboratorios.qmd
       - recursos.qmd
 

@@ -5,7 +5,7 @@ title: "Laboratorios del curso · Ejercicios y prácticas resueltas"
 ::: {.hero-motivacion}
 ## 🧪 Los cuatro laboratorios reales del curso, resueltos y comentados
 
-Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: **Laboratorio 1** (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), **Laboratorio 2** (fenómenos aleatorios), **Laboratorio 3** (distribución multivariada), el **Laboratorio de Inferencia Estadística** y un **Laboratorio complementario** con ejercicios adicionales de binomial, Poisson, FGM y un taller Grupo B. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.
+Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: **Laboratorio 1** (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), **Laboratorio 2** (fenómenos aleatorios), **Laboratorio 3** (distribución multivariada), el **Laboratorio de Inferencia Estadística**, un **Laboratorio complementario** con ejercicios adicionales de binomial, Poisson, FGM y un taller Grupo B, y una sección de **Taller 2 · Práctica evaluativa** alineada con los cuatro criterios exactos de la rúbrica. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.
 :::
 
 ::: {.callout-note}
@@ -15,6 +15,7 @@ Esta página consolida los laboratorios oficiales de Estadística y Probabilidad
 - [Laboratorio 3 · Distribución de probabilidad multivariada](#laboratorio-3-distribución-de-probabilidad-multivariada) — Ítems 29 a 34
 - [Laboratorio de Inferencia Estadística](#laboratorio-de-inferencia-estadística) — Ítems 35 a 43
 - [Laboratorio complementario · Ejercicios adicionales verificados](#laboratorio-complementario-ejercicios-adicionales-verificados) — Ítems 44 a 56 (binomial, Poisson, FGM, conjuntas adicionales, taller Grupo B, indicadores epidemiológicos, taller de clasificación/recodificación)
+- [Taller 2 · Práctica evaluativa](#taller-2-práctica-evaluativa) — Ítems 57 a 64 (los cuatro criterios exactos de la rúbrica: binomial, Poisson, aproximación normal, FGM)
 :::
 
 ::: {.callout-note}
@@ -1558,7 +1559,216 @@ Los valores de `Tv_Source`, `Hours_per_week`, `Binge_Frequency` y `Sex` se **sim
 
 ---
 
-## 🗂️ Cierre general · Los cinco laboratorios
+# Taller 2 · Práctica evaluativa
+
+::: {.hero-motivacion}
+## 📋 Los cuatro criterios exactos de la rúbrica
+
+Esta sección reúne, en un solo lugar y en el mismo orden en que se evalúan, los cuatro criterios del Taller 2: **distribución binomial**, **distribución Poisson**, **aproximación normal a la binomial** y **función generadora de momentos**. Cada bloque resuelve problemas nuevos (distintos a los que ya viste en los Temas P6, P6b, P6c, P6d y en el Laboratorio complementario) para que practiques con material fresco antes de la evaluación.
+:::
+
+::: {.callout-note}
+## Antes de empezar
+Si algún concepto no te resulta familiar, vuelve al tema correspondiente antes de intentar estos problemas: [Tema P6](temas/tema-p6-estudiante.qmd) (Binomial), [Tema P6b](temas/tema-p6b-estudiante.qmd) (Poisson), [Tema P6c](temas/tema-p6c-estudiante.qmd) (Aproximación normal), [Tema P6d](temas/tema-p6d-estudiante.qmd) (FGM).
+:::
+
+## Bloque 22 · Distribución binomial
+
+### Ítem 57 — Control de calidad
+
+**Enunciado:** una fábrica produce piezas con una tasa de defectos del 8%. Se toma una muestra aleatoria de 25 piezas. Calcule: (a) la probabilidad de encontrar exactamente 3 defectuosas; (b) la probabilidad de encontrar a lo sumo 2 defectuosas; (c) la probabilidad de encontrar al menos 1 defectuosa.
+
+::: {.ficha-prediccion}
+Antes de calcular: ¿esperas que (b) y (c) sean parecidas, o muy distintas? Piensa en qué extremo de la distribución mira cada una.
+:::
+
+```{r}
+n <- 25; p <- 0.08
+
+p_exactamente_3 <- dbinom(3, n, p)
+p_a_lo_sumo_2   <- pbinom(2, n, p)
+p_al_menos_1    <- 1 - dbinom(0, n, p)
+
+c(exactamente_3 = p_exactamente_3, a_lo_sumo_2 = p_a_lo_sumo_2, al_menos_1 = p_al_menos_1)
+```
+
+::: {.ficha-resultado}
+(b) y (c) miran extremos opuestos: "a lo sumo 2" (67.7%) es alta porque con $p=0.08$ lo normal es encontrar pocas o ninguna defectuosa; "al menos 1" (87.6%) es *todavía más* alta, porque con 25 piezas de por medio, encontrar cero defectuosas exactas es lo único que hay que descartar.
+:::
+
+### Ítem 58 — Examen de opción múltiple, adivinando al azar
+
+**Enunciado:** un examen tiene 12 preguntas de opción múltiple con 4 alternativas cada una. Un estudiante responde completamente al azar. Calcule: (a) la probabilidad de aprobar si el mínimo son 6 respuestas correctas; (b) el número esperado de aciertos y su varianza.
+
+```{r}
+n <- 12; p <- 0.25   # p = 1/4, probabilidad de acertar una pregunta al azar
+
+p_aprobar <- 1 - pbinom(5, n, p)   # P(X >= 6)
+esperado  <- n * p
+varianza  <- n * p * (1 - p)
+
+c(p_aprobar = p_aprobar, esperado = esperado, varianza = varianza)
+```
+
+::: {.callout-important}
+## Interpretación que vale puntos en el examen
+Solo 5.4% de probabilidad de aprobar adivinando puramente al azar, aunque el estudiante "en promedio" acierte 3 de 12 preguntas. No confundas el valor esperado (3 aciertos) con la meta de aprobación (6 aciertos): son cantidades distintas, y la brecha entre ellas es exactamente lo que hace tan poco probable aprobar por azar.
+:::
+
+---
+
+## Bloque 23 · Distribución Poisson
+
+### Ítem 59 — Central telefónica
+
+**Enunciado:** una central telefónica recibe en promedio 6 llamadas por minuto. Calcule: (a) la probabilidad de recibir exactamente 4 llamadas en un minuto; (b) la probabilidad de recibir más de 10 llamadas en un intervalo de 2 minutos.
+
+::: {.ficha-prediccion}
+Para la parte (b): ¿qué valor de $\lambda$ usarías? (Repasa el "truco de interpretación" del Tema P6b sobre ajustar $\lambda$ al intervalo).
+:::
+
+```{r}
+lambda_1min <- 6
+
+p_exactamente_4 <- dpois(4, lambda_1min)
+
+lambda_2min <- 6 * 2   # la tasa se escala con el intervalo
+p_mas_de_10 <- 1 - ppois(10, lambda_2min)
+
+c(exactamente_4_en_1min = p_exactamente_4, mas_de_10_en_2min = p_mas_de_10)
+```
+
+### Ítem 60 — Defectos en un rollo de tela
+
+**Enunciado:** un proceso de manufactura textil produce defectos a una tasa de 0.02 por metro. En un rollo de 150 metros, calcule la probabilidad de encontrar a lo sumo 2 defectos.
+
+```{r}
+tasa_por_metro <- 0.02
+metros <- 150
+lambda_rollo <- tasa_por_metro * metros
+
+p_a_lo_sumo_2 <- ppois(2, lambda_rollo)
+c(lambda = lambda_rollo, p_a_lo_sumo_2 = p_a_lo_sumo_2)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+En ambos ítems, el primer paso —antes de tocar `dpois()` o `ppois()`— fue convertir la tasa dada al intervalo real de la pregunta ($\lambda\times 2$ minutos, tasa$\times$150 metros). Ese paso de escalamiento es donde más se pierden puntos en un examen: la fórmula está bien, pero el $\lambda$ usado no corresponde a lo que se pregunta. [Ver más trucos →](recursos.qmd)
+:::
+
+---
+
+## Bloque 24 · Aproximación normal a la distribución binomial
+
+### Ítem 61 — Encuesta de opinión
+
+**Enunciado:** en una encuesta, el 55% de los encuestados apoya una medida. Se entrevistan 300 personas. Calcule $P(160\le X\le180)$: (a) con la fórmula binomial exacta; (b) con la aproximación normal, usando corrección de continuidad. Compare ambos resultados.
+
+::: {.ficha-prediccion}
+Primero verifica: ¿se cumple $np\ge5$ y $n(1-p)\ge5$ para estos datos?
+:::
+
+```{r}
+n <- 300; p <- 0.55
+mu <- n * p; sigma <- sqrt(n * p * (1 - p))
+c(np = n*p, n1p = n*(1-p), mu = mu, sigma = sigma)   # verificación de la regla práctica
+
+exacto <- pbinom(180, n, p) - pbinom(159, n, p)
+aprox  <- pnorm(180.5, mu, sigma) - pnorm(159.5, mu, sigma)
+
+c(exacto = exacto, aproximado = aprox)
+```
+
+::: {.ficha-resultado}
+$np=165\ge5$ y $n(1-p)=135\ge5$: la aproximación es válida. El valor exacto es 0.7031 y el aproximado (con corrección de continuidad) es 0.7023 — una diferencia de apenas 0.0008, prácticamente despreciable con $n=300$.
+:::
+
+### Ítem 62 — Control de calidad a gran escala
+
+**Enunciado:** en un proceso con 10% de piezas defectuosas, se inspeccionan 400 piezas. Calcule $P(X>50)$ con la aproximación normal (corrección de continuidad), y compárela con el valor exacto.
+
+```{r}
+n <- 400; p <- 0.10
+mu <- n * p; sigma <- sqrt(n * p * (1 - p))
+c(np = n*p, n1p = n*(1-p))   # ambos >= 5: aplica la aproximación
+
+exacto <- 1 - pbinom(50, n, p)
+aprox  <- 1 - pnorm(50.5, mu, sigma)
+
+c(exacto = exacto, aproximado = aprox)
+```
+
+::: {.callout-note}
+## Lo que deberías notar
+La diferencia entre exacto (0.0436) y aproximado (0.0401) es un poco mayor aquí que en el Ítem 61 — la aproximación normal tiende a perder algo de precisión en las colas (valores alejados de la media) comparada con el centro de la distribución. Aun así, para fines prácticos (decidir si el proceso está fuera de control, por ejemplo), ambos valores llevan a la misma conclusión.
+:::
+
+---
+
+## Bloque 25 · Función generadora de momentos
+
+### Ítem 63 — Momentos de una Bernoulli, paso a paso
+
+**Enunciado:** a partir de la FGM de una Bernoulli($p$), $M(t)=1-p+pe^t$, calcule $E[X]$ y $\text{Var}(X)$ derivando y evaluando en $t=0$ — primero a mano, luego verificando en R con derivación numérica.
+
+```{r}
+p <- 0.35   # un valor concreto para verificar numéricamente
+
+M <- function(t) 1 - p + p * exp(t)
+
+h <- 1e-6
+E_X   <- (M(h) - M(-h)) / (2*h)
+E_X2  <- (M(h) - 2*M(0) + M(-h)) / h^2
+Var_X <- E_X2 - E_X^2
+
+c(E_X = E_X, Var_X = Var_X, p_teorico = p, "p(1-p)_teorico" = p*(1-p))
+```
+
+::: {.callout-important}
+## El álgebra detrás del chunk
+A mano: $M'(t)=pe^t$, así que $M'(0)=p=E[X]$. $M''(t)=pe^t$ también, así que $M''(0)=p=E[X^2]$. Entonces $\text{Var}(X)=E[X^2]-E[X]^2=p-p^2=p(1-p)$ — coincide exactamente con lo que ya sabías de la tabla del Tema P6d, y con el resultado numérico de arriba.
+:::
+
+### Ítem 64 — Identificar una suma usando FGM
+
+**Enunciado:** $X\sim\text{Poisson}(3)$ y $Y\sim\text{Poisson}(5)$, independientes. (a) Use el producto de sus FGM para identificar la distribución de $X+Y$. (b) Calcule $P(X+Y=10)$.
+
+```{r}
+lambda_X <- 3; lambda_Y <- 5
+
+# (a) Verificación algebraica: el producto de las FGM tiene forma de Poisson(lambda_X + lambda_Y)
+M_pois <- function(t, lambda) exp(lambda * (exp(t) - 1))
+t_prueba <- seq(-1, 1, 0.2)
+max(abs(M_pois(t_prueba, lambda_X) * M_pois(t_prueba, lambda_Y) - M_pois(t_prueba, lambda_X + lambda_Y)))
+
+# (b) Con X+Y ~ Poisson(8):
+p_suma_10 <- dpois(10, lambda_X + lambda_Y)
+p_suma_10
+```
+
+::: {.ficha-resultado}
+La diferencia máxima entre el producto de FGM y la FGM de Poisson(8) es esencialmente cero: confirma que $X+Y\sim\text{Poisson}(8)$. Con eso, $P(X+Y=10)=0.0993$ — un cálculo directo con `dpois()`, sin necesidad de convolucionar las dos distribuciones originales.
+:::
+
+---
+
+## 🗂️ Cierre del Taller 2
+
+::: {.card-lab}
+- **Binomial:** identifica $n$ y $p$, y decide entre `dbinom()` (exactamente), `pbinom()` (acumulada) y su complemento (al menos), sin confundir el valor esperado con la meta de la pregunta.
+- **Poisson:** el paso que más se olvida es ajustar $\lambda$ al intervalo real de la pregunta — hazlo siempre antes de llamar a `dpois()`/`ppois()`.
+- **Aproximación normal:** verifica $np\ge5$ y $n(1-p)\ge5$ antes de usarla, y nunca olvides la corrección de continuidad (±0.5) — la diferencia entre usarla y no usarla puede ser el margen entre acertar y fallar un punto del examen.
+- **FGM:** derivar y evaluar en $t=0$ da los momentos; multiplicar FGM de variables independientes da la FGM de su suma — dos atajos que reemplazan sumas directas y convoluciones tediosas.
+:::
+
+::: {.callout-important}
+## Sobre este Taller
+Estos 8 ítems (57-64) cubren, en el mismo orden, los cuatro criterios exactos de la rúbrica del Taller 2. Practica cada bloque por tu cuenta —tapando la solución— antes de revisarla.
+:::
+
+---
+
+## 🗂️ Cierre general · Los cinco laboratorios y el Taller 2
 
 ::: {.card-lab}
 - **Laboratorio 1 (descriptiva):** clasificar variables, resumir con medidas de tendencia central y dispersión, y usar medidas robustas basadas en cuantiles — la base evaluada en el Taller 1.
@@ -1566,10 +1776,11 @@ Los valores de `Tv_Source`, `Hours_per_week`, `Binge_Frequency` y `Sex` se **sim
 - **Laboratorio 3 (multivariada):** cuando dos variables aleatorias se relacionan — distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias.
 - **Laboratorio de Inferencia:** el puente entre una muestra y la población — distribuciones muestrales, Teorema Central del Límite, estimación puntual e intervalos de confianza, y pruebas de hipótesis.
 - **Laboratorio complementario:** ejercicios adicionales de binomial y Poisson, una introducción a las funciones generadoras de momentos (FGM), casos nuevos de distribuciones conjuntas, un taller Grupo B con el dataset `pressure`, indicadores epidemiológicos (razones, proporciones, tasas), y un taller de clasificación/recodificación de variables.
+- **Taller 2 · Práctica evaluativa:** los cuatro criterios exactos de la rúbrica (binomial, Poisson, aproximación normal a la binomial, FGM), con problemas nuevos y una guía de repaso dedicada (`preparacion-examen-2.qmd`).
 - A lo largo de todos los laboratorios encontrarás varios **callouts de corrección de rigor** — errores reales de las soluciones oficiales, verificados de forma independiente y documentados como lección, no escondidos.
 :::
 
 ::: {.callout-important}
-## Sobre el Taller 1
-El Laboratorio 1 (Bloques 0-2, Ítems 1-12) sigue la misma estructura de preguntas que se evalúa en el Taller 1 (20% de la nota, según el programa del curso). Practica cada ítem por tu cuenta antes de consultar la solución oficial.
+## Sobre el Taller 1 y el Taller 2
+El Laboratorio 1 (Bloques 0-2, Ítems 1-12) sigue la misma estructura de preguntas que se evalúa en el Taller 1. La sección **Taller 2 · Práctica evaluativa** (Ítems 57-64) cubre, en el mismo orden, los cuatro criterios exactos de la rúbrica del Taller 2. Practica cada ítem por tu cuenta antes de consultar la solución oficial.
 :::

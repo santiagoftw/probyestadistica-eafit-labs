@@ -1,0 +1,238 @@
+---
+title: "Tema P6d · Función generadora de momentos (FGM)"
+---
+
+::: {.hero-motivacion}
+## 🧬 Una sola función que contiene TODOS los momentos
+
+Ya sabes calcular $E[X]$ y $\text{Var}(X)$ sumando o integrando directamente (Temas P5-P6c). Pero hay una pregunta más difícil: si $X$ y $Y$ son independientes, ¿qué distribución tiene $X+Y$? Sumar directamente las funciones de probabilidad (la "convolución") es tedioso. La función generadora de momentos (FGM) resuelve esto de una forma casi mágica: convierte la pregunta "¿qué distribución tiene la suma?" en "¿qué pasa si multiplico dos funciones?" — mucho más fácil.
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: si $M_X(t)$ "genera" los momentos de $X$ ($E[X]$, $E[X^2]$, ...), ¿cómo crees que se obtienen esos momentos a partir de la función? (Pista: el nombre de la técnica que ya usas para encontrar máximos y mínimos en cálculo).
+:::
+
+## 🔬 Exploremos: momentos a partir de una función
+
+Para un dado de 6 caras, la función generadora de momentos es:
+
+$$M_X(t) = E[e^{tX}] = \sum_{k=1}^{6} e^{tk}\cdot\frac{1}{6} = \frac{e^t+e^{2t}+e^{3t}+e^{4t}+e^{5t}+e^{6t}}{6}$$
+
+```{r}
+M_dado <- function(t) sum(exp(t * 1:6)) / 6
+
+# Aproximar la derivada en t=0 con diferencias finitas (h muy chico)
+h <- 1e-5
+derivada1 <- (M_dado(h) - M_dado(-h)) / (2*h)
+derivada2 <- (M_dado(h) - 2*M_dado(0) + M_dado(-h)) / h^2
+
+c(M_prima_0 = derivada1, M_biprima_0 = derivada2)
+```
+
+::: {.ficha-resultado}
+`M_prima_0` ≈ 3.5 — exactamente $E[X]$ de un dado. `M_biprima_0` ≈ 15.17 — exactamente $E[X^2]$. **Sin sumar $x\cdot P(X=x)$ directamente**, derivar la FGM y evaluar en $t=0$ reproduce los mismos números. Eso es lo que significa "generadora de momentos".
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## 1. Definición
+
+$$M_X(t) = E[e^{tX}] = \begin{cases}\displaystyle\sum_x e^{tx}\,P(X=x) & \text{si } X \text{ es discreta}\\[6pt] \displaystyle\int_{-\infty}^{\infty} e^{tx}\,f(x)\,dx & \text{si } X \text{ es continua}\end{cases}$$
+
+Es el valor esperado de una nueva variable, $e^{tX}$, vista como función de $t$.
+
+## 2. Cómo extraer los momentos
+
+Derivando $M_X(t)$ respecto a $t$ y evaluando en $t=0$:
+
+$$M_X'(0) = E[X] \qquad M_X''(0) = E[X^2] \qquad M_X^{(k)}(0) = E[X^k]$$
+
+**¿Por qué funciona?** Expande $e^{tX}$ en su serie de Taylor: $e^{tX}=1+tX+\dfrac{t^2X^2}{2!}+\dfrac{t^3X^3}{3!}+\cdots$. Tomando esperanza término a término:
+
+$$M_X(t) = 1 + t\,E[X] + \frac{t^2}{2!}E[X^2] + \frac{t^3}{3!}E[X^3]+\cdots$$
+
+Los momentos $E[X^k]$ son literalmente los coeficientes de esa serie (multiplicados por $k!$) — derivar $k$ veces y evaluar en $t=0$ simplemente "extrae" el coeficiente de $t^k$.
+
+## 3. FGM de las distribuciones que ya conoces
+
+| Distribución | $M_X(t)$ | $E[X]$ | $\text{Var}(X)$ |
+|---|---|---|---|
+| Bernoulli($p$) | $1-p+pe^t$ | $p$ | $p(1-p)$ |
+| Binomial($n,p$) | $(1-p+pe^t)^n$ | $np$ | $np(1-p)$ |
+| Poisson($\lambda$) | $e^{\lambda(e^t-1)}$ | $\lambda$ | $\lambda$ |
+| Exponencial($\lambda$) | $\dfrac{\lambda}{\lambda-t}$, $t<\lambda$ | $1/\lambda$ | $1/\lambda^2$ |
+| Normal($\mu,\sigma^2$) | $e^{\mu t+\sigma^2t^2/2}$ | $\mu$ | $\sigma^2$ |
+
+Todas verificadas derivando dos veces y evaluando en $t=0$ — es exactamente el mismo procedimiento del dado, aplicado a cada fórmula (lo repites tú mismo en el Laboratorio).
+
+## 4. Las dos propiedades que hacen valiosa a la FGM
+
+**(a) Unicidad.** Si dos variables aleatorias tienen la misma FGM (en un intervalo alrededor de $t=0$), tienen **exactamente la misma distribución**. La FGM es como una huella digital: no hay dos distribuciones distintas con la misma FGM.
+
+**(b) FGM de una suma de independientes = producto de las FGM.** Si $X$ y $Y$ son independientes:
+
+$$M_{X+Y}(t) = E[e^{t(X+Y)}] = E[e^{tX}\cdot e^{tY}] = E[e^{tX}]\cdot E[e^{tY}] = M_X(t)\cdot M_Y(t)$$
+
+(el tercer paso usa independencia: la esperanza de un producto de independientes es el producto de las esperanzas — Tema P10).
+
+**Combinando (a) y (b):** si multiplicas dos FGM y el resultado tiene la *forma* de una FGM conocida, ya sabes la distribución de la suma — sin convolucionar nada.
+
+:::
+
+## 🧪 Ejemplo con datos reales: demostrando dos resultados ya usados
+
+**Caso 1 — Suma de Poisson independientes.** En el Tema P6b usaste, sin demostrarlo, que la suma de Poisson independientes es Poisson. Ahora lo demostramos:
+
+```{r}
+# Sympy no está disponible en R base para álgebra simbólica,
+# así que verificamos numéricamente en varios valores de t
+# que M_X(t) * M_Y(t) coincide con la FGM de Poisson(lambda1+lambda2)
+
+lambda1 <- 2.5; lambda2 <- 1.5
+
+M_poisson <- function(t, lambda) exp(lambda * (exp(t) - 1))
+
+t_vals <- seq(-1, 1, by = 0.25)
+producto      <- M_poisson(t_vals, lambda1) * M_poisson(t_vals, lambda2)
+fgm_suma_teorica <- M_poisson(t_vals, lambda1 + lambda2)
+
+max(abs(producto - fgm_suma_teorica))   # debe ser ~0
+```
+
+::: {.ficha-resultado}
+La diferencia máxima es esencialmente cero (error de redondeo de punto flotante): $M_X(t)\cdot M_Y(t) = e^{\lambda_1(e^t-1)}\cdot e^{\lambda_2(e^t-1)} = e^{(\lambda_1+\lambda_2)(e^t-1)}$, que es exactamente la FGM de una $\text{Poisson}(\lambda_1+\lambda_2)$. Por la propiedad de unicidad, $X+Y\sim\text{Poisson}(\lambda_1+\lambda_2)$ — **demostrado**, no solo observado por simulación como en el Tema P6b.
+:::
+
+**Caso 2 — Suma de Binomiales independientes con el mismo $p$.** ¿$\text{Binomial}(n_1,p)+\text{Binomial}(n_2,p)$ es Binomial?
+
+```{r}
+n1 <- 10; n2 <- 15; p <- 0.3
+
+M_binom <- function(t, n, p) (1 - p + p * exp(t))^n
+
+producto2  <- M_binom(t_vals, n1, p) * M_binom(t_vals, n2, p)
+fgm_target <- M_binom(t_vals, n1 + n2, p)
+
+max(abs(producto2 - fgm_target))   # debe ser ~0
+```
+
+```{r}
+# Verificación independiente por convolución de las distribuciones exactas
+pmf1 <- dbinom(0:n1, n1, p)
+pmf2 <- dbinom(0:n2, n2, p)
+convolucion <- convolve(pmf1, rev(pmf2), type = "open")   # distribución exacta de la suma
+pmf_directa <- dbinom(0:(n1+n2), n1 + n2, p)
+
+max(abs(convolucion - pmf_directa))   # debe ser ~0 también aquí
+```
+
+::: {.callout-important}
+## Dos formas de llegar al mismo resultado
+El primer chunk lo prueba con FGM (álgebra: el producto tiene la forma de una FGM Binomial). El segundo lo verifica por fuerza bruta, convolucionando las distribuciones exactas. Ambos caminos coinciden: $\text{Binomial}(10,0.3)+\text{Binomial}(15,0.3) = \text{Binomial}(25,0.3)$ cuando ambas comparten el mismo $p$ y son independientes. La convolución es el método "directo" pero pesado; la FGM llega a la misma respuesta con álgebra de exponentes.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+La propiedad de la suma **exige** independencia y, para reconocer la forma final, generalmente exige que ambas variables sean de la *misma familia* con el mismo parámetro auxiliar (el mismo $p$ en la Binomial, la misma tasa base en otros casos). Si mezclas familias distintas —por ejemplo, una Exponencial más otra Exponencial con tasas diferentes— el producto de FGM sigue siendo válido, pero el resultado ya no tiene la forma de una Exponencial simple (es una Gamma; lo viste de pasada en el Ítem 47 del Laboratorio complementario). [Ver más trucos →](../recursos.qmd)
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **Verificar la tabla.** Elige dos filas de la tabla de FGM de la sección de teoría (por ejemplo, Poisson y Exponencial) y, en R, deriva numéricamente (como en la sección "Exploremos") para confirmar que $M'(0)$ y $M''(0)$ coinciden con $E[X]$ y $E[X^2]=\text{Var}(X)+E[X]^2$ de esa distribución.
+
+2. **Bernoulli desde cero.** Escribe la FGM de una Bernoulli($p$) directamente desde la definición ($M(t)=\sum_x e^{tx}P(X=x)$, con solo dos términos: $x=0$ y $x=1$). Deriva a mano y confirma $E[X]=p$.
+
+3. **Independencia, sin la cual nada de esto funciona.** Repite el "Caso 2" del ejemplo pero con $p_1\ne p_2$ (por ejemplo, $n_1=10,p_1=0.3$ y $n_2=15,p_2=0.5$). Calcula el producto de las FGM y compáralo contra la FGM de $\text{Binomial}(25, \bar{p})$ para cualquier $\bar p$ razonable que se te ocurra. ¿Coincide para algún valor? ¿Qué te dice esto sobre la condición "mismo $p$" de la propiedad?
+
+4. **Reto: normal + normal.** Si $X\sim N(\mu_1,\sigma_1^2)$ y $Y\sim N(\mu_2,\sigma_2^2)$ son independientes, usa la fórmula de la FGM normal de la tabla para multiplicar $M_X(t)\cdot M_Y(t)$ y verifica (en R, numéricamente, como en el ejemplo) que el resultado es la FGM de $N(\mu_1+\mu_2,\ \sigma_1^2+\sigma_2^2)$.
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# FGM de una Poisson(lambda=4): calcular E[X] derivando numéricamente en t=0
+M <- function(t) exp(4 * (exp(t) - 1))
+h <- 1e-5
+E_X <- (M(h) - M(-h)) / ___
+E_X
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`(2*h)` — es la fórmula de la derivada por diferencias finitas centradas: $M'(0)\approx\dfrac{M(h)-M(-h)}{2h}$. El resultado debe salir muy cerca de 4, que es $E[X]=\lambda$ para una Poisson(4).
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# ¿La suma de dos Exponenciales independientes con tasas distintas es Exponencial?
+# Multiplica sus FGM y compara la forma con la FGM exponencial de la tabla
+lambda1 <- 3; lambda2 <- 7
+M_exp <- function(t, lam) lam / (lam - t)
+producto <- function(t) M_exp(t, lambda1) * M_exp(t, lambda2)
+# ¿Tiene la forma lambda/(lambda - t) para algún lambda único? responde "si" o "no"
+respuesta <- "___"
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`"no"` — el producto $\dfrac{\lambda_1}{\lambda_1-t}\cdot\dfrac{\lambda_2}{\lambda_2-t}$ tiene dos factores en el denominador, no uno: es la FGM de una distribución **Gamma**, no de una Exponencial. Solo cuando ambas tasas son iguales el producto colapsa a una forma reconocible (y ni siquiera ahí es Exponencial — es Gamma con parámetro de forma 2). Ver Ítem 47 del Laboratorio complementario.
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap6d">
+<div style="margin-bottom: 1rem;"><strong>1. M'(0) da el valor esperado E[X], y M''(0) da E[X²], no la varianza directamente.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Si dos variables aleatorias tienen la misma FGM, necesariamente tienen la misma distribución.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La FGM de la suma de dos variables independientes es la suma de sus FGM individuales.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. La suma de dos Binomiales independientes es Binomial sin importar si tienen el mismo p o no.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. La propiedad de la suma de FGM requiere que las variables sean independientes.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP6d()">Revisar respuestas</button>
+<p id="resultado-quiz-temap6d" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP6d() {
+  const respuestas = { q1: "V", q2: "V", q3: "F", q4: "F", q5: "V" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temap6d");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- $M_X(t)=E[e^{tX}]$: una sola función que "empaqueta" todos los momentos de $X$.
+- Se extraen derivando y evaluando en $t=0$: $M_X'(0)=E[X]$, $M_X''(0)=E[X^2]$, y en general $M_X^{(k)}(0)=E[X^k]$.
+- **Unicidad:** misma FGM ⟹ misma distribución — es una huella digital.
+- **Suma de independientes:** $M_{X+Y}(t)=M_X(t)\cdot M_Y(t)$ — multiplicar FGM en vez de convolucionar distribuciones.
+- Con esas dos propiedades juntas demostraste formalmente (no solo por simulación) que la suma de Poisson independientes es Poisson, y que la suma de Binomiales independientes con el mismo $p$ es Binomial.
+- La condición de independencia es indispensable, y para reconocer la *forma* del resultado normalmente hace falta que ambas variables compartan familia y parámetro auxiliar (mismo $p$, o factores que colapsen a una forma conocida).
+:::
+
+::: {.callout-note}
+## Con esto se cierra el bloque de distribuciones discretas
+Los Temas P6a-P6d cubren todo lo que necesitas del bloque de conteo y distribuciones discretas: de dónde sale $\binom{n}{k}$ (P6a), la Binomial (P6), la Poisson (P6b), cuándo aproximar con la Normal (P6c), y ahora una herramienta que conecta todas ellas entre sí (P6d). El [Tema P7](tema-p7-estudiante.qmd) continúa con las distribuciones continuas por derecho propio.
+:::

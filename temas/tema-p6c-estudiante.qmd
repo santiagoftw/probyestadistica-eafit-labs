@@ -1,0 +1,243 @@
+---
+title: "Tema P6c · Aproximación normal a la distribución binomial"
+---
+
+::: {.hero-motivacion}
+## 🗳️ 150 votantes son demasiados para sumar a mano
+
+En una encuesta, el 60% de los votantes apoya una propuesta. Se entrevista a 150 personas. ¿Cuál es la probabilidad de que **al menos 100** la apoyen? Con la fórmula binomial exacta habría que sumar `dbinom(100,150,0.6) + dbinom(101,150,0.6) + ... + dbinom(150,150,0.6)` — 51 términos. R lo hace en un instante con `pbinom()`, pero antes de que existieran computadoras, esto era impracticable a mano. La solución histórica: cuando $n$ es grande, la binomial **se parece tanto a una curva normal** que se puede usar esta última como atajo.
+:::
+
+::: {.ficha-prediccion}
+Antes de seguir: dibuja mentalmente el histograma de una Binomial(150, 0.6). ¿Crees que se parece más a una campana simétrica, o a algo sesgado? (Pista: compara con la Poisson del Tema P6b, que sí era muy asimétrica para $\lambda$ chico — aquí $n$ es mucho más grande).
+:::
+
+## 🔬 Exploremos: superponiendo una campana sobre la binomial
+
+```{r}
+n <- 150; p <- 0.6
+mu <- n * p
+sigma <- sqrt(n * p * (1 - p))
+c(mu = mu, sigma = sigma)
+
+x <- 60:120
+plot(x, dbinom(x, n, p), type = "h", lwd = 2, col = "#4B8BC2",
+     xlab = "Número de votantes a favor (k)", ylab = "P(X = k)",
+     main = "Binomial(150, 0.6) vs. curva Normal(90, 6)")
+curve(dnorm(x, mean = mu, sd = sigma), add = TRUE, col = "#FFB903", lwd = 2)
+legend("topright", legend = c("Binomial (barras)", "Normal (curva)"),
+       col = c("#4B8BC2", "#FFB903"), lwd = 2, bty = "n")
+```
+
+::: {.ficha-resultado}
+La curva naranja prácticamente traza el contorno de las barras azules. $\mu=np=90$ y $\sigma=\sqrt{np(1-p)}=6$ — los mismos parámetros de la binomial, pero convertidos en la media y desviación estándar de una normal. Esa coincidencia no es casualidad: es el contenido exacto del teorema que viene a continuación.
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## 1. El teorema (De Moivre-Laplace)
+
+Si $X\sim\text{Binomial}(n,p)$ y $n$ es suficientemente grande, entonces:
+
+$$X \overset{aprox}{\sim} N(\mu=np,\ \sigma^2=np(1-p))$$
+
+Es un caso particular del Teorema Central del Límite: una binomial es, en el fondo, la **suma de $n$ ensayos de Bernoulli independientes** ($X=Y_1+Y_2+\cdots+Y_n$, cada $Y_i\in\{0,1\}$), y el TCL dice que la suma de muchas variables independientes con media y varianza finitas se aproxima a una normal — sin importar la forma de cada $Y_i$ individual.
+
+## 2. ¿Cuándo es válida la aproximación?
+
+La regla práctica más usada:
+
+$$np \ge 5 \qquad \text{y} \qquad n(1-p) \ge 5$$
+
+(algunos textos piden $\ge 10$ para mayor margen de seguridad; usa el criterio que indique tu profesor si difiere).
+
+**La intuición detrás de la regla:** $np$ y $n(1-p)$ son la media del número de éxitos y de fracasos, respectivamente. Si cualquiera de las dos es muy chica, la distribución está "empujada contra una pared" (no puede haber menos de 0 éxitos ni más de $n$), y esa pared genera una asimetría que la curva normal —perfectamente simétrica— no puede capturar bien. Cuando ambas son razonablemente grandes, hay "espacio" a ambos lados para que la forma sea simétrica.
+
+## 3. Corrección de continuidad
+
+La binomial es **discreta** (solo toma valores enteros); la normal es **continua**. Al aproximar, cada valor entero $k$ se trata como si "ocupara" el intervalo $[k-0.5,\ k+0.5]$:
+
+| Quieres calcular | Lo escribes como | Con la normal |
+|---|---|---|
+| $P(X = k)$ | $P(k-0.5 < Y < k+0.5)$ | `pnorm(k+0.5,...) - pnorm(k-0.5,...)` |
+| $P(X \le k)$ | $P(Y < k+0.5)$ | `pnorm(k+0.5, ...)` |
+| $P(X < k)$ | $P(Y < k-0.5)$ | `pnorm(k-0.5, ...)` |
+| $P(X \ge k)$ | $P(Y > k-0.5)$ | `1 - pnorm(k-0.5, ...)` |
+| $P(X > k)$ | $P(Y > k+0.5)$ | `1 - pnorm(k+0.5, ...)` |
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Para no memorizar la tabla: dibuja la barra del histograma en $k$ (va de $k-0.5$ a $k+0.5$) y pregúntate cuánta de esa barra "cae dentro" de lo que pides. $P(X\ge k)$ incluye la barra completa de $k$, así que el corte empieza en $k-0.5$, no en $k$. [Ver más trucos →](../recursos.qmd)
+:::
+
+:::
+
+## 🧪 Ejemplo con datos reales: con y sin corrección
+
+Volvamos a la encuesta: $n=150$, $p=0.6$, y queremos $P(X\ge 100)$.
+
+**Paso 1 — Verificar que aplica.** $np=90\ge5$ y $n(1-p)=60\ge5$. ✓
+
+**Paso 2 — Calcular con corrección de continuidad, y comparar contra el valor exacto:**
+
+```{r}
+mu <- 90; sigma <- 6
+
+exacto <- 1 - pbinom(99, 150, 0.6)                  # P(X >= 100), fórmula binomial exacta
+aprox_con_cc  <- 1 - pnorm(99.5, mean = mu, sd = sigma)   # con corrección: arranca en 99.5
+aprox_sin_cc  <- 1 - pnorm(100,  mean = mu, sd = sigma)   # sin corrección (el error común)
+
+c(exacto = exacto, aprox_con_correccion = aprox_con_cc, aprox_sin_correccion = aprox_sin_cc)
+```
+
+::: {.ficha-resultado}
+El valor exacto es 0.0555. Con corrección de continuidad, la aproximación da 0.0567 — muy cerca. **Sin** la corrección da 0.0478, un error notablemente mayor. La corrección de continuidad no es un detalle cosmético: aquí es la diferencia entre acercarse al valor real y alejarse de él.
+:::
+
+## ⚠️ Cuando la aproximación SÍ falla
+
+Probemos con $n=30$, $p=0.02$ (una mutación rara, el mismo tipo de escenario del Tema P6b): $np=0.6$, muy por debajo de 5.
+
+```{r}
+n2 <- 30; p2 <- 0.02
+mu2 <- n2 * p2; sigma2 <- sqrt(n2 * p2 * (1 - p2))
+
+exacto2      <- dbinom(0, n2, p2)
+aprox_normal <- pnorm(0.5, mu2, sigma2) - pnorm(-0.5, mu2, sigma2)
+aprox_poisson <- dpois(0, lambda = mu2)   # la aproximación del Tema P6b
+
+c(exacto = exacto2, aprox_normal = aprox_normal, aprox_poisson = aprox_poisson)
+```
+
+```{r}
+# La normal ni siquiera "sabe" que X no puede ser negativo:
+pnorm(-0.5, mu2, sigma2)   # probabilidad (absurda) de que Y sea menor que -0.5
+```
+
+::: {.callout-important}
+## Por qué falla, en números
+El valor exacto de $P(X=0)$ es 0.545. La aproximación normal da apenas 0.372 — un error enorme. La aproximación Poisson (Tema P6b, con $\lambda=np=0.6$) da 0.549, prácticamente exacta. La causa queda al descubierto en el segundo chunk: la curva normal le asigna **7.6% de probabilidad** a que $Y$ sea menor que $-0.5$, algo imposible para un conteo de éxitos. Con $np$ tan chico, la binomial está "pegada" contra el cero y ninguna curva simétrica puede seguirle la forma. **Regla práctica:** si $np<5$, no uses la normal — usa la Poisson que ya conoces del Tema P6b.
+:::
+
+## 🔗 El mapa completo de aproximaciones
+
+```{r}
+#| label: fig-mapa-aproximaciones
+#| fig-cap: "Cuál aproximación usar según n y p"
+par(mar = c(4, 4, 3, 1))
+curve(5/x, from = 0.01, to = 1, col = "#004B85", lwd = 2,
+      xlab = "p", ylab = "n mínimo sugerido",
+      main = "Frontera aproximada np = 5", ylim = c(0, 200))
+text(0.5, 150, "Zona Normal\n(np y n(1-p) grandes)", col = "#004B85")
+text(0.1, 20, "Zona Poisson\n(p chico, np moderado)", col = "#D9534F")
+```
+
+| | Poisson (Tema P6b) | Normal (este tema) |
+|---|---|---|
+| **Cuándo** | $n$ grande, $p$ chico, $np$ moderado | $np\ge5$ **y** $n(1-p)\ge5$ |
+| **Parámetro(s)** | $\lambda = np$ | $\mu=np,\ \sigma=\sqrt{np(1-p)}$ |
+| **Forma típica** | Asimétrica (cola a la derecha) | Simétrica |
+| **Ejemplo** | Mutaciones raras, defectos 1 en 1000 | Encuestas, control de calidad con $p$ moderado |
+
+::: {.callout-note}
+## Las dos aproximaciones no compiten — cubren zonas distintas
+No hay que elegir "la mejor" en abstracto: la Poisson entra cuando la binomial es demasiado asimétrica para la normal (justo el caso que acabas de ver), y la normal entra cuando $n$ es grande y $p$ no está pegado a los extremos. Revisa siempre $np$ y $n(1-p)$ antes de decidir.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **Otra encuesta.** El 45% de los clientes de una tienda prefiere pago digital. Se observan 200 clientes. (a) Verifica que aplica la aproximación normal. (b) Calcula $P(80\le X\le 100)$ con la fórmula exacta y con la normal (con corrección de continuidad). (c) ¿Qué tan grande es la diferencia?
+
+2. **El límite de la regla.** Con $n=50$, encuentra el valor de $p$ más pequeño para el cual todavía se cumple $np\ge5$ (es decir, resuelve $50p=5$). Con ese $p$ exacto, compara $P(X=0)$ exacta vs. aproximada. ¿La aproximación ya es razonable, o todavía se nota el problema del Tema anterior?
+
+3. **Elegir la herramienta correcta.** Para cada situación, decide si usarías la binomial exacta, la aproximación normal, o la aproximación Poisson, y justifica con los valores de $np$ y $n(1-p)$: (a) $n=20$, $p=0.5$; (b) $n=1000$, $p=0.003$; (c) $n=500$, $p=0.4$; (d) $n=10$, $p=0.5$.
+
+4. **Corrección de continuidad, las cinco variantes.** Con $n=80$, $p=0.5$ ($\mu=40$, $\sigma=\sqrt{20}$), calcula con la normal y corrección de continuidad: $P(X=40)$, $P(X\le 40)$, $P(X<40)$, $P(X\ge 45)$, $P(X>45)$. Verifica cada una contra `dbinom()`/`pbinom()`.
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# P(X <= 60) para X ~ Binomial(100, 0.5), aproximada con normal y corrección de continuidad
+mu <- 100 * 0.5; sigma <- sqrt(100 * 0.5 * 0.5)
+pnorm(___, mean = mu, sd = sigma)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`60.5` — para $P(X\le k)$ la corrección de continuidad suma 0.5 al límite, porque la barra de $k=60$ se extiende hasta $60.5$.
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# ¿Aplica la aproximación normal para n=40, p=0.08?
+n <- 40; p <- 0.08
+np <- n * p
+n1p <- n * (1 - p)
+c(np = np, n1p = n1p)
+# np = 3.2 -> ¿cumple np >= 5?
+respuesta <- "___"   # escribe "si" o "no"
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`"no"` — $np=3.2<5$, así que no se cumple la condición. Con $p=0.08$ chico y $np$ moderado, la aproximación Poisson (Tema P6b, $\lambda=3.2$) es la elección correcta aquí, no la normal.
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap6c">
+<div style="margin-bottom: 1rem;"><strong>1. La aproximación normal a la binomial usa μ = np y σ = √(np(1−p)).</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. La corrección de continuidad se puede omitir sin que cambie mucho el resultado.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. Para P(X ≥ k) con corrección de continuidad, se usa k − 0.5 como límite inferior.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Si np es muy pequeño (por ejemplo, menor a 5), la Poisson suele aproximar mejor que la normal.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. El teorema de De Moivre-Laplace es un caso particular del Teorema Central del Límite.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP6c()">Revisar respuestas</button>
+<p id="resultado-quiz-temap6c" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP6c() {
+  const respuestas = { q1: "V", q2: "F", q3: "V", q4: "V", q5: "V" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temap6c");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Cuando $n$ es grande, $\text{Binomial}(n,p) \overset{aprox}{\sim} N(np,\ np(1-p))$ — el teorema de **De Moivre-Laplace**, un caso particular del Teorema Central del Límite.
+- Regla práctica de validez: $np\ge5$ **y** $n(1-p)\ge5$.
+- La **corrección de continuidad** (sumar o restar 0.5 según el caso) es obligatoria: sin ella, el error puede ser considerable — lo viste con números concretos (0.0567 vs. 0.0478 frente al valor exacto 0.0555).
+- Cuando $np<5$, la normal falla (puede incluso asignar probabilidad a valores negativos, imposibles): ahí es la **Poisson** del Tema P6b la que aproxima bien.
+- Las dos aproximaciones (Normal y Poisson) no compiten: cubren zonas distintas del espacio $(n,p)$, y revisar $np$ y $n(1-p)$ es lo que decide cuál usar.
+:::
+
+::: {.callout-note}
+## Siguiente paso
+El [Tema P7](tema-p7-estudiante.qmd) profundiza en la distribución Normal por derecho propio —ya no como aproximación de otra cosa, sino como modelo continuo— junto con la Uniforme.
+:::

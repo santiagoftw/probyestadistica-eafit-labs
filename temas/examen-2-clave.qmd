@@ -1,0 +1,185 @@
+---
+title: "Examen 2 · Clave de respuestas"
+---
+
+::: {.callout-warning}
+## Antes de abrir esta página
+Esta es la clave del [Examen 2 · Simulacro](examen-2-simulacro.qmd). Si todavía no lo intentaste completo, vuelve allá primero — revisar la clave antes de intentar el examen le resta todo el valor de la práctica.
+:::
+
+## Sección I · Distribución binomial
+
+### Respuesta 1
+
+**(a) Sí aplica.** Cumple las cuatro condiciones BINS: cada lanzamiento es binario (cara/sello), los lanzamientos son independientes entre sí, el número de ensayos está fijo en 20, y $p=0.5$ es constante en cada lanzamiento.
+
+**(b) No aplica.** Se rompen la independencia y la constancia de $p$: al seleccionar **sin reemplazo** de una población de solo 12 estudiantes, la proporción de mujeres restante cambia después de cada selección (si la primera seleccionada es mujer, quedan 4 de 11, no 5 de 12). Es un escenario **hipergeométrico**, no binomial — la diferencia importa más cuanto más pequeña es la población respecto al tamaño de la muestra (aquí, 6 de 12 es la mitad de la población, una fracción grande).
+
+**(c) No aplica.** No hay un número fijo de "ensayos" que contar — no tiene sentido preguntar "¿cuántos clientes *no* llegaron esta hora?". Es un conteo de eventos en un intervalo continuo de tiempo: el escenario clásico de **Poisson**, no de binomial.
+
+### Respuesta 2
+
+```{r}
+n <- 18; p <- 0.35
+
+p_exactamente_5 <- dbinom(5, n, p)
+p_a_lo_sumo_3   <- pbinom(3, n, p)
+
+c(exactamente_5 = p_exactamente_5, a_lo_sumo_3 = p_a_lo_sumo_3)
+```
+
+(a) $P(X=5) \approx 0.1664$. (b) $P(X\le3) \approx 0.0783$.
+
+---
+
+## Sección II · Distribución Poisson
+
+### Respuesta 3
+
+```{r}
+lambda_lote <- 0.4 / 100 * 750   # tasa por 100 unidades, reescalada a 750
+
+p_exactamente_2 <- dpois(2, lambda_lote)
+c(lambda = lambda_lote, p_exactamente_2 = p_exactamente_2)
+```
+
+$\lambda=3$ para el lote de 750 unidades (la tasa se reescala proporcionalmente: $0.4\times750/100=3$). $P(X=2)\approx0.2240$.
+
+### Respuesta 4
+
+```{r}
+lambda_2h <- 4.5 * 2   # la tasa por hora se reescala a 2 horas
+
+p_exactamente_6 <- dpois(6, lambda_2h)
+c(lambda_2h = lambda_2h, p_exactamente_6 = p_exactamente_6)
+```
+
+$\lambda=9$ para el intervalo de 2 horas. $P(X=6)\approx0.0911$.
+
+---
+
+## Sección III · Aproximación normal a la binomial
+
+### Respuesta 5
+
+```{r}
+# (a)
+n_a <- 60; p_a <- 0.5
+c(np = n_a*p_a, n1p = n_a*(1-p_a))
+
+# (b)
+n_b <- 40; p_b <- 0.03
+c(np = n_b*p_b, n1p = n_b*(1-p_b))
+```
+
+**(a)** $np=30\ge5$ y $n(1-p)=30\ge5$: **sí aplica** la aproximación normal.
+
+**(b)** $np=1.2<5$: **no aplica**. Con $n$ grande, $p$ chico y $np$ moderado, la alternativa correcta es la **aproximación Poisson** con $\lambda=np=1.2$.
+
+### Respuesta 6
+
+```{r}
+n <- 500; p <- 0.40
+mu <- n * p; sigma <- sqrt(n * p * (1 - p))
+c(np = n*p, n1p = n*(1-p))   # verificación: ambos >= 5
+
+p_menor_190 <- pnorm(189.5, mu, sigma)   # P(X < 190) -> corrección: k - 0.5 = 189.5
+p_menor_190
+```
+
+$np=200\ge5$, $n(1-p)=300\ge5$: aplica. $P(X<190)\approx0.1689$ (valor exacto con `pbinom(189,500,0.4)` = 0.1690 — la aproximación es casi idéntica).
+
+---
+
+## Sección IV · Función generadora de momentos
+
+### Respuesta 7
+
+**Derivación a mano:**
+
+$$M(t)=\frac{\lambda}{\lambda-t}=\lambda(\lambda-t)^{-1}$$
+
+$$M'(t) = \lambda\cdot(-1)(\lambda-t)^{-2}\cdot(-1) = \lambda(\lambda-t)^{-2} \quad\Rightarrow\quad M'(0)=\frac{\lambda}{\lambda^2}=\frac{1}{\lambda}=E[X]$$
+
+$$M''(t) = \lambda\cdot(-2)(\lambda-t)^{-3}\cdot(-1) = 2\lambda(\lambda-t)^{-3} \quad\Rightarrow\quad M''(0)=\frac{2\lambda}{\lambda^3}=\frac{2}{\lambda^2}=E[X^2]$$
+
+$$\text{Var}(X) = E[X^2]-E[X]^2 = \frac{2}{\lambda^2}-\frac{1}{\lambda^2} = \frac{1}{\lambda^2}$$
+
+**Verificación numérica con $\lambda=2$:**
+
+```{r}
+lambda <- 2
+M <- function(t) lambda / (lambda - t)
+
+h <- 1e-6
+E_X   <- (M(h) - M(-h)) / (2*h)
+E_X2  <- (M(h) - 2*M(0) + M(-h)) / h^2
+Var_X <- E_X2 - E_X^2
+
+c(E_X = E_X, "1/lambda" = 1/lambda, Var_X = Var_X, "1/lambda^2" = 1/lambda^2)
+```
+
+Coincide exactamente: $E[X]=0.5$, $\text{Var}(X)=0.25$.
+
+### Respuesta 8
+
+```{r}
+lambda <- 2
+
+# (a) Producto de las FGM
+M_exp <- function(t, lam) lam / (lam - t)
+M_suma <- function(t) M_exp(t, lambda)^2   # (lambda/(lambda-t))^2
+
+# (b) E[X+Y] y Var[X+Y] derivando numéricamente el producto
+h <- 1e-6
+E_suma   <- (M_suma(h) - M_suma(-h)) / (2*h)
+E_suma2  <- (M_suma(h) - 2*M_suma(0) + M_suma(-h)) / h^2
+Var_suma <- E_suma2 - E_suma^2
+
+c(E_suma = E_suma, Var_suma = Var_suma)
+```
+
+**(a)** $M_{X+Y}(t) = \left(\dfrac{\lambda}{\lambda-t}\right)^2 = \dfrac{\lambda^2}{(\lambda-t)^2}$.
+
+**(b)** $E[X+Y]=1$, $\text{Var}(X+Y)=0.5$.
+
+**(c) No es Exponencial.** La FGM de una Exponencial tiene la forma $\dfrac{\lambda}{\lambda-t}$ (exponente 1 en el denominador); el resultado obtenido tiene exponente **2**. Por la propiedad de unicidad, una FGM con esa forma corresponde a una distribución **Gamma** con parámetro de forma $k=2$ y tasa $\lambda=2$ — no a una Exponencial. Coincide con $E[X+Y]=k/\lambda=2/2=1$ y $\text{Var}(X+Y)=k/\lambda^2=2/4=0.5$, las fórmulas conocidas de la Gamma.
+
+---
+
+## Sección V · Síntesis
+
+### Respuesta 9
+
+```{r}
+n <- 2000; p <- 0.001
+c(np = n*p, n1p = n*(1-p))
+```
+
+$np=2$, muy por debajo de 5: **no aplica la normal**, a pesar de que $n$ es grande. Con $n$ grande, $p$ chico, y $np$ moderado, aplica la **aproximación Poisson** con $\lambda=np=2$. La binomial exacta también sería correcta (y con software es tan fácil como la Poisson), pero conceptualmente el escenario es el mismo patrón de "evento raro en una muestra grande" del Tema P6c.
+
+### Respuesta 10
+
+```{r}
+n <- 200; p <- 0.06
+mu <- n * p; sigma <- sqrt(n * p * (1 - p))
+
+# (a) Verificación
+c(np = n*p, n1p = n*(1-p))
+
+# (b) Exacto vs. aproximado
+exacto <- 1 - pbinom(14, n, p)
+aprox  <- 1 - pnorm(14.5, mu, sigma)
+c(exacto = exacto, aproximado = aprox)
+```
+
+**(a)** $np=12\ge5$ y $n(1-p)=188\ge5$: aplica la aproximación normal.
+
+**(b)** Exacto: $P(X\ge15)\approx0.2223$. Aproximado (con corrección de continuidad): $\approx0.2283$. La diferencia (0.006) es pequeña pero no despreciable — recuerda que la aproximación pierde algo de precisión en las colas, como se discutió en el Ítem 62 del Taller 2.
+
+---
+
+::: {.callout-note}
+## Repaso de puntajes por sección
+Si tuviste dificultades concentradas en una sección específica, vuelve al tema correspondiente antes de seguir: Sección I → [Tema P6](tema-p6-estudiante.qmd), Sección II → [Tema P6b](tema-p6b-estudiante.qmd), Sección III → [Tema P6c](tema-p6c-estudiante.qmd), Sección IV → [Tema P6d](tema-p6d-estudiante.qmd), Sección V → [preparacion-examen-2.qmd](preparacion-examen-2.qmd), sección 5 (marco de decisión).
+:::

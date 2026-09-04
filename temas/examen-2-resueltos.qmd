@@ -1,0 +1,303 @@
+---
+title: "Exámenes resueltos · Versiones A y B"
+---
+
+::: {.hero-motivacion}
+## 📑 Dos exámenes, el mismo patrón, números distintos
+
+Estas son dos versiones paralelas de examen (A y B), cada una con 3 problemas del mismo tipo: **Poisson con escalamiento + comparación de aproximaciones**, **Binomial con diagnóstico de ajuste sobre datos observados**, y **FGM de una variable aleatoria discreta**. Resuélvelas ambas — reconocer el patrón detrás de números distintos es mejor preparación que memorizar una sola respuesta.
+:::
+
+::: {.callout-important}
+## Corrección de rigor, antes de empezar
+La fuente original de la Versión A, Problema 1(b) afirmaba que $P(X>30)$ en 8 horas era "aproximadamente 0.033", con una nota aparte señalando que el valor real es "aproximadamente 0.096". Verificamos ambos de forma independiente: con $\lambda=24$ (la tasa de 3/hora escalada a 8 horas), el valor correcto es **0.0958**, confirmando la nota y descartando el 0.033 original. Se usa 0.0958 en todo lo que sigue, incluyendo la parte (c) que depende de este valor.
+:::
+
+# Examen · Versión A
+
+## Problema 1 — Solicitudes de mantenimiento (Poisson)
+
+**Enunciado:** una empresa de mantenimiento recibe solicitudes a una tasa promedio de 3 por hora. (a) Calcule la probabilidad de recibir exactamente 9 solicitudes en 3 horas. (b) La probabilidad de recibir más de 30 solicitudes en 8 horas. (c) En 120 días laborales: (I) media y desviación estándar del número de días con más de 30 solicitudes; (II) aproxime la probabilidad de que esto ocurra en al menos 8 días, usando aproximación Poisson y aproximación normal con corrección de continuidad; (III) compare.
+
+::: {.ficha-prediccion}
+Antes de calcular (c): con $p\approx0.096$ (la probabilidad diaria de "día crítico"), ¿esperas que $np$ sea lo bastante grande como para que la aproximación normal aplique bien?
+:::
+
+```{r}
+tasa <- 3   # solicitudes por hora
+
+# (a) P(X = 9) en 3 horas
+lambda_3h <- tasa * 3
+dpois(9, lambda_3h)
+
+# (b) P(X > 30) en 8 horas
+lambda_8h <- tasa * 8
+p_dia_critico <- 1 - ppois(30, lambda_8h)
+p_dia_critico
+```
+
+::: {.ficha-resultado}
+$P(X>30)=0.0958$ con $\lambda=24$ — confirma la corrección de rigor de arriba, no el 0.033 original.
+:::
+
+```{r}
+# (c)(I) Media y sd del número de días críticos en 120 días
+n_dias <- 120
+p <- p_dia_critico
+
+mu <- n_dias * p
+sigma <- sqrt(n_dias * p * (1 - p))
+c(np = n_dias*p, n1p = n_dias*(1-p), mu = mu, sigma = sigma)
+```
+
+$np=11.5\ge5$ y $n(1-p)=108.5\ge5$: la aproximación normal es aplicable.
+
+```{r}
+# (c)(II) P(al menos 8 días) con las dos aproximaciones
+lambda_dias <- n_dias * p   # aproximación Poisson: lambda = np
+aprox_poisson <- 1 - ppois(7, lambda_dias)
+
+aprox_normal <- 1 - pnorm(7.5, mu, sigma)   # corrección de continuidad: 8 - 0.5
+
+exacto <- 1 - pbinom(7, n_dias, p)   # valor exacto, para comparar
+
+c(exacto = exacto, aprox_poisson = aprox_poisson, aprox_normal = aprox_normal)
+```
+
+::: {.ficha-resultado}
+**(c)(III) Comparación:** exacto = 0.8982, aproximación normal = 0.8927, aproximación Poisson = 0.8864. Las tres coinciden dentro de 0.012 entre sí. La normal queda ligeramente más cerca del valor exacto que la Poisson — consistente con que $np=11.5$ ya es razonablemente grande para la normal, mientras que la Poisson tiende a funcionar mejor cuando $p$ es más chico y $np$ más moderado (como en el Tema P6c).
+:::
+
+## Problema 2 — Espera del bus (Binomial + diagnóstico)
+
+**Enunciado:** un estudiante cree que $P(\text{esperar más de 5 min}) = 0.3$. (a) En 12 viajes: (I) $P(X\le4)$; (II) $P(X>5)$. (b) En 10 semanas se observan los conteos semanales `3,5,6,2,4,1,0,7,3,2`. (I) Calcule media y desviación estándar muestral. (II) Evalúe si el modelo Binomial(12, 0.3) es adecuado.
+
+```{r}
+n <- 12; p <- 0.3
+
+# (a)
+p_X_menor_igual_4 <- pbinom(4, n, p)
+p_X_mayor_5       <- 1 - pbinom(5, n, p)
+c(p_X_le_4 = p_X_menor_igual_4, p_X_gt_5 = p_X_mayor_5)
+```
+
+```{r}
+# (b)(I)
+datos <- c(3,5,6,2,4,1,0,7,3,2)
+
+media_muestral <- mean(datos)
+sd_muestral    <- sd(datos)
+
+media_teorica <- n * p
+sd_teorica    <- sqrt(n * p * (1 - p))
+
+c(media_muestral = media_muestral, sd_muestral = sd_muestral,
+  media_teorica = media_teorica, sd_teorica = sd_teorica)
+```
+
+::: {.callout-note}
+## (b)(II) — ¿Es adecuado el modelo?
+La media muestral (3.3) está razonablemente cerca de la teórica (3.6) — una diferencia de solo 0.3, plausible con apenas 10 semanas de datos. Pero la **desviación estándar muestral (2.21) es notablemente mayor** que la teórica (1.59), casi 40% más alta. Esto sugiere posible **sobredispersión**: la variabilidad real es mayor de lo que predice el modelo Binomial(12, 0.3), lo que podría indicar que $p$ no es constante semana a semana (por ejemplo, cambia con el clima o el horario), o que los 12 viajes de una semana no son completamente independientes entre sí. Con solo 10 observaciones, esta discrepancia no es concluyente —podría ser variabilidad muestral—, pero amerita recolectar más datos antes de confiar plenamente en el modelo.
+:::
+
+## Problema 3 — FGM de un dado de 5 caras
+
+**Enunciado:** sea $X$ el resultado de un dado justo de 5 caras. (a) Halle la FGM. (b) Calcule $E[X]$, $E[X^2]$ y $\text{Var}(X)$.
+
+```{r}
+M_dado5 <- function(t) sum(exp(t * 1:5)) / 5
+
+h <- 1e-6
+E_X   <- (M_dado5(h) - M_dado5(-h)) / (2*h)
+E_X2  <- (M_dado5(h) - 2*M_dado5(0) + M_dado5(-h)) / h^2
+Var_X <- E_X2 - E_X^2
+
+c(E_X = E_X, E_X2 = E_X2, Var_X = Var_X)
+```
+
+$$M_X(t) = \frac{e^t+e^{2t}+e^{3t}+e^{4t}+e^{5t}}{5} \qquad E[X]=3 \qquad E[X^2]=11 \qquad \text{Var}(X)=2$$
+
+---
+
+# Examen · Versión B
+
+## Problema 1 — FGM de una variable aleatoria discreta
+
+**Enunciado:** $X$ toma valores 2, 4, 6, 8 con igual probabilidad. (a) Halle la FGM. (b) Calcule $E[X]$, $E[X^2]$ y $\text{Var}(X)$.
+
+```{r}
+M_X <- function(t) sum(exp(t * c(2,4,6,8))) / 4
+
+h <- 1e-6
+E_X   <- (M_X(h) - M_X(-h)) / (2*h)
+E_X2  <- (M_X(h) - 2*M_X(0) + M_X(-h)) / h^2
+Var_X <- E_X2 - E_X^2
+
+c(E_X = E_X, E_X2 = E_X2, Var_X = Var_X)
+```
+
+$$M_X(t) = \frac{e^{2t}+e^{4t}+e^{6t}+e^{8t}}{4} \qquad E[X]=5 \qquad E[X^2]=30 \qquad \text{Var}(X)=5$$
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+$X=2Z$ donde $Z\in\{1,2,3,4\}$ es un dado de 4 caras. Nota que $E[X]=5=2\times2.5=2\,E[Z]$ y $\text{Var}(X)=5=4\times1.25=2^2\,\text{Var}(Z)$ — exactamente las propiedades de transformaciones lineales que viste en el Tema 5 del Módulo 1 ($E[aZ]=aE[Z]$, $\text{Var}(aZ)=a^2\text{Var}(Z)$), ahora confirmadas también vía FGM. [Ver más trucos →](../recursos.qmd)
+:::
+
+## Problema 2 — Retraso del transporte (Binomial + diagnóstico)
+
+**Enunciado:** un sistema de transporte tiene probabilidad 0.35 de un retraso mayor a 4 minutos. (a) En 15 viajes: (I) $P(X\le5)$; (II) $P(X>6)$. (b) En 12 semanas se observan los conteos `5,4,6,3,2,7,1,0,4,3,5,2`. (I) Media y desviación estándar. (II) Analice si el modelo binomial es adecuado.
+
+```{r}
+n <- 15; p <- 0.35
+
+p_X_menor_igual_5 <- pbinom(5, n, p)
+p_X_mayor_6       <- 1 - pbinom(6, n, p)
+c(p_X_le_5 = p_X_menor_igual_5, p_X_gt_6 = p_X_mayor_6)
+```
+
+```{r}
+datos <- c(5,4,6,3,2,7,1,0,4,3,5,2)
+
+media_muestral <- mean(datos)
+sd_muestral    <- sd(datos)
+media_teorica  <- n * p
+sd_teorica     <- sqrt(n * p * (1 - p))
+
+c(media_muestral = media_muestral, sd_muestral = sd_muestral,
+  media_teorica = media_teorica, sd_teorica = sd_teorica)
+```
+
+::: {.callout-note}
+## ¿Es adecuado el modelo?
+Aquí el diagnóstico es distinto al de la Versión A: la **desviación estándar** muestral (2.07) está razonablemente cerca de la teórica (1.85), pero la **media muestral (3.5) es notablemente menor** que la teórica (5.25) — casi 33% más baja. Esto apunta a que el valor asumido $p=0.35$ probablemente **sobreestima** la probabilidad real de retraso: la proporción empírica implícita en los datos es $\hat p = \bar{x}/n = 3.5/15\approx0.233$, bastante menor que 0.35. La recomendación práctica: reestimar $p$ a partir de los datos observados en vez de asumir el valor original, y volver a evaluar el modelo con el $p$ actualizado.
+:::
+
+## Problema 3 — Solicitudes de una empresa (Poisson)
+
+**Enunciado:** una empresa recibe solicitudes a razón de 1.8 por hora. (a) Probabilidad de exactamente 5 solicitudes en 2 horas. (b) Probabilidad de más de 20 solicitudes en 10 horas. (c) En 80 días: (I) media y desviación estándar del número de días críticos; (II) estime $P(W\ge5)$ con las dos aproximaciones; (III) compare y justifique cuál es mejor.
+
+```{r}
+tasa <- 1.8   # por hora
+
+# (a)
+lambda_2h <- tasa * 2
+dpois(5, lambda_2h)
+
+# (b)
+lambda_10h <- tasa * 10
+p_dia_critico <- 1 - ppois(20, lambda_10h)
+p_dia_critico
+```
+
+```{r}
+# (c)(I)
+n_dias <- 80
+p <- p_dia_critico
+
+mu <- n_dias * p
+sigma <- sqrt(n_dias * p * (1 - p))
+c(np = n_dias*p, n1p = n_dias*(1-p), mu = mu, sigma = sigma)
+```
+
+```{r}
+# (c)(II)
+lambda_w <- n_dias * p
+aprox_poisson <- 1 - ppois(4, lambda_w)
+aprox_normal  <- 1 - pnorm(4.5, mu, sigma)
+exacto        <- 1 - pbinom(4, n_dias, p)
+
+c(exacto = exacto, aprox_poisson = aprox_poisson, aprox_normal = aprox_normal)
+```
+
+::: {.ficha-resultado}
+**(c)(III):** aquí $p_{\text{día}}\approx0.269$ no es "rara" — $np=21.5$ y $n(1-p)=58.5$ son ambos grandes, terreno típico de la **normal**, no de la Poisson (que rinde mejor con $p$ chico). Con $W\ge5$ tan por debajo de la media (21.5), las tres cantidades son prácticamente 1 (≈0.99999) y no permiten distinguir cuál aproximación es mejor en este caso particular — un buen recordatorio de que, para discriminar entre aproximaciones, conviene evaluar en una región donde la probabilidad no esté saturada cerca de 0 o 1 (como si hiciste en la Versión A).
+:::
+
+---
+
+# Bonus: tres problemas del banco de ejercicios
+
+Estos tres problemas, tomados del banco de ejercicios adjunto, complementan directamente los criterios de Binomial y FGM del Taller 2.
+
+## Ejercicio — Reconstruir una distribución a partir de sus momentos
+
+**Enunciado:** $X$ toma los valores $x_1=1$, $x_2=3$, $x_3=5$ con probabilidad positiva. Si $E(X)=3.5$ y $\text{Var}(X)=1.15$, determine (si es posible) la distribución de $X$.
+
+::: {.ficha-prediccion}
+Tienes 3 incógnitas ($p_1,p_2,p_3$) y necesitas 3 ecuaciones para resolverlas. ¿Cuáles tres condiciones conoces?
+:::
+
+```{r}
+# Sistema de 3 ecuaciones, 3 incógnitas:
+#  p1 + p2 + p3 = 1
+#  1*p1 + 3*p2 + 5*p3 = E[X] = 3.5
+#  1*p1 + 9*p2 + 25*p3 = E[X^2] = Var(X) + E[X]^2 = 1.15 + 3.5^2
+
+A <- matrix(c(1,1,1,
+              1,3,5,
+              1,9,25), nrow = 3, byrow = TRUE)
+b <- c(1, 3.5, 1.15 + 3.5^2)
+
+solve(A, b)
+```
+
+::: {.ficha-resultado}
+$p_1=0.05$, $p_2=0.65$, $p_3=0.30$ — las tres son probabilidades válidas (positivas, suman 1), así que la distribución **sí existe y es única**: $P(X=1)=0.05$, $P(X=3)=0.65$, $P(X=5)=0.30$.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+No siempre existe una solución válida: si el sistema arrojara alguna probabilidad negativa o mayor a 1, la conclusión correcta sería que **no existe** una variable aleatoria con esos valores y esos momentos — es una verificación de consistencia, no una garantía automática. [Ver más trucos →](../recursos.qmd)
+:::
+
+## Ejercicio — Genética y binomial
+
+**Enunciado:** el color de ojos se determina por un gen dominante (café) y uno recesivo (azul). Si el hijo mayor de una pareja de ojos cafés tiene ojos azules, ¿cuál es la probabilidad de que exactamente 2 de los otros 4 hijos también tengan ojos azules?
+
+::: {.ficha-resultado}
+Que el primer hijo tenga ojos azules revela que **ambos padres son heterocigotos** (cada uno tiene un gen café y uno azul) — de otra forma, un hijo de ojos azules sería imposible. Con ambos padres heterocigotos, cada hijo nuevo tiene $P(\text{ojos azules})=1/4$ (necesita heredar el gen azul de ambos), independiente entre hermanos.
+:::
+
+```{r}
+n <- 4; p <- 1/4   # los otros 4 hijos, cada uno con P(azul) = 1/4
+
+dbinom(2, n, p)
+```
+
+$P(\text{exactamente 2 de 4}) \approx 0.2109$.
+
+## Ejercicio — FGM de una geométrica
+
+**Enunciado:** $N$ toma valores en $\{0,1,2,\dots\}$ con $P(N=n)=\dfrac{2}{3^{n+1}}$. (a) Calcule $P(N=0)$. (b) Halle la FGM. (c) Úsela para calcular $E(N)$ y $\text{Var}(N)$.
+
+```{r}
+# (a)
+p_N0 <- 2/3
+p_N0
+
+# (b) y (c): FGM en forma cerrada, sumando la serie geométrica
+# M(t) = sum_{n=0}^inf e^(tn) * 2/3^(n+1) = (2/3) / (1 - e^t/3) = 2/(3-e^t), para t < ln(3)
+M <- function(t) 2 / (3 - exp(t))
+
+h <- 1e-6
+E_N   <- (M(h) - M(-h)) / (2*h)
+E_N2  <- (M(h) - 2*M(0) + M(-h)) / h^2
+Var_N <- E_N2 - E_N^2
+
+c(E_N = E_N, Var_N = Var_N)
+```
+
+::: {.callout-note}
+## Identificando la distribución
+$P(N=n)=\frac{2}{3}\left(\frac{1}{3}\right)^n$ es exactamente la forma $p(1-p)^n$ de una **geométrica** que cuenta *fracasos antes del primer éxito*, con $p=2/3$. Sus fórmulas conocidas, $E[N]=\frac{1-p}{p}$ y $\text{Var}(N)=\frac{1-p}{p^2}$, dan $E[N]=0.5$ y $\text{Var}(N)=0.75$ — coincide exactamente con la derivación numérica de la FGM.
+:::
+
+---
+
+## 🗂️ Cierre
+
+::: {.card-lab}
+- Los dos exámenes comparten estructura pero difieren en números: reconocer el **patrón** (Poisson con escalamiento → días críticos → comparar aproximaciones; Binomial → diagnóstico con datos reales; FGM → momentos) importa más que memorizar una respuesta puntual.
+- El diagnóstico "¿es adecuado el modelo?" no tiene una sola respuesta correcta: en la Versión A la señal estaba en la **varianza** (sobredispersión); en la Versión B estaba en la **media** (el $p$ asumido parecía demasiado alto). Aprende a mirar ambos momentos, no solo uno.
+- Cuando quieras comparar aproximaciones (Poisson vs. Normal), elige una probabilidad que **no** esté saturada cerca de 0 o 1 — si no, todas las aproximaciones coinciden trivialmente y no aprendes cuál es mejor.
+:::

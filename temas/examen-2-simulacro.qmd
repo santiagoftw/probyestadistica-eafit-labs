@@ -1,0 +1,61 @@
+---
+title: "Examen 2 · Simulacro"
+---
+
+::: {.callout-warning}
+## Sobre este simulacro
+Este es un examen de práctica **no oficial**, construido para cubrir los cuatro criterios exactos de la rúbrica del Taller 2 (Binomial, Poisson, Aproximación normal, FGM). No sustituye al examen real del curso ni tiene relación con su ponderación o formato exactos — es una herramienta de autoevaluación. Resuélvelo primero **sin mirar el código ni la clave de respuestas**, con lápiz y papel, y verifica después en R.
+:::
+
+::: {.hero-motivacion}
+## ⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos
+
+Simula las condiciones del examen real: resuelve en orden, sin R al principio (verifica al final), y cronometra tu tiempo. La [clave de respuestas](examen-2-clave.qmd) está en una página separada — ábrela solo después de intentar todo el examen.
+:::
+
+## Sección I · Distribución binomial
+
+**Pregunta 1 (0.5 pts).** Para cada uno de los siguientes escenarios, indique si aplica un modelo binomial y justifique citando explícitamente cuál(es) de las condiciones BINS se cumple(n) o se rompe(n):
+
+(a) Se lanza una moneda balanceada 20 veces y se cuenta el número de caras.
+
+(b) De un curso de 12 estudiantes (5 mujeres, 7 hombres) se seleccionan 6 al azar **sin reemplazo** para un comité, y se cuenta cuántas son mujeres.
+
+(c) Se registra el número de clientes que llegan a una tienda durante una hora.
+
+**Pregunta 2 (0.5 pts).** Un proceso de ensamblaje tiene una tasa de error del 35% por unidad ensamblada (independiente entre unidades). En un lote de 18 unidades, calcule: (a) la probabilidad de que exactamente 5 tengan error; (b) la probabilidad de que a lo sumo 3 tengan error.
+
+## Sección II · Distribución Poisson
+
+**Pregunta 3 (0.5 pts).** Un fabricante de tornillos reporta una tasa de defectos de 0.4 por cada 100 unidades producidas. En un lote de 750 unidades, calcule $\lambda$ para ese lote y la probabilidad de encontrar exactamente 2 defectuosas.
+
+**Pregunta 4 (0.5 pts).** Un sensor detecta partículas a una tasa promedio de 4.5 por hora. Calcule la probabilidad de detectar exactamente 6 partículas en un período de 2 horas.
+
+## Sección III · Aproximación normal a la binomial
+
+**Pregunta 5 (0.5 pts).** Para cada escenario, verifique si aplica la aproximación normal (indique los valores de $np$ y $n(1-p)$) y, si no aplica, indique qué alternativa usaría:
+
+(a) $n=60$, $p=0.5$
+
+(b) $n=40$, $p=0.03$
+
+**Pregunta 6 (0.5 pts).** En una población, el 40% respalda una iniciativa. Se encuestan 500 personas. Calcule $P(X<190)$ usando la aproximación normal con corrección de continuidad, verificando primero las condiciones de aplicabilidad.
+
+## Sección IV · Función generadora de momentos
+
+**Pregunta 7 (0.5 pts).** La FGM de una Exponencial($\lambda$) es $M(t)=\dfrac{\lambda}{\lambda-t}$. Derive **a mano** (mostrando el procedimiento) para encontrar $E[X]$ y $\text{Var}(X)$ en términos de $\lambda$, y verifique su resultado numéricamente en R con $\lambda=2$.
+
+**Pregunta 8 (0.5 pts).** $X\sim\text{Exponencial}(\lambda=2)$ y $Y\sim\text{Exponencial}(\lambda=2)$, independientes (mismo $\lambda$). (a) Encuentre la FGM de $X+Y$ multiplicando las FGM individuales. (b) A partir de esa FGM, calcule $E[X+Y]$ y $\text{Var}(X+Y)$ derivando. (c) ¿Es $X+Y$ también Exponencial? Justifique con la forma algebraica de la FGM resultante.
+
+## Sección V · Síntesis
+
+**Pregunta 9 (0.5 pts).** Una aerolínea vende 2,000 tiquetes para un vuelo. La probabilidad de que un pasajero individual no se presente ("no-show") es 0.001, independiente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Calcule los criterios relevantes y justifique.
+
+**Pregunta 10 (0.5 pts).** Un proceso de manufactura tiene una tasa de defectos del 6%. Se inspeccionan 200 unidades. (a) Verifique si aplica la aproximación normal. (b) Calcule $P(X\ge15)$ tanto con la fórmula exacta como con la aproximación normal (corrección de continuidad), y compare ambos resultados.
+
+---
+
+::: {.callout-note}
+## Cuando termines
+Compara tus respuestas con la [clave de respuestas](examen-2-clave.qmd). Si te trabaste en alguna sección, vuelve a [preparacion-examen-2.qmd](preparacion-examen-2.qmd) antes de reintentar.
+:::
