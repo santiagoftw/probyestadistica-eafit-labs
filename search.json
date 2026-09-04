@@ -2151,37 +2151,37 @@
   {
     "objectID": "temas/ejercicios-manual-taller3.html",
     "href": "temas/ejercicios-manual-taller3.html",
-    "title": "Práctica manual · Intervalos de confianza",
+    "title": "Práctica manual · Unidad 3 (Sesiones 12-15)",
     "section": "",
-    "text": "Estos ejercicios cubren los tres casos de intervalos de confianza del Tema I3 — \\(\\sigma\\) conocida, \\(\\sigma\\) desconocida con muestra grande, y \\(t\\) para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.\nIC1. Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con \\(\\sigma=1.8\\) conocida. Una muestra de \\(n=40\\) ejes da \\(\\bar{x}=45.2\\). Calcula un IC de 95% para el diámetro promedio real.\nIC2. Se mide el espesor (mm) de una muestra de \\(n=45\\) recubrimientos, con \\(\\bar{x}=5.42\\) y \\(s=0.095\\). Calcula un IC de 95% para el espesor promedio real (usa el caso de muestra grande, sustituyendo \\(\\sigma\\) por \\(s\\)).\nIC3. De una muestra de 200 componentes electrónicos inspeccionados, 45 resultaron defectuosos. Calcula un IC de 95% para la proporción real de defectuosos, con la fórmula simple \\(\\hat p\\pm z_{\\alpha/2}\\sqrt{\\hat p\\hat q/n}\\).\nIC4. El tiempo de ensamblaje (minutos) de una pieza se midió en 9 ocasiones: 12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6. Suponiendo una población normal, calcula un IC de 95% para el tiempo de ensamblaje promedio real.\nIC5 (teórico). Para el IC \\(\\bar x\\pm z_{\\alpha/2}\\cdot\\sigma/\\sqrt n\\): si el tamaño de muestra se cuadruplica (de \\(n\\) a \\(4n\\)), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.\nIC6 (teórico). A partir de la desigualdad bilateral \\(P\\!\\left(-z_\\alpha&lt;\\dfrac{\\bar X-\\mu}{\\sigma/\\sqrt n}&lt;z_\\alpha\\right)=1-\\alpha\\) (nota: con \\(z_\\alpha\\), no \\(z_{\\alpha/2}\\)), deriva un intervalo unilateral que dé solo un límite inferior de confianza para \\(\\mu\\), con nivel de confianza \\(100(1-\\alpha)\\%\\). (Pista: parte de una desigualdad de un solo lado, \\(\\dfrac{\\bar X-\\mu}{\\sigma/\\sqrt n}&lt;z_\\alpha\\), y despeja \\(\\mu\\)).\nIC7 (conceptual). Un asesor calculará 1000 intervalos de confianza de 95% para \\(\\mu\\), uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea \\(Y\\) el número de esos 1000 intervalos que sí contienen el verdadero valor de \\(\\mu\\) correspondiente. (a) ¿Qué distribución tiene \\(Y\\)? (b) ¿Cuál es \\(E(Y)\\)? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a \\(\\mu\\)?\nIC8. Usando los datos del ejercicio IC1 (\\(\\sigma=1.8\\), \\(n=40\\), \\(\\bar x=45.2\\)), calcula el IC con 90%, 95% y 99% de confianza, y compara el ancho total de los tres intervalos. ¿La dirección del cambio tiene sentido?",
+    "text": "Este banco cubre las 4 sesiones de la Unidad 3, en el mismo orden del cronograma: distribución bivariada (12), marginal y condicional (13), independencia y valor esperado de función de v.a. (14), y pruebas de hipótesis e intervalos de confianza (15). Resuelve primero por tu cuenta.",
     "crumbs": [
       "Inicio",
       "Unidad 3 — Bivariadas e Inferencia",
-      "Práctica manual · Intervalos de confianza"
+      "Práctica manual · Unidad 3 (Sesiones 12-15)"
     ]
   },
   {
     "objectID": "temas/ejercicios-manual-taller3.html#para-resolver-a-mano-con-lápiz-y-papel",
     "href": "temas/ejercicios-manual-taller3.html#para-resolver-a-mano-con-lápiz-y-papel",
-    "title": "Práctica manual · Intervalos de confianza",
+    "title": "Práctica manual · Unidad 3 (Sesiones 12-15)",
     "section": "",
-    "text": "Estos ejercicios cubren los tres casos de intervalos de confianza del Tema I3 — \\(\\sigma\\) conocida, \\(\\sigma\\) desconocida con muestra grande, y \\(t\\) para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.",
+    "text": "Este banco cubre las 4 sesiones de la Unidad 3, en el mismo orden del cronograma: distribución bivariada (12), marginal y condicional (13), independencia y valor esperado de función de v.a. (14), y pruebas de hipótesis e intervalos de confianza (15). Resuelve primero por tu cuenta.",
     "crumbs": [
       "Inicio",
       "Unidad 3 — Bivariadas e Inferencia",
-      "Práctica manual · Intervalos de confianza"
+      "Práctica manual · Unidad 3 (Sesiones 12-15)"
     ]
   },
   {
     "objectID": "temas/ejercicios-manual-taller3.html#respuestas",
     "href": "temas/ejercicios-manual-taller3.html#respuestas",
-    "title": "Práctica manual · Intervalos de confianza",
+    "title": "Práctica manual · Unidad 3 (Sesiones 12-15)",
     "section": "✅ Respuestas",
-    "text": "✅ Respuestas\n\n\n\n\n\n\nTipVer respuestas\n\n\n\n\n\n\nIC1: margen \\(=0.558\\); IC \\(=(44.64,\\,45.76)\\).\nIC2: margen \\(=0.028\\); IC \\(=(5.392,\\,5.448)\\).\nIC3: \\(\\hat p=0.225\\); margen \\(=0.058\\); IC \\(=(0.167,\\,0.283)\\).\nIC4: \\(\\bar x=12.5\\), \\(s=0.539\\), \\(t_{0.025,8}=2.306\\); margen \\(=0.414\\); IC \\(=(12.09,\\,12.91)\\).\nIC5: el margen es proporcional a \\(1/\\sqrt n\\). Con \\(4n\\): \\(1/\\sqrt{4n}=1/(2\\sqrt n)\\) — la extensión se reduce a la mitad, no a la cuarta parte (cuadruplicar \\(n\\) solo reduce el margen por un factor de 2, no de 4 — un error común).\nIC6: \\(\\mu&gt;\\bar X - z_\\alpha\\cdot\\sigma/\\sqrt n\\) — el límite inferior de confianza es \\(\\bar x - z_\\alpha\\cdot\\sigma/\\sqrt n\\), con confianza \\(100(1-\\alpha)\\%\\).\nIC7: (a) \\(Y\\sim\\text{Binomial}(1000,\\,0.95)\\). (b) \\(E(Y)=950\\). (c) \\(P(940\\le Y\\le960)=0.873\\).\nIC8: ancho total: 90% → \\(0.936\\); 95% → \\(1.116\\); 99% → \\(1.466\\). Mayor confianza requiere un intervalo más ancho — tiene sentido: estar “más seguro” exige abarcar más posibilidades.",
+    "text": "✅ Respuestas\n\n\n\n\n\n\nTipVer respuestas — Sesión 12 (Bivariada)\n\n\n\n\n\n\nB1: (a) 0.3; (b) 0.9; (c) \\(X\\): \\(P(0)=0.1,P(-1)=0.2,P(-2)=0.3,P(-3)=0.4\\); \\(Y\\): \\(P(1)=0.4,P(2)=0.3,P(3)=0.2,P(4)=0.1\\); (d) \\(Z\\in\\{-2,-1,0,1\\}\\) con probabilidades \\(0.1,0.2,0.3,0.4\\).\nB2: \\(E(X)=8/11\\approx0.727\\), \\(E(Y)=10/11\\approx0.909\\).\nB3: mismos valores esperados (\\(E(X)=8/11\\), \\(E(Y)=10/11\\)) pero la distribución conjunta es distinta — con reemplazo hay más masa de probabilidad en los extremos (0,0) y menos concentración en el centro, porque las extracciones son independientes.\nB4: (a) \\(c=2/15\\approx0.1333\\); (b) \\(P(X&lt;0.5,Y&lt;0.5)=0.0333\\), \\(P(X&lt;0.5)=0.0833\\); (c) \\(E(X)\\approx2.111\\), \\(E(Y)\\approx2.156\\).\n\n\n\n\n\n\n\n\n\n\nTipVer respuestas — Sesión 13 (Marginal y condicional)\n\n\n\n\n\n\nM1: (a) \\(E(X\\mid Y=1)=2.5\\), \\(E(X\\mid Y=0)=-0.125\\); (b) \\(E(X)=4/3\\approx1.333\\).\nM2: \\(E(Y)=1\\cdot(1-p)+2\\cdot p=1+p\\).\n\n\n\n\n\n\n\n\n\n\nTipVer respuestas — Sesión 14 (Independencia y valor esperado)\n\n\n\n\n\n\nE1: (a) Sí, son independientes dos a dos. (b) No, no son independientes en conjunto — es el contraejemplo clásico que muestra que independencia dos a dos no implica independencia conjunta.\nE2: (a) \\(\\text{Cov}(Z,Y)=\\rho-\\rho\\cdot1=0\\). (b) \\(E(Z)=0\\), \\(\\text{Var}(Z)=1-\\rho^2\\).\nE3: (a) \\(E(X+Y+Z)=6\\); (b) \\(E(XYZ)=6\\) — ambas cantidades son constantes (no varían entre permutaciones: siempre suman \\(1+2+3=6\\) y siempre multiplican \\(1\\times2\\times3=6\\)), así que su valor esperado es simplemente ese valor constante, sin necesidad de sumar nada ponderado por probabilidades.\n\n\n\n\n\n\n\n\n\n\nTipVer respuestas — Sesión 15 (Pruebas de hipótesis e IC)\n\n\n\n\n\n\nH1: (a) \\(z=-2.267\\); como \\(|z|&lt;z_{0.005}=2.576\\), no se rechaza \\(H_0\\). (b) \\(\\beta(94)\\approx0.224\\).\nH2: (a) \\(H_0:\\mu=750\\) contra \\(H_a:\\mu&lt;750\\) (prueba de extremo inferior). (b) \\(z\\approx-2.14\\), valor P \\(\\approx0.016\\). (c) Como \\(0.016&lt;0.05\\), se rechaza \\(H_0\\) — hay evidencia de que la duración real es menor a la anunciada.\nIC1: margen \\(=0.558\\); IC \\(=(44.64,\\,45.76)\\).\nIC2: margen \\(=0.028\\); IC \\(=(5.392,\\,5.448)\\).\nIC3: \\(\\hat p=0.225\\); margen \\(=0.058\\); IC \\(=(0.167,\\,0.283)\\).\nIC4: \\(\\bar x=12.5\\), \\(s=0.539\\), \\(t_{0.025,8}=2.306\\); margen \\(=0.414\\); IC \\(=(12.09,\\,12.91)\\).\nIC5: el margen es proporcional a \\(1/\\sqrt n\\). Con \\(4n\\): la extensión se reduce a la mitad, no a la cuarta parte.\nIC6: \\(\\mu&gt;\\bar X - z_\\alpha\\cdot\\sigma/\\sqrt n\\) — el límite inferior de confianza es \\(\\bar x - z_\\alpha\\cdot\\sigma/\\sqrt n\\).\nIC7: (a) \\(Y\\sim\\text{Binomial}(1000,\\,0.95)\\). (b) \\(E(Y)=950\\). (c) \\(P(940\\le Y\\le960)=0.873\\).\nIC8: ancho total: 90% → \\(0.936\\); 95% → \\(1.116\\); 99% → \\(1.466\\). Mayor confianza requiere un intervalo más ancho.",
     "crumbs": [
       "Inicio",
       "Unidad 3 — Bivariadas e Inferencia",
-      "Práctica manual · Intervalos de confianza"
+      "Práctica manual · Unidad 3 (Sesiones 12-15)"
     ]
   },
   {
@@ -3669,37 +3669,37 @@
   {
     "objectID": "temas/ejercicios-manual-taller3-resueltos.html",
     "href": "temas/ejercicios-manual-taller3-resueltos.html",
-    "title": "Práctica manual · Intervalos de confianza — Resueltos",
+    "title": "Práctica manual · Unidad 3 — Resueltos",
     "section": "",
-    "text": "Resuelve primero en Práctica manual · Intervalos de confianza — esta página tiene el paso a paso y el código en R.",
+    "text": "Resuelve primero en Práctica manual · Unidad 3 — esta página tiene el paso a paso y el código en R, sesión por sesión.",
     "crumbs": [
       "Inicio",
       "Unidad 3 — Bivariadas e Inferencia",
-      "Práctica manual · Intervalos de confianza — Resueltos"
+      "Práctica manual · Unidad 3 — Resueltos"
     ]
   },
   {
     "objectID": "temas/ejercicios-manual-taller3-resueltos.html#el-mismo-banco-con-desarrollo-completo",
     "href": "temas/ejercicios-manual-taller3-resueltos.html#el-mismo-banco-con-desarrollo-completo",
-    "title": "Práctica manual · Intervalos de confianza — Resueltos",
+    "title": "Práctica manual · Unidad 3 — Resueltos",
     "section": "",
-    "text": "Resuelve primero en Práctica manual · Intervalos de confianza — esta página tiene el paso a paso y el código en R.",
+    "text": "Resuelve primero en Práctica manual · Unidad 3 — esta página tiene el paso a paso y el código en R, sesión por sesión.",
     "crumbs": [
       "Inicio",
       "Unidad 3 — Bivariadas e Inferencia",
-      "Práctica manual · Intervalos de confianza — Resueltos"
+      "Práctica manual · Unidad 3 — Resueltos"
     ]
   },
   {
     "objectID": "temas/ejercicios-manual-taller3-resueltos.html#cierre",
     "href": "temas/ejercicios-manual-taller3-resueltos.html#cierre",
-    "title": "Práctica manual · Intervalos de confianza — Resueltos",
+    "title": "Práctica manual · Unidad 3 — Resueltos",
     "section": "🗂️ Cierre",
-    "text": "🗂️ Cierre\n\n\nLos tres primeros casos (IC1-IC4) comparten la misma estructura: estimación \\(\\pm\\) valor crítico \\(\\times\\) error estándar — memoriza el patrón, no tres fórmulas distintas.\nLas demostraciones (IC5, IC6) usan álgebra directa sobre la desigualdad de probabilidad original — el mismo estilo de manipulación que ya viste al derivar la fórmula general del IC en la teoría del Tema I3.\nIC7 es un recordatorio de que los temas de este curso no viven aislados: “confianza” (Unidad 3) y “binomial” (Módulo 2) son, en el fondo, la misma idea de conteo de éxitos aplicada a contextos distintos.",
+    "text": "🗂️ Cierre\n\n\nSesión 12 (bivariada): la misma lógica de tabla/densidad conjunta se aplica igual en discreto (sumar) que en continuo (integrar) — y con o sin reemplazo, cambia la tabla completa pero no siempre los valores esperados.\nSesión 13 (condicional): la ley de la esperanza total (\\(E(X)=\\sum_y E(X\\mid Y=y)P(Y=y)\\)) convierte un problema de dos pasos en dos problemas de un paso — condiciona primero, promedia después.\nSesión 14 (independencia y valor esperado): el ejercicio E1 es la advertencia más importante de este bloque — independencia dos a dos nunca garantiza independencia conjunta. Y E3 recuerda que, si una cantidad es constante en todo el espacio muestral, su valor esperado es trivial.\nSesión 15 (hipótesis e IC): ambos usan la misma estructura de tres piezas (estadístico, valor crítico o región de rechazo, y una regla de decisión) — practicar reconocer cuál caso aplica (\\(z\\) vs. \\(t\\), un extremo vs. dos) es más importante que memorizar fórmulas nuevas.",
     "crumbs": [
       "Inicio",
       "Unidad 3 — Bivariadas e Inferencia",
-      "Práctica manual · Intervalos de confianza — Resueltos"
+      "Práctica manual · Unidad 3 — Resueltos"
     ]
   },
   {

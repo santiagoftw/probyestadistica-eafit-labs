@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Práctica manual · Intervalos de confianza – Estadística Descriptiva — Curso interactivo</title>
+<title>Práctica manual · Unidad 3 (Sesiones 12-15) – Estadística Descriptiva — Curso interactivo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -189,7 +189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 — Bivariadas e Inferencia</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller3.html">Práctica manual · Intervalos de confianza</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 — Bivariadas e Inferencia</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller3.html">Práctica manual · Unidad 3 (Sesiones 12-15)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -525,13 +525,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../temas/ejercicios-manual-taller3.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Práctica manual · Intervalos de confianza</span></a>
+ <span class="menu-text">Práctica manual · Unidad 3 (Sesiones 12-15)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../temas/ejercicios-manual-taller3-resueltos.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctica manual · Intervalos de confianza — Resueltos</span></a>
+ <span class="menu-text">Práctica manual · Unidad 3 — Resueltos</span></a>
   </div>
 </li>
       </ul>
@@ -559,16 +559,22 @@ window.Quarto = {
    
   <ul class="collapse">
   <li><a href="#para-resolver-a-mano-con-lápiz-y-papel" id="toc-para-resolver-a-mano-con-lápiz-y-papel" class="nav-link active" data-scroll-target="#para-resolver-a-mano-con-lápiz-y-papel">✍️ Para resolver a mano, con lápiz y papel</a></li>
+  <li><a href="#sesión-12-distribución-de-probabilidad-bivariada" id="toc-sesión-12-distribución-de-probabilidad-bivariada" class="nav-link" data-scroll-target="#sesión-12-distribución-de-probabilidad-bivariada">Sesión 12 · Distribución de probabilidad bivariada</a></li>
+  <li><a href="#sesión-13-distribución-de-probabilidad-marginal-y-condicional" id="toc-sesión-13-distribución-de-probabilidad-marginal-y-condicional" class="nav-link" data-scroll-target="#sesión-13-distribución-de-probabilidad-marginal-y-condicional">Sesión 13 · Distribución de probabilidad marginal y condicional</a></li>
+  <li><a href="#sesión-14-independencia-y-valor-esperado-de-una-función-de-variables-aleatorias" id="toc-sesión-14-independencia-y-valor-esperado-de-una-función-de-variables-aleatorias" class="nav-link" data-scroll-target="#sesión-14-independencia-y-valor-esperado-de-una-función-de-variables-aleatorias">Sesión 14 · Independencia y valor esperado de una función de variables aleatorias</a></li>
+  <li><a href="#sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" id="toc-sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" class="nav-link" data-scroll-target="#sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza">Sesión 15 · Pruebas de hipótesis e intervalos de confianza</a>
+  <ul class="collapse">
   <li><a href="#respuestas" id="toc-respuestas" class="nav-link" data-scroll-target="#respuestas">✅ Respuestas</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 — Bivariadas e Inferencia</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller3.html">Práctica manual · Intervalos de confianza</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 — Bivariadas e Inferencia</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller3.html">Práctica manual · Unidad 3 (Sesiones 12-15)</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Práctica manual · Intervalos de confianza</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Práctica manual · Unidad 3 (Sesiones 12-15)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -587,7 +593,7 @@ window.Quarto = {
 
 <section id="para-resolver-a-mano-con-lápiz-y-papel" class="level2 hero-motivacion">
 <h2 class="anchored" data-anchor-id="para-resolver-a-mano-con-lápiz-y-papel">✍️ Para resolver a mano, con lápiz y papel</h2>
-<p>Estos ejercicios cubren los tres casos de intervalos de confianza del <a href="../temas/tema-i3-estudiante.html">Tema I3</a> — <span class="math inline">\(\sigma\)</span> conocida, <span class="math inline">\(\sigma\)</span> desconocida con muestra grande, y <span class="math inline">\(t\)</span> para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.</p>
+<p>Este banco cubre las 4 sesiones de la Unidad 3, en el mismo orden del cronograma: distribución bivariada (12), marginal y condicional (13), independencia y valor esperado de función de v.a. (14), y pruebas de hipótesis e intervalos de confianza (15). Resuelve primero por tu cuenta.</p>
 </section>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -599,7 +605,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., <em>Probabilidad y Estadística para Ingeniería y Ciencias</em>, Capítulo 7. Todas las respuestas fueron verificadas de forma independiente.</p>
+<p>Los ejercicios de las Sesiones 12-14 están basados en Blanco Castañeda, L. (2010), <em>Probabilidad</em>, Universidad Nacional de Colombia (Cap. 5-6). Los de la Sesión 15 están basados en Walpole, R. et al., <em>Probabilidad y Estadística para Ingeniería y Ciencias</em> (Cap. 7-8). Todas las respuestas fueron verificadas de forma independiente.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -616,12 +622,79 @@ window.Quarto = {
 </div>
 </div>
 <hr>
+<section id="sesión-12-distribución-de-probabilidad-bivariada" class="level1">
+<h1>Sesión 12 · Distribución de probabilidad bivariada</h1>
+<p><strong>B1.</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> tienen distribución conjunta dada por:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>X\Y</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>−1</td>
+<td>0.1</td>
+<td>0.1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>−2</td>
+<td>0.1</td>
+<td>0.1</td>
+<td>0.1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>−3</td>
+<td>0.1</td>
+<td>0.1</td>
+<td>0.1</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+<p>Calcula: (a) <span class="math inline">\(P(X\ge-2,\,Y\ge2)\)</span>; (b) <span class="math inline">\(P(X\ge-2 \text{ o } Y\ge2)\)</span>; (c) las distribuciones marginales de <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>; (d) la distribución de <span class="math inline">\(Z:=X+Y\)</span>.</p>
+<p><strong>B2.</strong> Una urna contiene 4 bolas rojas, 5 negras y 2 azules. Se extraen al azar <strong>sin reemplazo</strong> dos bolas. Sea <span class="math inline">\(X\)</span> el número de bolas rojas extraídas, <span class="math inline">\(Y\)</span> el número de bolas negras extraídas. Halla: (a) la distribución conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>; (b) <span class="math inline">\(E(X)\)</span> y <span class="math inline">\(E(Y)\)</span>.</p>
+<p><strong>B3.</strong> Repite el ejercicio B2, pero ahora suponiendo que la extracción se hace <strong>con reemplazo</strong>. Compara las distribuciones conjuntas resultantes de B2 y B3 — ¿en qué se parecen y en qué difieren?</p>
+<p><strong>B4.</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> tienen densidad conjunta <span class="math inline">\(f(x,y)=c\)</span> para <span class="math inline">\(0&lt;x&lt;4\)</span>, <span class="math inline">\(y&gt;0\)</span>, <span class="math inline">\((x-1)&lt;y&lt;(x+1)\)</span> (y cero en otro caso) — una “banda” diagonal, no un rectángulo. (a) Determina el valor de <span class="math inline">\(c\)</span>. (b) Calcula <span class="math inline">\(P(X&lt;\frac12,\,Y&lt;\frac12)\)</span> y <span class="math inline">\(P(X&lt;\frac12)\)</span>. (c) Determina <span class="math inline">\(E(X)\)</span> y <span class="math inline">\(E(Y)\)</span>.</p>
+<hr>
+</section>
+<section id="sesión-13-distribución-de-probabilidad-marginal-y-condicional" class="level1">
+<h1>Sesión 13 · Distribución de probabilidad marginal y condicional</h1>
+<p><strong>M1.</strong> Un jugador extrae dos bolas, una tras otra (sin reemplazo), de una urna con 5 rojas y 4 negras. Por cada bola roja gana 2 unidades monetarias; por cada negra, pierde 1. Sea <span class="math inline">\(X\)</span> la fortuna del jugador y <span class="math inline">\(Y\)</span> la variable que vale 1 si la primera bola es roja, 0 si es negra. (a) Calcula <span class="math inline">\(E(X\mid Y)\)</span> (es decir, <span class="math inline">\(E(X\mid Y=1)\)</span> y <span class="math inline">\(E(X\mid Y=0)\)</span> por separado). (b) Usa la parte (a) para hallar <span class="math inline">\(E(X)\)</span> (ley de la esperanza total).</p>
+<p><strong>M2 (teórico).</strong> <span class="math inline">\(X\)</span> tiene distribución Bernoulli de parámetro <span class="math inline">\(p\)</span>. Si <span class="math inline">\(E(Y\mid X=0)=1\)</span> y <span class="math inline">\(E(Y\mid X=1)=2\)</span>, ¿a qué es igual <span class="math inline">\(E(Y)\)</span>? (Tu respuesta debe quedar en términos de <span class="math inline">\(p\)</span>).</p>
+<hr>
+</section>
+<section id="sesión-14-independencia-y-valor-esperado-de-una-función-de-variables-aleatorias" class="level1">
+<h1>Sesión 14 · Independencia y valor esperado de una función de variables aleatorias</h1>
+<p><strong>E1 (teórico — un clásico).</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son variables aleatorias independientes; ambas toman los valores <span class="math inline">\(1\)</span> y <span class="math inline">\(-1\)</span> con probabilidad <span class="math inline">\(\frac12\)</span> cada una. Sea <span class="math inline">\(Z:=XY\)</span>. (a) ¿Son <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> y <span class="math inline">\(Z\)</span> independientes <strong>dos a dos</strong> (cada par por separado)? (b) ¿Son <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> y <span class="math inline">\(Z\)</span> independientes <strong>en conjunto</strong> (los tres a la vez)? Explica la diferencia.</p>
+<p><strong>E2 (teórico).</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> tienen media 0, varianza 1, y covarianza <span class="math inline">\(\rho\)</span>. Sea <span class="math inline">\(Z:=X-\rho Y\)</span>. (a) Demuestra que <span class="math inline">\(Z\)</span> y <span class="math inline">\(Y\)</span> <strong>no están correlacionadas</strong> (covarianza cero). (b) Calcula <span class="math inline">\(E(Z)\)</span> y <span class="math inline">\(\text{Var}(Z)\)</span>.</p>
+<p><strong>E3.</strong> <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span> tienen distribución conjunta uniforme sobre las 6 permutaciones de <span class="math inline">\((1,2,3)\)</span> (cada una con probabilidad <span class="math inline">\(\frac16\)</span>). Calcula (a) <span class="math inline">\(E(X+Y+Z)\)</span>; (b) <span class="math inline">\(E(XYZ)\)</span>. (Pista: antes de sumar nada, pregúntate si estas dos cantidades cambian de una permutación a otra).</p>
+<hr>
+</section>
+<section id="sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" class="level1">
+<h1>Sesión 15 · Pruebas de hipótesis e intervalos de confianza</h1>
+<p><strong>H1.</strong> El punto de fusión de una marca de aceite vegetal hidrogenado se midió en <span class="math inline">\(n=16\)</span> muestras, con <span class="math inline">\(\bar x=94.32\)</span>. Se sabe que la distribución es normal con <span class="math inline">\(\sigma=1.20\)</span>. (a) Prueba <span class="math inline">\(H_0:\mu=95\)</span> contra <span class="math inline">\(H_a:\mu\ne95\)</span> con nivel de significancia 0.01. (b) Si el valor real fuera <span class="math inline">\(\mu=94\)</span>, ¿cuál es la probabilidad (aproximada) de un error de tipo II con esta prueba?</p>
+<p><strong>H2.</strong> Se anuncia que la duración promedio de cierto tipo de foco es 750 horas. Un cliente sospecha que es menor y prueba una muestra de <span class="math inline">\(n=50\)</span> focos, obteniendo <span class="math inline">\(\bar x=738.44\)</span> horas y <span class="math inline">\(s=38.20\)</span> horas. (a) Plantea las hipótesis apropiadas (nota: el cliente solo actuará si se demuestra que la duración real es <em>menor</em> a la anunciada). (b) Calcula el estadístico de prueba y el valor P. (c) ¿Qué concluyes con <span class="math inline">\(\alpha=0.05\)</span>?</p>
 <p><strong>IC1.</strong> Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con <span class="math inline">\(\sigma=1.8\)</span> conocida. Una muestra de <span class="math inline">\(n=40\)</span> ejes da <span class="math inline">\(\bar{x}=45.2\)</span>. Calcula un IC de 95% para el diámetro promedio real.</p>
 <p><strong>IC2.</strong> Se mide el espesor (mm) de una muestra de <span class="math inline">\(n=45\)</span> recubrimientos, con <span class="math inline">\(\bar{x}=5.42\)</span> y <span class="math inline">\(s=0.095\)</span>. Calcula un IC de 95% para el espesor promedio real (usa el caso de muestra grande, sustituyendo <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(s\)</span>).</p>
 <p><strong>IC3.</strong> De una muestra de 200 componentes electrónicos inspeccionados, 45 resultaron defectuosos. Calcula un IC de 95% para la proporción real de defectuosos, con la fórmula simple <span class="math inline">\(\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}\)</span>.</p>
 <p><strong>IC4.</strong> El tiempo de ensamblaje (minutos) de una pieza se midió en 9 ocasiones: <code>12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6</code>. Suponiendo una población normal, calcula un IC de 95% para el tiempo de ensamblaje promedio real.</p>
 <p><strong>IC5 (teórico).</strong> Para el IC <span class="math inline">\(\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n\)</span>: si el tamaño de muestra se cuadruplica (de <span class="math inline">\(n\)</span> a <span class="math inline">\(4n\)</span>), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.</p>
-<p><strong>IC6 (teórico).</strong> A partir de la desigualdad bilateral <span class="math inline">\(P\!\left(-z_\alpha&lt;\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\right)=1-\alpha\)</span> (nota: con <span class="math inline">\(z_\alpha\)</span>, no <span class="math inline">\(z_{\alpha/2}\)</span>), deriva un intervalo <strong>unilateral</strong> que dé solo un <strong>límite inferior de confianza</strong> para <span class="math inline">\(\mu\)</span>, con nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>. (Pista: parte de una desigualdad de un solo lado, <span class="math inline">\(\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\)</span>, y despeja <span class="math inline">\(\mu\)</span>).</p>
+<p><strong>IC6 (teórico).</strong> A partir de la desigualdad bilateral <span class="math inline">\(P\!\left(-z_\alpha&lt;\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\right)=1-\alpha\)</span> (nota: con <span class="math inline">\(z_\alpha\)</span>, no <span class="math inline">\(z_{\alpha/2}\)</span>), deriva un intervalo <strong>unilateral</strong> que dé solo un <strong>límite inferior de confianza</strong> para <span class="math inline">\(\mu\)</span>, con nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
 <p><strong>IC7 (conceptual).</strong> Un asesor calculará 1000 intervalos de confianza de 95% para <span class="math inline">\(\mu\)</span>, uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea <span class="math inline">\(Y\)</span> el número de esos 1000 intervalos que sí contienen el verdadero valor de <span class="math inline">\(\mu\)</span> correspondiente. (a) ¿Qué distribución tiene <span class="math inline">\(Y\)</span>? (b) ¿Cuál es <span class="math inline">\(E(Y)\)</span>? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a <span class="math inline">\(\mu\)</span>?</p>
 <p><strong>IC8.</strong> Usando los datos del ejercicio IC1 (<span class="math inline">\(\sigma=1.8\)</span>, <span class="math inline">\(n=40\)</span>, <span class="math inline">\(\bar x=45.2\)</span>), calcula el IC con 90%, 95% y 99% de confianza, y compara el ancho total de los tres intervalos. ¿La dirección del cambio tiene sentido?</p>
 <hr>
@@ -633,21 +706,83 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Ver respuestas
+<span class="screen-reader-only">Tip</span>Ver respuestas — Sesión 12 (Bivariada)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
+<li><strong>B1:</strong> (a) 0.3; (b) 0.9; (c) <span class="math inline">\(X\)</span>: <span class="math inline">\(P(0)=0.1,P(-1)=0.2,P(-2)=0.3,P(-3)=0.4\)</span>; <span class="math inline">\(Y\)</span>: <span class="math inline">\(P(1)=0.4,P(2)=0.3,P(3)=0.2,P(4)=0.1\)</span>; (d) <span class="math inline">\(Z\in\{-2,-1,0,1\}\)</span> con probabilidades <span class="math inline">\(0.1,0.2,0.3,0.4\)</span>.</li>
+<li><strong>B2:</strong> <span class="math inline">\(E(X)=8/11\approx0.727\)</span>, <span class="math inline">\(E(Y)=10/11\approx0.909\)</span>.</li>
+<li><strong>B3:</strong> mismos valores esperados (<span class="math inline">\(E(X)=8/11\)</span>, <span class="math inline">\(E(Y)=10/11\)</span>) pero la distribución conjunta es distinta — con reemplazo hay más masa de probabilidad en los extremos (0,0) y menos concentración en el centro, porque las extracciones son independientes.</li>
+<li><strong>B4:</strong> (a) <span class="math inline">\(c=2/15\approx0.1333\)</span>; (b) <span class="math inline">\(P(X&lt;0.5,Y&lt;0.5)=0.0333\)</span>, <span class="math inline">\(P(X&lt;0.5)=0.0833\)</span>; (c) <span class="math inline">\(E(X)\approx2.111\)</span>, <span class="math inline">\(E(Y)\approx2.156\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuestas — Sesión 13 (Marginal y condicional)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>M1:</strong> (a) <span class="math inline">\(E(X\mid Y=1)=2.5\)</span>, <span class="math inline">\(E(X\mid Y=0)=-0.125\)</span>; (b) <span class="math inline">\(E(X)=4/3\approx1.333\)</span>.</li>
+<li><strong>M2:</strong> <span class="math inline">\(E(Y)=1\cdot(1-p)+2\cdot p=1+p\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuestas — Sesión 14 (Independencia y valor esperado)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>E1:</strong> (a) Sí, son independientes dos a dos. (b) No, no son independientes en conjunto — es el contraejemplo clásico que muestra que independencia dos a dos <strong>no implica</strong> independencia conjunta.</li>
+<li><strong>E2:</strong> (a) <span class="math inline">\(\text{Cov}(Z,Y)=\rho-\rho\cdot1=0\)</span>. (b) <span class="math inline">\(E(Z)=0\)</span>, <span class="math inline">\(\text{Var}(Z)=1-\rho^2\)</span>.</li>
+<li><strong>E3:</strong> (a) <span class="math inline">\(E(X+Y+Z)=6\)</span>; (b) <span class="math inline">\(E(XYZ)=6\)</span> — ambas cantidades son <strong>constantes</strong> (no varían entre permutaciones: siempre suman <span class="math inline">\(1+2+3=6\)</span> y siempre multiplican <span class="math inline">\(1\times2\times3=6\)</span>), así que su valor esperado es simplemente ese valor constante, sin necesidad de sumar nada ponderado por probabilidades.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuestas — Sesión 15 (Pruebas de hipótesis e IC)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>H1:</strong> (a) <span class="math inline">\(z=-2.267\)</span>; como <span class="math inline">\(|z|&lt;z_{0.005}=2.576\)</span>, no se rechaza <span class="math inline">\(H_0\)</span>. (b) <span class="math inline">\(\beta(94)\approx0.224\)</span>.</li>
+<li><strong>H2:</strong> (a) <span class="math inline">\(H_0:\mu=750\)</span> contra <span class="math inline">\(H_a:\mu&lt;750\)</span> (prueba de extremo inferior). (b) <span class="math inline">\(z\approx-2.14\)</span>, valor P <span class="math inline">\(\approx0.016\)</span>. (c) Como <span class="math inline">\(0.016&lt;0.05\)</span>, se rechaza <span class="math inline">\(H_0\)</span> — hay evidencia de que la duración real es menor a la anunciada.</li>
 <li><strong>IC1:</strong> margen <span class="math inline">\(=0.558\)</span>; IC <span class="math inline">\(=(44.64,\,45.76)\)</span>.</li>
 <li><strong>IC2:</strong> margen <span class="math inline">\(=0.028\)</span>; IC <span class="math inline">\(=(5.392,\,5.448)\)</span>.</li>
 <li><strong>IC3:</strong> <span class="math inline">\(\hat p=0.225\)</span>; margen <span class="math inline">\(=0.058\)</span>; IC <span class="math inline">\(=(0.167,\,0.283)\)</span>.</li>
 <li><strong>IC4:</strong> <span class="math inline">\(\bar x=12.5\)</span>, <span class="math inline">\(s=0.539\)</span>, <span class="math inline">\(t_{0.025,8}=2.306\)</span>; margen <span class="math inline">\(=0.414\)</span>; IC <span class="math inline">\(=(12.09,\,12.91)\)</span>.</li>
-<li><strong>IC5:</strong> el margen es proporcional a <span class="math inline">\(1/\sqrt n\)</span>. Con <span class="math inline">\(4n\)</span>: <span class="math inline">\(1/\sqrt{4n}=1/(2\sqrt n)\)</span> — la extensión se reduce <strong>a la mitad</strong>, no a la cuarta parte (cuadruplicar <span class="math inline">\(n\)</span> solo reduce el margen por un factor de 2, no de 4 — un error común).</li>
-<li><strong>IC6:</strong> <span class="math inline">\(\mu&gt;\bar X - z_\alpha\cdot\sigma/\sqrt n\)</span> — el límite inferior de confianza es <span class="math inline">\(\bar x - z_\alpha\cdot\sigma/\sqrt n\)</span>, con confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</li>
+<li><strong>IC5:</strong> el margen es proporcional a <span class="math inline">\(1/\sqrt n\)</span>. Con <span class="math inline">\(4n\)</span>: la extensión se reduce <strong>a la mitad</strong>, no a la cuarta parte.</li>
+<li><strong>IC6:</strong> <span class="math inline">\(\mu&gt;\bar X - z_\alpha\cdot\sigma/\sqrt n\)</span> — el límite inferior de confianza es <span class="math inline">\(\bar x - z_\alpha\cdot\sigma/\sqrt n\)</span>.</li>
 <li><strong>IC7:</strong> (a) <span class="math inline">\(Y\sim\text{Binomial}(1000,\,0.95)\)</span>. (b) <span class="math inline">\(E(Y)=950\)</span>. (c) <span class="math inline">\(P(940\le Y\le960)=0.873\)</span>.</li>
-<li><strong>IC8:</strong> ancho total: 90% → <span class="math inline">\(0.936\)</span>; 95% → <span class="math inline">\(1.116\)</span>; 99% → <span class="math inline">\(1.466\)</span>. Mayor confianza requiere un intervalo más ancho — tiene sentido: estar “más seguro” exige abarcar más posibilidades.</li>
+<li><strong>IC8:</strong> ancho total: 90% → <span class="math inline">\(0.936\)</span>; 95% → <span class="math inline">\(1.116\)</span>; 99% → <span class="math inline">\(1.466\)</span>. Mayor confianza requiere un intervalo más ancho.</li>
 </ul>
 </div>
 </div>
@@ -656,6 +791,7 @@ window.Quarto = {
 
 <!-- -->
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1117,24 +1253,24 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../temas/ejercicios-manual-taller3-resueltos.html" class="pagination-link" aria-label="Práctica manual · Intervalos de confianza — Resueltos">
-        <span class="nav-page-text">Práctica manual · Intervalos de confianza — Resueltos</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../temas/ejercicios-manual-taller3-resueltos.html" class="pagination-link" aria-label="Práctica manual · Unidad 3 — Resueltos">
+        <span class="nav-page-text">Práctica manual · Unidad 3 — Resueltos</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Práctica manual · Intervalos de confianza"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Práctica manual · Unidad 3 (Sesiones 12-15)"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✍️ Para resolver a mano, con lápiz y papel</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Estos ejercicios cubren los tres casos de intervalos de confianza del <span class="co">[</span><span class="ot">Tema I3</span><span class="co">](tema-i3-estudiante.qmd)</span> — $\sigma$ conocida, $\sigma$ desconocida con muestra grande, y $t$ para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Este banco cubre las 4 sesiones de la Unidad 3, en el mismo orden del cronograma: distribución bivariada (12), marginal y condicional (13), independencia y valor esperado de función de v.a. (14), y pruebas de hipótesis e intervalos de confianza (15). Resuelve primero por tu cuenta.</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fuente</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Capítulo 7. Todas las respuestas fueron verificadas de forma independiente.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Los ejercicios de las Sesiones 12-14 están basados en Blanco Castañeda, L. (2010), *Probabilidad*, Universidad Nacional de Colombia (Cap. 5-6). Los de la Sesión 15 están basados en Walpole, R. et al., *Probabilidad y Estadística para Ingeniería y Ciencias* (Cap. 7-8). Todas las respuestas fueron verificadas de forma independiente.</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
@@ -1144,38 +1280,109 @@ window.Quarto = {
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>**IC1.** Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con $\sigma=1.8$ conocida. Una muestra de $n=40$ ejes da $\bar{x}=45.2$. Calcula un IC de 95% para el diámetro promedio real.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sesión 12 · Distribución de probabilidad bivariada</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>**IC2.** Se mide el espesor (mm) de una muestra de $n=45$ recubrimientos, con $\bar{x}=5.42$ y $s=0.095$. Calcula un IC de 95% para el espesor promedio real (usa el caso de muestra grande, sustituyendo $\sigma$ por $s$).</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>**B1.** $X$ e $Y$ tienen distribución conjunta dada por:</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>**IC3.** De una muestra de 200 componentes electrónicos inspeccionados, 45 resultaron defectuosos. Calcula un IC de 95% para la proporción real de defectuosos, con la fórmula simple $\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}$.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>**IC4.** El tiempo de ensamblaje (minutos) de una pieza se midió en 9 ocasiones: <span class="in">`12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6`</span>. Suponiendo una población normal, calcula un IC de 95% para el tiempo de ensamblaje promedio real.</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>**IC5 (teórico).** Para el IC $\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n$: si el tamaño de muestra se cuadruplica (de $n$ a $4n$), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>**IC6 (teórico).** A partir de la desigualdad bilateral $P\!\left(-z_\alpha&lt;\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\right)=1-\alpha$ (nota: con $z_\alpha$, no $z_{\alpha/2}$), deriva un intervalo **unilateral** que dé solo un **límite inferior de confianza** para $\mu$, con nivel de confianza $100(1-\alpha)\%$. (Pista: parte de una desigualdad de un solo lado, $\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha$, y despeja $\mu$).</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**IC7 (conceptual).** Un asesor calculará 1000 intervalos de confianza de 95% para $\mu$, uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea $Y$ el número de esos 1000 intervalos que sí contienen el verdadero valor de $\mu$ correspondiente. (a) ¿Qué distribución tiene $Y$? (b) ¿Cuál es $E(Y)$? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a $\mu$?</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>**IC8.** Usando los datos del ejercicio IC1 ($\sigma=1.8$, $n=40$, $\bar x=45.2$), calcula el IC con 90%, 95% y 99% de confianza, y compara el ancho total de los tres intervalos. ¿La dirección del cambio tiene sentido?</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Respuestas</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> X<span class="sc">\\</span>Y <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> 3 <span class="pp">|</span> 4 <span class="pp">|</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> −1 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> −2 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> −3 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0.1 <span class="pp">|</span> 0.1 <span class="pp">|</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>Calcula: (a) $P(X\ge-2,\,Y\ge2)$; (b) $P(X\ge-2 \text{ o } Y\ge2)$; (c) las distribuciones marginales de $X$ y $Y$; (d) la distribución de $Z:=X+Y$.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>**B2.** Una urna contiene 4 bolas rojas, 5 negras y 2 azules. Se extraen al azar **sin reemplazo** dos bolas. Sea $X$ el número de bolas rojas extraídas, $Y$ el número de bolas negras extraídas. Halla: (a) la distribución conjunta de $X$ e $Y$; (b) $E(X)$ y $E(Y)$.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>**B3.** Repite el ejercicio B2, pero ahora suponiendo que la extracción se hace **con reemplazo**. Compara las distribuciones conjuntas resultantes de B2 y B3 — ¿en qué se parecen y en qué difieren?</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>**B4.** $X$ e $Y$ tienen densidad conjunta $f(x,y)=c$ para $0&lt;x&lt;4$, $y&gt;0$, $(x-1)&lt;y&lt;(x+1)$ (y cero en otro caso) — una "banda" diagonal, no un rectángulo. (a) Determina el valor de $c$. (b) Calcula $P(X&lt;\frac12,\,Y&lt;\frac12)$ y $P(X&lt;\frac12)$. (c) Determina $E(X)$ y $E(Y)$.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sesión 13 · Distribución de probabilidad marginal y condicional</span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC1:** margen $=0.558$; IC $=(44.64,\,45.76)$.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC2:** margen $=0.028$; IC $=(5.392,\,5.448)$.</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC3:** $\hat p=0.225$; margen $=0.058$; IC $=(0.167,\,0.283)$.</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC4:** $\bar x=12.5$, $s=0.539$, $t_{0.025,8}=2.306$; margen $=0.414$; IC $=(12.09,\,12.91)$.</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC5:** el margen es proporcional a $1/\sqrt n$. Con $4n$: $1/\sqrt{4n}=1/(2\sqrt n)$ — la extensión se reduce **a la mitad**, no a la cuarta parte (cuadruplicar $n$ solo reduce el margen por un factor de 2, no de 4 — un error común).</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC6:** $\mu&gt;\bar X - z_\alpha\cdot\sigma/\sqrt n$ — el límite inferior de confianza es $\bar x - z_\alpha\cdot\sigma/\sqrt n$, con confianza $100(1-\alpha)\%$.</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC7:** (a) $Y\sim\text{Binomial}(1000,\,0.95)$. (b) $E(Y)=950$. (c) $P(940\le Y\le960)=0.873$.</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC8:** ancho total: 90% → $0.936$; 95% → $1.116$; 99% → $1.466$. Mayor confianza requiere un intervalo más ancho — tiene sentido: estar "más seguro" exige abarcar más posibilidades.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>**M1.** Un jugador extrae dos bolas, una tras otra (sin reemplazo), de una urna con 5 rojas y 4 negras. Por cada bola roja gana 2 unidades monetarias; por cada negra, pierde 1. Sea $X$ la fortuna del jugador y $Y$ la variable que vale 1 si la primera bola es roja, 0 si es negra. (a) Calcula $E(X\mid Y)$ (es decir, $E(X\mid Y=1)$ y $E(X\mid Y=0)$ por separado). (b) Usa la parte (a) para hallar $E(X)$ (ley de la esperanza total).</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**M2 (teórico).** $X$ tiene distribución Bernoulli de parámetro $p$. Si $E(Y\mid X=0)=1$ y $E(Y\mid X=1)=2$, ¿a qué es igual $E(Y)$? (Tu respuesta debe quedar en términos de $p$).</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sesión 14 · Independencia y valor esperado de una función de variables aleatorias</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>**E1 (teórico — un clásico).** $X$ e $Y$ son variables aleatorias independientes; ambas toman los valores $1$ y $-1$ con probabilidad $\frac12$ cada una. Sea $Z:=XY$. (a) ¿Son $X$, $Y$ y $Z$ independientes **dos a dos** (cada par por separado)? (b) ¿Son $X$, $Y$ y $Z$ independientes **en conjunto** (los tres a la vez)? Explica la diferencia.</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>**E2 (teórico).** $X$ e $Y$ tienen media 0, varianza 1, y covarianza $\rho$. Sea $Z:=X-\rho Y$. (a) Demuestra que $Z$ y $Y$ **no están correlacionadas** (covarianza cero). (b) Calcula $E(Z)$ y $\text{Var}(Z)$.</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>**E3.** $X$, $Y$, $Z$ tienen distribución conjunta uniforme sobre las 6 permutaciones de $(1,2,3)$ (cada una con probabilidad $\frac16$). Calcula (a) $E(X+Y+Z)$; (b) $E(XYZ)$. (Pista: antes de sumar nada, pregúntate si estas dos cantidades cambian de una permutación a otra).</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sesión 15 · Pruebas de hipótesis e intervalos de confianza</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>**H1.** El punto de fusión de una marca de aceite vegetal hidrogenado se midió en $n=16$ muestras, con $\bar x=94.32$. Se sabe que la distribución es normal con $\sigma=1.20$. (a) Prueba $H_0:\mu=95$ contra $H_a:\mu\ne95$ con nivel de significancia 0.01. (b) Si el valor real fuera $\mu=94$, ¿cuál es la probabilidad (aproximada) de un error de tipo II con esta prueba?</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>**H2.** Se anuncia que la duración promedio de cierto tipo de foco es 750 horas. Un cliente sospecha que es menor y prueba una muestra de $n=50$ focos, obteniendo $\bar x=738.44$ horas y $s=38.20$ horas. (a) Plantea las hipótesis apropiadas (nota: el cliente solo actuará si se demuestra que la duración real es *menor* a la anunciada). (b) Calcula el estadístico de prueba y el valor P. (c) ¿Qué concluyes con $\alpha=0.05$?</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>**IC1.** Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con $\sigma=1.8$ conocida. Una muestra de $n=40$ ejes da $\bar{x}=45.2$. Calcula un IC de 95% para el diámetro promedio real.</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>**IC2.** Se mide el espesor (mm) de una muestra de $n=45$ recubrimientos, con $\bar{x}=5.42$ y $s=0.095$. Calcula un IC de 95% para el espesor promedio real (usa el caso de muestra grande, sustituyendo $\sigma$ por $s$).</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>**IC3.** De una muestra de 200 componentes electrónicos inspeccionados, 45 resultaron defectuosos. Calcula un IC de 95% para la proporción real de defectuosos, con la fórmula simple $\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}$.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>**IC4.** El tiempo de ensamblaje (minutos) de una pieza se midió en 9 ocasiones: <span class="in">`12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6`</span>. Suponiendo una población normal, calcula un IC de 95% para el tiempo de ensamblaje promedio real.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**IC5 (teórico).** Para el IC $\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n$: si el tamaño de muestra se cuadruplica (de $n$ a $4n$), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>**IC6 (teórico).** A partir de la desigualdad bilateral $P\!\left(-z_\alpha&lt;\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\right)=1-\alpha$ (nota: con $z_\alpha$, no $z_{\alpha/2}$), deriva un intervalo **unilateral** que dé solo un **límite inferior de confianza** para $\mu$, con nivel de confianza $100(1-\alpha)\%$.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>**IC7 (conceptual).** Un asesor calculará 1000 intervalos de confianza de 95% para $\mu$, uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea $Y$ el número de esos 1000 intervalos que sí contienen el verdadero valor de $\mu$ correspondiente. (a) ¿Qué distribución tiene $Y$? (b) ¿Cuál es $E(Y)$? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a $\mu$?</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>**IC8.** Usando los datos del ejercicio IC1 ($\sigma=1.8$, $n=40$, $\bar x=45.2$), calcula el IC con 90%, 95% y 99% de confianza, y compara el ancho total de los tres intervalos. ¿La dirección del cambio tiene sentido?</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Respuestas</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas — Sesión 12 (Bivariada)</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B1:** (a) 0.3; (b) 0.9; (c) $X$: $P(0)=0.1,P(-1)=0.2,P(-2)=0.3,P(-3)=0.4$; $Y$: $P(1)=0.4,P(2)=0.3,P(3)=0.2,P(4)=0.1$; (d) $Z\in<span class="sc">\{</span>-2,-1,0,1<span class="sc">\}</span>$ con probabilidades $0.1,0.2,0.3,0.4$.</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B2:** $E(X)=8/11\approx0.727$, $E(Y)=10/11\approx0.909$.</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B3:** mismos valores esperados ($E(X)=8/11$, $E(Y)=10/11$) pero la distribución conjunta es distinta — con reemplazo hay más masa de probabilidad en los extremos (0,0) y menos concentración en el centro, porque las extracciones son independientes.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B4:** (a) $c=2/15\approx0.1333$; (b) $P(X&lt;0.5,Y&lt;0.5)=0.0333$, $P(X&lt;0.5)=0.0833$; (c) $E(X)\approx2.111$, $E(Y)\approx2.156$.</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas — Sesión 13 (Marginal y condicional)</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**M1:** (a) $E(X\mid Y=1)=2.5$, $E(X\mid Y=0)=-0.125$; (b) $E(X)=4/3\approx1.333$.</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**M2:** $E(Y)=1\cdot(1-p)+2\cdot p=1+p$.</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas — Sesión 14 (Independencia y valor esperado)</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**E1:** (a) Sí, son independientes dos a dos. (b) No, no son independientes en conjunto — es el contraejemplo clásico que muestra que independencia dos a dos **no implica** independencia conjunta.</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**E2:** (a) $\text{Cov}(Z,Y)=\rho-\rho\cdot1=0$. (b) $E(Z)=0$, $\text{Var}(Z)=1-\rho^2$.</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**E3:** (a) $E(X+Y+Z)=6$; (b) $E(XYZ)=6$ — ambas cantidades son **constantes** (no varían entre permutaciones: siempre suman $1+2+3=6$ y siempre multiplican $1\times2\times3=6$), así que su valor esperado es simplemente ese valor constante, sin necesidad de sumar nada ponderado por probabilidades.</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas — Sesión 15 (Pruebas de hipótesis e IC)</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**H1:** (a) $z=-2.267$; como $|z|&lt;z_{0.005}=2.576$, no se rechaza $H_0$. (b) $\beta(94)\approx0.224$.</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**H2:** (a) $H_0:\mu=750$ contra $H_a:\mu&lt;750$ (prueba de extremo inferior). (b) $z\approx-2.14$, valor P $\approx0.016$. (c) Como $0.016&lt;0.05$, se rechaza $H_0$ — hay evidencia de que la duración real es menor a la anunciada.</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC1:** margen $=0.558$; IC $=(44.64,\,45.76)$.</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC2:** margen $=0.028$; IC $=(5.392,\,5.448)$.</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC3:** $\hat p=0.225$; margen $=0.058$; IC $=(0.167,\,0.283)$.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC4:** $\bar x=12.5$, $s=0.539$, $t_{0.025,8}=2.306$; margen $=0.414$; IC $=(12.09,\,12.91)$.</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC5:** el margen es proporcional a $1/\sqrt n$. Con $4n$: la extensión se reduce **a la mitad**, no a la cuarta parte.</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC6:** $\mu&gt;\bar X - z_\alpha\cdot\sigma/\sqrt n$ — el límite inferior de confianza es $\bar x - z_\alpha\cdot\sigma/\sqrt n$.</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC7:** (a) $Y\sim\text{Binomial}(1000,\,0.95)$. (b) $E(Y)=950$. (c) $P(940\le Y\le960)=0.873$.</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC8:** ancho total: 90% → $0.936$; 95% → $1.116$; 99% → $1.466$. Mayor confianza requiere un intervalo más ancho.</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
