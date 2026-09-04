@@ -1,16 +1,16 @@
 ---
-title: "Práctica manual · Intervalos de confianza"
+title: "Práctica manual · Unidad 3 (Sesiones 12-15)"
 ---
 
 ::: {.hero-motivacion}
 ## ✍️ Para resolver a mano, con lápiz y papel
 
-Estos ejercicios cubren los tres casos de intervalos de confianza del [Tema I3](tema-i3-estudiante.qmd) — $\sigma$ conocida, $\sigma$ desconocida con muestra grande, y $t$ para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.
+Este banco cubre las 4 sesiones de la Unidad 3, en el mismo orden del cronograma: distribución bivariada (12), marginal y condicional (13), independencia y valor esperado de función de v.a. (14), y pruebas de hipótesis e intervalos de confianza (15). Resuelve primero por tu cuenta.
 :::
 
 ::: {.callout-note}
 ## Fuente
-Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Capítulo 7. Todas las respuestas fueron verificadas de forma independiente.
+Los ejercicios de las Sesiones 12-14 están basados en Blanco Castañeda, L. (2010), *Probabilidad*, Universidad Nacional de Colombia (Cap. 5-6). Los de la Sesión 15 están basados en Walpole, R. et al., *Probabilidad y Estadística para Ingeniería y Ciencias* (Cap. 7-8). Todas las respuestas fueron verificadas de forma independiente.
 :::
 
 ::: {.callout-tip}
@@ -19,6 +19,51 @@ La página [Práctica manual — Resueltos](ejercicios-manual-taller3-resueltos.
 :::
 
 ---
+
+# Sesión 12 · Distribución de probabilidad bivariada
+
+**B1.** $X$ e $Y$ tienen distribución conjunta dada por:
+
+| X\\Y | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 0 | 0.1 | 0 | 0 | 0 |
+| −1 | 0.1 | 0.1 | 0 | 0 |
+| −2 | 0.1 | 0.1 | 0.1 | 0 |
+| −3 | 0.1 | 0.1 | 0.1 | 0.1 |
+
+Calcula: (a) $P(X\ge-2,\,Y\ge2)$; (b) $P(X\ge-2 \text{ o } Y\ge2)$; (c) las distribuciones marginales de $X$ y $Y$; (d) la distribución de $Z:=X+Y$.
+
+**B2.** Una urna contiene 4 bolas rojas, 5 negras y 2 azules. Se extraen al azar **sin reemplazo** dos bolas. Sea $X$ el número de bolas rojas extraídas, $Y$ el número de bolas negras extraídas. Halla: (a) la distribución conjunta de $X$ e $Y$; (b) $E(X)$ y $E(Y)$.
+
+**B3.** Repite el ejercicio B2, pero ahora suponiendo que la extracción se hace **con reemplazo**. Compara las distribuciones conjuntas resultantes de B2 y B3 — ¿en qué se parecen y en qué difieren?
+
+**B4.** $X$ e $Y$ tienen densidad conjunta $f(x,y)=c$ para $0<x<4$, $y>0$, $(x-1)<y<(x+1)$ (y cero en otro caso) — una "banda" diagonal, no un rectángulo. (a) Determina el valor de $c$. (b) Calcula $P(X<\frac12,\,Y<\frac12)$ y $P(X<\frac12)$. (c) Determina $E(X)$ y $E(Y)$.
+
+---
+
+# Sesión 13 · Distribución de probabilidad marginal y condicional
+
+**M1.** Un jugador extrae dos bolas, una tras otra (sin reemplazo), de una urna con 5 rojas y 4 negras. Por cada bola roja gana 2 unidades monetarias; por cada negra, pierde 1. Sea $X$ la fortuna del jugador y $Y$ la variable que vale 1 si la primera bola es roja, 0 si es negra. (a) Calcula $E(X\mid Y)$ (es decir, $E(X\mid Y=1)$ y $E(X\mid Y=0)$ por separado). (b) Usa la parte (a) para hallar $E(X)$ (ley de la esperanza total).
+
+**M2 (teórico).** $X$ tiene distribución Bernoulli de parámetro $p$. Si $E(Y\mid X=0)=1$ y $E(Y\mid X=1)=2$, ¿a qué es igual $E(Y)$? (Tu respuesta debe quedar en términos de $p$).
+
+---
+
+# Sesión 14 · Independencia y valor esperado de una función de variables aleatorias
+
+**E1 (teórico — un clásico).** $X$ e $Y$ son variables aleatorias independientes; ambas toman los valores $1$ y $-1$ con probabilidad $\frac12$ cada una. Sea $Z:=XY$. (a) ¿Son $X$, $Y$ y $Z$ independientes **dos a dos** (cada par por separado)? (b) ¿Son $X$, $Y$ y $Z$ independientes **en conjunto** (los tres a la vez)? Explica la diferencia.
+
+**E2 (teórico).** $X$ e $Y$ tienen media 0, varianza 1, y covarianza $\rho$. Sea $Z:=X-\rho Y$. (a) Demuestra que $Z$ y $Y$ **no están correlacionadas** (covarianza cero). (b) Calcula $E(Z)$ y $\text{Var}(Z)$.
+
+**E3.** $X$, $Y$, $Z$ tienen distribución conjunta uniforme sobre las 6 permutaciones de $(1,2,3)$ (cada una con probabilidad $\frac16$). Calcula (a) $E(X+Y+Z)$; (b) $E(XYZ)$. (Pista: antes de sumar nada, pregúntate si estas dos cantidades cambian de una permutación a otra).
+
+---
+
+# Sesión 15 · Pruebas de hipótesis e intervalos de confianza
+
+**H1.** El punto de fusión de una marca de aceite vegetal hidrogenado se midió en $n=16$ muestras, con $\bar x=94.32$. Se sabe que la distribución es normal con $\sigma=1.20$. (a) Prueba $H_0:\mu=95$ contra $H_a:\mu\ne95$ con nivel de significancia 0.01. (b) Si el valor real fuera $\mu=94$, ¿cuál es la probabilidad (aproximada) de un error de tipo II con esta prueba?
+
+**H2.** Se anuncia que la duración promedio de cierto tipo de foco es 750 horas. Un cliente sospecha que es menor y prueba una muestra de $n=50$ focos, obteniendo $\bar x=738.44$ horas y $s=38.20$ horas. (a) Plantea las hipótesis apropiadas (nota: el cliente solo actuará si se demuestra que la duración real es *menor* a la anunciada). (b) Calcula el estadístico de prueba y el valor P. (c) ¿Qué concluyes con $\alpha=0.05$?
 
 **IC1.** Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con $\sigma=1.8$ conocida. Una muestra de $n=40$ ejes da $\bar{x}=45.2$. Calcula un IC de 95% para el diámetro promedio real.
 
@@ -30,7 +75,7 @@ La página [Práctica manual — Resueltos](ejercicios-manual-taller3-resueltos.
 
 **IC5 (teórico).** Para el IC $\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n$: si el tamaño de muestra se cuadruplica (de $n$ a $4n$), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.
 
-**IC6 (teórico).** A partir de la desigualdad bilateral $P\!\left(-z_\alpha<\dfrac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha\right)=1-\alpha$ (nota: con $z_\alpha$, no $z_{\alpha/2}$), deriva un intervalo **unilateral** que dé solo un **límite inferior de confianza** para $\mu$, con nivel de confianza $100(1-\alpha)\%$. (Pista: parte de una desigualdad de un solo lado, $\dfrac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha$, y despeja $\mu$).
+**IC6 (teórico).** A partir de la desigualdad bilateral $P\!\left(-z_\alpha<\dfrac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha\right)=1-\alpha$ (nota: con $z_\alpha$, no $z_{\alpha/2}$), deriva un intervalo **unilateral** que dé solo un **límite inferior de confianza** para $\mu$, con nivel de confianza $100(1-\alpha)\%$.
 
 **IC7 (conceptual).** Un asesor calculará 1000 intervalos de confianza de 95% para $\mu$, uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea $Y$ el número de esos 1000 intervalos que sí contienen el verdadero valor de $\mu$ correspondiente. (a) ¿Qué distribución tiene $Y$? (b) ¿Cuál es $E(Y)$? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a $\mu$?
 
@@ -41,14 +86,40 @@ La página [Práctica manual — Resueltos](ejercicios-manual-taller3-resueltos.
 ## ✅ Respuestas
 
 ::: {.callout-tip collapse="true"}
-## Ver respuestas
+## Ver respuestas — Sesión 12 (Bivariada)
 
+- **B1:** (a) 0.3; (b) 0.9; (c) $X$: $P(0)=0.1,P(-1)=0.2,P(-2)=0.3,P(-3)=0.4$; $Y$: $P(1)=0.4,P(2)=0.3,P(3)=0.2,P(4)=0.1$; (d) $Z\in\{-2,-1,0,1\}$ con probabilidades $0.1,0.2,0.3,0.4$.
+- **B2:** $E(X)=8/11\approx0.727$, $E(Y)=10/11\approx0.909$.
+- **B3:** mismos valores esperados ($E(X)=8/11$, $E(Y)=10/11$) pero la distribución conjunta es distinta — con reemplazo hay más masa de probabilidad en los extremos (0,0) y menos concentración en el centro, porque las extracciones son independientes.
+- **B4:** (a) $c=2/15\approx0.1333$; (b) $P(X<0.5,Y<0.5)=0.0333$, $P(X<0.5)=0.0833$; (c) $E(X)\approx2.111$, $E(Y)\approx2.156$.
+:::
+
+::: {.callout-tip collapse="true"}
+## Ver respuestas — Sesión 13 (Marginal y condicional)
+
+- **M1:** (a) $E(X\mid Y=1)=2.5$, $E(X\mid Y=0)=-0.125$; (b) $E(X)=4/3\approx1.333$.
+- **M2:** $E(Y)=1\cdot(1-p)+2\cdot p=1+p$.
+:::
+
+::: {.callout-tip collapse="true"}
+## Ver respuestas — Sesión 14 (Independencia y valor esperado)
+
+- **E1:** (a) Sí, son independientes dos a dos. (b) No, no son independientes en conjunto — es el contraejemplo clásico que muestra que independencia dos a dos **no implica** independencia conjunta.
+- **E2:** (a) $\text{Cov}(Z,Y)=\rho-\rho\cdot1=0$. (b) $E(Z)=0$, $\text{Var}(Z)=1-\rho^2$.
+- **E3:** (a) $E(X+Y+Z)=6$; (b) $E(XYZ)=6$ — ambas cantidades son **constantes** (no varían entre permutaciones: siempre suman $1+2+3=6$ y siempre multiplican $1\times2\times3=6$), así que su valor esperado es simplemente ese valor constante, sin necesidad de sumar nada ponderado por probabilidades.
+:::
+
+::: {.callout-tip collapse="true"}
+## Ver respuestas — Sesión 15 (Pruebas de hipótesis e IC)
+
+- **H1:** (a) $z=-2.267$; como $|z|<z_{0.005}=2.576$, no se rechaza $H_0$. (b) $\beta(94)\approx0.224$.
+- **H2:** (a) $H_0:\mu=750$ contra $H_a:\mu<750$ (prueba de extremo inferior). (b) $z\approx-2.14$, valor P $\approx0.016$. (c) Como $0.016<0.05$, se rechaza $H_0$ — hay evidencia de que la duración real es menor a la anunciada.
 - **IC1:** margen $=0.558$; IC $=(44.64,\,45.76)$.
 - **IC2:** margen $=0.028$; IC $=(5.392,\,5.448)$.
 - **IC3:** $\hat p=0.225$; margen $=0.058$; IC $=(0.167,\,0.283)$.
 - **IC4:** $\bar x=12.5$, $s=0.539$, $t_{0.025,8}=2.306$; margen $=0.414$; IC $=(12.09,\,12.91)$.
-- **IC5:** el margen es proporcional a $1/\sqrt n$. Con $4n$: $1/\sqrt{4n}=1/(2\sqrt n)$ — la extensión se reduce **a la mitad**, no a la cuarta parte (cuadruplicar $n$ solo reduce el margen por un factor de 2, no de 4 — un error común).
-- **IC6:** $\mu>\bar X - z_\alpha\cdot\sigma/\sqrt n$ — el límite inferior de confianza es $\bar x - z_\alpha\cdot\sigma/\sqrt n$, con confianza $100(1-\alpha)\%$.
+- **IC5:** el margen es proporcional a $1/\sqrt n$. Con $4n$: la extensión se reduce **a la mitad**, no a la cuarta parte.
+- **IC6:** $\mu>\bar X - z_\alpha\cdot\sigma/\sqrt n$ — el límite inferior de confianza es $\bar x - z_\alpha\cdot\sigma/\sqrt n$.
 - **IC7:** (a) $Y\sim\text{Binomial}(1000,\,0.95)$. (b) $E(Y)=950$. (c) $P(940\le Y\le960)=0.873$.
-- **IC8:** ancho total: 90% → $0.936$; 95% → $1.116$; 99% → $1.466$. Mayor confianza requiere un intervalo más ancho — tiene sentido: estar "más seguro" exige abarcar más posibilidades.
+- **IC8:** ancho total: 90% → $0.936$; 95% → $1.116$; 99% → $1.466$. Mayor confianza requiere un intervalo más ancho.
 :::

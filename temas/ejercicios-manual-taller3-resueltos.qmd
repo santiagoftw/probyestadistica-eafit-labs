@@ -1,20 +1,334 @@
 ---
-title: "Práctica manual · Intervalos de confianza — Resueltos"
+title: "Práctica manual · Unidad 3 — Resueltos"
 ---
 
 ::: {.hero-motivacion}
 ## 📐 El mismo banco, con desarrollo completo
 
-Resuelve primero en [Práctica manual · Intervalos de confianza](ejercicios-manual-taller3.qmd) — esta página tiene el paso a paso y el código en R.
+Resuelve primero en [Práctica manual · Unidad 3](ejercicios-manual-taller3.qmd) — esta página tiene el paso a paso y el código en R, sesión por sesión.
 :::
 
 ---
 
+# Sesión 12 · Distribución de probabilidad bivariada
+
+### B1 — Tabla conjunta: eventos, marginales y la distribución de una suma
+
+**Enunciado:** ver la tabla en la página de ejercicios. Calcula (a)-(d).
+
+**Desarrollo teórico:** para (a) y (b), suma directamente las celdas que cumplen la condición. Para (d), enumera cada celda con probabilidad positiva, calcula $z=x+y$ para cada una, y agrupa las probabilidades por valor de $z$ repetido.
+
+```{r}
+X <- c(0, -1, -1, -2, -2, -2, -3, -3, -3, -3)
+Y <- c(1,  1,  2,  1,  2,  3,  1,  2,  3,  4)
+p <- rep(0.1, 10)
+
+# (a) P(X>=-2, Y>=2)
+sum(p[X >= -2 & Y >= 2])
+
+# (b) P(X>=-2 o Y>=2)
+sum(p[X >= -2 | Y >= 2])
+
+# (c) Marginales
+tapply(p, X, sum)
+tapply(p, Y, sum)
+
+# (d) Distribución de Z = X+Y
+tapply(p, X + Y, sum)
+```
+
+**Resultado:** (a) $0.3$; (b) $0.9$; (c) marginales de $X$: $0.1,0.2,0.3,0.4$ para $0,-1,-2,-3$; de $Y$: $0.4,0.3,0.2,0.1$ para $1,2,3,4$; (d) $Z\in\{-2,-1,0,1\}$ con probabilidades $0.1,0.2,0.3,0.4$.
+
+---
+
+### B2 y B3 — Urna sin y con reemplazo
+
+**Enunciado:** urna con 4 rojas, 5 negras, 2 azules; extraer 2 bolas. B2 sin reemplazo, B3 con reemplazo. Halla la distribución conjunta de $X$ (# rojas) y $Y$ (# negras), y $E(X)$, $E(Y)$.
+
+**Desarrollo teórico (B2, sin reemplazo):** la distribución conjunta es hipergeométrica multivariada:
+
+$$P(X=x,Y=y) = \frac{\binom{4}{x}\binom{5}{y}\binom{2}{2-x-y}}{\binom{11}{2}}$$
+
+Para las medias, la fórmula hipergeométrica da directamente $E(X)=n\cdot\frac{K}{N}=2\cdot\frac{4}{11}$ y $E(Y)=2\cdot\frac{5}{11}$ — sin necesidad de sumar la tabla completa.
+
+```{r}
+# B2: sin reemplazo
+tabla_sr <- matrix(0, nrow = 3, ncol = 3, dimnames = list(paste0("x=",0:2), paste0("y=",0:2)))
+for (x in 0:2) for (y in 0:2) {
+  z <- 2 - x - y
+  if (z >= 0 && z <= 2) tabla_sr[x+1, y+1] <- choose(4,x)*choose(5,y)*choose(2,z) / choose(11,2)
+}
+tabla_sr
+
+E_X_sr <- sum(sapply(0:2, function(x) x * sum(tabla_sr[x+1, ])))
+E_Y_sr <- sum(sapply(0:2, function(y) y * sum(tabla_sr[, y+1])))
+c(E_X = E_X_sr, "2*4/11" = 2*4/11, E_Y = E_Y_sr, "2*5/11" = 2*5/11)
+```
+
+**Desarrollo teórico (B3, con reemplazo):** ahora cada extracción es independiente, con $P(\text{roja})=4/11$, $P(\text{negra})=5/11$, $P(\text{azul})=2/11$ constantes — la distribución conjunta de $(X,Y)$ es multinomial con $n=2$.
+
+```{r}
+# B3: con reemplazo
+pR <- 4/11; pN <- 5/11; pA <- 2/11
+tabla_cr <- matrix(0, nrow = 3, ncol = 3, dimnames = list(paste0("x=",0:2), paste0("y=",0:2)))
+for (x in 0:2) for (y in 0:2) {
+  z <- 2 - x - y
+  if (z >= 0) tabla_cr[x+1, y+1] <- factorial(2)/(factorial(x)*factorial(y)*factorial(z)) * pR^x * pN^y * pA^z
+}
+round(tabla_cr, 4)
+```
+
+::: {.ficha-resultado}
+$E(X)=8/11\approx0.727$ y $E(Y)=10/11\approx0.909$ **coinciden** en ambos casos (con y sin reemplazo) — el valor esperado de una hipergeométrica y de la binomial correspondiente siempre coinciden. Pero las tablas completas sí difieren: sin reemplazo hay algo menos de dispersión en los extremos, porque las extracciones "compiten" por las bolas restantes; con reemplazo hay más masa en $(0,0)$ y $(2,0)$ que en la versión sin reemplazo (compáralas celda por celda).
+:::
+
+---
+
+### B4 — Densidad conjunta en una banda diagonal
+
+**Enunciado:** $f(x,y)=c$ para $0<x<4$, $y>0$, $(x-1)<y<(x+1)$.
+
+**Desarrollo teórico:** el soporte es una banda diagonal, no un rectángulo — los límites de integración en $y$ dependen de $x$. Para $0<x<1$: como $x-1<0$, el límite inferior real es $y=0$ (por la restricción $y>0$), así que $y$ va de $0$ a $x+1$. Para $1\le x<4$: $y$ va de $x-1$ a $x+1$ (ancho constante 2).
+
+```{r}
+f <- function(x, y) 1 + 0*x + 0*y   # constante; el "+0*x+0*y" la vectoriza correctamente
+
+y_inf <- function(x) pmax(0, x - 1)
+y_sup <- function(x) x + 1
+
+area_interna <- function(x) integrate(function(y) f(x, y), y_inf(x), y_sup(x))$value
+area_total <- integrate(function(x) sapply(x, area_interna), 0, 4)$value
+c_dens <- 1 / area_total   # "c_dens" para no chocar con la función c() de R
+c_dens
+```
+
+```{r}
+# (b) P(X<0.5, Y<0.5)
+f_c <- function(x, y) c_dens + 0*x + 0*y
+area_b <- integrate(function(x) sapply(x, function(xi)
+  integrate(function(y) f_c(xi, y), y_inf(xi), pmin(y_sup(xi), 0.5))$value
+), 0, 0.5)$value
+area_b
+
+# P(X<0.5)
+p_X_menor_0.5 <- integrate(function(x) sapply(x, function(xi) c_dens * (y_sup(xi) - y_inf(xi))), 0, 0.5)$value
+p_X_menor_0.5
+```
+
+```{r}
+# (c) E(X), E(Y)
+E_X <- integrate(function(x) sapply(x, function(xi)
+  integrate(function(y) xi * f_c(xi, y), y_inf(xi), y_sup(xi))$value
+), 0, 4)$value
+
+E_Y <- integrate(function(x) sapply(x, function(xi)
+  integrate(function(y) y * f_c(xi, y), y_inf(xi), y_sup(xi))$value
+), 0, 4)$value
+
+c(c_dens = c_dens, E_X = E_X, E_Y = E_Y)
+```
+
+**Resultado:** $c=2/15\approx0.1333$; $P(X<0.5,Y<0.5)=0.0333$; $P(X<0.5)=0.0833$; $E(X)\approx2.111$; $E(Y)\approx2.156$.
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Cuando el soporte no es un rectángulo, el primer paso siempre es identificar cómo cambian los límites de integración según la otra variable — aquí, la restricción $y>0$ "recorta" la banda para $x<1$. Dibujar la región en papel antes de integrar ahorra la mayoría de los errores en este tipo de problema. [Ver más trucos →](../recursos.qmd)
+:::
+
+---
+
+# Sesión 13 · Distribución de probabilidad marginal y condicional
+
+### M1 — Valor esperado condicional en un juego de urna
+
+**Enunciado:** urna 5 rojas, 4 negras; extraer 2 sin reemplazo. $X$=fortuna (+2 por roja, −1 por negra), $Y$=1 si la primera es roja. Halla $E(X\mid Y)$ y úsalo para $E(X)$.
+
+**Desarrollo teórico:** condicionar en $Y$ fija el resultado de la primera extracción, así que solo queda promediar sobre la segunda extracción (con la urna ya reducida).
+
+```{r}
+# E(X | Y=1): primera roja (+2), la urna queda con 4R, 4N (8 bolas) para la segunda
+E_X_dado_Y1 <- 2 + (4/8 * 2 + 4/8 * (-1))
+
+# E(X | Y=0): primera negra (-1), la urna queda con 5R, 3N (8 bolas) para la segunda
+E_X_dado_Y0 <- -1 + (5/8 * 2 + 3/8 * (-1))
+
+c(E_X_dado_Y1 = E_X_dado_Y1, E_X_dado_Y0 = E_X_dado_Y0)
+
+# Ley de la esperanza total: E(X) = E(X|Y=1)P(Y=1) + E(X|Y=0)P(Y=0)
+P_Y1 <- 5/9; P_Y0 <- 4/9
+E_X <- E_X_dado_Y1 * P_Y1 + E_X_dado_Y0 * P_Y0
+c(E_X = E_X, "4/3" = 4/3)
+```
+
+```{r}
+# Verificacion por enumeracion exhaustiva de las 9*8=72 extracciones ordenadas posibles
+es_roja <- function(i) i <= 5   # bolas 1-5 rojas, 6-9 negras
+combos <- expand.grid(primera = 1:9, segunda = 1:9)
+combos <- combos[combos$primera != combos$segunda, ]
+combos$ganancia <- ifelse(es_roja(combos$primera), 2, -1) + ifelse(es_roja(combos$segunda), 2, -1)
+mean(combos$ganancia)
+```
+
+**Resultado:** $E(X\mid Y=1)=2.5$, $E(X\mid Y=0)=-0.125$, $E(X)=4/3\approx1.333$ — confirmado también por enumeración exhaustiva de las 72 extracciones ordenadas igualmente probables.
+
+---
+
+### M2 — Ley de la esperanza total, versión simbólica
+
+**Enunciado:** $X\sim\text{Bernoulli}(p)$; $E(Y\mid X=0)=1$, $E(Y\mid X=1)=2$. Halla $E(Y)$.
+
+**Desarrollo teórico:** la ley de la esperanza total dice $E(Y)=E(Y\mid X=0)P(X=0)+E(Y\mid X=1)P(X=1)$. Con $P(X=0)=1-p$ y $P(X=1)=p$:
+
+$$E(Y) = 1\cdot(1-p) + 2\cdot p = 1 - p + 2p = 1+p$$
+
+```{r}
+# Verificación numérica para un valor concreto de p
+p <- 0.3
+E_Y <- 1*(1-p) + 2*p
+c(E_Y = E_Y, "1+p" = 1+p)
+```
+
+---
+
+# Sesión 14 · Independencia y valor esperado de una función de variables aleatorias
+
+### E1 — El contraejemplo clásico: independencia dos a dos ≠ independencia conjunta
+
+**Enunciado:** $X,Y$ independientes, cada una $\pm1$ con probabilidad $\frac12$. $Z:=XY$. ¿Independientes dos a dos? ¿En conjunto?
+
+**Desarrollo teórico:** hay 4 resultados igualmente probables para $(X,Y)$: $(1,1),(1,-1),(-1,1),(-1,-1)$, cada uno con probabilidad $\frac14$. $Z=XY$ toma el valor $1$ en $(1,1)$ y $(-1,-1)$, y $-1$ en los otros dos — así que $Z$ también es $\pm1$ con probabilidad $\frac12$ cada uno.
+
+```{r}
+resultados <- expand.grid(X = c(1,-1), Y = c(1,-1))
+resultados$Z <- resultados$X * resultados$Y
+resultados$p <- 0.25
+resultados
+```
+
+```{r}
+# Independencia dos a dos: comparar P(X=1,Z=1) con P(X=1)*P(Z=1)
+p_X1Z1 <- sum(resultados$p[resultados$X==1 & resultados$Z==1])
+p_X1 <- sum(resultados$p[resultados$X==1])
+p_Z1 <- sum(resultados$p[resultados$Z==1])
+c(conjunta = p_X1Z1, producto_marginales = p_X1 * p_Z1)
+```
+
+```{r}
+# Independencia EN CONJUNTO: comparar P(X=1,Y=1,Z=1) con P(X=1)*P(Y=1)*P(Z=1)
+p_XYZ <- sum(resultados$p[resultados$X==1 & resultados$Y==1 & resultados$Z==1])
+p_Y1 <- sum(resultados$p[resultados$Y==1])
+c(conjunta = p_XYZ, producto_tres_marginales = p_X1 * p_Y1 * p_Z1)
+```
+
+**Resultado:** (a) $P(X{=}1,Z{=}1)=0.25=P(X{=}1)P(Z{=}1)$ — son independientes dos a dos (lo mismo aplica a los otros pares, por simetría). (b) $P(X{=}1,Y{=}1,Z{=}1)=0.25\ne P(X{=}1)P(Y{=}1)P(Z{=}1)=0.125$ — **no** son independientes en conjunto.
+
+::: {.callout-important}
+## Por qué pasa esto
+$Z$ está completamente **determinado** por $X$ y $Y$ juntos ($Z=XY$), así que una vez conoces $X$ y $Y$, ya sabes $Z$ con certeza — no hay ninguna aleatoriedad "extra" en $Z$ una vez fijos los otros dos. Esa dependencia estructural no se nota al mirar los pares por separado (cada par sigue pareciendo independiente), pero sí aparece en cuanto se consideran los tres a la vez. Es la razón por la que, en general, verificar independencia dos a dos **nunca** es suficiente para concluir independencia conjunta.
+:::
+
+---
+
+### E2 — Manipulando covarianzas algebraicamente
+
+**Enunciado:** $X,Y$ con media 0, varianza 1, covarianza $\rho$. $Z:=X-\rho Y$. Demuestra $\text{Cov}(Z,Y)=0$ y calcula $E(Z)$, $\text{Var}(Z)$.
+
+**Desarrollo teórico:** usando la bilinealidad de la covarianza:
+
+$$\text{Cov}(Z,Y) = \text{Cov}(X-\rho Y,\,Y) = \text{Cov}(X,Y) - \rho\,\text{Cov}(Y,Y) = \rho - \rho\cdot\text{Var}(Y) = \rho - \rho\cdot1 = 0 \qquad\blacksquare$$
+
+$$E(Z) = E(X) - \rho E(Y) = 0 - \rho\cdot0 = 0$$
+
+$$\text{Var}(Z) = \text{Var}(X) - 2\rho\,\text{Cov}(X,Y) + \rho^2\text{Var}(Y) = 1 - 2\rho\cdot\rho + \rho^2\cdot1 = 1-\rho^2$$
+
+```{r}
+# Verificación numérica simulando X,Y correlacionadas con rho=0.6
+library(MASS)
+rho <- 0.6
+set.seed(1)
+datos <- mvrnorm(200000, mu = c(0,0), Sigma = matrix(c(1,rho,rho,1), 2))
+X <- datos[,1]; Y <- datos[,2]
+Z <- X - rho*Y
+
+c(Cov_ZY = cov(Z, Y), E_Z = mean(Z), Var_Z = var(Z), "1-rho^2" = 1 - rho^2)
+```
+
+**Resultado:** $\text{Cov}(Z,Y)\approx0$ (simulado), $E(Z)=0$, $\text{Var}(Z)=1-\rho^2=0.64$ — ambos confirmados por simulación.
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+$Z=X-\rho Y$ es, literalmente, "la parte de $X$ que no se puede explicar linealmente con $Y$" — el residuo de una regresión simple. Que quede sin correlación con $Y$ es la propiedad que define ese residuo: ya se le quitó a $X$ toda la parte relacionada con $Y$. [Ver más trucos →](../recursos.qmd)
+:::
+
+---
+
+### E3 — Cuando no hace falta sumar nada
+
+**Enunciado:** $(X,Y,Z)$ uniforme sobre las 6 permutaciones de $(1,2,3)$. Calcula $E(X+Y+Z)$ y $E(XYZ)$.
+
+**Desarrollo teórico:** en cada una de las 6 permutaciones, $\{X,Y,Z\}=\{1,2,3\}$ en algún orden — así que $X+Y+Z=1+2+3=6$ y $XYZ=1\times2\times3=6$ **siempre**, sin importar cuál permutación salió. El valor esperado de una variable que es constante (no varía entre resultados) es simplemente esa constante — no hace falta ponderar por probabilidades.
+
+```{r}
+permutaciones <- list(c(1,2,3), c(2,1,3), c(3,2,1), c(1,3,2), c(2,3,1), c(3,1,2))
+
+sumas <- sapply(permutaciones, sum)
+productos <- sapply(permutaciones, prod)
+
+c(sumas_por_permutacion = list(sumas), E_suma = mean(sumas))
+c(productos_por_permutacion = list(productos), E_producto = mean(productos))
+```
+
+**Resultado:** $E(X+Y+Z)=6$ y $E(XYZ)=6$ — confirmado: las 6 permutaciones dan exactamente 6 en ambos casos, así que promediar 6 seises sigue dando 6.
+
+---
+
+# Sesión 15 · Pruebas de hipótesis e intervalos de confianza
+
+### H1 — Prueba Z de dos extremos, con cálculo de β
+
+**Enunciado:** punto de fusión de aceite hidrogenado, $n=16$, $\bar x=94.32$, $\sigma=1.20$ conocida. (a) Prueba $H_0:\mu=95$ contra $H_a:\mu\ne95$, $\alpha=0.01$. (b) $\beta(94)$ aproximado.
+
+```{r}
+n <- 16; sigma <- 1.20; xbar <- 94.32; mu0 <- 95; alpha <- 0.01
+
+z <- (xbar - mu0) / (sigma / sqrt(n))
+z_critico <- qnorm(1 - alpha/2)
+c(z = z, z_critico = z_critico, rechaza = abs(z) >= z_critico)
+```
+
+```{r}
+# (b) beta(94): probabilidad de NO rechazar H0 cuando el valor real es mu=94
+mu_real <- 94
+sigma_xbar <- sigma / sqrt(n)
+beta <- pnorm(z_critico - (mu_real - mu0)/sigma_xbar) - pnorm(-z_critico - (mu_real - mu0)/sigma_xbar)
+beta
+```
+
+**Resultado:** $z=-2.267$; como $|z|=2.267<z_{0.005}=2.576$, **no se rechaza** $H_0$ al nivel 0.01. $\beta(94)\approx0.224$: incluso si el verdadero punto de fusión fuera 94 (una desviación real de 1 grado respecto al valor nulo), hay 22% de probabilidad de no detectarlo con esta muestra.
+
+---
+
+### H2 — Prueba de extremo inferior con datos tipo MINITAB
+
+**Enunciado:** focos, duración anunciada 750 h. $n=50$, $\bar x=738.44$, $s=38.20$. ¿Hay evidencia de que la duración real es menor?
+
+**Desarrollo teórico:** el contexto ("el cliente actuará solo si se demuestra que la duración es menor") indica una prueba de **extremo inferior**: $H_0:\mu=750$ contra $H_a:\mu<750$. Con $n=50>40$, se sustituye $\sigma$ por $s$ (caso de muestra grande).
+
+```{r}
+n <- 50; xbar <- 738.44; s <- 38.20; mu0 <- 750
+
+EE <- s / sqrt(n)
+z <- (xbar - mu0) / EE
+valor_P <- pnorm(z)   # extremo inferior
+
+c(EE = EE, z = z, valor_P = valor_P)
+```
+
+**Resultado:** $z\approx-2.14$, valor P $\approx0.016$ — coincide exactamente con la salida de MINITAB citada en el enunciado original. Como $0.016<0.05$, se **rechaza** $H_0$ al nivel 0.05: hay evidencia de que la duración promedio real es menor a las 750 horas anunciadas.
+
+---
+
 ### IC1 — $\sigma$ conocida
-
-**Enunciado:** ejes con $\sigma=1.8$ mm conocida, $n=40$, $\bar x=45.2$. IC de 95%.
-
-**Desarrollo teórico:** caso más simple, $\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n$, con $z_{0.025}=1.96$.
 
 ```{r}
 n <- 40; sigma <- 1.8; xbar <- 45.2
@@ -28,10 +342,6 @@ c(margen = margen, inferior = xbar - margen, superior = xbar + margen)
 
 ### IC2 — $\sigma$ desconocida, muestra grande
 
-**Enunciado:** espesor de recubrimientos, $n=45$, $\bar x=5.42$, $s=0.095$. IC de 95%.
-
-**Desarrollo teórico:** $n=45>40$, así que aplica el caso de muestra grande: sustituir $\sigma$ por $s$ en la misma fórmula, con $z_{0.025}=1.96$.
-
 ```{r}
 n <- 45; xbar <- 5.42; s <- 0.095
 margen <- qnorm(0.975) * s / sqrt(n)
@@ -44,10 +354,6 @@ c(margen = margen, inferior = xbar - margen, superior = xbar + margen)
 
 ### IC3 — Proporción
 
-**Enunciado:** 45 defectuosos de 200 inspeccionados. IC de 95% para $p$.
-
-**Desarrollo teórico:** $\hat p=45/200=0.225$. Fórmula simple: $\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}$.
-
 ```{r}
 n <- 200; x <- 45
 p_hat <- x / n
@@ -56,127 +362,76 @@ c(p_hat = p_hat, margen = margen, inferior = p_hat - margen, superior = p_hat + 
 ```
 
 ```{r}
-# Comparación con la versión ajustada de R
 prop.test(x, n, correct = FALSE)$conf.int
 ```
 
-**Resultado:** fórmula simple $(0.167,\,0.283)$; la versión ajustada de `prop.test()` da un intervalo muy similar aquí porque $n$ es grande y $\hat p$ no está cerca de los extremos.
+**Resultado:** fórmula simple $(0.167,\,0.283)$.
 
 ---
 
 ### IC4 — Muestra pequeña, distribución $t$
 
-**Enunciado:** tiempos de ensamblaje (min): `12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6`. IC de 95%, suponiendo normalidad.
-
-**Desarrollo teórico:** $n=9$ es pequeña — usar $t$ con $n-1=8$ grados de libertad, no $z$.
-
 ```{r}
 datos <- c(12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6)
-n <- length(datos)
-xbar <- mean(datos)
-s <- sd(datos)
-
+n <- length(datos); xbar <- mean(datos); s <- sd(datos)
 t_critico <- qt(0.975, df = n - 1)
 margen <- t_critico * s / sqrt(n)
-
 c(xbar = xbar, s = s, t_critico = t_critico, margen = margen)
 c(inferior = xbar - margen, superior = xbar + margen)
 ```
 
-**Resultado:** $\bar x=12.5$, $s=0.539$, $t_{0.025,8}=2.306$; IC $=(12.09,\,12.91)$.
+**Resultado:** IC $=(12.09,\,12.91)$.
 
 ---
 
 ### IC5 — Demostración: cuadruplicar $n$
 
-**Enunciado:** ¿en qué factor cambia la extensión del IC si $n\to4n$?
-
-**Desarrollo teórico:**
-
-$$\text{margen}(n) = z_{\alpha/2}\cdot\frac{\sigma}{\sqrt n} \qquad \text{margen}(4n) = z_{\alpha/2}\cdot\frac{\sigma}{\sqrt{4n}} = z_{\alpha/2}\cdot\frac{\sigma}{2\sqrt n} = \frac{1}{2}\,\text{margen}(n)$$
-
-Cuadruplicar $n$ reduce el margen (y por lo tanto la extensión total) **a la mitad**, no a la cuarta parte — el margen escala con $1/\sqrt n$, no con $1/n$.
+$$\text{margen}(4n) = z_{\alpha/2}\cdot\frac{\sigma}{\sqrt{4n}} = z_{\alpha/2}\cdot\frac{\sigma}{2\sqrt n} = \frac12\,\text{margen}(n)$$
 
 ```{r}
 n <- 40; sigma <- 1.8; z <- qnorm(0.975)
-
-margen_n  <- z * sigma / sqrt(n)
-margen_4n <- z * sigma / sqrt(4 * n)
-
-c(margen_n = margen_n, margen_4n = margen_4n, razon = margen_n / margen_4n)
+c(margen_n = z*sigma/sqrt(n), margen_4n = z*sigma/sqrt(4*n))
 ```
 
 ---
 
-### IC6 — Demostración: intervalo unilateral
+### IC6 — Demostración: límite unilateral
 
-**Enunciado:** deriva un límite inferior de confianza de $100(1-\alpha)\%$ para $\mu$.
-
-**Desarrollo teórico:** partiendo de la desigualdad de un solo lado:
-
-$$P\!\left(\frac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha\right)=1-\alpha$$
-
-Despejando $\mu$ (multiplicando por $\sigma/\sqrt n>0$, que no invierte la desigualdad, y luego reordenando):
-
-$$\bar X-\mu<z_\alpha\cdot\frac{\sigma}{\sqrt n} \;\Longrightarrow\; -\mu<z_\alpha\cdot\frac{\sigma}{\sqrt n}-\bar X \;\Longrightarrow\; \mu>\bar X-z_\alpha\cdot\frac{\sigma}{\sqrt n}$$
-
-Entonces $P\!\left(\mu>\bar X-z_\alpha\cdot\sigma/\sqrt n\right)=1-\alpha$, es decir, $\bar x - z_\alpha\cdot\sigma/\sqrt n$ es un **límite inferior de confianza** de $100(1-\alpha)\%$ para $\mu$ (el intervalo se extiende infinitamente hacia arriba: $(\bar x - z_\alpha\sigma/\sqrt n,\ \infty)$).
+$$P\!\left(\frac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha\right)=1-\alpha \;\Longrightarrow\; \mu>\bar X-z_\alpha\cdot\frac{\sigma}{\sqrt n}$$
 
 ```{r}
-# Verificación numérica con los datos de IC1, al 95% (unilateral usa z_alpha, no z_alpha/2)
 n <- 40; sigma <- 1.8; xbar <- 45.2
-limite_inferior <- xbar - qnorm(0.95) * sigma / sqrt(n)   # z_0.05, no z_0.025
-limite_inferior
+xbar - qnorm(0.95) * sigma / sqrt(n)
 ```
 
 ---
 
-### IC7 — Distribución de $Y$: cuántos intervalos "aciertan"
-
-**Enunciado:** de 1000 intervalos de 95% independientes, sea $Y$ = número que contienen a $\mu$. (a) Distribución. (b) $E(Y)$. (c) $P(940\le Y\le960)$.
-
-**Desarrollo teórico:** cada intervalo, de forma independiente, tiene probabilidad 0.95 de contener a $\mu$ (por la definición misma de "95% de confianza" — ver el Tema I3). Contar cuántos de 1000 ensayos independientes "tienen éxito" con probabilidad constante 0.95 es exactamente la definición de una variable **binomial**.
+### IC7 — $Y\sim$ Binomial(1000, 0.95)
 
 ```{r}
-n_intervalos <- 1000; p_acierto <- 0.95
-
-E_Y <- n_intervalos * p_acierto
-p_940_960 <- pbinom(960, n_intervalos, p_acierto) - pbinom(939, n_intervalos, p_acierto)
-
+E_Y <- 1000 * 0.95
+p_940_960 <- pbinom(960, 1000, 0.95) - pbinom(939, 1000, 0.95)
 c(E_Y = E_Y, "P(940<=Y<=960)" = p_940_960)
 ```
 
-**Resultado:** (a) $Y\sim\text{Binomial}(1000,\,0.95)$. (b) $E(Y)=950$. (c) $P(940\le Y\le960)=0.873$.
-
-::: {.callout-tip}
-## 💡 Truco de interpretación
-Este ejercicio conecta dos temas que podrían parecer aislados: la interpretación de "confianza" del Tema I3 (frecuencia relativa a la larga) se convierte, en la práctica, en un experimento binomial exactamente como los del Tema P6 — cada intervalo es un "ensayo" con $p=0.95$ de "éxito" (contener a $\mu$). [Ver más trucos →](../recursos.qmd)
-:::
-
 ---
 
-### IC8 — Ancho del intervalo según el nivel de confianza
-
-**Enunciado:** con $\sigma=1.8$, $n=40$, $\bar x=45.2$, compara el ancho total del IC a 90%, 95% y 99%.
+### IC8 — Ancho según nivel de confianza
 
 ```{r}
 n <- 40; sigma <- 1.8
-
 niveles <- c(0.90, 0.95, 0.99)
-z_vals <- qnorm(1 - (1 - niveles) / 2)
-anchos <- 2 * z_vals * sigma / sqrt(n)
-
-data.frame(confianza = niveles, z = round(z_vals, 3), ancho_total = round(anchos, 3))
+anchos <- 2 * qnorm(1 - (1-niveles)/2) * sigma / sqrt(n)
+data.frame(confianza = niveles, ancho_total = round(anchos, 3))
 ```
-
-**Resultado:** el ancho crece de 0.936 (90%) a 1.116 (95%) a 1.466 (99%) — a mayor confianza exigida, más ancho debe ser el intervalo para "cubrirse" ante más posibilidades. Es el mismo compromiso de fondo que ya viste entre $\alpha$ y $\beta$ en el Tema I1, visto ahora desde el lado de la estimación en vez de la prueba de hipótesis.
 
 ---
 
 ## 🗂️ Cierre
 
 ::: {.card-lab}
-- Los tres primeros casos (IC1-IC4) comparten la misma estructura: estimación $\pm$ valor crítico $\times$ error estándar — memoriza el patrón, no tres fórmulas distintas.
-- Las demostraciones (IC5, IC6) usan álgebra directa sobre la desigualdad de probabilidad original — el mismo estilo de manipulación que ya viste al derivar la fórmula general del IC en la teoría del Tema I3.
-- IC7 es un recordatorio de que los temas de este curso no viven aislados: "confianza" (Unidad 3) y "binomial" (Módulo 2) son, en el fondo, la misma idea de conteo de éxitos aplicada a contextos distintos.
+- **Sesión 12 (bivariada):** la misma lógica de tabla/densidad conjunta se aplica igual en discreto (sumar) que en continuo (integrar) — y con o sin reemplazo, cambia la tabla completa pero no siempre los valores esperados.
+- **Sesión 13 (condicional):** la ley de la esperanza total ($E(X)=\sum_y E(X\mid Y=y)P(Y=y)$) convierte un problema de dos pasos en dos problemas de un paso — condiciona primero, promedia después.
+- **Sesión 14 (independencia y valor esperado):** el ejercicio E1 es la advertencia más importante de este bloque — independencia dos a dos nunca garantiza independencia conjunta. Y E3 recuerda que, si una cantidad es constante en todo el espacio muestral, su valor esperado es trivial.
+- **Sesión 15 (hipótesis e IC):** ambos usan la misma estructura de tres piezas (estadístico, valor crítico o región de rechazo, y una regla de decisión) — practicar reconocer cuál caso aplica ($z$ vs. $t$, un extremo vs. dos) es más importante que memorizar fórmulas nuevas.
 :::
