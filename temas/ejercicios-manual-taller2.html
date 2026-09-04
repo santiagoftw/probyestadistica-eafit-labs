@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ejercicios propuestos · Módulo 1 (Estadística descriptiva) – Estadística Descriptiva — Curso interactivo</title>
+<title>Práctica manual · Binomial, Poisson y Aproximación normal – Estadística Descriptiva — Curso interactivo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../temas/modulo-2-arquitectura.html" rel="next">
-<link href="../temas/preparacion-examen-1.html" rel="prev">
+<link href="../temas/ejercicios-manual-taller2-resueltos.html" rel="next">
+<link href="../temas/ejercicios-modulo2.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -189,7 +189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/tema-00-estudiante.html">Módulo 1 — Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-modulo1.html">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller2.html">Práctica manual · Binomial, Poisson y Aproximación normal</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -290,7 +290,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span></a>
   </div>
 </li>
@@ -415,7 +415,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../temas/ejercicios-manual-taller2.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-manual-taller2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Práctica manual · Binomial, Poisson y Aproximación normal</span></a>
   </div>
 </li>
@@ -514,23 +514,20 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#ejercicios-para-resolver-por-tu-cuenta" id="toc-ejercicios-para-resolver-por-tu-cuenta" class="nav-link active" data-scroll-target="#ejercicios-para-resolver-por-tu-cuenta">🏋️ Ejercicios para resolver por tu cuenta</a></li>
-  <li><a href="#tema-1-clasificación-de-variables" id="toc-tema-1-clasificación-de-variables" class="nav-link" data-scroll-target="#tema-1-clasificación-de-variables">Tema 1 · Clasificación de variables</a></li>
-  <li><a href="#tema-2-frecuencias-y-gráficas-cualitativas" id="toc-tema-2-frecuencias-y-gráficas-cualitativas" class="nav-link" data-scroll-target="#tema-2-frecuencias-y-gráficas-cualitativas">Tema 2 · Frecuencias y gráficas cualitativas</a></li>
-  <li><a href="#tema-3-histograma-y-tabla-de-frecuencias-agrupada" id="toc-tema-3-histograma-y-tabla-de-frecuencias-agrupada" class="nav-link" data-scroll-target="#tema-3-histograma-y-tabla-de-frecuencias-agrupada">Tema 3 · Histograma y tabla de frecuencias agrupada</a></li>
-  <li><a href="#tema-5-dispersión" id="toc-tema-5-dispersión" class="nav-link" data-scroll-target="#tema-5-dispersión">Tema 5 · Dispersión</a></li>
-  <li><a href="#tema-6-cuantiles-y-boxplot" id="toc-tema-6-cuantiles-y-boxplot" class="nav-link" data-scroll-target="#tema-6-cuantiles-y-boxplot">Tema 6 · Cuantiles y boxplot</a></li>
-  <li><a href="#tema-7-momentos-asimetría-y-curtosis" id="toc-tema-7-momentos-asimetría-y-curtosis" class="nav-link" data-scroll-target="#tema-7-momentos-asimetría-y-curtosis">Tema 7 · Momentos, asimetría y curtosis</a></li>
-  <li><a href="#tema-8-datos-conjuntos" id="toc-tema-8-datos-conjuntos" class="nav-link" data-scroll-target="#tema-8-datos-conjuntos">Tema 8 · Datos conjuntos</a></li>
+  <li><a href="#para-resolver-a-mano-con-lápiz-y-papel" id="toc-para-resolver-a-mano-con-lápiz-y-papel" class="nav-link active" data-scroll-target="#para-resolver-a-mano-con-lápiz-y-papel">✍️ Para resolver a mano, con lápiz y papel</a></li>
+  <li><a href="#sección-1-distribución-binomial" id="toc-sección-1-distribución-binomial" class="nav-link" data-scroll-target="#sección-1-distribución-binomial">Sección 1 · Distribución binomial</a></li>
+  <li><a href="#sección-2-distribución-de-poisson" id="toc-sección-2-distribución-de-poisson" class="nav-link" data-scroll-target="#sección-2-distribución-de-poisson">Sección 2 · Distribución de Poisson</a></li>
+  <li><a href="#sección-3-aproximación-normal-a-la-distribución-binomial" id="toc-sección-3-aproximación-normal-a-la-distribución-binomial" class="nav-link" data-scroll-target="#sección-3-aproximación-normal-a-la-distribución-binomial">Sección 3 · Aproximación normal a la distribución binomial</a></li>
+  <li><a href="#respuestas" id="toc-respuestas" class="nav-link" data-scroll-target="#respuestas">✅ Respuestas</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/tema-00-estudiante.html">Módulo 1 — Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-modulo1.html">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller2.html">Práctica manual · Binomial, Poisson y Aproximación normal</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Práctica manual · Binomial, Poisson y Aproximación normal</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -547,106 +544,152 @@ window.Quarto = {
 </header>
 
 
-<section id="ejercicios-para-resolver-por-tu-cuenta" class="level2 hero-motivacion">
-<h2 class="anchored" data-anchor-id="ejercicios-para-resolver-por-tu-cuenta">🏋️ Ejercicios para resolver por tu cuenta</h2>
-<p>A diferencia de los “Laboratorios” de cada tema (que traen solución guiada), estos ejercicios son <strong>para que los resuelvas tú solo</strong>, tal como aparecen en el libro de Rincón (2017) o en los laboratorios reales del curso. No hay solución aquí — si te trabas, vuelve a la teoría del tema correspondiente.</p>
+<section id="para-resolver-a-mano-con-lápiz-y-papel" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="para-resolver-a-mano-con-lápiz-y-papel">✍️ Para resolver a mano, con lápiz y papel</h2>
+<p>Estos ejercicios están pensados para resolverse <strong>teóricamente</strong>, sin abrir RStudio primero — la fmp, la fórmula y la tabla (o <code>pbinom</code>/<code>dpois</code>/<code>pnorm</code> al final, solo para verificar) son las herramientas. Varios son de demostración, no de cálculo numérico. Al final encontrarás una sección de <strong>respuestas</strong> (solo el resultado final, no el procedimiento) para que verifiques tu trabajo, tal como el libro fuente tiene su propio apéndice de “Respuestas a ejercicios seleccionados”.</p>
 </section>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Cómo usar esta página
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Cada bloque indica a qué tema del sitio corresponde, para que repases la teoría antes de intentarlo. Resuelve primero a mano cuando sea razonable, y verifica después en R.</p>
-</div>
-</div>
-<hr>
-<section id="tema-1-clasificación-de-variables" class="level2">
-<h2 class="anchored" data-anchor-id="tema-1-clasificación-de-variables">Tema 1 · Clasificación de variables</h2>
-<p><strong>Fuente:</strong> ejercicios de clasificación estilo Rincón (2017), Cap. 1.</p>
-<ol type="1">
-<li>Para cada una de las siguientes variables, indica si es cualitativa (nominal/ordinal) o cuantitativa (discreta/continua), y su escala de medición: (a) temperatura corporal en °C, (b) número de hermanos, (c) nivel de dolor reportado en una escala de 1 a 10, (d) placa de un vehículo, (e) tiempo de reacción en milisegundos, (f) talla de camiseta (S/M/L/XL).</li>
-<li>Da un ejemplo propio (no visto en clase) de una variable de cada una de las 4 escalas de medición (nominal, ordinal, intervalo, razón).</li>
-</ol>
-<hr>
-</section>
-<section id="tema-2-frecuencias-y-gráficas-cualitativas" class="level2">
-<h2 class="anchored" data-anchor-id="tema-2-frecuencias-y-gráficas-cualitativas">Tema 2 · Frecuencias y gráficas cualitativas</h2>
-<p><strong>Fuente:</strong> adaptado de Rincón (2017), Cap. 2-3, sección de frecuencias.</p>
-<ol start="3" type="1">
-<li>Una variable cualitativa ordinal con valores <span class="math inline">\(A &lt; B &lt; C &lt; D &lt; E &lt; F\)</span> produce las siguientes frecuencias observadas: <span class="math inline">\(f_A=5\)</span>, <span class="math inline">\(f_B=8\)</span>, <span class="math inline">\(f_C=?\)</span>, <span class="math inline">\(f_D=10\)</span>, <span class="math inline">\(f_E=?\)</span>, <span class="math inline">\(f_F=3\)</span>, con un total de <span class="math inline">\(n=50\)</span> observaciones y <span class="math inline">\(f_C = 2\cdot f_E\)</span>. Completa la tabla de frecuencias (absolutas, relativas, acumuladas) y construye la gráfica de frecuencia acumulada.</li>
-<li>Explica, sin hacer ningún cálculo, por qué no tiene sentido calcular una “frecuencia acumulada” para la variable “color favorito”.</li>
-</ol>
-<hr>
-</section>
-<section id="tema-3-histograma-y-tabla-de-frecuencias-agrupada" class="level2">
-<h2 class="anchored" data-anchor-id="tema-3-histograma-y-tabla-de-frecuencias-agrupada">Tema 3 · Histograma y tabla de frecuencias agrupada</h2>
-<p><strong>Fuente:</strong> adaptado del tratamiento de distribuciones de frecuencia de Contento Rubio (Cap. 2) y del material de clase (Semana 2).</p>
-<p>4a. Una empresa registró el número de llegadas tarde por mes durante 60 meses. Genera tú mismo un conjunto de datos similar en R con <code>set.seed(2026); retardos &lt;- round(runif(60, 12, 79))</code> y luego: (i) calcula el número de clases con la fórmula de Sturges; (ii) calcula el ancho de clase resultante dividiendo el rango entre k; (iii) construye la tabla de distribución de frecuencias con <code>cut()</code> y <code>table()</code> usando esos límites.</p>
-<p>4b. Con el mismo conjunto de datos, observa los límites de clase que produjo la fórmula (con muchos decimales, del estilo “21.57 a 31.14”). Construye una <strong>segunda</strong> tabla usando límites “prácticos” de ancho 10, empezando en 10 (es decir: [10,20), [20,30), …, [70,80)). Compara ambas tablas y responde: ¿cuál es más fácil de interpretar y comunicar? ¿Cambió la forma general de la distribución al cambiar los límites? Esta tensión entre “límites de fórmula” y “límites con sentido práctico” es una decisión real del analista, no un defecto del método.</p>
-<p>4c. Construye el histograma de los mismos datos de las tres maneras vistas en el Tema 3 (manual con <code>cut()</code> + <code>barplot(space = 0)</code>, con <code>hist()</code>, y con <code>ggplot2::geom_histogram()</code>), verificando que las tres cuentan la misma historia.</p>
-<hr>
-<p><strong>Fuente:</strong> Rincón (2017), Cap. 2, ejercicios de medidas de localización.</p>
-<ol start="5" type="1">
-<li>Sea <span class="math inline">\(x_1,\dots,x_n\)</span> un conjunto de datos con media <span class="math inline">\(\bar{x}\)</span> y desviación estándar <span class="math inline">\(s_x&gt;0\)</span>. Los datos se transforman en <span class="math inline">\(y_i=(x_i-\bar{x})/s_x\)</span>. Comprueba (a mano, con álgebra) que <span class="math inline">\(\bar{y}=0\)</span> y <span class="math inline">\(s_y^2=1\)</span>.</li>
-<li>Con los datos <span class="math inline">\(\{1, 3, 3, 4, 5, 5, 5, 7\}\)</span>: calcula media, mediana y moda(s) a mano. ¿El conjunto es unimodal, bimodal o multimodal?</li>
-<li>Con las notas de dos estudiantes: Estudiante 1 = <span class="math inline">\(\{2.0, 3.5, 5.0\}\)</span>, Estudiante 2 = <span class="math inline">\(\{3.4, 3.5, 3.6\}\)</span> (ejemplo de Contento Rubio). Calcula la media de ambos. ¿Qué información importante se pierde si solo reportas la media de cada uno?</li>
-</ol>
-<hr>
-</section>
-<section id="tema-5-dispersión" class="level2">
-<h2 class="anchored" data-anchor-id="tema-5-dispersión">Tema 5 · Dispersión</h2>
-<p><strong>Fuente:</strong> Rincón (2017), Cap. 2, ejercicios de rango y coeficiente de variación.</p>
-<ol start="8" type="1">
-<li>Calcula el rango de cada conjunto: (a) <span class="math inline">\(0,1,2,\dots,10\)</span>; (b) <span class="math inline">\(10,9,8,\dots,0\)</span>; (c) <span class="math inline">\(-10,-9,\dots,0\)</span>. ¿Qué tienen en común los tres resultados? ¿Por qué?</li>
-<li>Sea <span class="math inline">\(x_1,\dots,x_n\)</span> un conjunto de datos con media <span class="math inline">\(\bar{x}\ne 0\)</span>. Define <span class="math inline">\(y_i = x_i/\bar{x}\)</span>. Demuestra que <span class="math inline">\(cv(y) = cv(x)\)</span> si <span class="math inline">\(\bar{x}&gt;0\)</span>, y <span class="math inline">\(cv(y)=-cv(x)\)</span> si <span class="math inline">\(\bar{x}&lt;0\)</span>.</li>
-<li>Verdadero o falso, justificando cada respuesta: (a) el rango de un conjunto de datos puede ser negativo; (b) el coeficiente de variación puede ser cero; (c) si el CV de un conjunto de datos es cero, ¿qué implica eso sobre los datos mismos?</li>
-</ol>
-<hr>
-</section>
-<section id="tema-6-cuantiles-y-boxplot" class="level2">
-<h2 class="anchored" data-anchor-id="tema-6-cuantiles-y-boxplot">Tema 6 · Cuantiles y boxplot</h2>
-<p><strong>Fuente:</strong> Rincón (2017), Cap. 3, ejercicios de diagrama de caja y brazos.</p>
-<ol start="11" type="1">
-<li>Usando cuantiles y <span class="math inline">\(\pm 1.5\)</span> veces el rango intercuartílico, construye (a mano o en R) un diagrama de caja y brazos para: <span class="math inline">\(-20,-1,-1,0,0,1,1,15\)</span>. ¿Hay valores atípicos?</li>
-<li>Con el mismo conjunto de datos anterior, construye el diagrama usando el otro método (centro en la media, brazos a <span class="math inline">\(\pm 1\)</span> desviación estándar). ¿Los dos métodos identifican los mismos “extremos” como notables?</li>
-</ol>
-<hr>
-</section>
-<section id="tema-7-momentos-asimetría-y-curtosis" class="level2">
-<h2 class="anchored" data-anchor-id="tema-7-momentos-asimetría-y-curtosis">Tema 7 · Momentos, asimetría y curtosis</h2>
-<p><strong>Fuente:</strong> Rincón (2017), Cap. 2, ejercicios de momentos.</p>
-<ol start="13" type="1">
-<li>Sea <span class="math inline">\(m_k\)</span> el <span class="math inline">\(k\)</span>-ésimo momento central de <span class="math inline">\(x_1,\dots,x_n\)</span>. Demuestra que <span class="math inline">\(m_2 = m_2' - (m_1')^2\)</span>, donde <span class="math inline">\(m_2'\)</span> es el segundo momento no central (ya se hizo en el Tema 7 — inténtalo sin ver la demostración antes de comparar).</li>
-<li>Sea <span class="math inline">\(a\)</span> una constante y considera los datos transformados <span class="math inline">\(ax_1,\dots,ax_n\)</span>. Demuestra que <span class="math inline">\(m_k(ax) = a^k\cdot m_k(x)\)</span>.</li>
-</ol>
-<hr>
-</section>
-<section id="tema-8-datos-conjuntos" class="level2">
-<h2 class="anchored" data-anchor-id="tema-8-datos-conjuntos">Tema 8 · Datos conjuntos</h2>
-<p><strong>Fuente:</strong> Rincón (2017), Cap. 4, ejercicios de covarianza y correlación.</p>
-<ol start="15" type="1">
-<li>Calcula la covarianza de los siguientes conjuntos de datos: (a) <span class="math inline">\((0,0),(1,2),(2,1)\)</span>; (b) <span class="math inline">\((-1,1),(0,-1),(1,-2),(2,-3)\)</span>; (c) <span class="math inline">\((2,4),(0,0),(1,2),(-1,-2),(0,0)\)</span>.</li>
-<li>Sin hacer ningún cálculo, para dos nubes de puntos — una muy “apretada” alrededor de una línea con pendiente positiva pronunciada, y otra muy dispersa alrededor de una línea con pendiente positiva suave — ¿cuál esperarías que tenga mayor covarianza? ¿Y mayor correlación? (Pista: no son necesariamente la misma respuesta.)</li>
-<li>Calcula la recta de regresión para: <span class="math inline">\(x=\{0,1,2,3,4\}\)</span>, <span class="math inline">\(y=\{3.5,4.5,7.5,9.5,10\}\)</span>. Estima el valor de <span class="math inline">\(y\)</span> cuando <span class="math inline">\(x=2.5\)</span>.</li>
-<li>A través de una recta de regresión, estima el dato faltante: <span class="math inline">\(x=\{1,2,3,4,5\}\)</span>, <span class="math inline">\(y=\{4,8,18,22,\ ?\}\)</span> (usa los primeros 4 pares para ajustar la recta).</li>
-</ol>
-<hr>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>💡 Truco de interpretación
+<span class="screen-reader-only">Tip</span>¿Te trabaste en algún paso?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Al resolver ejercicios de demostración (Temas 5, 7, 8), no te limites a verificar con números — intenta primero el álgebra general. Es la diferencia entre “comprobé que funciona en este caso” y “entendí por qué siempre funciona”. <a href="../recursos.html">Ver más trucos →</a></p>
+<p>La página <a href="../temas/ejercicios-manual-taller2-resueltos.html">Práctica manual — Resueltos</a> tiene el desarrollo teórico completo (la demostración o sustitución paso a paso) y el código en R de los 19 ejercicios. Resuelve primero por tu cuenta — esa página rinde mucho más una vez que ya lo intentaste.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Fuente y una aclaración importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Estos ejercicios están basados en Walpole, R., Myers, R., Myers, S., y Ye, K., <em>Probabilidad y Estadística para Ingeniería y Ciencias</em>, Secciones 3.4 (Binomial), 3.6 (Poisson) y 4.3 (Aproximación normal a la binomial). Todas las respuestas fueron verificadas de forma independiente.</p>
+<p><strong>Sobre la función generadora de momentos (FGM):</strong> revisamos exhaustivamente este libro (índice completo y las secciones de valores esperados de los Capítulos 3 y 5) y <strong>no tiene una sección dedicada a FGM</strong> — no es un tema que este texto cubra. Para FGM, el <a href="../temas/tema-p6d-estudiante.html">Tema P6d</a> ya construido cubre la teoría completa con ejemplos verificados por otra vía (derivación simbólica).</p>
+</div>
+</div>
+<hr>
+<section id="sección-1-distribución-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="sección-1-distribución-binomial">Sección 1 · Distribución binomial</h2>
+<p><strong>B1.</strong> Sea <span class="math inline">\(X\sim\text{Bin}(8,\,0.6)\)</span>. Calcula <span class="math inline">\(b(3;8,0.6)\)</span> y <span class="math inline">\(b(5;8,0.6)\)</span>. Luego calcula <span class="math inline">\(P(3\le X\le5)\)</span>. Por último, para <span class="math inline">\(X\sim\text{Bin}(12,\,0.1)\)</span>, calcula <span class="math inline">\(P(X\ge1)\)</span> (piensa en el complemento antes de sumar términos).</p>
+<p><strong>B2.</strong> Para <span class="math inline">\(X\sim\text{Bin}(10,\,0.3)\)</span>: calcula <span class="math inline">\(B(4;10,0.3)\)</span> (acumulada) y <span class="math inline">\(b(4;10,0.3)\)</span> (puntual). Luego, para <span class="math inline">\(X\sim\text{Bin}(10,\,0.7)\)</span>, calcula <span class="math inline">\(b(6;10,0.7)\)</span>. ¿Qué relación notas entre este último resultado y <span class="math inline">\(b(4;10,0.3)\)</span>? (Pista: relaciona <span class="math inline">\(p=0.7\)</span> con <span class="math inline">\(q=1-p=0.3\)</span>, y <span class="math inline">\(x=6\)</span> con <span class="math inline">\(n-x=4\)</span>).</p>
+<p><strong>B3.</strong> Un estudio indica que el 2% de los 2 millones de estudiantes de secundaria que se presentan a cierto examen reciben lugares especiales por incapacidades documentadas. Considera una muestra aleatoria de 25 estudiantes que realizaron el examen recientemente. (a) ¿Cuál es la probabilidad de que exactamente uno recibió un lugar especial? (b) ¿Cuál es la probabilidad de que al menos uno haya recibido un lugar especial? (c) ¿Cuál es la probabilidad de que al menos dos hayan recibido un lugar especial?</p>
+<p><strong>B4.</strong> En una gasolinera, la probabilidad de que un cliente pague con tarjeta de crédito es 0.5. Para una muestra aleatoria de 100 clientes, calcula el valor esperado y la varianza del número que paga con tarjeta de crédito (sin enumerar nada — usa directamente las fórmulas de la binomial).</p>
+<p><strong>B5 (teórico).</strong> Demuestra que <span class="math inline">\(b(x;n,1-p)=b(n-x;n,p)\)</span> para toda <span class="math inline">\(x=0,1,\dots,n\)</span>. (Pista: escribe ambos lados con la fórmula de combinaciones y compara).</p>
+<p><strong>B6 (teórico).</strong> Demuestra, partiendo directamente de la definición <span class="math inline">\(E(X)=\sum_x x\cdot b(x;n,p)\)</span>, que <span class="math inline">\(E(X)=np\)</span> para <span class="math inline">\(X\sim\text{Bin}(n,p)\)</span>. (Pista: el término <span class="math inline">\(x=0\)</span> se anula solo; para <span class="math inline">\(x\ge1\)</span>, factoriza <span class="math inline">\(x\binom{n}{x}=n\binom{n-1}{x-1}\)</span>, saca <span class="math inline">\(np\)</span> de la suma, y verifica que lo que queda dentro de la suma es la fmp completa de una <span class="math inline">\(\text{Bin}(n-1,p)\)</span>, que suma 1).</p>
+<p><strong>B7 (teórico).</strong> Para <span class="math inline">\(n\)</span> fija, <span class="math inline">\(0\le p\le1\)</span>: (a) ¿hay algún valor de <span class="math inline">\(p\)</span> para el cual <span class="math inline">\(V(X)=0\)</span>? Explica por qué tiene sentido, en términos del experimento, que la varianza sea cero ahí. (b) ¿Para qué valor de <span class="math inline">\(p\)</span> se maximiza <span class="math inline">\(V(X)=np(1-p)\)</span>? (deriva respecto a <span class="math inline">\(p\)</span> e iguala a cero).</p>
+<p><strong>B8.</strong> Cierto tipo de raqueta de tenis se fabrica en dos tamaños. El 60% de los clientes de una tienda prefieren la versión extragrande. Para una muestra de 10 clientes seleccionados al azar: (a) ¿cuál es la probabilidad de que al menos 6 prefieran la versión extragrande? (b) ¿Cuál es la probabilidad de que el número que prefiere la versión extragrande esté dentro de una desviación estándar de la media?</p>
+<hr>
+</section>
+<section id="sección-2-distribución-de-poisson" class="level2">
+<h2 class="anchored" data-anchor-id="sección-2-distribución-de-poisson">Sección 2 · Distribución de Poisson</h2>
+<p><strong>P1.</strong> Sea <span class="math inline">\(X\)</span> el número de fracturas en la superficie de cierto tipo de caldera, con <span class="math inline">\(X\sim\text{Poisson}(\lambda=6)\)</span>. Calcula: (a) <span class="math inline">\(P(X\le8)\)</span>; (b) <span class="math inline">\(P(X=8)\)</span>; (c) <span class="math inline">\(P(X\ge9)\)</span>; (d) <span class="math inline">\(P(5\le X\le8)\)</span>.</p>
+<p><strong>P2.</strong> Al escribir en un disco de computadora y enviarlo a través de un certificador, el número de impulsos faltantes <span class="math inline">\(X\)</span> tiene distribución Poisson con <span class="math inline">\(\lambda=0.2\)</span>. (a) ¿Cuál es la probabilidad de que el disco tenga exactamente un impulso faltante? (b) ¿Al menos uno? (c) Si se examinan dos discos de forma independiente, ¿cuál es la probabilidad de que ninguno de los dos tenga algún impulso faltante?</p>
+<p><strong>P3.</strong> A un aeropuerto llegan aviones pequeños según un proceso de Poisson con tasa <span class="math inline">\(\alpha=8\)</span> aviones por hora. (a) ¿Cuál es la probabilidad de que exactamente 6 aviones pequeños lleguen durante una hora? (b) ¿Por lo menos 6? (c) ¿Por lo menos 10?</p>
+<p><strong>P4 (teórico).</strong> Demuestra, partiendo directamente de la definición de valor esperado, que <span class="math inline">\(E(X)=\lambda\)</span> para <span class="math inline">\(X\sim\text{Poisson}(\lambda)\)</span>. (Pista: el término <span class="math inline">\(x=0\)</span> de la suma vale 0; después factoriza <span class="math inline">\(\lambda\)</span> y demuestra, usando la serie de Maclaurin de <span class="math inline">\(e^\lambda\)</span>, que la suma restante es igual a 1).</p>
+<p><strong>P5.</strong> En una prueba de tarjetas de circuitos, la probabilidad de que falle algún diodo es 0.01. Una tarjeta contiene 200 diodos. Usando la aproximación Poisson de la binomial: (a) ¿cuántos diodos se espera que fallen, y cuál es la desviación estándar? (b) ¿Cuál es la probabilidad (aproximada) de que fallen al menos 4 diodos en una tarjeta?</p>
+<p><strong>P6.</strong> El número de personas que llegan a una sala de urgencias sigue un proceso de Poisson con tasa 5 por hora. (a) ¿Cuál es la probabilidad de que lleguen exactamente 4 personas durante una hora dada? (b) ¿Cuál es la probabilidad de que lleguen menos de 4?</p>
+<hr>
+</section>
+<section id="sección-3-aproximación-normal-a-la-distribución-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="sección-3-aproximación-normal-a-la-distribución-binomial">Sección 3 · Aproximación normal a la distribución binomial</h2>
+<p><strong>A1.</strong> Sea <span class="math inline">\(X\)</span> el número de imperfecciones a lo largo de un carrete de 100 m de cinta magnética, con <span class="math inline">\(X\)</span> aproximadamente normal, <span class="math inline">\(\mu=25\)</span>, <span class="math inline">\(\sigma=5\)</span>. Usa la corrección de continuidad para calcular: (a) <span class="math inline">\(P(20\le X\le30)\)</span>; (b) <span class="math inline">\(P(X&lt;30)\)</span>.</p>
+<p><strong>A2.</strong> Sea <span class="math inline">\(X\sim\text{Bin}(25,\,0.5)\)</span>. Aproxima, con corrección de continuidad, <span class="math inline">\(P(15\le X\le20)\)</span> y <span class="math inline">\(P(X\le15)\)</span>. Compara ambos resultados con los valores exactos calculados con la fórmula binomial (o con <code>pbinom()</code>), y comenta qué tan buena resultó la aproximación.</p>
+<p><strong>A3.</strong> Se sabe que el 10% de los ejes de acero producidos por cierto proceso no cumplen las especificaciones, pero se pueden reprocesar (en vez de desecharlos). Considera una muestra aleatoria de 200 ejes, y sea <span class="math inline">\(X\)</span> el número que no cumple las especificaciones. Aproxima: (a) <span class="math inline">\(P(X\le30)\)</span>; (b) <span class="math inline">\(P(X&lt;30)\)</span>; (c) <span class="math inline">\(P(15\le X\le25)\)</span>.</p>
+<p><strong>A4.</strong> Supón que sólo 40% de los conductores de cierto estado usan con regularidad el cinturón de seguridad. Se selecciona una muestra aleatoria de 500 automovilistas. Aproxima la probabilidad de que: (a) entre 180 y 230 (inclusive) de la muestra usen con regularidad el cinturón; (b) menos de 175 lo usen; (c) menos de 150 lo usen.</p>
+<p><strong>A5 (teórico/conceptual).</strong> Explica, en tus propias palabras, por qué se necesita la corrección de continuidad al aproximar una distribución binomial (discreta) con una distribución normal (continua). Según la proposición de este libro (Sección 4.3), ¿qué condición sobre <span class="math inline">\(np\)</span> y <span class="math inline">\(nq\)</span> garantiza que la aproximación sea confiable? Compárala con la regla que usaste en el <a href="../temas/tema-p6c-estudiante.html">Tema P6c</a> (<span class="math inline">\(np\ge5\)</span> y <span class="math inline">\(n(1-p)\ge5\)</span>) — ¿cuál es más exigente?</p>
+<hr>
+</section>
+<section id="respuestas" class="level2">
+<h2 class="anchored" data-anchor-id="respuestas">✅ Respuestas</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuestas — Sección 1 (Binomial)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>B1:</strong> <span class="math inline">\(b(3;8,0.6)=0.1239\)</span>; <span class="math inline">\(b(5;8,0.6)=0.2787\)</span>; <span class="math inline">\(P(3\le X\le5)=0.6348\)</span>; <span class="math inline">\(P(X\ge1\mid n{=}12,p{=}0.1)=0.7176\)</span>.</li>
+<li><strong>B2:</strong> <span class="math inline">\(B(4;10,0.3)=0.8497\)</span>; <span class="math inline">\(b(4;10,0.3)=0.2001\)</span>; <span class="math inline">\(b(6;10,0.7)=0.2001\)</span> — son <strong>iguales</strong>, porque <span class="math inline">\(b(x;n,1-p)=b(n-x;n,p)\)</span> (ver B5).</li>
+<li><strong>B3:</strong> (a) <span class="math inline">\(0.3079\)</span>; (b) <span class="math inline">\(0.3965\)</span>; (c) <span class="math inline">\(0.0886\)</span>.</li>
+<li><strong>B4:</strong> <span class="math inline">\(E(X)=np=50\)</span>; <span class="math inline">\(V(X)=np(1-p)=25\)</span>.</li>
+<li><strong>B5:</strong> Demostración — ambos lados se reducen a <span class="math inline">\(\binom{n}{x}p^{n-x}(1-p)^x\)</span>.</li>
+<li><strong>B6:</strong> Demostración — <span class="math inline">\(E(X)=np\sum_{y=0}^{n-1}b(y;n-1,p)=np\cdot1=np\)</span>.</li>
+<li><strong>B7:</strong> (a) <span class="math inline">\(p=0\)</span> o <span class="math inline">\(p=1\)</span> (el resultado ya no es aleatorio: siempre fracaso o siempre éxito). (b) <span class="math inline">\(p=0.5\)</span>.</li>
+<li><strong>B8:</strong> (a) <span class="math inline">\(P(X\ge6)=0.6331\)</span>; (b) media <span class="math inline">\(=6\)</span>, sd <span class="math inline">\(=1.549\)</span>, así que el intervalo es <span class="math inline">\([4.45,\,7.55]\)</span>, es decir <span class="math inline">\(P(5\le X\le7)=0.6665\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuestas — Sección 2 (Poisson)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>P1:</strong> (a) <span class="math inline">\(0.8472\)</span>; (b) <span class="math inline">\(0.1033\)</span>; (c) <span class="math inline">\(0.1528\)</span>; (d) <span class="math inline">\(0.5622\)</span>.</li>
+<li><strong>P2:</strong> (a) <span class="math inline">\(0.1637\)</span>; (b) <span class="math inline">\(0.1813\)</span>; (c) <span class="math inline">\(0.6703\)</span>.</li>
+<li><strong>P3:</strong> (a) <span class="math inline">\(0.1221\)</span>; (b) <span class="math inline">\(0.3134\)</span>; (c) <span class="math inline">\(0.2834\)</span>.</li>
+<li><strong>P4:</strong> Demostración — <span class="math inline">\(E(X)=\lambda e^{-\lambda}\sum_{y=0}^{\infty}\lambda^y/y!=\lambda e^{-\lambda}\cdot e^{\lambda}=\lambda\)</span>.</li>
+<li><strong>P5:</strong> (a) <span class="math inline">\(E(X)=\lambda=2\)</span>, sd <span class="math inline">\(=\sqrt{2}=1.414\)</span>; (b) <span class="math inline">\(P(X\ge4)\approx0.1429\)</span> (la binomial exacta da <span class="math inline">\(0.1420\)</span> — muy cercana).</li>
+<li><strong>P6:</strong> (a) <span class="math inline">\(0.1755\)</span>; (b) <span class="math inline">\(0.2650\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuestas — Sección 3 (Aproximación normal)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>A1:</strong> (a) <span class="math inline">\(0.7287\)</span>; (b) <span class="math inline">\(0.8159\)</span>.</li>
+<li><strong>A2:</strong> Aproximado <span class="math inline">\(P(15\le X\le20)=0.2112\)</span> (exacto <span class="math inline">\(0.2117\)</span>); aproximado <span class="math inline">\(P(X\le15)=0.8849\)</span> (exacto <span class="math inline">\(0.8852\)</span>) — la aproximación es muy buena en ambos casos.</li>
+<li><strong>A3:</strong> (a) <span class="math inline">\(0.9933\)</span>; (b) <span class="math inline">\(0.9874\)</span>; (c) <span class="math inline">\(0.8051\)</span>.</li>
+<li><strong>A4:</strong> (a) <span class="math inline">\(0.9667\)</span>; (b) <span class="math inline">\(0.0100\)</span>; (c) <span class="math inline">\(\approx0.000002\)</span> (prácticamente cero).</li>
+<li><strong>A5:</strong> La binomial es discreta, la normal es continua — sin la corrección, <span class="math inline">\(P(X=k)\)</span> no tendría análogo en la normal. La regla de este libro es <span class="math inline">\(np\ge10\)</span> <strong>y</strong> <span class="math inline">\(nq\ge10\)</span> — más estricta que la regla <span class="math inline">\(np\ge5\)</span> y <span class="math inline">\(n(1-p)\ge5\)</span> usada en el Tema P6c (esta última es más permisiva; ambas son convenciones razonables, y en un examen conviene usar la que indique tu profesor).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Antes de dar por buena una respuesta
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Resuélvelo primero sin mirar esta sección. Si tu respuesta no coincide, revisa si usaste la <span class="math inline">\(\lambda\)</span> o el <span class="math inline">\(n,p\)</span> correctos para el intervalo o escenario preguntado — es, con diferencia, el error más común en estos tres temas.</p>
 </div>
 </div>
 
@@ -1109,114 +1152,130 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../temas/preparacion-examen-1.html" class="pagination-link" aria-label="Preparación del Examen 1 · Guía práctica de análisis estadístico en R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</span>
+      <a href="../temas/ejercicios-modulo2.html" class="pagination-link" aria-label="Ejercicios propuestos · Módulo 2 (Probabilidad)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../temas/modulo-2-arquitectura.html" class="pagination-link" aria-label="Módulo 2 · Probabilidad — Arquitectura">
-        <span class="nav-page-text">Módulo 2 · Probabilidad — Arquitectura</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../temas/ejercicios-manual-taller2-resueltos.html" class="pagination-link" aria-label="Práctica manual · Binomial, Poisson y Aproximación normal — Resueltos">
+        <span class="nav-page-text">Práctica manual · Binomial, Poisson y Aproximación normal — Resueltos</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Ejercicios propuestos · Módulo 1 (Estadística descriptiva)"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Práctica manual · Binomial, Poisson y Aproximación normal"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🏋️ Ejercicios para resolver por tu cuenta</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✍️ Para resolver a mano, con lápiz y papel</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>A diferencia de los "Laboratorios" de cada tema (que traen solución guiada), estos ejercicios son **para que los resuelvas tú solo**, tal como aparecen en el libro de Rincón (2017) o en los laboratorios reales del curso. No hay solución aquí — si te trabas, vuelve a la teoría del tema correspondiente.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Estos ejercicios están pensados para resolverse **teóricamente**, sin abrir RStudio primero — la fmp, la fórmula y la tabla (o `pbinom`/`dpois`/`pnorm` al final, solo para verificar) son las herramientas. Varios son de demostración, no de cálculo numérico. Al final encontrarás una sección de **respuestas** (solo el resultado final, no el procedimiento) para que verifiques tu trabajo, tal como el libro fuente tiene su propio apéndice de "Respuestas a ejercicios seleccionados".</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cómo usar esta página</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Cada bloque indica a qué tema del sitio corresponde, para que repases la teoría antes de intentarlo. Resuelve primero a mano cuando sea razonable, y verifica después en R.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## ¿Te trabaste en algún paso?</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>La página <span class="co">[</span><span class="ot">Práctica manual — Resueltos</span><span class="co">](ejercicios-manual-taller2-resueltos.qmd)</span> tiene el desarrollo teórico completo (la demostración o sustitución paso a paso) y el código en R de los 19 ejercicios. Resuelve primero por tu cuenta — esa página rinde mucho más una vez que ya lo intentaste.</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 1 · Clasificación de variables</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fuente y una aclaración importante</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Estos ejercicios están basados en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Secciones 3.4 (Binomial), 3.6 (Poisson) y 4.3 (Aproximación normal a la binomial). Todas las respuestas fueron verificadas de forma independiente.</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>**Fuente:** ejercicios de clasificación estilo Rincón (2017), Cap. 1.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Para cada una de las siguientes variables, indica si es cualitativa (nominal/ordinal) o cuantitativa (discreta/continua), y su escala de medición: (a) temperatura corporal en °C, (b) número de hermanos, (c) nivel de dolor reportado en una escala de 1 a 10, (d) placa de un vehículo, (e) tiempo de reacción en milisegundos, (f) talla de camiseta (S/M/L/XL).</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Da un ejemplo propio (no visto en clase) de una variable de cada una de las 4 escalas de medición (nominal, ordinal, intervalo, razón).</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>**Sobre la función generadora de momentos (FGM):** revisamos exhaustivamente este libro (índice completo y las secciones de valores esperados de los Capítulos 3 y 5) y **no tiene una sección dedicada a FGM** — no es un tema que este texto cubra. Para FGM, el <span class="co">[</span><span class="ot">Tema P6d</span><span class="co">](tema-p6d-estudiante.qmd)</span> ya construido cubre la teoría completa con ejemplos verificados por otra vía (derivación simbólica).</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección 1 · Distribución binomial</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 2 · Frecuencias y gráficas cualitativas</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>**B1.** Sea $X\sim\text{Bin}(8,\,0.6)$. Calcula $b(3;8,0.6)$ y $b(5;8,0.6)$. Luego calcula $P(3\le X\le5)$. Por último, para $X\sim\text{Bin}(12,\,0.1)$, calcula $P(X\ge1)$ (piensa en el complemento antes de sumar términos).</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>**Fuente:** adaptado de Rincón (2017), Cap. 2-3, sección de frecuencias.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>**B2.** Para $X\sim\text{Bin}(10,\,0.3)$: calcula $B(4;10,0.3)$ (acumulada) y $b(4;10,0.3)$ (puntual). Luego, para $X\sim\text{Bin}(10,\,0.7)$, calcula $b(6;10,0.7)$. ¿Qué relación notas entre este último resultado y $b(4;10,0.3)$? (Pista: relaciona $p=0.7$ con $q=1-p=0.3$, y $x=6$ con $n-x=4$).</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Una variable cualitativa ordinal con valores $A &lt; B &lt; C &lt; D &lt; E &lt; F$ produce las siguientes frecuencias observadas: $f_A=5$, $f_B=8$, $f_C=?$, $f_D=10$, $f_E=?$, $f_F=3$, con un total de $n=50$ observaciones y $f_C = 2\cdot f_E$. Completa la tabla de frecuencias (absolutas, relativas, acumuladas) y construye la gráfica de frecuencia acumulada.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Explica, sin hacer ningún cálculo, por qué no tiene sentido calcular una "frecuencia acumulada" para la variable "color favorito".</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 3 · Histograma y tabla de frecuencias agrupada</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>**Fuente:** adaptado del tratamiento de distribuciones de frecuencia de Contento Rubio (Cap. 2) y del material de clase (Semana 2).</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>4a. Una empresa registró el número de llegadas tarde por mes durante 60 meses. Genera tú mismo un conjunto de datos similar en R con <span class="in">`set.seed(2026); retardos &lt;- round(runif(60, 12, 79))`</span> y luego: (i) calcula el número de clases con la fórmula de Sturges; (ii) calcula el ancho de clase resultante dividiendo el rango entre k; (iii) construye la tabla de distribución de frecuencias con <span class="in">`cut()`</span> y <span class="in">`table()`</span> usando esos límites.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>4b. Con el mismo conjunto de datos, observa los límites de clase que produjo la fórmula (con muchos decimales, del estilo "21.57 a 31.14"). Construye una **segunda** tabla usando límites "prácticos" de ancho 10, empezando en 10 (es decir: [10,20), [20,30), ..., [70,80)). Compara ambas tablas y responde: ¿cuál es más fácil de interpretar y comunicar? ¿Cambió la forma general de la distribución al cambiar los límites? Esta tensión entre "límites de fórmula" y "límites con sentido práctico" es una decisión real del analista, no un defecto del método.</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>4c. Construye el histograma de los mismos datos de las tres maneras vistas en el Tema 3 (manual con <span class="in">`cut()`</span> + <span class="in">`barplot(space = 0)`</span>, con <span class="in">`hist()`</span>, y con <span class="in">`ggplot2::geom_histogram()`</span>), verificando que las tres cuentan la misma historia.</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de medidas de localización.</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}$ y desviación estándar $s_x&gt;0$. Los datos se transforman en $y_i=(x_i-\bar{x})/s_x$. Comprueba (a mano, con álgebra) que $\bar{y}=0$ y $s_y^2=1$.</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Con los datos $<span class="sc">\{</span>1, 3, 3, 4, 5, 5, 5, 7<span class="sc">\}</span>$: calcula media, mediana y moda(s) a mano. ¿El conjunto es unimodal, bimodal o multimodal?</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Con las notas de dos estudiantes: Estudiante 1 = $<span class="sc">\{</span>2.0, 3.5, 5.0<span class="sc">\}</span>$, Estudiante 2 = $<span class="sc">\{</span>3.4, 3.5, 3.6<span class="sc">\}</span>$ (ejemplo de Contento Rubio). Calcula la media de ambos. ¿Qué información importante se pierde si solo reportas la media de cada uno?</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 5 · Dispersión</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de rango y coeficiente de variación.</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Calcula el rango de cada conjunto: (a) $0,1,2,\dots,10$; (b) $10,9,8,\dots,0$; (c) $-10,-9,\dots,0$. ¿Qué tienen en común los tres resultados? ¿Por qué?</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Sea $x_1,\dots,x_n$ un conjunto de datos con media $\bar{x}\ne 0$. Define $y_i = x_i/\bar{x}$. Demuestra que $cv(y) = cv(x)$ si $\bar{x}&gt;0$, y $cv(y)=-cv(x)$ si $\bar{x}&lt;0$.</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Verdadero o falso, justificando cada respuesta: (a) el rango de un conjunto de datos puede ser negativo; (b) el coeficiente de variación puede ser cero; (c) si el CV de un conjunto de datos es cero, ¿qué implica eso sobre los datos mismos?</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 6 · Cuantiles y boxplot</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 3, ejercicios de diagrama de caja y brazos.</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Usando cuantiles y $\pm 1.5$ veces el rango intercuartílico, construye (a mano o en R) un diagrama de caja y brazos para: $-20,-1,-1,0,0,1,1,15$. ¿Hay valores atípicos?</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Con el mismo conjunto de datos anterior, construye el diagrama usando el otro método (centro en la media, brazos a $\pm 1$ desviación estándar). ¿Los dos métodos identifican los mismos "extremos" como notables?</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>**B3.** Un estudio indica que el 2% de los 2 millones de estudiantes de secundaria que se presentan a cierto examen reciben lugares especiales por incapacidades documentadas. Considera una muestra aleatoria de 25 estudiantes que realizaron el examen recientemente. (a) ¿Cuál es la probabilidad de que exactamente uno recibió un lugar especial? (b) ¿Cuál es la probabilidad de que al menos uno haya recibido un lugar especial? (c) ¿Cuál es la probabilidad de que al menos dos hayan recibido un lugar especial?</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>**B4.** En una gasolinera, la probabilidad de que un cliente pague con tarjeta de crédito es 0.5. Para una muestra aleatoria de 100 clientes, calcula el valor esperado y la varianza del número que paga con tarjeta de crédito (sin enumerar nada — usa directamente las fórmulas de la binomial).</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**B5 (teórico).** Demuestra que $b(x;n,1-p)=b(n-x;n,p)$ para toda $x=0,1,\dots,n$. (Pista: escribe ambos lados con la fórmula de combinaciones y compara).</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>**B6 (teórico).** Demuestra, partiendo directamente de la definición $E(X)=\sum_x x\cdot b(x;n,p)$, que $E(X)=np$ para $X\sim\text{Bin}(n,p)$. (Pista: el término $x=0$ se anula solo; para $x\ge1$, factoriza $x\binom{n}{x}=n\binom{n-1}{x-1}$, saca $np$ de la suma, y verifica que lo que queda dentro de la suma es la fmp completa de una $\text{Bin}(n-1,p)$, que suma 1).</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>**B7 (teórico).** Para $n$ fija, $0\le p\le1$: (a) ¿hay algún valor de $p$ para el cual $V(X)=0$? Explica por qué tiene sentido, en términos del experimento, que la varianza sea cero ahí. (b) ¿Para qué valor de $p$ se maximiza $V(X)=np(1-p)$? (deriva respecto a $p$ e iguala a cero).</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>**B8.** Cierto tipo de raqueta de tenis se fabrica en dos tamaños. El 60% de los clientes de una tienda prefieren la versión extragrande. Para una muestra de 10 clientes seleccionados al azar: (a) ¿cuál es la probabilidad de que al menos 6 prefieran la versión extragrande? (b) ¿Cuál es la probabilidad de que el número que prefiere la versión extragrande esté dentro de una desviación estándar de la media?</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección 2 · Distribución de Poisson</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>**P1.** Sea $X$ el número de fracturas en la superficie de cierto tipo de caldera, con $X\sim\text{Poisson}(\lambda=6)$. Calcula: (a) $P(X\le8)$; (b) $P(X=8)$; (c) $P(X\ge9)$; (d) $P(5\le X\le8)$.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>**P2.** Al escribir en un disco de computadora y enviarlo a través de un certificador, el número de impulsos faltantes $X$ tiene distribución Poisson con $\lambda=0.2$. (a) ¿Cuál es la probabilidad de que el disco tenga exactamente un impulso faltante? (b) ¿Al menos uno? (c) Si se examinan dos discos de forma independiente, ¿cuál es la probabilidad de que ninguno de los dos tenga algún impulso faltante?</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>**P3.** A un aeropuerto llegan aviones pequeños según un proceso de Poisson con tasa $\alpha=8$ aviones por hora. (a) ¿Cuál es la probabilidad de que exactamente 6 aviones pequeños lleguen durante una hora? (b) ¿Por lo menos 6? (c) ¿Por lo menos 10?</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>**P4 (teórico).** Demuestra, partiendo directamente de la definición de valor esperado, que $E(X)=\lambda$ para $X\sim\text{Poisson}(\lambda)$. (Pista: el término $x=0$ de la suma vale 0; después factoriza $\lambda$ y demuestra, usando la serie de Maclaurin de $e^\lambda$, que la suma restante es igual a 1).</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>**P5.** En una prueba de tarjetas de circuitos, la probabilidad de que falle algún diodo es 0.01. Una tarjeta contiene 200 diodos. Usando la aproximación Poisson de la binomial: (a) ¿cuántos diodos se espera que fallen, y cuál es la desviación estándar? (b) ¿Cuál es la probabilidad (aproximada) de que fallen al menos 4 diodos en una tarjeta?</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>**P6.** El número de personas que llegan a una sala de urgencias sigue un proceso de Poisson con tasa 5 por hora. (a) ¿Cuál es la probabilidad de que lleguen exactamente 4 personas durante una hora dada? (b) ¿Cuál es la probabilidad de que lleguen menos de 4?</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección 3 · Aproximación normal a la distribución binomial</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>**A1.** Sea $X$ el número de imperfecciones a lo largo de un carrete de 100 m de cinta magnética, con $X$ aproximadamente normal, $\mu=25$, $\sigma=5$. Usa la corrección de continuidad para calcular: (a) $P(20\le X\le30)$; (b) $P(X&lt;30)$.</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>**A2.** Sea $X\sim\text{Bin}(25,\,0.5)$. Aproxima, con corrección de continuidad, $P(15\le X\le20)$ y $P(X\le15)$. Compara ambos resultados con los valores exactos calculados con la fórmula binomial (o con <span class="in">`pbinom()`</span>), y comenta qué tan buena resultó la aproximación.</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**A3.** Se sabe que el 10% de los ejes de acero producidos por cierto proceso no cumplen las especificaciones, pero se pueden reprocesar (en vez de desecharlos). Considera una muestra aleatoria de 200 ejes, y sea $X$ el número que no cumple las especificaciones. Aproxima: (a) $P(X\le30)$; (b) $P(X&lt;30)$; (c) $P(15\le X\le25)$.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>**A4.** Supón que sólo 40% de los conductores de cierto estado usan con regularidad el cinturón de seguridad. Se selecciona una muestra aleatoria de 500 automovilistas. Aproxima la probabilidad de que: (a) entre 180 y 230 (inclusive) de la muestra usen con regularidad el cinturón; (b) menos de 175 lo usen; (c) menos de 150 lo usen.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>**A5 (teórico/conceptual).** Explica, en tus propias palabras, por qué se necesita la corrección de continuidad al aproximar una distribución binomial (discreta) con una distribución normal (continua). Según la proposición de este libro (Sección 4.3), ¿qué condición sobre $np$ y $nq$ garantiza que la aproximación sea confiable? Compárala con la regla que usaste en el <span class="co">[</span><span class="ot">Tema P6c</span><span class="co">](tema-p6c-estudiante.qmd)</span> ($np\ge5$ y $n(1-p)\ge5$) — ¿cuál es más exigente?</span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 7 · Momentos, asimetría y curtosis</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Respuestas</span></span>
 <span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 2, ejercicios de momentos.</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Sea $m_k$ el $k$-ésimo momento central de $x_1,\dots,x_n$. Demuestra que $m_2 = m_2' - (m_1')^2$, donde $m_2'$ es el segundo momento no central (ya se hizo en el Tema 7 — inténtalo sin ver la demostración antes de comparar).</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Sea $a$ una constante y considera los datos transformados $ax_1,\dots,ax_n$. Demuestra que $m_k(ax) = a^k\cdot m_k(x)$.</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema 8 · Datos conjuntos</span></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>**Fuente:** Rincón (2017), Cap. 4, ejercicios de covarianza y correlación.</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Calcula la covarianza de los siguientes conjuntos de datos: (a) $(0,0),(1,2),(2,1)$; (b) $(-1,1),(0,-1),(1,-2),(2,-3)$; (c) $(2,4),(0,0),(1,2),(-1,-2),(0,0)$.</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Sin hacer ningún cálculo, para dos nubes de puntos — una muy "apretada" alrededor de una línea con pendiente positiva pronunciada, y otra muy dispersa alrededor de una línea con pendiente positiva suave — ¿cuál esperarías que tenga mayor covarianza? ¿Y mayor correlación? (Pista: no son necesariamente la misma respuesta.)</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Calcula la recta de regresión para: $x=<span class="sc">\{</span>0,1,2,3,4<span class="sc">\}</span>$, $y=<span class="sc">\{</span>3.5,4.5,7.5,9.5,10<span class="sc">\}</span>$. Estima el valor de $y$ cuando $x=2.5$.</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>A través de una recta de regresión, estima el dato faltante: $x=<span class="sc">\{</span>1,2,3,4,5<span class="sc">\}</span>$, $y=<span class="sc">\{</span>4,8,18,22,\ ?<span class="sc">\}</span>$ (usa los primeros 4 pares para ajustar la recta).</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas — Sección 1 (Binomial)</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B1:** $b(3;8,0.6)=0.1239$; $b(5;8,0.6)=0.2787$; $P(3\le X\le5)=0.6348$; $P(X\ge1\mid n{=}12,p{=}0.1)=0.7176$.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B2:** $B(4;10,0.3)=0.8497$; $b(4;10,0.3)=0.2001$; $b(6;10,0.7)=0.2001$ — son **iguales**, porque $b(x;n,1-p)=b(n-x;n,p)$ (ver B5).</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B3:** (a) $0.3079$; (b) $0.3965$; (c) $0.0886$.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B4:** $E(X)=np=50$; $V(X)=np(1-p)=25$.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B5:** Demostración — ambos lados se reducen a $\binom{n}{x}p^{n-x}(1-p)^x$.</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B6:** Demostración — $E(X)=np\sum_{y=0}^{n-1}b(y;n-1,p)=np\cdot1=np$.</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B7:** (a) $p=0$ o $p=1$ (el resultado ya no es aleatorio: siempre fracaso o siempre éxito). (b) $p=0.5$.</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B8:** (a) $P(X\ge6)=0.6331$; (b) media $=6$, sd $=1.549$, así que el intervalo es $<span class="co">[</span><span class="ot">4.45,\,7.55</span><span class="co">]</span>$, es decir $P(5\le X\le7)=0.6665$.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas — Sección 2 (Poisson)</span></span>
 <span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>Al resolver ejercicios de demostración (Temas 5, 7, 8), no te limites a verificar con números — intenta primero el álgebra general. Es la diferencia entre "comprobé que funciona en este caso" y "entendí por qué siempre funciona". <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**P1:** (a) $0.8472$; (b) $0.1033$; (c) $0.1528$; (d) $0.5622$.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**P2:** (a) $0.1637$; (b) $0.1813$; (c) $0.6703$.</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**P3:** (a) $0.1221$; (b) $0.3134$; (c) $0.2834$.</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**P4:** Demostración — $E(X)=\lambda e^{-\lambda}\sum_{y=0}^{\infty}\lambda^y/y!=\lambda e^{-\lambda}\cdot e^{\lambda}=\lambda$.</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**P5:** (a) $E(X)=\lambda=2$, sd $=\sqrt{2}=1.414$; (b) $P(X\ge4)\approx0.1429$ (la binomial exacta da $0.1420$ — muy cercana).</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**P6:** (a) $0.1755$; (b) $0.2650$.</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas — Sección 3 (Aproximación normal)</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A1:** (a) $0.7287$; (b) $0.8159$.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A2:** Aproximado $P(15\le X\le20)=0.2112$ (exacto $0.2117$); aproximado $P(X\le15)=0.8849$ (exacto $0.8852$) — la aproximación es muy buena en ambos casos.</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A3:** (a) $0.9933$; (b) $0.9874$; (c) $0.8051$.</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A4:** (a) $0.9667$; (b) $0.0100$; (c) $\approx0.000002$ (prácticamente cero).</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A5:** La binomial es discreta, la normal es continua — sin la corrección, $P(X=k)$ no tendría análogo en la normal. La regla de este libro es $np\ge10$ **y** $nq\ge10$ — más estricta que la regla $np\ge5$ y $n(1-p)\ge5$ usada en el Tema P6c (esta última es más permisiva; ambas son convenciones razonables, y en un examen conviene usar la que indique tu profesor).</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## Antes de dar por buena una respuesta</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>Resuélvelo primero sin mirar esta sección. Si tu respuesta no coincide, revisa si usaste la $\lambda$ o el $n,p$ correctos para el intervalo o escenario preguntado — es, con diferencia, el error más común en estos tres temas.</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

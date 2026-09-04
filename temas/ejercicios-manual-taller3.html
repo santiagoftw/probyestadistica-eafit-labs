@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Examen 2 · Simulacro – Estadística Descriptiva — Curso interactivo</title>
+<title>Práctica manual · Intervalos de confianza – Estadística Descriptiva — Curso interactivo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../temas/modulo-3-arquitectura.html" rel="next">
-<link href="../temas/examen-2-resueltos.html" rel="prev">
+<link href="../temas/ejercicios-manual-taller3-resueltos.html" rel="next">
+<link href="../temas/tema-i3-estudiante.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -189,7 +189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/examen-2-simulacro.html">Examen 2 · Simulacro</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-3-arquitectura.html">Módulo 3 — Inferencia Estadística</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller3.html">Práctica manual · Intervalos de confianza</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -439,7 +439,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link active">
+  <a href="../temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Examen 2 · Simulacro</span></a>
   </div>
 </li>
@@ -480,7 +480,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../temas/ejercicios-manual-taller3.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-manual-taller3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Práctica manual · Intervalos de confianza</span></a>
   </div>
 </li>
@@ -514,21 +514,17 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#preguntas-4-secciones-60-90-minutos-sugeridos" id="toc-preguntas-4-secciones-60-90-minutos-sugeridos" class="nav-link active" data-scroll-target="#preguntas-4-secciones-60-90-minutos-sugeridos">⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos</a></li>
-  <li><a href="#sección-i-distribución-binomial" id="toc-sección-i-distribución-binomial" class="nav-link" data-scroll-target="#sección-i-distribución-binomial">Sección I · Distribución binomial</a></li>
-  <li><a href="#sección-ii-distribución-poisson" id="toc-sección-ii-distribución-poisson" class="nav-link" data-scroll-target="#sección-ii-distribución-poisson">Sección II · Distribución Poisson</a></li>
-  <li><a href="#sección-iii-aproximación-normal-a-la-binomial" id="toc-sección-iii-aproximación-normal-a-la-binomial" class="nav-link" data-scroll-target="#sección-iii-aproximación-normal-a-la-binomial">Sección III · Aproximación normal a la binomial</a></li>
-  <li><a href="#sección-iv-función-generadora-de-momentos" id="toc-sección-iv-función-generadora-de-momentos" class="nav-link" data-scroll-target="#sección-iv-función-generadora-de-momentos">Sección IV · Función generadora de momentos</a></li>
-  <li><a href="#sección-v-síntesis" id="toc-sección-v-síntesis" class="nav-link" data-scroll-target="#sección-v-síntesis">Sección V · Síntesis</a></li>
+  <li><a href="#para-resolver-a-mano-con-lápiz-y-papel" id="toc-para-resolver-a-mano-con-lápiz-y-papel" class="nav-link active" data-scroll-target="#para-resolver-a-mano-con-lápiz-y-papel">✍️ Para resolver a mano, con lápiz y papel</a></li>
+  <li><a href="#respuestas" id="toc-respuestas" class="nav-link" data-scroll-target="#respuestas">✅ Respuestas</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/examen-2-simulacro.html">Examen 2 · Simulacro</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-3-arquitectura.html">Módulo 3 — Inferencia Estadística</a></li><li class="breadcrumb-item"><a href="../temas/ejercicios-manual-taller3.html">Práctica manual · Intervalos de confianza</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Examen 2 · Simulacro</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Práctica manual · Intervalos de confianza</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -545,68 +541,71 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Sobre este simulacro
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Este es un examen de práctica <strong>no oficial</strong>, construido para cubrir los cuatro criterios exactos de la rúbrica del Taller 2 (Binomial, Poisson, Aproximación normal, FGM). No sustituye al examen real del curso ni tiene relación con su ponderación o formato exactos — es una herramienta de autoevaluación. Resuélvelo primero <strong>sin mirar el código ni la clave de respuestas</strong>, con lápiz y papel, y verifica después en R.</p>
-</div>
-</div>
-<section id="preguntas-4-secciones-60-90-minutos-sugeridos" class="level2 hero-motivacion">
-<h2 class="anchored" data-anchor-id="preguntas-4-secciones-60-90-minutos-sugeridos">⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos</h2>
-<p>Simula las condiciones del examen real: resuelve en orden, sin R al principio (verifica al final), y cronometra tu tiempo. La <a href="../temas/examen-2-clave.html">clave de respuestas</a> está en una página separada — ábrela solo después de intentar todo el examen.</p>
+<section id="para-resolver-a-mano-con-lápiz-y-papel" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="para-resolver-a-mano-con-lápiz-y-papel">✍️ Para resolver a mano, con lápiz y papel</h2>
+<p>Estos ejercicios cubren los tres casos de intervalos de confianza del <a href="../temas/tema-i3-estudiante.html">Tema I3</a> — <span class="math inline">\(\sigma\)</span> conocida, <span class="math inline">\(\sigma\)</span> desconocida con muestra grande, y <span class="math inline">\(t\)</span> para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.</p>
 </section>
-<section id="sección-i-distribución-binomial" class="level2">
-<h2 class="anchored" data-anchor-id="sección-i-distribución-binomial">Sección I · Distribución binomial</h2>
-<p><strong>Pregunta 1 (0.5 pts).</strong> Para cada uno de los siguientes escenarios, indique si aplica un modelo binomial y justifique citando explícitamente cuál(es) de las condiciones BINS se cumple(n) o se rompe(n):</p>
-<ol type="a">
-<li><p>Se lanza una moneda balanceada 20 veces y se cuenta el número de caras.</p></li>
-<li><p>De un curso de 12 estudiantes (5 mujeres, 7 hombres) se seleccionan 6 al azar <strong>sin reemplazo</strong> para un comité, y se cuenta cuántas son mujeres.</p></li>
-<li><p>Se registra el número de clientes que llegan a una tienda durante una hora.</p></li>
-</ol>
-<p><strong>Pregunta 2 (0.5 pts).</strong> Un proceso de ensamblaje tiene una tasa de error del 35% por unidad ensamblada (independiente entre unidades). En un lote de 18 unidades, calcule: (a) la probabilidad de que exactamente 5 tengan error; (b) la probabilidad de que a lo sumo 3 tengan error.</p>
-</section>
-<section id="sección-ii-distribución-poisson" class="level2">
-<h2 class="anchored" data-anchor-id="sección-ii-distribución-poisson">Sección II · Distribución Poisson</h2>
-<p><strong>Pregunta 3 (0.5 pts).</strong> Un fabricante de tornillos reporta una tasa de defectos de 0.4 por cada 100 unidades producidas. En un lote de 750 unidades, calcule <span class="math inline">\(\lambda\)</span> para ese lote y la probabilidad de encontrar exactamente 2 defectuosas.</p>
-<p><strong>Pregunta 4 (0.5 pts).</strong> Un sensor detecta partículas a una tasa promedio de 4.5 por hora. Calcule la probabilidad de detectar exactamente 6 partículas en un período de 2 horas.</p>
-</section>
-<section id="sección-iii-aproximación-normal-a-la-binomial" class="level2">
-<h2 class="anchored" data-anchor-id="sección-iii-aproximación-normal-a-la-binomial">Sección III · Aproximación normal a la binomial</h2>
-<p><strong>Pregunta 5 (0.5 pts).</strong> Para cada escenario, verifique si aplica la aproximación normal (indique los valores de <span class="math inline">\(np\)</span> y <span class="math inline">\(n(1-p)\)</span>) y, si no aplica, indique qué alternativa usaría:</p>
-<ol type="a">
-<li><p><span class="math inline">\(n=60\)</span>, <span class="math inline">\(p=0.5\)</span></p></li>
-<li><p><span class="math inline">\(n=40\)</span>, <span class="math inline">\(p=0.03\)</span></p></li>
-</ol>
-<p><strong>Pregunta 6 (0.5 pts).</strong> En una población, el 40% respalda una iniciativa. Se encuestan 500 personas. Calcule <span class="math inline">\(P(X&lt;190)\)</span> usando la aproximación normal con corrección de continuidad, verificando primero las condiciones de aplicabilidad.</p>
-</section>
-<section id="sección-iv-función-generadora-de-momentos" class="level2">
-<h2 class="anchored" data-anchor-id="sección-iv-función-generadora-de-momentos">Sección IV · Función generadora de momentos</h2>
-<p><strong>Pregunta 7 (0.5 pts).</strong> La FGM de una Exponencial(<span class="math inline">\(\lambda\)</span>) es <span class="math inline">\(M(t)=\dfrac{\lambda}{\lambda-t}\)</span>. Derive <strong>a mano</strong> (mostrando el procedimiento) para encontrar <span class="math inline">\(E[X]\)</span> y <span class="math inline">\(\text{Var}(X)\)</span> en términos de <span class="math inline">\(\lambda\)</span>, y verifique su resultado numéricamente en R con <span class="math inline">\(\lambda=2\)</span>.</p>
-<p><strong>Pregunta 8 (0.5 pts).</strong> <span class="math inline">\(X\sim\text{Exponencial}(\lambda=2)\)</span> y <span class="math inline">\(Y\sim\text{Exponencial}(\lambda=2)\)</span>, independientes (mismo <span class="math inline">\(\lambda\)</span>). (a) Encuentre la FGM de <span class="math inline">\(X+Y\)</span> multiplicando las FGM individuales. (b) A partir de esa FGM, calcule <span class="math inline">\(E[X+Y]\)</span> y <span class="math inline">\(\text{Var}(X+Y)\)</span> derivando. (c) ¿Es <span class="math inline">\(X+Y\)</span> también Exponencial? Justifique con la forma algebraica de la FGM resultante.</p>
-</section>
-<section id="sección-v-síntesis" class="level2">
-<h2 class="anchored" data-anchor-id="sección-v-síntesis">Sección V · Síntesis</h2>
-<p><strong>Pregunta 9 (0.5 pts).</strong> Una aerolínea vende 2,000 tiquetes para un vuelo. La probabilidad de que un pasajero individual no se presente (“no-show”) es 0.001, independiente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Calcule los criterios relevantes y justifique.</p>
-<p><strong>Pregunta 10 (0.5 pts).</strong> Un proceso de manufactura tiene una tasa de defectos del 6%. Se inspeccionan 200 unidades. (a) Verifique si aplica la aproximación normal. (b) Calcule <span class="math inline">\(P(X\ge15)\)</span> tanto con la fórmula exacta como con la aproximación normal (corrección de continuidad), y compare ambos resultados.</p>
-<hr>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Cuando termines
+<span class="screen-reader-only">Note</span>Fuente
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Compara tus respuestas con la <a href="../temas/examen-2-clave.html">clave de respuestas</a>. Si te trabaste en alguna sección, vuelve a <a href="../temas/preparacion-examen-2.html">preparacion-examen-2.qmd</a> antes de reintentar.</p>
+<p>Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., <em>Probabilidad y Estadística para Ingeniería y Ciencias</em>, Capítulo 7. Todas las respuestas fueron verificadas de forma independiente.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Te trabaste en algún paso?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La página <a href="../temas/ejercicios-manual-taller3-resueltos.html">Práctica manual — Resueltos</a> tiene el desarrollo completo y el código en R.</p>
+</div>
+</div>
+<hr>
+<p><strong>IC1.</strong> Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con <span class="math inline">\(\sigma=1.8\)</span> conocida. Una muestra de <span class="math inline">\(n=40\)</span> ejes da <span class="math inline">\(\bar{x}=45.2\)</span>. Calcula un IC de 95% para el diámetro promedio real.</p>
+<p><strong>IC2.</strong> Se mide el espesor (mm) de una muestra de <span class="math inline">\(n=45\)</span> recubrimientos, con <span class="math inline">\(\bar{x}=5.42\)</span> y <span class="math inline">\(s=0.095\)</span>. Calcula un IC de 95% para el espesor promedio real (usa el caso de muestra grande, sustituyendo <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(s\)</span>).</p>
+<p><strong>IC3.</strong> De una muestra de 200 componentes electrónicos inspeccionados, 45 resultaron defectuosos. Calcula un IC de 95% para la proporción real de defectuosos, con la fórmula simple <span class="math inline">\(\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}\)</span>.</p>
+<p><strong>IC4.</strong> El tiempo de ensamblaje (minutos) de una pieza se midió en 9 ocasiones: <code>12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6</code>. Suponiendo una población normal, calcula un IC de 95% para el tiempo de ensamblaje promedio real.</p>
+<p><strong>IC5 (teórico).</strong> Para el IC <span class="math inline">\(\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n\)</span>: si el tamaño de muestra se cuadruplica (de <span class="math inline">\(n\)</span> a <span class="math inline">\(4n\)</span>), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.</p>
+<p><strong>IC6 (teórico).</strong> A partir de la desigualdad bilateral <span class="math inline">\(P\!\left(-z_\alpha&lt;\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\right)=1-\alpha\)</span> (nota: con <span class="math inline">\(z_\alpha\)</span>, no <span class="math inline">\(z_{\alpha/2}\)</span>), deriva un intervalo <strong>unilateral</strong> que dé solo un <strong>límite inferior de confianza</strong> para <span class="math inline">\(\mu\)</span>, con nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>. (Pista: parte de una desigualdad de un solo lado, <span class="math inline">\(\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\)</span>, y despeja <span class="math inline">\(\mu\)</span>).</p>
+<p><strong>IC7 (conceptual).</strong> Un asesor calculará 1000 intervalos de confianza de 95% para <span class="math inline">\(\mu\)</span>, uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea <span class="math inline">\(Y\)</span> el número de esos 1000 intervalos que sí contienen el verdadero valor de <span class="math inline">\(\mu\)</span> correspondiente. (a) ¿Qué distribución tiene <span class="math inline">\(Y\)</span>? (b) ¿Cuál es <span class="math inline">\(E(Y)\)</span>? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a <span class="math inline">\(\mu\)</span>?</p>
+<p><strong>IC8.</strong> Usando los datos del ejercicio IC1 (<span class="math inline">\(\sigma=1.8\)</span>, <span class="math inline">\(n=40\)</span>, <span class="math inline">\(\bar x=45.2\)</span>), calcula el IC con 90%, 95% y 99% de confianza, y compara el ancho total de los tres intervalos. ¿La dirección del cambio tiene sentido?</p>
+<hr>
+<section id="respuestas" class="level2">
+<h2 class="anchored" data-anchor-id="respuestas">✅ Respuestas</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuestas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>IC1:</strong> margen <span class="math inline">\(=0.558\)</span>; IC <span class="math inline">\(=(44.64,\,45.76)\)</span>.</li>
+<li><strong>IC2:</strong> margen <span class="math inline">\(=0.028\)</span>; IC <span class="math inline">\(=(5.392,\,5.448)\)</span>.</li>
+<li><strong>IC3:</strong> <span class="math inline">\(\hat p=0.225\)</span>; margen <span class="math inline">\(=0.058\)</span>; IC <span class="math inline">\(=(0.167,\,0.283)\)</span>.</li>
+<li><strong>IC4:</strong> <span class="math inline">\(\bar x=12.5\)</span>, <span class="math inline">\(s=0.539\)</span>, <span class="math inline">\(t_{0.025,8}=2.306\)</span>; margen <span class="math inline">\(=0.414\)</span>; IC <span class="math inline">\(=(12.09,\,12.91)\)</span>.</li>
+<li><strong>IC5:</strong> el margen es proporcional a <span class="math inline">\(1/\sqrt n\)</span>. Con <span class="math inline">\(4n\)</span>: <span class="math inline">\(1/\sqrt{4n}=1/(2\sqrt n)\)</span> — la extensión se reduce <strong>a la mitad</strong>, no a la cuarta parte (cuadruplicar <span class="math inline">\(n\)</span> solo reduce el margen por un factor de 2, no de 4 — un error común).</li>
+<li><strong>IC6:</strong> <span class="math inline">\(\mu&gt;\bar X - z_\alpha\cdot\sigma/\sqrt n\)</span> — el límite inferior de confianza es <span class="math inline">\(\bar x - z_\alpha\cdot\sigma/\sqrt n\)</span>, con confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</li>
+<li><strong>IC7:</strong> (a) <span class="math inline">\(Y\sim\text{Binomial}(1000,\,0.95)\)</span>. (b) <span class="math inline">\(E(Y)=950\)</span>. (c) <span class="math inline">\(P(940\le Y\le960)=0.873\)</span>.</li>
+<li><strong>IC8:</strong> ancho total: 90% → <span class="math inline">\(0.936\)</span>; 95% → <span class="math inline">\(1.116\)</span>; 99% → <span class="math inline">\(1.466\)</span>. Mayor confianza requiere un intervalo más ancho — tiene sentido: estar “más seguro” exige abarcar más posibilidades.</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -1069,77 +1068,70 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../temas/examen-2-resueltos.html" class="pagination-link" aria-label="Exámenes resueltos · Versiones A y B">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exámenes resueltos · Versiones A y B</span>
+      <a href="../temas/tema-i3-estudiante.html" class="pagination-link" aria-label="Tema I3 · Intervalos de confianza">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Tema I3 · Intervalos de confianza</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../temas/modulo-3-arquitectura.html" class="pagination-link" aria-label="Módulo 3 · Inferencia Estadística — Arquitectura">
-        <span class="nav-page-text">Módulo 3 · Inferencia Estadística — Arquitectura</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../temas/ejercicios-manual-taller3-resueltos.html" class="pagination-link" aria-label="Práctica manual · Intervalos de confianza — Resueltos">
+        <span class="nav-page-text">Práctica manual · Intervalos de confianza — Resueltos</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Examen 2 · Simulacro"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Práctica manual · Intervalos de confianza"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sobre este simulacro</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Este es un examen de práctica **no oficial**, construido para cubrir los cuatro criterios exactos de la rúbrica del Taller 2 (Binomial, Poisson, Aproximación normal, FGM). No sustituye al examen real del curso ni tiene relación con su ponderación o formato exactos — es una herramienta de autoevaluación. Resuélvelo primero **sin mirar el código ni la clave de respuestas**, con lápiz y papel, y verifica después en R.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## ⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Simula las condiciones del examen real: resuelve en orden, sin R al principio (verifica al final), y cronometra tu tiempo. La <span class="co">[</span><span class="ot">clave de respuestas</span><span class="co">](examen-2-clave.qmd)</span> está en una página separada — ábrela solo después de intentar todo el examen.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✍️ Para resolver a mano, con lápiz y papel</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Estos ejercicios cubren los tres casos de intervalos de confianza del <span class="co">[</span><span class="ot">Tema I3</span><span class="co">](tema-i3-estudiante.qmd)</span> — $\sigma$ conocida, $\sigma$ desconocida con muestra grande, y $t$ para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fuente</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Capítulo 7. Todas las respuestas fueron verificadas de forma independiente.</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección I · Distribución binomial</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>**Pregunta 1 (0.5 pts).** Para cada uno de los siguientes escenarios, indique si aplica un modelo binomial y justifique citando explícitamente cuál(es) de las condiciones BINS se cumple(n) o se rompe(n):</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>(a) Se lanza una moneda balanceada 20 veces y se cuenta el número de caras.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>(b) De un curso de 12 estudiantes (5 mujeres, 7 hombres) se seleccionan 6 al azar **sin reemplazo** para un comité, y se cuenta cuántas son mujeres.</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>(c) Se registra el número de clientes que llegan a una tienda durante una hora.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>**Pregunta 2 (0.5 pts).** Un proceso de ensamblaje tiene una tasa de error del 35% por unidad ensamblada (independiente entre unidades). En un lote de 18 unidades, calcule: (a) la probabilidad de que exactamente 5 tengan error; (b) la probabilidad de que a lo sumo 3 tengan error.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección II · Distribución Poisson</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>**Pregunta 3 (0.5 pts).** Un fabricante de tornillos reporta una tasa de defectos de 0.4 por cada 100 unidades producidas. En un lote de 750 unidades, calcule $\lambda$ para ese lote y la probabilidad de encontrar exactamente 2 defectuosas.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>**Pregunta 4 (0.5 pts).** Un sensor detecta partículas a una tasa promedio de 4.5 por hora. Calcule la probabilidad de detectar exactamente 6 partículas en un período de 2 horas.</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección III · Aproximación normal a la binomial</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>**Pregunta 5 (0.5 pts).** Para cada escenario, verifique si aplica la aproximación normal (indique los valores de $np$ y $n(1-p)$) y, si no aplica, indique qué alternativa usaría:</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>(a) $n=60$, $p=0.5$</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>(b) $n=40$, $p=0.03$</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>**Pregunta 6 (0.5 pts).** En una población, el 40% respalda una iniciativa. Se encuestan 500 personas. Calcule $P(X&lt;190)$ usando la aproximación normal con corrección de continuidad, verificando primero las condiciones de aplicabilidad.</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección IV · Función generadora de momentos</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## ¿Te trabaste en algún paso?</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>La página <span class="co">[</span><span class="ot">Práctica manual — Resueltos</span><span class="co">](ejercicios-manual-taller3-resueltos.qmd)</span> tiene el desarrollo completo y el código en R.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>**IC1.** Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con $\sigma=1.8$ conocida. Una muestra de $n=40$ ejes da $\bar{x}=45.2$. Calcula un IC de 95% para el diámetro promedio real.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>**IC2.** Se mide el espesor (mm) de una muestra de $n=45$ recubrimientos, con $\bar{x}=5.42$ y $s=0.095$. Calcula un IC de 95% para el espesor promedio real (usa el caso de muestra grande, sustituyendo $\sigma$ por $s$).</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>**IC3.** De una muestra de 200 componentes electrónicos inspeccionados, 45 resultaron defectuosos. Calcula un IC de 95% para la proporción real de defectuosos, con la fórmula simple $\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}$.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>**IC4.** El tiempo de ensamblaje (minutos) de una pieza se midió en 9 ocasiones: <span class="in">`12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6`</span>. Suponiendo una población normal, calcula un IC de 95% para el tiempo de ensamblaje promedio real.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>**IC5 (teórico).** Para el IC $\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n$: si el tamaño de muestra se cuadruplica (de $n$ a $4n$), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>**IC6 (teórico).** A partir de la desigualdad bilateral $P\!\left(-z_\alpha&lt;\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha\right)=1-\alpha$ (nota: con $z_\alpha$, no $z_{\alpha/2}$), deriva un intervalo **unilateral** que dé solo un **límite inferior de confianza** para $\mu$, con nivel de confianza $100(1-\alpha)\%$. (Pista: parte de una desigualdad de un solo lado, $\dfrac{\bar X-\mu}{\sigma/\sqrt n}&lt;z_\alpha$, y despeja $\mu$).</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**IC7 (conceptual).** Un asesor calculará 1000 intervalos de confianza de 95% para $\mu$, uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea $Y$ el número de esos 1000 intervalos que sí contienen el verdadero valor de $\mu$ correspondiente. (a) ¿Qué distribución tiene $Y$? (b) ¿Cuál es $E(Y)$? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a $\mu$?</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>**IC8.** Usando los datos del ejercicio IC1 ($\sigma=1.8$, $n=40$, $\bar x=45.2$), calcula el IC con 90%, 95% y 99% de confianza, y compara el ancho total de los tres intervalos. ¿La dirección del cambio tiene sentido?</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Respuestas</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas</span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>**Pregunta 7 (0.5 pts).** La FGM de una Exponencial($\lambda$) es $M(t)=\dfrac{\lambda}{\lambda-t}$. Derive **a mano** (mostrando el procedimiento) para encontrar $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$ y $\text{Var}(X)$ en términos de $\lambda$, y verifique su resultado numéricamente en R con $\lambda=2$.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**Pregunta 8 (0.5 pts).** $X\sim\text{Exponencial}(\lambda=2)$ y $Y\sim\text{Exponencial}(\lambda=2)$, independientes (mismo $\lambda$). (a) Encuentre la FGM de $X+Y$ multiplicando las FGM individuales. (b) A partir de esa FGM, calcule $E<span class="co">[</span><span class="ot">X+Y</span><span class="co">]</span>$ y $\text{Var}(X+Y)$ derivando. (c) ¿Es $X+Y$ también Exponencial? Justifique con la forma algebraica de la FGM resultante.</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección V · Síntesis</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>**Pregunta 9 (0.5 pts).** Una aerolínea vende 2,000 tiquetes para un vuelo. La probabilidad de que un pasajero individual no se presente ("no-show") es 0.001, independiente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Calcule los criterios relevantes y justifique.</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>**Pregunta 10 (0.5 pts).** Un proceso de manufactura tiene una tasa de defectos del 6%. Se inspeccionan 200 unidades. (a) Verifique si aplica la aproximación normal. (b) Calcule $P(X\ge15)$ tanto con la fórmula exacta como con la aproximación normal (corrección de continuidad), y compare ambos resultados.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuando termines</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>Compara tus respuestas con la <span class="co">[</span><span class="ot">clave de respuestas</span><span class="co">](examen-2-clave.qmd)</span>. Si te trabaste en alguna sección, vuelve a <span class="co">[</span><span class="ot">preparacion-examen-2.qmd</span><span class="co">](preparacion-examen-2.qmd)</span> antes de reintentar.</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC1:** margen $=0.558$; IC $=(44.64,\,45.76)$.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC2:** margen $=0.028$; IC $=(5.392,\,5.448)$.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC3:** $\hat p=0.225$; margen $=0.058$; IC $=(0.167,\,0.283)$.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC4:** $\bar x=12.5$, $s=0.539$, $t_{0.025,8}=2.306$; margen $=0.414$; IC $=(12.09,\,12.91)$.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC5:** el margen es proporcional a $1/\sqrt n$. Con $4n$: $1/\sqrt{4n}=1/(2\sqrt n)$ — la extensión se reduce **a la mitad**, no a la cuarta parte (cuadruplicar $n$ solo reduce el margen por un factor de 2, no de 4 — un error común).</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC6:** $\mu&gt;\bar X - z_\alpha\cdot\sigma/\sqrt n$ — el límite inferior de confianza es $\bar x - z_\alpha\cdot\sigma/\sqrt n$, con confianza $100(1-\alpha)\%$.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC7:** (a) $Y\sim\text{Binomial}(1000,\,0.95)$. (b) $E(Y)=950$. (c) $P(940\le Y\le960)=0.873$.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**IC8:** ancho total: 90% → $0.936$; 95% → $1.116$; 99% → $1.466$. Mayor confianza requiere un intervalo más ancho — tiene sentido: estar "más seguro" exige abarcar más posibilidades.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
