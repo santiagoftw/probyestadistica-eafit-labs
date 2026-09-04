@@ -1,0 +1,182 @@
+---
+title: "Práctica manual · Intervalos de confianza — Resueltos"
+---
+
+::: {.hero-motivacion}
+## 📐 El mismo banco, con desarrollo completo
+
+Resuelve primero en [Práctica manual · Intervalos de confianza](ejercicios-manual-taller3.qmd) — esta página tiene el paso a paso y el código en R.
+:::
+
+---
+
+### IC1 — $\sigma$ conocida
+
+**Enunciado:** ejes con $\sigma=1.8$ mm conocida, $n=40$, $\bar x=45.2$. IC de 95%.
+
+**Desarrollo teórico:** caso más simple, $\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n$, con $z_{0.025}=1.96$.
+
+```{r}
+n <- 40; sigma <- 1.8; xbar <- 45.2
+margen <- qnorm(0.975) * sigma / sqrt(n)
+c(margen = margen, inferior = xbar - margen, superior = xbar + margen)
+```
+
+**Resultado:** IC $=(44.64,\,45.76)$.
+
+---
+
+### IC2 — $\sigma$ desconocida, muestra grande
+
+**Enunciado:** espesor de recubrimientos, $n=45$, $\bar x=5.42$, $s=0.095$. IC de 95%.
+
+**Desarrollo teórico:** $n=45>40$, así que aplica el caso de muestra grande: sustituir $\sigma$ por $s$ en la misma fórmula, con $z_{0.025}=1.96$.
+
+```{r}
+n <- 45; xbar <- 5.42; s <- 0.095
+margen <- qnorm(0.975) * s / sqrt(n)
+c(margen = margen, inferior = xbar - margen, superior = xbar + margen)
+```
+
+**Resultado:** IC $=(5.392,\,5.448)$.
+
+---
+
+### IC3 — Proporción
+
+**Enunciado:** 45 defectuosos de 200 inspeccionados. IC de 95% para $p$.
+
+**Desarrollo teórico:** $\hat p=45/200=0.225$. Fórmula simple: $\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}$.
+
+```{r}
+n <- 200; x <- 45
+p_hat <- x / n
+margen <- qnorm(0.975) * sqrt(p_hat * (1 - p_hat) / n)
+c(p_hat = p_hat, margen = margen, inferior = p_hat - margen, superior = p_hat + margen)
+```
+
+```{r}
+# Comparación con la versión ajustada de R
+prop.test(x, n, correct = FALSE)$conf.int
+```
+
+**Resultado:** fórmula simple $(0.167,\,0.283)$; la versión ajustada de `prop.test()` da un intervalo muy similar aquí porque $n$ es grande y $\hat p$ no está cerca de los extremos.
+
+---
+
+### IC4 — Muestra pequeña, distribución $t$
+
+**Enunciado:** tiempos de ensamblaje (min): `12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6`. IC de 95%, suponiendo normalidad.
+
+**Desarrollo teórico:** $n=9$ es pequeña — usar $t$ con $n-1=8$ grados de libertad, no $z$.
+
+```{r}
+datos <- c(12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6)
+n <- length(datos)
+xbar <- mean(datos)
+s <- sd(datos)
+
+t_critico <- qt(0.975, df = n - 1)
+margen <- t_critico * s / sqrt(n)
+
+c(xbar = xbar, s = s, t_critico = t_critico, margen = margen)
+c(inferior = xbar - margen, superior = xbar + margen)
+```
+
+**Resultado:** $\bar x=12.5$, $s=0.539$, $t_{0.025,8}=2.306$; IC $=(12.09,\,12.91)$.
+
+---
+
+### IC5 — Demostración: cuadruplicar $n$
+
+**Enunciado:** ¿en qué factor cambia la extensión del IC si $n\to4n$?
+
+**Desarrollo teórico:**
+
+$$\text{margen}(n) = z_{\alpha/2}\cdot\frac{\sigma}{\sqrt n} \qquad \text{margen}(4n) = z_{\alpha/2}\cdot\frac{\sigma}{\sqrt{4n}} = z_{\alpha/2}\cdot\frac{\sigma}{2\sqrt n} = \frac{1}{2}\,\text{margen}(n)$$
+
+Cuadruplicar $n$ reduce el margen (y por lo tanto la extensión total) **a la mitad**, no a la cuarta parte — el margen escala con $1/\sqrt n$, no con $1/n$.
+
+```{r}
+n <- 40; sigma <- 1.8; z <- qnorm(0.975)
+
+margen_n  <- z * sigma / sqrt(n)
+margen_4n <- z * sigma / sqrt(4 * n)
+
+c(margen_n = margen_n, margen_4n = margen_4n, razon = margen_n / margen_4n)
+```
+
+---
+
+### IC6 — Demostración: intervalo unilateral
+
+**Enunciado:** deriva un límite inferior de confianza de $100(1-\alpha)\%$ para $\mu$.
+
+**Desarrollo teórico:** partiendo de la desigualdad de un solo lado:
+
+$$P\!\left(\frac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha\right)=1-\alpha$$
+
+Despejando $\mu$ (multiplicando por $\sigma/\sqrt n>0$, que no invierte la desigualdad, y luego reordenando):
+
+$$\bar X-\mu<z_\alpha\cdot\frac{\sigma}{\sqrt n} \;\Longrightarrow\; -\mu<z_\alpha\cdot\frac{\sigma}{\sqrt n}-\bar X \;\Longrightarrow\; \mu>\bar X-z_\alpha\cdot\frac{\sigma}{\sqrt n}$$
+
+Entonces $P\!\left(\mu>\bar X-z_\alpha\cdot\sigma/\sqrt n\right)=1-\alpha$, es decir, $\bar x - z_\alpha\cdot\sigma/\sqrt n$ es un **límite inferior de confianza** de $100(1-\alpha)\%$ para $\mu$ (el intervalo se extiende infinitamente hacia arriba: $(\bar x - z_\alpha\sigma/\sqrt n,\ \infty)$).
+
+```{r}
+# Verificación numérica con los datos de IC1, al 95% (unilateral usa z_alpha, no z_alpha/2)
+n <- 40; sigma <- 1.8; xbar <- 45.2
+limite_inferior <- xbar - qnorm(0.95) * sigma / sqrt(n)   # z_0.05, no z_0.025
+limite_inferior
+```
+
+---
+
+### IC7 — Distribución de $Y$: cuántos intervalos "aciertan"
+
+**Enunciado:** de 1000 intervalos de 95% independientes, sea $Y$ = número que contienen a $\mu$. (a) Distribución. (b) $E(Y)$. (c) $P(940\le Y\le960)$.
+
+**Desarrollo teórico:** cada intervalo, de forma independiente, tiene probabilidad 0.95 de contener a $\mu$ (por la definición misma de "95% de confianza" — ver el Tema I3). Contar cuántos de 1000 ensayos independientes "tienen éxito" con probabilidad constante 0.95 es exactamente la definición de una variable **binomial**.
+
+```{r}
+n_intervalos <- 1000; p_acierto <- 0.95
+
+E_Y <- n_intervalos * p_acierto
+p_940_960 <- pbinom(960, n_intervalos, p_acierto) - pbinom(939, n_intervalos, p_acierto)
+
+c(E_Y = E_Y, "P(940<=Y<=960)" = p_940_960)
+```
+
+**Resultado:** (a) $Y\sim\text{Binomial}(1000,\,0.95)$. (b) $E(Y)=950$. (c) $P(940\le Y\le960)=0.873$.
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Este ejercicio conecta dos temas que podrían parecer aislados: la interpretación de "confianza" del Tema I3 (frecuencia relativa a la larga) se convierte, en la práctica, en un experimento binomial exactamente como los del Tema P6 — cada intervalo es un "ensayo" con $p=0.95$ de "éxito" (contener a $\mu$). [Ver más trucos →](../recursos.qmd)
+:::
+
+---
+
+### IC8 — Ancho del intervalo según el nivel de confianza
+
+**Enunciado:** con $\sigma=1.8$, $n=40$, $\bar x=45.2$, compara el ancho total del IC a 90%, 95% y 99%.
+
+```{r}
+n <- 40; sigma <- 1.8
+
+niveles <- c(0.90, 0.95, 0.99)
+z_vals <- qnorm(1 - (1 - niveles) / 2)
+anchos <- 2 * z_vals * sigma / sqrt(n)
+
+data.frame(confianza = niveles, z = round(z_vals, 3), ancho_total = round(anchos, 3))
+```
+
+**Resultado:** el ancho crece de 0.936 (90%) a 1.116 (95%) a 1.466 (99%) — a mayor confianza exigida, más ancho debe ser el intervalo para "cubrirse" ante más posibilidades. Es el mismo compromiso de fondo que ya viste entre $\alpha$ y $\beta$ en el Tema I1, visto ahora desde el lado de la estimación en vez de la prueba de hipótesis.
+
+---
+
+## 🗂️ Cierre
+
+::: {.card-lab}
+- Los tres primeros casos (IC1-IC4) comparten la misma estructura: estimación $\pm$ valor crítico $\times$ error estándar — memoriza el patrón, no tres fórmulas distintas.
+- Las demostraciones (IC5, IC6) usan álgebra directa sobre la desigualdad de probabilidad original — el mismo estilo de manipulación que ya viste al derivar la fórmula general del IC en la teoría del Tema I3.
+- IC7 es un recordatorio de que los temas de este curso no viven aislados: "confianza" (Módulo 3) y "binomial" (Módulo 2) son, en el fondo, la misma idea de conteo de éxitos aplicada a contextos distintos.
+:::

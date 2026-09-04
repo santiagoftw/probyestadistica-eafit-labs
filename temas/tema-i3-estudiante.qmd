@@ -1,0 +1,245 @@
+---
+title: "Tema I3 · Intervalos de confianza"
+---
+
+::: {.hero-motivacion}
+## 📏 Un solo número nunca dice qué tan seguro estás
+
+Si alguien te dice "la resistencia promedio de estas toallas de papel es 9322.7 g", ¿qué tan cerca de la realidad crees que está ese número? Un valor puntual, por sí solo, no dice nada sobre su propia precisión. Un **intervalo de confianza** responde la pregunta que el punto no puede: no solo "¿cuál es mi mejor estimación?", sino "¿en qué rango puedo confiar, y con qué nivel de seguridad?".
+:::
+
+::: {.callout-note}
+## Fuente de este tema
+Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Capítulo 7 (Secciones 7.1-7.3). Todos los resultados numéricos —incluidos dos conjuntos de datos reales completos— fueron verificados de forma independiente.
+:::
+
+::: {.ficha-prediccion}
+Si repitieras un experimento 1000 veces y calcularas un intervalo de confianza del 95% cada vez, ¿cuántos de esos 1000 intervalos esperarías que **sí** contengan el verdadero valor del parámetro? ¿Y cuántos no?
+:::
+
+## 🔬 Exploremos: qué tan seguido "falla" un intervalo de confianza
+
+```{r}
+set.seed(1)
+mu_real <- 100; sigma <- 15; n <- 30
+
+# Simular 1000 muestras, calcular el IC de 95% de cada una,
+# y contar en cuántas SÍ quedó atrapado el verdadero mu=100
+contiene_mu <- replicate(1000, {
+  muestra <- rnorm(n, mu_real, sigma)
+  xbar <- mean(muestra)
+  margen <- 1.96 * sigma / sqrt(n)
+  (xbar - margen <= mu_real) & (mu_real <= xbar + margen)
+})
+
+mean(contiene_mu)   # proporción de intervalos que sí atraparon a mu
+```
+
+::: {.ficha-resultado}
+Aproximadamente 95% de los 1000 intervalos simulados contienen el verdadero $\mu=100$ — el otro ~5% no lo logra, simplemente por la variabilidad del muestreo. Esta simulación **es** literalmente lo que significa "95% de confianza": no que *este* intervalo particular tenga 95% de probabilidad de contener a $\mu$ (una vez calculado, o lo contiene o no —ya no hay aleatoriedad—), sino que el **procedimiento** que lo generó acierta 95% de las veces a la larga.
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## 1. Qué es (y qué NO es) un intervalo de confianza
+
+Un intervalo de confianza de $100(1-\alpha)\%$ para un parámetro es un rango de valores, calculado a partir de la muestra, tal que si el procedimiento se repitiera muchas veces, aproximadamente $100(1-\alpha)\%$ de los intervalos resultantes contendrían el verdadero valor del parámetro.
+
+::: {.callout-important}
+## El error de interpretación más común
+Una vez calculado un intervalo específico, como $(79.3,\,80.7)$, **es incorrecto** decir "hay 95% de probabilidad de que $\mu$ esté en $(79.3, 80.7)$". $\mu$ es una constante fija (desconocida, pero fija); el intervalo ya está calculado y ya no es aleatorio. Lo correcto es decir que se tiene 95% de **confianza** en el procedimiento que produjo ese intervalo — la aleatoriedad estaba en la muestra, no en el parámetro.
+:::
+
+## 2. $\mu$ con $\sigma$ conocida
+
+$$\bar{x} \pm z_{\alpha/2}\cdot\frac{\sigma}{\sqrt{n}}$$
+
+El caso más simple (aunque menos realista: rara vez se conoce $\sigma$ sin conocer también $\mu$). Sirve como base para todo lo que sigue.
+
+## 3. $\mu$ con $\sigma$ desconocida, muestra grande
+
+Cuando $\sigma$ no se conoce pero $n$ es grande (regla práctica: $n>40$), el Teorema Central del Límite permite sustituir $\sigma$ por $s$ sin mayor pérdida de precisión:
+
+$$\bar{x} \pm z_{\alpha/2}\cdot\frac{s}{\sqrt{n}}$$
+
+**Para una proporción poblacional $p$** (con $\hat{p}=x/n$), la versión simple análoga es:
+
+$$\hat{p} \pm z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+
+(existe una versión ajustada, más precisa para $n$ chico o $\hat p$ cerca de 0 o 1 — la misma idea del método de Wilson que ya usaste en el Ítem 41 del Laboratorio de Inferencia).
+
+## 4. $\mu$ con $\sigma$ desconocida, muestra pequeña (t)
+
+Cuando $n$ es pequeña, ya no se puede invocar el TLC. Si la población de origen es aproximadamente normal, el estadístico correcto usa la distribución **t** con $n-1$ grados de libertad en vez de la normal:
+
+$$\bar{x} \pm t_{\alpha/2,\,n-1}\cdot\frac{s}{\sqrt{n}}$$
+
+Misma estructura que los dos casos anteriores — solo cambia de dónde sale el valor crítico. La curva $t$ es más dispersa que la normal estándar (más "pesada" en las colas), y se acerca a la normal cuando $n\to\infty$ — por eso la regla práctica de $n>40$ del caso anterior funciona: ahí $t$ y $z$ ya casi coinciden.
+
+:::
+
+## 🧪 Ejemplo con datos reales: muestra grande (n = 48)
+
+**Enunciado:** se midió la tensión disruptiva de corriente alterna (kV) de un líquido aislante en 48 pruebas. Calcule un IC de 95% para la tensión disruptiva promedio real.
+
+```{r}
+datos <- c(62,50,53,57,41,53,55,61,59,64,50,53,64,62,50,68,
+           54,55,57,50,55,50,56,55,46,55,53,54,52,47,47,55,
+           57,48,63,57,57,55,53,59,53,52,50,55,60,50,56,58)
+
+n <- length(datos)
+xbar <- mean(datos)
+s <- sd(datos)
+
+margen <- qnorm(0.975) * s / sqrt(n)   # n=48 > 40: aplica el caso de muestra grande
+c(n = n, xbar = xbar, s = s, margen = margen)
+c(inferior = xbar - margen, superior = xbar + margen)
+```
+
+::: {.ficha-resultado}
+$n=48$, $\bar{x}=54.7$, $s=5.23$. El IC de 95% es $(53.2,\,56.2)$ — relativamente estrecho, lo que indica una estimación bastante precisa del voltaje disruptivo promedio real.
+:::
+
+## 🧪 Segundo ejemplo: muestra pequeña con t (n = 16)
+
+**Enunciado:** se midió el módulo de elasticidad (MPa) de 16 especímenes de madera de pino escocés. Suponiendo una población aproximadamente normal, calcule un IC de 95%.
+
+```{r}
+datos <- c(10490,16620,17300,15480,12970,17260,13400,13900,
+           13630,13260,14370,11700,15470,17840,14070,14760)
+
+n <- length(datos)
+xbar <- mean(datos)
+s <- sd(datos)
+
+t_critico <- qt(0.975, df = n - 1)
+margen <- t_critico * s / sqrt(n)
+
+c(n = n, xbar = xbar, s = s, t_critico = t_critico, margen = margen)
+c(inferior = xbar - margen, superior = xbar + margen)
+```
+
+::: {.ficha-resultado}
+Con solo $n=16$ y una desviación estándar considerable ($s\approx2056$), el intervalo resultante es bastante amplio: $(13437,\,15628)$ — un rango de más de 2000 MPa. Compáralo con el ejemplo anterior: menos datos y más variabilidad se traducen directamente en un intervalo menos preciso, a pesar de usar el mismo nivel de confianza (95%).
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+El ancho del intervalo depende de tres cosas: el nivel de confianza (más confianza → más ancho), la variabilidad de los datos ($s$ más grande → más ancho), y el tamaño de muestra ($n$ más grande → más angosto, porque el error estándar $s/\sqrt{n}$ encoge). De las tres, el tamaño de muestra es la única que el investigador puede controlar de antemano. [Ver más trucos →](../recursos.qmd)
+:::
+
+## 🔗 Bonus: intervalo de confianza para una proporción
+
+**Enunciado:** en 48 ensayos de ignición de cierto sustrato, 16 resultaron en ignición. Calcule un IC de 95% para la proporción real $p$.
+
+```{r}
+x <- 16; n <- 48
+p_hat <- x / n
+
+# Fórmula simple (7.11)
+margen_simple <- qnorm(0.975) * sqrt(p_hat * (1 - p_hat) / n)
+c(p_hat = p_hat, IC_simple = c(p_hat - margen_simple, p_hat + margen_simple))
+```
+
+```{r}
+# prop.test() usa una versión ajustada (más precisa), como la del Ítem 41
+prop.test(x, n, correct = FALSE)$conf.int
+```
+
+::: {.ficha-resultado}
+La fórmula simple da $(0.200,\,0.467)$; la versión ajustada de `prop.test()` da $(0.217,\,0.474)$ — parecidos, pero no idénticos. Con $n$ moderado y $\hat p$ no tan cerca de 0.5, esta diferencia es el precio de la fórmula simple: funciona razonablemente bien, pero la ajustada es más confiable, como ya viste en el Ítem 41.
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **Muestra pequeña, tú resuelves.** El contenido de grasa (%) de una muestra de 10 hot dogs: `25.2, 21.3, 22.8, 17.0, 29.8, 21.0, 25.5, 16.0, 20.9, 19.5`. Suponiendo una población normal, calcula un IC de 95% para el contenido de grasa promedio real.
+
+2. **El efecto del nivel de confianza.** Usando los mismos 48 datos de tensión disruptiva del primer ejemplo, calcula el IC con 90%, 95% y 99% de confianza. ¿Cómo cambia el ancho del intervalo? ¿Tiene sentido esa dirección de cambio?
+
+3. **Tamaño de muestra necesario.** Un investigador quiere estimar la tensión disruptiva promedio con un IC de 95% que tenga una extensión total de a lo sumo 2 kV (es decir, margen de error $\le1$). Si estima que $\sigma\approx7.5$, ¿qué tamaño de muestra $n$ necesita? (Pista: despeja $n$ de $z_{\alpha/2}\cdot\sigma/\sqrt{n}\le1$).
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# IC de 95% para mu, sigma=12 conocida, n=50, xbar=200
+xbar <- 200; sigma <- 12; n <- 50
+margen <- qnorm(0.975) * sigma / sqrt(___)
+c(inferior = xbar - margen, superior = xbar + margen)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`n` — el error estándar siempre se calcula como $\sigma/\sqrt{n}$ (o $s/\sqrt{n}$), dividiendo entre la raíz del tamaño de muestra.
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# IC t de 90% para mu, n=12 (muestra pequena), xbar=45, s=6
+xbar <- 45; s <- 6; n <- 12
+t_critico <- qt(0.95, df = ___)
+margen <- t_critico * s / sqrt(n)
+c(inferior = xbar - margen, superior = xbar + margen)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`n - 1` — los grados de libertad de la distribución t para un IC de una sola muestra siempre son $n-1$.
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temai3">
+<div style="margin-bottom: 1rem;"><strong>1. Un IC de 95% significa que hay 95% de probabilidad de que el parámetro esté en ese intervalo específico.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Un tamaño de muestra más grande produce, en general, un intervalo más angosto.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. Cuando sigma es desconocida y n es pequeña, se debe usar la distribución t en vez de la normal.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Un mayor nivel de confianza (por ejemplo 99% en vez de 95%) siempre produce un intervalo más angosto.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. La distribución t se acerca a la distribución normal estándar cuando los grados de libertad crecen.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaI3()">Revisar respuestas</button>
+<p id="resultado-quiz-temai3" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaI3() {
+  const respuestas = { q1: "F", q2: "V", q3: "V", q4: "F", q5: "V" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temai3");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Un IC de $100(1-\alpha)\%$ es un procedimiento que, repetido muchas veces, produce intervalos que contienen al verdadero parámetro $100(1-\alpha)\%$ de las veces — no una afirmación de probabilidad sobre un intervalo particular ya calculado.
+- Misma estructura en los tres casos: estimación $\pm$ (valor crítico) $\times$ (error estándar) — solo cambia de dónde sale el valor crítico ($z$ o $t$) y qué se usa como error estándar ($\sigma/\sqrt n$ o $s/\sqrt n$).
+- $\sigma$ conocida → $z$. $\sigma$ desconocida y $n$ grande ($n>40$) → $z$ con $s$ en vez de $\sigma$. $\sigma$ desconocida y $n$ chica (población normal) → $t$ con $n-1$ grados de libertad.
+- El ancho del intervalo depende del nivel de confianza, la variabilidad de los datos, y el tamaño de muestra — de los tres, solo $n$ está bajo control directo del investigador antes de recolectar datos.
+:::
+
+::: {.callout-note}
+## Con esto se completa el núcleo de inferencia con una muestra
+Los Temas I1-I3 cubren pruebas de hipótesis (Z y t, con valores P) e intervalos de confianza — el corazón del cuarto criterio del Taller 3. Practica todo junto en el [Laboratorio de Inferencia Estadística](../laboratorios.qmd#laboratorio-de-inferencia-estadística).
+:::

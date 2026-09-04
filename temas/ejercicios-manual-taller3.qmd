@@ -1,0 +1,54 @@
+---
+title: "Práctica manual · Intervalos de confianza"
+---
+
+::: {.hero-motivacion}
+## ✍️ Para resolver a mano, con lápiz y papel
+
+Estos ejercicios cubren los tres casos de intervalos de confianza del [Tema I3](tema-i3-estudiante.qmd) — $\sigma$ conocida, $\sigma$ desconocida con muestra grande, y $t$ para muestra pequeña — más un par de preguntas conceptuales. Resuélvelos primero por tu cuenta.
+:::
+
+::: {.callout-note}
+## Fuente
+Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Capítulo 7. Todas las respuestas fueron verificadas de forma independiente.
+:::
+
+::: {.callout-tip}
+## ¿Te trabaste en algún paso?
+La página [Práctica manual — Resueltos](ejercicios-manual-taller3-resueltos.qmd) tiene el desarrollo completo y el código en R.
+:::
+
+---
+
+**IC1.** Un proceso de fabricación produce ejes cuyo diámetro (mm) tiene distribución aproximadamente normal con $\sigma=1.8$ conocida. Una muestra de $n=40$ ejes da $\bar{x}=45.2$. Calcula un IC de 95% para el diámetro promedio real.
+
+**IC2.** Se mide el espesor (mm) de una muestra de $n=45$ recubrimientos, con $\bar{x}=5.42$ y $s=0.095$. Calcula un IC de 95% para el espesor promedio real (usa el caso de muestra grande, sustituyendo $\sigma$ por $s$).
+
+**IC3.** De una muestra de 200 componentes electrónicos inspeccionados, 45 resultaron defectuosos. Calcula un IC de 95% para la proporción real de defectuosos, con la fórmula simple $\hat p\pm z_{\alpha/2}\sqrt{\hat p\hat q/n}$.
+
+**IC4.** El tiempo de ensamblaje (minutos) de una pieza se midió en 9 ocasiones: `12.3, 11.8, 13.1, 12.5, 11.9, 12.8, 13.4, 12.1, 12.6`. Suponiendo una población normal, calcula un IC de 95% para el tiempo de ensamblaje promedio real.
+
+**IC5 (teórico).** Para el IC $\bar x\pm z_{\alpha/2}\cdot\sigma/\sqrt n$: si el tamaño de muestra se cuadruplica (de $n$ a $4n$), manteniendo todo lo demás fijo, ¿en qué factor cambia la extensión del intervalo? Justifica algebraicamente, no solo con un ejemplo numérico.
+
+**IC6 (teórico).** A partir de la desigualdad bilateral $P\!\left(-z_\alpha<\dfrac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha\right)=1-\alpha$ (nota: con $z_\alpha$, no $z_{\alpha/2}$), deriva un intervalo **unilateral** que dé solo un **límite inferior de confianza** para $\mu$, con nivel de confianza $100(1-\alpha)\%$. (Pista: parte de una desigualdad de un solo lado, $\dfrac{\bar X-\mu}{\sigma/\sqrt n}<z_\alpha$, y despeja $\mu$).
+
+**IC7 (conceptual).** Un asesor calculará 1000 intervalos de confianza de 95% para $\mu$, uno para cada uno de 1000 clientes distintos, con muestras independientes entre sí. Sea $Y$ el número de esos 1000 intervalos que sí contienen el verdadero valor de $\mu$ correspondiente. (a) ¿Qué distribución tiene $Y$? (b) ¿Cuál es $E(Y)$? (c) ¿Cuál es la probabilidad de que entre 940 y 960 (inclusive) de esos intervalos contengan a $\mu$?
+
+**IC8.** Usando los datos del ejercicio IC1 ($\sigma=1.8$, $n=40$, $\bar x=45.2$), calcula el IC con 90%, 95% y 99% de confianza, y compara el ancho total de los tres intervalos. ¿La dirección del cambio tiene sentido?
+
+---
+
+## ✅ Respuestas
+
+::: {.callout-tip collapse="true"}
+## Ver respuestas
+
+- **IC1:** margen $=0.558$; IC $=(44.64,\,45.76)$.
+- **IC2:** margen $=0.028$; IC $=(5.392,\,5.448)$.
+- **IC3:** $\hat p=0.225$; margen $=0.058$; IC $=(0.167,\,0.283)$.
+- **IC4:** $\bar x=12.5$, $s=0.539$, $t_{0.025,8}=2.306$; margen $=0.414$; IC $=(12.09,\,12.91)$.
+- **IC5:** el margen es proporcional a $1/\sqrt n$. Con $4n$: $1/\sqrt{4n}=1/(2\sqrt n)$ — la extensión se reduce **a la mitad**, no a la cuarta parte (cuadruplicar $n$ solo reduce el margen por un factor de 2, no de 4 — un error común).
+- **IC6:** $\mu>\bar X - z_\alpha\cdot\sigma/\sqrt n$ — el límite inferior de confianza es $\bar x - z_\alpha\cdot\sigma/\sqrt n$, con confianza $100(1-\alpha)\%$.
+- **IC7:** (a) $Y\sim\text{Binomial}(1000,\,0.95)$. (b) $E(Y)=950$. (c) $P(940\le Y\le960)=0.873$.
+- **IC8:** ancho total: 90% → $0.936$; 95% → $1.116$; 99% → $1.466$. Mayor confianza requiere un intervalo más ancho — tiene sentido: estar "más seguro" exige abarcar más posibilidades.
+:::

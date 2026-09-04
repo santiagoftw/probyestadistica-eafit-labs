@@ -83,7 +83,7 @@ La región $0<x<y$ significa que, dado un valor de $Y=y$, $X$ solo puede estar e
 :::
 
 ```{r}
-f <- function(x, y) exp(-y)   # válida para 0 < x < y
+f <- function(x, y) exp(-y) + 0 * x   # "+0*x" fuerza un resultado del mismo largo que x, requisito de integrate()
 
 f_Y <- function(y) integrate(function(x) f(x, y), 0, y)$value
 
