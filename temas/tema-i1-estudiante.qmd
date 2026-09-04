@@ -1,0 +1,245 @@
+---
+title: "Tema I1 · Fundamentos de pruebas de hipótesis y prueba Z"
+---
+
+::: {.hero-motivacion}
+## ⚖️ Inocente hasta que se demuestre lo contrario
+
+En un juicio, el acusado se presume inocente; solo evidencia contundente lo condena. Una prueba de hipótesis funciona igual: hay una afirmación que se **cree por defecto** (la hipótesis nula) y solo se abandona si los datos la contradicen con fuerza suficiente. La pregunta de fondo nunca es "¿es esto exactamente cierto?" — es "¿tienen los datos evidencia suficiente para rechazar lo que se creía?".
+:::
+
+::: {.callout-note}
+## Fuente de este tema
+Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Capítulo 8 ("Pruebas de hipótesis con base en una sola muestra"). Todos los resultados numéricos fueron verificados de forma independiente antes de incluirse aquí.
+:::
+
+::: {.ficha-prediccion}
+Si "rechazar una hipótesis verdadera" y "no rechazar una hipótesis falsa" son los dos errores posibles, ¿crees que es posible diseñar una prueba donde ambos errores tengan probabilidad cero al mismo tiempo? (Piensa en qué pasaría si nunca rechazaras nada, o si siempre rechazaras todo).
+:::
+
+## 🔬 Exploremos: simulando el error de tipo I
+
+```{r}
+# Si H0: p=0.5 es VERDADERA, ¿con qué frecuencia una muestra de 20 lanzamientos
+# nos haría rechazarla erróneamente, usando la región de rechazo X<=5 o X>=15?
+set.seed(1)
+simulaciones <- replicate(100000, {
+  x <- rbinom(1, size = 20, prob = 0.5)
+  x <= 5 | x >= 15   # ¿cae en la región de rechazo?
+})
+
+mean(simulaciones)          # frecuencia empírica de rechazo (error de tipo I)
+1 - pbinom(14, 20, 0.5) + pbinom(5, 20, 0.5)   # valor teórico exacto
+```
+
+::: {.ficha-resultado}
+Aunque $H_0$ es verdadera en la simulación (los datos sí vienen de $p=0.5$), la región de rechazo $X\le5$ o $X\ge15$ igual "atrapa" una fracción de las muestras — alrededor de un 4%. Esa fracción **es** el error de tipo I: rechazar una hipótesis nula que en realidad es cierta. No se puede evitar por completo; solo se puede controlar su probabilidad.
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## 1. Hipótesis nula y alternativa
+
+Toda prueba de hipótesis enfrenta dos afirmaciones contradictorias:
+
+- **Hipótesis nula ($H_0$):** la afirmación que se asume cierta al principio — la "creencia previa" o el estado actual de las cosas. Siempre se expresa como una igualdad: $H_0:\theta=\theta_0$.
+- **Hipótesis alternativa ($H_a$):** la afirmación contraria, la que hay que respaldar con evidencia. Puede tomar tres formas: $\theta>\theta_0$, $\theta<\theta_0$, o $\theta\ne\theta_0$.
+
+$H_0$ solo se rechaza si la evidencia muestral la contradice de forma contundente. Si la muestra no la contradice claramente, **no se rechaza** $H_0$ — pero eso no prueba que sea cierta, solo que no hay evidencia suficiente en su contra (como un jurado que declara "no culpable", no "inocente").
+
+## 2. Los dos errores posibles
+
+| | $H_0$ es verdadera | $H_0$ es falsa |
+|---|---|---|
+| **Rechazar $H_0$** | Error de tipo I | Decisión correcta |
+| **No rechazar $H_0$** | Decisión correcta | Error de tipo II |
+
+**Error de tipo I:** rechazar $H_0$ cuando es verdadera. Su probabilidad se denota $\alpha$ y se llama **nivel de significancia**.
+
+**Error de tipo II:** no rechazar $H_0$ cuando es falsa. Su probabilidad se denota $\beta$, y —a diferencia de $\alpha$— toma un valor *distinto para cada valor posible* del parámetro bajo $H_a$.
+
+**El compromiso ineludible:** con un experimento y una estadística de prueba fijos, reducir $\alpha$ (achicando la región de rechazo) siempre incrementa $\beta$ para algún valor del parámetro, y viceversa. No existe una región de rechazo que minimice ambos errores a la vez — hay que elegir un balance.
+
+## 3. La prueba Z (varianza conocida)
+
+Cuando $\sigma$ es conocida (o $n$ es grande y se usa $s$ como aproximación), el procedimiento es:
+
+**Hipótesis nula:** $H_0:\mu=\mu_0$
+
+**Estadístico de prueba:** $\displaystyle z=\frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}$
+
+| Hipótesis alternativa | Región de rechazo (nivel $\alpha$) |
+|---|---|
+| $H_a:\mu>\mu_0$ | $z\ge z_\alpha$ (extremo superior) |
+| $H_a:\mu<\mu_0$ | $z\le -z_\alpha$ (extremo inferior) |
+| $H_a:\mu\ne\mu_0$ | $z\ge z_{\alpha/2}$ o $z\le -z_{\alpha/2}$ (dos extremos) |
+
+$z$ mide, en desviaciones estándar, qué tan lejos está $\bar{x}$ de $\mu_0$. Si $H_0$ es verdadera, $z$ sigue una normal estándar — por eso los valores críticos salen directamente de la tabla normal (o de `qnorm()` en R).
+
+:::
+
+## 🧪 Ejemplo con datos reales: el compromiso α–β
+
+**Enunciado:** el tiempo de secado de una pintura tiene distribución normal con $\mu=75$ min y $\sigma=9$. Se prueba un aditivo con la esperanza de reducir el tiempo promedio. $H_0:\mu=75$ contra $H_a:\mu<75$, con $n=25$. Se usa la región de rechazo $\bar{x}\le70.8$.
+
+```{r}
+mu0 <- 75; sigma <- 9; n <- 25
+sigma_xbar <- sigma / sqrt(n)
+c_corte <- 70.8
+
+# alpha: P(rechazar H0 | H0 verdadera, mu=75)
+alpha <- pnorm(c_corte, mean = mu0, sd = sigma_xbar)
+alpha
+```
+
+```{r}
+# beta para varios valores reales de mu (H0 es falsa en cada caso)
+beta <- function(mu_real) 1 - pnorm(c_corte, mean = mu_real, sd = sigma_xbar)
+sapply(c(72, 70, 67), beta)
+```
+
+::: {.ficha-resultado}
+$\alpha\approx0.01$: muy poca probabilidad de concluir erróneamente que el aditivo funciona cuando no lo hace. Pero mira los $\beta$: si el aditivo de verdad baja el tiempo a $\mu=72$ (una mejora modesta), $\beta\approx0.75$ — ¡75% de probabilidad de **no detectar** una mejora real! El precio de un $\alpha$ muy bajo es un $\beta$ alto para desviaciones pequeñas. Solo cuando la mejora es grande ($\mu=67$) baja $\beta$ a casi 0.
+:::
+
+```{r}
+#| label: fig-tradeoff-alpha-beta
+#| fig-cap: "Compromiso entre alpha y beta según el punto de corte"
+cortes <- seq(68, 74, by = 0.2)
+alphas <- pnorm(cortes, mean = 75, sd = sigma_xbar)
+betas_72 <- 1 - pnorm(cortes, mean = 72, sd = sigma_xbar)
+
+plot(alphas, betas_72, type = "l", col = "#004B85", lwd = 2,
+     xlab = "α (según el punto de corte)", ylab = "β cuando μ=72",
+     main = "Bajar α sube β: no se pueden minimizar ambos a la vez")
+```
+
+## 🧪 Segundo ejemplo: el procedimiento completo en 7 pasos
+
+**Enunciado:** un fabricante de rociadores contra incendios afirma que la temperatura promedio de activación es 130°F. Una muestra de $n=9$ sistemas da $\bar{x}=131.08$°F. Si la distribución es normal con $\sigma=1.5$, ¿contradicen los datos la afirmación del fabricante, con $\alpha=0.01$?
+
+```{r}
+# 1. Parámetro de interés: mu = temperatura de activación promedio real
+# 2. H0: mu = 130
+# 3. Ha: mu != 130   (una desviación en cualquier dirección es de interés)
+mu0 <- 130; sigma <- 1.5; n <- 9; xbar <- 131.08; alpha <- 0.01
+
+# 4-5. Estadístico y región de rechazo (dos extremos)
+z_critico <- qnorm(1 - alpha/2)
+z_critico
+```
+
+```{r}
+# 6. Calcular el estadístico observado
+z <- (xbar - mu0) / (sigma / sqrt(n))
+z
+```
+
+```{r}
+# 7. Decisión
+abs(z) >= z_critico   # ¿cae en la región de rechazo?
+```
+
+::: {.ficha-resultado}
+$z_{0.005}\approx2.576$, y el estadístico observado es $z=2.16$. Como $2.16<2.576$, **no cae** en la región de rechazo — no se puede rechazar $H_0$ al nivel 0.01. Los datos no respaldan con firmeza que la temperatura real difiera de 130°F, aunque la media muestral (131.08) sea numéricamente distinta: la diferencia es compatible con la variabilidad esperada del muestreo.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Que $\bar{x}$ sea distinto de $\mu_0$ *numéricamente* no significa que sea distinto *estadísticamente*. Con $n=9$ y $\sigma=1.5$, una diferencia de casi 1.1°F cae dentro de lo que el simple azar del muestreo produciría con frecuencia. La pregunta correcta nunca es "¿son diferentes los números?" sino "¿es esa diferencia más grande de lo que el azar explicaría?". [Ver más trucos →](../recursos.qmd)
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **Error de tipo I con una binomial.** Un proceso de producción tiene, según el fabricante, una tasa de defectos $p_0=0.20$. Se prueban $n=15$ unidades y se usa la región de rechazo $X\le1$ (muy pocos defectos sugeriría que el proceso mejoró). Calcule $\alpha$.
+
+2. **El compromiso α-β con una prueba de extremo inferior.** $H_0:\mu=50$ contra $H_a:\mu<50$, con $\sigma=8$, $n=36$, región de rechazo $\bar{x}\le47.5$. (a) Calcule $\alpha$. (b) Calcule $\beta(46)$, $\beta(47)$ y $\beta(48)$. (c) ¿Qué tendencia observa en $\beta$ a medida que el valor real de $\mu$ se acerca a 50?
+
+3. **El procedimiento de 7 pasos, completo.** Un proceso produce ejes con diámetro promedio nominal de 500 mm y $\sigma=15$ mm (distribución normal). Una muestra de $n=20$ ejes da $\bar{x}=507$ mm. Con $\alpha=0.05$ y $H_a:\mu>500$, siga los 7 pasos para decidir si el diámetro promedio real excede el valor nominal.
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# H0: mu=40, Ha: mu>40, sigma=6, n=25, alpha=0.05. Encontrar el valor crítico z.
+alpha <- 0.05
+z_critico <- qnorm(1 - ___)
+z_critico
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`alpha` — para una prueba de extremo superior con nivel $\alpha$, el valor crítico es $z_\alpha$, que en R se obtiene con `qnorm(1 - alpha)`.
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# Calcular beta cuando el valor real es mu=42, para el escenario del ejercicio 1
+mu0 <- 40; sigma <- 6; n <- 25; alpha <- 0.05
+sigma_xbar <- sigma / sqrt(n)
+c_corte <- mu0 + qnorm(1 - alpha) * sigma_xbar   # el punto de corte en escala de x-barra
+beta <- pnorm(c_corte, mean = ___, sd = sigma_xbar)
+beta
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`42` — $\beta$ siempre se calcula usando la distribución de $\bar{X}$ centrada en el valor **real** (no nulo) del parámetro que se está evaluando; aquí, $\mu=42$.
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temai1">
+<div style="margin-bottom: 1rem;"><strong>1. No rechazar H0 es lo mismo que demostrar que H0 es verdadera.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. El error de tipo I consiste en rechazar H0 cuando en realidad es verdadera.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. Hay un único valor de β para cada prueba, igual que con α.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Reducir α, manteniendo todo lo demás fijo, generalmente incrementa β.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. Para Ha: μ≠μ0, la región de rechazo usa z_{α/2}, no z_α.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaI1()">Revisar respuestas</button>
+<p id="resultado-quiz-temai1" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaI1() {
+  const respuestas = { q1: "F", q2: "V", q3: "F", q4: "V", q5: "V" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temai1");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- $H_0$ se asume cierta por defecto; solo se rechaza con evidencia contundente. No rechazarla no prueba que sea verdadera.
+- Error de tipo I ($\alpha$): rechazar $H_0$ verdadera. Error de tipo II ($\beta$): no rechazar $H_0$ falsa — y $\beta$ cambia según qué tan falsa sea.
+- Con experimento y estadístico fijos, bajar $\alpha$ sube $\beta$: es un compromiso, no algo que se pueda optimizar en ambas direcciones a la vez.
+- La prueba Z usa $z=(\bar{x}-\mu_0)/(\sigma/\sqrt{n})$, con la región de rechazo determinada por la forma de $H_a$ (superior, inferior, o dos extremos).
+:::
+
+::: {.callout-note}
+## Siguiente paso
+El [Tema I2](tema-i2-estudiante.qmd) resuelve dos preguntas que quedan pendientes: ¿qué hacer cuando **no se conoce** $\sigma$? Y en vez de solo "rechazar o no" a un nivel fijo, ¿cómo cuantificar *qué tan* contradictoria es la evidencia? (la respuesta: el valor P).
+:::

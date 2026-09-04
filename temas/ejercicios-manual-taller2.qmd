@@ -1,0 +1,114 @@
+---
+title: "Práctica manual · Binomial, Poisson y Aproximación normal"
+---
+
+::: {.hero-motivacion}
+## ✍️ Para resolver a mano, con lápiz y papel
+
+Estos ejercicios están pensados para resolverse **teóricamente**, sin abrir RStudio primero — la fmp, la fórmula y la tabla (o `pbinom`/`dpois`/`pnorm` al final, solo para verificar) son las herramientas. Varios son de demostración, no de cálculo numérico. Al final encontrarás una sección de **respuestas** (solo el resultado final, no el procedimiento) para que verifiques tu trabajo, tal como el libro fuente tiene su propio apéndice de "Respuestas a ejercicios seleccionados".
+:::
+
+::: {.callout-tip}
+## ¿Te trabaste en algún paso?
+La página [Práctica manual — Resueltos](ejercicios-manual-taller2-resueltos.qmd) tiene el desarrollo teórico completo (la demostración o sustitución paso a paso) y el código en R de los 19 ejercicios. Resuelve primero por tu cuenta — esa página rinde mucho más una vez que ya lo intentaste.
+:::
+
+::: {.callout-note}
+## Fuente y una aclaración importante
+Estos ejercicios están basados en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Secciones 3.4 (Binomial), 3.6 (Poisson) y 4.3 (Aproximación normal a la binomial). Todas las respuestas fueron verificadas de forma independiente.
+
+**Sobre la función generadora de momentos (FGM):** revisamos exhaustivamente este libro (índice completo y las secciones de valores esperados de los Capítulos 3 y 5) y **no tiene una sección dedicada a FGM** — no es un tema que este texto cubra. Para FGM, el [Tema P6d](tema-p6d-estudiante.qmd) ya construido cubre la teoría completa con ejemplos verificados por otra vía (derivación simbólica).
+:::
+
+---
+
+## Sección 1 · Distribución binomial
+
+**B1.** Sea $X\sim\text{Bin}(8,\,0.6)$. Calcula $b(3;8,0.6)$ y $b(5;8,0.6)$. Luego calcula $P(3\le X\le5)$. Por último, para $X\sim\text{Bin}(12,\,0.1)$, calcula $P(X\ge1)$ (piensa en el complemento antes de sumar términos).
+
+**B2.** Para $X\sim\text{Bin}(10,\,0.3)$: calcula $B(4;10,0.3)$ (acumulada) y $b(4;10,0.3)$ (puntual). Luego, para $X\sim\text{Bin}(10,\,0.7)$, calcula $b(6;10,0.7)$. ¿Qué relación notas entre este último resultado y $b(4;10,0.3)$? (Pista: relaciona $p=0.7$ con $q=1-p=0.3$, y $x=6$ con $n-x=4$).
+
+**B3.** Un estudio indica que el 2% de los 2 millones de estudiantes de secundaria que se presentan a cierto examen reciben lugares especiales por incapacidades documentadas. Considera una muestra aleatoria de 25 estudiantes que realizaron el examen recientemente. (a) ¿Cuál es la probabilidad de que exactamente uno recibió un lugar especial? (b) ¿Cuál es la probabilidad de que al menos uno haya recibido un lugar especial? (c) ¿Cuál es la probabilidad de que al menos dos hayan recibido un lugar especial?
+
+**B4.** En una gasolinera, la probabilidad de que un cliente pague con tarjeta de crédito es 0.5. Para una muestra aleatoria de 100 clientes, calcula el valor esperado y la varianza del número que paga con tarjeta de crédito (sin enumerar nada — usa directamente las fórmulas de la binomial).
+
+**B5 (teórico).** Demuestra que $b(x;n,1-p)=b(n-x;n,p)$ para toda $x=0,1,\dots,n$. (Pista: escribe ambos lados con la fórmula de combinaciones y compara).
+
+**B6 (teórico).** Demuestra, partiendo directamente de la definición $E(X)=\sum_x x\cdot b(x;n,p)$, que $E(X)=np$ para $X\sim\text{Bin}(n,p)$. (Pista: el término $x=0$ se anula solo; para $x\ge1$, factoriza $x\binom{n}{x}=n\binom{n-1}{x-1}$, saca $np$ de la suma, y verifica que lo que queda dentro de la suma es la fmp completa de una $\text{Bin}(n-1,p)$, que suma 1).
+
+**B7 (teórico).** Para $n$ fija, $0\le p\le1$: (a) ¿hay algún valor de $p$ para el cual $V(X)=0$? Explica por qué tiene sentido, en términos del experimento, que la varianza sea cero ahí. (b) ¿Para qué valor de $p$ se maximiza $V(X)=np(1-p)$? (deriva respecto a $p$ e iguala a cero).
+
+**B8.** Cierto tipo de raqueta de tenis se fabrica en dos tamaños. El 60% de los clientes de una tienda prefieren la versión extragrande. Para una muestra de 10 clientes seleccionados al azar: (a) ¿cuál es la probabilidad de que al menos 6 prefieran la versión extragrande? (b) ¿Cuál es la probabilidad de que el número que prefiere la versión extragrande esté dentro de una desviación estándar de la media?
+
+---
+
+## Sección 2 · Distribución de Poisson
+
+**P1.** Sea $X$ el número de fracturas en la superficie de cierto tipo de caldera, con $X\sim\text{Poisson}(\lambda=6)$. Calcula: (a) $P(X\le8)$; (b) $P(X=8)$; (c) $P(X\ge9)$; (d) $P(5\le X\le8)$.
+
+**P2.** Al escribir en un disco de computadora y enviarlo a través de un certificador, el número de impulsos faltantes $X$ tiene distribución Poisson con $\lambda=0.2$. (a) ¿Cuál es la probabilidad de que el disco tenga exactamente un impulso faltante? (b) ¿Al menos uno? (c) Si se examinan dos discos de forma independiente, ¿cuál es la probabilidad de que ninguno de los dos tenga algún impulso faltante?
+
+**P3.** A un aeropuerto llegan aviones pequeños según un proceso de Poisson con tasa $\alpha=8$ aviones por hora. (a) ¿Cuál es la probabilidad de que exactamente 6 aviones pequeños lleguen durante una hora? (b) ¿Por lo menos 6? (c) ¿Por lo menos 10?
+
+**P4 (teórico).** Demuestra, partiendo directamente de la definición de valor esperado, que $E(X)=\lambda$ para $X\sim\text{Poisson}(\lambda)$. (Pista: el término $x=0$ de la suma vale 0; después factoriza $\lambda$ y demuestra, usando la serie de Maclaurin de $e^\lambda$, que la suma restante es igual a 1).
+
+**P5.** En una prueba de tarjetas de circuitos, la probabilidad de que falle algún diodo es 0.01. Una tarjeta contiene 200 diodos. Usando la aproximación Poisson de la binomial: (a) ¿cuántos diodos se espera que fallen, y cuál es la desviación estándar? (b) ¿Cuál es la probabilidad (aproximada) de que fallen al menos 4 diodos en una tarjeta?
+
+**P6.** El número de personas que llegan a una sala de urgencias sigue un proceso de Poisson con tasa 5 por hora. (a) ¿Cuál es la probabilidad de que lleguen exactamente 4 personas durante una hora dada? (b) ¿Cuál es la probabilidad de que lleguen menos de 4?
+
+---
+
+## Sección 3 · Aproximación normal a la distribución binomial
+
+**A1.** Sea $X$ el número de imperfecciones a lo largo de un carrete de 100 m de cinta magnética, con $X$ aproximadamente normal, $\mu=25$, $\sigma=5$. Usa la corrección de continuidad para calcular: (a) $P(20\le X\le30)$; (b) $P(X<30)$.
+
+**A2.** Sea $X\sim\text{Bin}(25,\,0.5)$. Aproxima, con corrección de continuidad, $P(15\le X\le20)$ y $P(X\le15)$. Compara ambos resultados con los valores exactos calculados con la fórmula binomial (o con `pbinom()`), y comenta qué tan buena resultó la aproximación.
+
+**A3.** Se sabe que el 10% de los ejes de acero producidos por cierto proceso no cumplen las especificaciones, pero se pueden reprocesar (en vez de desecharlos). Considera una muestra aleatoria de 200 ejes, y sea $X$ el número que no cumple las especificaciones. Aproxima: (a) $P(X\le30)$; (b) $P(X<30)$; (c) $P(15\le X\le25)$.
+
+**A4.** Supón que sólo 40% de los conductores de cierto estado usan con regularidad el cinturón de seguridad. Se selecciona una muestra aleatoria de 500 automovilistas. Aproxima la probabilidad de que: (a) entre 180 y 230 (inclusive) de la muestra usen con regularidad el cinturón; (b) menos de 175 lo usen; (c) menos de 150 lo usen.
+
+**A5 (teórico/conceptual).** Explica, en tus propias palabras, por qué se necesita la corrección de continuidad al aproximar una distribución binomial (discreta) con una distribución normal (continua). Según la proposición de este libro (Sección 4.3), ¿qué condición sobre $np$ y $nq$ garantiza que la aproximación sea confiable? Compárala con la regla que usaste en el [Tema P6c](tema-p6c-estudiante.qmd) ($np\ge5$ y $n(1-p)\ge5$) — ¿cuál es más exigente?
+
+---
+
+## ✅ Respuestas
+
+::: {.callout-tip collapse="true"}
+## Ver respuestas — Sección 1 (Binomial)
+
+- **B1:** $b(3;8,0.6)=0.1239$; $b(5;8,0.6)=0.2787$; $P(3\le X\le5)=0.6348$; $P(X\ge1\mid n{=}12,p{=}0.1)=0.7176$.
+- **B2:** $B(4;10,0.3)=0.8497$; $b(4;10,0.3)=0.2001$; $b(6;10,0.7)=0.2001$ — son **iguales**, porque $b(x;n,1-p)=b(n-x;n,p)$ (ver B5).
+- **B3:** (a) $0.3079$; (b) $0.3965$; (c) $0.0886$.
+- **B4:** $E(X)=np=50$; $V(X)=np(1-p)=25$.
+- **B5:** Demostración — ambos lados se reducen a $\binom{n}{x}p^{n-x}(1-p)^x$.
+- **B6:** Demostración — $E(X)=np\sum_{y=0}^{n-1}b(y;n-1,p)=np\cdot1=np$.
+- **B7:** (a) $p=0$ o $p=1$ (el resultado ya no es aleatorio: siempre fracaso o siempre éxito). (b) $p=0.5$.
+- **B8:** (a) $P(X\ge6)=0.6331$; (b) media $=6$, sd $=1.549$, así que el intervalo es $[4.45,\,7.55]$, es decir $P(5\le X\le7)=0.6665$.
+:::
+
+::: {.callout-tip collapse="true"}
+## Ver respuestas — Sección 2 (Poisson)
+
+- **P1:** (a) $0.8472$; (b) $0.1033$; (c) $0.1528$; (d) $0.5622$.
+- **P2:** (a) $0.1637$; (b) $0.1813$; (c) $0.6703$.
+- **P3:** (a) $0.1221$; (b) $0.3134$; (c) $0.2834$.
+- **P4:** Demostración — $E(X)=\lambda e^{-\lambda}\sum_{y=0}^{\infty}\lambda^y/y!=\lambda e^{-\lambda}\cdot e^{\lambda}=\lambda$.
+- **P5:** (a) $E(X)=\lambda=2$, sd $=\sqrt{2}=1.414$; (b) $P(X\ge4)\approx0.1429$ (la binomial exacta da $0.1420$ — muy cercana).
+- **P6:** (a) $0.1755$; (b) $0.2650$.
+:::
+
+::: {.callout-tip collapse="true"}
+## Ver respuestas — Sección 3 (Aproximación normal)
+
+- **A1:** (a) $0.7287$; (b) $0.8159$.
+- **A2:** Aproximado $P(15\le X\le20)=0.2112$ (exacto $0.2117$); aproximado $P(X\le15)=0.8849$ (exacto $0.8852$) — la aproximación es muy buena en ambos casos.
+- **A3:** (a) $0.9933$; (b) $0.9874$; (c) $0.8051$.
+- **A4:** (a) $0.9667$; (b) $0.0100$; (c) $\approx0.000002$ (prácticamente cero).
+- **A5:** La binomial es discreta, la normal es continua — sin la corrección, $P(X=k)$ no tendría análogo en la normal. La regla de este libro es $np\ge10$ **y** $nq\ge10$ — más estricta que la regla $np\ge5$ y $n(1-p)\ge5$ usada en el Tema P6c (esta última es más permisiva; ambas son convenciones razonables, y en un examen conviene usar la que indique tu profesor).
+:::
+
+::: {.callout-important}
+## Antes de dar por buena una respuesta
+Resuélvelo primero sin mirar esta sección. Si tu respuesta no coincide, revisa si usaste la $\lambda$ o el $n,p$ correctos para el intervalo o escenario preguntado — es, con diferencia, el error más común en estos tres temas.
+:::

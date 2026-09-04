@@ -1,0 +1,210 @@
+---
+title: "Tema P8c · Densidad condicional"
+---
+
+::: {.hero-motivacion}
+## 🎯 P(Y = y) = 0, entonces... ¿condicionar en qué?
+
+Ya sabes condicionar sobre eventos discretos: $P(A\mid B)=P(A\cap B)/P(B)$. Pero para una variable continua, $P(Y=y)=0$ para *cualquier* valor específico de $y$ — literalmente no hay nada sobre lo cual dividir. Y sin embargo, "la distribución de $X$ dado que $Y$ vale más o menos $y$" es una pregunta perfectamente razonable (¿cuál es el precio esperado de una casa, dado que su área es de 150 m²?). Este tema resuelve esa aparente contradicción.
+:::
+
+::: {.callout-note}
+## Fuente de este tema
+Basado en Blanco Castañeda, L. (2010). *Probabilidad* (2.ª ed.). Universidad Nacional de Colombia, Capítulo 6 (Densidad Condicional). Todos los resultados numéricos fueron verificados de forma independiente.
+:::
+
+::: {.ficha-prediccion}
+La solución del libro reemplaza el denominador $P(Y=y)$ (que es 0) por otra cosa que sí puede ser positiva. ¿Qué objeto matemático, asociado a $Y$, sí tiene sentido evaluar en un punto específico $y$ y puede ser positivo?
+:::
+
+## 🔬 Exploremos: la fórmula, aplicada directamente
+
+```{r}
+# f(x,y) = x + y, 0 < x < 1, 0 < y < 1  (la misma densidad "no independiente" del Tema P8b)
+f <- function(x, y) x + y
+
+f_Y <- function(y) integrate(function(x) f(x, y), 0, 1)$value
+
+# La densidad condicional de X dado Y=y, evaluada en algunos puntos:
+f_X_dado_Y <- function(x, y) f(x, y) / f_Y(y)
+
+# Para y=0.5:
+f_X_dado_Y(x = 0.3, y = 0.5)
+f_X_dado_Y(x = 0.8, y = 0.5)
+
+# ¿Integra a 1 en x, para y fijo? (debe ser una densidad válida)
+integrate(function(x) f_X_dado_Y(x, 0.5), 0, 1)$value
+```
+
+::: {.ficha-resultado}
+`f_X_dado_Y(x, y)` sí integra a 1 en $x$ para cualquier $y$ fijo — es una densidad de probabilidad legítima. La fórmula que la produce es exactamente la del "Truco" que adivinaste: **se reemplaza $P(Y=y)$ por $f_Y(y)$**, la densidad marginal evaluada en $y$ (que sí puede ser positiva), en vez de la probabilidad puntual (que es cero).
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## 1. Caso discreto (recordatorio)
+
+$$f_{X\mid Y}(x\mid y) := P(X=x\mid Y=y) = \frac{P(X=x,\,Y=y)}{P(Y=y)}, \quad \text{para todo } y \text{ con } P(Y=y)>0$$
+
+Esto ya lo usaste en el Tema P8 (monedas, ejecutivos), aunque sin el nombre formal.
+
+## 2. Caso continuo (la definición clave)
+
+**Definición.** Si $X$ e $Y$ tienen densidad conjunta $f$, la **densidad condicional de $X$ dado $Y=y$** se define como:
+
+$$f_{X\mid Y}(x\mid y) := \frac{f(x,y)}{f_Y(y)}, \qquad \text{para todo } y \text{ con } f_Y(y)>0$$
+
+La **función de distribución condicional** y el **valor esperado condicional** se definen a partir de ella, exactamente como en el caso de una sola variable:
+
+$$F_{X\mid Y}(x\mid y) := \int_{-\infty}^x f_{X\mid Y}(t\mid y)\,dt \qquad E(X\mid Y=y) := \int_{-\infty}^{\infty} x\,f_{X\mid Y}(x\mid y)\,dx$$
+
+Y, más generalmente, para cualquier conjunto $A$: $\displaystyle P(X\in A\mid Y=y) = \int_A f_{X\mid Y}(x\mid y)\,dx$.
+
+## 3. Dos consecuencias inmediatas
+
+**Independencia.** Si $X$ e $Y$ son independientes, $f_{X\mid Y}(x\mid y)=f_X(x)$ para todo $y$ — condicionar no cambia nada, tal como es de esperarse.
+
+**Regla de Bayes continua.** Combinando $f(x,y)=f_X(x)f_{Y\mid X}(y\mid x)$ con la definición anterior:
+
+$$f_{X\mid Y}(x\mid y) = \frac{f_X(x)\,f_{Y\mid X}(y\mid x)}{\displaystyle\int_{-\infty}^{\infty} f_X(x)\,f_{Y\mid X}(y\mid x)\,dx}$$
+
+— el mismo espíritu del Teorema de Bayes discreto (Tema P3), con integrales en vez de sumas.
+
+:::
+
+## 🧪 Ejemplo con datos reales
+
+**Enunciado:** $X$ e $Y$ tienen densidad conjunta $f(x,y)=e^{-y}$ para $0<x<y$ (y cero en otro caso). Encuentre $f_{X\mid Y}(x\mid y)$ y $E(X\mid Y=y)$.
+
+::: {.ficha-prediccion}
+La región $0<x<y$ significa que, dado un valor de $Y=y$, $X$ solo puede estar entre 0 y $y$. Sin hacer ninguna cuenta todavía: ¿qué tan "simple" esperas que sea la forma de $f_{X\mid Y}(x\mid y)$ dentro de ese rango?
+:::
+
+```{r}
+f <- function(x, y) exp(-y)   # válida para 0 < x < y
+
+f_Y <- function(y) integrate(function(x) f(x, y), 0, y)$value
+
+# Evaluar la condicional en un par de puntos, para y = 4 fijo
+y_fijo <- 4
+f_X_dado_Y <- function(x) f(x, y_fijo) / f_Y(y_fijo)
+c(f_en_1 = f_X_dado_Y(1), f_en_2 = f_X_dado_Y(2), f_en_3.9 = f_X_dado_Y(3.9))
+
+E_X_dado_Y <- integrate(function(x) x * f_X_dado_Y(x), 0, y_fijo)$value
+c(E_X_dado_Y_en_4 = E_X_dado_Y, "y/2" = y_fijo/2)
+```
+
+::: {.ficha-resultado}
+$f_{X\mid Y}(x\mid y)=1/y$ para $0<x<y$ — **constante en $x$**: dado $Y=y$, $X$ se distribuye **uniformemente** en $(0,y)$. Por eso $E(X\mid Y=y)=y/2$, el punto medio del intervalo — exactamente lo que esperarías de una uniforme. La marginal $f_Y(y)=y\,e^{-y}$ "esconde" esta estructura tan simple; condicionar la revela.
+:::
+
+```{r}
+#| label: fig-condicional-uniforme
+#| fig-cap: "f(X|Y=y) es plana (uniforme) para cada y fijo"
+curve(rep(1/4, length(x)), from = 0, to = 4, col = "#004B85", lwd = 2,
+      xlab = "x", ylab = "f(x | Y=4)", main = "Densidad condicional para Y = 4",
+      ylim = c(0, 0.4))
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Cuando la densidad conjunta tiene la forma $f(x,y)=g(y)$ (no depende de $x$ dentro de su región de soporte), la condicional $f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)$ resulta **constante en $x$** — automáticamente uniforme. Reconocer este patrón ahorra tener que integrar para adivinar la forma de la condicional. [Ver más trucos →](../recursos.qmd)
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **La misma región, mirada al revés.** Para la misma densidad $f(x,y)=e^{-y}$, pero ahora con la región $x>0,\, y>x$ (equivalente a $0<x<y$, solo escrita distinto): (a) encuentre $f_X(x)$; (b) encuentre $f_{Y\mid X}(y\mid x)$; (c) calcule $E(Y\mid X=x)$. (Pista: la respuesta de (c) tiene la forma $x+c$ para alguna constante $c$ — reconoces la distribución condicional de $Y$ dado $X=x$ si la comparas con la del Tema P6d).
+
+2. **Con una densidad no tan simple.** Para $f(x,y)=\frac{3}{8}(x+y^2)$, $0<x<2$, $0<y<1$: encuentre $f_{X\mid Y}(x\mid y)$ y $E(X\mid Y=y)$.
+
+3. **Verificando la regla de Bayes continua.** Para $f(x,y)=\dfrac{e^{-x/y}e^{-y}}{y}$, $x,y>0$: (a) encuentre $f_Y(y)$ y confirme que es la densidad de una Exponencial(1); (b) encuentre $f_{X\mid Y}(x\mid y)$ y reconozca de qué distribución se trata; (c) calcule $P(X>1\mid Y=y)$ como función de $y$.
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# f(x,y) = x+y, 0<x<1, 0<y<1. Calcular f(X|Y=0.5) en x=0.5
+f <- function(x, y) x + y
+f_Y <- function(y) integrate(function(x) f(x, y), 0, 1)$value
+f_condicional <- f(0.5, 0.5) / ___
+f_condicional
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`f_Y(0.5)` — la densidad condicional siempre se calcula dividiendo la densidad conjunta (evaluada en el punto) entre la densidad **marginal de la variable que se está condicionando**, evaluada en ese mismo valor.
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# f(x,y)=e^-y, 0<x<y. Si X | Y=y es Uniforme(0,y), su varianza teórica es y^2/12.
+# Verificar numéricamente para y=6.
+y_fijo <- 6
+f_cond <- function(x) 1/y_fijo   # ya derivada en la teoría
+E_X <- integrate(function(x) x * f_cond(x), 0, y_fijo)$value
+E_X2 <- integrate(function(x) x^2 * f_cond(x), 0, y_fijo)$value
+Var_X <- E_X2 - ___
+c(Var_X = Var_X, "y^2/12" = y_fijo^2/12)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`E_X^2` — la varianza siempre es $E(X^2)-[E(X)]^2$, sin importar si es condicional o no. El resultado debe confirmar que ambas columnas coinciden (Var = 3 = 36/12).
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap8c">
+<div style="margin-bottom: 1rem;"><strong>1. La densidad condicional continua se define como f(x,y) dividido entre la densidad marginal de la variable que se condiciona.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Si X e Y son independientes, entonces f(X|Y=y) = f_X(x) para todo y.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. f(X|Y=y) siempre debe integrar a 1 en x, para cualquier y fijo con f_Y(y)>0.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Si la densidad conjunta no depende de x dentro de su región, la condicional de X dado Y=y es uniforme.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. La regla de Bayes continua reemplaza las sumas de la versión discreta por integrales.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP8c()">Revisar respuestas</button>
+<p id="resultado-quiz-temap8c" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP8c() {
+  const respuestas = { q1: "V", q2: "V", q3: "V", q4: "V", q5: "V" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temap8c");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La densidad condicional continua resuelve el problema de $P(Y=y)=0$ **reemplazando la probabilidad puntual por la densidad marginal**: $f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)$.
+- $F_{X\mid Y}$ y $E(X\mid Y=y)$ se definen igual que en el caso de una variable, solo que usando $f_{X\mid Y}$ en vez de la densidad no condicional.
+- Cuando $f(x,y)$ no depende de $x$ (dentro de su soporte), la condicional resulta uniforme — un patrón fácil de reconocer sin integrar.
+- Independencia $\Rightarrow$ condicionar no cambia nada ($f_{X\mid Y}=f_X$); y la regla de Bayes continua es la misma idea del Tema P3, con integrales en vez de sumas.
+:::
+
+::: {.callout-note}
+## Con esto se cierra el bloque de bivariadas
+Los Temas P8-P8c cubren distribución conjunta discreta (P8), continua (P8b) y condicional discreta y continua (P8c). El [Tema P9](tema-p9-estudiante.qmd) continúa con covarianza y correlación — ya viste algunos de sus resultados de pasada (como $E(XY)=E(X)E(Y)$ para independientes) en P8b.
+:::

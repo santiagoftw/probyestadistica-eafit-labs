@@ -166,3 +166,8 @@ function revisarQuizTemaP8() {
 - Las marginales se obtienen sumando la tabla conjunta en una dirección; las condicionales dividen una celda entre su marginal correspondiente.
 - La independencia de variables aleatorias exige que la igualdad $P(Y_1,Y_2)=P(Y_1)P(Y_2)$ se cumpla en **todas** las combinaciones, no solo en algunas.
 :::
+
+::: {.callout-note}
+## Siguiente paso
+Todo esto fue para el caso **discreto** (tablas finitas). El [Tema P8b](tema-p8b-estudiante.qmd) extiende las mismas ideas —conjunta, marginal, independencia— al caso **continuo**, donde una tabla se reemplaza por una función de densidad y las sumas se vuelven integrales.
+:::

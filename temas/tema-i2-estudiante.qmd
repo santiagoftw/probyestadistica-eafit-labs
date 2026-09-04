@@ -1,0 +1,232 @@
+---
+title: "Tema I2 · Prueba t y valores P"
+---
+
+::: {.hero-motivacion}
+## 🤷 "Rechazado al nivel 0.05" no dice toda la historia
+
+Imagina que un compañero te dice: "rechacé $H_0$". ¿Qué tan convincente fue la evidencia? ¿Apenas cruzó la línea, o la aplastó por completo? Reportar solo "rechazado" o "no rechazado" a un nivel fijo esconde esa información — y además obliga a todo el mundo a aceptar el mismo umbral $\alpha$. El **valor P** resuelve ambos problemas de un solo golpe.
+:::
+
+::: {.callout-note}
+## Fuente de este tema
+Basado en Walpole, R., Myers, R., Myers, S., y Ye, K., *Probabilidad y Estadística para Ingeniería y Ciencias*, Secciones 8.2 (Caso III: población normal) y 8.4 (Valores P). Todos los resultados numéricos fueron verificados de forma independiente.
+:::
+
+::: {.ficha-prediccion}
+El Tema I1 usó $\sigma$ conocida. En la inmensa mayoría de problemas reales, $\sigma$ no se conoce — solo tienes los datos de la muestra. ¿Qué cantidad, calculada a partir de la propia muestra, podría sustituir a $\sigma$ en la fórmula de $z$?
+:::
+
+## 🔬 Exploremos: cuando $\sigma$ es desconocida
+
+```{r}
+# Con n pequeña, sustituir sigma por s (desviación muestral) ya no da una Z exacta.
+# R lo maneja automáticamente con t.test() — comparemos su estadístico con el cálculo manual.
+datos <- c(78, 82, 75, 91, 88, 84)
+
+xbar <- mean(datos)
+s <- sd(datos)
+n <- length(datos)
+mu0 <- 80
+
+t_manual <- (xbar - mu0) / (s / sqrt(n))
+t_manual
+
+t.test(datos, mu = mu0, alternative = "two.sided")
+```
+
+::: {.ficha-resultado}
+El estadístico `t` que calculamos a mano coincide exactamente con el que reporta `t.test()` — y de paso, R ya incluye el **valor P**, que es el tema central de esta página.
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## 1. La prueba t (varianza desconocida)
+
+Cuando $\sigma$ es desconocida (el caso normal en la práctica) y la población es aproximadamente normal, se reemplaza $\sigma$ por $s$ (la desviación estándar muestral). El estadístico resultante ya no sigue una normal estándar, sino una **distribución t con $n-1$ grados de libertad**:
+
+**Estadístico de prueba:** $\displaystyle t=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}$
+
+| Hipótesis alternativa | Región de rechazo (nivel $\alpha$) |
+|---|---|
+| $H_a:\mu>\mu_0$ | $t\ge t_{\alpha,\,n-1}$ |
+| $H_a:\mu<\mu_0$ | $t\le -t_{\alpha,\,n-1}$ |
+| $H_a:\mu\ne\mu_0$ | $t\ge t_{\alpha/2,\,n-1}$ o $t\le -t_{\alpha/2,\,n-1}$ |
+
+Es exactamente la misma estructura de la prueba Z (Tema I1) — solo cambia la distribución de referencia (t en vez de normal) y, por lo tanto, los valores críticos.
+
+## 2. El valor P: dos definiciones equivalentes
+
+**Definición 1 (nivel de significancia observado):** el valor P es el nivel de significancia *más pequeño* al cual todavía se rechazaría $H_0$ con los datos obtenidos.
+
+**Definición 2 (más intuitiva):** el valor P es la probabilidad —calculada suponiendo que $H_0$ es verdadera— de obtener un valor del estadístico de prueba *al menos tan contradictorio* para $H_0$ como el que realmente se observó.
+
+Ambas definiciones llevan a la misma regla de decisión:
+
+$$\text{Valor P} \le \alpha \;\Rightarrow\; \text{rechazar } H_0 \text{ al nivel } \alpha \qquad\qquad \text{Valor P} > \alpha \;\Rightarrow\; \text{no rechazar}$$
+
+::: {.callout-important}
+## Lo que el valor P NO es
+El valor P **no** es la probabilidad de que $H_0$ sea verdadera, y **no** es una probabilidad de error. Es, literalmente, "qué tan sorprendentes serían datos como estos, si $H_0$ fuera cierta" — nada más y nada menos.
+:::
+
+## 3. Fórmulas del valor P para una prueba z
+
+$$P = \begin{cases} 1-\Phi(z) & \text{prueba de extremo superior } (H_a:\mu>\mu_0)\\ \Phi(z) & \text{prueba de extremo inferior } (H_a:\mu<\mu_0)\\ 2[1-\Phi(|z|)] & \text{prueba de dos extremos } (H_a:\mu\ne\mu_0)\end{cases}$$
+
+Para una prueba t, se reemplaza $\Phi$ (la acumulada normal) por la acumulada de la distribución t con los grados de libertad correspondientes — en R, `pt()` en vez de `pnorm()`.
+
+:::
+
+## 🧪 Ejemplo con datos reales: prueba t completa, con valor P
+
+**Enunciado:** el peso máximo de elevación (PME, en kg) de 5 personas: 25.8, 36.6, 26.3, 21.8, 27.2. ¿Sugieren los datos que el PME promedio poblacional excede 25 kg? Use $\alpha=0.05$.
+
+```{r}
+datos <- c(25.8, 36.6, 26.3, 21.8, 27.2)
+mu0 <- 25
+n <- length(datos)
+
+xbar <- mean(datos)
+s <- sd(datos)
+t_obs <- (xbar - mu0) / (s / sqrt(n))
+t_critico <- qt(0.95, df = n - 1)
+
+c(xbar = xbar, s = s, t_obs = t_obs, t_critico = t_critico)
+```
+
+```{r}
+valor_P <- 1 - pt(t_obs, df = n - 1)   # prueba de extremo superior
+valor_P
+```
+
+::: {.ficha-resultado}
+$t=1.04$, por debajo del valor crítico $t_{0.05,4}=2.132$ — no se rechaza $H_0$ al nivel 0.05. El valor P (0.18) confirma y cuantifica esto: haría falta un $\alpha$ de al menos 0.18 para rechazar con estos datos — mucho más laxo que los niveles usuales (0.05, 0.01). La evidencia es débil, no inexistente: sigue siendo *posible* que el PME promedio real sea mayor a 25, solo que estos 5 datos no lo demuestran con firmeza.
+:::
+
+```{r}
+t.test(datos, mu = 25, alternative = "greater")
+```
+
+## 🧪 Segundo ejemplo: por qué el valor P es mejor que un solo α
+
+**Enunciado:** en la prueba del contenido de nicotina (Tema I1: $H_0:\mu=1.5$ contra $H_a:\mu>1.5$), el estadístico observado fue $z=2.10$. Compare la conclusión a cuatro niveles $\alpha$ distintos, y luego calcule el valor P.
+
+```{r}
+z_obs <- 2.10
+
+alphas <- c(0.05, 0.025, 0.01, 0.005)
+z_criticos <- qnorm(1 - alphas)
+conclusion <- ifelse(z_obs >= z_criticos, "Rechazar H0", "No rechazar H0")
+
+data.frame(alpha = alphas, z_critico = round(z_criticos, 3), conclusion = conclusion)
+```
+
+```{r}
+valor_P <- 1 - pnorm(z_obs)
+valor_P
+```
+
+::: {.ficha-resultado}
+La conclusión **cambia** según qué $\alpha$ elija cada quien: se rechaza a 0.05 y 0.025, pero no a 0.01 ni 0.005. El valor P (0.0179) evita esa ambigüedad de una vez: cualquiera puede comparar 0.0179 contra *su propio* $\alpha$ preferido y llegar a la conclusión correcta sin tener que recalcular nada. Es exactamente el umbral que separa "se rechaza" de "no se rechaza" en la tabla de arriba — coincide con estar entre 0.025 y 0.01.
+:::
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Entre más pequeño el valor P, más contradictoria es la evidencia contra $H_0$ — no lo confundas con "más grande = más significativo". Un valor P de 0.001 es evidencia mucho más fuerte que uno de 0.04, aunque ambos lleven a "rechazar" con $\alpha=0.05$. [Ver más trucos →](../recursos.qmd)
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **Prueba t completa.** Los tiempos de reacción (segundos) de 6 sujetos ante un estímulo: 0.42, 0.38, 0.45, 0.51, 0.39, 0.44. ¿Sugieren los datos que el tiempo de reacción promedio excede 0.40 segundos? Siga los 7 pasos, con $\alpha=0.05$, y calcule también el valor P.
+
+2. **Valor P para una prueba de dos extremos.** Con $n=25$, $\bar{x}=48.2$, $s=6$, y $H_0:\mu=50$ contra $H_a:\mu\ne50$: calcule el estadístico t y el valor P correspondiente (recuerde usar la fórmula de dos extremos: $2\times$ el área en la cola correspondiente).
+
+3. **Comparando z y t para la misma muestra.** Para los datos del primer ejemplo de esta página (PME: 25.8, 36.6, 26.3, 21.8, 27.2), calcule qué pasaría si (incorrectamente) se usara una prueba Z con $\sigma=s=5.47$ en vez de una prueba t. Compare el valor P de ambos procedimientos. ¿Cuál da un valor P más pequeño? ¿Por qué tiene sentido que la distribución t sea "más conservadora" que la normal para muestras pequeñas?
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# Valor P para una prueba t de dos extremos, t=2.3, n=15
+t_obs <- 2.3
+n <- 15
+valor_P <- 2 * (1 - pt(abs(t_obs), df = ___))
+valor_P
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`n - 1` — los grados de libertad de una prueba t con una sola muestra siempre son $n-1$, sin importar el tipo de alternativa.
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# Decidir si se rechaza H0 con alpha=0.05, usando el valor P calculado
+valor_P <- 0.032
+alpha <- 0.05
+decision <- ifelse(valor_P ___ alpha, "Rechazar H0", "No rechazar H0")
+decision
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`<=` — la regla de decisión es: si el valor P es menor o igual que $\alpha$, se rechaza $H_0$.
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temai2">
+<div style="margin-bottom: 1rem;"><strong>1. El valor P es la probabilidad de que H0 sea verdadera.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Si el valor P es menor que α, se rechaza H0.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. La prueba t se usa en vez de la prueba Z cuando se desconoce σ.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Un valor P más pequeño indica evidencia más débil contra H0.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. Para una prueba de dos extremos, el valor P se calcula como 2 veces el área de una sola cola.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaI2()">Revisar respuestas</button>
+<p id="resultado-quiz-temai2" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaI2() {
+  const respuestas = { q1: "F", q2: "V", q3: "V", q4: "F", q5: "V" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temai2");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- Cuando $\sigma$ es desconocida, se usa $s$ en su lugar y el estadístico sigue una **t con $n-1$ grados de libertad** — misma estructura que la prueba Z, distinta distribución de referencia.
+- El **valor P** es el nivel de significancia más pequeño al cual se rechazaría $H_0$ con los datos observados — o, equivalentemente, la probabilidad de un resultado al menos tan extremo, suponiendo $H_0$ verdadera.
+- Regla universal: Valor P $\le\alpha\Rightarrow$ rechazar; Valor P $>\alpha\Rightarrow$ no rechazar. Un valor P chico es evidencia fuerte contra $H_0$; uno grande, evidencia débil.
+- El valor P **no** es $P(H_0 \text{ verdadera})$ ni una probabilidad de error — es la probabilidad de los datos (o algo más extremo) *asumiendo que $H_0$ es cierta*.
+:::
+
+::: {.callout-note}
+## Con esto se completa el bloque de pruebas de hipótesis
+Los Temas I1-I2 cubren el núcleo de pruebas de hipótesis con una muestra: conceptos, prueba Z, prueba t y valores P. Estos mismos conceptos ya los aplicaste de forma práctica en el [Laboratorio de Inferencia](../laboratorios.qmd#laboratorio-de-inferencia-estadística) (Ítems 42-43).
+:::

@@ -1,0 +1,44 @@
+---
+title: "Módulo 3 · Inferencia Estadística — Arquitectura"
+---
+
+::: {.hero-motivacion}
+## 📐 De modelar la incertidumbre a decidir con ella
+
+El Módulo 2 te enseñó a modelar lo que todavía no ha ocurrido: distribuciones de probabilidad, variables aleatorias, bivariadas. El Módulo 3 da el último paso: ¿qué puede decirte una muestra —siempre limitada, siempre parcial— acerca de la población completa que no puedes observar? Estimación, intervalos de confianza y pruebas de hipótesis son las herramientas para responder eso con rigor, no con intuición.
+:::
+
+::: {.callout-note}
+## Estado de este módulo
+Construcción en progreso. Los Temas I1-I2 (pruebas de hipótesis con una muestra) ya están completos, basados en Walpole, Myers, Myers y Ye, *Probabilidad y Estadística para Ingeniería y Ciencias*, Capítulo 8. El contenido de distribuciones muestrales, Teorema Central del Límite, estimación puntual e intervalos de confianza ya existe en formato de laboratorio resuelto — [Laboratorio de Inferencia Estadística](../laboratorios.qmd#laboratorio-de-inferencia-estadística), Ítems 35-43 — pero todavía no tiene el tratamiento pedagógico completo (predicción, teoría formal, quiz) que sí tienen los Temas P1-P10 y I1-I2. Es el pendiente más claro para continuar este módulo.
+:::
+
+## Mapa de temas
+
+| Tema | Título | Basado en (fuente real) | Estado |
+|---|---|---|---|
+| — | Distribuciones muestrales y Teorema Central del Límite | Laboratorio de Inferencia, Bloques 11-12 | ⚠️ Solo como laboratorio resuelto (Ítems 35-37) |
+| — | Estimación puntual | Laboratorio de Inferencia, Bloque 13 | ⚠️ Solo como laboratorio resuelto (Ítems 38-39) |
+| — | Intervalos de confianza | Laboratorio de Inferencia, Bloque 14 | ⚠️ Solo como laboratorio resuelto (Ítems 40-41) |
+| I1 | Fundamentos de pruebas de hipótesis y prueba Z | Walpole et al., Cap. 8, Secc. 8.1-8.2 (Caso I) | ✅ construido |
+| I2 | Prueba t y valores P | Walpole et al., Cap. 8, Secc. 8.2 (Caso III) y 8.4 | ✅ construido |
+| — | Pruebas de dos muestras | Laboratorio de Inferencia, Bloque 15 (Ítems 42-43) / Walpole et al., Cap. 9 | ⚠️ Solo como laboratorio resuelto |
+
+## Detalle por tema
+
+## I1 — Fundamentos de pruebas de hipótesis y prueba Z
+**Objetivo:** hipótesis nula y alternativa, errores de tipo I y II, el compromiso ineludible entre $\alpha$ y $\beta$, y el procedimiento completo de la prueba Z (varianza conocida).
+**Motivación real:** la analogía judicial (inocente hasta que se demuestre lo contrario) — y ejemplos reales del libro: colisiones de auto, tiempo de secado de pintura, temperatura de activación de rociadores contra incendios.
+**Estado:** ✅ construido — [ir al tema](tema-i1-estudiante.qmd)
+
+## I2 — Prueba t y valores P
+**Objetivo:** qué hacer cuando $\sigma$ es desconocida (prueba t con $n-1$ grados de libertad), y cómo cuantificar la fuerza de la evidencia contra $H_0$ con el valor P, en vez de solo "rechazar / no rechazar" a un nivel fijo.
+**Motivación real:** peso máximo de elevación (ejemplo real de *Ergonomics*, 1992) y la comparación de conclusiones a distintos niveles $\alpha$ para el mismo dato.
+**Estado:** ✅ construido — [ir al tema](tema-i2-estudiante.qmd)
+
+::: {.callout-important}
+## Pendientes explícitos de este módulo
+- Construir temas de estudiante completos (con la estructura hero → predicción → teoría → ejemplo → laboratorio → quiz) para distribuciones muestrales, TCL, estimación puntual e intervalos de confianza — actualmente ese contenido vive solo como ítems de laboratorio resuelto.
+- Construir el tema de pruebas de dos muestras (comparación de dos medias, dos proporciones, dos varianzas), basado en el Capítulo 9 del mismo libro (Walpole et al.) o en los Ítems 42-43 ya existentes.
+- Agregar una sección explícita de "Taller 3" en `laboratorios.qmd`, con los cuatro criterios exactos de esa rúbrica (bivariadas, marginal/condicional, valor esperado/covarianza/correlación, IC y pruebas de hipótesis con valor-P) — análoga a la que ya existe para el Taller 2.
+:::

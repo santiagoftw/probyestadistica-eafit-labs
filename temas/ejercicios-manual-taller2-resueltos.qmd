@@ -1,0 +1,444 @@
+---
+title: "Práctica manual · Binomial, Poisson y Aproximación normal — Resueltos"
+---
+
+::: {.hero-motivacion}
+## 📐 El mismo banco de ejercicios, ahora con desarrollo completo
+
+Esta página resuelve, paso a paso —con la fórmula, la sustitución algebraica y el código en R que verifica el resultado—, los 19 ejercicios de [Práctica manual · Binomial, Poisson y Aproximación normal](ejercicios-manual-taller2.qmd). Úsala para comparar tu procedimiento, no solo tu respuesta final.
+:::
+
+::: {.callout-note}
+## Cómo usar esta página junto con la otra
+Resuelve primero en la página de práctica (sin ver esto). Si tu respuesta final no coincide con la sección "Respuestas" de allá, **entonces** ven aquí a ver en qué paso se desvió tu razonamiento — no al revés.
+:::
+
+---
+
+# Sección 1 · Distribución binomial
+
+### B1 — Cálculos directos con la fmp
+
+**Enunciado:** $X\sim\text{Bin}(8,0.6)$. Calcula $b(3;8,0.6)$, $b(5;8,0.6)$, $P(3\le X\le5)$. Para $X\sim\text{Bin}(12,0.1)$, calcula $P(X\ge1)$.
+
+**Desarrollo teórico:**
+
+$$b(3;8,0.6)=\binom{8}{3}(0.6)^3(0.4)^5 \qquad b(5;8,0.6)=\binom{8}{5}(0.6)^5(0.4)^3$$
+
+$$P(3\le X\le5)=b(3;8,0.6)+b(4;8,0.6)+b(5;8,0.6)$$
+
+Para $P(X\ge1)$ con $n=12,p=0.1$, es más simple usar el complemento: $P(X\ge1)=1-P(X=0)=1-(0.9)^{12}$.
+
+```{r}
+b3 <- dbinom(3, 8, 0.6)
+b5 <- dbinom(5, 8, 0.6)
+p_3_5 <- sum(dbinom(3:5, 8, 0.6))
+p_al_menos_1 <- 1 - dbinom(0, 12, 0.1)
+
+c(b3 = b3, b5 = b5, "P(3<=X<=5)" = p_3_5, "P(X>=1)" = p_al_menos_1)
+```
+
+**Resultado:** $b(3;8,0.6)=0.1239$, $b(5;8,0.6)=0.2787$, $P(3\le X\le5)=0.6348$, $P(X\ge1)=0.7176$.
+
+---
+
+### B2 — Puntual vs. acumulada, y la simetría $p\leftrightarrow1-p$
+
+**Enunciado:** Para $X\sim\text{Bin}(10,0.3)$, calcula $B(4;10,0.3)$ y $b(4;10,0.3)$. Para $X\sim\text{Bin}(10,0.7)$, calcula $b(6;10,0.7)$. ¿Qué relación notas?
+
+**Desarrollo teórico:** $B(4;10,0.3)=P(X\le4)=\sum_{x=0}^{4}b(x;10,0.3)$, una suma de 5 términos — mientras que $b(4;10,0.3)$ es solo el término puntual $x=4$.
+
+```{r}
+B4_acum  <- pbinom(4, 10, 0.3)
+b4_punt  <- dbinom(4, 10, 0.3)
+b6_p07   <- dbinom(6, 10, 0.7)
+
+c(B4_acumulada = B4_acum, b4_puntual = b4_punt, b6_con_p_0.7 = b6_p07)
+```
+
+**Resultado:** $B(4;10,0.3)=0.8497$, $b(4;10,0.3)=0.2001$, $b(6;10,0.7)=0.2001$ — **son iguales**. Es la propiedad de simetría demostrada en B5: cambiar $p$ por $1-p$ y $x$ por $n-x$ da la misma probabilidad, porque "6 éxitos con $p=0.7$" es exactamente tan probable como "4 fracasos con $p=0.7$", que es lo mismo que "4 éxitos con $p=0.3$".
+
+---
+
+### B3 — Aplicado: estudiantes con lugar especial en el SAT
+
+**Enunciado:** El 2% de los estudiantes recibe lugares especiales por incapacidades documentadas. En una muestra de $n=25$: (a) $P(X=1)$; (b) $P(X\ge1)$; (c) $P(X\ge2)$.
+
+**Desarrollo teórico:** $X\sim\text{Bin}(25,0.02)$. Para (b) y (c), el complemento es más simple que sumar directamente:
+
+$$P(X\ge1)=1-b(0;25,0.02) \qquad P(X\ge2)=1-b(0;25,0.02)-b(1;25,0.02)$$
+
+```{r}
+n <- 25; p <- 0.02
+
+p_exactamente_1 <- dbinom(1, n, p)
+p_al_menos_1    <- 1 - dbinom(0, n, p)
+p_al_menos_2    <- 1 - dbinom(0, n, p) - dbinom(1, n, p)
+
+c(a = p_exactamente_1, b = p_al_menos_1, c = p_al_menos_2)
+```
+
+**Resultado:** (a) $0.3079$; (b) $0.3965$; (c) $0.0886$.
+
+---
+
+### B4 — Media y varianza sin enumerar nada
+
+**Enunciado:** $n=100$ clientes, $p=0.5$ pagan con tarjeta de crédito. Calcula $E(X)$ y $V(X)$.
+
+**Desarrollo teórico:** Las fórmulas directas (demostradas en B6 y usadas sin más en la práctica) son $E(X)=np$ y $V(X)=np(1-p)$ — no hace falta sumar nada término a término.
+
+```{r}
+n <- 100; p <- 0.5
+c(E_X = n * p, V_X = n * p * (1 - p))
+```
+
+**Resultado:** $E(X)=50$, $V(X)=25$.
+
+---
+
+### B5 — Demostración: $b(x;n,1-p)=b(n-x;n,p)$
+
+**Enunciado:** Demuestra la igualdad para toda $x=0,1,\dots,n$.
+
+**Desarrollo teórico:**
+
+$$b(x;n,1-p)=\binom{n}{x}(1-p)^x\,p^{\,n-x}$$
+
+$$b(n-x;n,p)=\binom{n}{n-x}p^{\,n-x}(1-p)^{x}$$
+
+Como $\binom{n}{n-x}=\binom{n}{x}$ (elegir cuáles $n-x$ posiciones son éxito es equivalente a elegir cuáles $x$ posiciones son fracaso), ambas expresiones son idénticas:
+
+$$b(n-x;n,p)=\binom{n}{x}p^{\,n-x}(1-p)^{x}=b(x;n,1-p) \qquad \blacksquare$$
+
+**Verificación numérica (no es la demostración, solo confirma el patrón):**
+
+```{r}
+n <- 15; p <- 0.35
+izquierda <- dbinom(0:n, n, 1 - p)
+derecha   <- rev(dbinom(0:n, n, p))   # b(n-x;n,p) para x=0..n, en orden invertido
+
+max(abs(izquierda - derecha))   # debe ser ~0
+```
+
+---
+
+### B6 — Demostración: $E(X)=np$
+
+**Enunciado:** Demuestra, partiendo de $E(X)=\sum_x x\cdot b(x;n,p)$, que $E(X)=np$.
+
+**Desarrollo teórico:**
+
+$$E(X)=\sum_{x=0}^{n}x\binom{n}{x}p^x(1-p)^{n-x}$$
+
+El término $x=0$ se anula solo. Para $x\ge1$, usa la identidad $x\binom{n}{x}=n\binom{n-1}{x-1}$ (verificable directamente de la definición factorial de $\binom{n}{x}$):
+
+$$E(X)=\sum_{x=1}^{n}n\binom{n-1}{x-1}p^x(1-p)^{n-x}=np\sum_{x=1}^{n}\binom{n-1}{x-1}p^{x-1}(1-p)^{(n-1)-(x-1)}$$
+
+Con el cambio de variable $y=x-1$ (que recorre $0,\dots,n-1$):
+
+$$E(X)=np\sum_{y=0}^{n-1}\binom{n-1}{y}p^{y}(1-p)^{(n-1)-y}=np\sum_{y=0}^{n-1}b(y;n-1,p)$$
+
+La suma final es la suma de **toda** la fmp de una $\text{Bin}(n-1,p)$ sobre todos sus valores posibles — por definición de función de probabilidad, eso vale exactamente 1. Por lo tanto:
+
+$$E(X)=np\cdot1=np \qquad \blacksquare$$
+
+**Verificación numérica:**
+
+```{r}
+n <- 20; p <- 0.35
+E_directo <- sum((0:n) * dbinom(0:n, n, p))   # la suma completa, sin atajos
+c(E_directo = E_directo, np = n * p)
+```
+
+---
+
+### B7 — La varianza como función de $p$
+
+**Enunciado:** (a) ¿Para qué $p$ es $V(X)=0$? (b) ¿Para qué $p$ se maximiza $V(X)$?
+
+**Desarrollo teórico:** $V(X)=np(1-p)$, una parábola en $p$ que abre hacia abajo.
+
+(a) $V(X)=0 \iff p=0$ o $p=1-p=0\Rightarrow p=1$. Tiene sentido: si $p=0$, todo ensayo es fracaso con certeza (no hay aleatoriedad, $X\equiv0$); si $p=1$, todo ensayo es éxito con certeza ($X\equiv n$). Sin incertidumbre no hay varianza.
+
+(b) Derivando e igualando a cero:
+
+$$\frac{d}{dp}\big[np(1-p)\big]=n(1-2p)=0 \;\Rightarrow\; p=\tfrac12$$
+
+La segunda derivada es $-2n<0$, así que es un máximo. Tiene sentido: la incertidumbre de un ensayo binario es mayor cuando ambos resultados son igual de probables.
+
+```{r}
+n <- 30
+p_vals <- seq(0, 1, by = 0.01)
+V <- n * p_vals * (1 - p_vals)
+
+p_vals[which.max(V)]   # debe dar 0.5
+```
+
+---
+
+### B8 — Regla empírica de una desviación estándar
+
+**Enunciado:** $n=10$, $p=0.6$ prefieren raqueta extragrande. (a) $P(X\ge6)$. (b) $P$(dentro de una desviación estándar de la media).
+
+**Desarrollo teórico:** $\mu=np=6$, $\sigma=\sqrt{np(1-p)}=\sqrt{2.4}\approx1.549$. El intervalo "una desviación estándar" es $[\mu-\sigma,\ \mu+\sigma]=[4.45,\ 7.55]$; como $X$ es entero, esto corresponde a $X\in\{5,6,7\}$.
+
+```{r}
+n <- 10; p <- 0.6
+mu <- n * p
+sigma <- sqrt(n * p * (1 - p))
+
+p_al_menos_6 <- 1 - pbinom(5, n, p)
+intervalo <- c(mu - sigma, mu + sigma)
+p_dentro_1sd <- sum(dbinom(5:7, n, p))
+
+list(P_X_mayor_igual_6 = p_al_menos_6, intervalo = intervalo, P_dentro_1sd = p_dentro_1sd)
+```
+
+**Resultado:** (a) $0.6331$. (b) intervalo $[4.45,\,7.55]\to X\in\{5,6,7\}$, $P=0.6665$.
+
+---
+
+# Sección 2 · Distribución de Poisson
+
+### P1 — Cálculos directos con $\lambda=6$
+
+**Enunciado:** $X\sim\text{Poisson}(6)$. Calcula $P(X\le8)$, $P(X=8)$, $P(X\ge9)$, $P(5\le X\le8)$.
+
+**Desarrollo teórico:** Todas se derivan de $p(x;\lambda)=e^{-\lambda}\lambda^x/x!$ y su acumulada; $P(X\ge9)=1-P(X\le8)$ por complemento.
+
+```{r}
+lambda <- 6
+
+p_le_8   <- ppois(8, lambda)
+p_eq_8   <- dpois(8, lambda)
+p_ge_9   <- 1 - ppois(8, lambda)
+p_5_a_8  <- ppois(8, lambda) - ppois(4, lambda)
+
+c(a = p_le_8, b = p_eq_8, c = p_ge_9, d = p_5_a_8)
+```
+
+**Resultado:** (a) $0.8472$; (b) $0.1033$; (c) $0.1528$; (d) $0.5622$.
+
+---
+
+### P2 — Impulsos faltantes en un disco
+
+**Enunciado:** $\lambda=0.2$. (a) $P(X=1)$; (b) $P(X\ge1)$; (c) con dos discos independientes, $P$(ninguno tiene impulsos faltantes).
+
+**Desarrollo teórico:** Para (c), independencia implica que las probabilidades se multiplican: $P(\text{disco 1 sin faltantes})\times P(\text{disco 2 sin faltantes})=[P(X=0)]^2$.
+
+```{r}
+lambda <- 0.2
+
+p_eq_1        <- dpois(1, lambda)
+p_ge_1        <- 1 - dpois(0, lambda)
+p_ninguno_2   <- dpois(0, lambda)^2
+
+c(a = p_eq_1, b = p_ge_1, c = p_ninguno_2)
+```
+
+**Resultado:** (a) $0.1637$; (b) $0.1813$; (c) $0.6703$.
+
+---
+
+### P3 — Aviones en un aeropuerto
+
+**Enunciado:** $\alpha=8$/hora. (a) $P(X=6)$ en 1 hora; (b) $P(X\le6)$; (c) $P(X\ge10)$.
+
+**Desarrollo teórico:** El intervalo de la pregunta (1 hora) coincide con el de la tasa dada, así que $\lambda=8$ directamente — sin reescalar.
+
+```{r}
+lambda <- 8
+
+c(a = dpois(6, lambda), b = ppois(6, lambda), c = 1 - ppois(9, lambda))
+```
+
+**Resultado:** (a) $0.1221$; (b) $0.3134$; (c) $0.2834$.
+
+---
+
+### P4 — Demostración: $E(X)=\lambda$
+
+**Enunciado:** Demuestra, desde la definición de valor esperado, que $E(X)=\lambda$ para $X\sim\text{Poisson}(\lambda)$.
+
+**Desarrollo teórico:**
+
+$$E(X)=\sum_{x=0}^{\infty}x\,\frac{e^{-\lambda}\lambda^x}{x!}$$
+
+El término $x=0$ se anula. Para $x\ge1$, $\dfrac{x}{x!}=\dfrac{1}{(x-1)!}$:
+
+$$E(X)=\sum_{x=1}^{\infty}\frac{e^{-\lambda}\lambda^x}{(x-1)!}=\lambda e^{-\lambda}\sum_{x=1}^{\infty}\frac{\lambda^{x-1}}{(x-1)!}$$
+
+Con $y=x-1$ (que recorre $0,1,2,\dots$), la suma restante es la serie de Maclaurin de $e^\lambda$:
+
+$$E(X)=\lambda e^{-\lambda}\sum_{y=0}^{\infty}\frac{\lambda^{y}}{y!}=\lambda e^{-\lambda}\cdot e^{\lambda}=\lambda \qquad\blacksquare$$
+
+**Verificación numérica:**
+
+```{r}
+lambda <- 7
+# Suma directa (truncada en un x grande, donde la cola ya es despreciable)
+x_vals <- 0:200
+E_directo <- sum(x_vals * dpois(x_vals, lambda))
+c(E_directo = E_directo, lambda = lambda)
+```
+
+---
+
+### P5 — Aproximación Poisson de una binomial (diodos)
+
+**Enunciado:** $n=200$ diodos, $p=0.01$ cada uno falla. (a) Media y sd aproximadas. (b) $P(X\ge4)$ aproximada.
+
+**Desarrollo teórico:** $n$ grande, $p$ chico, $np=2$ moderado — condiciones ideales para aproximar $\text{Bin}(200,0.01)$ con $\text{Poisson}(\lambda=np=2)$. Para una Poisson, $E(X)=V(X)=\lambda$, así que $\text{sd}=\sqrt{\lambda}$.
+
+```{r}
+n <- 200; p <- 0.01
+lambda <- n * p
+
+media_aprox <- lambda
+sd_aprox <- sqrt(lambda)
+p_ge_4_aprox   <- 1 - ppois(3, lambda)
+p_ge_4_exacta  <- 1 - pbinom(3, n, p)   # para comparar
+
+c(media = media_aprox, sd = sd_aprox, aprox = p_ge_4_aprox, exacta = p_ge_4_exacta)
+```
+
+**Resultado:** $E(X)\approx2$, $\text{sd}\approx1.414$; $P(X\ge4)\approx0.1429$ (la binomial exacta da $0.1420$ — la aproximación es muy buena).
+
+---
+
+### P6 — Llegadas a urgencias
+
+**Enunciado:** $\lambda=5$/hora. (a) $P(X=4)$; (b) $P(X<4)$.
+
+```{r}
+lambda <- 5
+c(a = dpois(4, lambda), b = ppois(3, lambda))
+```
+
+**Resultado:** (a) $0.1755$; (b) $0.2650$.
+
+---
+
+# Sección 3 · Aproximación normal a la distribución binomial
+
+### A1 — Corrección de continuidad, directo desde una normal
+
+**Enunciado:** $X$ aprox. normal, $\mu=25$, $\sigma=5$ (imperfecciones en una cinta). (a) $P(20\le X\le30)$; (b) $P(X<30)$, ambas con corrección de continuidad.
+
+**Desarrollo teórico:** Como $X$ es discreta (cuenta imperfecciones) pero se modela con una curva continua, cada entero $k$ "ocupa" el intervalo $[k-0.5,\,k+0.5]$:
+
+$$P(20\le X\le30)\approx P(19.5<Y<30.5) \qquad P(X<30)\approx P(Y<29.5)$$
+
+```{r}
+mu <- 25; sigma <- 5
+
+p_20_30 <- pnorm(30.5, mu, sigma) - pnorm(19.5, mu, sigma)
+p_menor_30 <- pnorm(29.5, mu, sigma)
+
+c(a = p_20_30, b = p_menor_30)
+```
+
+**Resultado:** (a) $0.7287$; (b) $0.8159$.
+
+---
+
+### A2 — Aproximando una binomial concreta, y comparando con el valor exacto
+
+**Enunciado:** $X\sim\text{Bin}(25,0.5)$. Aproxima $P(15\le X\le20)$ y $P(X\le15)$ con corrección de continuidad; compara con los valores exactos.
+
+**Desarrollo teórico:** Primero verificar que aplica: $np=12.5\ge10$ y $nq=12.5\ge10$ (regla de este libro) — sí aplica. $\mu=12.5$, $\sigma=\sqrt{25(0.5)(0.5)}=2.5$.
+
+```{r}
+n <- 25; p <- 0.5
+mu <- n * p; sigma <- sqrt(n * p * (1 - p))
+c(np = n*p, nq = n*(1-p))   # verificación de la regla
+
+aprox_15_20 <- pnorm(20.5, mu, sigma) - pnorm(14.5, mu, sigma)
+exacta_15_20 <- pbinom(20, n, p) - pbinom(14, n, p)
+
+aprox_menor_15 <- pnorm(15.5, mu, sigma)
+exacta_menor_15 <- pbinom(15, n, p)
+
+data.frame(
+  calculo = c("P(15<=X<=20)", "P(X<=15)"),
+  aproximado = c(aprox_15_20, aprox_menor_15),
+  exacto = c(exacta_15_20, exacta_menor_15)
+)
+```
+
+**Resultado:** aproximado $0.2112$ vs. exacto $0.2117$; aproximado $0.8849$ vs. exacto $0.8852$ — diferencias de apenas 0.0003-0.0005.
+
+---
+
+### A3 — Ejes de acero que requieren reproceso
+
+**Enunciado:** $n=200$, $p=0.10$. Aproxima (a) $P(X\le30)$; (b) $P(X<30)$; (c) $P(15\le X\le25)$.
+
+```{r}
+n <- 200; p <- 0.10
+mu <- n * p; sigma <- sqrt(n * p * (1 - p))
+
+c(
+  a = pnorm(30.5, mu, sigma),
+  b = pnorm(29.5, mu, sigma),
+  c = pnorm(25.5, mu, sigma) - pnorm(14.5, mu, sigma)
+)
+```
+
+**Resultado:** (a) $0.9933$; (b) $0.9874$; (c) $0.8051$.
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+Nota que (a) y (b) usan el **mismo** valor de corte (30) pero corrigen distinto: $\le30$ suma media unidad ($30.5$), $<30$ resta media unidad ($29.5$), porque $<30$ **excluye** el valor 30 mientras que $\le30$ lo **incluye**. Es el error más frecuente al aplicar la corrección de continuidad. [Ver más trucos →](../recursos.qmd)
+:::
+
+---
+
+### A4 — Uso del cinturón de seguridad
+
+**Enunciado:** $n=500$, $p=0.40$. Aproxima (a) $P(180\le X\le230)$; (b) $P(X<175)$; (c) $P(X<150)$.
+
+```{r}
+n <- 500; p <- 0.40
+mu <- n * p; sigma <- sqrt(n * p * (1 - p))
+
+c(
+  a = pnorm(230.5, mu, sigma) - pnorm(179.5, mu, sigma),
+  b = pnorm(174.5, mu, sigma),
+  c = pnorm(149.5, mu, sigma)
+)
+```
+
+**Resultado:** (a) $0.9667$; (b) $0.0100$; (c) $\approx0.000002$ — prácticamente cero, porque $X=150$ está a más de 4.5 desviaciones estándar por debajo de $\mu=200$.
+
+---
+
+### A5 — Por qué existe la corrección, y qué regla usar
+
+**Enunciado:** Explica la necesidad de la corrección de continuidad, y compara la regla $np\ge10$/$nq\ge10$ de este libro con la regla $np\ge5$/$n(1-p)\ge5$ del Tema P6c.
+
+**Desarrollo:** La binomial asigna probabilidad positiva a cada entero; la normal asigna probabilidad exactamente cero a cualquier punto exacto ($P(Y=k)=0$ para toda curva continua). Sin la corrección, no habría forma de que la aproximación replicara $P(X=k)$, y los cálculos de $P(X\le k)$ quedarían sistemáticamente desplazados. La corrección "reparte" cada entero $k$ en el intervalo $[k-0.5,\,k+0.5]$ para imitar cómo la binomial distribuye su masa de probabilidad.
+
+```{r}
+# Comparación directa de ambas reglas para varios (n,p)
+casos <- data.frame(n = c(20, 50, 100, 200), p = c(0.4, 0.15, 0.08, 0.03))
+casos$np  <- casos$n * casos$p
+casos$nq  <- casos$n * (1 - casos$p)
+casos$aplica_regla_libro <- casos$np >= 10 & casos$nq >= 10
+casos$aplica_regla_P6c   <- casos$np >= 5  & casos$nq >= 5
+casos
+```
+
+**Resultado:** La regla de este libro ($np\ge10$ y $nq\ge10$) es **más estricta** que la del Tema P6c ($np\ge5$ y $n(1-p)\ge5$) — exige el doble. Con la tabla de arriba puedes ver casos donde la regla de P6c ya autoriza la aproximación pero la de este libro todavía no (más precaución). Ninguna de las dos es "la correcta" de forma absoluta: son convenciones razonables con distinto margen de seguridad: en un examen, usa la que indique tu profesor.
+
+---
+
+## 🗂️ Cierre
+
+::: {.card-lab}
+- Los ejercicios de conteo directo (B1-B4, P1-P3, P5-P6) siguen todos el mismo patrón: identificar $n,p$ o $\lambda$, decidir entre `dbinom`/`pbinom` o `dpois`/`ppois`, y tener cuidado con los índices de "al menos", "a lo sumo" y "entre".
+- Las demostraciones (B5, B6, B7, P4) usan el mismo truco central: aislar el término problemático (a menudo $x=0$), reescribir el resto como constante $\times$ una suma que resulta ser una fmp completa, y usar que toda fmp suma 1.
+- La aproximación normal (A1-A4) siempre sigue los mismos 3 pasos: verificar la regla de aplicabilidad, calcular $\mu$ y $\sigma$, y aplicar la corrección de continuidad correcta según el tipo de desigualdad.
+:::
