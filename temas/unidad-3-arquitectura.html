@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto-input1977cbffe21fb55f – Estadística Descriptiva — Curso interactivo</title>
+<title>Unidad 3 · Bivariadas e Inferencia — Arquitectura – Estadística Descriptiva — Curso interactivo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,24 +61,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./presentacion.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../temas/tema-p8-estudiante.html" rel="next">
+<link href="../temas/examen-2-simulacro.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -118,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Descriptiva — Curso interactivo</span>
     </a>
   </div>
@@ -129,23 +159,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./presentacion.html"> 
+    <a class="nav-link" href="../presentacion.html"> 
 <span class="menu-text">Presentación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./programa.html"> 
+    <a class="nav-link" href="../programa.html"> 
 <span class="menu-text">Programa</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./laboratorios.html"> 
+    <a class="nav-link" href="../laboratorios.html"> 
 <span class="menu-text">Laboratorios</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./recursos.html"> 
+    <a class="nav-link" href="../recursos.html"> 
 <span class="menu-text">Recursos</span></a>
   </li>  
 </ul>
@@ -159,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">index.html</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 — Bivariadas e Inferencia</a></li><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 · Bivariadas e Inferencia — Arquitectura</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -173,19 +203,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">index.html</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./presentacion.html" class="sidebar-item-text sidebar-link">
+  <a href="../presentacion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Presentación del curso</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./programa.html" class="sidebar-item-text sidebar-link">
+  <a href="../programa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
   </div>
 </li>
@@ -200,67 +230,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 0 · R como laboratorio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 1 · Datos, población y variables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 2 · Variables cualitativas: tablas y gráficas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 3 · Variables cuantitativas: histograma y forma de los datos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 4 · Medidas de tendencia central</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 5 · Medidas de dispersión</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 6 · Cuantiles y boxplot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 7 · Momentos, asimetría y curtosis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/preparacion-examen-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/preparacion-examen-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span></a>
   </div>
 </li>
@@ -277,109 +307,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Módulo 2 · Probabilidad — Arquitectura</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P1 · Reglas básicas de probabilidad</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P2 · Probabilidad condicional y regla multiplicativa</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P3 · Probabilidad total y Teorema de Bayes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P4 · Independencia de eventos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P5 · Variables aleatorias y función de distribución acumulada</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6a-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6a-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6a · Conteo: de las permutaciones a la fórmula binomial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6 · Distribución Binomial y ensayos de Bernoulli</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6b-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6b-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6b · Distribución de Poisson</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6c-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6c-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6c · Aproximación normal a la distribución binomial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6d-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6d-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6d · Función generadora de momentos (FGM)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P7 · Distribuciones continuas: Uniforme y Normal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-manual-taller2.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-manual-taller2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Práctica manual · Binomial, Poisson y Aproximación normal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-manual-taller2-resueltos.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-manual-taller2-resueltos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Práctica manual · Binomial, Poisson y Aproximación normal — Resueltos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/preparacion-examen-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/preparacion-examen-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/examen-2-resueltos.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/examen-2-resueltos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exámenes resueltos · Versiones A y B</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Examen 2 · Simulacro</span></a>
   </div>
 </li>
@@ -396,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/unidad-3-arquitectura.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/unidad-3-arquitectura.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Unidad 3 · Bivariadas e Inferencia — Arquitectura</span></a>
   </div>
 </li>
@@ -411,13 +441,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P8 · Distribución de probabilidad multivariada</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p8b-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p8b-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P8b · Distribución conjunta continua</span></a>
   </div>
 </li>
@@ -434,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p8c-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p8c-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P8c · Densidad condicional</span></a>
   </div>
 </li>
@@ -451,13 +481,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P9 · Covarianza y correlación de variables aleatorias</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P10 · Funciones de variables aleatorias y simulación de sistemas</span></a>
   </div>
 </li>
@@ -474,19 +504,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-i1-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-i1-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema I1 · Fundamentos de pruebas de hipótesis y prueba Z</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-i2-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-i2-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema I2 · Prueba t y valores P</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-i3-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-i3-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema I3 · Intervalos de confianza</span></a>
   </div>
 </li>
@@ -494,13 +524,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-manual-taller3.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-manual-taller3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Práctica manual · Intervalos de confianza</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-manual-taller3-resueltos.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-manual-taller3-resueltos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Práctica manual · Intervalos de confianza — Resueltos</span></a>
   </div>
 </li>
@@ -508,13 +538,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratorios.html" class="sidebar-item-text sidebar-link">
+  <a href="../laboratorios.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratorios del curso · Ejercicios y prácticas resueltas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+  <a href="../recursos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trucos de interpretación estadística</span></a>
   </div>
 </li>
@@ -528,117 +558,142 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#estadística-descriptiva" id="toc-estadística-descriptiva" class="nav-link active" data-scroll-target="#estadística-descriptiva">Estadística Descriptiva</a></li>
-  <li><a href="#cómo-funciona-cada-tema" id="toc-cómo-funciona-cada-tema" class="nav-link" data-scroll-target="#cómo-funciona-cada-tema">🧭 Cómo funciona cada tema</a></li>
+  <li><a href="#cuatro-sesiones-el-mismo-hilo-conductor" id="toc-cuatro-sesiones-el-mismo-hilo-conductor" class="nav-link active" data-scroll-target="#cuatro-sesiones-el-mismo-hilo-conductor">🗺️ Cuatro sesiones, el mismo hilo conductor</a></li>
+  <li><a href="#cronograma-de-la-unidad" id="toc-cronograma-de-la-unidad" class="nav-link" data-scroll-target="#cronograma-de-la-unidad">Cronograma de la unidad</a></li>
+  <li><a href="#sesión-12-distribución-de-probabilidad-bivariada" id="toc-sesión-12-distribución-de-probabilidad-bivariada" class="nav-link" data-scroll-target="#sesión-12-distribución-de-probabilidad-bivariada">Sesión 12 · Distribución de probabilidad bivariada</a></li>
+  <li><a href="#sesión-13-distribución-de-probabilidad-marginal-y-condicional" id="toc-sesión-13-distribución-de-probabilidad-marginal-y-condicional" class="nav-link" data-scroll-target="#sesión-13-distribución-de-probabilidad-marginal-y-condicional">Sesión 13 · Distribución de probabilidad marginal y condicional</a></li>
+  <li><a href="#sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias" id="toc-sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias" class="nav-link" data-scroll-target="#sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias">Sesión 14 · Independencia y valor esperado de función de variables aleatorias</a></li>
+  <li><a href="#sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" id="toc-sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" class="nav-link" data-scroll-target="#sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza">Sesión 15 · Pruebas de hipótesis e intervalos de confianza</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content">
 
-
-
-
-<section id="estadística-descriptiva" class="level1 hero-motivacion">
-<h1>Estadística Descriptiva</h1>
-<section id="un-curso-donde-primero-experimentas-y-después-entiendes." class="level3">
-<h3 class="anchored" data-anchor-id="un-curso-donde-primero-experimentas-y-después-entiendes.">Un curso donde primero experimentas y después entiendes.</h3>
-<p>No vas a memorizar fórmulas antes de saber para qué sirven. Vas a lanzar monedas, clasificar animales, mover deslizadores y equivocarte en tus predicciones — y de ahí va a salir la teoría, no al revés.</p>
-</section>
-</section>
-<section id="cómo-funciona-cada-tema" class="level2 card-lab">
-<h2 class="anchored" data-anchor-id="cómo-funciona-cada-tema">🧭 Cómo funciona cada tema</h2>
-<p>Cada tema sigue la misma ruta: <strong>predices → experimentas → discutes → formalizas → aplicas con datos reales</strong>. La ficha punteada roja es tu predicción; la ficha sólida verde es lo que R realmente encontró. Compáralas siempre antes de leer la teoría.</p>
-</section>
-<div class="grid">
-<section id="tema-0-r-como-laboratorio" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-0-r-como-laboratorio">Tema 0 · R como laboratorio</h3>
-<p>Pierde el miedo a R lanzando monedas simuladas y viendo cómo se estabiliza el azar.</p>
-<p><a href="./temas/tema-00-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-1-datos-población-y-variables" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-1-datos-población-y-variables">Tema 1 · Datos, población y variables</h3>
-<p>Clasifica las variables reales de un dataset de precios de vivienda antes de aprender las definiciones formales.</p>
-<p><a href="./temas/tema-01-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-2-variables-cualitativas" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-2-variables-cualitativas">Tema 2 · Variables cualitativas</h3>
-<p>Compara barras contra pastel con el ejemplo real de grupos sanguíneos de Rincón (2017).</p>
-<p><a href="./temas/tema-02-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-3-histograma-y-forma-de-los-datos" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-3-histograma-y-forma-de-los-datos">Tema 3 · Histograma y forma de los datos</h3>
-<p>Descubre la distribución bimodal real de Old Faithful, y construye la tabla agrupada del dataset de vivienda de cuatro maneras distintas.</p>
-<p><a href="./temas/tema-03-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-4-tendencia-central" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-4-tendencia-central">Tema 4 · Tendencia central</h3>
-<p>Media, mediana y moda puestas a prueba con 4 casos reales de Devore.</p>
-<p><a href="./temas/tema-04-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-5-dispersión" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-5-dispersión">Tema 5 · Dispersión</h3>
-<p>Rango, varianza, desviación estándar y coeficiente de variación — de las tortugas golfinas a los precios de vivienda.</p>
-<p><a href="./temas/tema-05-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-6-cuantiles-y-boxplot" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-6-cuantiles-y-boxplot">Tema 6 · Cuantiles y boxplot</h3>
-<p>49 brocas reales puestas a prueba hasta romperse — aprende el paso a paso para construir un boxplot a mano.</p>
-<p><a href="./temas/tema-06-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-7-momentos-asimetría-y-curtosis" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-7-momentos-asimetría-y-curtosis">Tema 7 · Momentos, asimetría y curtosis</h3>
-<p>El aparato matemático completo — con demostraciones — que conecta la descriptiva con la probabilidad.</p>
-<p><a href="./temas/tema-07-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-8-datos-conjuntos" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-8-datos-conjuntos">Tema 8 · Datos conjuntos</h3>
-<p>Covarianza, correlación y regresión — ¿el área de una casa predice su precio? Con las demostraciones completas de Rincón (2017).</p>
-<p><a href="./temas/tema-08-estudiante.html">Empezar →</a></p>
-</section>
-<section id="módulo-2-probabilidad" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="módulo-2-probabilidad">Módulo 2 · Probabilidad</h3>
-<p>7 temas completos (P1-P7), desde reglas básicas hasta distribuciones continuas.</p>
-<p><a href="./temas/modulo-2-arquitectura.html">Ver arquitectura →</a></p>
-</section>
-<section id="unidad-3-bivariadas-e-inferencia" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="unidad-3-bivariadas-e-inferencia">Unidad 3 · Bivariadas e Inferencia</h3>
-<p>8 temas (P8-P10, I1-I3): dos variables a la vez, y el salto final de una muestra a una conclusión sobre la población.</p>
-<p><a href="./temas/unidad-3-arquitectura.html">Ver arquitectura →</a></p>
-</section>
-<section id="preparación-del-examen-1" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="preparación-del-examen-1">🎯 Preparación del Examen 1</h3>
-<p>Repaso integrado de todo el Módulo 1 en una sola pasada, más 5 preguntas conceptuales con respuesta.</p>
-<p><a href="./temas/preparacion-examen-1.html">Prepararme →</a></p>
-</section>
-<section id="ejercicios-propuestos-módulo-1" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="ejercicios-propuestos-módulo-1">🏋️ Ejercicios propuestos · Módulo 1</h3>
-<p>18 ejercicios reales de Rincón (2017), sin solución, organizados por tema.</p>
-<p><a href="./temas/ejercicios-modulo1.html">Resolver →</a></p>
-</section>
-<section id="ejercicios-propuestos-módulo-2" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="ejercicios-propuestos-módulo-2">🏋️ Ejercicios propuestos · Módulo 2</h3>
-<p>10 ejercicios reales de tus Laboratorios 2 y 3, sin solución.</p>
-<p><a href="./temas/ejercicios-modulo2.html">Resolver →</a></p>
-</section>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 — Bivariadas e Inferencia</a></li><li class="breadcrumb-item"><a href="../temas/unidad-3-arquitectura.html">Unidad 3 · Bivariadas e Inferencia — Arquitectura</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Unidad 3 · Bivariadas e Inferencia — Arquitectura</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cuatro-sesiones-el-mismo-hilo-conductor" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="cuatro-sesiones-el-mismo-hilo-conductor">🗺️ Cuatro sesiones, el mismo hilo conductor</h2>
+<p>La Unidad 3 tiene una progresión clara: primero aprendes a describir <strong>dos</strong> variables aleatorias a la vez (bivariada → marginal/condicional → independencia y valor esperado de una función), y luego usas todo eso para dar el salto final del curso — de una muestra a una conclusión sobre la población completa (pruebas de hipótesis e intervalos de confianza). Esta página sigue exactamente el cronograma oficial del curso, sesión por sesión.</p>
+</section>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Próximos pasos
+<span class="screen-reader-only">Note</span>Estado de esta unidad
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Planes de profesor (plantilla 90 min) para todos los temas · Tutoriales learnr reales · Temas de estudiante dedicados para distribuciones muestrales, TCL y estimación puntual (Unidad 3) · Pruebas de dos muestras.</p>
+<p>Las 4 sesiones están completamente construidas — 8 temas de estudiante en total, más un banco de ejercicios manuales con desarrollo teórico y en R. Los Temas P8-P10 están basados en Blanco Castañeda (2010), <em>Probabilidad</em> (Universidad Nacional de Colombia); los Temas I1-I3 están basados en Walpole, Myers, Myers y Ye, <em>Probabilidad y Estadística para Ingeniería y Ciencias</em>.</p>
+</div>
+</div>
+<section id="cronograma-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="cronograma-de-la-unidad">Cronograma de la unidad</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sesión</th>
+<th>Fecha</th>
+<th>Tema del cronograma</th>
+<th>Temas del sitio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>12</td>
+<td>30-sep</td>
+<td>Distribución de probabilidad bivariada</td>
+<td>P8, P8b</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>14-oct</td>
+<td>Distribución de probabilidad marginal y condicional</td>
+<td>P8c</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>21-oct</td>
+<td>Variables aleatorias independientes y valor esperado de una función de variables aleatorias</td>
+<td>P9, P10</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>04-nov</td>
+<td>Pruebas de hipótesis e intervalos de confianza</td>
+<td>I1, I2, I3</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="sesión-12-distribución-de-probabilidad-bivariada" class="level2">
+<h2 class="anchored" data-anchor-id="sesión-12-distribución-de-probabilidad-bivariada">Sesión 12 · Distribución de probabilidad bivariada</h2>
+<p><strong>P8 — Distribución multivariada (caso discreto)</strong> <strong>Objetivo:</strong> construir una función de probabilidad conjunta, obtener marginales y condicionales, verificar independencia — con tablas finitas. <strong>Motivación real (Laboratorio 3):</strong> tres monedas lanzadas, con una variable de apuesta ligada al resultado — ¿son independientes el número de caras y las ganancias? <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-p8-estudiante.html">ir al tema</a></p>
+<p><strong>P8b — Distribución conjunta continua</strong> <strong>Objetivo:</strong> extender la idea al caso continuo — densidad de probabilidad conjunta, marginales por integración, y el criterio de factorización <span class="math inline">\(f(x,y)=h(x)g(y)\)</span> para verificar independencia sin integrar. <strong>Motivación real:</strong> dos mediciones continuas a la vez (ej. tiempo y distancia) — ¿qué significa “volumen bajo la superficie = 1”? <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-p8b-estudiante.html">ir al tema</a>. Basado en Blanco Castañeda (2010), Cap. 5.</p>
+</section>
+<section id="sesión-13-distribución-de-probabilidad-marginal-y-condicional" class="level2">
+<h2 class="anchored" data-anchor-id="sesión-13-distribución-de-probabilidad-marginal-y-condicional">Sesión 13 · Distribución de probabilidad marginal y condicional</h2>
+<p><strong>P8c — Densidad condicional</strong> <strong>Objetivo:</strong> resolver la aparente contradicción de condicionar sobre <span class="math inline">\(P(Y=y)=0\)</span>, definiendo <span class="math inline">\(f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)\)</span>; valor esperado condicional; regla de Bayes continua. <strong>Motivación real:</strong> ¿cuál es la distribución de <span class="math inline">\(X\)</span> dado que <span class="math inline">\(Y\)</span> vale exactamente <span class="math inline">\(y\)</span>, si esa probabilidad puntual es cero? <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-p8c-estudiante.html">ir al tema</a>. Basado en Blanco Castañeda (2010), Cap. 6.</p>
+</section>
+<section id="sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias" class="level2">
+<h2 class="anchored" data-anchor-id="sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias">Sesión 14 · Independencia y valor esperado de función de variables aleatorias</h2>
+<p><strong>P9 — Covarianza y correlación de variables aleatorias</strong> <strong>Objetivo:</strong> simular variables correlacionadas con <code>MASS::mvrnorm()</code> y verificar la matriz de covarianza/correlación resultante — la covarianza es, en el fondo, <span class="math inline">\(E\big[(X-\mu_X)(Y-\mu_Y)\big]\)</span>, un caso particular de valor esperado de una función de dos variables. <strong>Motivación real:</strong> sistema de producción con demanda, tiempo y costo correlacionados — evaluación de riesgo. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-p9-estudiante.html">ir al tema</a>, conecta directamente con el Tema 8 del Módulo 1.</p>
+<p><strong>P10 — Funciones de variables aleatorias</strong> <strong>Objetivo:</strong> calcular el valor esperado y la distribución de <span class="math inline">\(g(X,Y)\)</span> — sumas, productos, cocientes — combinando simulación con verificación teórica (FGM, convolución). <strong>Motivación real (Laboratorio 3):</strong> tiempo de falla de un sistema en serie, rentabilidad de un portafolio de dos activos. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-p10-estudiante.html">ir al tema</a></p>
+</section>
+<section id="sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" class="level2">
+<h2 class="anchored" data-anchor-id="sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza">Sesión 15 · Pruebas de hipótesis e intervalos de confianza</h2>
+<p><strong>I1 — Fundamentos de pruebas de hipótesis y prueba Z</strong> <strong>Objetivo:</strong> hipótesis nula y alternativa, errores de tipo I y II, el compromiso ineludible entre <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>, y el procedimiento completo de la prueba Z (varianza conocida). <strong>Motivación real:</strong> la analogía judicial (inocente hasta que se demuestre lo contrario) — y ejemplos reales del libro: colisiones de auto, tiempo de secado de pintura, temperatura de activación de rociadores contra incendios. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-i1-estudiante.html">ir al tema</a></p>
+<p><strong>I2 — Prueba t y valores P</strong> <strong>Objetivo:</strong> qué hacer cuando <span class="math inline">\(\sigma\)</span> es desconocida (prueba t con <span class="math inline">\(n-1\)</span> grados de libertad), y cómo cuantificar la fuerza de la evidencia contra <span class="math inline">\(H_0\)</span> con el valor P. <strong>Motivación real:</strong> peso máximo de elevación (ejemplo real de <em>Ergonomics</em>, 1992) y la comparación de conclusiones a distintos niveles <span class="math inline">\(\alpha\)</span> para el mismo dato. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-i2-estudiante.html">ir al tema</a></p>
+<p><strong>I3 — Intervalos de confianza</strong> <strong>Objetivo:</strong> qué significa realmente “95% de confianza” (interpretación de muestreo repetido, no probabilidad sobre el intervalo ya calculado), y los tres casos prácticos: <span class="math inline">\(\sigma\)</span> conocida, <span class="math inline">\(\sigma\)</span> desconocida con muestra grande, y la distribución <span class="math inline">\(t\)</span> para muestra pequeña. <strong>Motivación real:</strong> dos conjuntos de datos reales completos — 48 mediciones de tensión disruptiva de un líquido aislante, y 16 mediciones del módulo de elasticidad de madera de pino escocés. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-i3-estudiante.html">ir al tema</a></p>
+<hr>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Pendientes explícitos de esta unidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Distribuciones muestrales, Teorema Central del Límite y estimación puntual (el puente conceptual entre la Sesión 14 y la Sesión 15) todavía viven solo como ítems de laboratorio resueltos — <a href="../laboratorios.html#laboratorio-de-inferencia-estadística">Laboratorio de Inferencia Estadística</a>, Ítems 35-39 — sin el tratamiento pedagógico completo (predicción, teoría formal, quiz) que sí tienen los demás temas de esta unidad.</li>
+<li>Pruebas de dos muestras (comparación de dos medias, dos proporciones, dos varianzas) — Ítems 42-43 del mismo laboratorio, o Capítulo 9 de Walpole et al.&nbsp;— sin tema de estudiante dedicado todavía.</li>
+<li>Una sección explícita de “Taller 3” en <code>laboratorios.qmd</code>, con los cuatro criterios exactos de esa rúbrica — análoga a la que ya existe para el Taller 2.</li>
+</ul>
 </div>
 </div>
 
 
 <!-- -->
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1094,141 +1149,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../temas/examen-2-simulacro.html" class="pagination-link" aria-label="Examen 2 · Simulacro">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Examen 2 · Simulacro</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./presentacion.html" class="pagination-link" aria-label="Presentación del curso">
-        <span class="nav-page-text">Presentación del curso</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../temas/tema-p8-estudiante.html" class="pagination-link" aria-label="Tema P8 · Distribución de probabilidad multivariada">
+        <span class="nav-page-text">Tema P8 · Distribución de probabilidad multivariada</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> " "</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Unidad 3 · Bivariadas e Inferencia — Arquitectura"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Estadística Descriptiva</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Un curso donde primero experimentas y después entiendes.</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>No vas a memorizar fórmulas antes de saber para qué sirven. Vas a lanzar monedas, clasificar animales, mover deslizadores y equivocarte en tus predicciones — y de ahí va a salir la teoría, no al revés.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧭 Cómo funciona cada tema</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Cada tema sigue la misma ruta: **predices → experimentas → discutes → formalizas → aplicas con datos reales**. La ficha punteada roja es tu predicción; la ficha sólida verde es lo que R realmente encontró. Compáralas siempre antes de leer la teoría.</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗺️ Cuatro sesiones, el mismo hilo conductor</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>La Unidad 3 tiene una progresión clara: primero aprendes a describir **dos** variables aleatorias a la vez (bivariada → marginal/condicional → independencia y valor esperado de una función), y luego usas todo eso para dar el salto final del curso — de una muestra a una conclusión sobre la población completa (pruebas de hipótesis e intervalos de confianza). Esta página sigue exactamente el cronograma oficial del curso, sesión por sesión.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estado de esta unidad</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Las 4 sesiones están completamente construidas — 8 temas de estudiante en total, más un banco de ejercicios manuales con desarrollo teórico y en R. Los Temas P8-P10 están basados en Blanco Castañeda (2010), *Probabilidad* (Universidad Nacional de Colombia); los Temas I1-I3 están basados en Walpole, Myers, Myers y Ye, *Probabilidad y Estadística para Ingeniería y Ciencias*.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cronograma de la unidad</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>::: {.grid}</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 0 · R como laboratorio</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>Pierde el miedo a R lanzando monedas simuladas y viendo cómo se estabiliza el azar.</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-00-estudiante.qmd)</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Sesión <span class="pp">|</span> Fecha <span class="pp">|</span> Tema del cronograma <span class="pp">|</span> Temas del sitio <span class="pp">|</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 12 <span class="pp">|</span> 30-sep <span class="pp">|</span> Distribución de probabilidad bivariada <span class="pp">|</span> P8, P8b <span class="pp">|</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 13 <span class="pp">|</span> 14-oct <span class="pp">|</span> Distribución de probabilidad marginal y condicional <span class="pp">|</span> P8c <span class="pp">|</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 14 <span class="pp">|</span> 21-oct <span class="pp">|</span> Variables aleatorias independientes y valor esperado de una función de variables aleatorias <span class="pp">|</span> P9, P10 <span class="pp">|</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 15 <span class="pp">|</span> 04-nov <span class="pp">|</span> Pruebas de hipótesis e intervalos de confianza <span class="pp">|</span> I1, I2, I3 <span class="pp">|</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 1 · Datos, población y variables</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Clasifica las variables reales de un dataset de precios de vivienda antes de aprender las definiciones formales.</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-01-estudiante.qmd)</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sesión 12 · Distribución de probabilidad bivariada</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>**P8 — Distribución multivariada (caso discreto)**</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>**Objetivo:** construir una función de probabilidad conjunta, obtener marginales y condicionales, verificar independencia — con tablas finitas.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>**Motivación real (Laboratorio 3):** tres monedas lanzadas, con una variable de apuesta ligada al resultado — ¿son independientes el número de caras y las ganancias?</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-p8-estudiante.qmd)</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 2 · Variables cualitativas</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>Compara barras contra pastel con el ejemplo real de grupos sanguíneos de Rincón (2017).</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-02-estudiante.qmd)</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>**P8b — Distribución conjunta continua**</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**Objetivo:** extender la idea al caso continuo — densidad de probabilidad conjunta, marginales por integración, y el criterio de factorización $f(x,y)=h(x)g(y)$ para verificar independencia sin integrar.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>**Motivación real:** dos mediciones continuas a la vez (ej. tiempo y distancia) — ¿qué significa "volumen bajo la superficie = 1"?</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-p8b-estudiante.qmd)</span>. Basado en Blanco Castañeda (2010), Cap. 5.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sesión 13 · Distribución de probabilidad marginal y condicional</span></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 3 · Histograma y forma de los datos</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Descubre la distribución bimodal real de Old Faithful, y construye la tabla agrupada del dataset de vivienda de cuatro maneras distintas.</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-03-estudiante.qmd)</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>**P8c — Densidad condicional**</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>**Objetivo:** resolver la aparente contradicción de condicionar sobre $P(Y=y)=0$, definiendo $f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)$; valor esperado condicional; regla de Bayes continua.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>**Motivación real:** ¿cuál es la distribución de $X$ dado que $Y$ vale exactamente $y$, si esa probabilidad puntual es cero?</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-p8c-estudiante.qmd)</span>. Basado en Blanco Castañeda (2010), Cap. 6.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sesión 14 · Independencia y valor esperado de función de variables aleatorias</span></span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 4 · Tendencia central</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>Media, mediana y moda puestas a prueba con 4 casos reales de Devore.</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-04-estudiante.qmd)</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 5 · Dispersión</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>Rango, varianza, desviación estándar y coeficiente de variación — de las tortugas golfinas a los precios de vivienda.</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-05-estudiante.qmd)</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 6 · Cuantiles y boxplot</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>49 brocas reales puestas a prueba hasta romperse — aprende el paso a paso para construir un boxplot a mano.</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-06-estudiante.qmd)</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 7 · Momentos, asimetría y curtosis</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>El aparato matemático completo — con demostraciones — que conecta la descriptiva con la probabilidad.</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-07-estudiante.qmd)</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 8 · Datos conjuntos</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>Covarianza, correlación y regresión — ¿el área de una casa predice su precio? Con las demostraciones completas de Rincón (2017).</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-08-estudiante.qmd)</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Módulo 2 · Probabilidad</span></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>7 temas completos (P1-P7), desde reglas básicas hasta distribuciones continuas.</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ver arquitectura →</span><span class="co">](temas/modulo-2-arquitectura.qmd)</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="fu">### Unidad 3 · Bivariadas e Inferencia</span></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>8 temas (P8-P10, I1-I3): dos variables a la vez, y el salto final de una muestra a una conclusión sobre la población.</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ver arquitectura →</span><span class="co">](temas/unidad-3-arquitectura.qmd)</span></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🎯 Preparación del Examen 1</span></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>Repaso integrado de todo el Módulo 1 en una sola pasada, más 5 preguntas conceptuales con respuesta.</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Prepararme →</span><span class="co">](temas/preparacion-examen-1.qmd)</span></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🏋️ Ejercicios propuestos · Módulo 1</span></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>18 ejercicios reales de Rincón (2017), sin solución, organizados por tema.</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Resolver →</span><span class="co">](temas/ejercicios-modulo1.qmd)</span></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🏋️ Ejercicios propuestos · Módulo 2</span></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>10 ejercicios reales de tus Laboratorios 2 y 3, sin solución.</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Resolver →</span><span class="co">](temas/ejercicios-modulo2.qmd)</span></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Próximos pasos</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>Planes de profesor (plantilla 90 min) para todos los temas · Tutoriales learnr reales · Temas de estudiante dedicados para distribuciones muestrales, TCL y estimación puntual (Unidad 3) · Pruebas de dos muestras.</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**P9 — Covarianza y correlación de variables aleatorias**</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>**Objetivo:** simular variables correlacionadas con <span class="in">`MASS::mvrnorm()`</span> y verificar la matriz de covarianza/correlación resultante — la covarianza es, en el fondo, $E\big<span class="co">[</span><span class="ot">(X-\mu_X)(Y-\mu_Y)\big</span><span class="co">]</span>$, un caso particular de valor esperado de una función de dos variables.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>**Motivación real:** sistema de producción con demanda, tiempo y costo correlacionados — evaluación de riesgo.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-p9-estudiante.qmd)</span>, conecta directamente con el Tema 8 del Módulo 1.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>**P10 — Funciones de variables aleatorias**</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>**Objetivo:** calcular el valor esperado y la distribución de $g(X,Y)$ — sumas, productos, cocientes — combinando simulación con verificación teórica (FGM, convolución).</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>**Motivación real (Laboratorio 3):** tiempo de falla de un sistema en serie, rentabilidad de un portafolio de dos activos.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-p10-estudiante.qmd)</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sesión 15 · Pruebas de hipótesis e intervalos de confianza</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>**I1 — Fundamentos de pruebas de hipótesis y prueba Z**</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>**Objetivo:** hipótesis nula y alternativa, errores de tipo I y II, el compromiso ineludible entre $\alpha$ y $\beta$, y el procedimiento completo de la prueba Z (varianza conocida).</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>**Motivación real:** la analogía judicial (inocente hasta que se demuestre lo contrario) — y ejemplos reales del libro: colisiones de auto, tiempo de secado de pintura, temperatura de activación de rociadores contra incendios.</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-i1-estudiante.qmd)</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>**I2 — Prueba t y valores P**</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>**Objetivo:** qué hacer cuando $\sigma$ es desconocida (prueba t con $n-1$ grados de libertad), y cómo cuantificar la fuerza de la evidencia contra $H_0$ con el valor P.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**Motivación real:** peso máximo de elevación (ejemplo real de *Ergonomics*, 1992) y la comparación de conclusiones a distintos niveles $\alpha$ para el mismo dato.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-i2-estudiante.qmd)</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>**I3 — Intervalos de confianza**</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>**Objetivo:** qué significa realmente "95% de confianza" (interpretación de muestreo repetido, no probabilidad sobre el intervalo ya calculado), y los tres casos prácticos: $\sigma$ conocida, $\sigma$ desconocida con muestra grande, y la distribución $t$ para muestra pequeña.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>**Motivación real:** dos conjuntos de datos reales completos — 48 mediciones de tensión disruptiva de un líquido aislante, y 16 mediciones del módulo de elasticidad de madera de pino escocés.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-i3-estudiante.qmd)</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pendientes explícitos de esta unidad</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Distribuciones muestrales, Teorema Central del Límite y estimación puntual (el puente conceptual entre la Sesión 14 y la Sesión 15) todavía viven solo como ítems de laboratorio resueltos — <span class="co">[</span><span class="ot">Laboratorio de Inferencia Estadística</span><span class="co">](../laboratorios.qmd#laboratorio-de-inferencia-estadística)</span>, Ítems 35-39 — sin el tratamiento pedagógico completo (predicción, teoría formal, quiz) que sí tienen los demás temas de esta unidad.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pruebas de dos muestras (comparación de dos medias, dos proporciones, dos varianzas) — Ítems 42-43 del mismo laboratorio, o Capítulo 9 de Walpole et al. — sin tema de estudiante dedicado todavía.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Una sección explícita de "Taller 3" en <span class="in">`laboratorios.qmd`</span>, con los cuatro criterios exactos de esa rúbrica — análoga a la que ya existe para el Taller 2.</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
