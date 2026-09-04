@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto-input8ae333ad4e52d787 – Estadística Descriptiva — Curso interactivo</title>
+<title>Examen 2 · Simulacro – Estadística Descriptiva — Curso interactivo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,24 +61,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./presentacion.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../laboratorios.html" rel="next">
+<link href="../temas/examen-2-resueltos.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -118,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Descriptiva — Curso interactivo</span>
     </a>
   </div>
@@ -129,23 +159,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./presentacion.html"> 
+    <a class="nav-link" href="../presentacion.html"> 
 <span class="menu-text">Presentación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./programa.html"> 
+    <a class="nav-link" href="../programa.html"> 
 <span class="menu-text">Programa</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./laboratorios.html"> 
+    <a class="nav-link" href="../laboratorios.html"> 
 <span class="menu-text">Laboratorios</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./recursos.html"> 
+    <a class="nav-link" href="../recursos.html"> 
 <span class="menu-text">Recursos</span></a>
   </li>  
 </ul>
@@ -159,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">index.html</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/examen-2-simulacro.html">Examen 2 · Simulacro</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -173,19 +203,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">index.html</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./presentacion.html" class="sidebar-item-text sidebar-link">
+  <a href="../presentacion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Presentación del curso</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./programa.html" class="sidebar-item-text sidebar-link">
+  <a href="../programa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
   </div>
 </li>
@@ -200,67 +230,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 0 · R como laboratorio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 1 · Datos, población y variables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 2 · Variables cualitativas: tablas y gráficas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 3 · Variables cuantitativas: histograma y forma de los datos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 4 · Medidas de tendencia central</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 5 · Medidas de dispersión</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 6 · Cuantiles y boxplot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 7 · Momentos, asimetría y curtosis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/preparacion-examen-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/preparacion-examen-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span></a>
   </div>
 </li>
@@ -277,115 +307,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Módulo 2 · Probabilidad — Arquitectura</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P1 · Reglas básicas de probabilidad</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P2 · Probabilidad condicional y regla multiplicativa</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P3 · Probabilidad total y Teorema de Bayes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P4 · Independencia de eventos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P5 · Variables aleatorias y función de distribución acumulada</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6a-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6a-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6a · Conteo: de las permutaciones a la fórmula binomial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6 · Distribución Binomial y ensayos de Bernoulli</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6b-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6b-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6b · Distribución de Poisson</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6c-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6c-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6c · Aproximación normal a la distribución binomial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p6d-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p6d-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P6d · Función generadora de momentos (FGM)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P7 · Distribuciones continuas: Uniforme y Normal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P8 · Distribución de probabilidad multivariada</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P9 · Covarianza y correlación de variables aleatorias</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P10 · Funciones de variables aleatorias y simulación de sistemas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/preparacion-examen-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/preparacion-examen-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/examen-2-resueltos.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/examen-2-resueltos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exámenes resueltos · Versiones A y B</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link">
+  <a href="../temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Examen 2 · Simulacro</span></a>
   </div>
 </li>
@@ -393,13 +423,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratorios.html" class="sidebar-item-text sidebar-link">
+  <a href="../laboratorios.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratorios del curso · Ejercicios y prácticas resueltas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+  <a href="../recursos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trucos de interpretación estadística</span></a>
   </div>
 </li>
@@ -413,112 +443,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#estadística-descriptiva" id="toc-estadística-descriptiva" class="nav-link active" data-scroll-target="#estadística-descriptiva">Estadística Descriptiva</a></li>
-  <li><a href="#cómo-funciona-cada-tema" id="toc-cómo-funciona-cada-tema" class="nav-link" data-scroll-target="#cómo-funciona-cada-tema">🧭 Cómo funciona cada tema</a></li>
+  <li><a href="#preguntas-4-secciones-60-90-minutos-sugeridos" id="toc-preguntas-4-secciones-60-90-minutos-sugeridos" class="nav-link active" data-scroll-target="#preguntas-4-secciones-60-90-minutos-sugeridos">⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos</a></li>
+  <li><a href="#sección-i-distribución-binomial" id="toc-sección-i-distribución-binomial" class="nav-link" data-scroll-target="#sección-i-distribución-binomial">Sección I · Distribución binomial</a></li>
+  <li><a href="#sección-ii-distribución-poisson" id="toc-sección-ii-distribución-poisson" class="nav-link" data-scroll-target="#sección-ii-distribución-poisson">Sección II · Distribución Poisson</a></li>
+  <li><a href="#sección-iii-aproximación-normal-a-la-binomial" id="toc-sección-iii-aproximación-normal-a-la-binomial" class="nav-link" data-scroll-target="#sección-iii-aproximación-normal-a-la-binomial">Sección III · Aproximación normal a la binomial</a></li>
+  <li><a href="#sección-iv-función-generadora-de-momentos" id="toc-sección-iv-función-generadora-de-momentos" class="nav-link" data-scroll-target="#sección-iv-función-generadora-de-momentos">Sección IV · Función generadora de momentos</a></li>
+  <li><a href="#sección-v-síntesis" id="toc-sección-v-síntesis" class="nav-link" data-scroll-target="#sección-v-síntesis">Sección V · Síntesis</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content">
 
-
-
-
-<section id="estadística-descriptiva" class="level1 hero-motivacion">
-<h1>Estadística Descriptiva</h1>
-<section id="un-curso-donde-primero-experimentas-y-después-entiendes." class="level3">
-<h3 class="anchored" data-anchor-id="un-curso-donde-primero-experimentas-y-después-entiendes.">Un curso donde primero experimentas y después entiendes.</h3>
-<p>No vas a memorizar fórmulas antes de saber para qué sirven. Vas a lanzar monedas, clasificar animales, mover deslizadores y equivocarte en tus predicciones — y de ahí va a salir la teoría, no al revés.</p>
-</section>
-</section>
-<section id="cómo-funciona-cada-tema" class="level2 card-lab">
-<h2 class="anchored" data-anchor-id="cómo-funciona-cada-tema">🧭 Cómo funciona cada tema</h2>
-<p>Cada tema sigue la misma ruta: <strong>predices → experimentas → discutes → formalizas → aplicas con datos reales</strong>. La ficha punteada roja es tu predicción; la ficha sólida verde es lo que R realmente encontró. Compáralas siempre antes de leer la teoría.</p>
-</section>
-<div class="grid">
-<section id="tema-0-r-como-laboratorio" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-0-r-como-laboratorio">Tema 0 · R como laboratorio</h3>
-<p>Pierde el miedo a R lanzando monedas simuladas y viendo cómo se estabiliza el azar.</p>
-<p><a href="./temas/tema-00-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-1-datos-población-y-variables" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-1-datos-población-y-variables">Tema 1 · Datos, población y variables</h3>
-<p>Clasifica las variables reales de un dataset de precios de vivienda antes de aprender las definiciones formales.</p>
-<p><a href="./temas/tema-01-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-2-variables-cualitativas" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-2-variables-cualitativas">Tema 2 · Variables cualitativas</h3>
-<p>Compara barras contra pastel con el ejemplo real de grupos sanguíneos de Rincón (2017).</p>
-<p><a href="./temas/tema-02-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-3-histograma-y-forma-de-los-datos" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-3-histograma-y-forma-de-los-datos">Tema 3 · Histograma y forma de los datos</h3>
-<p>Descubre la distribución bimodal real de Old Faithful, y construye la tabla agrupada del dataset de vivienda de cuatro maneras distintas.</p>
-<p><a href="./temas/tema-03-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-4-tendencia-central" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-4-tendencia-central">Tema 4 · Tendencia central</h3>
-<p>Media, mediana y moda puestas a prueba con 4 casos reales de Devore.</p>
-<p><a href="./temas/tema-04-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-5-dispersión" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-5-dispersión">Tema 5 · Dispersión</h3>
-<p>Rango, varianza, desviación estándar y coeficiente de variación — de las tortugas golfinas a los precios de vivienda.</p>
-<p><a href="./temas/tema-05-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-6-cuantiles-y-boxplot" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-6-cuantiles-y-boxplot">Tema 6 · Cuantiles y boxplot</h3>
-<p>49 brocas reales puestas a prueba hasta romperse — aprende el paso a paso para construir un boxplot a mano.</p>
-<p><a href="./temas/tema-06-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-7-momentos-asimetría-y-curtosis" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-7-momentos-asimetría-y-curtosis">Tema 7 · Momentos, asimetría y curtosis</h3>
-<p>El aparato matemático completo — con demostraciones — que conecta la descriptiva con la probabilidad.</p>
-<p><a href="./temas/tema-07-estudiante.html">Empezar →</a></p>
-</section>
-<section id="tema-8-datos-conjuntos" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="tema-8-datos-conjuntos">Tema 8 · Datos conjuntos</h3>
-<p>Covarianza, correlación y regresión — ¿el área de una casa predice su precio? Con las demostraciones completas de Rincón (2017).</p>
-<p><a href="./temas/tema-08-estudiante.html">Empezar →</a></p>
-</section>
-<section id="módulo-2-probabilidad" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="módulo-2-probabilidad">Módulo 2 · Probabilidad</h3>
-<p>10 temas completos (P1-P10), desde reglas básicas hasta simulación de sistemas correlacionados.</p>
-<p><a href="./temas/modulo-2-arquitectura.html">Ver arquitectura →</a></p>
-</section>
-<section id="preparación-del-examen-1" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="preparación-del-examen-1">🎯 Preparación del Examen 1</h3>
-<p>Repaso integrado de todo el Módulo 1 en una sola pasada, más 5 preguntas conceptuales con respuesta.</p>
-<p><a href="./temas/preparacion-examen-1.html">Prepararme →</a></p>
-</section>
-<section id="ejercicios-propuestos-módulo-1" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="ejercicios-propuestos-módulo-1">🏋️ Ejercicios propuestos · Módulo 1</h3>
-<p>18 ejercicios reales de Rincón (2017), sin solución, organizados por tema.</p>
-<p><a href="./temas/ejercicios-modulo1.html">Resolver →</a></p>
-</section>
-<section id="ejercicios-propuestos-módulo-2" class="level3 g-col-6 card-lab">
-<h3 class="anchored" data-anchor-id="ejercicios-propuestos-módulo-2">🏋️ Ejercicios propuestos · Módulo 2</h3>
-<p>10 ejercicios reales de tus Laboratorios 2 y 3, sin solución.</p>
-<p><a href="./temas/ejercicios-modulo2.html">Resolver →</a></p>
-</section>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/examen-2-simulacro.html">Examen 2 · Simulacro</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Examen 2 · Simulacro</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Sobre este simulacro
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este es un examen de práctica <strong>no oficial</strong>, construido para cubrir los cuatro criterios exactos de la rúbrica del Taller 2 (Binomial, Poisson, Aproximación normal, FGM). No sustituye al examen real del curso ni tiene relación con su ponderación o formato exactos — es una herramienta de autoevaluación. Resuélvelo primero <strong>sin mirar el código ni la clave de respuestas</strong>, con lápiz y papel, y verifica después en R.</p>
+</div>
+</div>
+<section id="preguntas-4-secciones-60-90-minutos-sugeridos" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="preguntas-4-secciones-60-90-minutos-sugeridos">⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos</h2>
+<p>Simula las condiciones del examen real: resuelve en orden, sin R al principio (verifica al final), y cronometra tu tiempo. La <a href="../temas/examen-2-clave.html">clave de respuestas</a> está en una página separada — ábrela solo después de intentar todo el examen.</p>
+</section>
+<section id="sección-i-distribución-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="sección-i-distribución-binomial">Sección I · Distribución binomial</h2>
+<p><strong>Pregunta 1 (0.5 pts).</strong> Para cada uno de los siguientes escenarios, indique si aplica un modelo binomial y justifique citando explícitamente cuál(es) de las condiciones BINS se cumple(n) o se rompe(n):</p>
+<ol type="a">
+<li><p>Se lanza una moneda balanceada 20 veces y se cuenta el número de caras.</p></li>
+<li><p>De un curso de 12 estudiantes (5 mujeres, 7 hombres) se seleccionan 6 al azar <strong>sin reemplazo</strong> para un comité, y se cuenta cuántas son mujeres.</p></li>
+<li><p>Se registra el número de clientes que llegan a una tienda durante una hora.</p></li>
+</ol>
+<p><strong>Pregunta 2 (0.5 pts).</strong> Un proceso de ensamblaje tiene una tasa de error del 35% por unidad ensamblada (independiente entre unidades). En un lote de 18 unidades, calcule: (a) la probabilidad de que exactamente 5 tengan error; (b) la probabilidad de que a lo sumo 3 tengan error.</p>
+</section>
+<section id="sección-ii-distribución-poisson" class="level2">
+<h2 class="anchored" data-anchor-id="sección-ii-distribución-poisson">Sección II · Distribución Poisson</h2>
+<p><strong>Pregunta 3 (0.5 pts).</strong> Un fabricante de tornillos reporta una tasa de defectos de 0.4 por cada 100 unidades producidas. En un lote de 750 unidades, calcule <span class="math inline">\(\lambda\)</span> para ese lote y la probabilidad de encontrar exactamente 2 defectuosas.</p>
+<p><strong>Pregunta 4 (0.5 pts).</strong> Un sensor detecta partículas a una tasa promedio de 4.5 por hora. Calcule la probabilidad de detectar exactamente 6 partículas en un período de 2 horas.</p>
+</section>
+<section id="sección-iii-aproximación-normal-a-la-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="sección-iii-aproximación-normal-a-la-binomial">Sección III · Aproximación normal a la binomial</h2>
+<p><strong>Pregunta 5 (0.5 pts).</strong> Para cada escenario, verifique si aplica la aproximación normal (indique los valores de <span class="math inline">\(np\)</span> y <span class="math inline">\(n(1-p)\)</span>) y, si no aplica, indique qué alternativa usaría:</p>
+<ol type="a">
+<li><p><span class="math inline">\(n=60\)</span>, <span class="math inline">\(p=0.5\)</span></p></li>
+<li><p><span class="math inline">\(n=40\)</span>, <span class="math inline">\(p=0.03\)</span></p></li>
+</ol>
+<p><strong>Pregunta 6 (0.5 pts).</strong> En una población, el 40% respalda una iniciativa. Se encuestan 500 personas. Calcule <span class="math inline">\(P(X&lt;190)\)</span> usando la aproximación normal con corrección de continuidad, verificando primero las condiciones de aplicabilidad.</p>
+</section>
+<section id="sección-iv-función-generadora-de-momentos" class="level2">
+<h2 class="anchored" data-anchor-id="sección-iv-función-generadora-de-momentos">Sección IV · Función generadora de momentos</h2>
+<p><strong>Pregunta 7 (0.5 pts).</strong> La FGM de una Exponencial(<span class="math inline">\(\lambda\)</span>) es <span class="math inline">\(M(t)=\dfrac{\lambda}{\lambda-t}\)</span>. Derive <strong>a mano</strong> (mostrando el procedimiento) para encontrar <span class="math inline">\(E[X]\)</span> y <span class="math inline">\(\text{Var}(X)\)</span> en términos de <span class="math inline">\(\lambda\)</span>, y verifique su resultado numéricamente en R con <span class="math inline">\(\lambda=2\)</span>.</p>
+<p><strong>Pregunta 8 (0.5 pts).</strong> <span class="math inline">\(X\sim\text{Exponencial}(\lambda=2)\)</span> y <span class="math inline">\(Y\sim\text{Exponencial}(\lambda=2)\)</span>, independientes (mismo <span class="math inline">\(\lambda\)</span>). (a) Encuentre la FGM de <span class="math inline">\(X+Y\)</span> multiplicando las FGM individuales. (b) A partir de esa FGM, calcule <span class="math inline">\(E[X+Y]\)</span> y <span class="math inline">\(\text{Var}(X+Y)\)</span> derivando. (c) ¿Es <span class="math inline">\(X+Y\)</span> también Exponencial? Justifique con la forma algebraica de la FGM resultante.</p>
+</section>
+<section id="sección-v-síntesis" class="level2">
+<h2 class="anchored" data-anchor-id="sección-v-síntesis">Sección V · Síntesis</h2>
+<p><strong>Pregunta 9 (0.5 pts).</strong> Una aerolínea vende 2,000 tiquetes para un vuelo. La probabilidad de que un pasajero individual no se presente (“no-show”) es 0.001, independiente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Calcule los criterios relevantes y justifique.</p>
+<p><strong>Pregunta 10 (0.5 pts).</strong> Un proceso de manufactura tiene una tasa de defectos del 6%. Se inspeccionan 200 unidades. (a) Verifique si aplica la aproximación normal. (b) Calcule <span class="math inline">\(P(X\ge15)\)</span> tanto con la fórmula exacta como con la aproximación normal (corrección de continuidad), y compare ambos resultados.</p>
+<hr>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Próximos pasos
+<span class="screen-reader-only">Note</span>Cuando termines
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Planes de profesor (plantilla 90 min) para todos los temas · Tutoriales learnr reales · Módulo 3: Inferencia estadística.</p>
+<p>Compara tus respuestas con la <a href="../temas/examen-2-clave.html">clave de respuestas</a>. Si te trabaste en alguna sección, vuelve a <a href="../temas/preparacion-examen-2.html">preparacion-examen-2.qmd</a> antes de reintentar.</p>
 </div>
 </div>
 
 
 <!-- -->
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -974,134 +998,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../temas/examen-2-resueltos.html" class="pagination-link" aria-label="Exámenes resueltos · Versiones A y B">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exámenes resueltos · Versiones A y B</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./presentacion.html" class="pagination-link" aria-label="Presentación del curso">
-        <span class="nav-page-text">Presentación del curso</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../laboratorios.html" class="pagination-link" aria-label="Laboratorios del curso · Ejercicios y prácticas resueltas">
+        <span class="nav-page-text">Laboratorios del curso · Ejercicios y prácticas resueltas</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> " "</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Examen 2 · Simulacro"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Estadística Descriptiva</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Un curso donde primero experimentas y después entiendes.</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>No vas a memorizar fórmulas antes de saber para qué sirven. Vas a lanzar monedas, clasificar animales, mover deslizadores y equivocarte en tus predicciones — y de ahí va a salir la teoría, no al revés.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧭 Cómo funciona cada tema</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Cada tema sigue la misma ruta: **predices → experimentas → discutes → formalizas → aplicas con datos reales**. La ficha punteada roja es tu predicción; la ficha sólida verde es lo que R realmente encontró. Compáralas siempre antes de leer la teoría.</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sobre este simulacro</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Este es un examen de práctica **no oficial**, construido para cubrir los cuatro criterios exactos de la rúbrica del Taller 2 (Binomial, Poisson, Aproximación normal, FGM). No sustituye al examen real del curso ni tiene relación con su ponderación o formato exactos — es una herramienta de autoevaluación. Resuélvelo primero **sin mirar el código ni la clave de respuestas**, con lápiz y papel, y verifica después en R.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## ⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Simula las condiciones del examen real: resuelve en orden, sin R al principio (verifica al final), y cronometra tu tiempo. La <span class="co">[</span><span class="ot">clave de respuestas</span><span class="co">](examen-2-clave.qmd)</span> está en una página separada — ábrela solo después de intentar todo el examen.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección I · Distribución binomial</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>::: {.grid}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>**Pregunta 1 (0.5 pts).** Para cada uno de los siguientes escenarios, indique si aplica un modelo binomial y justifique citando explícitamente cuál(es) de las condiciones BINS se cumple(n) o se rompe(n):</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 0 · R como laboratorio</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>Pierde el miedo a R lanzando monedas simuladas y viendo cómo se estabiliza el azar.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>(a) Se lanza una moneda balanceada 20 veces y se cuenta el número de caras.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>(b) De un curso de 12 estudiantes (5 mujeres, 7 hombres) se seleccionan 6 al azar **sin reemplazo** para un comité, y se cuenta cuántas son mujeres.</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-00-estudiante.qmd)</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 1 · Datos, población y variables</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Clasifica las variables reales de un dataset de precios de vivienda antes de aprender las definiciones formales.</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-01-estudiante.qmd)</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>(c) Se registra el número de clientes que llegan a una tienda durante una hora.</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>**Pregunta 2 (0.5 pts).** Un proceso de ensamblaje tiene una tasa de error del 35% por unidad ensamblada (independiente entre unidades). En un lote de 18 unidades, calcule: (a) la probabilidad de que exactamente 5 tengan error; (b) la probabilidad de que a lo sumo 3 tengan error.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección II · Distribución Poisson</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>**Pregunta 3 (0.5 pts).** Un fabricante de tornillos reporta una tasa de defectos de 0.4 por cada 100 unidades producidas. En un lote de 750 unidades, calcule $\lambda$ para ese lote y la probabilidad de encontrar exactamente 2 defectuosas.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>**Pregunta 4 (0.5 pts).** Un sensor detecta partículas a una tasa promedio de 4.5 por hora. Calcule la probabilidad de detectar exactamente 6 partículas en un período de 2 horas.</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 2 · Variables cualitativas</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>Compara barras contra pastel con el ejemplo real de grupos sanguíneos de Rincón (2017).</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección III · Aproximación normal a la binomial</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>**Pregunta 5 (0.5 pts).** Para cada escenario, verifique si aplica la aproximación normal (indique los valores de $np$ y $n(1-p)$) y, si no aplica, indique qué alternativa usaría:</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-02-estudiante.qmd)</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 3 · Histograma y forma de los datos</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Descubre la distribución bimodal real de Old Faithful, y construye la tabla agrupada del dataset de vivienda de cuatro maneras distintas.</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-03-estudiante.qmd)</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>(a) $n=60$, $p=0.5$</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>(b) $n=40$, $p=0.03$</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>**Pregunta 6 (0.5 pts).** En una población, el 40% respalda una iniciativa. Se encuestan 500 personas. Calcule $P(X&lt;190)$ usando la aproximación normal con corrección de continuidad, verificando primero las condiciones de aplicabilidad.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección IV · Función generadora de momentos</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>**Pregunta 7 (0.5 pts).** La FGM de una Exponencial($\lambda$) es $M(t)=\dfrac{\lambda}{\lambda-t}$. Derive **a mano** (mostrando el procedimiento) para encontrar $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$ y $\text{Var}(X)$ en términos de $\lambda$, y verifique su resultado numéricamente en R con $\lambda=2$.</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 4 · Tendencia central</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>Media, mediana y moda puestas a prueba con 4 casos reales de Devore.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>**Pregunta 8 (0.5 pts).** $X\sim\text{Exponencial}(\lambda=2)$ y $Y\sim\text{Exponencial}(\lambda=2)$, independientes (mismo $\lambda$). (a) Encuentre la FGM de $X+Y$ multiplicando las FGM individuales. (b) A partir de esa FGM, calcule $E<span class="co">[</span><span class="ot">X+Y</span><span class="co">]</span>$ y $\text{Var}(X+Y)$ derivando. (c) ¿Es $X+Y$ también Exponencial? Justifique con la forma algebraica de la FGM resultante.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sección V · Síntesis</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-04-estudiante.qmd)</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 5 · Dispersión</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>Rango, varianza, desviación estándar y coeficiente de variación — de las tortugas golfinas a los precios de vivienda.</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-05-estudiante.qmd)</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 6 · Cuantiles y boxplot</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>49 brocas reales puestas a prueba hasta romperse — aprende el paso a paso para construir un boxplot a mano.</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-06-estudiante.qmd)</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 7 · Momentos, asimetría y curtosis</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>El aparato matemático completo — con demostraciones — que conecta la descriptiva con la probabilidad.</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-07-estudiante.qmd)</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tema 8 · Datos conjuntos</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>Covarianza, correlación y regresión — ¿el área de una casa predice su precio? Con las demostraciones completas de Rincón (2017).</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Empezar →</span><span class="co">](temas/tema-08-estudiante.qmd)</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Módulo 2 · Probabilidad</span></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>10 temas completos (P1-P10), desde reglas básicas hasta simulación de sistemas correlacionados.</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ver arquitectura →</span><span class="co">](temas/modulo-2-arquitectura.qmd)</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🎯 Preparación del Examen 1</span></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>Repaso integrado de todo el Módulo 1 en una sola pasada, más 5 preguntas conceptuales con respuesta.</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Prepararme →</span><span class="co">](temas/preparacion-examen-1.qmd)</span></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🏋️ Ejercicios propuestos · Módulo 1</span></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>18 ejercicios reales de Rincón (2017), sin solución, organizados por tema.</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Resolver →</span><span class="co">](temas/ejercicios-modulo1.qmd)</span></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>::: {.g-col-6 .card-lab}</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🏋️ Ejercicios propuestos · Módulo 2</span></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>10 ejercicios reales de tus Laboratorios 2 y 3, sin solución.</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Resolver →</span><span class="co">](temas/ejercicios-modulo2.qmd)</span></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Próximos pasos</span></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>Planes de profesor (plantilla 90 min) para todos los temas · Tutoriales learnr reales · Módulo 3: Inferencia estadística.</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>**Pregunta 9 (0.5 pts).** Una aerolínea vende 2,000 tiquetes para un vuelo. La probabilidad de que un pasajero individual no se presente ("no-show") es 0.001, independiente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Calcule los criterios relevantes y justifique.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>**Pregunta 10 (0.5 pts).** Un proceso de manufactura tiene una tasa de defectos del 6%. Se inspeccionan 200 unidades. (a) Verifique si aplica la aproximación normal. (b) Calcule $P(X\ge15)$ tanto con la fórmula exacta como con la aproximación normal (corrección de continuidad), y compare ambos resultados.</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cuando termines</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>Compara tus respuestas con la <span class="co">[</span><span class="ot">clave de respuestas</span><span class="co">](examen-2-clave.qmd)</span>. Si te trabaste en alguna sección, vuelve a <span class="co">[</span><span class="ot">preparacion-examen-2.qmd</span><span class="co">](preparacion-examen-2.qmd)</span> antes de reintentar.</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

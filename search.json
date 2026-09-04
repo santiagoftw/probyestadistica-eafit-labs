@@ -192,6 +192,126 @@
     ]
   },
   {
+    "objectID": "temas/tema-p6c-estudiante.html",
+    "href": "temas/tema-p6c-estudiante.html",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "",
+    "text": "En una encuesta, el 60% de los votantes apoya una propuesta. Se entrevista a 150 personas. ¿Cuál es la probabilidad de que al menos 100 la apoyen? Con la fórmula binomial exacta habría que sumar dbinom(100,150,0.6) + dbinom(101,150,0.6) + ... + dbinom(150,150,0.6) — 51 términos. R lo hace en un instante con pbinom(), pero antes de que existieran computadoras, esto era impracticable a mano. La solución histórica: cuando \\(n\\) es grande, la binomial se parece tanto a una curva normal que se puede usar esta última como atajo.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#votantes-son-demasiados-para-sumar-a-mano",
+    "href": "temas/tema-p6c-estudiante.html#votantes-son-demasiados-para-sumar-a-mano",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "",
+    "text": "En una encuesta, el 60% de los votantes apoya una propuesta. Se entrevista a 150 personas. ¿Cuál es la probabilidad de que al menos 100 la apoyen? Con la fórmula binomial exacta habría que sumar dbinom(100,150,0.6) + dbinom(101,150,0.6) + ... + dbinom(150,150,0.6) — 51 términos. R lo hace en un instante con pbinom(), pero antes de que existieran computadoras, esto era impracticable a mano. La solución histórica: cuando \\(n\\) es grande, la binomial se parece tanto a una curva normal que se puede usar esta última como atajo.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#exploremos-superponiendo-una-campana-sobre-la-binomial",
+    "href": "temas/tema-p6c-estudiante.html#exploremos-superponiendo-una-campana-sobre-la-binomial",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "🔬 Exploremos: superponiendo una campana sobre la binomial",
+    "text": "🔬 Exploremos: superponiendo una campana sobre la binomial\n\n\nCode\nn &lt;- 150; p &lt;- 0.6\nmu &lt;- n * p\nsigma &lt;- sqrt(n * p * (1 - p))\nc(mu = mu, sigma = sigma)\n\n\n   mu sigma \n   90     6 \n\n\nCode\nx &lt;- 60:120\nplot(x, dbinom(x, n, p), type = \"h\", lwd = 2, col = \"#4B8BC2\",\n     xlab = \"Número de votantes a favor (k)\", ylab = \"P(X = k)\",\n     main = \"Binomial(150, 0.6) vs. curva Normal(90, 6)\")\ncurve(dnorm(x, mean = mu, sd = sigma), add = TRUE, col = \"#FFB903\", lwd = 2)\nlegend(\"topright\", legend = c(\"Binomial (barras)\", \"Normal (curva)\"),\n       col = c(\"#4B8BC2\", \"#FFB903\"), lwd = 2, bty = \"n\")\n\n\n\n\n\n\n\n\n\n\nLa curva naranja prácticamente traza el contorno de las barras azules. \\(\\mu=np=90\\) y \\(\\sigma=\\sqrt{np(1-p)}=6\\) — los mismos parámetros de la binomial, pero convertidos en la media y desviación estándar de una normal. Esa coincidencia no es casualidad: es el contenido exacto del teorema que viene a continuación.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#ahora-sí-la-teoría",
+    "href": "temas/tema-p6c-estudiante.html#ahora-sí-la-teoría",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "📖 Ahora sí, la teoría",
+    "text": "📖 Ahora sí, la teoría\n\n1. El teorema (De Moivre-Laplace)2. ¿Cuándo es válida la aproximación?3. Corrección de continuidad\n\n\nSi \\(X\\sim\\text{Binomial}(n,p)\\) y \\(n\\) es suficientemente grande, entonces:\n\\[X \\overset{aprox}{\\sim} N(\\mu=np,\\ \\sigma^2=np(1-p))\\]\nEs un caso particular del Teorema Central del Límite: una binomial es, en el fondo, la suma de \\(n\\) ensayos de Bernoulli independientes (\\(X=Y_1+Y_2+\\cdots+Y_n\\), cada \\(Y_i\\in\\{0,1\\}\\)), y el TCL dice que la suma de muchas variables independientes con media y varianza finitas se aproxima a una normal — sin importar la forma de cada \\(Y_i\\) individual.\n\n\nLa regla práctica más usada:\n\\[np \\ge 5 \\qquad \\text{y} \\qquad n(1-p) \\ge 5\\]\n(algunos textos piden \\(\\ge 10\\) para mayor margen de seguridad; usa el criterio que indique tu profesor si difiere).\nLa intuición detrás de la regla: \\(np\\) y \\(n(1-p)\\) son la media del número de éxitos y de fracasos, respectivamente. Si cualquiera de las dos es muy chica, la distribución está “empujada contra una pared” (no puede haber menos de 0 éxitos ni más de \\(n\\)), y esa pared genera una asimetría que la curva normal —perfectamente simétrica— no puede capturar bien. Cuando ambas son razonablemente grandes, hay “espacio” a ambos lados para que la forma sea simétrica.\n\n\nLa binomial es discreta (solo toma valores enteros); la normal es continua. Al aproximar, cada valor entero \\(k\\) se trata como si “ocupara” el intervalo \\([k-0.5,\\ k+0.5]\\):\n\n\n\n\n\n\n\n\nQuieres calcular\nLo escribes como\nCon la normal\n\n\n\n\n\\(P(X = k)\\)\n\\(P(k-0.5 &lt; Y &lt; k+0.5)\\)\npnorm(k+0.5,...) - pnorm(k-0.5,...)\n\n\n\\(P(X \\le k)\\)\n\\(P(Y &lt; k+0.5)\\)\npnorm(k+0.5, ...)\n\n\n\\(P(X &lt; k)\\)\n\\(P(Y &lt; k-0.5)\\)\npnorm(k-0.5, ...)\n\n\n\\(P(X \\ge k)\\)\n\\(P(Y &gt; k-0.5)\\)\n1 - pnorm(k-0.5, ...)\n\n\n\\(P(X &gt; k)\\)\n\\(P(Y &gt; k+0.5)\\)\n1 - pnorm(k+0.5, ...)\n\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nPara no memorizar la tabla: dibuja la barra del histograma en \\(k\\) (va de \\(k-0.5\\) a \\(k+0.5\\)) y pregúntate cuánta de esa barra “cae dentro” de lo que pides. \\(P(X\\ge k)\\) incluye la barra completa de \\(k\\), así que el corte empieza en \\(k-0.5\\), no en \\(k\\). Ver más trucos →",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#ejemplo-con-datos-reales-con-y-sin-corrección",
+    "href": "temas/tema-p6c-estudiante.html#ejemplo-con-datos-reales-con-y-sin-corrección",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "🧪 Ejemplo con datos reales: con y sin corrección",
+    "text": "🧪 Ejemplo con datos reales: con y sin corrección\nVolvamos a la encuesta: \\(n=150\\), \\(p=0.6\\), y queremos \\(P(X\\ge 100)\\).\nPaso 1 — Verificar que aplica. \\(np=90\\ge5\\) y \\(n(1-p)=60\\ge5\\). ✓\nPaso 2 — Calcular con corrección de continuidad, y comparar contra el valor exacto:\n\n\nCode\nmu &lt;- 90; sigma &lt;- 6\n\nexacto &lt;- 1 - pbinom(99, 150, 0.6)                  # P(X &gt;= 100), fórmula binomial exacta\naprox_con_cc  &lt;- 1 - pnorm(99.5, mean = mu, sd = sigma)   # con corrección: arranca en 99.5\naprox_sin_cc  &lt;- 1 - pnorm(100,  mean = mu, sd = sigma)   # sin corrección (el error común)\n\nc(exacto = exacto, aprox_con_correccion = aprox_con_cc, aprox_sin_correccion = aprox_sin_cc)\n\n\n              exacto aprox_con_correccion aprox_sin_correccion \n          0.05553753           0.05667275           0.04779035 \n\n\n\nEl valor exacto es 0.0555. Con corrección de continuidad, la aproximación da 0.0567 — muy cerca. Sin la corrección da 0.0478, un error notablemente mayor. La corrección de continuidad no es un detalle cosmético: aquí es la diferencia entre acercarse al valor real y alejarse de él.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#cuando-la-aproximación-sí-falla",
+    "href": "temas/tema-p6c-estudiante.html#cuando-la-aproximación-sí-falla",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "⚠️ Cuando la aproximación SÍ falla",
+    "text": "⚠️ Cuando la aproximación SÍ falla\nProbemos con \\(n=30\\), \\(p=0.02\\) (una mutación rara, el mismo tipo de escenario del Tema P6b): \\(np=0.6\\), muy por debajo de 5.\n\n\nCode\nn2 &lt;- 30; p2 &lt;- 0.02\nmu2 &lt;- n2 * p2; sigma2 &lt;- sqrt(n2 * p2 * (1 - p2))\n\nexacto2      &lt;- dbinom(0, n2, p2)\naprox_normal &lt;- pnorm(0.5, mu2, sigma2) - pnorm(-0.5, mu2, sigma2)\naprox_poisson &lt;- dpois(0, lambda = mu2)   # la aproximación del Tema P6b\n\nc(exacto = exacto2, aprox_normal = aprox_normal, aprox_poisson = aprox_poisson)\n\n\n       exacto  aprox_normal aprox_poisson \n    0.5454843     0.3724078     0.5488116 \n\n\n\n\nCode\n# La normal ni siquiera \"sabe\" que X no puede ser negativo:\npnorm(-0.5, mu2, sigma2)   # probabilidad (absurda) de que Y sea menor que -0.5\n\n\n[1] 0.07571318\n\n\n\n\n\n\n\n\nImportantPor qué falla, en números\n\n\n\nEl valor exacto de \\(P(X=0)\\) es 0.545. La aproximación normal da apenas 0.372 — un error enorme. La aproximación Poisson (Tema P6b, con \\(\\lambda=np=0.6\\)) da 0.549, prácticamente exacta. La causa queda al descubierto en el segundo chunk: la curva normal le asigna 7.6% de probabilidad a que \\(Y\\) sea menor que \\(-0.5\\), algo imposible para un conteo de éxitos. Con \\(np\\) tan chico, la binomial está “pegada” contra el cero y ninguna curva simétrica puede seguirle la forma. Regla práctica: si \\(np&lt;5\\), no uses la normal — usa la Poisson que ya conoces del Tema P6b.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#el-mapa-completo-de-aproximaciones",
+    "href": "temas/tema-p6c-estudiante.html#el-mapa-completo-de-aproximaciones",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "🔗 El mapa completo de aproximaciones",
+    "text": "🔗 El mapa completo de aproximaciones\n\n\nCode\npar(mar = c(4, 4, 3, 1))\ncurve(5/x, from = 0.01, to = 1, col = \"#004B85\", lwd = 2,\n      xlab = \"p\", ylab = \"n mínimo sugerido\",\n      main = \"Frontera aproximada np = 5\", ylim = c(0, 200))\ntext(0.5, 150, \"Zona Normal\\n(np y n(1-p) grandes)\", col = \"#004B85\")\ntext(0.1, 20, \"Zona Poisson\\n(p chico, np moderado)\", col = \"#D9534F\")\n\n\n\n\n\n\n\n\nFigure 1: Cuál aproximación usar según n y p\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPoisson (Tema P6b)\nNormal (este tema)\n\n\n\n\nCuándo\n\\(n\\) grande, \\(p\\) chico, \\(np\\) moderado\n\\(np\\ge5\\) y \\(n(1-p)\\ge5\\)\n\n\nParámetro(s)\n\\(\\lambda = np\\)\n\\(\\mu=np,\\ \\sigma=\\sqrt{np(1-p)}\\)\n\n\nForma típica\nAsimétrica (cola a la derecha)\nSimétrica\n\n\nEjemplo\nMutaciones raras, defectos 1 en 1000\nEncuestas, control de calidad con \\(p\\) moderado\n\n\n\n\n\n\n\n\n\nNoteLas dos aproximaciones no compiten — cubren zonas distintas\n\n\n\nNo hay que elegir “la mejor” en abstracto: la Poisson entra cuando la binomial es demasiado asimétrica para la normal (justo el caso que acabas de ver), y la normal entra cuando \\(n\\) es grande y \\(p\\) no está pegado a los extremos. Revisa siempre \\(np\\) y \\(n(1-p)\\) antes de decidir.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#laboratorio",
+    "href": "temas/tema-p6c-estudiante.html#laboratorio",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "🧑‍🔬 Laboratorio",
+    "text": "🧑‍🔬 Laboratorio\n\nOtra encuesta. El 45% de los clientes de una tienda prefiere pago digital. Se observan 200 clientes. (a) Verifica que aplica la aproximación normal. (b) Calcula \\(P(80\\le X\\le 100)\\) con la fórmula exacta y con la normal (con corrección de continuidad). (c) ¿Qué tan grande es la diferencia?\nEl límite de la regla. Con \\(n=50\\), encuentra el valor de \\(p\\) más pequeño para el cual todavía se cumple \\(np\\ge5\\) (es decir, resuelve \\(50p=5\\)). Con ese \\(p\\) exacto, compara \\(P(X=0)\\) exacta vs. aproximada. ¿La aproximación ya es razonable, o todavía se nota el problema del Tema anterior?\nElegir la herramienta correcta. Para cada situación, decide si usarías la binomial exacta, la aproximación normal, o la aproximación Poisson, y justifica con los valores de \\(np\\) y \\(n(1-p)\\): (a) \\(n=20\\), \\(p=0.5\\); (b) \\(n=1000\\), \\(p=0.003\\); (c) \\(n=500\\), \\(p=0.4\\); (d) \\(n=10\\), \\(p=0.5\\).\nCorrección de continuidad, las cinco variantes. Con \\(n=80\\), \\(p=0.5\\) (\\(\\mu=40\\), \\(\\sigma=\\sqrt{20}\\)), calcula con la normal y corrección de continuidad: \\(P(X=40)\\), \\(P(X\\le 40)\\), \\(P(X&lt;40)\\), \\(P(X\\ge 45)\\), \\(P(X&gt;45)\\). Verifica cada una contra dbinom()/pbinom().",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#ejercicios-autocorregibles",
+    "href": "temas/tema-p6c-estudiante.html#ejercicios-autocorregibles",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "✅ Ejercicios autocorregibles",
+    "text": "✅ Ejercicios autocorregibles\n\nEjercicio 1 — Completa el código\n# P(X &lt;= 60) para X ~ Binomial(100, 0.5), aproximada con normal y corrección de continuidad\nmu &lt;- 100 * 0.5; sigma &lt;- sqrt(100 * 0.5 * 0.5)\npnorm(___, mean = mu, sd = sigma)\n\n\nVer respuesta\n\n60.5 — para \\(P(X\\le k)\\) la corrección de continuidad suma 0.5 al límite, porque la barra de \\(k=60\\) se extiende hasta \\(60.5\\).\n\n\n\nEjercicio 2 — Completa el código\n# ¿Aplica la aproximación normal para n=40, p=0.08?\nn &lt;- 40; p &lt;- 0.08\nnp &lt;- n * p\nn1p &lt;- n * (1 - p)\nc(np = np, n1p = n1p)\n# np = 3.2 -&gt; ¿cumple np &gt;= 5?\nrespuesta &lt;- \"___\"   # escribe \"si\" o \"no\"\n\n\nVer respuesta\n\n\"no\" — \\(np=3.2&lt;5\\), así que no se cumple la condición. Con \\(p=0.08\\) chico y \\(np\\) moderado, la aproximación Poisson (Tema P6b, \\(\\lambda=3.2\\)) es la elección correcta aquí, no la normal.\n\n\n\nEjercicio 3 — Verdadero o falso\n\n\n1. La aproximación normal a la binomial usa μ = np y σ = √(np(1−p)).  Verdadero  Falso\n\n\n2. La corrección de continuidad se puede omitir sin que cambie mucho el resultado.  Verdadero  Falso\n\n\n3. Para P(X ≥ k) con corrección de continuidad, se usa k − 0.5 como límite inferior.  Verdadero  Falso\n\n\n4. Si np es muy pequeño (por ejemplo, menor a 5), la Poisson suele aproximar mejor que la normal.  Verdadero  Falso\n\n\n5. El teorema de De Moivre-Laplace es un caso particular del Teorema Central del Límite.  Verdadero  Falso\n\n\nRevisar respuestas",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6c-estudiante.html#resumen",
+    "href": "temas/tema-p6c-estudiante.html#resumen",
+    "title": "Tema P6c · Aproximación normal a la distribución binomial",
+    "section": "🗂️ Resumen",
+    "text": "🗂️ Resumen\n\n\nCuando \\(n\\) es grande, \\(\\text{Binomial}(n,p) \\overset{aprox}{\\sim} N(np,\\ np(1-p))\\) — el teorema de De Moivre-Laplace, un caso particular del Teorema Central del Límite.\nRegla práctica de validez: \\(np\\ge5\\) y \\(n(1-p)\\ge5\\).\nLa corrección de continuidad (sumar o restar 0.5 según el caso) es obligatoria: sin ella, el error puede ser considerable — lo viste con números concretos (0.0567 vs. 0.0478 frente al valor exacto 0.0555).\nCuando \\(np&lt;5\\), la normal falla (puede incluso asignar probabilidad a valores negativos, imposibles): ahí es la Poisson del Tema P6b la que aproxima bien.\nLas dos aproximaciones (Normal y Poisson) no compiten: cubren zonas distintas del espacio \\((n,p)\\), y revisar \\(np\\) y \\(n(1-p)\\) es lo que decide cuál usar.\n\n\n\n\n\n\n\n\nNoteSiguiente paso\n\n\n\nEl Tema P7 profundiza en la distribución Normal por derecho propio —ya no como aproximación de otra cosa, sino como modelo continuo— junto con la Uniforme.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6c · Aproximación normal a la distribución binomial"
+    ]
+  },
+  {
     "objectID": "temas/tema-p6a-estudiante.html",
     "href": "temas/tema-p6a-estudiante.html",
     "title": "Tema P6a · Conteo: de las permutaciones a la fórmula binomial",
@@ -1224,52 +1344,298 @@
     ]
   },
   {
-    "objectID": "temas/modulo-2-arquitectura.html",
-    "href": "temas/modulo-2-arquitectura.html",
-    "title": "Módulo 2 · Probabilidad — Arquitectura",
+    "objectID": "temas/preparacion-examen-1.html",
+    "href": "temas/preparacion-examen-1.html",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
     "section": "",
-    "text": "El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salto: ¿cómo se modela lo que todavía no ha ocurrido? Esta arquitectura está construida directamente sobre los Laboratorios 2 y 3 reales del curso.",
+    "text": "Esta guía recorre en orden el flujo completo de un análisis descriptivo — tabla → gráfica → tendencia central → dispersión → cuantiles → boxplot — usando el mismo dataset house-prices.csv de todos los Temas. No introduce conceptos nuevos: es un repaso integrado, pensado para que llegues al examen habiendo hecho el recorrido completo de principio a fin, en vez de tema por tema aislado.",
     "crumbs": [
       "Inicio",
-      "Módulo 2 — Probabilidad",
-      "Módulo 2 · Probabilidad — Arquitectura"
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
     ]
   },
   {
-    "objectID": "temas/modulo-2-arquitectura.html#de-describir-datos-a-modelar-incertidumbre",
-    "href": "temas/modulo-2-arquitectura.html#de-describir-datos-a-modelar-incertidumbre",
-    "title": "Módulo 2 · Probabilidad — Arquitectura",
+    "objectID": "temas/preparacion-examen-1.html#todo-el-módulo-1-en-una-sola-pasada",
+    "href": "temas/preparacion-examen-1.html#todo-el-módulo-1-en-una-sola-pasada",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
     "section": "",
-    "text": "El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salto: ¿cómo se modela lo que todavía no ha ocurrido? Esta arquitectura está construida directamente sobre los Laboratorios 2 y 3 reales del curso.",
+    "text": "Esta guía recorre en orden el flujo completo de un análisis descriptivo — tabla → gráfica → tendencia central → dispersión → cuantiles → boxplot — usando el mismo dataset house-prices.csv de todos los Temas. No introduce conceptos nuevos: es un repaso integrado, pensado para que llegues al examen habiendo hecho el recorrido completo de principio a fin, en vez de tema por tema aislado.",
     "crumbs": [
       "Inicio",
-      "Módulo 2 — Probabilidad",
-      "Módulo 2 · Probabilidad — Arquitectura"
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
     ]
   },
   {
-    "objectID": "temas/modulo-2-arquitectura.html#mapa-de-temas",
-    "href": "temas/modulo-2-arquitectura.html#mapa-de-temas",
-    "title": "Módulo 2 · Probabilidad — Arquitectura",
-    "section": "Mapa de temas",
-    "text": "Mapa de temas\n\n\n\n\n\n\n\n\nTema\nTítulo\nBasado en (fuente real)\n\n\n\n\nP1\nReglas básicas de probabilidad\nLaboratorio 2, Bloque 1\n\n\nP2\nProbabilidad condicional y regla multiplicativa\nLaboratorio 2, Bloque 2\n\n\nP3\nProbabilidad total y Teorema de Bayes\nLaboratorio 2, Bloque 2\n\n\nP4\nIndependencia de eventos\nLaboratorio 2, Bloque 2\n\n\nP5\nVariables aleatorias y función de distribución acumulada\nLaboratorio 2, Bloque 3\n\n\nP6\nDistribuciones discretas: Binomial y Poisson\nLaboratorio 2, Bloque 4\n\n\nP7\nDistribuciones continuas: Uniforme y Normal\nLaboratorio 2, Bloque 5\n\n\nP8\nDistribución de probabilidad multivariada\nLaboratorio 3, Bloque 1\n\n\nP9\nCovarianza y correlación de variables aleatorias\nLaboratorio 3, Bloque 2\n\n\nP10\nFunciones de variables aleatorias y simulación de sistemas\nLaboratorio 3, Bloque 3",
+    "objectID": "temas/preparacion-examen-1.html#preparación-del-entorno",
+    "href": "temas/preparacion-examen-1.html#preparación-del-entorno",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "Preparación del entorno",
+    "text": "Preparación del entorno\nUsaremos summarytools, la librería que ya conociste en el Tema 2 como la “Manera 5” de construir tablas de frecuencia:\n\n\nCode\n# Si no la tienes instalada:\n# install.packages(\"summarytools\")\nlibrary(summarytools)\n\nhouses &lt;- read.csv(\"../data/house-prices.csv\")\n\n# La variable cuantitativa continua que vamos a analizar\nprecios &lt;- houses$Price",
     "crumbs": [
       "Inicio",
-      "Módulo 2 — Probabilidad",
-      "Módulo 2 · Probabilidad — Arquitectura"
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
     ]
   },
   {
-    "objectID": "temas/modulo-2-arquitectura.html#detalle-por-tema",
-    "href": "temas/modulo-2-arquitectura.html#detalle-por-tema",
-    "title": "Módulo 2 · Probabilidad — Arquitectura",
-    "section": "Detalle por tema",
-    "text": "Detalle por tema\n\nP1 — Reglas básicasP2 — Probabilidad condicionalP3 — Probabilidad total y BayesP4 — IndependenciaP5 — Variables aleatorias y FDAP6a — Conteo: permutaciones y combinacionesP6 — Distribución Binomial y ensayos de BernoulliP6b — Distribución de PoissonP7 — Uniforme y NormalP8 — Distribución multivariadaP9 — Covarianza y correlación de v.a.P10 — Funciones de variables aleatorias\n\n\nObjetivo: aplicar axiomas de probabilidad, regla de adición, complemento y diferencia simétrica. Motivación real (Laboratorio 2): ¿cuál es la probabilidad de obtener un número par al lanzar un dado? Simular 1000 lanzamientos y comparar con la probabilidad teórica. Estado: ✅ construido — ir al tema\n\n\nObjetivo: calcular \\(P(A|B)\\) y aplicar la regla multiplicativa en un contexto de ingeniería. Motivación real: sistema de refrigeración con dos componentes (compresor, condensador) — ¿cuál es la probabilidad de que el condensador falle dado que el compresor ya falló? Estado: ✅ construido — ir al tema\n\n\nObjetivo: calcular probabilidades a posteriori combinando información de varias fuentes. Motivación real: una fábrica con 3 líneas de ensamblaje, cada una con su propia tasa de defectos — ¿cuál es la probabilidad de que un producto elegido al azar sea defectuoso? Y el caso clásico de Bayes: dado que un producto causó una queja, ¿qué tan probable es que fuera defectuoso? Estado: ✅ construido — ir al tema\n\n\nObjetivo: verificar independencia de eventos comparando \\(P(A\\cap B)\\) contra \\(P(A)\\cdot P(B)\\). Motivación real: ¿son independientes dos eventos con \\(P(A)=0.4\\), \\(P(B)=0.5\\), \\(P(A\\cap B)=0.2\\)? Estado: ✅ construido — ir al tema\n\n\nObjetivo: construir la función de distribución acumulada empírica y compararla con una FDA teórica (exponencial). Motivación real: tiempos de resistencia de materiales — ordenar, acumular frecuencias, calcular valor esperado y varianza; y la FDA teórica de una distribución exponencial \\(f(x)=\\lambda e^{-\\lambda x}\\). Estado: ✅ construido — ir al tema\n\n\nObjetivo: que el estudiante entienda de dónde sale el número combinatorio de la fórmula binomial, contando secuencias a mano antes de ver la fórmula. Motivación real: enumerar las 32 secuencias de 5 lanzamientos y descubrir que 10 de ellas tienen exactamente 2 caras — es decir, \\(\\binom{5}{2}\\). Estado: ✅ construido — ir al tema\n\n\nObjetivo: presentar la binomial como suma de \\(n\\) ensayos de Bernoulli independientes, de donde salen \\(\\mu=np\\) y \\(\\sigma^2=np(1-p)\\); y enfatizar las cuatro condiciones BINS que deben cumplirse para poder aplicarla. Motivación real: control de calidad con 5% de piezas defectuosas, y cuatro casos para decidir si la binomial aplica o no (incluye muestreo sin reemplazo, donde falla la independencia). Estado: ✅ construido — ir al tema\n\n\nObjetivo: modelar conteos de eventos en un intervalo continuo; la firma \\(\\mu=\\sigma^2=\\lambda\\), el escalamiento de \\(\\lambda\\) con el intervalo, y el límite binomial → Poisson. Motivación real: los datos históricos de von Bortkiewicz (1898) sobre muertes por coz de caballo en el ejército prusiano, más ejemplos de servicios, manufactura, texto, fenómenos naturales y deportes. Estado: ✅ construido — ir al tema\n\n\nObjetivo: estimar media/varianza de una uniforme continua por simulación; calcular probabilidades, percentiles e intervalos con la normal. Motivación real: puntuaciones de satisfacción de usuario ~ N(7, 1.5²) — ¿qué percentil corresponde a una puntuación de 8.5? Estado: ✅ construido — ir al tema\n\n\nObjetivo: construir una función de probabilidad conjunta, obtener marginales y condicionales, verificar independencia. Motivación real (Laboratorio 3): tres monedas lanzadas, con una variable de apuesta ligada al resultado — ¿son independientes el número de caras y las ganancias? Estado: ✅ construido — ir al tema\n\n\nObjetivo: simular variables correlacionadas con MASS::mvrnorm() y verificar la matriz de covarianza/correlación resultante. Motivación real: sistema de producción con demanda, tiempo y costo correlacionados — evaluación de riesgo. Estado: ✅ construido — ir al tema, conecta directamente con el Tema 8 del Módulo 1.\n\n\nObjetivo: simular sistemas completos (tiempos de falla exponenciales, fuerzas combinadas, portafolios de inversión) y comparar resultados simulados contra los teóricos. Motivación real: ¿cuál de dos componentes falla primero, si sus tiempos de falla son exponenciales con tasas distintas? Estado: ✅ construido — ir al tema\n\n\n\n\n\n\n\n\n\nTipPor qué este orden\n\n\n\nSigue exactamente la progresión de los laboratorios reales: reglas → condicional → total/Bayes → independencia → variables aleatorias → distribuciones discretas → continuas → multivariado → covarianza → simulación de sistemas. Es la misma escalera de dificultad que ya evaluó el curso en semestres anteriores.",
+    "objectID": "temas/preparacion-examen-1.html#representación-tabular-y-gráfica",
+    "href": "temas/preparacion-examen-1.html#representación-tabular-y-gráfica",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "1. Representación tabular y gráfica",
+    "text": "1. Representación tabular y gráfica\n\n1.1 Representación tabular\ndescr() produce un resumen numérico completo de una variable cuantitativa de una sola vez — media, desviación estándar, cuartiles, asimetría y curtosis incluidas:\n\n\nCode\ndescr(precios)\n\n\nDescriptive Statistics  \nprecios  \nN: 128  \n\n                      precios\n----------------- -----------\n             Mean   130427.34\n          Std.Dev    26868.77\n              Min    69100.00\n               Q1   111250.00\n           Median   125950.00\n               Q3   148600.00\n              Max   211200.00\n              MAD    27798.75\n              IQR    36925.00\n               CV        0.21\n         Skewness        0.46\n      SE.Skewness        0.21\n         Kurtosis       -0.10\n          N.Valid      128.00\n                N      128.00\n        Pct.Valid      100.00\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\ndescr() te da en una sola salida casi todo lo que calculaste a mano en los Temas 4 a 7. Úsalo para verificar tus cálculos manuales, no para reemplazarlos: en el examen te pueden pedir el procedimiento, no solo el resultado. Ver más trucos →\n\n\n\n\n1.2 Representación gráfica (histograma y diagrama de pastel)\nEl histograma es una serie de rectángulos cuyo ancho es proporcional al rango de valores dentro de una clase, y cuya altura es proporcional al número de elementos que caen en esa clase:\n\n\nCode\nhist(precios,\n     main = \"Histograma de precios de vivienda\",\n     xlab = \"Precio ($)\",\n     ylab = \"Frecuencia\",\n     col = \"lightblue\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImportantNota sobre el diagrama de pastel\n\n\n\nEl diagrama de pastel se usa principalmente para variables cualitativas. Para aplicarlo a una variable cuantitativa como Price, primero hay que agrupar o categorizar los datos en intervalos — exactamente la operación de recodificación que viste en el Tema 1:\n\n\n\n\nCode\n# Categorizar la variable cuantitativa en 3 grupos\ncategorias_precio &lt;- cut(precios, breaks = 3, labels = c(\"Bajo\", \"Medio\", \"Alto\"))\n\ntable(categorias_precio)\n\n\ncategorias_precio\n Bajo Medio  Alto \n   45    67    16 \n\n\nCode\npie(table(categorias_precio),\n    main = \"Distribución de precios por rango\",\n    col = c(\"tomato\", \"gold\", \"lightgreen\"))\n\n\n\n\n\n\n\n\n\n\nCon breaks = 3, R parte el rango completo de precios en tres intervalos de igual ancho (no de igual cantidad de casas): quedan 45 casas en “Bajo”, 67 en “Medio” y solo 16 en “Alto”. Esa concentración desigual ya te está diciendo algo sobre la forma de la distribución — que confirmarás formalmente con la asimetría más abajo.\n\n\n\n1.3 Histograma manual con la regla de Sturges\n\n\n\n\n\n\nNotePor qué hacerlo a mano\n\n\n\nEn el bloque anterior, hist() eligió los intervalos por su cuenta. En el examen te pueden pedir la tabla de distribución de frecuencias agrupada — con los límites, las marcas de clase y las cuatro columnas de frecuencias — y ahí no basta con llamar a hist(). Estos 6 pasos son el procedimiento completo, siguiendo la regla de Sturges del Tema 3.\n\n\n\nPaso 1 — Rango\n\n\nCode\nn &lt;- length(precios)\nrango &lt;- max(precios) - min(precios)\nc(n = n, minimo = min(precios), maximo = max(precios), rango = rango)\n\n\n     n minimo maximo  rango \n   128  69100 211200 142100 \n\n\n\n\nPaso 2 — Número de clases (regla de Sturges)\n\\[k = 1 + \\log_2(n) = 1 + 3.322\\cdot\\log_{10}(n)\\]\n\n\nCode\nk_log2  &lt;- 1 + log2(n)\nk_aprox &lt;- 1 + 3.322 * log10(n)\nc(con_log2 = k_log2, con_aproximacion = k_aprox)\n\n\n        con_log2 con_aproximacion \n        8.000000         8.000152 \n\n\n\n\n\n\n\n\nImportantUn detalle de redondeo que vale oro en el examen\n\n\n\nFíjate en lo que pasó: \\(n = 128 = 2^7\\), así que \\(\\log_2(128) = 7\\) exacto y \\(k = 8\\) redondo. Pero la versión con la constante aproximada 3.322 da 8.0001… — y si aplicas ceiling() mecánicamente, obtienes \\(k = 9\\) en vez de 8.\nLos dos caminos deberían dar lo mismo; la diferencia viene de que 3.322 es un redondeo de \\(1/\\log_{10}(2) = 3.3219\\ldots\\). La lección: la regla de Sturges da una sugerencia, no un mandato, y cuando el resultado cae justo sobre un entero conviene quedarse con ese entero en vez de redondear hacia arriba a ciegas. Aquí usamos \\(k = 8\\).\n\n\n\n\nCode\nk &lt;- 8\nk\n\n\n[1] 8\n\n\n\n\nPaso 3 — Amplitud de clase\n\n\nCode\namplitud_exacta &lt;- rango / k\namplitud_exacta\n\n\n[1] 17762.5\n\n\nCode\n# Se redondea hacia arriba a un valor \"de informe\" (miles cerrados)\namplitud &lt;- ceiling(amplitud_exacta / 1000) * 1000\namplitud\n\n\n[1] 18000\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nSiempre redondea la amplitud hacia arriba, nunca hacia abajo: si redondearas 17,762.5 a 17,000, las 8 clases cubrirían solo 136,000 de los 142,100 del rango y algunos datos quedarían fuera de la tabla. Con 18,000 sobra un poco, y eso está bien. Ver más trucos →\n\n\n\n\nPaso 4 — Límites de clase\n\n\nCode\ninicio &lt;- floor(min(precios) / 1000) * 1000   # arrancamos en un millar cerrado\nlimites &lt;- seq(from = inicio, by = amplitud, length.out = k + 1)\nlimites\n\n\n[1]  69000  87000 105000 123000 141000 159000 177000 195000 213000\n\n\nCode\n# Comprobación obligatoria: el último límite debe cubrir el máximo\nmax(limites) &gt;= max(precios)\n\n\n[1] TRUE\n\n\n\n\nPaso 5 — Conteo y tabla de frecuencias completa\n\n\nCode\nclases &lt;- cut(precios, breaks = limites, right = FALSE, include.lowest = TRUE)\n\nf_abs &lt;- as.vector(table(clases))\nmarcas &lt;- (limites[-length(limites)] + limites[-1]) / 2   # marca de clase = punto medio\n\ntabla_sturges &lt;- data.frame(\n  Intervalo          = levels(clases),\n  Marca_clase        = marcas,\n  Frec_absoluta      = f_abs,\n  Frec_acumulada     = cumsum(f_abs),\n  Frec_relativa      = round(f_abs / n, 4),\n  Frec_rel_acumulada = round(cumsum(f_abs) / n, 4)\n)\ntabla_sturges\n\n\n            Intervalo Marca_clase Frec_absoluta Frec_acumulada Frec_relativa\n1   [6.9e+04,8.7e+04)       78000             4              4        0.0312\n2  [8.7e+04,1.05e+05)       96000            15             19        0.1172\n3 [1.05e+05,1.23e+05)      114000            38             57        0.2969\n4 [1.23e+05,1.41e+05)      132000            26             83        0.2031\n5 [1.41e+05,1.59e+05)      150000            27            110        0.2109\n6 [1.59e+05,1.77e+05)      168000            11            121        0.0859\n7 [1.77e+05,1.95e+05)      186000             5            126        0.0391\n8 [1.95e+05,2.13e+05]      204000             2            128        0.0156\n  Frec_rel_acumulada\n1             0.0312\n2             0.1484\n3             0.4453\n4             0.6484\n5             0.8594\n6             0.9453\n7             0.9844\n8             1.0000\n\n\nCode\nsum(tabla_sturges$Frec_absoluta)   # debe dar n = 128\n\n\n[1] 128\n\n\n\n\n\n\n\n\nImportantright = FALSE: el detalle que cambia los conteos\n\n\n\nPor defecto cut() usa intervalos abiertos por la izquierda: \\((a, b]\\). Con right = FALSE los volvemos cerrados por la izquierda: \\([a, b)\\), que es la convención habitual en las tablas de frecuencia de los libros de texto — un dato de exactamente $105,000 entra en la clase \\([105000, 123000)\\) y no en la anterior. Si tu tabla no coincide con la de un compañero, este suele ser el motivo: revísenlo antes de buscar el error en otro lado.\n\n\n\n\nPaso 6 — Dibujar el histograma con esos límites\n\n\nCode\nhist(precios, breaks = limites,\n     main = \"Histograma de precios (regla de Sturges, k = 8)\",\n     xlab = \"Precio ($)\", ylab = \"Frecuencia\",\n     col = \"#004B85\", border = \"white\")\n\n\n\n\n\n\n\n\n\n\nLa clase modal es \\([105{,}000,\\ 123{,}000)\\) con 38 casas — casi el 30% de la muestra. Y mira la columna de frecuencia relativa acumulada: al terminar la cuarta clase ya llevamos el 64.8% de los datos, mientras que las tres últimas clases juntas reúnen apenas el 14%. Esa caída lenta hacia la derecha es la cola larga que vas a reconocer también en el boxplot.\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nAntes de entregar cualquier tabla agrupada, haz estas tres verificaciones: (1) las frecuencias absolutas suman \\(n\\); (2) la última frecuencia relativa acumulada da exactamente 1; (3) el último límite superior es mayor o igual que el máximo de los datos. Si alguna falla, el error está en los pasos 3 o 4. Ver más trucos →",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#medidas-de-tendencia-central",
+    "href": "temas/preparacion-examen-1.html#medidas-de-tendencia-central",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "2. Medidas de tendencia central",
+    "text": "2. Medidas de tendencia central\n\nMedia: el promedio aritmético de las observaciones.\nMediana: el valor exactamente en el centro cuando ordenamos los datos de menor a mayor.\nModa: el valor que ocurre con mayor frecuencia en la muestra.\n\n\n\nCode\nmedia &lt;- mean(precios)\nprint(paste(\"La media es:\", round(media, 2)))\n\n\n[1] \"La media es: 130427.34\"\n\n\nCode\nmediana &lt;- median(precios)\nprint(paste(\"La mediana es:\", round(mediana, 2)))\n\n\n[1] \"La mediana es: 125950\"\n\n\nCode\n# R no tiene una función directa para la moda: se construye desde la tabla de frecuencias\ntabla_frecuencias &lt;- table(precios)\nmoda &lt;- names(tabla_frecuencias)[which.max(tabla_frecuencias)]\nprint(paste(\"La moda es:\", moda))\n\n\n[1] \"La moda es: 103200\"\n\n\n\n\n\n\n\n\nImportantCuidado con la moda en variables continuas\n\n\n\nAquí la “moda” que devuelve el código es engañosa: en Price hay 123 valores distintos entre 128 casas, y el valor más repetido aparece solo 2 veces — empatado con otros 4 valores. which.max() devuelve arbitrariamente el primero de esos empates, sin avisarte.\nLa moda es útil en variables discretas con pocos valores (como Bedrooms), no en continuas casi sin repeticiones:\n\n\nCode\ntable(houses$Bedrooms)\n\n\n\n 2  3  4  5 \n30 67 29  2 \n\n\nAquí sí: 3 habitaciones es la moda clara, con 67 de 128 casas. Si en el examen te piden la moda de una variable continua, vale la pena señalar esta limitación en vez de reportar un número sin contexto.\n\n\n\nHistograma con media y mediana superpuestas\n\n\nCode\nhist(precios, col = \"lightblue\",\n     main = \"Precios con media y mediana\",\n     xlab = \"Precio ($)\", ylab = \"Frecuencia\")\n\nabline(v = mean(precios),   col = \"red\",  lwd = 3, lty = 2)\nabline(v = median(precios), col = \"blue\", lwd = 3, lty = 1)\n\nlegend(\"topright\", legend = c(\"Media\", \"Mediana\"),\n       col = c(\"red\", \"blue\"), lty = c(2, 1), lwd = 2)\n\n\n\n\n\n\n\n\n\n\nLa media (≈$130,427) queda a la derecha de la mediana ($125,950). Como aprendiste en el Tema 4, esa es la firma de una distribución sesgada a la derecha: unas pocas casas caras jalan el promedio hacia arriba, mientras la mediana se queda donde está el grueso de los datos.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#medidas-de-dispersión",
+    "href": "temas/preparacion-examen-1.html#medidas-de-dispersión",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "3. Medidas de dispersión",
+    "text": "3. Medidas de dispersión\n\nRango: la diferencia entre el valor más grande y el más pequeño.\nVarianza: el promedio de los cuadrados de las desviaciones respecto a la media.\nDesviación estándar: la raíz cuadrada positiva de la varianza — devuelve la dispersión en las unidades originales.\nCoeficiente de variación: la desviación estándar como porcentaje de la media, para comparar variabilidad relativa.\n\n\n\nCode\nrango &lt;- max(precios) - min(precios)\nprint(paste(\"El rango es:\", rango))\n\n\n[1] \"El rango es: 142100\"\n\n\nCode\nvarianza &lt;- var(precios)\nprint(paste(\"La varianza es:\", round(varianza, 2)))\n\n\n[1] \"La varianza es: 721930821.24\"\n\n\nCode\ndesviacion &lt;- sd(precios)\nprint(paste(\"La desviacion estandar es:\", round(desviacion, 2)))\n\n\n[1] \"La desviacion estandar es: 26868.77\"\n\n\nCode\ncv &lt;- (desviacion / media) * 100\nprint(paste(\"El Coeficiente de Variacion es:\", round(cv, 2), \"%\"))\n\n\n[1] \"El Coeficiente de Variacion es: 20.6 %\"\n\n\n\n\n\n\n\n\nNoteLo que deberías notar\n\n\n\nFíjate en las unidades: la varianza (≈721,930,821) está en dólares al cuadrado, una unidad sin interpretación práctica. Por eso casi siempre se reporta la desviación estándar (≈$26,869, en dólares) y no la varianza. El CV (≈20.6%) no tiene unidades en absoluto, que es justo lo que lo hace comparable entre variables distintas.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#cuantiles-y-boxplot",
+    "href": "temas/preparacion-examen-1.html#cuantiles-y-boxplot",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "4. Cuantiles y boxplot",
+    "text": "4. Cuantiles y boxplot\nLos cuantiles dividen los datos en partes iguales. Los más usados son los cuartiles, que separan los datos en cuatro partes (25%, 50%, 75%).\n\n\nCode\ncuantiles &lt;- quantile(precios)\nprint(cuantiles)\n\n\n    0%    25%    50%    75%   100% \n 69100 111325 125950 148250 211200 \n\n\n\n\n\n\n\n\nImportant¿Por qué descr() y quantile() dan cuartiles distintos?\n\n\n\nSi comparas esta salida con la de descr() al inicio de la guía, vas a notar algo raro: quantile() reporta \\(Q_1 =\\) $111,325 y \\(Q_3 =\\) $148,250, mientras que descr() reporta $111,250 y $148,600. Ninguno está mal.\nCuando \\(n\\) no es divisible de forma exacta, el cuartil cae “entre” dos observaciones y hay que interpolar — y existen nueve métodos de interpolación distintos, todos legítimos. quantile() de R base usa el tipo 7 por defecto; summarytools usa otro. Con \\(n = 128\\) la diferencia es de unos pocos cientos de dólares, irrelevante para cualquier interpretación práctica, pero conviene saber de dónde viene.\nQué hacer en el examen: usa quantile() (el método por defecto de R base) salvo que te pidan otra cosa, y si comparas resultados con un compañero y difieren un poco, revisa primero si usaron funciones distintas antes de asumir que alguien se equivocó. Puedes ver los otros métodos con quantile(precios, type = 6), por ejemplo.\n\n\nEl boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende “bigotes” hacia los valores extremos:\n\n\nCode\nboxplot(precios,\n        main = \"Boxplot de precios de vivienda\",\n        col = \"lightgreen\",\n        ylab = \"Precio ($)\",\n        horizontal = TRUE)   # horizontal facilita la lectura\n\n\n\n\n\n\n\n\n\n\n\\(Q_1 =\\) $111,325, \\(Q_2 =\\) $125,950 y \\(Q_3 =\\) $148,250, así que el RIC \\(=\\) $36,925. Las vallas quedan en $55,937.5 y $203,637.5 — y hay exactamente una casa por encima de la valla superior (la casa 104, de $211,200), que R dibuja como punto aislado. Es un atípico real de este dataset, no un artefacto.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#análisis-conjunto-del-histograma-y-el-boxplot-a-las-conclusiones",
+    "href": "temas/preparacion-examen-1.html#análisis-conjunto-del-histograma-y-el-boxplot-a-las-conclusiones",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "5. Análisis conjunto: del histograma y el boxplot a las conclusiones",
+    "text": "5. Análisis conjunto: del histograma y el boxplot a las conclusiones\nConviene mirar ambas gráficas juntas, porque cuentan historias complementarias:\n\nForma general vs. resumen exacto. El histograma es ideal para ver la forma de la distribución (campana, asimétrica, con varios picos). Pero agrupa los datos en barras, lo que hace perder el detalle exacto de dónde están los cuartiles.\nDetección de valores atípicos. El boxplot esconde los picos (las modas), pero es la herramienta perfecta para identificar de inmediato la mediana, la dispersión exacta del 50% central, y sobre todo, los valores extremos representados como puntos aislados fuera de los bigotes.\n\nEn resumen: usa el histograma para entender cómo se agrupan las masas de datos a simple vista, y el boxplot para un análisis de dispersión riguroso y para detectar anomalías.\n\nLas dos gráficas, lado a lado\n\n\nCode\npar(mfrow = c(2, 1), mar = c(4, 4, 3, 2))\n\nhist(precios, breaks = limites,\n     main = \"Histograma\", xlab = \"\", ylab = \"Frecuencia\",\n     col = \"#004B85\", border = \"white\")\n\nboxplot(precios, horizontal = TRUE, col = \"lightgreen\",\n        main = \"Boxplot\", xlab = \"Precio ($)\")\n\n\n\n\n\n\n\n\n\nCode\npar(mfrow = c(1, 1))\n\n\n\n\n\n\n\n\nNoteLo que deberías notar\n\n\n\nAl alinear las dos gráficas en el mismo eje horizontal, la correspondencia salta a la vista: el pico del histograma cae justo dentro de la caja, y la cola larga de la derecha del histograma es exactamente la región donde el boxplot dibuja su bigote largo y el punto atípico.\n\n\n\n\n🧭 Marco de 5 pasos para redactar la conclusión\n\n\n\n\n\n\nImportantCómo usar este marco\n\n\n\nEn el examen rara vez basta con “el histograma está sesgado”. Se espera una lectura que conecte la gráfica con los números y con el contexto. Sigue estos 5 pasos en orden y tendrás un análisis completo, sin olvidar nada.\n\n\nPaso 1 — Forma (mira el histograma). ¿Simétrica, sesgada a la derecha o a la izquierda? ¿Un solo pico (unimodal) o varios? La evidencia numérica que respalda esto es el coeficiente de asimetría y la comparación media-vs-mediana.\nPaso 2 — Centro (mira el boxplot y las medidas). ¿Dónde está el “valor típico”? Y sobre todo: ¿media o mediana? Si hay sesgo o atípicos, la mediana es la referencia honesta.\nPaso 3 — Dispersión (mira el ancho de la caja). ¿Qué tan concentrados están los datos? Reporta el RIC (robusto) y/o la desviación estándar, y usa el CV si necesitas comparar contra otra variable en otras unidades.\nPaso 4 — Atípicos (mira los puntos sueltos del boxplot). ¿Existen? ¿En qué extremo? ¿Cuántos? Nunca digas que “hay que eliminarlos”: lo correcto es señalarlos e indicar que deben investigarse.\nPaso 5 — Interpretación en contexto. Traduce todo lo anterior al lenguaje del problema. Esta es la parte que más puntos vale y la que más se olvida.\n\n\nEjemplo de conclusión bien redactada\n\n\n\n\n\n\nTipVer cómo se aplica el marco a los precios de vivienda\n\n\n\n\n\nForma. La distribución de precios es unimodal y sesgada a la derecha. El histograma muestra la clase modal en \\([105{,}000,\\ 123{,}000)\\) con 38 de las 128 casas, y una cola que se extiende hacia los precios altos. Lo confirman los números: la asimetría es positiva (≈0.46) y la media ($130,427) supera a la mediana ($125,950).\nCentro. El precio típico ronda los $125,950 (mediana). Se prefiere la mediana sobre la media porque el sesgo y la presencia de un atípico superior inflan el promedio: reportar $130,427 daría una idea algo optimista del mercado.\nDispersión. El 50% central de las casas se concentra entre $111,325 y $148,250, es decir, un RIC de $36,925. La desviación estándar es de $26,869 y el coeficiente de variación de 20.6%, una dispersión moderada.\nAtípicos. Hay un solo valor atípico, por encima de la valla superior ($203,637.5): la casa de $211,200. No hay atípicos en el extremo inferior. Al tratarse de un único caso y de una magnitud plausible para una vivienda, lo razonable es conservarlo y verificar sus características (área, barrio) antes de tomar cualquier decisión sobre él.\nInterpretación en contexto. El mercado de esta muestra está dominado por vivienda de rango medio-bajo: casi dos tercios de las casas cuestan menos de $141,000, y el segmento premium es marginal. Para alguien que fija precios, la mediana ($125,950) es mejor referencia de “precio de mercado” que el promedio, y el RIC indica que una casa que se salga del rango $111,000–$148,000 debería justificar su precio con características diferenciadoras.\n\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nCuando el histograma y el boxplot parecen contradecirse, casi siempre gana el histograma en lo que respecta a la forma, y el boxplot en lo que respecta a atípicos y cuartiles. El caso clásico: una distribución bimodal (dos picos) puede producir un boxplot de aspecto perfectamente simétrico y aburrido — por eso nunca concluyas sobre la forma mirando solo la caja. Ver más trucos →\n\n\n\n\n\n\n\n\nImportantErrores frecuentes en el análisis (evítalos)\n\n\n\n\nDescribir sin interpretar. “La media es 130,427” no es una conclusión; “el precio promedio supera al típico porque unas pocas casas caras lo empujan” sí lo es.\nUsar la media cuando hay sesgo fuerte, sin mencionar siquiera que la mediana existe.\nLlamar “error” a todo atípico. Un atípico es un dato que se sale del patrón; puede ser un error de registro o un caso real y valioso.\nConfundir la valla con el bigote al describir el boxplot (repasa el Paso 7 del Tema 6).\nConcluir sobre la forma usando solo el boxplot — no distingue unimodal de bimodal.\nOlvidar el contexto. Los números sin unidades ni interpretación práctica valen la mitad.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#tema-1-variables-cuantitativas-discretas-vs.-continuas",
+    "href": "temas/preparacion-examen-1.html#tema-1-variables-cuantitativas-discretas-vs.-continuas",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "Tema 1 · Variables cuantitativas: discretas vs. continuas",
+    "text": "Tema 1 · Variables cuantitativas: discretas vs. continuas\nPregunta: en una planta de envasado, el gerente registra diariamente dos datos: el volumen exacto de líquido introducido en cada botella, y la cantidad de botellas con la tapa mal colocada por cada lote. ¿Cómo se clasifican estas dos variables y por qué es fundamental diferenciarlas?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\n\nVolumen de líquido (continua): es el resultado de una medición y, teóricamente, puede tomar cualquier valor dentro de un intervalo (2.001 litros, 2.0015 litros…), dependiendo de la precisión del instrumento.\nCantidad de botellas defectuosas (discreta): resulta de un conteo. Solo puede tomar valores enteros (0, 1, 2, 3 botellas) y hay “saltos” entre sus posibles valores.\nPor qué importa: la distinción define el tratamiento matemático posterior. Las variables discretas usan sumas (funciones de masa de probabilidad); las continuas usan integrales y cálculo (funciones de densidad) — algo que verás en detalle en el Módulo 2.\n\nConexión con este dataset: Bedrooms y Offers son discretas (conteos); Price y SqFt son continuas (mediciones).",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#tema-2-tendencia-central-y-valores-atípicos",
+    "href": "temas/preparacion-examen-1.html#tema-2-tendencia-central-y-valores-atípicos",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "Tema 2 · Tendencia central y valores atípicos",
+    "text": "Tema 2 · Tendencia central y valores atípicos\nPregunta: en una empresa de 10 personas, nueve empleados ganan entre $40,000 y $50,000 anuales. El décimo es el CEO, que gana $500,000. Si se quiere publicar una cifra que represente el “salario típico” para atraer nuevos empleados, ¿se debe usar la media o la mediana?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nSe debe usar la mediana.\n\nLa media aritmética es muy sensible a valores extremos. El salario de $500,000 jalaría el promedio drásticamente hacia arriba, distorsionando la realidad de la empresa y dando una cifra irreal para un nuevo empleado.\nLa mediana, al ser el valor que divide la muestra ordenada exactamente a la mitad, no se ve afectada por valores extremos. Es una medida robusta, y reflejaría fielmente el centro de los salarios de los empleados regulares.\n\nConexión con este dataset: es el mismo fenómeno, más suave, que ya viste arriba — la casa de $211,200 empuja la media de Price por encima de la mediana.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#tema-3-dispersión-y-toma-de-decisiones-en-ingeniería",
+    "href": "temas/preparacion-examen-1.html#tema-3-dispersión-y-toma-de-decisiones-en-ingeniería",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "Tema 3 · Dispersión y toma de decisiones en ingeniería",
+    "text": "Tema 3 · Dispersión y toma de decisiones en ingeniería\nPregunta: debe comprar cables de acero para un puente. El Proveedor X ofrece cables con resistencia media de 10,000 kg y desviación estándar de 20 kg. El Proveedor Y ofrece la misma resistencia media de 10,000 kg, pero con desviación estándar de 500 kg. ¿Cuál elegir y por qué?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nSe debe elegir al Proveedor X.\nLa desviación estándar mide qué tan dispersos están los datos alrededor del promedio.\n\nEl Proveedor Y tiene alta variabilidad (500 kg): el comportamiento de sus cables es inconsistente. Aunque el promedio sea bueno, un cable individual podría resistir muy por debajo de los 10,000 kg — inaceptable para la seguridad de un puente.\nEl Proveedor X tiene baja variabilidad (20 kg): sus productos son mucho más uniformes, predecibles y confiables.\n\nLa lección de fondo: dos distribuciones con la misma media pueden implicar riesgos completamente distintos. En decisiones de seguridad, la dispersión suele importar más que el promedio.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#tema-4-medidas-de-posición-relativa-percentiles",
+    "href": "temas/preparacion-examen-1.html#tema-4-medidas-de-posición-relativa-percentiles",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "Tema 4 · Medidas de posición relativa (percentiles)",
+    "text": "Tema 4 · Medidas de posición relativa (percentiles)\nPregunta: una estudiante obtuvo 720 puntos en un examen estandarizado nacional, y le informan que su calificación está en el “Percentil 85”. ¿Cómo se interpreta correctamente ese resultado?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nLos percentiles dividen los datos ordenados en cien partes iguales, y sirven para conocer la posición relativa de una observación.\nEstar en el Percentil 85 significa que la calificación de 720 puntos es mayor a la puntuación obtenida por el 85% de todas las personas que presentaron el examen. Indica un alto rendimiento: solo el 15% restante obtuvo una calificación superior.\nError común a evitar: el percentil 85 no significa “sacó 85 puntos” ni “acertó el 85% de las preguntas” — se refiere a su posición frente a los demás, no a su puntaje absoluto.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#tema-5-interpretación-de-boxplots-y-asimetría",
+    "href": "temas/preparacion-examen-1.html#tema-5-interpretación-de-boxplots-y-asimetría",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "Tema 5 · Interpretación de boxplots y asimetría",
+    "text": "Tema 5 · Interpretación de boxplots y asimetría\nPregunta: al comparar dos procesos de manufactura con diagramas de caja, se observa que (1) el Proceso A tiene una caja muy ancha, la mediana desplazada hacia el lado izquierdo de la caja, y el bigote derecho muy largo; (2) el Proceso B tiene una caja muy estrecha, la mediana centrada, pero muestra tres asteriscos aislados por encima del bigote superior. Describa la variabilidad y simetría de cada proceso.\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nProceso A: presenta alta variabilidad (caja ancha = rango intercuartílico grande). La distribución está fuertemente sesgada a la derecha (asimetría positiva), lo cual se evidencia por dos señales que apuntan en la misma dirección: la mediana no está en el centro sino a la izquierda, y el bigote derecho es prolongado — hay datos dispersos hacia valores altos.\nProceso B: es un proceso altamente simétrico y consistente: el 50% central se concentra en una caja muy estrecha y la mediana está centrada. Los asteriscos son valores atípicos: eventos aislados que se salen del patrón general y deben investigarse individualmente (errores o fallas puntuales), pero que no cambian el hecho de que el cuerpo principal del proceso es estable.\nLa lección: un proceso puede tener atípicos y aun así ser más confiable que otro sin ellos. La presencia de outliers no es, por sí sola, evidencia de un proceso malo.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-1.html#autoevaluación-final",
+    "href": "temas/preparacion-examen-1.html#autoevaluación-final",
+    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "section": "✅ Autoevaluación final",
+    "text": "✅ Autoevaluación final\nAntes del examen, comprueba que puedes hacer todo esto sin mirar la guía:\n\nCargar un CSV y producir un resumen tabular completo de una variable cuantitativa.\nConstruir a mano la tabla de frecuencias agrupada con la regla de Sturges: rango, \\(k\\), amplitud, límites, marcas de clase y las cuatro columnas de frecuencias — y verificar que sumen \\(n\\).\nConstruir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).\nCalcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.\nCalcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.\nCalcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.\nVer un boxplot y describir en palabras su variabilidad, simetría y atípicos.\nRedactar una conclusión completa siguiendo los 5 pasos: forma → centro → dispersión → atípicos → interpretación en contexto.\nClasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.\n\n\n\n\n\n\n\nNoteSiguiente paso\n\n\n\nSi algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 3 → Temas 2-3, 2 → Tema 3, 4 → Tema 4, 5 → Tema 5, 6 y 7 → Tema 6, 8 → sección 5 de esta guía, 9 → Tema 1).",
+    "crumbs": [
+      "Inicio",
+      "Módulo 1 — Estadística descriptiva",
+      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+    ]
+  },
+  {
+    "objectID": "temas/examen-2-simulacro.html",
+    "href": "temas/examen-2-simulacro.html",
+    "title": "Examen 2 · Simulacro",
+    "section": "",
+    "text": "WarningSobre este simulacro\n\n\n\nEste es un examen de práctica no oficial, construido para cubrir los cuatro criterios exactos de la rúbrica del Taller 2 (Binomial, Poisson, Aproximación normal, FGM). No sustituye al examen real del curso ni tiene relación con su ponderación o formato exactos — es una herramienta de autoevaluación. Resuélvelo primero sin mirar el código ni la clave de respuestas, con lápiz y papel, y verifica después en R.",
     "crumbs": [
       "Inicio",
       "Módulo 2 — Probabilidad",
-      "Módulo 2 · Probabilidad — Arquitectura"
+      "Examen 2 · Simulacro"
     ]
+  },
+  {
+    "objectID": "temas/examen-2-simulacro.html#preguntas-4-secciones-60-90-minutos-sugeridos",
+    "href": "temas/examen-2-simulacro.html#preguntas-4-secciones-60-90-minutos-sugeridos",
+    "title": "Examen 2 · Simulacro",
+    "section": "⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos",
+    "text": "⏱️ 10 preguntas, 4 secciones, 60-90 minutos sugeridos\nSimula las condiciones del examen real: resuelve en orden, sin R al principio (verifica al final), y cronometra tu tiempo. La clave de respuestas está en una página separada — ábrela solo después de intentar todo el examen.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Examen 2 · Simulacro"
+    ]
+  },
+  {
+    "objectID": "temas/examen-2-simulacro.html#sección-i-distribución-binomial",
+    "href": "temas/examen-2-simulacro.html#sección-i-distribución-binomial",
+    "title": "Examen 2 · Simulacro",
+    "section": "Sección I · Distribución binomial",
+    "text": "Sección I · Distribución binomial\nPregunta 1 (0.5 pts). Para cada uno de los siguientes escenarios, indique si aplica un modelo binomial y justifique citando explícitamente cuál(es) de las condiciones BINS se cumple(n) o se rompe(n):\n\nSe lanza una moneda balanceada 20 veces y se cuenta el número de caras.\nDe un curso de 12 estudiantes (5 mujeres, 7 hombres) se seleccionan 6 al azar sin reemplazo para un comité, y se cuenta cuántas son mujeres.\nSe registra el número de clientes que llegan a una tienda durante una hora.\n\nPregunta 2 (0.5 pts). Un proceso de ensamblaje tiene una tasa de error del 35% por unidad ensamblada (independiente entre unidades). En un lote de 18 unidades, calcule: (a) la probabilidad de que exactamente 5 tengan error; (b) la probabilidad de que a lo sumo 3 tengan error.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Examen 2 · Simulacro"
+    ]
+  },
+  {
+    "objectID": "temas/examen-2-simulacro.html#sección-ii-distribución-poisson",
+    "href": "temas/examen-2-simulacro.html#sección-ii-distribución-poisson",
+    "title": "Examen 2 · Simulacro",
+    "section": "Sección II · Distribución Poisson",
+    "text": "Sección II · Distribución Poisson\nPregunta 3 (0.5 pts). Un fabricante de tornillos reporta una tasa de defectos de 0.4 por cada 100 unidades producidas. En un lote de 750 unidades, calcule \\(\\lambda\\) para ese lote y la probabilidad de encontrar exactamente 2 defectuosas.\nPregunta 4 (0.5 pts). Un sensor detecta partículas a una tasa promedio de 4.5 por hora. Calcule la probabilidad de detectar exactamente 6 partículas en un período de 2 horas.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Examen 2 · Simulacro"
+    ]
+  },
+  {
+    "objectID": "temas/examen-2-simulacro.html#sección-iii-aproximación-normal-a-la-binomial",
+    "href": "temas/examen-2-simulacro.html#sección-iii-aproximación-normal-a-la-binomial",
+    "title": "Examen 2 · Simulacro",
+    "section": "Sección III · Aproximación normal a la binomial",
+    "text": "Sección III · Aproximación normal a la binomial\nPregunta 5 (0.5 pts). Para cada escenario, verifique si aplica la aproximación normal (indique los valores de \\(np\\) y \\(n(1-p)\\)) y, si no aplica, indique qué alternativa usaría:\n\n\\(n=60\\), \\(p=0.5\\)\n\\(n=40\\), \\(p=0.03\\)\n\nPregunta 6 (0.5 pts). En una población, el 40% respalda una iniciativa. Se encuestan 500 personas. Calcule \\(P(X&lt;190)\\) usando la aproximación normal con corrección de continuidad, verificando primero las condiciones de aplicabilidad.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Examen 2 · Simulacro"
+    ]
+  },
+  {
+    "objectID": "temas/examen-2-simulacro.html#sección-iv-función-generadora-de-momentos",
+    "href": "temas/examen-2-simulacro.html#sección-iv-función-generadora-de-momentos",
+    "title": "Examen 2 · Simulacro",
+    "section": "Sección IV · Función generadora de momentos",
+    "text": "Sección IV · Función generadora de momentos\nPregunta 7 (0.5 pts). La FGM de una Exponencial(\\(\\lambda\\)) es \\(M(t)=\\dfrac{\\lambda}{\\lambda-t}\\). Derive a mano (mostrando el procedimiento) para encontrar \\(E[X]\\) y \\(\\text{Var}(X)\\) en términos de \\(\\lambda\\), y verifique su resultado numéricamente en R con \\(\\lambda=2\\).\nPregunta 8 (0.5 pts). \\(X\\sim\\text{Exponencial}(\\lambda=2)\\) y \\(Y\\sim\\text{Exponencial}(\\lambda=2)\\), independientes (mismo \\(\\lambda\\)). (a) Encuentre la FGM de \\(X+Y\\) multiplicando las FGM individuales. (b) A partir de esa FGM, calcule \\(E[X+Y]\\) y \\(\\text{Var}(X+Y)\\) derivando. (c) ¿Es \\(X+Y\\) también Exponencial? Justifique con la forma algebraica de la FGM resultante.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Examen 2 · Simulacro"
+    ]
+  },
+  {
+    "objectID": "temas/examen-2-simulacro.html#sección-v-síntesis",
+    "href": "temas/examen-2-simulacro.html#sección-v-síntesis",
+    "title": "Examen 2 · Simulacro",
+    "section": "Sección V · Síntesis",
+    "text": "Sección V · Síntesis\nPregunta 9 (0.5 pts). Una aerolínea vende 2,000 tiquetes para un vuelo. La probabilidad de que un pasajero individual no se presente (“no-show”) es 0.001, independiente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Calcule los criterios relevantes y justifique.\nPregunta 10 (0.5 pts). Un proceso de manufactura tiene una tasa de defectos del 6%. Se inspeccionan 200 unidades. (a) Verifique si aplica la aproximación normal. (b) Calcule \\(P(X\\ge15)\\) tanto con la fórmula exacta como con la aproximación normal (corrección de continuidad), y compare ambos resultados.\n\n\n\n\n\n\n\nNoteCuando termines\n\n\n\nCompara tus respuestas con la clave de respuestas. Si te trabaste en alguna sección, vuelve a preparacion-examen-2.qmd antes de reintentar.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Examen 2 · Simulacro"
+    ]
+  },
+  {
+    "objectID": "temas/examen-2-clave.html",
+    "href": "temas/examen-2-clave.html",
+    "title": "Examen 2 · Clave de respuestas",
+    "section": "",
+    "text": "WarningAntes de abrir esta página\n\n\n\nEsta es la clave del Examen 2 · Simulacro. Si todavía no lo intentaste completo, vuelve allá primero — revisar la clave antes de intentar el examen le resta todo el valor de la práctica."
+  },
+  {
+    "objectID": "temas/examen-2-clave.html#sección-i-distribución-binomial",
+    "href": "temas/examen-2-clave.html#sección-i-distribución-binomial",
+    "title": "Examen 2 · Clave de respuestas",
+    "section": "Sección I · Distribución binomial",
+    "text": "Sección I · Distribución binomial\n\nRespuesta 1\n(a) Sí aplica. Cumple las cuatro condiciones BINS: cada lanzamiento es binario (cara/sello), los lanzamientos son independientes entre sí, el número de ensayos está fijo en 20, y \\(p=0.5\\) es constante en cada lanzamiento.\n(b) No aplica. Se rompen la independencia y la constancia de \\(p\\): al seleccionar sin reemplazo de una población de solo 12 estudiantes, la proporción de mujeres restante cambia después de cada selección (si la primera seleccionada es mujer, quedan 4 de 11, no 5 de 12). Es un escenario hipergeométrico, no binomial — la diferencia importa más cuanto más pequeña es la población respecto al tamaño de la muestra (aquí, 6 de 12 es la mitad de la población, una fracción grande).\n(c) No aplica. No hay un número fijo de “ensayos” que contar — no tiene sentido preguntar “¿cuántos clientes no llegaron esta hora?”. Es un conteo de eventos en un intervalo continuo de tiempo: el escenario clásico de Poisson, no de binomial.\n\n\nRespuesta 2\n\n\nCode\nn &lt;- 18; p &lt;- 0.35\n\np_exactamente_5 &lt;- dbinom(5, n, p)\np_a_lo_sumo_3   &lt;- pbinom(3, n, p)\n\nc(exactamente_5 = p_exactamente_5, a_lo_sumo_3 = p_a_lo_sumo_3)\n\n\nexactamente_5   a_lo_sumo_3 \n   0.16637701    0.07826749 \n\n\n\n\\(P(X=5) \\approx 0.1664\\). (b) \\(P(X\\le3) \\approx 0.0783\\)."
+  },
+  {
+    "objectID": "temas/examen-2-clave.html#sección-ii-distribución-poisson",
+    "href": "temas/examen-2-clave.html#sección-ii-distribución-poisson",
+    "title": "Examen 2 · Clave de respuestas",
+    "section": "Sección II · Distribución Poisson",
+    "text": "Sección II · Distribución Poisson\n\nRespuesta 3\n\n\nCode\nlambda_lote &lt;- 0.4 / 100 * 750   # tasa por 100 unidades, reescalada a 750\n\np_exactamente_2 &lt;- dpois(2, lambda_lote)\nc(lambda = lambda_lote, p_exactamente_2 = p_exactamente_2)\n\n\n         lambda p_exactamente_2 \n      3.0000000       0.2240418 \n\n\n\\(\\lambda=3\\) para el lote de 750 unidades (la tasa se reescala proporcionalmente: \\(0.4\\times750/100=3\\)). \\(P(X=2)\\approx0.2240\\).\n\n\nRespuesta 4\n\n\nCode\nlambda_2h &lt;- 4.5 * 2   # la tasa por hora se reescala a 2 horas\n\np_exactamente_6 &lt;- dpois(6, lambda_2h)\nc(lambda_2h = lambda_2h, p_exactamente_6 = p_exactamente_6)\n\n\n      lambda_2h p_exactamente_6 \n     9.00000000      0.09109032 \n\n\n\\(\\lambda=9\\) para el intervalo de 2 horas. \\(P(X=6)\\approx0.0911\\)."
+  },
+  {
+    "objectID": "temas/examen-2-clave.html#sección-iii-aproximación-normal-a-la-binomial",
+    "href": "temas/examen-2-clave.html#sección-iii-aproximación-normal-a-la-binomial",
+    "title": "Examen 2 · Clave de respuestas",
+    "section": "Sección III · Aproximación normal a la binomial",
+    "text": "Sección III · Aproximación normal a la binomial\n\nRespuesta 5\n\n\nCode\n# (a)\nn_a &lt;- 60; p_a &lt;- 0.5\nc(np = n_a*p_a, n1p = n_a*(1-p_a))\n\n\n np n1p \n 30  30 \n\n\nCode\n# (b)\nn_b &lt;- 40; p_b &lt;- 0.03\nc(np = n_b*p_b, n1p = n_b*(1-p_b))\n\n\n  np  n1p \n 1.2 38.8 \n\n\n(a) \\(np=30\\ge5\\) y \\(n(1-p)=30\\ge5\\): sí aplica la aproximación normal.\n(b) \\(np=1.2&lt;5\\): no aplica. Con \\(n\\) grande, \\(p\\) chico y \\(np\\) moderado, la alternativa correcta es la aproximación Poisson con \\(\\lambda=np=1.2\\).\n\n\nRespuesta 6\n\n\nCode\nn &lt;- 500; p &lt;- 0.40\nmu &lt;- n * p; sigma &lt;- sqrt(n * p * (1 - p))\nc(np = n*p, n1p = n*(1-p))   # verificación: ambos &gt;= 5\n\n\n np n1p \n200 300 \n\n\nCode\np_menor_190 &lt;- pnorm(189.5, mu, sigma)   # P(X &lt; 190) -&gt; corrección: k - 0.5 = 189.5\np_menor_190\n\n\n[1] 0.1689017\n\n\n\\(np=200\\ge5\\), \\(n(1-p)=300\\ge5\\): aplica. \\(P(X&lt;190)\\approx0.1689\\) (valor exacto con pbinom(189,500,0.4) = 0.1690 — la aproximación es casi idéntica)."
+  },
+  {
+    "objectID": "temas/examen-2-clave.html#sección-iv-función-generadora-de-momentos",
+    "href": "temas/examen-2-clave.html#sección-iv-función-generadora-de-momentos",
+    "title": "Examen 2 · Clave de respuestas",
+    "section": "Sección IV · Función generadora de momentos",
+    "text": "Sección IV · Función generadora de momentos\n\nRespuesta 7\nDerivación a mano:\n\\[M(t)=\\frac{\\lambda}{\\lambda-t}=\\lambda(\\lambda-t)^{-1}\\]\n\\[M'(t) = \\lambda\\cdot(-1)(\\lambda-t)^{-2}\\cdot(-1) = \\lambda(\\lambda-t)^{-2} \\quad\\Rightarrow\\quad M'(0)=\\frac{\\lambda}{\\lambda^2}=\\frac{1}{\\lambda}=E[X]\\]\n\\[M''(t) = \\lambda\\cdot(-2)(\\lambda-t)^{-3}\\cdot(-1) = 2\\lambda(\\lambda-t)^{-3} \\quad\\Rightarrow\\quad M''(0)=\\frac{2\\lambda}{\\lambda^3}=\\frac{2}{\\lambda^2}=E[X^2]\\]\n\\[\\text{Var}(X) = E[X^2]-E[X]^2 = \\frac{2}{\\lambda^2}-\\frac{1}{\\lambda^2} = \\frac{1}{\\lambda^2}\\]\nVerificación numérica con \\(\\lambda=2\\):\n\n\nCode\nlambda &lt;- 2\nM &lt;- function(t) lambda / (lambda - t)\n\nh &lt;- 1e-6\nE_X   &lt;- (M(h) - M(-h)) / (2*h)\nE_X2  &lt;- (M(h) - 2*M(0) + M(-h)) / h^2\nVar_X &lt;- E_X2 - E_X^2\n\nc(E_X = E_X, \"1/lambda\" = 1/lambda, Var_X = Var_X, \"1/lambda^2\" = 1/lambda^2)\n\n\n       E_X   1/lambda      Var_X 1/lambda^2 \n 0.5000000  0.5000000  0.2498224  0.2500000 \n\n\nCoincide exactamente: \\(E[X]=0.5\\), \\(\\text{Var}(X)=0.25\\).\n\n\nRespuesta 8\n\n\nCode\nlambda &lt;- 2\n\n# (a) Producto de las FGM\nM_exp &lt;- function(t, lam) lam / (lam - t)\nM_suma &lt;- function(t) M_exp(t, lambda)^2   # (lambda/(lambda-t))^2\n\n# (b) E[X+Y] y Var[X+Y] derivando numéricamente el producto\nh &lt;- 1e-6\nE_suma   &lt;- (M_suma(h) - M_suma(-h)) / (2*h)\nE_suma2  &lt;- (M_suma(h) - 2*M_suma(0) + M_suma(-h)) / h^2\nVar_suma &lt;- E_suma2 - E_suma^2\n\nc(E_suma = E_suma, Var_suma = Var_suma)\n\n\n   E_suma  Var_suma \n1.0000000 0.4996893 \n\n\n(a) \\(M_{X+Y}(t) = \\left(\\dfrac{\\lambda}{\\lambda-t}\\right)^2 = \\dfrac{\\lambda^2}{(\\lambda-t)^2}\\).\n(b) \\(E[X+Y]=1\\), \\(\\text{Var}(X+Y)=0.5\\).\n(c) No es Exponencial. La FGM de una Exponencial tiene la forma \\(\\dfrac{\\lambda}{\\lambda-t}\\) (exponente 1 en el denominador); el resultado obtenido tiene exponente 2. Por la propiedad de unicidad, una FGM con esa forma corresponde a una distribución Gamma con parámetro de forma \\(k=2\\) y tasa \\(\\lambda=2\\) — no a una Exponencial. Coincide con \\(E[X+Y]=k/\\lambda=2/2=1\\) y \\(\\text{Var}(X+Y)=k/\\lambda^2=2/4=0.5\\), las fórmulas conocidas de la Gamma."
+  },
+  {
+    "objectID": "temas/examen-2-clave.html#sección-v-síntesis",
+    "href": "temas/examen-2-clave.html#sección-v-síntesis",
+    "title": "Examen 2 · Clave de respuestas",
+    "section": "Sección V · Síntesis",
+    "text": "Sección V · Síntesis\n\nRespuesta 9\n\n\nCode\nn &lt;- 2000; p &lt;- 0.001\nc(np = n*p, n1p = n*(1-p))\n\n\n  np  n1p \n   2 1998 \n\n\n\\(np=2\\), muy por debajo de 5: no aplica la normal, a pesar de que \\(n\\) es grande. Con \\(n\\) grande, \\(p\\) chico, y \\(np\\) moderado, aplica la aproximación Poisson con \\(\\lambda=np=2\\). La binomial exacta también sería correcta (y con software es tan fácil como la Poisson), pero conceptualmente el escenario es el mismo patrón de “evento raro en una muestra grande” del Tema P6c.\n\n\nRespuesta 10\n\n\nCode\nn &lt;- 200; p &lt;- 0.06\nmu &lt;- n * p; sigma &lt;- sqrt(n * p * (1 - p))\n\n# (a) Verificación\nc(np = n*p, n1p = n*(1-p))\n\n\n np n1p \n 12 188 \n\n\nCode\n# (b) Exacto vs. aproximado\nexacto &lt;- 1 - pbinom(14, n, p)\naprox  &lt;- 1 - pnorm(14.5, mu, sigma)\nc(exacto = exacto, aproximado = aprox)\n\n\n    exacto aproximado \n 0.2222804  0.2283281 \n\n\n(a) \\(np=12\\ge5\\) y \\(n(1-p)=188\\ge5\\): aplica la aproximación normal.\n(b) Exacto: \\(P(X\\ge15)\\approx0.2223\\). Aproximado (con corrección de continuidad): \\(\\approx0.2283\\). La diferencia (0.006) es pequeña pero no despreciable — recuerda que la aproximación pierde algo de precisión en las colas, como se discutió en el Ítem 62 del Taller 2.\n\n\n\n\n\n\n\nNoteRepaso de puntajes por sección\n\n\n\nSi tuviste dificultades concentradas en una sección específica, vuelve al tema correspondiente antes de seguir: Sección I → Tema P6, Sección II → Tema P6b, Sección III → Tema P6c, Sección IV → Tema P6d, Sección V → preparacion-examen-2.qmd, sección 5 (marco de decisión)."
   },
   {
     "objectID": "temas/ejercicios-modulo1.html",
@@ -1717,7 +2083,7 @@
     "href": "laboratorios.html",
     "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
     "section": "",
-    "text": "Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: Laboratorio 1 (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), Laboratorio 2 (fenómenos aleatorios), Laboratorio 3 (distribución multivariada), el Laboratorio de Inferencia Estadística y un Laboratorio complementario con ejercicios adicionales de binomial, Poisson, FGM y un taller Grupo B. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.",
+    "text": "Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: Laboratorio 1 (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), Laboratorio 2 (fenómenos aleatorios), Laboratorio 3 (distribución multivariada), el Laboratorio de Inferencia Estadística, un Laboratorio complementario con ejercicios adicionales de binomial, Poisson, FGM y un taller Grupo B, y una sección de Taller 2 · Práctica evaluativa alineada con los cuatro criterios exactos de la rúbrica. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.",
     "crumbs": [
       "Inicio",
       "Laboratorios del curso · Ejercicios y prácticas resueltas"
@@ -1728,7 +2094,7 @@
     "href": "laboratorios.html#los-cuatro-laboratorios-reales-del-curso-resueltos-y-comentados",
     "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
     "section": "",
-    "text": "Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: Laboratorio 1 (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), Laboratorio 2 (fenómenos aleatorios), Laboratorio 3 (distribución multivariada), el Laboratorio de Inferencia Estadística y un Laboratorio complementario con ejercicios adicionales de binomial, Poisson, FGM y un taller Grupo B. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.",
+    "text": "Esta página consolida los laboratorios oficiales de Estadística y Probabilidad de EAFIT en un solo lugar: Laboratorio 1 (descriptiva, con el dataset de energía renovable — es el que se evalúa en el Taller 1), Laboratorio 2 (fenómenos aleatorios), Laboratorio 3 (distribución multivariada), el Laboratorio de Inferencia Estadística, un Laboratorio complementario con ejercicios adicionales de binomial, Poisson, FGM y un taller Grupo B, y una sección de Taller 2 · Práctica evaluativa alineada con los cuatro criterios exactos de la rúbrica. Cada ítem sigue el mismo patrón: enunciado real → predicción → código → interpretación.",
     "crumbs": [
       "Inicio",
       "Laboratorios del curso · Ejercicios y prácticas resueltas"
@@ -2164,11 +2530,77 @@
     ]
   },
   {
-    "objectID": "laboratorios.html#cierre-general-los-cinco-laboratorios",
-    "href": "laboratorios.html#cierre-general-los-cinco-laboratorios",
+    "objectID": "laboratorios.html#los-cuatro-criterios-exactos-de-la-rúbrica",
+    "href": "laboratorios.html#los-cuatro-criterios-exactos-de-la-rúbrica",
     "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
-    "section": "🗂️ Cierre general · Los cinco laboratorios",
-    "text": "🗂️ Cierre general · Los cinco laboratorios\n\n\nLaboratorio 1 (descriptiva): clasificar variables, resumir con medidas de tendencia central y dispersión, y usar medidas robustas basadas en cuantiles — la base evaluada en el Taller 1.\nLaboratorio 2 (fenómenos aleatorios): las reglas de probabilidad (adición, complemento, diferencia simétrica) y el paso de eventos sueltos a variables aleatorias, distribuciones discretas y continuas.\nLaboratorio 3 (multivariada): cuando dos variables aleatorias se relacionan — distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias.\nLaboratorio de Inferencia: el puente entre una muestra y la población — distribuciones muestrales, Teorema Central del Límite, estimación puntual e intervalos de confianza, y pruebas de hipótesis.\nLaboratorio complementario: ejercicios adicionales de binomial y Poisson, una introducción a las funciones generadoras de momentos (FGM), casos nuevos de distribuciones conjuntas, un taller Grupo B con el dataset pressure, indicadores epidemiológicos (razones, proporciones, tasas), y un taller de clasificación/recodificación de variables.\nA lo largo de todos los laboratorios encontrarás varios callouts de corrección de rigor — errores reales de las soluciones oficiales, verificados de forma independiente y documentados como lección, no escondidos.\n\n\n\n\n\n\n\n\nImportantSobre el Taller 1\n\n\n\nEl Laboratorio 1 (Bloques 0-2, Ítems 1-12) sigue la misma estructura de preguntas que se evalúa en el Taller 1 (20% de la nota, según el programa del curso). Practica cada ítem por tu cuenta antes de consultar la solución oficial.",
+    "section": "📋 Los cuatro criterios exactos de la rúbrica",
+    "text": "📋 Los cuatro criterios exactos de la rúbrica\nEsta sección reúne, en un solo lugar y en el mismo orden en que se evalúan, los cuatro criterios del Taller 2: distribución binomial, distribución Poisson, aproximación normal a la binomial y función generadora de momentos. Cada bloque resuelve problemas nuevos (distintos a los que ya viste en los Temas P6, P6b, P6c, P6d y en el Laboratorio complementario) para que practiques con material fresco antes de la evaluación.",
+    "crumbs": [
+      "Inicio",
+      "Laboratorios del curso · Ejercicios y prácticas resueltas"
+    ]
+  },
+  {
+    "objectID": "laboratorios.html#bloque-22-distribución-binomial",
+    "href": "laboratorios.html#bloque-22-distribución-binomial",
+    "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
+    "section": "Bloque 22 · Distribución binomial",
+    "text": "Bloque 22 · Distribución binomial\n\nÍtem 57 — Control de calidad\nEnunciado: una fábrica produce piezas con una tasa de defectos del 8%. Se toma una muestra aleatoria de 25 piezas. Calcule: (a) la probabilidad de encontrar exactamente 3 defectuosas; (b) la probabilidad de encontrar a lo sumo 2 defectuosas; (c) la probabilidad de encontrar al menos 1 defectuosa.\n\nAntes de calcular: ¿esperas que (b) y (c) sean parecidas, o muy distintas? Piensa en qué extremo de la distribución mira cada una.\n\n\n\nCode\nn &lt;- 25; p &lt;- 0.08\n\np_exactamente_3 &lt;- dbinom(3, n, p)\np_a_lo_sumo_2   &lt;- pbinom(2, n, p)\np_al_menos_1    &lt;- 1 - dbinom(0, n, p)\n\nc(exactamente_3 = p_exactamente_3, a_lo_sumo_2 = p_a_lo_sumo_2, al_menos_1 = p_al_menos_1)\n\n\nexactamente_3   a_lo_sumo_2    al_menos_1 \n    0.1880745     0.6768332     0.8756357 \n\n\n\n\ny (c) miran extremos opuestos: “a lo sumo 2” (67.7%) es alta porque con \\(p=0.08\\) lo normal es encontrar pocas o ninguna defectuosa; “al menos 1” (87.6%) es todavía más alta, porque con 25 piezas de por medio, encontrar cero defectuosas exactas es lo único que hay que descartar.\n\n\n\n\nÍtem 58 — Examen de opción múltiple, adivinando al azar\nEnunciado: un examen tiene 12 preguntas de opción múltiple con 4 alternativas cada una. Un estudiante responde completamente al azar. Calcule: (a) la probabilidad de aprobar si el mínimo son 6 respuestas correctas; (b) el número esperado de aciertos y su varianza.\n\n\nCode\nn &lt;- 12; p &lt;- 0.25   # p = 1/4, probabilidad de acertar una pregunta al azar\n\np_aprobar &lt;- 1 - pbinom(5, n, p)   # P(X &gt;= 6)\nesperado  &lt;- n * p\nvarianza  &lt;- n * p * (1 - p)\n\nc(p_aprobar = p_aprobar, esperado = esperado, varianza = varianza)\n\n\n p_aprobar   esperado   varianza \n0.05440223 3.00000000 2.25000000 \n\n\n\n\n\n\n\n\nImportantInterpretación que vale puntos en el examen\n\n\n\nSolo 5.4% de probabilidad de aprobar adivinando puramente al azar, aunque el estudiante “en promedio” acierte 3 de 12 preguntas. No confundas el valor esperado (3 aciertos) con la meta de aprobación (6 aciertos): son cantidades distintas, y la brecha entre ellas es exactamente lo que hace tan poco probable aprobar por azar.",
+    "crumbs": [
+      "Inicio",
+      "Laboratorios del curso · Ejercicios y prácticas resueltas"
+    ]
+  },
+  {
+    "objectID": "laboratorios.html#bloque-23-distribución-poisson",
+    "href": "laboratorios.html#bloque-23-distribución-poisson",
+    "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
+    "section": "Bloque 23 · Distribución Poisson",
+    "text": "Bloque 23 · Distribución Poisson\n\nÍtem 59 — Central telefónica\nEnunciado: una central telefónica recibe en promedio 6 llamadas por minuto. Calcule: (a) la probabilidad de recibir exactamente 4 llamadas en un minuto; (b) la probabilidad de recibir más de 10 llamadas en un intervalo de 2 minutos.\n\nPara la parte (b): ¿qué valor de \\(\\lambda\\) usarías? (Repasa el “truco de interpretación” del Tema P6b sobre ajustar \\(\\lambda\\) al intervalo).\n\n\n\nCode\nlambda_1min &lt;- 6\n\np_exactamente_4 &lt;- dpois(4, lambda_1min)\n\nlambda_2min &lt;- 6 * 2   # la tasa se escala con el intervalo\np_mas_de_10 &lt;- 1 - ppois(10, lambda_2min)\n\nc(exactamente_4_en_1min = p_exactamente_4, mas_de_10_en_2min = p_mas_de_10)\n\n\nexactamente_4_en_1min     mas_de_10_en_2min \n            0.1338526             0.6527706 \n\n\n\n\nÍtem 60 — Defectos en un rollo de tela\nEnunciado: un proceso de manufactura textil produce defectos a una tasa de 0.02 por metro. En un rollo de 150 metros, calcule la probabilidad de encontrar a lo sumo 2 defectos.\n\n\nCode\ntasa_por_metro &lt;- 0.02\nmetros &lt;- 150\nlambda_rollo &lt;- tasa_por_metro * metros\n\np_a_lo_sumo_2 &lt;- ppois(2, lambda_rollo)\nc(lambda = lambda_rollo, p_a_lo_sumo_2 = p_a_lo_sumo_2)\n\n\n       lambda p_a_lo_sumo_2 \n    3.0000000     0.4231901 \n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nEn ambos ítems, el primer paso —antes de tocar dpois() o ppois()— fue convertir la tasa dada al intervalo real de la pregunta (\\(\\lambda\\times 2\\) minutos, tasa$$150 metros). Ese paso de escalamiento es donde más se pierden puntos en un examen: la fórmula está bien, pero el \\(\\lambda\\) usado no corresponde a lo que se pregunta. Ver más trucos →",
+    "crumbs": [
+      "Inicio",
+      "Laboratorios del curso · Ejercicios y prácticas resueltas"
+    ]
+  },
+  {
+    "objectID": "laboratorios.html#bloque-24-aproximación-normal-a-la-distribución-binomial",
+    "href": "laboratorios.html#bloque-24-aproximación-normal-a-la-distribución-binomial",
+    "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
+    "section": "Bloque 24 · Aproximación normal a la distribución binomial",
+    "text": "Bloque 24 · Aproximación normal a la distribución binomial\n\nÍtem 61 — Encuesta de opinión\nEnunciado: en una encuesta, el 55% de los encuestados apoya una medida. Se entrevistan 300 personas. Calcule \\(P(160\\le X\\le180)\\): (a) con la fórmula binomial exacta; (b) con la aproximación normal, usando corrección de continuidad. Compare ambos resultados.\n\nPrimero verifica: ¿se cumple \\(np\\ge5\\) y \\(n(1-p)\\ge5\\) para estos datos?\n\n\n\nCode\nn &lt;- 300; p &lt;- 0.55\nmu &lt;- n * p; sigma &lt;- sqrt(n * p * (1 - p))\nc(np = n*p, n1p = n*(1-p), mu = mu, sigma = sigma)   # verificación de la regla práctica\n\n\n        np        n1p         mu      sigma \n165.000000 135.000000 165.000000   8.616844 \n\n\nCode\nexacto &lt;- pbinom(180, n, p) - pbinom(159, n, p)\naprox  &lt;- pnorm(180.5, mu, sigma) - pnorm(159.5, mu, sigma)\n\nc(exacto = exacto, aproximado = aprox)\n\n\n    exacto aproximado \n 0.7031048  0.7023309 \n\n\n\n\\(np=165\\ge5\\) y \\(n(1-p)=135\\ge5\\): la aproximación es válida. El valor exacto es 0.7031 y el aproximado (con corrección de continuidad) es 0.7023 — una diferencia de apenas 0.0008, prácticamente despreciable con \\(n=300\\).\n\n\n\nÍtem 62 — Control de calidad a gran escala\nEnunciado: en un proceso con 10% de piezas defectuosas, se inspeccionan 400 piezas. Calcule \\(P(X&gt;50)\\) con la aproximación normal (corrección de continuidad), y compárela con el valor exacto.\n\n\nCode\nn &lt;- 400; p &lt;- 0.10\nmu &lt;- n * p; sigma &lt;- sqrt(n * p * (1 - p))\nc(np = n*p, n1p = n*(1-p))   # ambos &gt;= 5: aplica la aproximación\n\n\n np n1p \n 40 360 \n\n\nCode\nexacto &lt;- 1 - pbinom(50, n, p)\naprox  &lt;- 1 - pnorm(50.5, mu, sigma)\n\nc(exacto = exacto, aproximado = aprox)\n\n\n    exacto aproximado \n0.04364443 0.04005916 \n\n\n\n\n\n\n\n\nNoteLo que deberías notar\n\n\n\nLa diferencia entre exacto (0.0436) y aproximado (0.0401) es un poco mayor aquí que en el Ítem 61 — la aproximación normal tiende a perder algo de precisión en las colas (valores alejados de la media) comparada con el centro de la distribución. Aun así, para fines prácticos (decidir si el proceso está fuera de control, por ejemplo), ambos valores llevan a la misma conclusión.",
+    "crumbs": [
+      "Inicio",
+      "Laboratorios del curso · Ejercicios y prácticas resueltas"
+    ]
+  },
+  {
+    "objectID": "laboratorios.html#bloque-25-función-generadora-de-momentos",
+    "href": "laboratorios.html#bloque-25-función-generadora-de-momentos",
+    "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
+    "section": "Bloque 25 · Función generadora de momentos",
+    "text": "Bloque 25 · Función generadora de momentos\n\nÍtem 63 — Momentos de una Bernoulli, paso a paso\nEnunciado: a partir de la FGM de una Bernoulli(\\(p\\)), \\(M(t)=1-p+pe^t\\), calcule \\(E[X]\\) y \\(\\text{Var}(X)\\) derivando y evaluando en \\(t=0\\) — primero a mano, luego verificando en R con derivación numérica.\n\n\nCode\np &lt;- 0.35   # un valor concreto para verificar numéricamente\n\nM &lt;- function(t) 1 - p + p * exp(t)\n\nh &lt;- 1e-6\nE_X   &lt;- (M(h) - M(-h)) / (2*h)\nE_X2  &lt;- (M(h) - 2*M(0) + M(-h)) / h^2\nVar_X &lt;- E_X2 - E_X^2\n\nc(E_X = E_X, Var_X = Var_X, p_teorico = p, \"p(1-p)_teorico\" = p*(1-p))\n\n\n           E_X          Var_X      p_teorico p(1-p)_teorico \n     0.3500000      0.2275533      0.3500000      0.2275000 \n\n\n\n\n\n\n\n\nImportantEl álgebra detrás del chunk\n\n\n\nA mano: \\(M'(t)=pe^t\\), así que \\(M'(0)=p=E[X]\\). \\(M''(t)=pe^t\\) también, así que \\(M''(0)=p=E[X^2]\\). Entonces \\(\\text{Var}(X)=E[X^2]-E[X]^2=p-p^2=p(1-p)\\) — coincide exactamente con lo que ya sabías de la tabla del Tema P6d, y con el resultado numérico de arriba.\n\n\n\n\nÍtem 64 — Identificar una suma usando FGM\nEnunciado: \\(X\\sim\\text{Poisson}(3)\\) y \\(Y\\sim\\text{Poisson}(5)\\), independientes. (a) Use el producto de sus FGM para identificar la distribución de \\(X+Y\\). (b) Calcule \\(P(X+Y=10)\\).\n\n\nCode\nlambda_X &lt;- 3; lambda_Y &lt;- 5\n\n# (a) Verificación algebraica: el producto de las FGM tiene forma de Poisson(lambda_X + lambda_Y)\nM_pois &lt;- function(t, lambda) exp(lambda * (exp(t) - 1))\nt_prueba &lt;- seq(-1, 1, 0.2)\nmax(abs(M_pois(t_prueba, lambda_X) * M_pois(t_prueba, lambda_Y) - M_pois(t_prueba, lambda_X + lambda_Y)))\n\n\n[1] 1.164153e-10\n\n\nCode\n# (b) Con X+Y ~ Poisson(8):\np_suma_10 &lt;- dpois(10, lambda_X + lambda_Y)\np_suma_10\n\n\n[1] 0.09926153\n\n\n\nLa diferencia máxima entre el producto de FGM y la FGM de Poisson(8) es esencialmente cero: confirma que \\(X+Y\\sim\\text{Poisson}(8)\\). Con eso, \\(P(X+Y=10)=0.0993\\) — un cálculo directo con dpois(), sin necesidad de convolucionar las dos distribuciones originales.",
+    "crumbs": [
+      "Inicio",
+      "Laboratorios del curso · Ejercicios y prácticas resueltas"
+    ]
+  },
+  {
+    "objectID": "laboratorios.html#cierre-del-taller-2",
+    "href": "laboratorios.html#cierre-del-taller-2",
+    "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
+    "section": "🗂️ Cierre del Taller 2",
+    "text": "🗂️ Cierre del Taller 2\n\n\nBinomial: identifica \\(n\\) y \\(p\\), y decide entre dbinom() (exactamente), pbinom() (acumulada) y su complemento (al menos), sin confundir el valor esperado con la meta de la pregunta.\nPoisson: el paso que más se olvida es ajustar \\(\\lambda\\) al intervalo real de la pregunta — hazlo siempre antes de llamar a dpois()/ppois().\nAproximación normal: verifica \\(np\\ge5\\) y \\(n(1-p)\\ge5\\) antes de usarla, y nunca olvides la corrección de continuidad (±0.5) — la diferencia entre usarla y no usarla puede ser el margen entre acertar y fallar un punto del examen.\nFGM: derivar y evaluar en \\(t=0\\) da los momentos; multiplicar FGM de variables independientes da la FGM de su suma — dos atajos que reemplazan sumas directas y convoluciones tediosas.\n\n\n\n\n\n\n\n\nImportantSobre este Taller\n\n\n\nEstos 8 ítems (57-64) cubren, en el mismo orden, los cuatro criterios exactos de la rúbrica del Taller 2. Practica cada bloque por tu cuenta —tapando la solución— antes de revisarla.",
+    "crumbs": [
+      "Inicio",
+      "Laboratorios del curso · Ejercicios y prácticas resueltas"
+    ]
+  },
+  {
+    "objectID": "laboratorios.html#cierre-general-los-cinco-laboratorios-y-el-taller-2",
+    "href": "laboratorios.html#cierre-general-los-cinco-laboratorios-y-el-taller-2",
+    "title": "Laboratorios del curso · Ejercicios y prácticas resueltas",
+    "section": "🗂️ Cierre general · Los cinco laboratorios y el Taller 2",
+    "text": "🗂️ Cierre general · Los cinco laboratorios y el Taller 2\n\n\nLaboratorio 1 (descriptiva): clasificar variables, resumir con medidas de tendencia central y dispersión, y usar medidas robustas basadas en cuantiles — la base evaluada en el Taller 1.\nLaboratorio 2 (fenómenos aleatorios): las reglas de probabilidad (adición, complemento, diferencia simétrica) y el paso de eventos sueltos a variables aleatorias, distribuciones discretas y continuas.\nLaboratorio 3 (multivariada): cuando dos variables aleatorias se relacionan — distribuciones conjuntas, marginales, condicionales, covarianza y funciones de variables aleatorias.\nLaboratorio de Inferencia: el puente entre una muestra y la población — distribuciones muestrales, Teorema Central del Límite, estimación puntual e intervalos de confianza, y pruebas de hipótesis.\nLaboratorio complementario: ejercicios adicionales de binomial y Poisson, una introducción a las funciones generadoras de momentos (FGM), casos nuevos de distribuciones conjuntas, un taller Grupo B con el dataset pressure, indicadores epidemiológicos (razones, proporciones, tasas), y un taller de clasificación/recodificación de variables.\nTaller 2 · Práctica evaluativa: los cuatro criterios exactos de la rúbrica (binomial, Poisson, aproximación normal a la binomial, FGM), con problemas nuevos y una guía de repaso dedicada (preparacion-examen-2.qmd).\nA lo largo de todos los laboratorios encontrarás varios callouts de corrección de rigor — errores reales de las soluciones oficiales, verificados de forma independiente y documentados como lección, no escondidos.\n\n\n\n\n\n\n\n\nImportantSobre el Taller 1 y el Taller 2\n\n\n\nEl Laboratorio 1 (Bloques 0-2, Ítems 1-12) sigue la misma estructura de preguntas que se evalúa en el Taller 1. La sección Taller 2 · Práctica evaluativa (Ítems 57-64) cubre, en el mismo orden, los cuatro criterios exactos de la rúbrica del Taller 2. Practica cada ítem por tu cuenta antes de consultar la solución oficial.",
     "crumbs": [
       "Inicio",
       "Laboratorios del curso · Ejercicios y prácticas resueltas"
@@ -2796,171 +3228,351 @@
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html",
-    "href": "temas/preparacion-examen-1.html",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "objectID": "temas/examen-2-resueltos.html",
+    "href": "temas/examen-2-resueltos.html",
+    "title": "Exámenes resueltos · Versiones A y B",
     "section": "",
-    "text": "Esta guía recorre en orden el flujo completo de un análisis descriptivo — tabla → gráfica → tendencia central → dispersión → cuantiles → boxplot — usando el mismo dataset house-prices.csv de todos los Temas. No introduce conceptos nuevos: es un repaso integrado, pensado para que llegues al examen habiendo hecho el recorrido completo de principio a fin, en vez de tema por tema aislado.",
+    "text": "Estas son dos versiones paralelas de examen (A y B), cada una con 3 problemas del mismo tipo: Poisson con escalamiento + comparación de aproximaciones, Binomial con diagnóstico de ajuste sobre datos observados, y FGM de una variable aleatoria discreta. Resuélvelas ambas — reconocer el patrón detrás de números distintos es mejor preparación que memorizar una sola respuesta.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#todo-el-módulo-1-en-una-sola-pasada",
-    "href": "temas/preparacion-examen-1.html#todo-el-módulo-1-en-una-sola-pasada",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "objectID": "temas/examen-2-resueltos.html#dos-exámenes-el-mismo-patrón-números-distintos",
+    "href": "temas/examen-2-resueltos.html#dos-exámenes-el-mismo-patrón-números-distintos",
+    "title": "Exámenes resueltos · Versiones A y B",
     "section": "",
-    "text": "Esta guía recorre en orden el flujo completo de un análisis descriptivo — tabla → gráfica → tendencia central → dispersión → cuantiles → boxplot — usando el mismo dataset house-prices.csv de todos los Temas. No introduce conceptos nuevos: es un repaso integrado, pensado para que llegues al examen habiendo hecho el recorrido completo de principio a fin, en vez de tema por tema aislado.",
+    "text": "Estas son dos versiones paralelas de examen (A y B), cada una con 3 problemas del mismo tipo: Poisson con escalamiento + comparación de aproximaciones, Binomial con diagnóstico de ajuste sobre datos observados, y FGM de una variable aleatoria discreta. Resuélvelas ambas — reconocer el patrón detrás de números distintos es mejor preparación que memorizar una sola respuesta.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#preparación-del-entorno",
-    "href": "temas/preparacion-examen-1.html#preparación-del-entorno",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "Preparación del entorno",
-    "text": "Preparación del entorno\nUsaremos summarytools, la librería que ya conociste en el Tema 2 como la “Manera 5” de construir tablas de frecuencia:\n\n\nCode\n# Si no la tienes instalada:\n# install.packages(\"summarytools\")\nlibrary(summarytools)\n\nhouses &lt;- read.csv(\"../data/house-prices.csv\")\n\n# La variable cuantitativa continua que vamos a analizar\nprecios &lt;- houses$Price",
+    "objectID": "temas/examen-2-resueltos.html#problema-1-solicitudes-de-mantenimiento-poisson",
+    "href": "temas/examen-2-resueltos.html#problema-1-solicitudes-de-mantenimiento-poisson",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Problema 1 — Solicitudes de mantenimiento (Poisson)",
+    "text": "Problema 1 — Solicitudes de mantenimiento (Poisson)\nEnunciado: una empresa de mantenimiento recibe solicitudes a una tasa promedio de 3 por hora. (a) Calcule la probabilidad de recibir exactamente 9 solicitudes en 3 horas. (b) La probabilidad de recibir más de 30 solicitudes en 8 horas. (c) En 120 días laborales: (I) media y desviación estándar del número de días con más de 30 solicitudes; (II) aproxime la probabilidad de que esto ocurra en al menos 8 días, usando aproximación Poisson y aproximación normal con corrección de continuidad; (III) compare.\n\nAntes de calcular (c): con \\(p\\approx0.096\\) (la probabilidad diaria de “día crítico”), ¿esperas que \\(np\\) sea lo bastante grande como para que la aproximación normal aplique bien?\n\n\n\nCode\ntasa &lt;- 3   # solicitudes por hora\n\n# (a) P(X = 9) en 3 horas\nlambda_3h &lt;- tasa * 3\ndpois(9, lambda_3h)\n\n\n[1] 0.1317556\n\n\nCode\n# (b) P(X &gt; 30) en 8 horas\nlambda_8h &lt;- tasa * 8\np_dia_critico &lt;- 1 - ppois(30, lambda_8h)\np_dia_critico\n\n\n[1] 0.0958484\n\n\n\n\\(P(X&gt;30)=0.0958\\) con \\(\\lambda=24\\) — confirma la corrección de rigor de arriba, no el 0.033 original.\n\n\n\nCode\n# (c)(I) Media y sd del número de días críticos en 120 días\nn_dias &lt;- 120\np &lt;- p_dia_critico\n\nmu &lt;- n_dias * p\nsigma &lt;- sqrt(n_dias * p * (1 - p))\nc(np = n_dias*p, n1p = n_dias*(1-p), mu = mu, sigma = sigma)\n\n\n        np        n1p         mu      sigma \n 11.501808 108.498192  11.501808   3.224807 \n\n\n\\(np=11.5\\ge5\\) y \\(n(1-p)=108.5\\ge5\\): la aproximación normal es aplicable.\n\n\nCode\n# (c)(II) P(al menos 8 días) con las dos aproximaciones\nlambda_dias &lt;- n_dias * p   # aproximación Poisson: lambda = np\naprox_poisson &lt;- 1 - ppois(7, lambda_dias)\n\naprox_normal &lt;- 1 - pnorm(7.5, mu, sigma)   # corrección de continuidad: 8 - 0.5\n\nexacto &lt;- 1 - pbinom(7, n_dias, p)   # valor exacto, para comparar\n\nc(exacto = exacto, aprox_poisson = aprox_poisson, aprox_normal = aprox_normal)\n\n\n       exacto aprox_poisson  aprox_normal \n    0.8981713     0.8863621     0.8926870 \n\n\n\n(c)(III) Comparación: exacto = 0.8982, aproximación normal = 0.8927, aproximación Poisson = 0.8864. Las tres coinciden dentro de 0.012 entre sí. La normal queda ligeramente más cerca del valor exacto que la Poisson — consistente con que \\(np=11.5\\) ya es razonablemente grande para la normal, mientras que la Poisson tiende a funcionar mejor cuando \\(p\\) es más chico y \\(np\\) más moderado (como en el Tema P6c).",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#representación-tabular-y-gráfica",
-    "href": "temas/preparacion-examen-1.html#representación-tabular-y-gráfica",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "1. Representación tabular y gráfica",
-    "text": "1. Representación tabular y gráfica\n\n1.1 Representación tabular\ndescr() produce un resumen numérico completo de una variable cuantitativa de una sola vez — media, desviación estándar, cuartiles, asimetría y curtosis incluidas:\n\n\nCode\ndescr(precios)\n\n\nDescriptive Statistics  \nprecios  \nN: 128  \n\n                      precios\n----------------- -----------\n             Mean   130427.34\n          Std.Dev    26868.77\n              Min    69100.00\n               Q1   111250.00\n           Median   125950.00\n               Q3   148600.00\n              Max   211200.00\n              MAD    27798.75\n              IQR    36925.00\n               CV        0.21\n         Skewness        0.46\n      SE.Skewness        0.21\n         Kurtosis       -0.10\n          N.Valid      128.00\n                N      128.00\n        Pct.Valid      100.00\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\ndescr() te da en una sola salida casi todo lo que calculaste a mano en los Temas 4 a 7. Úsalo para verificar tus cálculos manuales, no para reemplazarlos: en el examen te pueden pedir el procedimiento, no solo el resultado. Ver más trucos →\n\n\n\n\n1.2 Representación gráfica (histograma y diagrama de pastel)\nEl histograma es una serie de rectángulos cuyo ancho es proporcional al rango de valores dentro de una clase, y cuya altura es proporcional al número de elementos que caen en esa clase:\n\n\nCode\nhist(precios,\n     main = \"Histograma de precios de vivienda\",\n     xlab = \"Precio ($)\",\n     ylab = \"Frecuencia\",\n     col = \"lightblue\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImportantNota sobre el diagrama de pastel\n\n\n\nEl diagrama de pastel se usa principalmente para variables cualitativas. Para aplicarlo a una variable cuantitativa como Price, primero hay que agrupar o categorizar los datos en intervalos — exactamente la operación de recodificación que viste en el Tema 1:\n\n\n\n\nCode\n# Categorizar la variable cuantitativa en 3 grupos\ncategorias_precio &lt;- cut(precios, breaks = 3, labels = c(\"Bajo\", \"Medio\", \"Alto\"))\n\ntable(categorias_precio)\n\n\ncategorias_precio\n Bajo Medio  Alto \n   45    67    16 \n\n\nCode\npie(table(categorias_precio),\n    main = \"Distribución de precios por rango\",\n    col = c(\"tomato\", \"gold\", \"lightgreen\"))\n\n\n\n\n\n\n\n\n\n\nCon breaks = 3, R parte el rango completo de precios en tres intervalos de igual ancho (no de igual cantidad de casas): quedan 45 casas en “Bajo”, 67 en “Medio” y solo 16 en “Alto”. Esa concentración desigual ya te está diciendo algo sobre la forma de la distribución — que confirmarás formalmente con la asimetría más abajo.\n\n\n\n1.3 Histograma manual con la regla de Sturges\n\n\n\n\n\n\nNotePor qué hacerlo a mano\n\n\n\nEn el bloque anterior, hist() eligió los intervalos por su cuenta. En el examen te pueden pedir la tabla de distribución de frecuencias agrupada — con los límites, las marcas de clase y las cuatro columnas de frecuencias — y ahí no basta con llamar a hist(). Estos 6 pasos son el procedimiento completo, siguiendo la regla de Sturges del Tema 3.\n\n\n\nPaso 1 — Rango\n\n\nCode\nn &lt;- length(precios)\nrango &lt;- max(precios) - min(precios)\nc(n = n, minimo = min(precios), maximo = max(precios), rango = rango)\n\n\n     n minimo maximo  rango \n   128  69100 211200 142100 \n\n\n\n\nPaso 2 — Número de clases (regla de Sturges)\n\\[k = 1 + \\log_2(n) = 1 + 3.322\\cdot\\log_{10}(n)\\]\n\n\nCode\nk_log2  &lt;- 1 + log2(n)\nk_aprox &lt;- 1 + 3.322 * log10(n)\nc(con_log2 = k_log2, con_aproximacion = k_aprox)\n\n\n        con_log2 con_aproximacion \n        8.000000         8.000152 \n\n\n\n\n\n\n\n\nImportantUn detalle de redondeo que vale oro en el examen\n\n\n\nFíjate en lo que pasó: \\(n = 128 = 2^7\\), así que \\(\\log_2(128) = 7\\) exacto y \\(k = 8\\) redondo. Pero la versión con la constante aproximada 3.322 da 8.0001… — y si aplicas ceiling() mecánicamente, obtienes \\(k = 9\\) en vez de 8.\nLos dos caminos deberían dar lo mismo; la diferencia viene de que 3.322 es un redondeo de \\(1/\\log_{10}(2) = 3.3219\\ldots\\). La lección: la regla de Sturges da una sugerencia, no un mandato, y cuando el resultado cae justo sobre un entero conviene quedarse con ese entero en vez de redondear hacia arriba a ciegas. Aquí usamos \\(k = 8\\).\n\n\n\n\nCode\nk &lt;- 8\nk\n\n\n[1] 8\n\n\n\n\nPaso 3 — Amplitud de clase\n\n\nCode\namplitud_exacta &lt;- rango / k\namplitud_exacta\n\n\n[1] 17762.5\n\n\nCode\n# Se redondea hacia arriba a un valor \"de informe\" (miles cerrados)\namplitud &lt;- ceiling(amplitud_exacta / 1000) * 1000\namplitud\n\n\n[1] 18000\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nSiempre redondea la amplitud hacia arriba, nunca hacia abajo: si redondearas 17,762.5 a 17,000, las 8 clases cubrirían solo 136,000 de los 142,100 del rango y algunos datos quedarían fuera de la tabla. Con 18,000 sobra un poco, y eso está bien. Ver más trucos →\n\n\n\n\nPaso 4 — Límites de clase\n\n\nCode\ninicio &lt;- floor(min(precios) / 1000) * 1000   # arrancamos en un millar cerrado\nlimites &lt;- seq(from = inicio, by = amplitud, length.out = k + 1)\nlimites\n\n\n[1]  69000  87000 105000 123000 141000 159000 177000 195000 213000\n\n\nCode\n# Comprobación obligatoria: el último límite debe cubrir el máximo\nmax(limites) &gt;= max(precios)\n\n\n[1] TRUE\n\n\n\n\nPaso 5 — Conteo y tabla de frecuencias completa\n\n\nCode\nclases &lt;- cut(precios, breaks = limites, right = FALSE, include.lowest = TRUE)\n\nf_abs &lt;- as.vector(table(clases))\nmarcas &lt;- (limites[-length(limites)] + limites[-1]) / 2   # marca de clase = punto medio\n\ntabla_sturges &lt;- data.frame(\n  Intervalo          = levels(clases),\n  Marca_clase        = marcas,\n  Frec_absoluta      = f_abs,\n  Frec_acumulada     = cumsum(f_abs),\n  Frec_relativa      = round(f_abs / n, 4),\n  Frec_rel_acumulada = round(cumsum(f_abs) / n, 4)\n)\ntabla_sturges\n\n\n            Intervalo Marca_clase Frec_absoluta Frec_acumulada Frec_relativa\n1   [6.9e+04,8.7e+04)       78000             4              4        0.0312\n2  [8.7e+04,1.05e+05)       96000            15             19        0.1172\n3 [1.05e+05,1.23e+05)      114000            38             57        0.2969\n4 [1.23e+05,1.41e+05)      132000            26             83        0.2031\n5 [1.41e+05,1.59e+05)      150000            27            110        0.2109\n6 [1.59e+05,1.77e+05)      168000            11            121        0.0859\n7 [1.77e+05,1.95e+05)      186000             5            126        0.0391\n8 [1.95e+05,2.13e+05]      204000             2            128        0.0156\n  Frec_rel_acumulada\n1             0.0312\n2             0.1484\n3             0.4453\n4             0.6484\n5             0.8594\n6             0.9453\n7             0.9844\n8             1.0000\n\n\nCode\nsum(tabla_sturges$Frec_absoluta)   # debe dar n = 128\n\n\n[1] 128\n\n\n\n\n\n\n\n\nImportantright = FALSE: el detalle que cambia los conteos\n\n\n\nPor defecto cut() usa intervalos abiertos por la izquierda: \\((a, b]\\). Con right = FALSE los volvemos cerrados por la izquierda: \\([a, b)\\), que es la convención habitual en las tablas de frecuencia de los libros de texto — un dato de exactamente $105,000 entra en la clase \\([105000, 123000)\\) y no en la anterior. Si tu tabla no coincide con la de un compañero, este suele ser el motivo: revísenlo antes de buscar el error en otro lado.\n\n\n\n\nPaso 6 — Dibujar el histograma con esos límites\n\n\nCode\nhist(precios, breaks = limites,\n     main = \"Histograma de precios (regla de Sturges, k = 8)\",\n     xlab = \"Precio ($)\", ylab = \"Frecuencia\",\n     col = \"#004B85\", border = \"white\")\n\n\n\n\n\n\n\n\n\n\nLa clase modal es \\([105{,}000,\\ 123{,}000)\\) con 38 casas — casi el 30% de la muestra. Y mira la columna de frecuencia relativa acumulada: al terminar la cuarta clase ya llevamos el 64.8% de los datos, mientras que las tres últimas clases juntas reúnen apenas el 14%. Esa caída lenta hacia la derecha es la cola larga que vas a reconocer también en el boxplot.\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nAntes de entregar cualquier tabla agrupada, haz estas tres verificaciones: (1) las frecuencias absolutas suman \\(n\\); (2) la última frecuencia relativa acumulada da exactamente 1; (3) el último límite superior es mayor o igual que el máximo de los datos. Si alguna falla, el error está en los pasos 3 o 4. Ver más trucos →",
+    "objectID": "temas/examen-2-resueltos.html#problema-2-espera-del-bus-binomial-diagnóstico",
+    "href": "temas/examen-2-resueltos.html#problema-2-espera-del-bus-binomial-diagnóstico",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Problema 2 — Espera del bus (Binomial + diagnóstico)",
+    "text": "Problema 2 — Espera del bus (Binomial + diagnóstico)\nEnunciado: un estudiante cree que \\(P(\\text{esperar más de 5 min}) = 0.3\\). (a) En 12 viajes: (I) \\(P(X\\le4)\\); (II) \\(P(X&gt;5)\\). (b) En 10 semanas se observan los conteos semanales 3,5,6,2,4,1,0,7,3,2. (I) Calcule media y desviación estándar muestral. (II) Evalúe si el modelo Binomial(12, 0.3) es adecuado.\n\n\nCode\nn &lt;- 12; p &lt;- 0.3\n\n# (a)\np_X_menor_igual_4 &lt;- pbinom(4, n, p)\np_X_mayor_5       &lt;- 1 - pbinom(5, n, p)\nc(p_X_le_4 = p_X_menor_igual_4, p_X_gt_5 = p_X_mayor_5)\n\n\n p_X_le_4  p_X_gt_5 \n0.7236555 0.1178487 \n\n\n\n\nCode\n# (b)(I)\ndatos &lt;- c(3,5,6,2,4,1,0,7,3,2)\n\nmedia_muestral &lt;- mean(datos)\nsd_muestral    &lt;- sd(datos)\n\nmedia_teorica &lt;- n * p\nsd_teorica    &lt;- sqrt(n * p * (1 - p))\n\nc(media_muestral = media_muestral, sd_muestral = sd_muestral,\n  media_teorica = media_teorica, sd_teorica = sd_teorica)\n\n\nmedia_muestral    sd_muestral  media_teorica     sd_teorica \n      3.300000       2.213594       3.600000       1.587451 \n\n\n\n\n\n\n\n\nNote(b)(II) — ¿Es adecuado el modelo?\n\n\n\nLa media muestral (3.3) está razonablemente cerca de la teórica (3.6) — una diferencia de solo 0.3, plausible con apenas 10 semanas de datos. Pero la desviación estándar muestral (2.21) es notablemente mayor que la teórica (1.59), casi 40% más alta. Esto sugiere posible sobredispersión: la variabilidad real es mayor de lo que predice el modelo Binomial(12, 0.3), lo que podría indicar que \\(p\\) no es constante semana a semana (por ejemplo, cambia con el clima o el horario), o que los 12 viajes de una semana no son completamente independientes entre sí. Con solo 10 observaciones, esta discrepancia no es concluyente —podría ser variabilidad muestral—, pero amerita recolectar más datos antes de confiar plenamente en el modelo.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#medidas-de-tendencia-central",
-    "href": "temas/preparacion-examen-1.html#medidas-de-tendencia-central",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "2. Medidas de tendencia central",
-    "text": "2. Medidas de tendencia central\n\nMedia: el promedio aritmético de las observaciones.\nMediana: el valor exactamente en el centro cuando ordenamos los datos de menor a mayor.\nModa: el valor que ocurre con mayor frecuencia en la muestra.\n\n\n\nCode\nmedia &lt;- mean(precios)\nprint(paste(\"La media es:\", round(media, 2)))\n\n\n[1] \"La media es: 130427.34\"\n\n\nCode\nmediana &lt;- median(precios)\nprint(paste(\"La mediana es:\", round(mediana, 2)))\n\n\n[1] \"La mediana es: 125950\"\n\n\nCode\n# R no tiene una función directa para la moda: se construye desde la tabla de frecuencias\ntabla_frecuencias &lt;- table(precios)\nmoda &lt;- names(tabla_frecuencias)[which.max(tabla_frecuencias)]\nprint(paste(\"La moda es:\", moda))\n\n\n[1] \"La moda es: 103200\"\n\n\n\n\n\n\n\n\nImportantCuidado con la moda en variables continuas\n\n\n\nAquí la “moda” que devuelve el código es engañosa: en Price hay 123 valores distintos entre 128 casas, y el valor más repetido aparece solo 2 veces — empatado con otros 4 valores. which.max() devuelve arbitrariamente el primero de esos empates, sin avisarte.\nLa moda es útil en variables discretas con pocos valores (como Bedrooms), no en continuas casi sin repeticiones:\n\n\nCode\ntable(houses$Bedrooms)\n\n\n\n 2  3  4  5 \n30 67 29  2 \n\n\nAquí sí: 3 habitaciones es la moda clara, con 67 de 128 casas. Si en el examen te piden la moda de una variable continua, vale la pena señalar esta limitación en vez de reportar un número sin contexto.\n\n\n\nHistograma con media y mediana superpuestas\n\n\nCode\nhist(precios, col = \"lightblue\",\n     main = \"Precios con media y mediana\",\n     xlab = \"Precio ($)\", ylab = \"Frecuencia\")\n\nabline(v = mean(precios),   col = \"red\",  lwd = 3, lty = 2)\nabline(v = median(precios), col = \"blue\", lwd = 3, lty = 1)\n\nlegend(\"topright\", legend = c(\"Media\", \"Mediana\"),\n       col = c(\"red\", \"blue\"), lty = c(2, 1), lwd = 2)\n\n\n\n\n\n\n\n\n\n\nLa media (≈$130,427) queda a la derecha de la mediana ($125,950). Como aprendiste en el Tema 4, esa es la firma de una distribución sesgada a la derecha: unas pocas casas caras jalan el promedio hacia arriba, mientras la mediana se queda donde está el grueso de los datos.",
+    "objectID": "temas/examen-2-resueltos.html#problema-3-fgm-de-un-dado-de-5-caras",
+    "href": "temas/examen-2-resueltos.html#problema-3-fgm-de-un-dado-de-5-caras",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Problema 3 — FGM de un dado de 5 caras",
+    "text": "Problema 3 — FGM de un dado de 5 caras\nEnunciado: sea \\(X\\) el resultado de un dado justo de 5 caras. (a) Halle la FGM. (b) Calcule \\(E[X]\\), \\(E[X^2]\\) y \\(\\text{Var}(X)\\).\n\n\nCode\nM_dado5 &lt;- function(t) sum(exp(t * 1:5)) / 5\n\nh &lt;- 1e-6\nE_X   &lt;- (M_dado5(h) - M_dado5(-h)) / (2*h)\nE_X2  &lt;- (M_dado5(h) - 2*M_dado5(0) + M_dado5(-h)) / h^2\nVar_X &lt;- E_X2 - E_X^2\n\nc(E_X = E_X, E_X2 = E_X2, Var_X = Var_X)\n\n\n     E_X     E_X2    Var_X \n 3.00000 11.00009  2.00009 \n\n\n\\[M_X(t) = \\frac{e^t+e^{2t}+e^{3t}+e^{4t}+e^{5t}}{5} \\qquad E[X]=3 \\qquad E[X^2]=11 \\qquad \\text{Var}(X)=2\\]",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#medidas-de-dispersión",
-    "href": "temas/preparacion-examen-1.html#medidas-de-dispersión",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "3. Medidas de dispersión",
-    "text": "3. Medidas de dispersión\n\nRango: la diferencia entre el valor más grande y el más pequeño.\nVarianza: el promedio de los cuadrados de las desviaciones respecto a la media.\nDesviación estándar: la raíz cuadrada positiva de la varianza — devuelve la dispersión en las unidades originales.\nCoeficiente de variación: la desviación estándar como porcentaje de la media, para comparar variabilidad relativa.\n\n\n\nCode\nrango &lt;- max(precios) - min(precios)\nprint(paste(\"El rango es:\", rango))\n\n\n[1] \"El rango es: 142100\"\n\n\nCode\nvarianza &lt;- var(precios)\nprint(paste(\"La varianza es:\", round(varianza, 2)))\n\n\n[1] \"La varianza es: 721930821.24\"\n\n\nCode\ndesviacion &lt;- sd(precios)\nprint(paste(\"La desviacion estandar es:\", round(desviacion, 2)))\n\n\n[1] \"La desviacion estandar es: 26868.77\"\n\n\nCode\ncv &lt;- (desviacion / media) * 100\nprint(paste(\"El Coeficiente de Variacion es:\", round(cv, 2), \"%\"))\n\n\n[1] \"El Coeficiente de Variacion es: 20.6 %\"\n\n\n\n\n\n\n\n\nNoteLo que deberías notar\n\n\n\nFíjate en las unidades: la varianza (≈721,930,821) está en dólares al cuadrado, una unidad sin interpretación práctica. Por eso casi siempre se reporta la desviación estándar (≈$26,869, en dólares) y no la varianza. El CV (≈20.6%) no tiene unidades en absoluto, que es justo lo que lo hace comparable entre variables distintas.",
+    "objectID": "temas/examen-2-resueltos.html#problema-1-fgm-de-una-variable-aleatoria-discreta",
+    "href": "temas/examen-2-resueltos.html#problema-1-fgm-de-una-variable-aleatoria-discreta",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Problema 1 — FGM de una variable aleatoria discreta",
+    "text": "Problema 1 — FGM de una variable aleatoria discreta\nEnunciado: \\(X\\) toma valores 2, 4, 6, 8 con igual probabilidad. (a) Halle la FGM. (b) Calcule \\(E[X]\\), \\(E[X^2]\\) y \\(\\text{Var}(X)\\).\n\n\nCode\nM_X &lt;- function(t) sum(exp(t * c(2,4,6,8))) / 4\n\nh &lt;- 1e-6\nE_X   &lt;- (M_X(h) - M_X(-h)) / (2*h)\nE_X2  &lt;- (M_X(h) - 2*M_X(0) + M_X(-h)) / h^2\nVar_X &lt;- E_X2 - E_X^2\n\nc(E_X = E_X, E_X2 = E_X2, Var_X = Var_X)\n\n\n      E_X      E_X2     Var_X \n 5.000000 30.000002  5.000002 \n\n\n\\[M_X(t) = \\frac{e^{2t}+e^{4t}+e^{6t}+e^{8t}}{4} \\qquad E[X]=5 \\qquad E[X^2]=30 \\qquad \\text{Var}(X)=5\\]\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\n\\(X=2Z\\) donde \\(Z\\in\\{1,2,3,4\\}\\) es un dado de 4 caras. Nota que \\(E[X]=5=2\\times2.5=2\\,E[Z]\\) y \\(\\text{Var}(X)=5=4\\times1.25=2^2\\,\\text{Var}(Z)\\) — exactamente las propiedades de transformaciones lineales que viste en el Tema 5 del Módulo 1 (\\(E[aZ]=aE[Z]\\), \\(\\text{Var}(aZ)=a^2\\text{Var}(Z)\\)), ahora confirmadas también vía FGM. Ver más trucos →",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#cuantiles-y-boxplot",
-    "href": "temas/preparacion-examen-1.html#cuantiles-y-boxplot",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "4. Cuantiles y boxplot",
-    "text": "4. Cuantiles y boxplot\nLos cuantiles dividen los datos en partes iguales. Los más usados son los cuartiles, que separan los datos en cuatro partes (25%, 50%, 75%).\n\n\nCode\ncuantiles &lt;- quantile(precios)\nprint(cuantiles)\n\n\n    0%    25%    50%    75%   100% \n 69100 111325 125950 148250 211200 \n\n\n\n\n\n\n\n\nImportant¿Por qué descr() y quantile() dan cuartiles distintos?\n\n\n\nSi comparas esta salida con la de descr() al inicio de la guía, vas a notar algo raro: quantile() reporta \\(Q_1 =\\) $111,325 y \\(Q_3 =\\) $148,250, mientras que descr() reporta $111,250 y $148,600. Ninguno está mal.\nCuando \\(n\\) no es divisible de forma exacta, el cuartil cae “entre” dos observaciones y hay que interpolar — y existen nueve métodos de interpolación distintos, todos legítimos. quantile() de R base usa el tipo 7 por defecto; summarytools usa otro. Con \\(n = 128\\) la diferencia es de unos pocos cientos de dólares, irrelevante para cualquier interpretación práctica, pero conviene saber de dónde viene.\nQué hacer en el examen: usa quantile() (el método por defecto de R base) salvo que te pidan otra cosa, y si comparas resultados con un compañero y difieren un poco, revisa primero si usaron funciones distintas antes de asumir que alguien se equivocó. Puedes ver los otros métodos con quantile(precios, type = 6), por ejemplo.\n\n\nEl boxplot encierra el rango intercuartílico (el 50% central de los datos) en una caja que contiene la mediana, y extiende “bigotes” hacia los valores extremos:\n\n\nCode\nboxplot(precios,\n        main = \"Boxplot de precios de vivienda\",\n        col = \"lightgreen\",\n        ylab = \"Precio ($)\",\n        horizontal = TRUE)   # horizontal facilita la lectura\n\n\n\n\n\n\n\n\n\n\n\\(Q_1 =\\) $111,325, \\(Q_2 =\\) $125,950 y \\(Q_3 =\\) $148,250, así que el RIC \\(=\\) $36,925. Las vallas quedan en $55,937.5 y $203,637.5 — y hay exactamente una casa por encima de la valla superior (la casa 104, de $211,200), que R dibuja como punto aislado. Es un atípico real de este dataset, no un artefacto.",
+    "objectID": "temas/examen-2-resueltos.html#problema-2-retraso-del-transporte-binomial-diagnóstico",
+    "href": "temas/examen-2-resueltos.html#problema-2-retraso-del-transporte-binomial-diagnóstico",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Problema 2 — Retraso del transporte (Binomial + diagnóstico)",
+    "text": "Problema 2 — Retraso del transporte (Binomial + diagnóstico)\nEnunciado: un sistema de transporte tiene probabilidad 0.35 de un retraso mayor a 4 minutos. (a) En 15 viajes: (I) \\(P(X\\le5)\\); (II) \\(P(X&gt;6)\\). (b) En 12 semanas se observan los conteos 5,4,6,3,2,7,1,0,4,3,5,2. (I) Media y desviación estándar. (II) Analice si el modelo binomial es adecuado.\n\n\nCode\nn &lt;- 15; p &lt;- 0.35\n\np_X_menor_igual_5 &lt;- pbinom(5, n, p)\np_X_mayor_6       &lt;- 1 - pbinom(6, n, p)\nc(p_X_le_5 = p_X_menor_igual_5, p_X_gt_6 = p_X_mayor_6)\n\n\n p_X_le_5  p_X_gt_6 \n0.5642821 0.2451575 \n\n\n\n\nCode\ndatos &lt;- c(5,4,6,3,2,7,1,0,4,3,5,2)\n\nmedia_muestral &lt;- mean(datos)\nsd_muestral    &lt;- sd(datos)\nmedia_teorica  &lt;- n * p\nsd_teorica     &lt;- sqrt(n * p * (1 - p))\n\nc(media_muestral = media_muestral, sd_muestral = sd_muestral,\n  media_teorica = media_teorica, sd_teorica = sd_teorica)\n\n\nmedia_muestral    sd_muestral  media_teorica     sd_teorica \n      3.500000       2.067058       5.250000       1.847295 \n\n\n\n\n\n\n\n\nNote¿Es adecuado el modelo?\n\n\n\nAquí el diagnóstico es distinto al de la Versión A: la desviación estándar muestral (2.07) está razonablemente cerca de la teórica (1.85), pero la media muestral (3.5) es notablemente menor que la teórica (5.25) — casi 33% más baja. Esto apunta a que el valor asumido \\(p=0.35\\) probablemente sobreestima la probabilidad real de retraso: la proporción empírica implícita en los datos es \\(\\hat p = \\bar{x}/n = 3.5/15\\approx0.233\\), bastante menor que 0.35. La recomendación práctica: reestimar \\(p\\) a partir de los datos observados en vez de asumir el valor original, y volver a evaluar el modelo con el \\(p\\) actualizado.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#análisis-conjunto-del-histograma-y-el-boxplot-a-las-conclusiones",
-    "href": "temas/preparacion-examen-1.html#análisis-conjunto-del-histograma-y-el-boxplot-a-las-conclusiones",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "5. Análisis conjunto: del histograma y el boxplot a las conclusiones",
-    "text": "5. Análisis conjunto: del histograma y el boxplot a las conclusiones\nConviene mirar ambas gráficas juntas, porque cuentan historias complementarias:\n\nForma general vs. resumen exacto. El histograma es ideal para ver la forma de la distribución (campana, asimétrica, con varios picos). Pero agrupa los datos en barras, lo que hace perder el detalle exacto de dónde están los cuartiles.\nDetección de valores atípicos. El boxplot esconde los picos (las modas), pero es la herramienta perfecta para identificar de inmediato la mediana, la dispersión exacta del 50% central, y sobre todo, los valores extremos representados como puntos aislados fuera de los bigotes.\n\nEn resumen: usa el histograma para entender cómo se agrupan las masas de datos a simple vista, y el boxplot para un análisis de dispersión riguroso y para detectar anomalías.\n\nLas dos gráficas, lado a lado\n\n\nCode\npar(mfrow = c(2, 1), mar = c(4, 4, 3, 2))\n\nhist(precios, breaks = limites,\n     main = \"Histograma\", xlab = \"\", ylab = \"Frecuencia\",\n     col = \"#004B85\", border = \"white\")\n\nboxplot(precios, horizontal = TRUE, col = \"lightgreen\",\n        main = \"Boxplot\", xlab = \"Precio ($)\")\n\n\n\n\n\n\n\n\n\nCode\npar(mfrow = c(1, 1))\n\n\n\n\n\n\n\n\nNoteLo que deberías notar\n\n\n\nAl alinear las dos gráficas en el mismo eje horizontal, la correspondencia salta a la vista: el pico del histograma cae justo dentro de la caja, y la cola larga de la derecha del histograma es exactamente la región donde el boxplot dibuja su bigote largo y el punto atípico.\n\n\n\n\n🧭 Marco de 5 pasos para redactar la conclusión\n\n\n\n\n\n\nImportantCómo usar este marco\n\n\n\nEn el examen rara vez basta con “el histograma está sesgado”. Se espera una lectura que conecte la gráfica con los números y con el contexto. Sigue estos 5 pasos en orden y tendrás un análisis completo, sin olvidar nada.\n\n\nPaso 1 — Forma (mira el histograma). ¿Simétrica, sesgada a la derecha o a la izquierda? ¿Un solo pico (unimodal) o varios? La evidencia numérica que respalda esto es el coeficiente de asimetría y la comparación media-vs-mediana.\nPaso 2 — Centro (mira el boxplot y las medidas). ¿Dónde está el “valor típico”? Y sobre todo: ¿media o mediana? Si hay sesgo o atípicos, la mediana es la referencia honesta.\nPaso 3 — Dispersión (mira el ancho de la caja). ¿Qué tan concentrados están los datos? Reporta el RIC (robusto) y/o la desviación estándar, y usa el CV si necesitas comparar contra otra variable en otras unidades.\nPaso 4 — Atípicos (mira los puntos sueltos del boxplot). ¿Existen? ¿En qué extremo? ¿Cuántos? Nunca digas que “hay que eliminarlos”: lo correcto es señalarlos e indicar que deben investigarse.\nPaso 5 — Interpretación en contexto. Traduce todo lo anterior al lenguaje del problema. Esta es la parte que más puntos vale y la que más se olvida.\n\n\nEjemplo de conclusión bien redactada\n\n\n\n\n\n\nTipVer cómo se aplica el marco a los precios de vivienda\n\n\n\n\n\nForma. La distribución de precios es unimodal y sesgada a la derecha. El histograma muestra la clase modal en \\([105{,}000,\\ 123{,}000)\\) con 38 de las 128 casas, y una cola que se extiende hacia los precios altos. Lo confirman los números: la asimetría es positiva (≈0.46) y la media ($130,427) supera a la mediana ($125,950).\nCentro. El precio típico ronda los $125,950 (mediana). Se prefiere la mediana sobre la media porque el sesgo y la presencia de un atípico superior inflan el promedio: reportar $130,427 daría una idea algo optimista del mercado.\nDispersión. El 50% central de las casas se concentra entre $111,325 y $148,250, es decir, un RIC de $36,925. La desviación estándar es de $26,869 y el coeficiente de variación de 20.6%, una dispersión moderada.\nAtípicos. Hay un solo valor atípico, por encima de la valla superior ($203,637.5): la casa de $211,200. No hay atípicos en el extremo inferior. Al tratarse de un único caso y de una magnitud plausible para una vivienda, lo razonable es conservarlo y verificar sus características (área, barrio) antes de tomar cualquier decisión sobre él.\nInterpretación en contexto. El mercado de esta muestra está dominado por vivienda de rango medio-bajo: casi dos tercios de las casas cuestan menos de $141,000, y el segmento premium es marginal. Para alguien que fija precios, la mediana ($125,950) es mejor referencia de “precio de mercado” que el promedio, y el RIC indica que una casa que se salga del rango $111,000–$148,000 debería justificar su precio con características diferenciadoras.\n\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nCuando el histograma y el boxplot parecen contradecirse, casi siempre gana el histograma en lo que respecta a la forma, y el boxplot en lo que respecta a atípicos y cuartiles. El caso clásico: una distribución bimodal (dos picos) puede producir un boxplot de aspecto perfectamente simétrico y aburrido — por eso nunca concluyas sobre la forma mirando solo la caja. Ver más trucos →\n\n\n\n\n\n\n\n\nImportantErrores frecuentes en el análisis (evítalos)\n\n\n\n\nDescribir sin interpretar. “La media es 130,427” no es una conclusión; “el precio promedio supera al típico porque unas pocas casas caras lo empujan” sí lo es.\nUsar la media cuando hay sesgo fuerte, sin mencionar siquiera que la mediana existe.\nLlamar “error” a todo atípico. Un atípico es un dato que se sale del patrón; puede ser un error de registro o un caso real y valioso.\nConfundir la valla con el bigote al describir el boxplot (repasa el Paso 7 del Tema 6).\nConcluir sobre la forma usando solo el boxplot — no distingue unimodal de bimodal.\nOlvidar el contexto. Los números sin unidades ni interpretación práctica valen la mitad.",
+    "objectID": "temas/examen-2-resueltos.html#problema-3-solicitudes-de-una-empresa-poisson",
+    "href": "temas/examen-2-resueltos.html#problema-3-solicitudes-de-una-empresa-poisson",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Problema 3 — Solicitudes de una empresa (Poisson)",
+    "text": "Problema 3 — Solicitudes de una empresa (Poisson)\nEnunciado: una empresa recibe solicitudes a razón de 1.8 por hora. (a) Probabilidad de exactamente 5 solicitudes en 2 horas. (b) Probabilidad de más de 20 solicitudes en 10 horas. (c) En 80 días: (I) media y desviación estándar del número de días críticos; (II) estime \\(P(W\\ge5)\\) con las dos aproximaciones; (III) compare y justifique cuál es mejor.\n\n\nCode\ntasa &lt;- 1.8   # por hora\n\n# (a)\nlambda_2h &lt;- tasa * 2\ndpois(5, lambda_2h)\n\n\n[1] 0.1376801\n\n\nCode\n# (b)\nlambda_10h &lt;- tasa * 10\np_dia_critico &lt;- 1 - ppois(20, lambda_10h)\np_dia_critico\n\n\n[1] 0.2692798\n\n\n\n\nCode\n# (c)(I)\nn_dias &lt;- 80\np &lt;- p_dia_critico\n\nmu &lt;- n_dias * p\nsigma &lt;- sqrt(n_dias * p * (1 - p))\nc(np = n_dias*p, n1p = n_dias*(1-p), mu = mu, sigma = sigma)\n\n\n      np      n1p       mu    sigma \n21.54239 58.45761 21.54239  3.96755 \n\n\n\n\nCode\n# (c)(II)\nlambda_w &lt;- n_dias * p\naprox_poisson &lt;- 1 - ppois(4, lambda_w)\naprox_normal  &lt;- 1 - pnorm(4.5, mu, sigma)\nexacto        &lt;- 1 - pbinom(4, n_dias, p)\n\nc(exacto = exacto, aprox_poisson = aprox_poisson, aprox_normal = aprox_normal)\n\n\n       exacto aprox_poisson  aprox_normal \n    0.9999996     0.9999952     0.9999913 \n\n\n\n(c)(III): aquí \\(p_{\\text{día}}\\approx0.269\\) no es “rara” — \\(np=21.5\\) y \\(n(1-p)=58.5\\) son ambos grandes, terreno típico de la normal, no de la Poisson (que rinde mejor con \\(p\\) chico). Con \\(W\\ge5\\) tan por debajo de la media (21.5), las tres cantidades son prácticamente 1 (≈0.99999) y no permiten distinguir cuál aproximación es mejor en este caso particular — un buen recordatorio de que, para discriminar entre aproximaciones, conviene evaluar en una región donde la probabilidad no esté saturada cerca de 0 o 1 (como si hiciste en la Versión A).",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#tema-1-variables-cuantitativas-discretas-vs.-continuas",
-    "href": "temas/preparacion-examen-1.html#tema-1-variables-cuantitativas-discretas-vs.-continuas",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "Tema 1 · Variables cuantitativas: discretas vs. continuas",
-    "text": "Tema 1 · Variables cuantitativas: discretas vs. continuas\nPregunta: en una planta de envasado, el gerente registra diariamente dos datos: el volumen exacto de líquido introducido en cada botella, y la cantidad de botellas con la tapa mal colocada por cada lote. ¿Cómo se clasifican estas dos variables y por qué es fundamental diferenciarlas?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\n\nVolumen de líquido (continua): es el resultado de una medición y, teóricamente, puede tomar cualquier valor dentro de un intervalo (2.001 litros, 2.0015 litros…), dependiendo de la precisión del instrumento.\nCantidad de botellas defectuosas (discreta): resulta de un conteo. Solo puede tomar valores enteros (0, 1, 2, 3 botellas) y hay “saltos” entre sus posibles valores.\nPor qué importa: la distinción define el tratamiento matemático posterior. Las variables discretas usan sumas (funciones de masa de probabilidad); las continuas usan integrales y cálculo (funciones de densidad) — algo que verás en detalle en el Módulo 2.\n\nConexión con este dataset: Bedrooms y Offers son discretas (conteos); Price y SqFt son continuas (mediciones).",
+    "objectID": "temas/examen-2-resueltos.html#ejercicio-reconstruir-una-distribución-a-partir-de-sus-momentos",
+    "href": "temas/examen-2-resueltos.html#ejercicio-reconstruir-una-distribución-a-partir-de-sus-momentos",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Ejercicio — Reconstruir una distribución a partir de sus momentos",
+    "text": "Ejercicio — Reconstruir una distribución a partir de sus momentos\nEnunciado: \\(X\\) toma los valores \\(x_1=1\\), \\(x_2=3\\), \\(x_3=5\\) con probabilidad positiva. Si \\(E(X)=3.5\\) y \\(\\text{Var}(X)=1.15\\), determine (si es posible) la distribución de \\(X\\).\n\nTienes 3 incógnitas (\\(p_1,p_2,p_3\\)) y necesitas 3 ecuaciones para resolverlas. ¿Cuáles tres condiciones conoces?\n\n\n\nCode\n# Sistema de 3 ecuaciones, 3 incógnitas:\n#  p1 + p2 + p3 = 1\n#  1*p1 + 3*p2 + 5*p3 = E[X] = 3.5\n#  1*p1 + 9*p2 + 25*p3 = E[X^2] = Var(X) + E[X]^2 = 1.15 + 3.5^2\n\nA &lt;- matrix(c(1,1,1,\n              1,3,5,\n              1,9,25), nrow = 3, byrow = TRUE)\nb &lt;- c(1, 3.5, 1.15 + 3.5^2)\n\nsolve(A, b)\n\n\n[1] 0.05 0.65 0.30\n\n\n\n\\(p_1=0.05\\), \\(p_2=0.65\\), \\(p_3=0.30\\) — las tres son probabilidades válidas (positivas, suman 1), así que la distribución sí existe y es única: \\(P(X=1)=0.05\\), \\(P(X=3)=0.65\\), \\(P(X=5)=0.30\\).\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nNo siempre existe una solución válida: si el sistema arrojara alguna probabilidad negativa o mayor a 1, la conclusión correcta sería que no existe una variable aleatoria con esos valores y esos momentos — es una verificación de consistencia, no una garantía automática. Ver más trucos →",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#tema-2-tendencia-central-y-valores-atípicos",
-    "href": "temas/preparacion-examen-1.html#tema-2-tendencia-central-y-valores-atípicos",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "Tema 2 · Tendencia central y valores atípicos",
-    "text": "Tema 2 · Tendencia central y valores atípicos\nPregunta: en una empresa de 10 personas, nueve empleados ganan entre $40,000 y $50,000 anuales. El décimo es el CEO, que gana $500,000. Si se quiere publicar una cifra que represente el “salario típico” para atraer nuevos empleados, ¿se debe usar la media o la mediana?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nSe debe usar la mediana.\n\nLa media aritmética es muy sensible a valores extremos. El salario de $500,000 jalaría el promedio drásticamente hacia arriba, distorsionando la realidad de la empresa y dando una cifra irreal para un nuevo empleado.\nLa mediana, al ser el valor que divide la muestra ordenada exactamente a la mitad, no se ve afectada por valores extremos. Es una medida robusta, y reflejaría fielmente el centro de los salarios de los empleados regulares.\n\nConexión con este dataset: es el mismo fenómeno, más suave, que ya viste arriba — la casa de $211,200 empuja la media de Price por encima de la mediana.",
+    "objectID": "temas/examen-2-resueltos.html#ejercicio-genética-y-binomial",
+    "href": "temas/examen-2-resueltos.html#ejercicio-genética-y-binomial",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Ejercicio — Genética y binomial",
+    "text": "Ejercicio — Genética y binomial\nEnunciado: el color de ojos se determina por un gen dominante (café) y uno recesivo (azul). Si el hijo mayor de una pareja de ojos cafés tiene ojos azules, ¿cuál es la probabilidad de que exactamente 2 de los otros 4 hijos también tengan ojos azules?\n\nQue el primer hijo tenga ojos azules revela que ambos padres son heterocigotos (cada uno tiene un gen café y uno azul) — de otra forma, un hijo de ojos azules sería imposible. Con ambos padres heterocigotos, cada hijo nuevo tiene \\(P(\\text{ojos azules})=1/4\\) (necesita heredar el gen azul de ambos), independiente entre hermanos.\n\n\n\nCode\nn &lt;- 4; p &lt;- 1/4   # los otros 4 hijos, cada uno con P(azul) = 1/4\n\ndbinom(2, n, p)\n\n\n[1] 0.2109375\n\n\n\\(P(\\text{exactamente 2 de 4}) \\approx 0.2109\\).",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#tema-3-dispersión-y-toma-de-decisiones-en-ingeniería",
-    "href": "temas/preparacion-examen-1.html#tema-3-dispersión-y-toma-de-decisiones-en-ingeniería",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "Tema 3 · Dispersión y toma de decisiones en ingeniería",
-    "text": "Tema 3 · Dispersión y toma de decisiones en ingeniería\nPregunta: debe comprar cables de acero para un puente. El Proveedor X ofrece cables con resistencia media de 10,000 kg y desviación estándar de 20 kg. El Proveedor Y ofrece la misma resistencia media de 10,000 kg, pero con desviación estándar de 500 kg. ¿Cuál elegir y por qué?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nSe debe elegir al Proveedor X.\nLa desviación estándar mide qué tan dispersos están los datos alrededor del promedio.\n\nEl Proveedor Y tiene alta variabilidad (500 kg): el comportamiento de sus cables es inconsistente. Aunque el promedio sea bueno, un cable individual podría resistir muy por debajo de los 10,000 kg — inaceptable para la seguridad de un puente.\nEl Proveedor X tiene baja variabilidad (20 kg): sus productos son mucho más uniformes, predecibles y confiables.\n\nLa lección de fondo: dos distribuciones con la misma media pueden implicar riesgos completamente distintos. En decisiones de seguridad, la dispersión suele importar más que el promedio.",
+    "objectID": "temas/examen-2-resueltos.html#ejercicio-fgm-de-una-geométrica",
+    "href": "temas/examen-2-resueltos.html#ejercicio-fgm-de-una-geométrica",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "Ejercicio — FGM de una geométrica",
+    "text": "Ejercicio — FGM de una geométrica\nEnunciado: \\(N\\) toma valores en \\(\\{0,1,2,\\dots\\}\\) con \\(P(N=n)=\\dfrac{2}{3^{n+1}}\\). (a) Calcule \\(P(N=0)\\). (b) Halle la FGM. (c) Úsela para calcular \\(E(N)\\) y \\(\\text{Var}(N)\\).\n\n\nCode\n# (a)\np_N0 &lt;- 2/3\np_N0\n\n\n[1] 0.6666667\n\n\nCode\n# (b) y (c): FGM en forma cerrada, sumando la serie geométrica\n# M(t) = sum_{n=0}^inf e^(tn) * 2/3^(n+1) = (2/3) / (1 - e^t/3) = 2/(3-e^t), para t &lt; ln(3)\nM &lt;- function(t) 2 / (3 - exp(t))\n\nh &lt;- 1e-6\nE_N   &lt;- (M(h) - M(-h)) / (2*h)\nE_N2  &lt;- (M(h) - 2*M(0) + M(-h)) / h^2\nVar_N &lt;- E_N2 - E_N^2\n\nc(E_N = E_N, Var_N = Var_N)\n\n\n      E_N     Var_N \n0.5000000 0.7498669 \n\n\n\n\n\n\n\n\nNoteIdentificando la distribución\n\n\n\n\\(P(N=n)=\\frac{2}{3}\\left(\\frac{1}{3}\\right)^n\\) es exactamente la forma \\(p(1-p)^n\\) de una geométrica que cuenta fracasos antes del primer éxito, con \\(p=2/3\\). Sus fórmulas conocidas, \\(E[N]=\\frac{1-p}{p}\\) y \\(\\text{Var}(N)=\\frac{1-p}{p^2}\\), dan \\(E[N]=0.5\\) y \\(\\text{Var}(N)=0.75\\) — coincide exactamente con la derivación numérica de la FGM.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#tema-4-medidas-de-posición-relativa-percentiles",
-    "href": "temas/preparacion-examen-1.html#tema-4-medidas-de-posición-relativa-percentiles",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "Tema 4 · Medidas de posición relativa (percentiles)",
-    "text": "Tema 4 · Medidas de posición relativa (percentiles)\nPregunta: una estudiante obtuvo 720 puntos en un examen estandarizado nacional, y le informan que su calificación está en el “Percentil 85”. ¿Cómo se interpreta correctamente ese resultado?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nLos percentiles dividen los datos ordenados en cien partes iguales, y sirven para conocer la posición relativa de una observación.\nEstar en el Percentil 85 significa que la calificación de 720 puntos es mayor a la puntuación obtenida por el 85% de todas las personas que presentaron el examen. Indica un alto rendimiento: solo el 15% restante obtuvo una calificación superior.\nError común a evitar: el percentil 85 no significa “sacó 85 puntos” ni “acertó el 85% de las preguntas” — se refiere a su posición frente a los demás, no a su puntaje absoluto.",
+    "objectID": "temas/examen-2-resueltos.html#cierre",
+    "href": "temas/examen-2-resueltos.html#cierre",
+    "title": "Exámenes resueltos · Versiones A y B",
+    "section": "🗂️ Cierre",
+    "text": "🗂️ Cierre\n\n\nLos dos exámenes comparten estructura pero difieren en números: reconocer el patrón (Poisson con escalamiento → días críticos → comparar aproximaciones; Binomial → diagnóstico con datos reales; FGM → momentos) importa más que memorizar una respuesta puntual.\nEl diagnóstico “¿es adecuado el modelo?” no tiene una sola respuesta correcta: en la Versión A la señal estaba en la varianza (sobredispersión); en la Versión B estaba en la media (el \\(p\\) asumido parecía demasiado alto). Aprende a mirar ambos momentos, no solo uno.\nCuando quieras comparar aproximaciones (Poisson vs. Normal), elige una probabilidad que no esté saturada cerca de 0 o 1 — si no, todas las aproximaciones coinciden trivialmente y no aprendes cuál es mejor.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Exámenes resueltos · Versiones A y B"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#tema-5-interpretación-de-boxplots-y-asimetría",
-    "href": "temas/preparacion-examen-1.html#tema-5-interpretación-de-boxplots-y-asimetría",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
-    "section": "Tema 5 · Interpretación de boxplots y asimetría",
-    "text": "Tema 5 · Interpretación de boxplots y asimetría\nPregunta: al comparar dos procesos de manufactura con diagramas de caja, se observa que (1) el Proceso A tiene una caja muy ancha, la mediana desplazada hacia el lado izquierdo de la caja, y el bigote derecho muy largo; (2) el Proceso B tiene una caja muy estrecha, la mediana centrada, pero muestra tres asteriscos aislados por encima del bigote superior. Describa la variabilidad y simetría de cada proceso.\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nProceso A: presenta alta variabilidad (caja ancha = rango intercuartílico grande). La distribución está fuertemente sesgada a la derecha (asimetría positiva), lo cual se evidencia por dos señales que apuntan en la misma dirección: la mediana no está en el centro sino a la izquierda, y el bigote derecho es prolongado — hay datos dispersos hacia valores altos.\nProceso B: es un proceso altamente simétrico y consistente: el 50% central se concentra en una caja muy estrecha y la mediana está centrada. Los asteriscos son valores atípicos: eventos aislados que se salen del patrón general y deben investigarse individualmente (errores o fallas puntuales), pero que no cambian el hecho de que el cuerpo principal del proceso es estable.\nLa lección: un proceso puede tener atípicos y aun así ser más confiable que otro sin ellos. La presencia de outliers no es, por sí sola, evidencia de un proceso malo.",
+    "objectID": "temas/modulo-2-arquitectura.html",
+    "href": "temas/modulo-2-arquitectura.html",
+    "title": "Módulo 2 · Probabilidad — Arquitectura",
+    "section": "",
+    "text": "El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salto: ¿cómo se modela lo que todavía no ha ocurrido? Esta arquitectura está construida directamente sobre los Laboratorios 2 y 3 reales del curso.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Módulo 2 · Probabilidad — Arquitectura"
     ]
   },
   {
-    "objectID": "temas/preparacion-examen-1.html#autoevaluación-final",
-    "href": "temas/preparacion-examen-1.html#autoevaluación-final",
-    "title": "Preparación del Examen 1 · Guía práctica de análisis estadístico en R",
+    "objectID": "temas/modulo-2-arquitectura.html#de-describir-datos-a-modelar-incertidumbre",
+    "href": "temas/modulo-2-arquitectura.html#de-describir-datos-a-modelar-incertidumbre",
+    "title": "Módulo 2 · Probabilidad — Arquitectura",
+    "section": "",
+    "text": "El Módulo 1 te enseñó a resumir datos que ya existen. El Módulo 2 da el salto: ¿cómo se modela lo que todavía no ha ocurrido? Esta arquitectura está construida directamente sobre los Laboratorios 2 y 3 reales del curso.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Módulo 2 · Probabilidad — Arquitectura"
+    ]
+  },
+  {
+    "objectID": "temas/modulo-2-arquitectura.html#mapa-de-temas",
+    "href": "temas/modulo-2-arquitectura.html#mapa-de-temas",
+    "title": "Módulo 2 · Probabilidad — Arquitectura",
+    "section": "Mapa de temas",
+    "text": "Mapa de temas\n\n\n\n\n\n\n\n\nTema\nTítulo\nBasado en (fuente real)\n\n\n\n\nP1\nReglas básicas de probabilidad\nLaboratorio 2, Bloque 1\n\n\nP2\nProbabilidad condicional y regla multiplicativa\nLaboratorio 2, Bloque 2\n\n\nP3\nProbabilidad total y Teorema de Bayes\nLaboratorio 2, Bloque 2\n\n\nP4\nIndependencia de eventos\nLaboratorio 2, Bloque 2\n\n\nP5\nVariables aleatorias y función de distribución acumulada\nLaboratorio 2, Bloque 3\n\n\nP6a\nConteo: permutaciones y combinaciones\nOrigen de la fórmula binomial\n\n\nP6\nDistribución Binomial y ensayos de Bernoulli\nLaboratorio 2, Bloque 4\n\n\nP6b\nDistribución de Poisson\nLaboratorio 2, Bloque 4\n\n\nP6c\nAproximación normal a la binomial\nPrograma del curso, sesión 9\n\n\nP6d\nFunción generadora de momentos (FGM)\nPrograma del curso, sesión 10\n\n\nP7\nDistribuciones continuas: Uniforme y Normal\nLaboratorio 2, Bloque 5\n\n\nP8\nDistribución de probabilidad multivariada\nLaboratorio 3, Bloque 1\n\n\nP9\nCovarianza y correlación de variables aleatorias\nLaboratorio 3, Bloque 2\n\n\nP10\nFunciones de variables aleatorias y simulación de sistemas\nLaboratorio 3, Bloque 3",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Módulo 2 · Probabilidad — Arquitectura"
+    ]
+  },
+  {
+    "objectID": "temas/modulo-2-arquitectura.html#detalle-por-tema",
+    "href": "temas/modulo-2-arquitectura.html#detalle-por-tema",
+    "title": "Módulo 2 · Probabilidad — Arquitectura",
+    "section": "Detalle por tema",
+    "text": "Detalle por tema\n\nP1 — Reglas básicasP2 — Probabilidad condicionalP3 — Probabilidad total y BayesP4 — IndependenciaP5 — Variables aleatorias y FDAP6a — Conteo: permutaciones y combinacionesP6 — Distribución Binomial y ensayos de BernoulliP6b — Distribución de PoissonP6c — Aproximación normal a la binomialP6d — Función generadora de momentos (FGM)P7 — Uniforme y NormalP8 — Distribución multivariadaP9 — Covarianza y correlación de v.a.P10 — Funciones de variables aleatorias\n\n\nObjetivo: aplicar axiomas de probabilidad, regla de adición, complemento y diferencia simétrica. Motivación real (Laboratorio 2): ¿cuál es la probabilidad de obtener un número par al lanzar un dado? Simular 1000 lanzamientos y comparar con la probabilidad teórica. Estado: ✅ construido — ir al tema\n\n\nObjetivo: calcular \\(P(A|B)\\) y aplicar la regla multiplicativa en un contexto de ingeniería. Motivación real: sistema de refrigeración con dos componentes (compresor, condensador) — ¿cuál es la probabilidad de que el condensador falle dado que el compresor ya falló? Estado: ✅ construido — ir al tema\n\n\nObjetivo: calcular probabilidades a posteriori combinando información de varias fuentes. Motivación real: una fábrica con 3 líneas de ensamblaje, cada una con su propia tasa de defectos — ¿cuál es la probabilidad de que un producto elegido al azar sea defectuoso? Y el caso clásico de Bayes: dado que un producto causó una queja, ¿qué tan probable es que fuera defectuoso? Estado: ✅ construido — ir al tema\n\n\nObjetivo: verificar independencia de eventos comparando \\(P(A\\cap B)\\) contra \\(P(A)\\cdot P(B)\\). Motivación real: ¿son independientes dos eventos con \\(P(A)=0.4\\), \\(P(B)=0.5\\), \\(P(A\\cap B)=0.2\\)? Estado: ✅ construido — ir al tema\n\n\nObjetivo: construir la función de distribución acumulada empírica y compararla con una FDA teórica (exponencial). Motivación real: tiempos de resistencia de materiales — ordenar, acumular frecuencias, calcular valor esperado y varianza; y la FDA teórica de una distribución exponencial \\(f(x)=\\lambda e^{-\\lambda x}\\). Estado: ✅ construido — ir al tema\n\n\nObjetivo: que el estudiante entienda de dónde sale el número combinatorio de la fórmula binomial, contando secuencias a mano antes de ver la fórmula. Motivación real: enumerar las 32 secuencias de 5 lanzamientos y descubrir que 10 de ellas tienen exactamente 2 caras — es decir, \\(\\binom{5}{2}\\). Estado: ✅ construido — ir al tema\n\n\nObjetivo: presentar la binomial como suma de \\(n\\) ensayos de Bernoulli independientes, de donde salen \\(\\mu=np\\) y \\(\\sigma^2=np(1-p)\\); y enfatizar las cuatro condiciones BINS que deben cumplirse para poder aplicarla. Motivación real: control de calidad con 5% de piezas defectuosas, y cuatro casos para decidir si la binomial aplica o no (incluye muestreo sin reemplazo, donde falla la independencia). Estado: ✅ construido — ir al tema\n\n\nObjetivo: modelar conteos de eventos en un intervalo continuo; la firma \\(\\mu=\\sigma^2=\\lambda\\), el escalamiento de \\(\\lambda\\) con el intervalo, y el límite binomial → Poisson. Motivación real: los datos históricos de von Bortkiewicz (1898) sobre muertes por coz de caballo en el ejército prusiano, más ejemplos de servicios, manufactura, texto, fenómenos naturales y deportes. Estado: ✅ construido — ir al tema\n\n\nObjetivo: el teorema de De Moivre-Laplace (\\(\\text{Binomial}(n,p)\\approx N(np, np(1-p))\\) para \\(n\\) grande), la regla práctica \\(np\\ge5\\) y \\(n(1-p)\\ge5\\), y la corrección de continuidad — con un caso explícito donde la aproximación falla y hay que usar Poisson en su lugar. Motivación real: una encuesta electoral con 150 votantes y 60% de apoyo — calcular \\(P(X\\ge100)\\) sin sumar 51 términos de la binomial a mano. Estado: ✅ construido — ir al tema\n\n\nObjetivo: definir \\(M_X(t)=E[e^{tX}]\\), extraer momentos derivando en \\(t=0\\), construir la tabla de FGM de las distribuciones ya vistas, y usar las dos propiedades clave (unicidad, FGM de una suma = producto de FGM) para demostrar — no solo observar por simulación — que la suma de Poisson independientes es Poisson y que la suma de Binomiales independientes con el mismo \\(p\\) es Binomial. Motivación real: ¿qué distribución tiene la suma de dos variables aleatorias independientes, sin convolucionar sus distribuciones directamente? Estado: ✅ construido — ir al tema\n\n\nObjetivo: estimar media/varianza de una uniforme continua por simulación; calcular probabilidades, percentiles e intervalos con la normal. Motivación real: puntuaciones de satisfacción de usuario ~ N(7, 1.5²) — ¿qué percentil corresponde a una puntuación de 8.5? Estado: ✅ construido — ir al tema\n\n\nObjetivo: construir una función de probabilidad conjunta, obtener marginales y condicionales, verificar independencia. Motivación real (Laboratorio 3): tres monedas lanzadas, con una variable de apuesta ligada al resultado — ¿son independientes el número de caras y las ganancias? Estado: ✅ construido — ir al tema\n\n\nObjetivo: simular variables correlacionadas con MASS::mvrnorm() y verificar la matriz de covarianza/correlación resultante. Motivación real: sistema de producción con demanda, tiempo y costo correlacionados — evaluación de riesgo. Estado: ✅ construido — ir al tema, conecta directamente con el Tema 8 del Módulo 1.\n\n\nObjetivo: simular sistemas completos (tiempos de falla exponenciales, fuerzas combinadas, portafolios de inversión) y comparar resultados simulados contra los teóricos. Motivación real: ¿cuál de dos componentes falla primero, si sus tiempos de falla son exponenciales con tasas distintas? Estado: ✅ construido — ir al tema\n\n\n\n\n\n\n\n\n\nTipPor qué este orden\n\n\n\nSigue exactamente la progresión de los laboratorios reales: reglas → condicional → total/Bayes → independencia → variables aleatorias → distribuciones discretas → continuas → multivariado → covarianza → simulación de sistemas. Es la misma escalera de dificultad que ya evaluó el curso en semestres anteriores.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Módulo 2 · Probabilidad — Arquitectura"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html",
+    "href": "temas/preparacion-examen-2.html",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "",
+    "text": "Esta guía recorre en orden los cuatro temas del Taller 2 — binomial, Poisson, aproximación normal a la binomial, y función generadora de momentos — con la teoría mínima que necesitas tener fresca, un ejemplo resuelto por tema, y los errores donde más se pierden puntos. No reemplaza los Temas P6-P6d ni el Taller 2 · Práctica evaluativa: es el repaso integrado para el día antes del examen.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#los-cuatro-criterios-en-una-sola-pasada",
+    "href": "temas/preparacion-examen-2.html#los-cuatro-criterios-en-una-sola-pasada",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "",
+    "text": "Esta guía recorre en orden los cuatro temas del Taller 2 — binomial, Poisson, aproximación normal a la binomial, y función generadora de momentos — con la teoría mínima que necesitas tener fresca, un ejemplo resuelto por tema, y los errores donde más se pierden puntos. No reemplaza los Temas P6-P6d ni el Taller 2 · Práctica evaluativa: es el repaso integrado para el día antes del examen.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#distribución-binomial",
+    "href": "temas/preparacion-examen-2.html#distribución-binomial",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "1. Distribución binomial",
+    "text": "1. Distribución binomial\nCuándo aplica — las condiciones BINS:\n\n\n\n\n\n\n\nCondición\nQué exige\n\n\n\n\nBinaria\nCada ensayo tiene solo dos resultados posibles (éxito/fracaso)\n\n\nIndependencia\nEl resultado de un ensayo no afecta a los demás\n\n\nNúmero fijo\nEl número de ensayos \\(n\\) está fijado de antemano\n\n\nSame \\(p\\)\nLa probabilidad de éxito \\(p\\) es la misma en todos los ensayos\n\n\n\n\\[P(X=k) = \\binom{n}{k}p^k(1-p)^{n-k} \\qquad \\mu=np \\qquad \\sigma^2=np(1-p)\\]\n\n\nCode\nn &lt;- 20; p &lt;- 0.15   # ejemplo rápido: 20 componentes, 15% de tasa de falla\n\ndbinom(3, n, p)          # P(X = 3)\n\n\n[1] 0.2428289\n\n\nCode\npbinom(3, n, p)          # P(X &lt;= 3)\n\n\n[1] 0.6477252\n\n\nCode\n1 - pbinom(3, n, p)      # P(X &gt; 3)\n\n\n[1] 0.3522748\n\n\n\n\n\n\n\n\nImportantDónde se pierden puntos\n\n\n\n\nMuestreo sin reemplazo de una población pequeña rompe la independencia. Si sacas piezas de una caja de 10 sin reponerlas, la probabilidad de éxito cambia en cada extracción — ahí no aplica la binomial (aplica la hipergeométrica, fuera del alcance de este curso, pero identifícalo como “no binomial” en el examen si te lo preguntan).\nConfundir “al menos \\(k\\)” con “más de \\(k\\)”. \\(P(X\\ge k) = 1-P(X\\le k-1)\\), mientras que \\(P(X&gt;k)=1-P(X\\le k)\\). Un solo valor de diferencia en el índice cambia la respuesta.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#distribución-poisson",
+    "href": "temas/preparacion-examen-2.html#distribución-poisson",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "2. Distribución Poisson",
+    "text": "2. Distribución Poisson\nCuándo aplica: conteo de eventos en un intervalo continuo (tiempo, área, longitud), con tasa \\(\\lambda\\) aproximadamente constante, eventos independientes y no simultáneos — no hay un “número de ensayos” que contar.\n\\[P(X=k) = \\frac{e^{-\\lambda}\\lambda^k}{k!} \\qquad \\mu=\\sigma^2=\\lambda\\]\n\n\nCode\nlambda_por_hora &lt;- 5\ndpois(3, lambda_por_hora)              # P(X = 3) en 1 hora\n\n\n[1] 0.1403739\n\n\nCode\n1 - ppois(7, lambda_por_hora * 1.5)    # P(X &gt; 7) en 1.5 horas: lambda se reescala\n\n\n[1] 0.4753615\n\n\n\n\n\n\n\n\nImportantDónde se pierden puntos\n\n\n\n\nNo reescalar \\(\\lambda\\) al intervalo de la pregunta. Es, con diferencia, el error más común: si la tasa es por hora y preguntan por 90 minutos, hay que usar \\(\\lambda\\times1.5\\), no \\(\\lambda\\) tal cual.\nUsar Poisson en un evento “espera hasta que…” en vez de “cuántos ocurren”. Poisson cuenta ocurrencias; el tiempo entre ocurrencias es Exponencial (Tema P6d, Laboratorio 3).",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#aproximación-normal-a-la-binomial",
+    "href": "temas/preparacion-examen-2.html#aproximación-normal-a-la-binomial",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "3. Aproximación normal a la binomial",
+    "text": "3. Aproximación normal a la binomial\nCuándo aplica: \\(X\\sim\\text{Binomial}(n,p)\\) con \\(np\\ge5\\) y \\(n(1-p)\\ge5\\).\n\\[X\\overset{aprox}{\\sim} N(np,\\ np(1-p))\\]\n\n\nCode\nn &lt;- 250; p &lt;- 0.42\nmu &lt;- n * p; sigma &lt;- sqrt(n * p * (1 - p))\nc(np = n*p, n1p = n*(1-p))   # verificar la regla antes de continuar\n\n\n np n1p \n105 145 \n\n\nCode\n# P(X &lt;= 110), con corrección de continuidad\npnorm(110.5, mu, sigma)\n\n\n[1] 0.7595267\n\n\n\n\n\n\n\n\nImportantDónde se pierden puntos\n\n\n\n\nOlvidar la corrección de continuidad. La binomial es discreta; la normal es continua. Sin el \\(\\pm0.5\\), el resultado se aleja del valor exacto — revisa la tabla completa de las 5 variantes en el Tema P6c si no la recuerdas de memoria.\nUsar la normal cuando \\(np&lt;5\\). Ahí la distribución está “pegada” a un extremo y la aproximación falla — en ese caso usa Poisson con \\(\\lambda=np\\) (Tema P6c tiene un ejemplo numérico explícito de este fallo).",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#función-generadora-de-momentos-fgm",
+    "href": "temas/preparacion-examen-2.html#función-generadora-de-momentos-fgm",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "4. Función generadora de momentos (FGM)",
+    "text": "4. Función generadora de momentos (FGM)\nDefinición y para qué sirve:\n\\[M_X(t)=E[e^{tX}] \\qquad M_X'(0)=E[X] \\qquad M_X''(0)=E[X^2]\\]\nLas dos propiedades que hacen falta en el examen: 1. Unicidad: misma FGM ⟹ misma distribución. 2. Suma de independientes: \\(M_{X+Y}(t)=M_X(t)\\cdot M_Y(t)\\).\n\n\nCode\n# Ejemplo: FGM de una Poisson(lambda) y extracción numérica de E[X]\nlambda &lt;- 6\nM &lt;- function(t) exp(lambda * (exp(t) - 1))\nh &lt;- 1e-6\n(M(h) - M(-h)) / (2*h)   # debería dar ~6 = lambda = E[X]\n\n\n[1] 6\n\n\n\n\n\n\n\n\nImportantDónde se pierden puntos\n\n\n\n\nOlvidar evaluar en \\(t=0\\). La derivada de \\(M_X(t)\\) es una función de \\(t\\); el momento es su valor específicamente en \\(t=0\\), no la derivada en abstracto.\nUsar la propiedad de la suma sin verificar independencia. La igualdad \\(M_{X+Y}(t)=M_X(t)M_Y(t)\\) solo es válida si \\(X\\) y \\(Y\\) son independientes — sin eso, no hay atajo.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#marco-de-decisión-cuál-técnica-uso",
+    "href": "temas/preparacion-examen-2.html#marco-de-decisión-cuál-técnica-uso",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "5. Marco de decisión: ¿cuál técnica uso?",
+    "text": "5. Marco de decisión: ¿cuál técnica uso?\n\n\nCode\npar(mar = c(1,1,3,1))\nplot.new()\nplot.window(xlim = c(0,10), ylim = c(0,10))\ntext(5, 9.5, \"¿Hay un número fijo de ensayos n?\", cex = 0.9, font = 2)\ntext(2, 7.5, \"SÍ\", col = \"#004B85\", font = 2)\ntext(8, 7.5, \"NO\", col = \"#D9534F\", font = 2)\ntext(2, 6, \"Binomial(n,p)\", cex = 0.85)\ntext(8, 6, \"Poisson(λ)\", cex = 0.85)\ntext(2, 4.5, \"¿np≥5 y n(1-p)≥5?\", cex = 0.8)\ntext(0.8, 3, \"SÍ →\\nNormal\\n(más simple)\", cex = 0.75, col = \"#004B85\")\ntext(3.2, 3, \"NO →\\nBinomial\\nexacta\", cex = 0.75, col = \"#D9534F\")\narrows(5, 9.2, 2, 7.9, length = 0.08)\narrows(5, 9.2, 8, 7.9, length = 0.08)\narrows(2, 5.7, 2, 4.8, length = 0.08)\narrows(2, 4.2, 0.8, 3.5, length = 0.06)\narrows(2, 4.2, 3.2, 3.5, length = 0.06)\n\n\n\n\n\n\n\n\nFigure 1: Árbol de decisión: binomial exacta, Poisson, o normal\n\n\n\n\n\n\n\n\n\n\n\n\nSituación\nHerramienta\n\n\n\n\n\\(n\\) fijo, \\(np\\) y \\(n(1-p)\\) chicos (&lt; 5)\nBinomial exacta (dbinom/pbinom)\n\n\n\\(n\\) fijo, \\(np\\ge5\\) y \\(n(1-p)\\ge5\\)\nNormal (más simple, casi igual de precisa)\n\n\nNo hay \\(n\\) fijo, hay tasa \\(\\lambda\\) por intervalo\nPoisson (dpois/ppois)\n\n\nNecesitas la distribución de una suma de independientes\nFGM: multiplica, reconoce la forma\n\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nCuando el enunciado dice “de \\(n\\) artículos, ¿cuántos…?” casi siempre es binomial (o su aproximación normal). Cuando dice “¿cuántos… por hora/día/metro?” sin mencionar un total de intentos, casi siempre es Poisson. Practica identificar la palabra clave antes de escribir cualquier fórmula. Ver más trucos →",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#pregunta-1-binomial-e-independencia",
+    "href": "temas/preparacion-examen-2.html#pregunta-1-binomial-e-independencia",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "Pregunta 1 · Binomial e independencia",
+    "text": "Pregunta 1 · Binomial e independencia\nPregunta: un control de calidad extrae 5 piezas, sin reemplazo, de una caja que tiene 8 piezas en total (3 defectuosas). ¿Por qué no es correcto modelar el número de piezas defectuosas extraídas con una distribución binomial?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nLa binomial exige que \\(p\\) (la probabilidad de éxito) sea la misma en cada ensayo, lo cual requiere independencia entre extracciones. Al no reponer las piezas, la composición de la caja cambia después de cada extracción: si la primera pieza sacada es defectuosa, quedan 2 defectuosas en 7, así que \\(p\\) ya no es \\(3/8\\) para la segunda extracción. Este es un muestreo hipergeométrico, no binomial — la distinción importa porque usar la fórmula equivocada da probabilidades sistemáticamente erróneas, más notorio cuanto más pequeña es la población de origen respecto al tamaño de la muestra.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#pregunta-2-poisson-y-el-escalamiento-de-λ",
+    "href": "temas/preparacion-examen-2.html#pregunta-2-poisson-y-el-escalamiento-de-λ",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "Pregunta 2 · Poisson y el escalamiento de λ",
+    "text": "Pregunta 2 · Poisson y el escalamiento de λ\nPregunta: un estudiante calcula la probabilidad de “más de 3 llamadas en 30 minutos” usando \\(\\lambda=8\\) (la tasa por hora), sin ajustarla. ¿Qué error cometió y cómo se corrige?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nUsó el \\(\\lambda\\) del intervalo equivocado. La tasa de 8 llamadas por hora corresponde a un intervalo de 60 minutos; la pregunta es sobre 30 minutos, la mitad del intervalo. Como \\(\\lambda\\) escala linealmente con el tamaño del intervalo (\\(X_t\\sim\\text{Poisson}(\\lambda\\cdot t)\\)), el valor correcto para 30 minutos es \\(\\lambda=8\\times0.5=4\\), no 8. Usar el \\(\\lambda\\) sin ajustar sobreestima sistemáticamente la probabilidad de conteos altos, porque implícitamente está asumiendo el doble del tiempo real.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#pregunta-3-por-qué-existe-la-corrección-de-continuidad",
+    "href": "temas/preparacion-examen-2.html#pregunta-3-por-qué-existe-la-corrección-de-continuidad",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "Pregunta 3 · Por qué existe la corrección de continuidad",
+    "text": "Pregunta 3 · Por qué existe la corrección de continuidad\nPregunta: explique, en sus propias palabras, por qué es necesaria la corrección de continuidad al aproximar una binomial con una normal, y qué pasaría si se omite sistemáticamente en un examen.\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nLa binomial es una distribución discreta — solo toma valores enteros — mientras que la normal es continua y asigna probabilidad cero a cualquier punto exacto (\\(P(Y=k)=0\\) para la normal, siempre). Sin la corrección, \\(P(X=k)\\) no tendría análogo directo en la normal, y los cálculos de \\(P(X\\le k)\\) o \\(P(X\\ge k)\\) estarían sistemáticamente desplazados en 0.5 unidades respecto al valor real. La corrección “reparte” el intervalo \\([k-0.5, k+0.5]\\) alrededor de cada entero para imitar cómo la binomial distribuye su masa de probabilidad. Omitirla no arruina completamente el resultado (la aproximación segue siendo del orden correcto), pero introduce un sesgo sistemático que crece en importancia cuando \\(n\\) es moderado o cuando el intervalo de interés es angosto.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#pregunta-4-por-qué-la-unicidad-de-la-fgm-es-tan-útil",
+    "href": "temas/preparacion-examen-2.html#pregunta-4-por-qué-la-unicidad-de-la-fgm-es-tan-útil",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "Pregunta 4 · Por qué la unicidad de la FGM es tan útil",
+    "text": "Pregunta 4 · Por qué la unicidad de la FGM es tan útil\nPregunta: ¿por qué el hecho de que “misma FGM implica misma distribución” es tan poderoso para encontrar la distribución de una suma de variables aleatorias?\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\nSin la FGM, encontrar la distribución exacta de \\(X+Y\\) requiere convolucionar las funciones de probabilidad (sumar, para cada valor posible de la suma, todas las combinaciones de \\(X\\) y \\(Y\\) que lo producen) — un procedimiento tedioso y propenso a errores, especialmente si \\(X\\) o \\(Y\\) pueden tomar muchos valores. La FGM convierte ese problema en álgebra de exponentes: multiplicar \\(M_X(t)\\cdot M_Y(t)\\) es mucho más simple que convolucionar. Si el producto resulta tener la forma de una FGM conocida (por ejemplo, la forma de una Poisson o de una Binomial), la propiedad de unicidad garantiza —sin necesidad de ninguna otra verificación— que \\(X+Y\\) sigue exactamente esa distribución. Es el mismo principio que usaste en el Tema P6d para demostrar que la suma de Poisson independientes es Poisson.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#pregunta-5-síntesis-elegir-la-herramienta-correcta",
+    "href": "temas/preparacion-examen-2.html#pregunta-5-síntesis-elegir-la-herramienta-correcta",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
+    "section": "Pregunta 5 · Síntesis: elegir la herramienta correcta",
+    "text": "Pregunta 5 · Síntesis: elegir la herramienta correcta\nPregunta: una aerolínea vende 2,000 tiquetes para un vuelo, sabiendo que hay una probabilidad de 0.001 de que cualquier pasajero individual no se presente (“no-show”), independientemente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Justifique con los criterios correspondientes.\n\n\n\n\n\n\nTipVer respuesta\n\n\n\n\n\n\n\nCode\nn &lt;- 2000; p &lt;- 0.001\nc(np = n*p, n1p = n*(1-p))\n\n\n  np  n1p \n   2 1998 \n\n\n\\(np=2\\), muy por debajo del umbral de 5 requerido para la aproximación normal — no se debe usar la normal aquí, a pesar de que \\(n\\) es grande. Con \\(n\\) grande, \\(p\\) chico, y \\(np\\) moderado, las condiciones apuntan directamente a la aproximación Poisson con \\(\\lambda=np=2\\): es exactamente el mismo patrón de “evento raro en una muestra grande” que viste en el Tema P6b (mutaciones celulares) y en el Tema P6c (donde \\(np\\) pequeño hacía fallar a la normal). La binomial exacta con \\(n=2000\\) también daría la respuesta correcta, pero computacionalmente la Poisson es una aproximación excelente y mucho más simple de trabajar a mano.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
+    ]
+  },
+  {
+    "objectID": "temas/preparacion-examen-2.html#autoevaluación-final",
+    "href": "temas/preparacion-examen-2.html#autoevaluación-final",
+    "title": "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM",
     "section": "✅ Autoevaluación final",
-    "text": "✅ Autoevaluación final\nAntes del examen, comprueba que puedes hacer todo esto sin mirar la guía:\n\nCargar un CSV y producir un resumen tabular completo de una variable cuantitativa.\nConstruir a mano la tabla de frecuencias agrupada con la regla de Sturges: rango, \\(k\\), amplitud, límites, marcas de clase y las cuatro columnas de frecuencias — y verificar que sumen \\(n\\).\nConstruir un histograma y explicar qué muestra que un boxplot no muestra (y viceversa).\nCalcular media, mediana y moda — y decir cuándo cada una es la medida apropiada.\nCalcular rango, varianza, desviación estándar y CV — y explicar por qué el CV permite comparar variables en unidades distintas.\nCalcular los cuartiles, el RIC y las vallas, e identificar valores atípicos justificando el criterio.\nVer un boxplot y describir en palabras su variabilidad, simetría y atípicos.\nRedactar una conclusión completa siguiendo los 5 pasos: forma → centro → dispersión → atípicos → interpretación en contexto.\nClasificar cualquier variable como nominal, ordinal, discreta o continua, con justificación.\n\n\n\n\n\n\n\nNoteSiguiente paso\n\n\n\nSi algún punto de la lista te costó, vuelve al Tema correspondiente del Módulo 1 antes del examen — cada punto de arriba corresponde directamente a un Tema (1 y 3 → Temas 2-3, 2 → Tema 3, 4 → Tema 4, 5 → Tema 5, 6 y 7 → Tema 6, 8 → sección 5 de esta guía, 9 → Tema 1).",
+    "text": "✅ Autoevaluación final\nAntes del examen, comprueba que puedes hacer todo esto sin mirar la guía:\n\nEnunciar las 4 condiciones BINS y decidir si un escenario dado las cumple.\nCalcular \\(P(X=k)\\), \\(P(X\\le k)\\), \\(P(X\\ge k)\\) para una binomial, sin confundir los índices.\nReconocer cuándo un problema es Poisson (vs. binomial) y ajustar \\(\\lambda\\) al intervalo correcto de la pregunta.\nVerificar \\(np\\ge5\\) y \\(n(1-p)\\ge5\\) antes de aplicar la aproximación normal, y aplicar la corrección de continuidad correcta según el tipo de desigualdad.\nExplicar por qué la aproximación normal falla cuando \\(np&lt;5\\), y qué alternativa usar.\nEscribir la FGM de las 5 distribuciones de la tabla (Bernoulli, Binomial, Poisson, Exponencial, Normal) y extraer \\(E[X]\\) derivando.\nUsar el producto de FGM para identificar la distribución de una suma de variables independientes.\nElegir, para un escenario nuevo, entre binomial exacta / Poisson / normal, justificando con los criterios de \\(np\\) y \\(n(1-p)\\).\n\n\n\n\n\n\n\nNoteSiguiente paso\n\n\n\nSi algún punto te costó, vuelve al Tema correspondiente: 1-2 → Tema P6, 3 → Tema P6b, 4-5 → Tema P6c, 6-7 → Tema P6d, 8 → esta guía, sección 5. Después practica con Taller 2 · Práctica evaluativa.",
     "crumbs": [
       "Inicio",
-      "Módulo 1 — Estadística descriptiva",
-      "Preparación del Examen 1 · Guía práctica de análisis estadístico en R"
+      "Módulo 2 — Probabilidad",
+      "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"
     ]
   },
   {
@@ -4005,6 +4617,102 @@
       "Inicio",
       "Módulo 2 — Probabilidad",
       "Tema P6b · Distribución de Poisson"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html",
+    "href": "temas/tema-p6d-estudiante.html",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "",
+    "text": "Ya sabes calcular \\(E[X]\\) y \\(\\text{Var}(X)\\) sumando o integrando directamente (Temas P5-P6c). Pero hay una pregunta más difícil: si \\(X\\) y \\(Y\\) son independientes, ¿qué distribución tiene \\(X+Y\\)? Sumar directamente las funciones de probabilidad (la “convolución”) es tedioso. La función generadora de momentos (FGM) resuelve esto de una forma casi mágica: convierte la pregunta “¿qué distribución tiene la suma?” en “¿qué pasa si multiplico dos funciones?” — mucho más fácil.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html#una-sola-función-que-contiene-todos-los-momentos",
+    "href": "temas/tema-p6d-estudiante.html#una-sola-función-que-contiene-todos-los-momentos",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "",
+    "text": "Ya sabes calcular \\(E[X]\\) y \\(\\text{Var}(X)\\) sumando o integrando directamente (Temas P5-P6c). Pero hay una pregunta más difícil: si \\(X\\) y \\(Y\\) son independientes, ¿qué distribución tiene \\(X+Y\\)? Sumar directamente las funciones de probabilidad (la “convolución”) es tedioso. La función generadora de momentos (FGM) resuelve esto de una forma casi mágica: convierte la pregunta “¿qué distribución tiene la suma?” en “¿qué pasa si multiplico dos funciones?” — mucho más fácil.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html#exploremos-momentos-a-partir-de-una-función",
+    "href": "temas/tema-p6d-estudiante.html#exploremos-momentos-a-partir-de-una-función",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "🔬 Exploremos: momentos a partir de una función",
+    "text": "🔬 Exploremos: momentos a partir de una función\nPara un dado de 6 caras, la función generadora de momentos es:\n\\[M_X(t) = E[e^{tX}] = \\sum_{k=1}^{6} e^{tk}\\cdot\\frac{1}{6} = \\frac{e^t+e^{2t}+e^{3t}+e^{4t}+e^{5t}+e^{6t}}{6}\\]\n\n\nCode\nM_dado &lt;- function(t) sum(exp(t * 1:6)) / 6\n\n# Aproximar la derivada en t=0 con diferencias finitas (h muy chico)\nh &lt;- 1e-5\nderivada1 &lt;- (M_dado(h) - M_dado(-h)) / (2*h)\nderivada2 &lt;- (M_dado(h) - 2*M_dado(0) + M_dado(-h)) / h^2\n\nc(M_prima_0 = derivada1, M_biprima_0 = derivada2)\n\n\n  M_prima_0 M_biprima_0 \n    3.50000    15.16667 \n\n\n\nM_prima_0 ≈ 3.5 — exactamente \\(E[X]\\) de un dado. M_biprima_0 ≈ 15.17 — exactamente \\(E[X^2]\\). Sin sumar \\(x\\cdot P(X=x)\\) directamente, derivar la FGM y evaluar en \\(t=0\\) reproduce los mismos números. Eso es lo que significa “generadora de momentos”.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html#ahora-sí-la-teoría",
+    "href": "temas/tema-p6d-estudiante.html#ahora-sí-la-teoría",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "📖 Ahora sí, la teoría",
+    "text": "📖 Ahora sí, la teoría\n\n1. Definición2. Cómo extraer los momentos3. FGM de las distribuciones que ya conoces4. Las dos propiedades que hacen valiosa a la FGM\n\n\n\\[M_X(t) = E[e^{tX}] = \\begin{cases}\\displaystyle\\sum_x e^{tx}\\,P(X=x) & \\text{si } X \\text{ es discreta}\\\\[6pt] \\displaystyle\\int_{-\\infty}^{\\infty} e^{tx}\\,f(x)\\,dx & \\text{si } X \\text{ es continua}\\end{cases}\\]\nEs el valor esperado de una nueva variable, \\(e^{tX}\\), vista como función de \\(t\\).\n\n\nDerivando \\(M_X(t)\\) respecto a \\(t\\) y evaluando en \\(t=0\\):\n\\[M_X'(0) = E[X] \\qquad M_X''(0) = E[X^2] \\qquad M_X^{(k)}(0) = E[X^k]\\]\n¿Por qué funciona? Expande \\(e^{tX}\\) en su serie de Taylor: \\(e^{tX}=1+tX+\\dfrac{t^2X^2}{2!}+\\dfrac{t^3X^3}{3!}+\\cdots\\). Tomando esperanza término a término:\n\\[M_X(t) = 1 + t\\,E[X] + \\frac{t^2}{2!}E[X^2] + \\frac{t^3}{3!}E[X^3]+\\cdots\\]\nLos momentos \\(E[X^k]\\) son literalmente los coeficientes de esa serie (multiplicados por \\(k!\\)) — derivar \\(k\\) veces y evaluar en \\(t=0\\) simplemente “extrae” el coeficiente de \\(t^k\\).\n\n\n\n\n\n\n\n\n\n\n\nDistribución\n\\(M_X(t)\\)\n\\(E[X]\\)\n\\(\\text{Var}(X)\\)\n\n\n\n\nBernoulli(\\(p\\))\n\\(1-p+pe^t\\)\n\\(p\\)\n\\(p(1-p)\\)\n\n\nBinomial(\\(n,p\\))\n\\((1-p+pe^t)^n\\)\n\\(np\\)\n\\(np(1-p)\\)\n\n\nPoisson(\\(\\lambda\\))\n\\(e^{\\lambda(e^t-1)}\\)\n\\(\\lambda\\)\n\\(\\lambda\\)\n\n\nExponencial(\\(\\lambda\\))\n\\(\\dfrac{\\lambda}{\\lambda-t}\\), \\(t&lt;\\lambda\\)\n\\(1/\\lambda\\)\n\\(1/\\lambda^2\\)\n\n\nNormal(\\(\\mu,\\sigma^2\\))\n\\(e^{\\mu t+\\sigma^2t^2/2}\\)\n\\(\\mu\\)\n\\(\\sigma^2\\)\n\n\n\nTodas verificadas derivando dos veces y evaluando en \\(t=0\\) — es exactamente el mismo procedimiento del dado, aplicado a cada fórmula (lo repites tú mismo en el Laboratorio).\n\n\n(a) Unicidad. Si dos variables aleatorias tienen la misma FGM (en un intervalo alrededor de \\(t=0\\)), tienen exactamente la misma distribución. La FGM es como una huella digital: no hay dos distribuciones distintas con la misma FGM.\n(b) FGM de una suma de independientes = producto de las FGM. Si \\(X\\) y \\(Y\\) son independientes:\n\\[M_{X+Y}(t) = E[e^{t(X+Y)}] = E[e^{tX}\\cdot e^{tY}] = E[e^{tX}]\\cdot E[e^{tY}] = M_X(t)\\cdot M_Y(t)\\]\n(el tercer paso usa independencia: la esperanza de un producto de independientes es el producto de las esperanzas — Tema P10).\nCombinando (a) y (b): si multiplicas dos FGM y el resultado tiene la forma de una FGM conocida, ya sabes la distribución de la suma — sin convolucionar nada.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html#ejemplo-con-datos-reales-demostrando-dos-resultados-ya-usados",
+    "href": "temas/tema-p6d-estudiante.html#ejemplo-con-datos-reales-demostrando-dos-resultados-ya-usados",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "🧪 Ejemplo con datos reales: demostrando dos resultados ya usados",
+    "text": "🧪 Ejemplo con datos reales: demostrando dos resultados ya usados\nCaso 1 — Suma de Poisson independientes. En el Tema P6b usaste, sin demostrarlo, que la suma de Poisson independientes es Poisson. Ahora lo demostramos:\n\n\nCode\n# Sympy no está disponible en R base para álgebra simbólica,\n# así que verificamos numéricamente en varios valores de t\n# que M_X(t) * M_Y(t) coincide con la FGM de Poisson(lambda1+lambda2)\n\nlambda1 &lt;- 2.5; lambda2 &lt;- 1.5\n\nM_poisson &lt;- function(t, lambda) exp(lambda * (exp(t) - 1))\n\nt_vals &lt;- seq(-1, 1, by = 0.25)\nproducto      &lt;- M_poisson(t_vals, lambda1) * M_poisson(t_vals, lambda2)\nfgm_suma_teorica &lt;- M_poisson(t_vals, lambda1 + lambda2)\n\nmax(abs(producto - fgm_suma_teorica))   # debe ser ~0\n\n\n[1] 1.136868e-13\n\n\n\nLa diferencia máxima es esencialmente cero (error de redondeo de punto flotante): \\(M_X(t)\\cdot M_Y(t) = e^{\\lambda_1(e^t-1)}\\cdot e^{\\lambda_2(e^t-1)} = e^{(\\lambda_1+\\lambda_2)(e^t-1)}\\), que es exactamente la FGM de una \\(\\text{Poisson}(\\lambda_1+\\lambda_2)\\). Por la propiedad de unicidad, \\(X+Y\\sim\\text{Poisson}(\\lambda_1+\\lambda_2)\\) — demostrado, no solo observado por simulación como en el Tema P6b.\n\nCaso 2 — Suma de Binomiales independientes con el mismo \\(p\\). ¿\\(\\text{Binomial}(n_1,p)+\\text{Binomial}(n_2,p)\\) es Binomial?\n\n\nCode\nn1 &lt;- 10; n2 &lt;- 15; p &lt;- 0.3\n\nM_binom &lt;- function(t, n, p) (1 - p + p * exp(t))^n\n\nproducto2  &lt;- M_binom(t_vals, n1, p) * M_binom(t_vals, n2, p)\nfgm_target &lt;- M_binom(t_vals, n1 + n2, p)\n\nmax(abs(producto2 - fgm_target))   # debe ser ~0\n\n\n[1] 2.775558e-17\n\n\n\n\nCode\n# Verificación independiente por convolución de las distribuciones exactas\npmf1 &lt;- dbinom(0:n1, n1, p)\npmf2 &lt;- dbinom(0:n2, n2, p)\nconvolucion &lt;- convolve(pmf1, rev(pmf2), type = \"open\")   # distribución exacta de la suma\npmf_directa &lt;- dbinom(0:(n1+n2), n1 + n2, p)\n\nmax(abs(convolucion - pmf_directa))   # debe ser ~0 también aquí\n\n\n[1] 8.326673e-17\n\n\n\n\n\n\n\n\nImportantDos formas de llegar al mismo resultado\n\n\n\nEl primer chunk lo prueba con FGM (álgebra: el producto tiene la forma de una FGM Binomial). El segundo lo verifica por fuerza bruta, convolucionando las distribuciones exactas. Ambos caminos coinciden: \\(\\text{Binomial}(10,0.3)+\\text{Binomial}(15,0.3) = \\text{Binomial}(25,0.3)\\) cuando ambas comparten el mismo \\(p\\) y son independientes. La convolución es el método “directo” pero pesado; la FGM llega a la misma respuesta con álgebra de exponentes.\n\n\n\n\n\n\n\n\nTip💡 Truco de interpretación\n\n\n\nLa propiedad de la suma exige independencia y, para reconocer la forma final, generalmente exige que ambas variables sean de la misma familia con el mismo parámetro auxiliar (el mismo \\(p\\) en la Binomial, la misma tasa base en otros casos). Si mezclas familias distintas —por ejemplo, una Exponencial más otra Exponencial con tasas diferentes— el producto de FGM sigue siendo válido, pero el resultado ya no tiene la forma de una Exponencial simple (es una Gamma; lo viste de pasada en el Ítem 47 del Laboratorio complementario). Ver más trucos →",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html#laboratorio",
+    "href": "temas/tema-p6d-estudiante.html#laboratorio",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "🧑‍🔬 Laboratorio",
+    "text": "🧑‍🔬 Laboratorio\n\nVerificar la tabla. Elige dos filas de la tabla de FGM de la sección de teoría (por ejemplo, Poisson y Exponencial) y, en R, deriva numéricamente (como en la sección “Exploremos”) para confirmar que \\(M'(0)\\) y \\(M''(0)\\) coinciden con \\(E[X]\\) y \\(E[X^2]=\\text{Var}(X)+E[X]^2\\) de esa distribución.\nBernoulli desde cero. Escribe la FGM de una Bernoulli(\\(p\\)) directamente desde la definición (\\(M(t)=\\sum_x e^{tx}P(X=x)\\), con solo dos términos: \\(x=0\\) y \\(x=1\\)). Deriva a mano y confirma \\(E[X]=p\\).\nIndependencia, sin la cual nada de esto funciona. Repite el “Caso 2” del ejemplo pero con \\(p_1\\ne p_2\\) (por ejemplo, \\(n_1=10,p_1=0.3\\) y \\(n_2=15,p_2=0.5\\)). Calcula el producto de las FGM y compáralo contra la FGM de \\(\\text{Binomial}(25, \\bar{p})\\) para cualquier \\(\\bar p\\) razonable que se te ocurra. ¿Coincide para algún valor? ¿Qué te dice esto sobre la condición “mismo \\(p\\)” de la propiedad?\nReto: normal + normal. Si \\(X\\sim N(\\mu_1,\\sigma_1^2)\\) y \\(Y\\sim N(\\mu_2,\\sigma_2^2)\\) son independientes, usa la fórmula de la FGM normal de la tabla para multiplicar \\(M_X(t)\\cdot M_Y(t)\\) y verifica (en R, numéricamente, como en el ejemplo) que el resultado es la FGM de \\(N(\\mu_1+\\mu_2,\\ \\sigma_1^2+\\sigma_2^2)\\).",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html#ejercicios-autocorregibles",
+    "href": "temas/tema-p6d-estudiante.html#ejercicios-autocorregibles",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "✅ Ejercicios autocorregibles",
+    "text": "✅ Ejercicios autocorregibles\n\nEjercicio 1 — Completa el código\n# FGM de una Poisson(lambda=4): calcular E[X] derivando numéricamente en t=0\nM &lt;- function(t) exp(4 * (exp(t) - 1))\nh &lt;- 1e-5\nE_X &lt;- (M(h) - M(-h)) / ___\nE_X\n\n\nVer respuesta\n\n(2*h) — es la fórmula de la derivada por diferencias finitas centradas: \\(M'(0)\\approx\\dfrac{M(h)-M(-h)}{2h}\\). El resultado debe salir muy cerca de 4, que es \\(E[X]=\\lambda\\) para una Poisson(4).\n\n\n\nEjercicio 2 — Completa el código\n# ¿La suma de dos Exponenciales independientes con tasas distintas es Exponencial?\n# Multiplica sus FGM y compara la forma con la FGM exponencial de la tabla\nlambda1 &lt;- 3; lambda2 &lt;- 7\nM_exp &lt;- function(t, lam) lam / (lam - t)\nproducto &lt;- function(t) M_exp(t, lambda1) * M_exp(t, lambda2)\n# ¿Tiene la forma lambda/(lambda - t) para algún lambda único? responde \"si\" o \"no\"\nrespuesta &lt;- \"___\"\n\n\nVer respuesta\n\n\"no\" — el producto \\(\\dfrac{\\lambda_1}{\\lambda_1-t}\\cdot\\dfrac{\\lambda_2}{\\lambda_2-t}\\) tiene dos factores en el denominador, no uno: es la FGM de una distribución Gamma, no de una Exponencial. Solo cuando ambas tasas son iguales el producto colapsa a una forma reconocible (y ni siquiera ahí es Exponencial — es Gamma con parámetro de forma 2). Ver Ítem 47 del Laboratorio complementario.\n\n\n\nEjercicio 3 — Verdadero o falso\n\n\n1. M’(0) da el valor esperado E[X], y M’’(0) da E[X²], no la varianza directamente.  Verdadero  Falso\n\n\n2. Si dos variables aleatorias tienen la misma FGM, necesariamente tienen la misma distribución.  Verdadero  Falso\n\n\n3. La FGM de la suma de dos variables independientes es la suma de sus FGM individuales.  Verdadero  Falso\n\n\n4. La suma de dos Binomiales independientes es Binomial sin importar si tienen el mismo p o no.  Verdadero  Falso\n\n\n5. La propiedad de la suma de FGM requiere que las variables sean independientes.  Verdadero  Falso\n\n\nRevisar respuestas",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
+    ]
+  },
+  {
+    "objectID": "temas/tema-p6d-estudiante.html#resumen",
+    "href": "temas/tema-p6d-estudiante.html#resumen",
+    "title": "Tema P6d · Función generadora de momentos (FGM)",
+    "section": "🗂️ Resumen",
+    "text": "🗂️ Resumen\n\n\n\\(M_X(t)=E[e^{tX}]\\): una sola función que “empaqueta” todos los momentos de \\(X\\).\nSe extraen derivando y evaluando en \\(t=0\\): \\(M_X'(0)=E[X]\\), \\(M_X''(0)=E[X^2]\\), y en general \\(M_X^{(k)}(0)=E[X^k]\\).\nUnicidad: misma FGM ⟹ misma distribución — es una huella digital.\nSuma de independientes: \\(M_{X+Y}(t)=M_X(t)\\cdot M_Y(t)\\) — multiplicar FGM en vez de convolucionar distribuciones.\nCon esas dos propiedades juntas demostraste formalmente (no solo por simulación) que la suma de Poisson independientes es Poisson, y que la suma de Binomiales independientes con el mismo \\(p\\) es Binomial.\nLa condición de independencia es indispensable, y para reconocer la forma del resultado normalmente hace falta que ambas variables compartan familia y parámetro auxiliar (mismo \\(p\\), o factores que colapsen a una forma conocida).\n\n\n\n\n\n\n\n\nNoteCon esto se cierra el bloque de distribuciones discretas\n\n\n\nLos Temas P6a-P6d cubren todo lo que necesitas del bloque de conteo y distribuciones discretas: de dónde sale \\(\\binom{n}{k}\\) (P6a), la Binomial (P6), la Poisson (P6b), cuándo aproximar con la Normal (P6c), y ahora una herramienta que conecta todas ellas entre sí (P6d). El Tema P7 continúa con las distribuciones continuas por derecho propio.",
+    "crumbs": [
+      "Inicio",
+      "Módulo 2 — Probabilidad",
+      "Tema P6d · Función generadora de momentos (FGM)"
     ]
   },
   {

@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM – Estadística Descriptiva — Curso interactivo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../temas/examen-2-resueltos.html" rel="next">
+<link href="../temas/ejercicios-modulo2.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Descriptiva — Curso interactivo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentacion.html"> 
+<span class="menu-text">Presentación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../programa.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../laboratorios.html"> 
+<span class="menu-text">Laboratorios</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recursos.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/preparacion-examen-2.html">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../presentacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación del curso</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../programa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 1 — Estadística descriptiva</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 0 · R como laboratorio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 1 · Datos, población y variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 2 · Variables cualitativas: tablas y gráficas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 3 · Variables cuantitativas: histograma y forma de los datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 4 · Medidas de tendencia central</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 5 · Medidas de dispersión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 6 · Cuantiles y boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 7 · Momentos, asimetría y curtosis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/preparacion-examen-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 2 — Probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Módulo 2 · Probabilidad — Arquitectura</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P1 · Reglas básicas de probabilidad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P2 · Probabilidad condicional y regla multiplicativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P3 · Probabilidad total y Teorema de Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P4 · Independencia de eventos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P5 · Variables aleatorias y función de distribución acumulada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6a-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6a · Conteo: de las permutaciones a la fórmula binomial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6 · Distribución Binomial y ensayos de Bernoulli</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6b-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6b · Distribución de Poisson</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6c-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6c · Aproximación normal a la distribución binomial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6d-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6d · Función generadora de momentos (FGM)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P7 · Distribuciones continuas: Uniforme y Normal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P8 · Distribución de probabilidad multivariada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P9 · Covarianza y correlación de variables aleatorias</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P10 · Funciones de variables aleatorias y simulación de sistemas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/preparacion-examen-2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/examen-2-resueltos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exámenes resueltos · Versiones A y B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examen 2 · Simulacro</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laboratorios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratorios del curso · Ejercicios y prácticas resueltas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trucos de interpretación estadística</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#los-cuatro-criterios-en-una-sola-pasada" id="toc-los-cuatro-criterios-en-una-sola-pasada" class="nav-link active" data-scroll-target="#los-cuatro-criterios-en-una-sola-pasada">🎯 Los cuatro criterios, en una sola pasada</a></li>
+  <li><a href="#distribución-binomial" id="toc-distribución-binomial" class="nav-link" data-scroll-target="#distribución-binomial">1. Distribución binomial</a></li>
+  <li><a href="#distribución-poisson" id="toc-distribución-poisson" class="nav-link" data-scroll-target="#distribución-poisson">2. Distribución Poisson</a></li>
+  <li><a href="#aproximación-normal-a-la-binomial" id="toc-aproximación-normal-a-la-binomial" class="nav-link" data-scroll-target="#aproximación-normal-a-la-binomial">3. Aproximación normal a la binomial</a></li>
+  <li><a href="#función-generadora-de-momentos-fgm" id="toc-función-generadora-de-momentos-fgm" class="nav-link" data-scroll-target="#función-generadora-de-momentos-fgm">4. Función generadora de momentos (FGM)</a></li>
+  <li><a href="#marco-de-decisión-cuál-técnica-uso" id="toc-marco-de-decisión-cuál-técnica-uso" class="nav-link" data-scroll-target="#marco-de-decisión-cuál-técnica-uso">5. Marco de decisión: ¿cuál técnica uso?</a></li>
+  <li><a href="#preguntas-de-estudio-conceptuales" id="toc-preguntas-de-estudio-conceptuales" class="nav-link" data-scroll-target="#preguntas-de-estudio-conceptuales">📝 Preguntas de estudio conceptuales</a>
+  <ul class="collapse">
+  <li><a href="#pregunta-1-binomial-e-independencia" id="toc-pregunta-1-binomial-e-independencia" class="nav-link" data-scroll-target="#pregunta-1-binomial-e-independencia">Pregunta 1 · Binomial e independencia</a></li>
+  <li><a href="#pregunta-2-poisson-y-el-escalamiento-de-λ" id="toc-pregunta-2-poisson-y-el-escalamiento-de-λ" class="nav-link" data-scroll-target="#pregunta-2-poisson-y-el-escalamiento-de-λ">Pregunta 2 · Poisson y el escalamiento de λ</a></li>
+  <li><a href="#pregunta-3-por-qué-existe-la-corrección-de-continuidad" id="toc-pregunta-3-por-qué-existe-la-corrección-de-continuidad" class="nav-link" data-scroll-target="#pregunta-3-por-qué-existe-la-corrección-de-continuidad">Pregunta 3 · Por qué existe la corrección de continuidad</a></li>
+  <li><a href="#pregunta-4-por-qué-la-unicidad-de-la-fgm-es-tan-útil" id="toc-pregunta-4-por-qué-la-unicidad-de-la-fgm-es-tan-útil" class="nav-link" data-scroll-target="#pregunta-4-por-qué-la-unicidad-de-la-fgm-es-tan-útil">Pregunta 4 · Por qué la unicidad de la FGM es tan útil</a></li>
+  <li><a href="#pregunta-5-síntesis-elegir-la-herramienta-correcta" id="toc-pregunta-5-síntesis-elegir-la-herramienta-correcta" class="nav-link" data-scroll-target="#pregunta-5-síntesis-elegir-la-herramienta-correcta">Pregunta 5 · Síntesis: elegir la herramienta correcta</a></li>
+  <li><a href="#autoevaluación-final" id="toc-autoevaluación-final" class="nav-link" data-scroll-target="#autoevaluación-final">✅ Autoevaluación final</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/preparacion-examen-2.html">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="los-cuatro-criterios-en-una-sola-pasada" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="los-cuatro-criterios-en-una-sola-pasada">🎯 Los cuatro criterios, en una sola pasada</h2>
+<p>Esta guía recorre en orden los cuatro temas del Taller 2 — binomial, Poisson, aproximación normal a la binomial, y función generadora de momentos — con la teoría mínima que necesitas tener fresca, un ejemplo resuelto por tema, y los errores donde más se pierden puntos. No reemplaza los Temas P6-P6d ni el <a href="../laboratorios.html#taller-2-práctica-evaluativa">Taller 2 · Práctica evaluativa</a>: es el repaso integrado para el día antes del examen.</p>
+</section>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Cómo usar esta guía
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ejecuta cada bloque en tu propia sesión de RStudio. La sección final son <strong>preguntas de estudio conceptuales</strong> con respuesta desarrollada — el tipo de pregunta que puede pedir justificación escrita, no solo un número.</p>
+</div>
+</div>
+<section id="distribución-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-binomial">1. Distribución binomial</h2>
+<p><strong>Cuándo aplica — las condiciones BINS:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Condición</th>
+<th>Qué exige</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>B</strong>inaria</td>
+<td>Cada ensayo tiene solo dos resultados posibles (éxito/fracaso)</td>
+</tr>
+<tr class="even">
+<td><strong>I</strong>ndependencia</td>
+<td>El resultado de un ensayo no afecta a los demás</td>
+</tr>
+<tr class="odd">
+<td><strong>N</strong>úmero fijo</td>
+<td>El número de ensayos <span class="math inline">\(n\)</span> está fijado de antemano</td>
+</tr>
+<tr class="even">
+<td><strong>S</strong>ame <span class="math inline">\(p\)</span></td>
+<td>La probabilidad de éxito <span class="math inline">\(p\)</span> es la misma en todos los ensayos</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu=np \qquad \sigma^2=np(1-p)\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.15</span>   <span class="co"># ejemplo rápido: 20 componentes, 15% de tasa de falla</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">3</span>, n, p)          <span class="co"># P(X = 3)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2428289</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)          <span class="co"># P(X &lt;= 3)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6477252</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)      <span class="co"># P(X &gt; 3)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3522748</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Dónde se pierden puntos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Muestreo sin reemplazo de una población pequeña rompe la independencia.</strong> Si sacas piezas de una caja de 10 sin reponerlas, la probabilidad de éxito cambia en cada extracción — ahí no aplica la binomial (aplica la hipergeométrica, fuera del alcance de este curso, pero identifícalo como “no binomial” en el examen si te lo preguntan).</li>
+<li><strong>Confundir “al menos <span class="math inline">\(k\)</span>” con “más de <span class="math inline">\(k\)</span>”.</strong> <span class="math inline">\(P(X\ge k) = 1-P(X\le k-1)\)</span>, mientras que <span class="math inline">\(P(X&gt;k)=1-P(X\le k)\)</span>. Un solo valor de diferencia en el índice cambia la respuesta.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="distribución-poisson" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-poisson">2. Distribución Poisson</h2>
+<p><strong>Cuándo aplica:</strong> conteo de eventos en un intervalo continuo (tiempo, área, longitud), con tasa <span class="math inline">\(\lambda\)</span> aproximadamente constante, eventos independientes y no simultáneos — <strong>no</strong> hay un “número de ensayos” que contar.</p>
+<p><span class="math display">\[P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!} \qquad \mu=\sigma^2=\lambda\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lambda_por_hora <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">3</span>, lambda_por_hora)              <span class="co"># P(X = 3) en 1 hora</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1403739</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">7</span>, lambda_por_hora <span class="sc">*</span> <span class="fl">1.5</span>)    <span class="co"># P(X &gt; 7) en 1.5 horas: lambda se reescala</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4753615</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Dónde se pierden puntos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>No reescalar <span class="math inline">\(\lambda\)</span> al intervalo de la pregunta.</strong> Es, con diferencia, el error más común: si la tasa es por hora y preguntan por 90 minutos, hay que usar <span class="math inline">\(\lambda\times1.5\)</span>, no <span class="math inline">\(\lambda\)</span> tal cual.</li>
+<li><strong>Usar Poisson en un evento “espera hasta que…” en vez de “cuántos ocurren”.</strong> Poisson cuenta ocurrencias; el tiempo <em>entre</em> ocurrencias es Exponencial (Tema P6d, Laboratorio 3).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="aproximación-normal-a-la-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="aproximación-normal-a-la-binomial">3. Aproximación normal a la binomial</h2>
+<p><strong>Cuándo aplica:</strong> <span class="math inline">\(X\sim\text{Binomial}(n,p)\)</span> con <span class="math inline">\(np\ge5\)</span> <strong>y</strong> <span class="math inline">\(n(1-p)\ge5\)</span>.</p>
+<p><span class="math display">\[X\overset{aprox}{\sim} N(np,\ np(1-p))\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">250</span>; p <span class="ot">&lt;-</span> <span class="fl">0.42</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n <span class="sc">*</span> p; sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n<span class="sc">*</span>p, <span class="at">n1p =</span> n<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p))   <span class="co"># verificar la regla antes de continuar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> np n1p 
+105 145 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &lt;= 110), con corrección de continuidad</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">110.5</span>, mu, sigma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7595267</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Dónde se pierden puntos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Olvidar la corrección de continuidad.</strong> La binomial es discreta; la normal es continua. Sin el <span class="math inline">\(\pm0.5\)</span>, el resultado se aleja del valor exacto — revisa la tabla completa de las 5 variantes en el Tema P6c si no la recuerdas de memoria.</li>
+<li><strong>Usar la normal cuando <span class="math inline">\(np&lt;5\)</span>.</strong> Ahí la distribución está “pegada” a un extremo y la aproximación falla — en ese caso usa Poisson con <span class="math inline">\(\lambda=np\)</span> (Tema P6c tiene un ejemplo numérico explícito de este fallo).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="función-generadora-de-momentos-fgm" class="level2">
+<h2 class="anchored" data-anchor-id="función-generadora-de-momentos-fgm">4. Función generadora de momentos (FGM)</h2>
+<p><strong>Definición y para qué sirve:</strong></p>
+<p><span class="math display">\[M_X(t)=E[e^{tX}] \qquad M_X'(0)=E[X] \qquad M_X''(0)=E[X^2]\]</span></p>
+<p><strong>Las dos propiedades que hacen falta en el examen:</strong> 1. <strong>Unicidad:</strong> misma FGM ⟹ misma distribución. 2. <strong>Suma de independientes:</strong> <span class="math inline">\(M_{X+Y}(t)=M_X(t)\cdot M_Y(t)\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: FGM de una Poisson(lambda) y extracción numérica de E[X]</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="fu">exp</span>(lambda <span class="sc">*</span> (<span class="fu">exp</span>(t) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>(<span class="fu">M</span>(h) <span class="sc">-</span> <span class="fu">M</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)   <span class="co"># debería dar ~6 = lambda = E[X]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Dónde se pierden puntos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Olvidar evaluar en <span class="math inline">\(t=0\)</span>.</strong> La derivada de <span class="math inline">\(M_X(t)\)</span> es una función de <span class="math inline">\(t\)</span>; el momento es su valor <em>específicamente</em> en <span class="math inline">\(t=0\)</span>, no la derivada en abstracto.</li>
+<li><strong>Usar la propiedad de la suma sin verificar independencia.</strong> La igualdad <span class="math inline">\(M_{X+Y}(t)=M_X(t)M_Y(t)\)</span> solo es válida si <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes — sin eso, no hay atajo.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="marco-de-decisión-cuál-técnica-uso" class="level2">
+<h2 class="anchored" data-anchor-id="marco-de-decisión-cuál-técnica-uso">5. Marco de decisión: ¿cuál técnica uso?</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.new</span>()</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.window</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">5</span>, <span class="fl">9.5</span>, <span class="st">"¿Hay un número fijo de ensayos n?"</span>, <span class="at">cex =</span> <span class="fl">0.9</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">7.5</span>, <span class="st">"SÍ"</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">8</span>, <span class="fl">7.5</span>, <span class="st">"NO"</span>, <span class="at">col =</span> <span class="st">"#D9534F"</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="dv">6</span>, <span class="st">"Binomial(n,p)"</span>, <span class="at">cex =</span> <span class="fl">0.85</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">8</span>, <span class="dv">6</span>, <span class="st">"Poisson(λ)"</span>, <span class="at">cex =</span> <span class="fl">0.85</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">4.5</span>, <span class="st">"¿np≥5 y n(1-p)≥5?"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.8</span>, <span class="dv">3</span>, <span class="st">"SÍ →</span><span class="sc">\n</span><span class="st">Normal</span><span class="sc">\n</span><span class="st">(más simple)"</span>, <span class="at">cex =</span> <span class="fl">0.75</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">3.2</span>, <span class="dv">3</span>, <span class="st">"NO →</span><span class="sc">\n</span><span class="st">Binomial</span><span class="sc">\n</span><span class="st">exacta"</span>, <span class="at">cex =</span> <span class="fl">0.75</span>, <span class="at">col =</span> <span class="st">"#D9534F"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">5</span>, <span class="fl">9.2</span>, <span class="dv">2</span>, <span class="fl">7.9</span>, <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">5</span>, <span class="fl">9.2</span>, <span class="dv">8</span>, <span class="fl">7.9</span>, <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, <span class="fl">5.7</span>, <span class="dv">2</span>, <span class="fl">4.8</span>, <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, <span class="fl">4.2</span>, <span class="fl">0.8</span>, <span class="fl">3.5</span>, <span class="at">length =</span> <span class="fl">0.06</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, <span class="fl">4.2</span>, <span class="fl">3.2</span>, <span class="fl">3.5</span>, <span class="at">length =</span> <span class="fl">0.06</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-decision-taller2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-decision-taller2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="preparacion-examen-2_files/figure-html/fig-decision-taller2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-decision-taller2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Árbol de decisión: binomial exacta, Poisson, o normal
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situación</th>
+<th>Herramienta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(n\)</span> fijo, <span class="math inline">\(np\)</span> y <span class="math inline">\(n(1-p)\)</span> chicos (&lt; 5)</td>
+<td>Binomial exacta (<code>dbinom</code>/<code>pbinom</code>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(n\)</span> fijo, <span class="math inline">\(np\ge5\)</span> y <span class="math inline">\(n(1-p)\ge5\)</span></td>
+<td>Normal (más simple, casi igual de precisa)</td>
+</tr>
+<tr class="odd">
+<td>No hay <span class="math inline">\(n\)</span> fijo, hay tasa <span class="math inline">\(\lambda\)</span> por intervalo</td>
+<td>Poisson (<code>dpois</code>/<code>ppois</code>)</td>
+</tr>
+<tr class="even">
+<td>Necesitas la distribución de una <strong>suma</strong> de independientes</td>
+<td>FGM: multiplica, reconoce la forma</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Truco de interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuando el enunciado dice “de <span class="math inline">\(n\)</span> artículos, ¿cuántos…?” casi siempre es binomial (o su aproximación normal). Cuando dice “¿cuántos… por hora/día/metro?” sin mencionar un total de intentos, casi siempre es Poisson. Practica identificar la palabra clave antes de escribir cualquier fórmula. <a href="../recursos.html">Ver más trucos →</a></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="preguntas-de-estudio-conceptuales" class="level1">
+<h1>📝 Preguntas de estudio conceptuales</h1>
+<p>Intenta responderlas por tu cuenta antes de abrir la respuesta.</p>
+<section id="pregunta-1-binomial-e-independencia" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-1-binomial-e-independencia">Pregunta 1 · Binomial e independencia</h2>
+<p><strong>Pregunta:</strong> un control de calidad extrae 5 piezas, sin reemplazo, de una caja que tiene 8 piezas en total (3 defectuosas). ¿Por qué <strong>no</strong> es correcto modelar el número de piezas defectuosas extraídas con una distribución binomial?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La binomial exige que <span class="math inline">\(p\)</span> (la probabilidad de éxito) sea <strong>la misma en cada ensayo</strong>, lo cual requiere independencia entre extracciones. Al no reponer las piezas, la composición de la caja cambia después de cada extracción: si la primera pieza sacada es defectuosa, quedan 2 defectuosas en 7, así que <span class="math inline">\(p\)</span> ya no es <span class="math inline">\(3/8\)</span> para la segunda extracción. Este es un muestreo <strong>hipergeométrico</strong>, no binomial — la distinción importa porque usar la fórmula equivocada da probabilidades sistemáticamente erróneas, más notorio cuanto más pequeña es la población de origen respecto al tamaño de la muestra.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pregunta-2-poisson-y-el-escalamiento-de-λ" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-2-poisson-y-el-escalamiento-de-λ">Pregunta 2 · Poisson y el escalamiento de λ</h2>
+<p><strong>Pregunta:</strong> un estudiante calcula la probabilidad de “más de 3 llamadas en 30 minutos” usando <span class="math inline">\(\lambda=8\)</span> (la tasa por hora), sin ajustarla. ¿Qué error cometió y cómo se corrige?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Usó el <span class="math inline">\(\lambda\)</span> del intervalo equivocado. La tasa de 8 llamadas por hora corresponde a un intervalo de 60 minutos; la pregunta es sobre 30 minutos, la mitad del intervalo. Como <span class="math inline">\(\lambda\)</span> escala linealmente con el tamaño del intervalo (<span class="math inline">\(X_t\sim\text{Poisson}(\lambda\cdot t)\)</span>), el valor correcto para 30 minutos es <span class="math inline">\(\lambda=8\times0.5=4\)</span>, no 8. Usar el <span class="math inline">\(\lambda\)</span> sin ajustar sobreestima sistemáticamente la probabilidad de conteos altos, porque implícitamente está asumiendo el doble del tiempo real.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pregunta-3-por-qué-existe-la-corrección-de-continuidad" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-3-por-qué-existe-la-corrección-de-continuidad">Pregunta 3 · Por qué existe la corrección de continuidad</h2>
+<p><strong>Pregunta:</strong> explique, en sus propias palabras, por qué es necesaria la corrección de continuidad al aproximar una binomial con una normal, y qué pasaría si se omite sistemáticamente en un examen.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La binomial es una distribución <strong>discreta</strong> — solo toma valores enteros — mientras que la normal es <strong>continua</strong> y asigna probabilidad cero a cualquier punto exacto (<span class="math inline">\(P(Y=k)=0\)</span> para la normal, siempre). Sin la corrección, <span class="math inline">\(P(X=k)\)</span> no tendría análogo directo en la normal, y los cálculos de <span class="math inline">\(P(X\le k)\)</span> o <span class="math inline">\(P(X\ge k)\)</span> estarían sistemáticamente desplazados en 0.5 unidades respecto al valor real. La corrección “reparte” el intervalo <span class="math inline">\([k-0.5, k+0.5]\)</span> alrededor de cada entero para imitar cómo la binomial distribuye su masa de probabilidad. Omitirla no arruina completamente el resultado (la aproximación segue siendo del orden correcto), pero introduce un sesgo sistemático que crece en importancia cuando <span class="math inline">\(n\)</span> es moderado o cuando el intervalo de interés es angosto.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pregunta-4-por-qué-la-unicidad-de-la-fgm-es-tan-útil" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-4-por-qué-la-unicidad-de-la-fgm-es-tan-útil">Pregunta 4 · Por qué la unicidad de la FGM es tan útil</h2>
+<p><strong>Pregunta:</strong> ¿por qué el hecho de que “misma FGM implica misma distribución” es tan poderoso para encontrar la distribución de una suma de variables aleatorias?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sin la FGM, encontrar la distribución exacta de <span class="math inline">\(X+Y\)</span> requiere <strong>convolucionar</strong> las funciones de probabilidad (sumar, para cada valor posible de la suma, todas las combinaciones de <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> que lo producen) — un procedimiento tedioso y propenso a errores, especialmente si <span class="math inline">\(X\)</span> o <span class="math inline">\(Y\)</span> pueden tomar muchos valores. La FGM convierte ese problema en <strong>álgebra de exponentes</strong>: multiplicar <span class="math inline">\(M_X(t)\cdot M_Y(t)\)</span> es mucho más simple que convolucionar. Si el producto resulta tener la <em>forma</em> de una FGM conocida (por ejemplo, la forma de una Poisson o de una Binomial), la propiedad de unicidad garantiza —sin necesidad de ninguna otra verificación— que <span class="math inline">\(X+Y\)</span> sigue exactamente esa distribución. Es el mismo principio que usaste en el Tema P6d para demostrar que la suma de Poisson independientes es Poisson.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pregunta-5-síntesis-elegir-la-herramienta-correcta" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-5-síntesis-elegir-la-herramienta-correcta">Pregunta 5 · Síntesis: elegir la herramienta correcta</h2>
+<p><strong>Pregunta:</strong> una aerolínea vende 2,000 tiquetes para un vuelo, sabiendo que hay una probabilidad de 0.001 de que cualquier pasajero individual no se presente (“no-show”), independientemente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Justifique con los criterios correspondientes.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ver respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span>; p <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n<span class="sc">*</span>p, <span class="at">n1p =</span> n<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  np  n1p 
+   2 1998 </code></pre>
+</div>
+</div>
+<p><span class="math inline">\(np=2\)</span>, muy por debajo del umbral de 5 requerido para la aproximación normal — <strong>no</strong> se debe usar la normal aquí, a pesar de que <span class="math inline">\(n\)</span> es grande. Con <span class="math inline">\(n\)</span> grande, <span class="math inline">\(p\)</span> chico, y <span class="math inline">\(np\)</span> moderado, las condiciones apuntan directamente a la <strong>aproximación Poisson</strong> con <span class="math inline">\(\lambda=np=2\)</span>: es exactamente el mismo patrón de “evento raro en una muestra grande” que viste en el Tema P6b (mutaciones celulares) y en el Tema P6c (donde <span class="math inline">\(np\)</span> pequeño hacía fallar a la normal). La binomial exacta con <span class="math inline">\(n=2000\)</span> también daría la respuesta correcta, pero computacionalmente la Poisson es una aproximación excelente y mucho más simple de trabajar a mano.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="autoevaluación-final" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación-final">✅ Autoevaluación final</h2>
+<p>Antes del examen, comprueba que puedes hacer todo esto <strong>sin mirar la guía</strong>:</p>
+<ol type="1">
+<li>Enunciar las 4 condiciones BINS y decidir si un escenario dado las cumple.</li>
+<li>Calcular <span class="math inline">\(P(X=k)\)</span>, <span class="math inline">\(P(X\le k)\)</span>, <span class="math inline">\(P(X\ge k)\)</span> para una binomial, sin confundir los índices.</li>
+<li>Reconocer cuándo un problema es Poisson (vs.&nbsp;binomial) y ajustar <span class="math inline">\(\lambda\)</span> al intervalo correcto de la pregunta.</li>
+<li>Verificar <span class="math inline">\(np\ge5\)</span> y <span class="math inline">\(n(1-p)\ge5\)</span> antes de aplicar la aproximación normal, y aplicar la corrección de continuidad correcta según el tipo de desigualdad.</li>
+<li>Explicar por qué la aproximación normal falla cuando <span class="math inline">\(np&lt;5\)</span>, y qué alternativa usar.</li>
+<li>Escribir la FGM de las 5 distribuciones de la tabla (Bernoulli, Binomial, Poisson, Exponencial, Normal) y extraer <span class="math inline">\(E[X]\)</span> derivando.</li>
+<li>Usar el producto de FGM para identificar la distribución de una suma de variables independientes.</li>
+<li>Elegir, para un escenario nuevo, entre binomial exacta / Poisson / normal, justificando con los criterios de <span class="math inline">\(np\)</span> y <span class="math inline">\(n(1-p)\)</span>.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Siguiente paso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si algún punto te costó, vuelve al Tema correspondiente: 1-2 → <a href="../temas/tema-p6-estudiante.html">Tema P6</a>, 3 → <a href="../temas/tema-p6b-estudiante.html">Tema P6b</a>, 4-5 → <a href="../temas/tema-p6c-estudiante.html">Tema P6c</a>, 6-7 → <a href="../temas/tema-p6d-estudiante.html">Tema P6d</a>, 8 → esta guía, sección 5. Después practica con <a href="../laboratorios.html#taller-2-práctica-evaluativa">Taller 2 · Práctica evaluativa</a>.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/santiagoftw\.github\.io\/probyestadistica-eafit-labs\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../temas/ejercicios-modulo2.html" class="pagination-link" aria-label="Ejercicios propuestos · Módulo 2 (Probabilidad)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../temas/examen-2-resueltos.html" class="pagination-link" aria-label="Exámenes resueltos · Versiones A y B">
+        <span class="nav-page-text">Exámenes resueltos · Versiones A y B</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM"</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Los cuatro criterios, en una sola pasada</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>Esta guía recorre en orden los cuatro temas del Taller 2 — binomial, Poisson, aproximación normal a la binomial, y función generadora de momentos — con la teoría mínima que necesitas tener fresca, un ejemplo resuelto por tema, y los errores donde más se pierden puntos. No reemplaza los Temas P6-P6d ni el <span class="co">[</span><span class="ot">Taller 2 · Práctica evaluativa</span><span class="co">](../laboratorios.qmd#taller-2-práctica-evaluativa)</span>: es el repaso integrado para el día antes del examen.</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cómo usar esta guía</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>Ejecuta cada bloque en tu propia sesión de RStudio. La sección final son **preguntas de estudio conceptuales** con respuesta desarrollada — el tipo de pregunta que puede pedir justificación escrita, no solo un número.</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Distribución binomial</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>**Cuándo aplica — las condiciones BINS:**</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Condición <span class="pp">|</span> Qué exige <span class="pp">|</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **B**inaria <span class="pp">|</span> Cada ensayo tiene solo dos resultados posibles (éxito/fracaso) <span class="pp">|</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **I**ndependencia <span class="pp">|</span> El resultado de un ensayo no afecta a los demás <span class="pp">|</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **N**úmero fijo <span class="pp">|</span> El número de ensayos $n$ está fijado de antemano <span class="pp">|</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **S**ame $p$ <span class="pp">|</span> La probabilidad de éxito $p$ es la misma en todos los ensayos <span class="pp">|</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>$$P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu=np \qquad \sigma^2=np(1-p)$$</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.15</span>   <span class="co"># ejemplo rápido: 20 componentes, 15% de tasa de falla</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">3</span>, n, p)          <span class="co"># P(X = 3)</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)          <span class="co"># P(X &lt;= 3)</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)      <span class="co"># P(X &gt; 3)</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dónde se pierden puntos</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Muestreo sin reemplazo de una población pequeña rompe la independencia.** Si sacas piezas de una caja de 10 sin reponerlas, la probabilidad de éxito cambia en cada extracción — ahí no aplica la binomial (aplica la hipergeométrica, fuera del alcance de este curso, pero identifícalo como "no binomial" en el examen si te lo preguntan).</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confundir "al menos $k$" con "más de $k$".** $P(X\ge k) = 1-P(X\le k-1)$, mientras que $P(X&gt;k)=1-P(X\le k)$. Un solo valor de diferencia en el índice cambia la respuesta.</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Distribución Poisson</span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>**Cuándo aplica:** conteo de eventos en un intervalo continuo (tiempo, área, longitud), con tasa $\lambda$ aproximadamente constante, eventos independientes y no simultáneos — **no** hay un "número de ensayos" que contar.</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>$$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!} \qquad \mu=\sigma^2=\lambda$$</span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>lambda_por_hora <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">3</span>, lambda_por_hora)              <span class="co"># P(X = 3) en 1 hora</span></span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">7</span>, lambda_por_hora <span class="sc">*</span> <span class="fl">1.5</span>)    <span class="co"># P(X &gt; 7) en 1.5 horas: lambda se reescala</span></span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dónde se pierden puntos</span></span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No reescalar $\lambda$ al intervalo de la pregunta.** Es, con diferencia, el error más común: si la tasa es por hora y preguntan por 90 minutos, hay que usar $\lambda\times1.5$, no $\lambda$ tal cual.</span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Usar Poisson en un evento "espera hasta que…" en vez de "cuántos ocurren".** Poisson cuenta ocurrencias; el tiempo *entre* ocurrencias es Exponencial (Tema P6d, Laboratorio 3).</span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Aproximación normal a la binomial</span></span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>**Cuándo aplica:** $X\sim\text{Binomial}(n,p)$ con $np\ge5$ **y** $n(1-p)\ge5$.</span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>$$X\overset{aprox}{\sim} N(np,\ np(1-p))$$</span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">250</span>; p <span class="ot">&lt;-</span> <span class="fl">0.42</span></span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n <span class="sc">*</span> p; sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n<span class="sc">*</span>p, <span class="at">n1p =</span> n<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p))   <span class="co"># verificar la regla antes de continuar</span></span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &lt;= 110), con corrección de continuidad</span></span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">110.5</span>, mu, sigma)</span>
+<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dónde se pierden puntos</span></span>
+<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Olvidar la corrección de continuidad.** La binomial es discreta; la normal es continua. Sin el $\pm0.5$, el resultado se aleja del valor exacto — revisa la tabla completa de las 5 variantes en el Tema P6c si no la recuerdas de memoria.</span>
+<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Usar la normal cuando $np&lt;5$.** Ahí la distribución está "pegada" a un extremo y la aproximación falla — en ese caso usa Poisson con $\lambda=np$ (Tema P6c tiene un ejemplo numérico explícito de este fallo).</span>
+<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Función generadora de momentos (FGM)</span></span>
+<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a>**Definición y para qué sirve:**</span>
+<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a>$$M_X(t)=E<span class="co">[</span><span class="ot">e^{tX}</span><span class="co">]</span> \qquad M_X'(0)=E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> \qquad M_X''(0)=E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>$$</span>
+<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a>**Las dos propiedades que hacen falta en el examen:**</span>
+<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Unicidad:** misma FGM ⟹ misma distribución.</span>
+<span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Suma de independientes:** $M_{X+Y}(t)=M_X(t)\cdot M_Y(t)$.</span>
+<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-100"><a href="#cb20-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: FGM de una Poisson(lambda) y extracción numérica de E[X]</span></span>
+<span id="cb20-102"><a href="#cb20-102" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb20-103"><a href="#cb20-103" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="fu">exp</span>(lambda <span class="sc">*</span> (<span class="fu">exp</span>(t) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a>(<span class="fu">M</span>(h) <span class="sc">-</span> <span class="fu">M</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)   <span class="co"># debería dar ~6 = lambda = E[X]</span></span>
+<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dónde se pierden puntos</span></span>
+<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Olvidar evaluar en $t=0$.** La derivada de $M_X(t)$ es una función de $t$; el momento es su valor *específicamente* en $t=0$, no la derivada en abstracto.</span>
+<span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Usar la propiedad de la suma sin verificar independencia.** La igualdad $M_{X+Y}(t)=M_X(t)M_Y(t)$ solo es válida si $X$ y $Y$ son independientes — sin eso, no hay atajo.</span>
+<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Marco de decisión: ¿cuál técnica uso?</span></span>
+<span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-decision-taller2</span></span>
+<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Árbol de decisión: binomial exacta, Poisson, o normal"</span></span>
+<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.new</span>()</span>
+<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.window</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
+<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">5</span>, <span class="fl">9.5</span>, <span class="st">"¿Hay un número fijo de ensayos n?"</span>, <span class="at">cex =</span> <span class="fl">0.9</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
+<span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">7.5</span>, <span class="st">"SÍ"</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
+<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">8</span>, <span class="fl">7.5</span>, <span class="st">"NO"</span>, <span class="at">col =</span> <span class="st">"#D9534F"</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
+<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="dv">6</span>, <span class="st">"Binomial(n,p)"</span>, <span class="at">cex =</span> <span class="fl">0.85</span>)</span>
+<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">8</span>, <span class="dv">6</span>, <span class="st">"Poisson(λ)"</span>, <span class="at">cex =</span> <span class="fl">0.85</span>)</span>
+<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">4.5</span>, <span class="st">"¿np≥5 y n(1-p)≥5?"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.8</span>, <span class="dv">3</span>, <span class="st">"SÍ →</span><span class="sc">\n</span><span class="st">Normal</span><span class="sc">\n</span><span class="st">(más simple)"</span>, <span class="at">cex =</span> <span class="fl">0.75</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>)</span>
+<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">3.2</span>, <span class="dv">3</span>, <span class="st">"NO →</span><span class="sc">\n</span><span class="st">Binomial</span><span class="sc">\n</span><span class="st">exacta"</span>, <span class="at">cex =</span> <span class="fl">0.75</span>, <span class="at">col =</span> <span class="st">"#D9534F"</span>)</span>
+<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">5</span>, <span class="fl">9.2</span>, <span class="dv">2</span>, <span class="fl">7.9</span>, <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">5</span>, <span class="fl">9.2</span>, <span class="dv">8</span>, <span class="fl">7.9</span>, <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, <span class="fl">5.7</span>, <span class="dv">2</span>, <span class="fl">4.8</span>, <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, <span class="fl">4.2</span>, <span class="fl">0.8</span>, <span class="fl">3.5</span>, <span class="at">length =</span> <span class="fl">0.06</span>)</span>
+<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, <span class="fl">4.2</span>, <span class="fl">3.2</span>, <span class="fl">3.5</span>, <span class="at">length =</span> <span class="fl">0.06</span>)</span>
+<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Situación <span class="pp">|</span> Herramienta <span class="pp">|</span></span>
+<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n$ fijo, $np$ y $n(1-p)$ chicos (&lt; 5) <span class="pp">|</span> Binomial exacta (<span class="in">`dbinom`</span>/<span class="in">`pbinom`</span>) <span class="pp">|</span></span>
+<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n$ fijo, $np\ge5$ y $n(1-p)\ge5$ <span class="pp">|</span> Normal (más simple, casi igual de precisa) <span class="pp">|</span></span>
+<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No hay $n$ fijo, hay tasa $\lambda$ por intervalo <span class="pp">|</span> Poisson (<span class="in">`dpois`</span>/<span class="in">`ppois`</span>) <span class="pp">|</span></span>
+<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Necesitas la distribución de una **suma** de independientes <span class="pp">|</span> FGM: multiplica, reconoce la forma <span class="pp">|</span></span>
+<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a>Cuando el enunciado dice "de $n$ artículos, ¿cuántos…?" casi siempre es binomial (o su aproximación normal). Cuando dice "¿cuántos… por hora/día/metro?" sin mencionar un total de intentos, casi siempre es Poisson. Practica identificar la palabra clave antes de escribir cualquier fórmula. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-150"><a href="#cb20-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-151"><a href="#cb20-151" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb20-152"><a href="#cb20-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a><span class="fu"># 📝 Preguntas de estudio conceptuales</span></span>
+<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a>Intenta responderlas por tu cuenta antes de abrir la respuesta.</span>
+<span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 1 · Binomial e independencia</span></span>
+<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a>**Pregunta:** un control de calidad extrae 5 piezas, sin reemplazo, de una caja que tiene 8 piezas en total (3 defectuosas). ¿Por qué **no** es correcto modelar el número de piezas defectuosas extraídas con una distribución binomial?</span>
+<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a>La binomial exige que $p$ (la probabilidad de éxito) sea **la misma en cada ensayo**, lo cual requiere independencia entre extracciones. Al no reponer las piezas, la composición de la caja cambia después de cada extracción: si la primera pieza sacada es defectuosa, quedan 2 defectuosas en 7, así que $p$ ya no es $3/8$ para la segunda extracción. Este es un muestreo **hipergeométrico**, no binomial — la distinción importa porque usar la fórmula equivocada da probabilidades sistemáticamente erróneas, más notorio cuanto más pequeña es la población de origen respecto al tamaño de la muestra.</span>
+<span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-165"><a href="#cb20-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 2 · Poisson y el escalamiento de λ</span></span>
+<span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-168"><a href="#cb20-168" aria-hidden="true" tabindex="-1"></a>**Pregunta:** un estudiante calcula la probabilidad de "más de 3 llamadas en 30 minutos" usando $\lambda=8$ (la tasa por hora), sin ajustarla. ¿Qué error cometió y cómo se corrige?</span>
+<span id="cb20-169"><a href="#cb20-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb20-172"><a href="#cb20-172" aria-hidden="true" tabindex="-1"></a>Usó el $\lambda$ del intervalo equivocado. La tasa de 8 llamadas por hora corresponde a un intervalo de 60 minutos; la pregunta es sobre 30 minutos, la mitad del intervalo. Como $\lambda$ escala linealmente con el tamaño del intervalo ($X_t\sim\text{Poisson}(\lambda\cdot t)$), el valor correcto para 30 minutos es $\lambda=8\times0.5=4$, no 8. Usar el $\lambda$ sin ajustar sobreestima sistemáticamente la probabilidad de conteos altos, porque implícitamente está asumiendo el doble del tiempo real.</span>
+<span id="cb20-173"><a href="#cb20-173" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-174"><a href="#cb20-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-175"><a href="#cb20-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 3 · Por qué existe la corrección de continuidad</span></span>
+<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a>**Pregunta:** explique, en sus propias palabras, por qué es necesaria la corrección de continuidad al aproximar una binomial con una normal, y qué pasaría si se omite sistemáticamente en un examen.</span>
+<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-179"><a href="#cb20-179" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb20-180"><a href="#cb20-180" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb20-181"><a href="#cb20-181" aria-hidden="true" tabindex="-1"></a>La binomial es una distribución **discreta** — solo toma valores enteros — mientras que la normal es **continua** y asigna probabilidad cero a cualquier punto exacto ($P(Y=k)=0$ para la normal, siempre). Sin la corrección, $P(X=k)$ no tendría análogo directo en la normal, y los cálculos de $P(X\le k)$ o $P(X\ge k)$ estarían sistemáticamente desplazados en 0.5 unidades respecto al valor real. La corrección "reparte" el intervalo $<span class="co">[</span><span class="ot">k-0.5, k+0.5</span><span class="co">]</span>$ alrededor de cada entero para imitar cómo la binomial distribuye su masa de probabilidad. Omitirla no arruina completamente el resultado (la aproximación segue siendo del orden correcto), pero introduce un sesgo sistemático que crece en importancia cuando $n$ es moderado o cuando el intervalo de interés es angosto.</span>
+<span id="cb20-182"><a href="#cb20-182" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 4 · Por qué la unicidad de la FGM es tan útil</span></span>
+<span id="cb20-185"><a href="#cb20-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-186"><a href="#cb20-186" aria-hidden="true" tabindex="-1"></a>**Pregunta:** ¿por qué el hecho de que "misma FGM implica misma distribución" es tan poderoso para encontrar la distribución de una suma de variables aleatorias?</span>
+<span id="cb20-187"><a href="#cb20-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-188"><a href="#cb20-188" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb20-190"><a href="#cb20-190" aria-hidden="true" tabindex="-1"></a>Sin la FGM, encontrar la distribución exacta de $X+Y$ requiere **convolucionar** las funciones de probabilidad (sumar, para cada valor posible de la suma, todas las combinaciones de $X$ y $Y$ que lo producen) — un procedimiento tedioso y propenso a errores, especialmente si $X$ o $Y$ pueden tomar muchos valores. La FGM convierte ese problema en **álgebra de exponentes**: multiplicar $M_X(t)\cdot M_Y(t)$ es mucho más simple que convolucionar. Si el producto resulta tener la *forma* de una FGM conocida (por ejemplo, la forma de una Poisson o de una Binomial), la propiedad de unicidad garantiza —sin necesidad de ninguna otra verificación— que $X+Y$ sigue exactamente esa distribución. Es el mismo principio que usaste en el Tema P6d para demostrar que la suma de Poisson independientes es Poisson.</span>
+<span id="cb20-191"><a href="#cb20-191" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 5 · Síntesis: elegir la herramienta correcta</span></span>
+<span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a>**Pregunta:** una aerolínea vende 2,000 tiquetes para un vuelo, sabiendo que hay una probabilidad de 0.001 de que cualquier pasajero individual no se presente ("no-show"), independientemente entre pasajeros. ¿Usaría la binomial exacta, la aproximación normal, o la aproximación Poisson para modelar el número de no-shows? Justifique con los criterios correspondientes.</span>
+<span id="cb20-196"><a href="#cb20-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-197"><a href="#cb20-197" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb20-198"><a href="#cb20-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuesta</span></span>
+<span id="cb20-199"><a href="#cb20-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span>; p <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
+<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n<span class="sc">*</span>p, <span class="at">n1p =</span> n<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p))</span>
+<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a>$np=2$, muy por debajo del umbral de 5 requerido para la aproximación normal — **no** se debe usar la normal aquí, a pesar de que $n$ es grande. Con $n$ grande, $p$ chico, y $np$ moderado, las condiciones apuntan directamente a la **aproximación Poisson** con $\lambda=np=2$: es exactamente el mismo patrón de "evento raro en una muestra grande" que viste en el Tema P6b (mutaciones celulares) y en el Tema P6c (donde $np$ pequeño hacía fallar a la normal). La binomial exacta con $n=2000$ también daría la respuesta correcta, pero computacionalmente la Poisson es una aproximación excelente y mucho más simple de trabajar a mano.</span>
+<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Autoevaluación final</span></span>
+<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a>Antes del examen, comprueba que puedes hacer todo esto **sin mirar la guía**:</span>
+<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Enunciar las 4 condiciones BINS y decidir si un escenario dado las cumple.</span>
+<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calcular $P(X=k)$, $P(X\le k)$, $P(X\ge k)$ para una binomial, sin confundir los índices.</span>
+<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Reconocer cuándo un problema es Poisson (vs. binomial) y ajustar $\lambda$ al intervalo correcto de la pregunta.</span>
+<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Verificar $np\ge5$ y $n(1-p)\ge5$ antes de aplicar la aproximación normal, y aplicar la corrección de continuidad correcta según el tipo de desigualdad.</span>
+<span id="cb20-220"><a href="#cb20-220" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Explicar por qué la aproximación normal falla cuando $np&lt;5$, y qué alternativa usar.</span>
+<span id="cb20-221"><a href="#cb20-221" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Escribir la FGM de las 5 distribuciones de la tabla (Bernoulli, Binomial, Poisson, Exponencial, Normal) y extraer $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$ derivando.</span>
+<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Usar el producto de FGM para identificar la distribución de una suma de variables independientes.</span>
+<span id="cb20-223"><a href="#cb20-223" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Elegir, para un escenario nuevo, entre binomial exacta / Poisson / normal, justificando con los criterios de $np$ y $n(1-p)$.</span>
+<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-225"><a href="#cb20-225" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb20-226"><a href="#cb20-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb20-227"><a href="#cb20-227" aria-hidden="true" tabindex="-1"></a>Si algún punto te costó, vuelve al Tema correspondiente: 1-2 → <span class="co">[</span><span class="ot">Tema P6</span><span class="co">](tema-p6-estudiante.qmd)</span>, 3 → <span class="co">[</span><span class="ot">Tema P6b</span><span class="co">](tema-p6b-estudiante.qmd)</span>, 4-5 → <span class="co">[</span><span class="ot">Tema P6c</span><span class="co">](tema-p6c-estudiante.qmd)</span>, 6-7 → <span class="co">[</span><span class="ot">Tema P6d</span><span class="co">](tema-p6d-estudiante.qmd)</span>, 8 → esta guía, sección 5. Después practica con <span class="co">[</span><span class="ot">Taller 2 · Práctica evaluativa</span><span class="co">](../laboratorios.qmd#taller-2-práctica-evaluativa)</span>.</span>
+<span id="cb20-228"><a href="#cb20-228" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

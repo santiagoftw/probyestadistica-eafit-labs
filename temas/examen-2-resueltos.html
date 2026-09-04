@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Exámenes resueltos · Versiones A y B – Estadística Descriptiva — Curso interactivo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../temas/examen-2-simulacro.html" rel="next">
+<link href="../temas/preparacion-examen-2.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-efb91bd0868d576862364376f9782ba6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c347002e56891f38760c1c911c998f1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Descriptiva — Curso interactivo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentacion.html"> 
+<span class="menu-text">Presentación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../programa.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../laboratorios.html"> 
+<span class="menu-text">Laboratorios</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recursos.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/examen-2-resueltos.html">Exámenes resueltos · Versiones A y B</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../presentacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación del curso</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../programa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 1 — Estadística descriptiva</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-00-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 0 · R como laboratorio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-01-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 1 · Datos, población y variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-02-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 2 · Variables cualitativas: tablas y gráficas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-03-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 3 · Variables cuantitativas: histograma y forma de los datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-04-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 4 · Medidas de tendencia central</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-05-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 5 · Medidas de dispersión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-06-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 6 · Cuantiles y boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-07-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 7 · Momentos, asimetría y curtosis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-08-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema 8 · Datos conjuntos: covarianza, correlación y regresión</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/preparacion-examen-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparación del Examen 1 · Guía práctica de análisis estadístico en R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicios propuestos · Módulo 1 (Estadística descriptiva)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulo 2 — Probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/modulo-2-arquitectura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Módulo 2 · Probabilidad — Arquitectura</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p1-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P1 · Reglas básicas de probabilidad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p2-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P2 · Probabilidad condicional y regla multiplicativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p3-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P3 · Probabilidad total y Teorema de Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p4-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P4 · Independencia de eventos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p5-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P5 · Variables aleatorias y función de distribución acumulada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6a-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6a · Conteo: de las permutaciones a la fórmula binomial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6 · Distribución Binomial y ensayos de Bernoulli</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6b-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6b · Distribución de Poisson</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6c-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6c · Aproximación normal a la distribución binomial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p6d-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P6d · Función generadora de momentos (FGM)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p7-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P7 · Distribuciones continuas: Uniforme y Normal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p8-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P8 · Distribución de probabilidad multivariada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P9 · Covarianza y correlación de variables aleatorias</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p10-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P10 · Funciones de variables aleatorias y simulación de sistemas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/ejercicios-modulo2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicios propuestos · Módulo 2 (Probabilidad)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/preparacion-examen-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/examen-2-resueltos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Exámenes resueltos · Versiones A y B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../temas/examen-2-simulacro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examen 2 · Simulacro</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laboratorios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratorios del curso · Ejercicios y prácticas resueltas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trucos de interpretación estadística</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#dos-exámenes-el-mismo-patrón-números-distintos" id="toc-dos-exámenes-el-mismo-patrón-números-distintos" class="nav-link active" data-scroll-target="#dos-exámenes-el-mismo-patrón-números-distintos">📑 Dos exámenes, el mismo patrón, números distintos</a></li>
+  <li><a href="#examen-versión-a" id="toc-examen-versión-a" class="nav-link" data-scroll-target="#examen-versión-a">Examen · Versión A</a>
+  <ul class="collapse">
+  <li><a href="#problema-1-solicitudes-de-mantenimiento-poisson" id="toc-problema-1-solicitudes-de-mantenimiento-poisson" class="nav-link" data-scroll-target="#problema-1-solicitudes-de-mantenimiento-poisson">Problema 1 — Solicitudes de mantenimiento (Poisson)</a></li>
+  <li><a href="#problema-2-espera-del-bus-binomial-diagnóstico" id="toc-problema-2-espera-del-bus-binomial-diagnóstico" class="nav-link" data-scroll-target="#problema-2-espera-del-bus-binomial-diagnóstico">Problema 2 — Espera del bus (Binomial + diagnóstico)</a></li>
+  <li><a href="#problema-3-fgm-de-un-dado-de-5-caras" id="toc-problema-3-fgm-de-un-dado-de-5-caras" class="nav-link" data-scroll-target="#problema-3-fgm-de-un-dado-de-5-caras">Problema 3 — FGM de un dado de 5 caras</a></li>
+  </ul></li>
+  <li><a href="#examen-versión-b" id="toc-examen-versión-b" class="nav-link" data-scroll-target="#examen-versión-b">Examen · Versión B</a>
+  <ul class="collapse">
+  <li><a href="#problema-1-fgm-de-una-variable-aleatoria-discreta" id="toc-problema-1-fgm-de-una-variable-aleatoria-discreta" class="nav-link" data-scroll-target="#problema-1-fgm-de-una-variable-aleatoria-discreta">Problema 1 — FGM de una variable aleatoria discreta</a></li>
+  <li><a href="#problema-2-retraso-del-transporte-binomial-diagnóstico" id="toc-problema-2-retraso-del-transporte-binomial-diagnóstico" class="nav-link" data-scroll-target="#problema-2-retraso-del-transporte-binomial-diagnóstico">Problema 2 — Retraso del transporte (Binomial + diagnóstico)</a></li>
+  <li><a href="#problema-3-solicitudes-de-una-empresa-poisson" id="toc-problema-3-solicitudes-de-una-empresa-poisson" class="nav-link" data-scroll-target="#problema-3-solicitudes-de-una-empresa-poisson">Problema 3 — Solicitudes de una empresa (Poisson)</a></li>
+  </ul></li>
+  <li><a href="#bonus-tres-problemas-del-banco-de-ejercicios" id="toc-bonus-tres-problemas-del-banco-de-ejercicios" class="nav-link" data-scroll-target="#bonus-tres-problemas-del-banco-de-ejercicios">Bonus: tres problemas del banco de ejercicios</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-reconstruir-una-distribución-a-partir-de-sus-momentos" id="toc-ejercicio-reconstruir-una-distribución-a-partir-de-sus-momentos" class="nav-link" data-scroll-target="#ejercicio-reconstruir-una-distribución-a-partir-de-sus-momentos">Ejercicio — Reconstruir una distribución a partir de sus momentos</a></li>
+  <li><a href="#ejercicio-genética-y-binomial" id="toc-ejercicio-genética-y-binomial" class="nav-link" data-scroll-target="#ejercicio-genética-y-binomial">Ejercicio — Genética y binomial</a></li>
+  <li><a href="#ejercicio-fgm-de-una-geométrica" id="toc-ejercicio-fgm-de-una-geométrica" class="nav-link" data-scroll-target="#ejercicio-fgm-de-una-geométrica">Ejercicio — FGM de una geométrica</a></li>
+  <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">🗂️ Cierre</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../temas/modulo-2-arquitectura.html">Módulo 2 — Probabilidad</a></li><li class="breadcrumb-item"><a href="../temas/examen-2-resueltos.html">Exámenes resueltos · Versiones A y B</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Exámenes resueltos · Versiones A y B</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="dos-exámenes-el-mismo-patrón-números-distintos" class="level2 hero-motivacion">
+<h2 class="anchored" data-anchor-id="dos-exámenes-el-mismo-patrón-números-distintos">📑 Dos exámenes, el mismo patrón, números distintos</h2>
+<p>Estas son dos versiones paralelas de examen (A y B), cada una con 3 problemas del mismo tipo: <strong>Poisson con escalamiento + comparación de aproximaciones</strong>, <strong>Binomial con diagnóstico de ajuste sobre datos observados</strong>, y <strong>FGM de una variable aleatoria discreta</strong>. Resuélvelas ambas — reconocer el patrón detrás de números distintos es mejor preparación que memorizar una sola respuesta.</p>
+</section>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Corrección de rigor, antes de empezar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La fuente original de la Versión A, Problema 1(b) afirmaba que <span class="math inline">\(P(X&gt;30)\)</span> en 8 horas era “aproximadamente 0.033”, con una nota aparte señalando que el valor real es “aproximadamente 0.096”. Verificamos ambos de forma independiente: con <span class="math inline">\(\lambda=24\)</span> (la tasa de 3/hora escalada a 8 horas), el valor correcto es <strong>0.0958</strong>, confirmando la nota y descartando el 0.033 original. Se usa 0.0958 en todo lo que sigue, incluyendo la parte (c) que depende de este valor.</p>
+</div>
+</div>
+<section id="examen-versión-a" class="level1">
+<h1>Examen · Versión A</h1>
+<section id="problema-1-solicitudes-de-mantenimiento-poisson" class="level2">
+<h2 class="anchored" data-anchor-id="problema-1-solicitudes-de-mantenimiento-poisson">Problema 1 — Solicitudes de mantenimiento (Poisson)</h2>
+<p><strong>Enunciado:</strong> una empresa de mantenimiento recibe solicitudes a una tasa promedio de 3 por hora. (a) Calcule la probabilidad de recibir exactamente 9 solicitudes en 3 horas. (b) La probabilidad de recibir más de 30 solicitudes en 8 horas. (c) En 120 días laborales: (I) media y desviación estándar del número de días con más de 30 solicitudes; (II) aproxime la probabilidad de que esto ocurra en al menos 8 días, usando aproximación Poisson y aproximación normal con corrección de continuidad; (III) compare.</p>
+<div class="ficha-prediccion">
+<p>Antes de calcular (c): con <span class="math inline">\(p\approx0.096\)</span> (la probabilidad diaria de “día crítico”), ¿esperas que <span class="math inline">\(np\)</span> sea lo bastante grande como para que la aproximación normal aplique bien?</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tasa <span class="ot">&lt;-</span> <span class="dv">3</span>   <span class="co"># solicitudes por hora</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) P(X = 9) en 3 horas</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>lambda_3h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">9</span>, lambda_3h)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1317556</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) P(X &gt; 30) en 8 horas</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>lambda_8h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">8</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p_dia_critico <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">30</span>, lambda_8h)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>p_dia_critico</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0958484</code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p><span class="math inline">\(P(X&gt;30)=0.0958\)</span> con <span class="math inline">\(\lambda=24\)</span> — confirma la corrección de rigor de arriba, no el 0.033 original.</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(I) Media y sd del número de días críticos en 120 días</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n_dias <span class="ot">&lt;-</span> <span class="dv">120</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p_dia_critico</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n_dias <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n_dias<span class="sc">*</span>p, <span class="at">n1p =</span> n_dias<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p), <span class="at">mu =</span> mu, <span class="at">sigma =</span> sigma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>        np        n1p         mu      sigma 
+ 11.501808 108.498192  11.501808   3.224807 </code></pre>
+</div>
+</div>
+<p><span class="math inline">\(np=11.5\ge5\)</span> y <span class="math inline">\(n(1-p)=108.5\ge5\)</span>: la aproximación normal es aplicable.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(II) P(al menos 8 días) con las dos aproximaciones</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lambda_dias <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p   <span class="co"># aproximación Poisson: lambda = np</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>aprox_poisson <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">7</span>, lambda_dias)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>aprox_normal <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">7.5</span>, mu, sigma)   <span class="co"># corrección de continuidad: 8 - 0.5</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>exacto <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">7</span>, n_dias, p)   <span class="co"># valor exacto, para comparar</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">exacto =</span> exacto, <span class="at">aprox_poisson =</span> aprox_poisson, <span class="at">aprox_normal =</span> aprox_normal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       exacto aprox_poisson  aprox_normal 
+    0.8981713     0.8863621     0.8926870 </code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p><strong>(c)(III) Comparación:</strong> exacto = 0.8982, aproximación normal = 0.8927, aproximación Poisson = 0.8864. Las tres coinciden dentro de 0.012 entre sí. La normal queda ligeramente más cerca del valor exacto que la Poisson — consistente con que <span class="math inline">\(np=11.5\)</span> ya es razonablemente grande para la normal, mientras que la Poisson tiende a funcionar mejor cuando <span class="math inline">\(p\)</span> es más chico y <span class="math inline">\(np\)</span> más moderado (como en el Tema P6c).</p>
+</div>
+</section>
+<section id="problema-2-espera-del-bus-binomial-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="problema-2-espera-del-bus-binomial-diagnóstico">Problema 2 — Espera del bus (Binomial + diagnóstico)</h2>
+<p><strong>Enunciado:</strong> un estudiante cree que <span class="math inline">\(P(\text{esperar más de 5 min}) = 0.3\)</span>. (a) En 12 viajes: (I) <span class="math inline">\(P(X\le4)\)</span>; (II) <span class="math inline">\(P(X&gt;5)\)</span>. (b) En 10 semanas se observan los conteos semanales <code>3,5,6,2,4,1,0,7,3,2</code>. (I) Calcule media y desviación estándar muestral. (II) Evalúe si el modelo Binomial(12, 0.3) es adecuado.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">12</span>; p <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (a)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>p_X_menor_igual_4 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n, p)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>p_X_mayor_5       <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, n, p)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">p_X_le_4 =</span> p_X_menor_igual_4, <span class="at">p_X_gt_5 =</span> p_X_mayor_5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> p_X_le_4  p_X_gt_5 
+0.7236555 0.1178487 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (b)(I)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">7</span>,<span class="dv">3</span>,<span class="dv">2</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>media_muestral <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>sd_muestral    <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>media_teorica <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>sd_teorica    <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_muestral =</span> media_muestral, <span class="at">sd_muestral =</span> sd_muestral,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">media_teorica =</span> media_teorica, <span class="at">sd_teorica =</span> sd_teorica)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>media_muestral    sd_muestral  media_teorica     sd_teorica 
+      3.300000       2.213594       3.600000       1.587451 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>(b)(II) — ¿Es adecuado el modelo?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La media muestral (3.3) está razonablemente cerca de la teórica (3.6) — una diferencia de solo 0.3, plausible con apenas 10 semanas de datos. Pero la <strong>desviación estándar muestral (2.21) es notablemente mayor</strong> que la teórica (1.59), casi 40% más alta. Esto sugiere posible <strong>sobredispersión</strong>: la variabilidad real es mayor de lo que predice el modelo Binomial(12, 0.3), lo que podría indicar que <span class="math inline">\(p\)</span> no es constante semana a semana (por ejemplo, cambia con el clima o el horario), o que los 12 viajes de una semana no son completamente independientes entre sí. Con solo 10 observaciones, esta discrepancia no es concluyente —podría ser variabilidad muestral—, pero amerita recolectar más datos antes de confiar plenamente en el modelo.</p>
+</div>
+</div>
+</section>
+<section id="problema-3-fgm-de-un-dado-de-5-caras" class="level2">
+<h2 class="anchored" data-anchor-id="problema-3-fgm-de-un-dado-de-5-caras">Problema 3 — FGM de un dado de 5 caras</h2>
+<p><strong>Enunciado:</strong> sea <span class="math inline">\(X\)</span> el resultado de un dado justo de 5 caras. (a) Halle la FGM. (b) Calcule <span class="math inline">\(E[X]\)</span>, <span class="math inline">\(E[X^2]\)</span> y <span class="math inline">\(\text{Var}(X)\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>M_dado5 <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="fu">sum</span>(<span class="fu">exp</span>(t <span class="sc">*</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">/</span> <span class="dv">5</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>E_X   <span class="ot">&lt;-</span> (<span class="fu">M_dado5</span>(h) <span class="sc">-</span> <span class="fu">M_dado5</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>E_X2  <span class="ot">&lt;-</span> (<span class="fu">M_dado5</span>(h) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">M_dado5</span>(<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">M_dado5</span>(<span class="sc">-</span>h)) <span class="sc">/</span> h<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>Var_X <span class="ot">&lt;-</span> E_X2 <span class="sc">-</span> E_X<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">E_X =</span> E_X, <span class="at">E_X2 =</span> E_X2, <span class="at">Var_X =</span> Var_X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     E_X     E_X2    Var_X 
+ 3.00000 11.00009  2.00009 </code></pre>
+</div>
+</div>
+<p><span class="math display">\[M_X(t) = \frac{e^t+e^{2t}+e^{3t}+e^{4t}+e^{5t}}{5} \qquad E[X]=3 \qquad E[X^2]=11 \qquad \text{Var}(X)=2\]</span></p>
+<hr>
+</section>
+</section>
+<section id="examen-versión-b" class="level1">
+<h1>Examen · Versión B</h1>
+<section id="problema-1-fgm-de-una-variable-aleatoria-discreta" class="level2">
+<h2 class="anchored" data-anchor-id="problema-1-fgm-de-una-variable-aleatoria-discreta">Problema 1 — FGM de una variable aleatoria discreta</h2>
+<p><strong>Enunciado:</strong> <span class="math inline">\(X\)</span> toma valores 2, 4, 6, 8 con igual probabilidad. (a) Halle la FGM. (b) Calcule <span class="math inline">\(E[X]\)</span>, <span class="math inline">\(E[X^2]\)</span> y <span class="math inline">\(\text{Var}(X)\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>M_X <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="fu">sum</span>(<span class="fu">exp</span>(t <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>))) <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>E_X   <span class="ot">&lt;-</span> (<span class="fu">M_X</span>(h) <span class="sc">-</span> <span class="fu">M_X</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>E_X2  <span class="ot">&lt;-</span> (<span class="fu">M_X</span>(h) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">M_X</span>(<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">M_X</span>(<span class="sc">-</span>h)) <span class="sc">/</span> h<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>Var_X <span class="ot">&lt;-</span> E_X2 <span class="sc">-</span> E_X<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">E_X =</span> E_X, <span class="at">E_X2 =</span> E_X2, <span class="at">Var_X =</span> Var_X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      E_X      E_X2     Var_X 
+ 5.000000 30.000002  5.000002 </code></pre>
+</div>
+</div>
+<p><span class="math display">\[M_X(t) = \frac{e^{2t}+e^{4t}+e^{6t}+e^{8t}}{4} \qquad E[X]=5 \qquad E[X^2]=30 \qquad \text{Var}(X)=5\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Truco de interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(X=2Z\)</span> donde <span class="math inline">\(Z\in\{1,2,3,4\}\)</span> es un dado de 4 caras. Nota que <span class="math inline">\(E[X]=5=2\times2.5=2\,E[Z]\)</span> y <span class="math inline">\(\text{Var}(X)=5=4\times1.25=2^2\,\text{Var}(Z)\)</span> — exactamente las propiedades de transformaciones lineales que viste en el Tema 5 del Módulo 1 (<span class="math inline">\(E[aZ]=aE[Z]\)</span>, <span class="math inline">\(\text{Var}(aZ)=a^2\text{Var}(Z)\)</span>), ahora confirmadas también vía FGM. <a href="../recursos.html">Ver más trucos →</a></p>
+</div>
+</div>
+</section>
+<section id="problema-2-retraso-del-transporte-binomial-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="problema-2-retraso-del-transporte-binomial-diagnóstico">Problema 2 — Retraso del transporte (Binomial + diagnóstico)</h2>
+<p><strong>Enunciado:</strong> un sistema de transporte tiene probabilidad 0.35 de un retraso mayor a 4 minutos. (a) En 15 viajes: (I) <span class="math inline">\(P(X\le5)\)</span>; (II) <span class="math inline">\(P(X&gt;6)\)</span>. (b) En 12 semanas se observan los conteos <code>5,4,6,3,2,7,1,0,4,3,5,2</code>. (I) Media y desviación estándar. (II) Analice si el modelo binomial es adecuado.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">15</span>; p <span class="ot">&lt;-</span> <span class="fl">0.35</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>p_X_menor_igual_5 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, n, p)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>p_X_mayor_6       <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">6</span>, n, p)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">p_X_le_5 =</span> p_X_menor_igual_5, <span class="at">p_X_gt_6 =</span> p_X_mayor_6)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> p_X_le_5  p_X_gt_6 
+0.5642821 0.2451575 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>media_muestral <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>sd_muestral    <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>media_teorica  <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>sd_teorica     <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_muestral =</span> media_muestral, <span class="at">sd_muestral =</span> sd_muestral,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">media_teorica =</span> media_teorica, <span class="at">sd_teorica =</span> sd_teorica)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>media_muestral    sd_muestral  media_teorica     sd_teorica 
+      3.500000       2.067058       5.250000       1.847295 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>¿Es adecuado el modelo?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aquí el diagnóstico es distinto al de la Versión A: la <strong>desviación estándar</strong> muestral (2.07) está razonablemente cerca de la teórica (1.85), pero la <strong>media muestral (3.5) es notablemente menor</strong> que la teórica (5.25) — casi 33% más baja. Esto apunta a que el valor asumido <span class="math inline">\(p=0.35\)</span> probablemente <strong>sobreestima</strong> la probabilidad real de retraso: la proporción empírica implícita en los datos es <span class="math inline">\(\hat p = \bar{x}/n = 3.5/15\approx0.233\)</span>, bastante menor que 0.35. La recomendación práctica: reestimar <span class="math inline">\(p\)</span> a partir de los datos observados en vez de asumir el valor original, y volver a evaluar el modelo con el <span class="math inline">\(p\)</span> actualizado.</p>
+</div>
+</div>
+</section>
+<section id="problema-3-solicitudes-de-una-empresa-poisson" class="level2">
+<h2 class="anchored" data-anchor-id="problema-3-solicitudes-de-una-empresa-poisson">Problema 3 — Solicitudes de una empresa (Poisson)</h2>
+<p><strong>Enunciado:</strong> una empresa recibe solicitudes a razón de 1.8 por hora. (a) Probabilidad de exactamente 5 solicitudes en 2 horas. (b) Probabilidad de más de 20 solicitudes en 10 horas. (c) En 80 días: (I) media y desviación estándar del número de días críticos; (II) estime <span class="math inline">\(P(W\ge5)\)</span> con las dos aproximaciones; (III) compare y justifique cuál es mejor.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tasa <span class="ot">&lt;-</span> <span class="fl">1.8</span>   <span class="co"># por hora</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (a)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>lambda_2h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">5</span>, lambda_2h)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1376801</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (b)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>lambda_10h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">10</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p_dia_critico <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">20</span>, lambda_10h)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>p_dia_critico</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2692798</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(I)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>n_dias <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p_dia_critico</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n_dias <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n_dias<span class="sc">*</span>p, <span class="at">n1p =</span> n_dias<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p), <span class="at">mu =</span> mu, <span class="at">sigma =</span> sigma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      np      n1p       mu    sigma 
+21.54239 58.45761 21.54239  3.96755 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(II)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>lambda_w <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>aprox_poisson <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">4</span>, lambda_w)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>aprox_normal  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">4.5</span>, mu, sigma)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>exacto        <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n_dias, p)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">exacto =</span> exacto, <span class="at">aprox_poisson =</span> aprox_poisson, <span class="at">aprox_normal =</span> aprox_normal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       exacto aprox_poisson  aprox_normal 
+    0.9999996     0.9999952     0.9999913 </code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p><strong>(c)(III):</strong> aquí <span class="math inline">\(p_{\text{día}}\approx0.269\)</span> no es “rara” — <span class="math inline">\(np=21.5\)</span> y <span class="math inline">\(n(1-p)=58.5\)</span> son ambos grandes, terreno típico de la <strong>normal</strong>, no de la Poisson (que rinde mejor con <span class="math inline">\(p\)</span> chico). Con <span class="math inline">\(W\ge5\)</span> tan por debajo de la media (21.5), las tres cantidades son prácticamente 1 (≈0.99999) y no permiten distinguir cuál aproximación es mejor en este caso particular — un buen recordatorio de que, para discriminar entre aproximaciones, conviene evaluar en una región donde la probabilidad no esté saturada cerca de 0 o 1 (como si hiciste en la Versión A).</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="bonus-tres-problemas-del-banco-de-ejercicios" class="level1">
+<h1>Bonus: tres problemas del banco de ejercicios</h1>
+<p>Estos tres problemas, tomados del banco de ejercicios adjunto, complementan directamente los criterios de Binomial y FGM del Taller 2.</p>
+<section id="ejercicio-reconstruir-una-distribución-a-partir-de-sus-momentos" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-reconstruir-una-distribución-a-partir-de-sus-momentos">Ejercicio — Reconstruir una distribución a partir de sus momentos</h2>
+<p><strong>Enunciado:</strong> <span class="math inline">\(X\)</span> toma los valores <span class="math inline">\(x_1=1\)</span>, <span class="math inline">\(x_2=3\)</span>, <span class="math inline">\(x_3=5\)</span> con probabilidad positiva. Si <span class="math inline">\(E(X)=3.5\)</span> y <span class="math inline">\(\text{Var}(X)=1.15\)</span>, determine (si es posible) la distribución de <span class="math inline">\(X\)</span>.</p>
+<div class="ficha-prediccion">
+<p>Tienes 3 incógnitas (<span class="math inline">\(p_1,p_2,p_3\)</span>) y necesitas 3 ecuaciones para resolverlas. ¿Cuáles tres condiciones conoces?</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sistema de 3 ecuaciones, 3 incógnitas:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  p1 + p2 + p3 = 1</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  1*p1 + 3*p2 + 5*p3 = E[X] = 3.5</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  1*p1 + 9*p2 + 25*p3 = E[X^2] = Var(X) + E[X]^2 = 1.15 + 3.5^2</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">25</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">3.5</span>, <span class="fl">1.15</span> <span class="sc">+</span> <span class="fl">3.5</span><span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, b)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05 0.65 0.30</code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p><span class="math inline">\(p_1=0.05\)</span>, <span class="math inline">\(p_2=0.65\)</span>, <span class="math inline">\(p_3=0.30\)</span> — las tres son probabilidades válidas (positivas, suman 1), así que la distribución <strong>sí existe y es única</strong>: <span class="math inline">\(P(X=1)=0.05\)</span>, <span class="math inline">\(P(X=3)=0.65\)</span>, <span class="math inline">\(P(X=5)=0.30\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Truco de interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No siempre existe una solución válida: si el sistema arrojara alguna probabilidad negativa o mayor a 1, la conclusión correcta sería que <strong>no existe</strong> una variable aleatoria con esos valores y esos momentos — es una verificación de consistencia, no una garantía automática. <a href="../recursos.html">Ver más trucos →</a></p>
+</div>
+</div>
+</section>
+<section id="ejercicio-genética-y-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-genética-y-binomial">Ejercicio — Genética y binomial</h2>
+<p><strong>Enunciado:</strong> el color de ojos se determina por un gen dominante (café) y uno recesivo (azul). Si el hijo mayor de una pareja de ojos cafés tiene ojos azules, ¿cuál es la probabilidad de que exactamente 2 de los otros 4 hijos también tengan ojos azules?</p>
+<div class="ficha-resultado">
+<p>Que el primer hijo tenga ojos azules revela que <strong>ambos padres son heterocigotos</strong> (cada uno tiene un gen café y uno azul) — de otra forma, un hijo de ojos azules sería imposible. Con ambos padres heterocigotos, cada hijo nuevo tiene <span class="math inline">\(P(\text{ojos azules})=1/4\)</span> (necesita heredar el gen azul de ambos), independiente entre hermanos.</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span>; p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>   <span class="co"># los otros 4 hijos, cada uno con P(azul) = 1/4</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, n, p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2109375</code></pre>
+</div>
+</div>
+<p><span class="math inline">\(P(\text{exactamente 2 de 4}) \approx 0.2109\)</span>.</p>
+</section>
+<section id="ejercicio-fgm-de-una-geométrica" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-fgm-de-una-geométrica">Ejercicio — FGM de una geométrica</h2>
+<p><strong>Enunciado:</strong> <span class="math inline">\(N\)</span> toma valores en <span class="math inline">\(\{0,1,2,\dots\}\)</span> con <span class="math inline">\(P(N=n)=\dfrac{2}{3^{n+1}}\)</span>. (a) Calcule <span class="math inline">\(P(N=0)\)</span>. (b) Halle la FGM. (c) Úsela para calcular <span class="math inline">\(E(N)\)</span> y <span class="math inline">\(\text{Var}(N)\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (a)</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>p_N0 <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>p_N0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6666667</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) y (c): FGM en forma cerrada, sumando la serie geométrica</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># M(t) = sum_{n=0}^inf e^(tn) * 2/3^(n+1) = (2/3) / (1 - e^t/3) = 2/(3-e^t), para t &lt; ln(3)</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="dv">2</span> <span class="sc">/</span> (<span class="dv">3</span> <span class="sc">-</span> <span class="fu">exp</span>(t))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>E_N   <span class="ot">&lt;-</span> (<span class="fu">M</span>(h) <span class="sc">-</span> <span class="fu">M</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>E_N2  <span class="ot">&lt;-</span> (<span class="fu">M</span>(h) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">M</span>(<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">M</span>(<span class="sc">-</span>h)) <span class="sc">/</span> h<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>Var_N <span class="ot">&lt;-</span> E_N2 <span class="sc">-</span> E_N<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">E_N =</span> E_N, <span class="at">Var_N =</span> Var_N)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      E_N     Var_N 
+0.5000000 0.7498669 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Identificando la distribución
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(P(N=n)=\frac{2}{3}\left(\frac{1}{3}\right)^n\)</span> es exactamente la forma <span class="math inline">\(p(1-p)^n\)</span> de una <strong>geométrica</strong> que cuenta <em>fracasos antes del primer éxito</em>, con <span class="math inline">\(p=2/3\)</span>. Sus fórmulas conocidas, <span class="math inline">\(E[N]=\frac{1-p}{p}\)</span> y <span class="math inline">\(\text{Var}(N)=\frac{1-p}{p^2}\)</span>, dan <span class="math inline">\(E[N]=0.5\)</span> y <span class="math inline">\(\text{Var}(N)=0.75\)</span> — coincide exactamente con la derivación numérica de la FGM.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="cierre" class="level2">
+<h2 class="anchored" data-anchor-id="cierre">🗂️ Cierre</h2>
+<div class="card-lab">
+<ul>
+<li>Los dos exámenes comparten estructura pero difieren en números: reconocer el <strong>patrón</strong> (Poisson con escalamiento → días críticos → comparar aproximaciones; Binomial → diagnóstico con datos reales; FGM → momentos) importa más que memorizar una respuesta puntual.</li>
+<li>El diagnóstico “¿es adecuado el modelo?” no tiene una sola respuesta correcta: en la Versión A la señal estaba en la <strong>varianza</strong> (sobredispersión); en la Versión B estaba en la <strong>media</strong> (el <span class="math inline">\(p\)</span> asumido parecía demasiado alto). Aprende a mirar ambos momentos, no solo uno.</li>
+<li>Cuando quieras comparar aproximaciones (Poisson vs.&nbsp;Normal), elige una probabilidad que <strong>no</strong> esté saturada cerca de 0 o 1 — si no, todas las aproximaciones coinciden trivialmente y no aprendes cuál es mejor.</li>
+</ul>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/santiagoftw\.github\.io\/probyestadistica-eafit-labs\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../temas/preparacion-examen-2.html" class="pagination-link" aria-label="Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preparación del Examen 2 · Distribuciones discretas, aproximación normal y FGM</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../temas/examen-2-simulacro.html" class="pagination-link" aria-label="Examen 2 · Simulacro">
+        <span class="nav-page-text">Examen 2 · Simulacro</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Exámenes resueltos · Versiones A y B"</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📑 Dos exámenes, el mismo patrón, números distintos</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>Estas son dos versiones paralelas de examen (A y B), cada una con 3 problemas del mismo tipo: **Poisson con escalamiento + comparación de aproximaciones**, **Binomial con diagnóstico de ajuste sobre datos observados**, y **FGM de una variable aleatoria discreta**. Resuélvelas ambas — reconocer el patrón detrás de números distintos es mejor preparación que memorizar una sola respuesta.</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrección de rigor, antes de empezar</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>La fuente original de la Versión A, Problema 1(b) afirmaba que $P(X&gt;30)$ en 8 horas era "aproximadamente 0.033", con una nota aparte señalando que el valor real es "aproximadamente 0.096". Verificamos ambos de forma independiente: con $\lambda=24$ (la tasa de 3/hora escalada a 8 horas), el valor correcto es **0.0958**, confirmando la nota y descartando el 0.033 original. Se usa 0.0958 en todo lo que sigue, incluyendo la parte (c) que depende de este valor.</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="fu"># Examen · Versión A</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema 1 — Solicitudes de mantenimiento (Poisson)</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>**Enunciado:** una empresa de mantenimiento recibe solicitudes a una tasa promedio de 3 por hora. (a) Calcule la probabilidad de recibir exactamente 9 solicitudes en 3 horas. (b) La probabilidad de recibir más de 30 solicitudes en 8 horas. (c) En 120 días laborales: (I) media y desviación estándar del número de días con más de 30 solicitudes; (II) aproxime la probabilidad de que esto ocurra en al menos 8 días, usando aproximación Poisson y aproximación normal con corrección de continuidad; (III) compare.</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>Antes de calcular (c): con $p\approx0.096$ (la probabilidad diaria de "día crítico"), ¿esperas que $np$ sea lo bastante grande como para que la aproximación normal aplique bien?</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>tasa <span class="ot">&lt;-</span> <span class="dv">3</span>   <span class="co"># solicitudes por hora</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) P(X = 9) en 3 horas</span></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>lambda_3h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">9</span>, lambda_3h)</span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) P(X &gt; 30) en 8 horas</span></span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a>lambda_8h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">8</span></span>
+<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a>p_dia_critico <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">30</span>, lambda_8h)</span>
+<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a>p_dia_critico</span>
+<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a>$P(X&gt;30)=0.0958$ con $\lambda=24$ — confirma la corrección de rigor de arriba, no el 0.033 original.</span>
+<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(I) Media y sd del número de días críticos en 120 días</span></span>
+<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a>n_dias <span class="ot">&lt;-</span> <span class="dv">120</span></span>
+<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p_dia_critico</span>
+<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p</span>
+<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n_dias <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb37-54"><a href="#cb37-54" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n_dias<span class="sc">*</span>p, <span class="at">n1p =</span> n_dias<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p), <span class="at">mu =</span> mu, <span class="at">sigma =</span> sigma)</span>
+<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a>$np=11.5\ge5$ y $n(1-p)=108.5\ge5$: la aproximación normal es aplicable.</span>
+<span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-61"><a href="#cb37-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-62"><a href="#cb37-62" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(II) P(al menos 8 días) con las dos aproximaciones</span></span>
+<span id="cb37-63"><a href="#cb37-63" aria-hidden="true" tabindex="-1"></a>lambda_dias <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p   <span class="co"># aproximación Poisson: lambda = np</span></span>
+<span id="cb37-64"><a href="#cb37-64" aria-hidden="true" tabindex="-1"></a>aprox_poisson <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">7</span>, lambda_dias)</span>
+<span id="cb37-65"><a href="#cb37-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-66"><a href="#cb37-66" aria-hidden="true" tabindex="-1"></a>aprox_normal <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">7.5</span>, mu, sigma)   <span class="co"># corrección de continuidad: 8 - 0.5</span></span>
+<span id="cb37-67"><a href="#cb37-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-68"><a href="#cb37-68" aria-hidden="true" tabindex="-1"></a>exacto <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">7</span>, n_dias, p)   <span class="co"># valor exacto, para comparar</span></span>
+<span id="cb37-69"><a href="#cb37-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-70"><a href="#cb37-70" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">exacto =</span> exacto, <span class="at">aprox_poisson =</span> aprox_poisson, <span class="at">aprox_normal =</span> aprox_normal)</span>
+<span id="cb37-71"><a href="#cb37-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-72"><a href="#cb37-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-73"><a href="#cb37-73" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb37-74"><a href="#cb37-74" aria-hidden="true" tabindex="-1"></a>**(c)(III) Comparación:** exacto = 0.8982, aproximación normal = 0.8927, aproximación Poisson = 0.8864. Las tres coinciden dentro de 0.012 entre sí. La normal queda ligeramente más cerca del valor exacto que la Poisson — consistente con que $np=11.5$ ya es razonablemente grande para la normal, mientras que la Poisson tiende a funcionar mejor cuando $p$ es más chico y $np$ más moderado (como en el Tema P6c).</span>
+<span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-76"><a href="#cb37-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-77"><a href="#cb37-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema 2 — Espera del bus (Binomial + diagnóstico)</span></span>
+<span id="cb37-78"><a href="#cb37-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-79"><a href="#cb37-79" aria-hidden="true" tabindex="-1"></a>**Enunciado:** un estudiante cree que $P(\text{esperar más de 5 min}) = 0.3$. (a) En 12 viajes: (I) $P(X\le4)$; (II) $P(X&gt;5)$. (b) En 10 semanas se observan los conteos semanales <span class="in">`3,5,6,2,4,1,0,7,3,2`</span>. (I) Calcule media y desviación estándar muestral. (II) Evalúe si el modelo Binomial(12, 0.3) es adecuado.</span>
+<span id="cb37-80"><a href="#cb37-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-83"><a href="#cb37-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-84"><a href="#cb37-84" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">12</span>; p <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb37-85"><a href="#cb37-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-86"><a href="#cb37-86" aria-hidden="true" tabindex="-1"></a><span class="co"># (a)</span></span>
+<span id="cb37-87"><a href="#cb37-87" aria-hidden="true" tabindex="-1"></a>p_X_menor_igual_4 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n, p)</span>
+<span id="cb37-88"><a href="#cb37-88" aria-hidden="true" tabindex="-1"></a>p_X_mayor_5       <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, n, p)</span>
+<span id="cb37-89"><a href="#cb37-89" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">p_X_le_4 =</span> p_X_menor_igual_4, <span class="at">p_X_gt_5 =</span> p_X_mayor_5)</span>
+<span id="cb37-90"><a href="#cb37-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-91"><a href="#cb37-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-94"><a href="#cb37-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-95"><a href="#cb37-95" aria-hidden="true" tabindex="-1"></a><span class="co"># (b)(I)</span></span>
+<span id="cb37-96"><a href="#cb37-96" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">7</span>,<span class="dv">3</span>,<span class="dv">2</span>)</span>
+<span id="cb37-97"><a href="#cb37-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-98"><a href="#cb37-98" aria-hidden="true" tabindex="-1"></a>media_muestral <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos)</span>
+<span id="cb37-99"><a href="#cb37-99" aria-hidden="true" tabindex="-1"></a>sd_muestral    <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos)</span>
+<span id="cb37-100"><a href="#cb37-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-101"><a href="#cb37-101" aria-hidden="true" tabindex="-1"></a>media_teorica <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
+<span id="cb37-102"><a href="#cb37-102" aria-hidden="true" tabindex="-1"></a>sd_teorica    <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb37-103"><a href="#cb37-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-104"><a href="#cb37-104" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_muestral =</span> media_muestral, <span class="at">sd_muestral =</span> sd_muestral,</span>
+<span id="cb37-105"><a href="#cb37-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">media_teorica =</span> media_teorica, <span class="at">sd_teorica =</span> sd_teorica)</span>
+<span id="cb37-106"><a href="#cb37-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-107"><a href="#cb37-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-108"><a href="#cb37-108" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb37-109"><a href="#cb37-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## (b)(II) — ¿Es adecuado el modelo?</span></span>
+<span id="cb37-110"><a href="#cb37-110" aria-hidden="true" tabindex="-1"></a>La media muestral (3.3) está razonablemente cerca de la teórica (3.6) — una diferencia de solo 0.3, plausible con apenas 10 semanas de datos. Pero la **desviación estándar muestral (2.21) es notablemente mayor** que la teórica (1.59), casi 40% más alta. Esto sugiere posible **sobredispersión**: la variabilidad real es mayor de lo que predice el modelo Binomial(12, 0.3), lo que podría indicar que $p$ no es constante semana a semana (por ejemplo, cambia con el clima o el horario), o que los 12 viajes de una semana no son completamente independientes entre sí. Con solo 10 observaciones, esta discrepancia no es concluyente —podría ser variabilidad muestral—, pero amerita recolectar más datos antes de confiar plenamente en el modelo.</span>
+<span id="cb37-111"><a href="#cb37-111" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-112"><a href="#cb37-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-113"><a href="#cb37-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema 3 — FGM de un dado de 5 caras</span></span>
+<span id="cb37-114"><a href="#cb37-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-115"><a href="#cb37-115" aria-hidden="true" tabindex="-1"></a>**Enunciado:** sea $X$ el resultado de un dado justo de 5 caras. (a) Halle la FGM. (b) Calcule $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$, $E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>$ y $\text{Var}(X)$.</span>
+<span id="cb37-116"><a href="#cb37-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-119"><a href="#cb37-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-120"><a href="#cb37-120" aria-hidden="true" tabindex="-1"></a>M_dado5 <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="fu">sum</span>(<span class="fu">exp</span>(t <span class="sc">*</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">/</span> <span class="dv">5</span></span>
+<span id="cb37-121"><a href="#cb37-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-122"><a href="#cb37-122" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb37-123"><a href="#cb37-123" aria-hidden="true" tabindex="-1"></a>E_X   <span class="ot">&lt;-</span> (<span class="fu">M_dado5</span>(h) <span class="sc">-</span> <span class="fu">M_dado5</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)</span>
+<span id="cb37-124"><a href="#cb37-124" aria-hidden="true" tabindex="-1"></a>E_X2  <span class="ot">&lt;-</span> (<span class="fu">M_dado5</span>(h) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">M_dado5</span>(<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">M_dado5</span>(<span class="sc">-</span>h)) <span class="sc">/</span> h<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb37-125"><a href="#cb37-125" aria-hidden="true" tabindex="-1"></a>Var_X <span class="ot">&lt;-</span> E_X2 <span class="sc">-</span> E_X<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb37-126"><a href="#cb37-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-127"><a href="#cb37-127" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">E_X =</span> E_X, <span class="at">E_X2 =</span> E_X2, <span class="at">Var_X =</span> Var_X)</span>
+<span id="cb37-128"><a href="#cb37-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-129"><a href="#cb37-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-130"><a href="#cb37-130" aria-hidden="true" tabindex="-1"></a>$$M_X(t) = \frac{e^t+e^{2t}+e^{3t}+e^{4t}+e^{5t}}{5} \qquad E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>=3 \qquad E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>=11 \qquad \text{Var}(X)=2$$</span>
+<span id="cb37-131"><a href="#cb37-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-132"><a href="#cb37-132" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb37-133"><a href="#cb37-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-134"><a href="#cb37-134" aria-hidden="true" tabindex="-1"></a><span class="fu"># Examen · Versión B</span></span>
+<span id="cb37-135"><a href="#cb37-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-136"><a href="#cb37-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema 1 — FGM de una variable aleatoria discreta</span></span>
+<span id="cb37-137"><a href="#cb37-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-138"><a href="#cb37-138" aria-hidden="true" tabindex="-1"></a>**Enunciado:** $X$ toma valores 2, 4, 6, 8 con igual probabilidad. (a) Halle la FGM. (b) Calcule $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$, $E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>$ y $\text{Var}(X)$.</span>
+<span id="cb37-139"><a href="#cb37-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-142"><a href="#cb37-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-143"><a href="#cb37-143" aria-hidden="true" tabindex="-1"></a>M_X <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="fu">sum</span>(<span class="fu">exp</span>(t <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>))) <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb37-144"><a href="#cb37-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-145"><a href="#cb37-145" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb37-146"><a href="#cb37-146" aria-hidden="true" tabindex="-1"></a>E_X   <span class="ot">&lt;-</span> (<span class="fu">M_X</span>(h) <span class="sc">-</span> <span class="fu">M_X</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)</span>
+<span id="cb37-147"><a href="#cb37-147" aria-hidden="true" tabindex="-1"></a>E_X2  <span class="ot">&lt;-</span> (<span class="fu">M_X</span>(h) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">M_X</span>(<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">M_X</span>(<span class="sc">-</span>h)) <span class="sc">/</span> h<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb37-148"><a href="#cb37-148" aria-hidden="true" tabindex="-1"></a>Var_X <span class="ot">&lt;-</span> E_X2 <span class="sc">-</span> E_X<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb37-149"><a href="#cb37-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-150"><a href="#cb37-150" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">E_X =</span> E_X, <span class="at">E_X2 =</span> E_X2, <span class="at">Var_X =</span> Var_X)</span>
+<span id="cb37-151"><a href="#cb37-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-152"><a href="#cb37-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-153"><a href="#cb37-153" aria-hidden="true" tabindex="-1"></a>$$M_X(t) = \frac{e^{2t}+e^{4t}+e^{6t}+e^{8t}}{4} \qquad E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>=5 \qquad E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>=30 \qquad \text{Var}(X)=5$$</span>
+<span id="cb37-154"><a href="#cb37-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-155"><a href="#cb37-155" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb37-156"><a href="#cb37-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb37-157"><a href="#cb37-157" aria-hidden="true" tabindex="-1"></a>$X=2Z$ donde $Z\in<span class="sc">\{</span>1,2,3,4<span class="sc">\}</span>$ es un dado de 4 caras. Nota que $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>=5=2\times2.5=2\,E<span class="co">[</span><span class="ot">Z</span><span class="co">]</span>$ y $\text{Var}(X)=5=4\times1.25=2^2\,\text{Var}(Z)$ — exactamente las propiedades de transformaciones lineales que viste en el Tema 5 del Módulo 1 ($E<span class="co">[</span><span class="ot">aZ</span><span class="co">]</span>=aE<span class="co">[</span><span class="ot">Z</span><span class="co">]</span>$, $\text{Var}(aZ)=a^2\text{Var}(Z)$), ahora confirmadas también vía FGM. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb37-158"><a href="#cb37-158" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-159"><a href="#cb37-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-160"><a href="#cb37-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema 2 — Retraso del transporte (Binomial + diagnóstico)</span></span>
+<span id="cb37-161"><a href="#cb37-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-162"><a href="#cb37-162" aria-hidden="true" tabindex="-1"></a>**Enunciado:** un sistema de transporte tiene probabilidad 0.35 de un retraso mayor a 4 minutos. (a) En 15 viajes: (I) $P(X\le5)$; (II) $P(X&gt;6)$. (b) En 12 semanas se observan los conteos <span class="in">`5,4,6,3,2,7,1,0,4,3,5,2`</span>. (I) Media y desviación estándar. (II) Analice si el modelo binomial es adecuado.</span>
+<span id="cb37-163"><a href="#cb37-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-166"><a href="#cb37-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-167"><a href="#cb37-167" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">15</span>; p <span class="ot">&lt;-</span> <span class="fl">0.35</span></span>
+<span id="cb37-168"><a href="#cb37-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-169"><a href="#cb37-169" aria-hidden="true" tabindex="-1"></a>p_X_menor_igual_5 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, n, p)</span>
+<span id="cb37-170"><a href="#cb37-170" aria-hidden="true" tabindex="-1"></a>p_X_mayor_6       <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">6</span>, n, p)</span>
+<span id="cb37-171"><a href="#cb37-171" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">p_X_le_5 =</span> p_X_menor_igual_5, <span class="at">p_X_gt_6 =</span> p_X_mayor_6)</span>
+<span id="cb37-172"><a href="#cb37-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-173"><a href="#cb37-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-176"><a href="#cb37-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-177"><a href="#cb37-177" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>)</span>
+<span id="cb37-178"><a href="#cb37-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-179"><a href="#cb37-179" aria-hidden="true" tabindex="-1"></a>media_muestral <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos)</span>
+<span id="cb37-180"><a href="#cb37-180" aria-hidden="true" tabindex="-1"></a>sd_muestral    <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos)</span>
+<span id="cb37-181"><a href="#cb37-181" aria-hidden="true" tabindex="-1"></a>media_teorica  <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
+<span id="cb37-182"><a href="#cb37-182" aria-hidden="true" tabindex="-1"></a>sd_teorica     <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb37-183"><a href="#cb37-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-184"><a href="#cb37-184" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_muestral =</span> media_muestral, <span class="at">sd_muestral =</span> sd_muestral,</span>
+<span id="cb37-185"><a href="#cb37-185" aria-hidden="true" tabindex="-1"></a>  <span class="at">media_teorica =</span> media_teorica, <span class="at">sd_teorica =</span> sd_teorica)</span>
+<span id="cb37-186"><a href="#cb37-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-187"><a href="#cb37-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-188"><a href="#cb37-188" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb37-189"><a href="#cb37-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## ¿Es adecuado el modelo?</span></span>
+<span id="cb37-190"><a href="#cb37-190" aria-hidden="true" tabindex="-1"></a>Aquí el diagnóstico es distinto al de la Versión A: la **desviación estándar** muestral (2.07) está razonablemente cerca de la teórica (1.85), pero la **media muestral (3.5) es notablemente menor** que la teórica (5.25) — casi 33% más baja. Esto apunta a que el valor asumido $p=0.35$ probablemente **sobreestima** la probabilidad real de retraso: la proporción empírica implícita en los datos es $\hat p = \bar{x}/n = 3.5/15\approx0.233$, bastante menor que 0.35. La recomendación práctica: reestimar $p$ a partir de los datos observados en vez de asumir el valor original, y volver a evaluar el modelo con el $p$ actualizado.</span>
+<span id="cb37-191"><a href="#cb37-191" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-192"><a href="#cb37-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-193"><a href="#cb37-193" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema 3 — Solicitudes de una empresa (Poisson)</span></span>
+<span id="cb37-194"><a href="#cb37-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-195"><a href="#cb37-195" aria-hidden="true" tabindex="-1"></a>**Enunciado:** una empresa recibe solicitudes a razón de 1.8 por hora. (a) Probabilidad de exactamente 5 solicitudes en 2 horas. (b) Probabilidad de más de 20 solicitudes en 10 horas. (c) En 80 días: (I) media y desviación estándar del número de días críticos; (II) estime $P(W\ge5)$ con las dos aproximaciones; (III) compare y justifique cuál es mejor.</span>
+<span id="cb37-196"><a href="#cb37-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-199"><a href="#cb37-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-200"><a href="#cb37-200" aria-hidden="true" tabindex="-1"></a>tasa <span class="ot">&lt;-</span> <span class="fl">1.8</span>   <span class="co"># por hora</span></span>
+<span id="cb37-201"><a href="#cb37-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-202"><a href="#cb37-202" aria-hidden="true" tabindex="-1"></a><span class="co"># (a)</span></span>
+<span id="cb37-203"><a href="#cb37-203" aria-hidden="true" tabindex="-1"></a>lambda_2h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb37-204"><a href="#cb37-204" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">5</span>, lambda_2h)</span>
+<span id="cb37-205"><a href="#cb37-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-206"><a href="#cb37-206" aria-hidden="true" tabindex="-1"></a><span class="co"># (b)</span></span>
+<span id="cb37-207"><a href="#cb37-207" aria-hidden="true" tabindex="-1"></a>lambda_10h <span class="ot">&lt;-</span> tasa <span class="sc">*</span> <span class="dv">10</span></span>
+<span id="cb37-208"><a href="#cb37-208" aria-hidden="true" tabindex="-1"></a>p_dia_critico <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">20</span>, lambda_10h)</span>
+<span id="cb37-209"><a href="#cb37-209" aria-hidden="true" tabindex="-1"></a>p_dia_critico</span>
+<span id="cb37-210"><a href="#cb37-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-211"><a href="#cb37-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-214"><a href="#cb37-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-215"><a href="#cb37-215" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(I)</span></span>
+<span id="cb37-216"><a href="#cb37-216" aria-hidden="true" tabindex="-1"></a>n_dias <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb37-217"><a href="#cb37-217" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p_dia_critico</span>
+<span id="cb37-218"><a href="#cb37-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-219"><a href="#cb37-219" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p</span>
+<span id="cb37-220"><a href="#cb37-220" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n_dias <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb37-221"><a href="#cb37-221" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">np =</span> n_dias<span class="sc">*</span>p, <span class="at">n1p =</span> n_dias<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p), <span class="at">mu =</span> mu, <span class="at">sigma =</span> sigma)</span>
+<span id="cb37-222"><a href="#cb37-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-223"><a href="#cb37-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-226"><a href="#cb37-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-227"><a href="#cb37-227" aria-hidden="true" tabindex="-1"></a><span class="co"># (c)(II)</span></span>
+<span id="cb37-228"><a href="#cb37-228" aria-hidden="true" tabindex="-1"></a>lambda_w <span class="ot">&lt;-</span> n_dias <span class="sc">*</span> p</span>
+<span id="cb37-229"><a href="#cb37-229" aria-hidden="true" tabindex="-1"></a>aprox_poisson <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">4</span>, lambda_w)</span>
+<span id="cb37-230"><a href="#cb37-230" aria-hidden="true" tabindex="-1"></a>aprox_normal  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">4.5</span>, mu, sigma)</span>
+<span id="cb37-231"><a href="#cb37-231" aria-hidden="true" tabindex="-1"></a>exacto        <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n_dias, p)</span>
+<span id="cb37-232"><a href="#cb37-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-233"><a href="#cb37-233" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">exacto =</span> exacto, <span class="at">aprox_poisson =</span> aprox_poisson, <span class="at">aprox_normal =</span> aprox_normal)</span>
+<span id="cb37-234"><a href="#cb37-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-235"><a href="#cb37-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-236"><a href="#cb37-236" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb37-237"><a href="#cb37-237" aria-hidden="true" tabindex="-1"></a>**(c)(III):** aquí $p_{\text{día}}\approx0.269$ no es "rara" — $np=21.5$ y $n(1-p)=58.5$ son ambos grandes, terreno típico de la **normal**, no de la Poisson (que rinde mejor con $p$ chico). Con $W\ge5$ tan por debajo de la media (21.5), las tres cantidades son prácticamente 1 (≈0.99999) y no permiten distinguir cuál aproximación es mejor en este caso particular — un buen recordatorio de que, para discriminar entre aproximaciones, conviene evaluar en una región donde la probabilidad no esté saturada cerca de 0 o 1 (como si hiciste en la Versión A).</span>
+<span id="cb37-238"><a href="#cb37-238" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-239"><a href="#cb37-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-240"><a href="#cb37-240" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb37-241"><a href="#cb37-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-242"><a href="#cb37-242" aria-hidden="true" tabindex="-1"></a><span class="fu"># Bonus: tres problemas del banco de ejercicios</span></span>
+<span id="cb37-243"><a href="#cb37-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-244"><a href="#cb37-244" aria-hidden="true" tabindex="-1"></a>Estos tres problemas, tomados del banco de ejercicios adjunto, complementan directamente los criterios de Binomial y FGM del Taller 2.</span>
+<span id="cb37-245"><a href="#cb37-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-246"><a href="#cb37-246" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ejercicio — Reconstruir una distribución a partir de sus momentos</span></span>
+<span id="cb37-247"><a href="#cb37-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-248"><a href="#cb37-248" aria-hidden="true" tabindex="-1"></a>**Enunciado:** $X$ toma los valores $x_1=1$, $x_2=3$, $x_3=5$ con probabilidad positiva. Si $E(X)=3.5$ y $\text{Var}(X)=1.15$, determine (si es posible) la distribución de $X$.</span>
+<span id="cb37-249"><a href="#cb37-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-250"><a href="#cb37-250" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb37-251"><a href="#cb37-251" aria-hidden="true" tabindex="-1"></a>Tienes 3 incógnitas ($p_1,p_2,p_3$) y necesitas 3 ecuaciones para resolverlas. ¿Cuáles tres condiciones conoces?</span>
+<span id="cb37-252"><a href="#cb37-252" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-253"><a href="#cb37-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-256"><a href="#cb37-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-257"><a href="#cb37-257" aria-hidden="true" tabindex="-1"></a><span class="co"># Sistema de 3 ecuaciones, 3 incógnitas:</span></span>
+<span id="cb37-258"><a href="#cb37-258" aria-hidden="true" tabindex="-1"></a><span class="co">#  p1 + p2 + p3 = 1</span></span>
+<span id="cb37-259"><a href="#cb37-259" aria-hidden="true" tabindex="-1"></a><span class="co">#  1*p1 + 3*p2 + 5*p3 = E[X] = 3.5</span></span>
+<span id="cb37-260"><a href="#cb37-260" aria-hidden="true" tabindex="-1"></a><span class="co">#  1*p1 + 9*p2 + 25*p3 = E[X^2] = Var(X) + E[X]^2 = 1.15 + 3.5^2</span></span>
+<span id="cb37-261"><a href="#cb37-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-262"><a href="#cb37-262" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,</span>
+<span id="cb37-263"><a href="#cb37-263" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,</span>
+<span id="cb37-264"><a href="#cb37-264" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">25</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-265"><a href="#cb37-265" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">3.5</span>, <span class="fl">1.15</span> <span class="sc">+</span> <span class="fl">3.5</span><span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb37-266"><a href="#cb37-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-267"><a href="#cb37-267" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, b)</span>
+<span id="cb37-268"><a href="#cb37-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-269"><a href="#cb37-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-270"><a href="#cb37-270" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb37-271"><a href="#cb37-271" aria-hidden="true" tabindex="-1"></a>$p_1=0.05$, $p_2=0.65$, $p_3=0.30$ — las tres son probabilidades válidas (positivas, suman 1), así que la distribución **sí existe y es única**: $P(X=1)=0.05$, $P(X=3)=0.65$, $P(X=5)=0.30$.</span>
+<span id="cb37-272"><a href="#cb37-272" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-273"><a href="#cb37-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-274"><a href="#cb37-274" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb37-275"><a href="#cb37-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb37-276"><a href="#cb37-276" aria-hidden="true" tabindex="-1"></a>No siempre existe una solución válida: si el sistema arrojara alguna probabilidad negativa o mayor a 1, la conclusión correcta sería que **no existe** una variable aleatoria con esos valores y esos momentos — es una verificación de consistencia, no una garantía automática. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb37-277"><a href="#cb37-277" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-278"><a href="#cb37-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-279"><a href="#cb37-279" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ejercicio — Genética y binomial</span></span>
+<span id="cb37-280"><a href="#cb37-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-281"><a href="#cb37-281" aria-hidden="true" tabindex="-1"></a>**Enunciado:** el color de ojos se determina por un gen dominante (café) y uno recesivo (azul). Si el hijo mayor de una pareja de ojos cafés tiene ojos azules, ¿cuál es la probabilidad de que exactamente 2 de los otros 4 hijos también tengan ojos azules?</span>
+<span id="cb37-282"><a href="#cb37-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-283"><a href="#cb37-283" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb37-284"><a href="#cb37-284" aria-hidden="true" tabindex="-1"></a>Que el primer hijo tenga ojos azules revela que **ambos padres son heterocigotos** (cada uno tiene un gen café y uno azul) — de otra forma, un hijo de ojos azules sería imposible. Con ambos padres heterocigotos, cada hijo nuevo tiene $P(\text{ojos azules})=1/4$ (necesita heredar el gen azul de ambos), independiente entre hermanos.</span>
+<span id="cb37-285"><a href="#cb37-285" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-286"><a href="#cb37-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-289"><a href="#cb37-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-290"><a href="#cb37-290" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span>; p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>   <span class="co"># los otros 4 hijos, cada uno con P(azul) = 1/4</span></span>
+<span id="cb37-291"><a href="#cb37-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-292"><a href="#cb37-292" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, n, p)</span>
+<span id="cb37-293"><a href="#cb37-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-294"><a href="#cb37-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-295"><a href="#cb37-295" aria-hidden="true" tabindex="-1"></a>$P(\text{exactamente 2 de 4}) \approx 0.2109$.</span>
+<span id="cb37-296"><a href="#cb37-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-297"><a href="#cb37-297" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ejercicio — FGM de una geométrica</span></span>
+<span id="cb37-298"><a href="#cb37-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-299"><a href="#cb37-299" aria-hidden="true" tabindex="-1"></a>**Enunciado:** $N$ toma valores en $<span class="sc">\{</span>0,1,2,\dots<span class="sc">\}</span>$ con $P(N=n)=\dfrac{2}{3^{n+1}}$. (a) Calcule $P(N=0)$. (b) Halle la FGM. (c) Úsela para calcular $E(N)$ y $\text{Var}(N)$.</span>
+<span id="cb37-300"><a href="#cb37-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-303"><a href="#cb37-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-304"><a href="#cb37-304" aria-hidden="true" tabindex="-1"></a><span class="co"># (a)</span></span>
+<span id="cb37-305"><a href="#cb37-305" aria-hidden="true" tabindex="-1"></a>p_N0 <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span></span>
+<span id="cb37-306"><a href="#cb37-306" aria-hidden="true" tabindex="-1"></a>p_N0</span>
+<span id="cb37-307"><a href="#cb37-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-308"><a href="#cb37-308" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) y (c): FGM en forma cerrada, sumando la serie geométrica</span></span>
+<span id="cb37-309"><a href="#cb37-309" aria-hidden="true" tabindex="-1"></a><span class="co"># M(t) = sum_{n=0}^inf e^(tn) * 2/3^(n+1) = (2/3) / (1 - e^t/3) = 2/(3-e^t), para t &lt; ln(3)</span></span>
+<span id="cb37-310"><a href="#cb37-310" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="dv">2</span> <span class="sc">/</span> (<span class="dv">3</span> <span class="sc">-</span> <span class="fu">exp</span>(t))</span>
+<span id="cb37-311"><a href="#cb37-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-312"><a href="#cb37-312" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-6</span></span>
+<span id="cb37-313"><a href="#cb37-313" aria-hidden="true" tabindex="-1"></a>E_N   <span class="ot">&lt;-</span> (<span class="fu">M</span>(h) <span class="sc">-</span> <span class="fu">M</span>(<span class="sc">-</span>h)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>h)</span>
+<span id="cb37-314"><a href="#cb37-314" aria-hidden="true" tabindex="-1"></a>E_N2  <span class="ot">&lt;-</span> (<span class="fu">M</span>(h) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">M</span>(<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">M</span>(<span class="sc">-</span>h)) <span class="sc">/</span> h<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb37-315"><a href="#cb37-315" aria-hidden="true" tabindex="-1"></a>Var_N <span class="ot">&lt;-</span> E_N2 <span class="sc">-</span> E_N<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb37-316"><a href="#cb37-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-317"><a href="#cb37-317" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">E_N =</span> E_N, <span class="at">Var_N =</span> Var_N)</span>
+<span id="cb37-318"><a href="#cb37-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-319"><a href="#cb37-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-320"><a href="#cb37-320" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb37-321"><a href="#cb37-321" aria-hidden="true" tabindex="-1"></a><span class="fu">## Identificando la distribución</span></span>
+<span id="cb37-322"><a href="#cb37-322" aria-hidden="true" tabindex="-1"></a>$P(N=n)=\frac{2}{3}\left(\frac{1}{3}\right)^n$ es exactamente la forma $p(1-p)^n$ de una **geométrica** que cuenta *fracasos antes del primer éxito*, con $p=2/3$. Sus fórmulas conocidas, $E<span class="co">[</span><span class="ot">N</span><span class="co">]</span>=\frac{1-p}{p}$ y $\text{Var}(N)=\frac{1-p}{p^2}$, dan $E<span class="co">[</span><span class="ot">N</span><span class="co">]</span>=0.5$ y $\text{Var}(N)=0.75$ — coincide exactamente con la derivación numérica de la FGM.</span>
+<span id="cb37-323"><a href="#cb37-323" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-324"><a href="#cb37-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-325"><a href="#cb37-325" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb37-326"><a href="#cb37-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-327"><a href="#cb37-327" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Cierre</span></span>
+<span id="cb37-328"><a href="#cb37-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-329"><a href="#cb37-329" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb37-330"><a href="#cb37-330" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Los dos exámenes comparten estructura pero difieren en números: reconocer el **patrón** (Poisson con escalamiento → días críticos → comparar aproximaciones; Binomial → diagnóstico con datos reales; FGM → momentos) importa más que memorizar una respuesta puntual.</span>
+<span id="cb37-331"><a href="#cb37-331" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El diagnóstico "¿es adecuado el modelo?" no tiene una sola respuesta correcta: en la Versión A la señal estaba en la **varianza** (sobredispersión); en la Versión B estaba en la **media** (el $p$ asumido parecía demasiado alto). Aprende a mirar ambos momentos, no solo uno.</span>
+<span id="cb37-332"><a href="#cb37-332" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cuando quieras comparar aproximaciones (Poisson vs. Normal), elige una probabilidad que **no** esté saturada cerca de 0 o 1 — si no, todas las aproximaciones coinciden trivialmente y no aprendes cuál es mejor.</span>
+<span id="cb37-333"><a href="#cb37-333" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
