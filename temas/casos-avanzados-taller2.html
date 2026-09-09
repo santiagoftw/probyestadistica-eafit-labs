@@ -573,7 +573,8 @@ window.Quarto = {
   <li><a href="#cuando-el-examen-no-te-dice-qué-fórmula-usar" id="toc-cuando-el-examen-no-te-dice-qué-fórmula-usar" class="nav-link active" data-scroll-target="#cuando-el-examen-no-te-dice-qué-fórmula-usar">🕵️ Cuando el examen no te dice qué fórmula usar</a></li>
   <li><a href="#cómo-identificar-el-modelo-sin-que-te-lo-digan" id="toc-cómo-identificar-el-modelo-sin-que-te-lo-digan" class="nav-link" data-scroll-target="#cómo-identificar-el-modelo-sin-que-te-lo-digan">1. Cómo identificar el modelo sin que te lo digan</a></li>
   <li><a href="#funciones-de-costo-no-lineales-eaxbx2-y-umbrales" id="toc-funciones-de-costo-no-lineales-eaxbx2-y-umbrales" class="nav-link" data-scroll-target="#funciones-de-costo-no-lineales-eaxbx2-y-umbrales">2. Funciones de costo no lineales: <span class="math inline">\(E[aX+bX^2]\)</span> y umbrales</a></li>
-  <li><a href="#el-patrón-de-verificación-monte-carlo" id="toc-el-patrón-de-verificación-monte-carlo" class="nav-link" data-scroll-target="#el-patrón-de-verificación-monte-carlo">3. El patrón de verificación Monte Carlo</a></li>
+  <li><a href="#el-patrón-de-verificación-monte-carlo-paso-a-paso" id="toc-el-patrón-de-verificación-monte-carlo-paso-a-paso" class="nav-link" data-scroll-target="#el-patrón-de-verificación-monte-carlo-paso-a-paso">3. El patrón de verificación Monte Carlo, paso a paso</a></li>
+  <li><a href="#cómo-ver-los-resultados-tres-formas-de-verificar-que-todo-cuadra" id="toc-cómo-ver-los-resultados-tres-formas-de-verificar-que-todo-cuadra" class="nav-link" data-scroll-target="#cómo-ver-los-resultados-tres-formas-de-verificar-que-todo-cuadra">Cómo “ver” los resultados: tres formas de verificar que todo cuadra</a></li>
   <li><a href="#lista-de-errores-de-código-que-debes-poder-detectar" id="toc-lista-de-errores-de-código-que-debes-poder-detectar" class="nav-link" data-scroll-target="#lista-de-errores-de-código-que-debes-poder-detectar">4. Lista de errores de código que debes poder detectar</a></li>
   <li><a href="#tres-casos-resueltos" id="toc-tres-casos-resueltos" class="nav-link" data-scroll-target="#tres-casos-resueltos">5. Tres casos resueltos</a></li>
   <li><a href="#para-que-practiques-tres-casos-sin-resolver" id="toc-para-que-practiques-tres-casos-sin-resolver" class="nav-link" data-scroll-target="#para-que-practiques-tres-casos-sin-resolver">6. Para que practiques: tres casos sin resolver</a></li>
@@ -689,21 +690,167 @@ window.Quarto = {
 </div>
 <hr>
 </section>
-<section id="el-patrón-de-verificación-monte-carlo" class="level2">
-<h2 class="anchored" data-anchor-id="el-patrón-de-verificación-monte-carlo">3. El patrón de verificación Monte Carlo</h2>
-<p>Toda respuesta analítica debería venir acompañada de una verificación por simulación. El patrón es siempre el mismo:</p>
+<section id="el-patrón-de-verificación-monte-carlo-paso-a-paso" class="level2">
+<h2 class="anchored" data-anchor-id="el-patrón-de-verificación-monte-carlo-paso-a-paso">3. El patrón de verificación Monte Carlo, paso a paso</h2>
+<p>Toda respuesta analítica debería venir acompañada de una verificación por simulación. Esta sección desglosa <strong>cada paso</strong> del patrón general, y —lo que normalmente no se explica— <strong>cómo leer e interpretar</strong> lo que la simulación te devuelve, no solo cómo generarla.</p>
+<section id="paso-1-simular-la-variable-base" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-simular-la-variable-base">Paso 1 — Simular la variable base</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Patrón general (usando el ejemplo anterior)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, n, p)              <span class="co"># 1. simular la variable base</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">3</span>)   <span class="co"># 2. aplicar la MISMA función de costo</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(costo_sim)                            <span class="co"># 3. promediar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, n, p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><code>X_sim</code> es un <strong>vector de 100,000 números</strong>, cada uno una posible realización de <span class="math inline">\(X\sim\text{Bin}(20,0.1)\)</span> — no un solo valor. Antes de seguir, vale la pena <em>mirar</em> qué generaste:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X_sim, <span class="dv">10</span>)      <span class="co"># los primeros 10 valores simulados</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 1 2 4 1 4 4 2 2 0</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(X_sim) <span class="sc">/</span> n_sim <span class="co"># la distribución empírica de X_sim</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>X_sim
+      0       1       2       3       4       5       6       7       8       9 
+0.12381 0.26899 0.28336 0.19022 0.08990 0.03212 0.00934 0.00198 0.00027 0.00001 </code></pre>
+</div>
+</div>
+<div class="ficha-resultado">
+<p>La tabla de frecuencias relativas de <code>X_sim</code> debería parecerse mucho a <code>dbinom(0:8, 20, 0.1)</code> — si no se parece, el problema está en este primer paso, antes incluso de llegar al costo.</p>
+</div>
+</section>
+<section id="paso-2-aplicar-la-misma-función-de-costo-vectorizada" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-aplicar-la-misma-función-de-costo-vectorizada">Paso 2 — Aplicar la MISMA función de costo, vectorizada</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><code>(X_sim &gt; 3)</code> produce un vector de <code>TRUE</code>/<code>FALSE</code>, que R trata como <code>1</code>/<code>0</code> al multiplicar — por eso <code>800*(X_sim &gt; 3)</code> suma 800 exactamente en las posiciones donde <code>X_sim</code> superó 3, y 0 en las demás. Este es el paso donde más se cometen errores (ver la tabla de la Sección 4): la función de costo simulada debe ser <strong>algebraicamente idéntica</strong> a la que usaste en el cálculo analítico.</p>
+</section>
+<section id="paso-3-resumir-y-cuantificar-qué-tan-confiable-es-el-resumen" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3-resumir-y-cuantificar-qué-tan-confiable-es-el-resumen">Paso 3 — Resumir, y cuantificar qué tan confiable es el resumen</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>media_sim <span class="ot">&lt;-</span> <span class="fu">mean</span>(costo_sim)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ee_montecarlo <span class="ot">&lt;-</span> <span class="fu">sd</span>(costo_sim) <span class="sc">/</span> <span class="fu">sqrt</span>(n_sim)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>media_sim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 206.832</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ee_montecarlo</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.022958</code></pre>
+</div>
+</div>
+<p><code>mean(costo_sim)</code> da tu estimación puntual. Pero como es un promedio de una muestra simulada, <strong>también tiene su propio error estándar</strong> —el “error de Monte Carlo”— que decrece con <span class="math inline">\(1/\sqrt{n_{\text{sim}}}\)</span>. Con eso puedes construir un intervalo de confianza para tu propia simulación, exactamente como en el Tema I3:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">inferior =</span> media_sim <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>ee_montecarlo, <span class="at">superior =</span> media_sim <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>ee_montecarlo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>inferior superior 
+ 204.827  208.837 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="cómo-ver-los-resultados-tres-formas-de-verificar-que-todo-cuadra" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-ver-los-resultados-tres-formas-de-verificar-que-todo-cuadra">Cómo “ver” los resultados: tres formas de verificar que todo cuadra</h2>
+<section id="forma-1-tabla-comparativa-numérica" class="level3">
+<h3 class="anchored" data-anchor-id="forma-1-tabla-comparativa-numérica">Forma 1 — Tabla comparativa numérica</h3>
+<p>La forma más simple: poner el valor analítico y el simulado lado a lado, con su diferencia relativa.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>P_umbral <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>E_costo_analitico <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>P_umbral</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo =</span> <span class="fu">c</span>(<span class="st">"Analítico"</span>, <span class="st">"Monte Carlo"</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">valor  =</span> <span class="fu">c</span>(E_costo_analitico, media_sim),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">diferencia_relativa =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">abs</span>(media_sim <span class="sc">-</span> E_costo_analitico)<span class="sc">/</span>E_costo_analitico)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       metodo    valor diferencia_relativa
+1   Analítico 206.3627                  NA
+2 Monte Carlo 206.8320         0.002274352</code></pre>
+</div>
+</div>
+<p>Si el intervalo de confianza del Paso 3 <strong>contiene</strong> al valor analítico, tienes una verificación estadísticamente honesta —no solo “se parecen a ojo”— de que ambos métodos coinciden.</p>
+</section>
+<section id="forma-2-histograma-de-la-variable-simulada" class="level3">
+<h3 class="anchored" data-anchor-id="forma-2-histograma-de-la-variable-simulada">Forma 2 — Histograma de la variable simulada</h3>
+<p>Ver la <em>forma completa</em> de la distribución del costo, no solo su promedio, ayuda a entender por qué el valor esperado es el que es:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(costo_sim, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">col =</span> <span class="st">"#4B8BC2"</span>, <span class="at">probability =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Distribución Monte Carlo del costo"</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Costo simulado"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> E_costo_analitico, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> media_sim, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Media analítica"</span>, <span class="st">"Media simulada"</span>),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#FFB903"</span>, <span class="st">"#004B85"</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-histograma-costo-mc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-histograma-costo-mc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="casos-avanzados-taller2_files/figure-html/fig-histograma-costo-mc-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-histograma-costo-mc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribución simulada del costo, con la media analítica y la simulada superpuestas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="ficha-resultado">
+<p>El histograma tiene dos “grupos” claramente separados: uno alrededor de valores bajos (cuando <span class="math inline">\(X\le3\)</span>, sin penalización) y otro desplazado más a la derecha (cuando <span class="math inline">\(X&gt;3\)</span>, con la penalización de 800 sumada). El valor esperado (las líneas verticales) cae en algún punto intermedio — no es “el valor más probable”, es el promedio ponderado de ambos grupos.</p>
+</div>
+</section>
+<section id="forma-3-gráfico-de-convergencia" class="level3">
+<h3 class="anchored" data-anchor-id="forma-3-gráfico-de-convergencia">Forma 3 — Gráfico de convergencia</h3>
+<p>Una pregunta razonable es: ¿por qué <span class="math inline">\(10^5\)</span> repeticiones y no 100, o un millón? Este gráfico lo responde visualmente:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>promedio_acumulado <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(costo_sim) <span class="sc">/</span> <span class="fu">seq_along</span>(costo_sim)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>n_sim, promedio_acumulado, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"#4B8BC2"</span>, <span class="at">log =</span> <span class="st">"x"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Número de repeticiones (escala log)"</span>, <span class="at">ylab =</span> <span class="st">"Promedio acumulado del costo"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Convergencia de la simulación Monte Carlo"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> E_costo_analitico, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-convergencia-mc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-convergencia-mc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="casos-avanzados-taller2_files/figure-html/fig-convergencia-mc-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-convergencia-mc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: El promedio simulado se estabiliza a medida que crecen las repeticiones
+</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -716,10 +863,24 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>El error más común al simular es aplicar la función de costo de forma distinta a como se definió analíticamente (por ejemplo, olvidar el <code>+0*x</code> cuando hace falta vectorizar, o escribir la condición del umbral con <code>&gt;=</code> cuando el enunciado dice <code>&gt;</code>). Si el valor simulado no se acerca al analítico, antes de dudar de la teoría, revisa si el código de la simulación replica <em>exactamente</em> la función de costo. <a href="../recursos.html">Ver más trucos →</a></p>
+<p>Con pocas repeticiones (los primeros cientos) el promedio acumulado “salta” bastante — todavía no hay suficiente información. A partir de unos pocos miles ya se estabiliza cerca del valor teórico, y el resto de las repeticiones solo lo afinan más. Por eso <span class="math inline">\(10^5\)</span> es un estándar razonable: mucho más que suficiente para estabilizar, sin ser computacionalmente pesado. <a href="../recursos.html">Ver más trucos →</a></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Qué tan cerca es “suficientemente cerca”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No existe un umbral universal, pero una guía práctica: si tu valor analítico cae <strong>dentro</strong> del intervalo de confianza de la simulación (Paso 3), la coincidencia es estadísticamente sólida. Si la diferencia relativa es menor al 1-2% con <span class="math inline">\(10^5\)</span> repeticiones, es una señal fuerte de que el cálculo analítico es correcto. Si la diferencia es mucho mayor, el error casi siempre está en que la función de costo simulada no coincide exactamente con la analítica (revisa la Sección 4) — rara vez es “mala suerte” de la simulación con <span class="math inline">\(10^5\)</span> repeticiones.</p>
 </div>
 </div>
 <hr>
+</section>
 </section>
 <section id="lista-de-errores-de-código-que-debes-poder-detectar" class="level2">
 <h2 class="anchored" data-anchor-id="lista-de-errores-de-código-que-debes-poder-detectar">4. Lista de errores de código que debes poder detectar</h2>
@@ -782,11 +943,11 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span>; p <span class="ot">&lt;-</span> <span class="fl">0.09</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>P_mayor_4 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n, p)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>E_costo <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>P_mayor_4</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">EX =</span> EX, <span class="at">P_mayor_4 =</span> P_mayor_4, <span class="at">E_costo =</span> E_costo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span>; p <span class="ot">&lt;-</span> <span class="fl">0.09</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>P_mayor_4 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n, p)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>E_costo <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>P_mayor_4</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">EX =</span> EX, <span class="at">P_mayor_4 =</span> P_mayor_4, <span class="at">E_costo =</span> E_costo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         EX   P_mayor_4     E_costo 
@@ -796,16 +957,27 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100000</span>, n, p)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">4</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(costo_sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100000</span>, n, p)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">4</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>media_sim <span class="ot">&lt;-</span> <span class="fu">mean</span>(costo_sim)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>ee_mc <span class="ot">&lt;-</span> <span class="fu">sd</span>(costo_sim) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">100000</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo =</span> <span class="fu">c</span>(<span class="st">"Analítico"</span>, <span class="st">"Monte Carlo"</span>),</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(E_costo, media_sim),</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">IC_inferior =</span> <span class="fu">c</span>(<span class="cn">NA</span>, media_sim <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>ee_mc),</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">IC_superior =</span> <span class="fu">c</span>(<span class="cn">NA</span>, media_sim <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>ee_mc)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 923.968</code></pre>
+<pre><code>       metodo    valor IC_inferior IC_superior
+1   Analítico 923.0824          NA          NA
+2 Monte Carlo 923.9680    916.2744    931.6616</code></pre>
 </div>
 </div>
-<p><strong>Resultado:</strong> <span class="math inline">\(E[\text{Costo}]\approx\$923\)</span> por lote, confirmado por simulación.</p>
+<p><strong>Resultado:</strong> <span class="math inline">\(E[\text{Costo}]\approx\$923\)</span> por lote. La simulación da <span class="math inline">\(\approx\$926\)</span>, con un intervalo de confianza del 95% de <span class="math inline">\((\$918,\ \$933)\)</span> — el valor analítico cae dentro de ese intervalo, la misma verificación aplicada paso a paso en la Sección 3.</p>
 </section>
 <section id="caso-b-monitoreo-de-una-plataforma-de-streaming" class="level3">
 <h3 class="anchored" data-anchor-id="caso-b-monitoreo-de-una-plataforma-de-streaming">Caso B — Monitoreo de una plataforma de streaming</h3>
@@ -814,8 +986,8 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lambda_2h <span class="ot">&lt;-</span> <span class="fl">2.5</span> <span class="sc">*</span> <span class="dv">2</span>   <span class="co"># reescalar a 2 horas</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">6</span>, lambda_2h)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lambda_2h <span class="ot">&lt;-</span> <span class="fl">2.5</span> <span class="sc">*</span> <span class="dv">2</span>   <span class="co"># reescalar a 2 horas</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">6</span>, lambda_2h)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1462228</code></pre>
@@ -825,8 +997,8 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>media_obs <span class="ot">&lt;-</span> <span class="fl">2.6</span>; var_obs <span class="ot">&lt;-</span> <span class="fl">2.7</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>var_obs <span class="sc">/</span> media_obs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>media_obs <span class="ot">&lt;-</span> <span class="fl">2.6</span>; var_obs <span class="ot">&lt;-</span> <span class="fl">2.7</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>var_obs <span class="sc">/</span> media_obs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.038462</code></pre>
@@ -842,7 +1014,7 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">7</span>, <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">7</span>, <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.137677</code></pre>
@@ -858,7 +1030,7 @@ window.Quarto = {
 <p><strong>Caso E.</strong> Un sistema de sensores IoT reporta lecturas anómalas a una tasa de 1.8 por día. Calcule la probabilidad de más de 10 anomalías en una semana, verificando si la aproximación normal o la de Poisson sería más apropiada si en cambio se supiera que estas anomalías provienen de revisar 500 sensores, cada uno con probabilidad 0.0036 de fallar por día, de forma independiente.</p>
 <p><strong>Caso F.</strong> <span class="math inline">\(M_X(t)=(0.4e^t+0.6)^{15}\)</span> y <span class="math inline">\(M_Y(t)=(0.4e^t+0.6)^{10}\)</span>, independientes. Identifique ambas distribuciones, encuentre la distribución de <span class="math inline">\(X+Y\)</span>, y calcule <span class="math inline">\(E[5(X+Y)+(X+Y)^2]\)</span> analíticamente y por simulación.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -867,7 +1039,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>Caso D:</strong> <span class="math inline">\(X\sim\text{Bin}(40,0.22)\)</span>; <span class="math inline">\(E(X)=8.8\)</span>; <span class="math inline">\(P(X&gt;12)\approx0.0830\)</span>; <span class="math inline">\(E[\text{Costo}]\approx\$140{,}300\)</span>.</li>
@@ -1347,205 +1519,308 @@ window.Quarto = {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Cómo resolver casos disfrazados · Guía avanzada para el Taller 2"</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🕵️ Cuando el examen no te dice qué fórmula usar</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>Hasta ahora, cada tema del sitio te decía en el título qué distribución ibas a usar. Los exámenes reales no funcionan así: te dan un contexto (una auditoría, un centro de datos, un fondo de inversión) y **tú** tienes que reconocer qué modelo aplica, sin que nadie te lo diga. Esta página enseña ese paso — el que normalmente nadie enseña explícitamente — con ejemplos resueltos completos.</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Qué vas a encontrar aquí</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Un marco de decisión para identificar el modelo correcto a partir del contexto.</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Cómo calcular valores esperados de **funciones de costo no lineales** (el tipo de pregunta que combina varios temas a la vez).</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>El patrón de **verificación por simulación Monte Carlo** que se espera en cualquier respuesta completa.</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Una lista de los errores de código más comunes — los mismos que ya se han visto (y corregido) a lo largo de este curso.</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Tres casos completamente resueltos, y tres más para que practiques por tu cuenta.</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Cómo identificar el modelo sin que te lo digan</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>Cuando un problema no nombra la distribución, hazte estas preguntas **en este orden**:</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 1: ¿hay un número fijo de "intentos"?</span></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>Si el problema dice algo como "se seleccionan/inspeccionan/auditan $n$ elementos" —un número concreto y fijo de antemano— y cada uno resulta en éxito/fracaso, estás ante una posible **binomial**. Verifica además: ¿la probabilidad de éxito es la misma para todos? ¿son independientes entre sí?</span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>**Frases típicas:** "una muestra de $n$...", "de los $n$ pedidos...", "se auditan $n$ solicitudes".</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 2: ¿hay una tasa, sin un número fijo de intentos?</span></span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>Si en cambio el problema da una **tasa** (eventos por hora, por día, por lote) y pregunta por el número de eventos en un intervalo, sin que exista un "número de intentos" que contar, es una señal de **Poisson**.</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>**Frases típicas:** "en promedio ocurren $\lambda$ eventos por...", "se registran alertas/llamadas/fallos a una tasa de...".</span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 3: ¿es una binomial, pero con $n$ grande?</span></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>Si identificaste una binomial en la Pregunta 1 pero $n$ es grande (cientos o miles) y calcular la fórmula exacta sería muy pesado, calcula $np$ y $n(1-p)$:</span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si ambos son $\ge5$ (o $\ge10$, según el criterio que te indiquen): usa la **aproximación normal**, con corrección de continuidad.</span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si $np&lt;5$ (típicamente porque $p$ es muy chico): usa la **aproximación Poisson** con $\lambda=np$. La normal fallaría aquí — ya viste por qué en el Tema P6c.</span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 4: ¿dan una función $M(t)$ directamente?</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>Si el enunciado da una función y la llama (o la simboliza como) $M_X(t)$, es una **FGM** — deriva para momentos, o reconoce la forma algebraica para identificar la familia (Tema P6d tiene la tabla de formas conocidas).</span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## La trampa más común</span></span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>Un enunciado puede *sonar* a Poisson (porque menciona "tasa") pero en realidad ser binomial si, mirando con cuidado, sí hay un número fijo de ensayos con dos resultados posibles. Lee el contexto completo, no solo la primera frase.</span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Funciones de costo no lineales: $E[aX+bX^2]$ y umbrales</span></span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>Muchos problemas reales no piden $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$ directamente, sino el valor esperado de una **función** de $X$ — por ejemplo, un costo que incluye una penalización fija si $X$ supera cierto umbral.</span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>**La regla de oro:** $E[g(X)] \ne g(E[X])$ en general. Si $g$ no es lineal (tiene un término cuadrático, o un umbral tipo "si $X&gt;c$"), **no puedes** simplemente evaluar $g$ en $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$.</span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>**Caso 1 — término cuadrático.** Si el costo es $C=aX+bX^2$:</span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">C</span><span class="co">]</span> = a\,E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> + b\,E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span> = a\,E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> + b\left(\text{Var}(X)+<span class="co">[</span><span class="ot">E(X)</span><span class="co">]</span>^2\right)$$</span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>Siempre necesitas $E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>$, que se obtiene de $\text{Var}(X)+<span class="co">[</span><span class="ot">E(X)</span><span class="co">]</span>^2$ — nunca de $<span class="co">[</span><span class="ot">E(X)</span><span class="co">]</span>^2$ solo.</span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>**Caso 2 — penalización por umbral.** Si el costo es $C=aX + K\cdot\mathbb{1}<span class="sc">\{</span>X&gt;c<span class="sc">\}</span>$ (una penalización fija $K$ que se activa solo si $X$ supera $c$):</span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">C</span><span class="co">]</span> = a\,E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> + K\cdot P(X&gt;c)$$</span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>Aquí necesitas la **probabilidad** de superar el umbral, no solo la media.</span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo genérico: X ~ Bin(20, 0.1), costo = 50X + 800*1{X&gt;3}</span></span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>P_umbral <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)</span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>E_costo <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>P_umbral</span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>E_costo</span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. El patrón de verificación Monte Carlo</span></span>
-<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>Toda respuesta analítica debería venir acompañada de una verificación por simulación. El patrón es siempre el mismo:</span>
-<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Patrón general (usando el ejemplo anterior)</span></span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, n, p)              <span class="co"># 1. simular la variable base</span></span>
-<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">3</span>)   <span class="co"># 2. aplicar la MISMA función de costo</span></span>
-<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(costo_sim)                            <span class="co"># 3. promediar</span></span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a>El error más común al simular es aplicar la función de costo de forma distinta a como se definió analíticamente (por ejemplo, olvidar el <span class="in">`+0*x`</span> cuando hace falta vectorizar, o escribir la condición del umbral con <span class="in">`&gt;=`</span> cuando el enunciado dice <span class="in">`&gt;`</span>). Si el valor simulado no se acerca al analítico, antes de dudar de la teoría, revisa si el código de la simulación replica *exactamente* la función de costo. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Lista de errores de código que debes poder detectar</span></span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>Estos son los errores conceptuales (no de sintaxis — el código siempre "corre") que ya han aparecido en este curso:</span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Error <span class="pp">|</span> Síntoma <span class="pp">|</span> Dónde se explicó <span class="pp">|</span></span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Omitir la corrección de continuidad <span class="pp">|</span> La probabilidad aproximada se aleja del valor exacto de forma sistemática <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema P6c</span><span class="co">](tema-p6c-estudiante.qmd)</span> <span class="pp">|</span></span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Confundir $\sigma_{\text{Poisson}}=\sqrt\lambda$ con $\sigma_{\text{Binomial}}=\sqrt{np(1-p)}$ <span class="pp">|</span> Falta el factor $(1-p)$ en la raíz <span class="pp">|</span> Guía de examen 2 <span class="pp">|</span></span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No reescalar $\lambda$ al intervalo de la pregunta <span class="pp">|</span> La probabilidad calculada es de un intervalo distinto al pedido <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema P6b</span><span class="co">](tema-p6b-estudiante.qmd)</span> <span class="pp">|</span></span>
-<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Usar $z$ en vez de $t$ (o viceversa) <span class="pp">|</span> Valor P o IC ligeramente distinto — puede cambiar la conclusión en casos límite <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema I2</span><span class="co">](tema-i2-estudiante.qmd)</span> <span class="pp">|</span></span>
-<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Grados de libertad incorrectos ($n$ en vez de $n-1$) <span class="pp">|</span> Diferencia pequeña pero real en el valor crítico o el valor P <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema I3</span><span class="co">](tema-i3-estudiante.qmd)</span> <span class="pp">|</span></span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Confundir $E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>$ con $(E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>)^2$ <span class="pp">|</span> Costo esperado mal calculado en funciones cuadráticas <span class="pp">|</span> Sección 2 de esta página <span class="pp">|</span></span>
-<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Confundir "más de $k$" con "al menos $k$" <span class="pp">|</span> La respuesta difiere exactamente en $P(X=k)$ <span class="pp">|</span> Guía de examen 2 <span class="pp">|</span></span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Tres casos resueltos</span></span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### Caso A — Control de calidad de semiconductores</span></span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>**Contexto:** un fabricante de semiconductores clasifica cada oblea producida como apta o no apta. Históricamente, el 91\% resultan aptas, de forma independiente entre obleas. Se examina un lote de control de 30 obleas.</span>
-<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Identificar el modelo.** Hay un número fijo de obleas ($n=30$), cada una con dos resultados posibles, independientes, con probabilidad constante. Sea $X$ = número de obleas **no aptas**: $X\sim\text{Bin}(30,\,0.09)$.</span>
-<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a>**Paso 2 — La pregunta de costo.** Cada oblea no apta cuesta \$200 en desperdicio; si más de 4 obleas no son aptas, se detiene la línea con un costo fijo adicional de \$3{,}000.</span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span>; p <span class="ot">&lt;-</span> <span class="fl">0.09</span></span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a>P_mayor_4 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n, p)</span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>E_costo <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>P_mayor_4</span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">EX =</span> EX, <span class="at">P_mayor_4 =</span> P_mayor_4, <span class="at">E_costo =</span> E_costo)</span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100000</span>, n, p)</span>
-<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">4</span>)</span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(costo_sim)</span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>**Resultado:** $E<span class="co">[</span><span class="ot">\text{Costo}</span><span class="co">]</span>\approx\$923$ por lote, confirmado por simulación.</span>
-<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a><span class="fu">### Caso B — Monitoreo de una plataforma de streaming</span></span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a>**Contexto:** una app de streaming registra fallos de reproducción reportados por hora, asumiendo ocurrencia aleatoria e independiente a tasa constante, calibrada en 2.5 fallos/hora.</span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Identificar el modelo.** No hay un "número de intentos" que contar — hay una tasa de eventos en el tiempo: Poisson.</span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a>lambda_2h <span class="ot">&lt;-</span> <span class="fl">2.5</span> <span class="sc">*</span> <span class="dv">2</span>   <span class="co"># reescalar a 2 horas</span></span>
-<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">6</span>, lambda_2h)</span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Evaluar el supuesto con datos de control.** En una muestra de 60 horas reales, la media fue 2.6 fallos/hora y la varianza 2.7.</span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a>media_obs <span class="ot">&lt;-</span> <span class="fl">2.6</span>; var_obs <span class="ot">&lt;-</span> <span class="fl">2.7</span></span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a>var_obs <span class="sc">/</span> media_obs</span>
-<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a>**Resultado:** la razón varianza/media es $1.04$ — muy cercana a 1, consistente con el supuesto de Poisson (a diferencia del caso de sobredispersión visto en el examen, aquí el modelo original **sí** parece razonable).</span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a><span class="fu">### Caso C — Dos sistemas de alerta independientes</span></span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a>**Contexto:** dos sistemas de monitoreo, independientes entre sí, generan alertas cuyas funciones generadoras de momentos son $M_X(t)=e^{2.5(e^t-1)}$ y $M_Y(t)=e^{3.5(e^t-1)}$.</span>
-<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Reconocer la forma.** Ambas tienen la forma $e^{\lambda(e^t-1)}$: son Poisson, con $\lambda_X=2.5$ y $\lambda_Y=3.5$.</span>
-<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Distribución de la suma.** Por la propiedad de las FGM de sumas de independientes:</span>
-<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a>$$M_{X+Y}(t) = M_X(t)M_Y(t) = e^{(2.5+3.5)(e^t-1)} = e^{6(e^t-1)} \;\Rightarrow\; X+Y\sim\text{Poisson}(6)$$</span>
-<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">7</span>, <span class="dv">6</span>)</span>
-<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a>**Resultado:** $P(X+Y=7)\approx0.1377$.</span>
-<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Para que practiques: tres casos sin resolver</span></span>
-<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>**Caso D.** Un banco revisa 40 solicitudes de crédito de un lote, clasificando cada una como aprobada o rechazada. Históricamente el 22\% se rechaza, de forma independiente. Si cada rechazo cuesta \$15{,}000 en reprocesamiento, y más de 12 rechazos activan una revisión de proceso completa con costo adicional de \$100{,}000, calcule el costo esperado total (analítico + Monte Carlo).</span>
-<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>**Caso E.** Un sistema de sensores IoT reporta lecturas anómalas a una tasa de 1.8 por día. Calcule la probabilidad de más de 10 anomalías en una semana, verificando si la aproximación normal o la de Poisson sería más apropiada si en cambio se supiera que estas anomalías provienen de revisar 500 sensores, cada uno con probabilidad 0.0036 de fallar por día, de forma independiente.</span>
-<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>**Caso F.** $M_X(t)=(0.4e^t+0.6)^{15}$ y $M_Y(t)=(0.4e^t+0.6)^{10}$, independientes. Identifique ambas distribuciones, encuentre la distribución de $X+Y$, y calcule $E<span class="co">[</span><span class="ot">5(X+Y)+(X+Y)^2</span><span class="co">]</span>$ analíticamente y por simulación.</span>
-<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas</span></span>
-<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Caso D:** $X\sim\text{Bin}(40,0.22)$; $E(X)=8.8$; $P(X&gt;12)\approx0.0830$; $E<span class="co">[</span><span class="ot">\text{Costo}</span><span class="co">]</span>\approx\$140{,}300$.</span>
-<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Caso E:** $\lambda=1.8\times7=12.6$ por semana; $P(X&gt;10)\approx0.7124$ (Poisson). Con $n=500,p=0.0036$: $np=1.8$, $n(1-p)=498.2$ — como $np&lt;5$, la aproximación apropiada es **Poisson**, no normal (consistente con el mismo $\lambda=1.8$ por día usado arriba).</span>
-<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Caso F:** ambas son Binomial ($n{=}15,p{=}0.4$ y $n{=}10,p{=}0.4$); $X+Y\sim\text{Bin}(25,0.4)$, con $E<span class="co">[</span><span class="ot">W</span><span class="co">]</span>=10$, $\text{Var}(W)=6$, $E<span class="co">[</span><span class="ot">W^2</span><span class="co">]</span>=106$; $E<span class="co">[</span><span class="ot">5W+W^2</span><span class="co">]</span>=5(10)+106=156$.</span>
-<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Cómo resolver casos disfrazados · Guía avanzada para el Taller 2"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🕵️ Cuando el examen no te dice qué fórmula usar</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>Hasta ahora, cada tema del sitio te decía en el título qué distribución ibas a usar. Los exámenes reales no funcionan así: te dan un contexto (una auditoría, un centro de datos, un fondo de inversión) y **tú** tienes que reconocer qué modelo aplica, sin que nadie te lo diga. Esta página enseña ese paso — el que normalmente nadie enseña explícitamente — con ejemplos resueltos completos.</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Qué vas a encontrar aquí</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Un marco de decisión para identificar el modelo correcto a partir del contexto.</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Cómo calcular valores esperados de **funciones de costo no lineales** (el tipo de pregunta que combina varios temas a la vez).</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>El patrón de **verificación por simulación Monte Carlo** que se espera en cualquier respuesta completa.</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Una lista de los errores de código más comunes — los mismos que ya se han visto (y corregido) a lo largo de este curso.</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Tres casos completamente resueltos, y tres más para que practiques por tu cuenta.</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Cómo identificar el modelo sin que te lo digan</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>Cuando un problema no nombra la distribución, hazte estas preguntas **en este orden**:</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 1: ¿hay un número fijo de "intentos"?</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>Si el problema dice algo como "se seleccionan/inspeccionan/auditan $n$ elementos" —un número concreto y fijo de antemano— y cada uno resulta en éxito/fracaso, estás ante una posible **binomial**. Verifica además: ¿la probabilidad de éxito es la misma para todos? ¿son independientes entre sí?</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>**Frases típicas:** "una muestra de $n$...", "de los $n$ pedidos...", "se auditan $n$ solicitudes".</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 2: ¿hay una tasa, sin un número fijo de intentos?</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>Si en cambio el problema da una **tasa** (eventos por hora, por día, por lote) y pregunta por el número de eventos en un intervalo, sin que exista un "número de intentos" que contar, es una señal de **Poisson**.</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>**Frases típicas:** "en promedio ocurren $\lambda$ eventos por...", "se registran alertas/llamadas/fallos a una tasa de...".</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 3: ¿es una binomial, pero con $n$ grande?</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>Si identificaste una binomial en la Pregunta 1 pero $n$ es grande (cientos o miles) y calcular la fórmula exacta sería muy pesado, calcula $np$ y $n(1-p)$:</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si ambos son $\ge5$ (o $\ge10$, según el criterio que te indiquen): usa la **aproximación normal**, con corrección de continuidad.</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Si $np&lt;5$ (típicamente porque $p$ es muy chico): usa la **aproximación Poisson** con $\lambda=np$. La normal fallaría aquí — ya viste por qué en el Tema P6c.</span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta 4: ¿dan una función $M(t)$ directamente?</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a>Si el enunciado da una función y la llama (o la simboliza como) $M_X(t)$, es una **FGM** — deriva para momentos, o reconoce la forma algebraica para identificar la familia (Tema P6d tiene la tabla de formas conocidas).</span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## La trampa más común</span></span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>Un enunciado puede *sonar* a Poisson (porque menciona "tasa") pero en realidad ser binomial si, mirando con cuidado, sí hay un número fijo de ensayos con dos resultados posibles. Lee el contexto completo, no solo la primera frase.</span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Funciones de costo no lineales: $E[aX+bX^2]$ y umbrales</span></span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a>Muchos problemas reales no piden $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$ directamente, sino el valor esperado de una **función** de $X$ — por ejemplo, un costo que incluye una penalización fija si $X$ supera cierto umbral.</span>
+<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a>**La regla de oro:** $E[g(X)] \ne g(E[X])$ en general. Si $g$ no es lineal (tiene un término cuadrático, o un umbral tipo "si $X&gt;c$"), **no puedes** simplemente evaluar $g$ en $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>$.</span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a>**Caso 1 — término cuadrático.** Si el costo es $C=aX+bX^2$:</span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">C</span><span class="co">]</span> = a\,E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> + b\,E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span> = a\,E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> + b\left(\text{Var}(X)+<span class="co">[</span><span class="ot">E(X)</span><span class="co">]</span>^2\right)$$</span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a>Siempre necesitas $E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>$, que se obtiene de $\text{Var}(X)+<span class="co">[</span><span class="ot">E(X)</span><span class="co">]</span>^2$ — nunca de $<span class="co">[</span><span class="ot">E(X)</span><span class="co">]</span>^2$ solo.</span>
+<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a>**Caso 2 — penalización por umbral.** Si el costo es $C=aX + K\cdot\mathbb{1}<span class="sc">\{</span>X&gt;c<span class="sc">\}</span>$ (una penalización fija $K$ que se activa solo si $X$ supera $c$):</span>
+<span id="cb29-71"><a href="#cb29-71" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">C</span><span class="co">]</span> = a\,E<span class="co">[</span><span class="ot">X</span><span class="co">]</span> + K\cdot P(X&gt;c)$$</span>
+<span id="cb29-72"><a href="#cb29-72" aria-hidden="true" tabindex="-1"></a>Aquí necesitas la **probabilidad** de superar el umbral, no solo la media.</span>
+<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-76"><a href="#cb29-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-77"><a href="#cb29-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo genérico: X ~ Bin(20, 0.1), costo = 50X + 800*1{X&gt;3}</span></span>
+<span id="cb29-78"><a href="#cb29-78" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb29-79"><a href="#cb29-79" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
+<span id="cb29-80"><a href="#cb29-80" aria-hidden="true" tabindex="-1"></a>P_umbral <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)</span>
+<span id="cb29-81"><a href="#cb29-81" aria-hidden="true" tabindex="-1"></a>E_costo <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>P_umbral</span>
+<span id="cb29-82"><a href="#cb29-82" aria-hidden="true" tabindex="-1"></a>E_costo</span>
+<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-84"><a href="#cb29-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-85"><a href="#cb29-85" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb29-86"><a href="#cb29-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-87"><a href="#cb29-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. El patrón de verificación Monte Carlo, paso a paso</span></span>
+<span id="cb29-88"><a href="#cb29-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-89"><a href="#cb29-89" aria-hidden="true" tabindex="-1"></a>Toda respuesta analítica debería venir acompañada de una verificación por simulación. Esta sección desglosa **cada paso** del patrón general, y —lo que normalmente no se explica— **cómo leer e interpretar** lo que la simulación te devuelve, no solo cómo generarla.</span>
+<span id="cb29-90"><a href="#cb29-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-91"><a href="#cb29-91" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 1 — Simular la variable base</span></span>
+<span id="cb29-92"><a href="#cb29-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-95"><a href="#cb29-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-96"><a href="#cb29-96" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb29-97"><a href="#cb29-97" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb29-98"><a href="#cb29-98" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb29-99"><a href="#cb29-99" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, n, p)</span>
+<span id="cb29-100"><a href="#cb29-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-101"><a href="#cb29-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-102"><a href="#cb29-102" aria-hidden="true" tabindex="-1"></a><span class="in">`X_sim`</span> es un **vector de 100,000 números**, cada uno una posible realización de $X\sim\text{Bin}(20,0.1)$ — no un solo valor. Antes de seguir, vale la pena *mirar* qué generaste:</span>
+<span id="cb29-103"><a href="#cb29-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-106"><a href="#cb29-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-107"><a href="#cb29-107" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X_sim, <span class="dv">10</span>)      <span class="co"># los primeros 10 valores simulados</span></span>
+<span id="cb29-108"><a href="#cb29-108" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(X_sim) <span class="sc">/</span> n_sim <span class="co"># la distribución empírica de X_sim</span></span>
+<span id="cb29-109"><a href="#cb29-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-110"><a href="#cb29-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-111"><a href="#cb29-111" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb29-112"><a href="#cb29-112" aria-hidden="true" tabindex="-1"></a>La tabla de frecuencias relativas de <span class="in">`X_sim`</span> debería parecerse mucho a <span class="in">`dbinom(0:8, 20, 0.1)`</span> — si no se parece, el problema está en este primer paso, antes incluso de llegar al costo.</span>
+<span id="cb29-113"><a href="#cb29-113" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-114"><a href="#cb29-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-115"><a href="#cb29-115" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 2 — Aplicar la MISMA función de costo, vectorizada</span></span>
+<span id="cb29-116"><a href="#cb29-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-119"><a href="#cb29-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-120"><a href="#cb29-120" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">3</span>)</span>
+<span id="cb29-121"><a href="#cb29-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-122"><a href="#cb29-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-123"><a href="#cb29-123" aria-hidden="true" tabindex="-1"></a><span class="in">`(X_sim &gt; 3)`</span> produce un vector de <span class="in">`TRUE`</span>/<span class="in">`FALSE`</span>, que R trata como <span class="in">`1`</span>/<span class="in">`0`</span> al multiplicar — por eso <span class="in">`800*(X_sim &gt; 3)`</span> suma 800 exactamente en las posiciones donde <span class="in">`X_sim`</span> superó 3, y 0 en las demás. Este es el paso donde más se cometen errores (ver la tabla de la Sección 4): la función de costo simulada debe ser **algebraicamente idéntica** a la que usaste en el cálculo analítico.</span>
+<span id="cb29-124"><a href="#cb29-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-125"><a href="#cb29-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paso 3 — Resumir, y cuantificar qué tan confiable es el resumen</span></span>
+<span id="cb29-126"><a href="#cb29-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-129"><a href="#cb29-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-130"><a href="#cb29-130" aria-hidden="true" tabindex="-1"></a>media_sim <span class="ot">&lt;-</span> <span class="fu">mean</span>(costo_sim)</span>
+<span id="cb29-131"><a href="#cb29-131" aria-hidden="true" tabindex="-1"></a>ee_montecarlo <span class="ot">&lt;-</span> <span class="fu">sd</span>(costo_sim) <span class="sc">/</span> <span class="fu">sqrt</span>(n_sim)</span>
+<span id="cb29-132"><a href="#cb29-132" aria-hidden="true" tabindex="-1"></a>media_sim</span>
+<span id="cb29-133"><a href="#cb29-133" aria-hidden="true" tabindex="-1"></a>ee_montecarlo</span>
+<span id="cb29-134"><a href="#cb29-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-135"><a href="#cb29-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-136"><a href="#cb29-136" aria-hidden="true" tabindex="-1"></a><span class="in">`mean(costo_sim)`</span> da tu estimación puntual. Pero como es un promedio de una muestra simulada, **también tiene su propio error estándar** —el "error de Monte Carlo"— que decrece con $1/\sqrt{n_{\text{sim}}}$. Con eso puedes construir un intervalo de confianza para tu propia simulación, exactamente como en el Tema I3:</span>
+<span id="cb29-137"><a href="#cb29-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-140"><a href="#cb29-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-141"><a href="#cb29-141" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">inferior =</span> media_sim <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>ee_montecarlo, <span class="at">superior =</span> media_sim <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>ee_montecarlo)</span>
+<span id="cb29-142"><a href="#cb29-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-143"><a href="#cb29-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-144"><a href="#cb29-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cómo "ver" los resultados: tres formas de verificar que todo cuadra</span></span>
+<span id="cb29-145"><a href="#cb29-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-146"><a href="#cb29-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### Forma 1 — Tabla comparativa numérica</span></span>
+<span id="cb29-147"><a href="#cb29-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-148"><a href="#cb29-148" aria-hidden="true" tabindex="-1"></a>La forma más simple: poner el valor analítico y el simulado lado a lado, con su diferencia relativa.</span>
+<span id="cb29-149"><a href="#cb29-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-152"><a href="#cb29-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-153"><a href="#cb29-153" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
+<span id="cb29-154"><a href="#cb29-154" aria-hidden="true" tabindex="-1"></a>P_umbral <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">3</span>, n, p)</span>
+<span id="cb29-155"><a href="#cb29-155" aria-hidden="true" tabindex="-1"></a>E_costo_analitico <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">800</span><span class="sc">*</span>P_umbral</span>
+<span id="cb29-156"><a href="#cb29-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-157"><a href="#cb29-157" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb29-158"><a href="#cb29-158" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo =</span> <span class="fu">c</span>(<span class="st">"Analítico"</span>, <span class="st">"Monte Carlo"</span>),</span>
+<span id="cb29-159"><a href="#cb29-159" aria-hidden="true" tabindex="-1"></a>  <span class="at">valor  =</span> <span class="fu">c</span>(E_costo_analitico, media_sim),</span>
+<span id="cb29-160"><a href="#cb29-160" aria-hidden="true" tabindex="-1"></a>  <span class="at">diferencia_relativa =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">abs</span>(media_sim <span class="sc">-</span> E_costo_analitico)<span class="sc">/</span>E_costo_analitico)</span>
+<span id="cb29-161"><a href="#cb29-161" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-162"><a href="#cb29-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-163"><a href="#cb29-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-164"><a href="#cb29-164" aria-hidden="true" tabindex="-1"></a>Si el intervalo de confianza del Paso 3 **contiene** al valor analítico, tienes una verificación estadísticamente honesta —no solo "se parecen a ojo"— de que ambos métodos coinciden.</span>
+<span id="cb29-165"><a href="#cb29-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-166"><a href="#cb29-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Forma 2 — Histograma de la variable simulada</span></span>
+<span id="cb29-167"><a href="#cb29-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-168"><a href="#cb29-168" aria-hidden="true" tabindex="-1"></a>Ver la *forma completa* de la distribución del costo, no solo su promedio, ayuda a entender por qué el valor esperado es el que es:</span>
+<span id="cb29-169"><a href="#cb29-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-172"><a href="#cb29-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-173"><a href="#cb29-173" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-histograma-costo-mc</span></span>
+<span id="cb29-174"><a href="#cb29-174" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Distribución simulada del costo, con la media analítica y la simulada superpuestas"</span></span>
+<span id="cb29-175"><a href="#cb29-175" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(costo_sim, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">col =</span> <span class="st">"#4B8BC2"</span>, <span class="at">probability =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-176"><a href="#cb29-176" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Distribución Monte Carlo del costo"</span>,</span>
+<span id="cb29-177"><a href="#cb29-177" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Costo simulado"</span>)</span>
+<span id="cb29-178"><a href="#cb29-178" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> E_costo_analitico, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb29-179"><a href="#cb29-179" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> media_sim, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb29-180"><a href="#cb29-180" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Media analítica"</span>, <span class="st">"Media simulada"</span>),</span>
+<span id="cb29-181"><a href="#cb29-181" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#FFB903"</span>, <span class="st">"#004B85"</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span>
+<span id="cb29-182"><a href="#cb29-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-183"><a href="#cb29-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-184"><a href="#cb29-184" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb29-185"><a href="#cb29-185" aria-hidden="true" tabindex="-1"></a>El histograma tiene dos "grupos" claramente separados: uno alrededor de valores bajos (cuando $X\le3$, sin penalización) y otro desplazado más a la derecha (cuando $X&gt;3$, con la penalización de 800 sumada). El valor esperado (las líneas verticales) cae en algún punto intermedio — no es "el valor más probable", es el promedio ponderado de ambos grupos.</span>
+<span id="cb29-186"><a href="#cb29-186" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-187"><a href="#cb29-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-188"><a href="#cb29-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Forma 3 — Gráfico de convergencia</span></span>
+<span id="cb29-189"><a href="#cb29-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-190"><a href="#cb29-190" aria-hidden="true" tabindex="-1"></a>Una pregunta razonable es: ¿por qué $10^5$ repeticiones y no 100, o un millón? Este gráfico lo responde visualmente:</span>
+<span id="cb29-191"><a href="#cb29-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-194"><a href="#cb29-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-195"><a href="#cb29-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-convergencia-mc</span></span>
+<span id="cb29-196"><a href="#cb29-196" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "El promedio simulado se estabiliza a medida que crecen las repeticiones"</span></span>
+<span id="cb29-197"><a href="#cb29-197" aria-hidden="true" tabindex="-1"></a>promedio_acumulado <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(costo_sim) <span class="sc">/</span> <span class="fu">seq_along</span>(costo_sim)</span>
+<span id="cb29-198"><a href="#cb29-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-199"><a href="#cb29-199" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>n_sim, promedio_acumulado, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"#4B8BC2"</span>, <span class="at">log =</span> <span class="st">"x"</span>,</span>
+<span id="cb29-200"><a href="#cb29-200" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Número de repeticiones (escala log)"</span>, <span class="at">ylab =</span> <span class="st">"Promedio acumulado del costo"</span>,</span>
+<span id="cb29-201"><a href="#cb29-201" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Convergencia de la simulación Monte Carlo"</span>)</span>
+<span id="cb29-202"><a href="#cb29-202" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> E_costo_analitico, <span class="at">col =</span> <span class="st">"#FFB903"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb29-203"><a href="#cb29-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-204"><a href="#cb29-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-205"><a href="#cb29-205" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb29-206"><a href="#cb29-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb29-207"><a href="#cb29-207" aria-hidden="true" tabindex="-1"></a>Con pocas repeticiones (los primeros cientos) el promedio acumulado "salta" bastante — todavía no hay suficiente información. A partir de unos pocos miles ya se estabiliza cerca del valor teórico, y el resto de las repeticiones solo lo afinan más. Por eso $10^5$ es un estándar razonable: mucho más que suficiente para estabilizar, sin ser computacionalmente pesado. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb29-208"><a href="#cb29-208" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-209"><a href="#cb29-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-210"><a href="#cb29-210" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb29-211"><a href="#cb29-211" aria-hidden="true" tabindex="-1"></a><span class="fu">## Qué tan cerca es "suficientemente cerca"</span></span>
+<span id="cb29-212"><a href="#cb29-212" aria-hidden="true" tabindex="-1"></a>No existe un umbral universal, pero una guía práctica: si tu valor analítico cae **dentro** del intervalo de confianza de la simulación (Paso 3), la coincidencia es estadísticamente sólida. Si la diferencia relativa es menor al 1-2% con $10^5$ repeticiones, es una señal fuerte de que el cálculo analítico es correcto. Si la diferencia es mucho mayor, el error casi siempre está en que la función de costo simulada no coincide exactamente con la analítica (revisa la Sección 4) — rara vez es "mala suerte" de la simulación con $10^5$ repeticiones.</span>
+<span id="cb29-213"><a href="#cb29-213" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb29-214"><a href="#cb29-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-215"><a href="#cb29-215" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb29-216"><a href="#cb29-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-217"><a href="#cb29-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Lista de errores de código que debes poder detectar</span></span>
+<span id="cb29-218"><a href="#cb29-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-219"><a href="#cb29-219" aria-hidden="true" tabindex="-1"></a>Estos son los errores conceptuales (no de sintaxis — el código siempre "corre") que ya han aparecido en este curso:</span>
+<span id="cb29-220"><a href="#cb29-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-221"><a href="#cb29-221" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Error <span class="pp">|</span> Síntoma <span class="pp">|</span> Dónde se explicó <span class="pp">|</span></span>
+<span id="cb29-222"><a href="#cb29-222" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb29-223"><a href="#cb29-223" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Omitir la corrección de continuidad <span class="pp">|</span> La probabilidad aproximada se aleja del valor exacto de forma sistemática <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema P6c</span><span class="co">](tema-p6c-estudiante.qmd)</span> <span class="pp">|</span></span>
+<span id="cb29-224"><a href="#cb29-224" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Confundir $\sigma_{\text{Poisson}}=\sqrt\lambda$ con $\sigma_{\text{Binomial}}=\sqrt{np(1-p)}$ <span class="pp">|</span> Falta el factor $(1-p)$ en la raíz <span class="pp">|</span> Guía de examen 2 <span class="pp">|</span></span>
+<span id="cb29-225"><a href="#cb29-225" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No reescalar $\lambda$ al intervalo de la pregunta <span class="pp">|</span> La probabilidad calculada es de un intervalo distinto al pedido <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema P6b</span><span class="co">](tema-p6b-estudiante.qmd)</span> <span class="pp">|</span></span>
+<span id="cb29-226"><a href="#cb29-226" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Usar $z$ en vez de $t$ (o viceversa) <span class="pp">|</span> Valor P o IC ligeramente distinto — puede cambiar la conclusión en casos límite <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema I2</span><span class="co">](tema-i2-estudiante.qmd)</span> <span class="pp">|</span></span>
+<span id="cb29-227"><a href="#cb29-227" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Grados de libertad incorrectos ($n$ en vez de $n-1$) <span class="pp">|</span> Diferencia pequeña pero real en el valor crítico o el valor P <span class="pp">|</span> <span class="co">[</span><span class="ot">Tema I3</span><span class="co">](tema-i3-estudiante.qmd)</span> <span class="pp">|</span></span>
+<span id="cb29-228"><a href="#cb29-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Confundir $E<span class="co">[</span><span class="ot">X^2</span><span class="co">]</span>$ con $(E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>)^2$ <span class="pp">|</span> Costo esperado mal calculado en funciones cuadráticas <span class="pp">|</span> Sección 2 de esta página <span class="pp">|</span></span>
+<span id="cb29-229"><a href="#cb29-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Confundir "más de $k$" con "al menos $k$" <span class="pp">|</span> La respuesta difiere exactamente en $P(X=k)$ <span class="pp">|</span> Guía de examen 2 <span class="pp">|</span></span>
+<span id="cb29-230"><a href="#cb29-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-231"><a href="#cb29-231" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb29-232"><a href="#cb29-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-233"><a href="#cb29-233" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Tres casos resueltos</span></span>
+<span id="cb29-234"><a href="#cb29-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-235"><a href="#cb29-235" aria-hidden="true" tabindex="-1"></a><span class="fu">### Caso A — Control de calidad de semiconductores</span></span>
+<span id="cb29-236"><a href="#cb29-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-237"><a href="#cb29-237" aria-hidden="true" tabindex="-1"></a>**Contexto:** un fabricante de semiconductores clasifica cada oblea producida como apta o no apta. Históricamente, el 91\% resultan aptas, de forma independiente entre obleas. Se examina un lote de control de 30 obleas.</span>
+<span id="cb29-238"><a href="#cb29-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-239"><a href="#cb29-239" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Identificar el modelo.** Hay un número fijo de obleas ($n=30$), cada una con dos resultados posibles, independientes, con probabilidad constante. Sea $X$ = número de obleas **no aptas**: $X\sim\text{Bin}(30,\,0.09)$.</span>
+<span id="cb29-240"><a href="#cb29-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-241"><a href="#cb29-241" aria-hidden="true" tabindex="-1"></a>**Paso 2 — La pregunta de costo.** Cada oblea no apta cuesta \$200 en desperdicio; si más de 4 obleas no son aptas, se detiene la línea con un costo fijo adicional de \$3{,}000.</span>
+<span id="cb29-242"><a href="#cb29-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-245"><a href="#cb29-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-246"><a href="#cb29-246" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span>; p <span class="ot">&lt;-</span> <span class="fl">0.09</span></span>
+<span id="cb29-247"><a href="#cb29-247" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> n<span class="sc">*</span>p</span>
+<span id="cb29-248"><a href="#cb29-248" aria-hidden="true" tabindex="-1"></a>P_mayor_4 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, n, p)</span>
+<span id="cb29-249"><a href="#cb29-249" aria-hidden="true" tabindex="-1"></a>E_costo <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>P_mayor_4</span>
+<span id="cb29-250"><a href="#cb29-250" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">EX =</span> EX, <span class="at">P_mayor_4 =</span> P_mayor_4, <span class="at">E_costo =</span> E_costo)</span>
+<span id="cb29-251"><a href="#cb29-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-252"><a href="#cb29-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-255"><a href="#cb29-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-256"><a href="#cb29-256" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb29-257"><a href="#cb29-257" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100000</span>, n, p)</span>
+<span id="cb29-258"><a href="#cb29-258" aria-hidden="true" tabindex="-1"></a>costo_sim <span class="ot">&lt;-</span> <span class="dv">200</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">3000</span><span class="sc">*</span>(X_sim <span class="sc">&gt;</span> <span class="dv">4</span>)</span>
+<span id="cb29-259"><a href="#cb29-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-260"><a href="#cb29-260" aria-hidden="true" tabindex="-1"></a>media_sim <span class="ot">&lt;-</span> <span class="fu">mean</span>(costo_sim)</span>
+<span id="cb29-261"><a href="#cb29-261" aria-hidden="true" tabindex="-1"></a>ee_mc <span class="ot">&lt;-</span> <span class="fu">sd</span>(costo_sim) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">100000</span>)</span>
+<span id="cb29-262"><a href="#cb29-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-263"><a href="#cb29-263" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb29-264"><a href="#cb29-264" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo =</span> <span class="fu">c</span>(<span class="st">"Analítico"</span>, <span class="st">"Monte Carlo"</span>),</span>
+<span id="cb29-265"><a href="#cb29-265" aria-hidden="true" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(E_costo, media_sim),</span>
+<span id="cb29-266"><a href="#cb29-266" aria-hidden="true" tabindex="-1"></a>  <span class="at">IC_inferior =</span> <span class="fu">c</span>(<span class="cn">NA</span>, media_sim <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>ee_mc),</span>
+<span id="cb29-267"><a href="#cb29-267" aria-hidden="true" tabindex="-1"></a>  <span class="at">IC_superior =</span> <span class="fu">c</span>(<span class="cn">NA</span>, media_sim <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>ee_mc)</span>
+<span id="cb29-268"><a href="#cb29-268" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-269"><a href="#cb29-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-270"><a href="#cb29-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-271"><a href="#cb29-271" aria-hidden="true" tabindex="-1"></a>**Resultado:** $E<span class="co">[</span><span class="ot">\text{Costo}</span><span class="co">]</span>\approx\$923$ por lote. La simulación da $\approx\$926$, con un intervalo de confianza del 95% de $(\$918,\ \$933)$ — el valor analítico cae dentro de ese intervalo, la misma verificación aplicada paso a paso en la Sección 3.</span>
+<span id="cb29-272"><a href="#cb29-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-273"><a href="#cb29-273" aria-hidden="true" tabindex="-1"></a><span class="fu">### Caso B — Monitoreo de una plataforma de streaming</span></span>
+<span id="cb29-274"><a href="#cb29-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-275"><a href="#cb29-275" aria-hidden="true" tabindex="-1"></a>**Contexto:** una app de streaming registra fallos de reproducción reportados por hora, asumiendo ocurrencia aleatoria e independiente a tasa constante, calibrada en 2.5 fallos/hora.</span>
+<span id="cb29-276"><a href="#cb29-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-277"><a href="#cb29-277" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Identificar el modelo.** No hay un "número de intentos" que contar — hay una tasa de eventos en el tiempo: Poisson.</span>
+<span id="cb29-278"><a href="#cb29-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-281"><a href="#cb29-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-282"><a href="#cb29-282" aria-hidden="true" tabindex="-1"></a>lambda_2h <span class="ot">&lt;-</span> <span class="fl">2.5</span> <span class="sc">*</span> <span class="dv">2</span>   <span class="co"># reescalar a 2 horas</span></span>
+<span id="cb29-283"><a href="#cb29-283" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">6</span>, lambda_2h)</span>
+<span id="cb29-284"><a href="#cb29-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-285"><a href="#cb29-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-286"><a href="#cb29-286" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Evaluar el supuesto con datos de control.** En una muestra de 60 horas reales, la media fue 2.6 fallos/hora y la varianza 2.7.</span>
+<span id="cb29-287"><a href="#cb29-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-290"><a href="#cb29-290" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-291"><a href="#cb29-291" aria-hidden="true" tabindex="-1"></a>media_obs <span class="ot">&lt;-</span> <span class="fl">2.6</span>; var_obs <span class="ot">&lt;-</span> <span class="fl">2.7</span></span>
+<span id="cb29-292"><a href="#cb29-292" aria-hidden="true" tabindex="-1"></a>var_obs <span class="sc">/</span> media_obs</span>
+<span id="cb29-293"><a href="#cb29-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-294"><a href="#cb29-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-295"><a href="#cb29-295" aria-hidden="true" tabindex="-1"></a>**Resultado:** la razón varianza/media es $1.04$ — muy cercana a 1, consistente con el supuesto de Poisson (a diferencia del caso de sobredispersión visto en el examen, aquí el modelo original **sí** parece razonable).</span>
+<span id="cb29-296"><a href="#cb29-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-297"><a href="#cb29-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### Caso C — Dos sistemas de alerta independientes</span></span>
+<span id="cb29-298"><a href="#cb29-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-299"><a href="#cb29-299" aria-hidden="true" tabindex="-1"></a>**Contexto:** dos sistemas de monitoreo, independientes entre sí, generan alertas cuyas funciones generadoras de momentos son $M_X(t)=e^{2.5(e^t-1)}$ y $M_Y(t)=e^{3.5(e^t-1)}$.</span>
+<span id="cb29-300"><a href="#cb29-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-301"><a href="#cb29-301" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Reconocer la forma.** Ambas tienen la forma $e^{\lambda(e^t-1)}$: son Poisson, con $\lambda_X=2.5$ y $\lambda_Y=3.5$.</span>
+<span id="cb29-302"><a href="#cb29-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-303"><a href="#cb29-303" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Distribución de la suma.** Por la propiedad de las FGM de sumas de independientes:</span>
+<span id="cb29-304"><a href="#cb29-304" aria-hidden="true" tabindex="-1"></a>$$M_{X+Y}(t) = M_X(t)M_Y(t) = e^{(2.5+3.5)(e^t-1)} = e^{6(e^t-1)} \;\Rightarrow\; X+Y\sim\text{Poisson}(6)$$</span>
+<span id="cb29-305"><a href="#cb29-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-308"><a href="#cb29-308" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-309"><a href="#cb29-309" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">7</span>, <span class="dv">6</span>)</span>
+<span id="cb29-310"><a href="#cb29-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-311"><a href="#cb29-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-312"><a href="#cb29-312" aria-hidden="true" tabindex="-1"></a>**Resultado:** $P(X+Y=7)\approx0.1377$.</span>
+<span id="cb29-313"><a href="#cb29-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-314"><a href="#cb29-314" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb29-315"><a href="#cb29-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-316"><a href="#cb29-316" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Para que practiques: tres casos sin resolver</span></span>
+<span id="cb29-317"><a href="#cb29-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-318"><a href="#cb29-318" aria-hidden="true" tabindex="-1"></a>**Caso D.** Un banco revisa 40 solicitudes de crédito de un lote, clasificando cada una como aprobada o rechazada. Históricamente el 22\% se rechaza, de forma independiente. Si cada rechazo cuesta \$15{,}000 en reprocesamiento, y más de 12 rechazos activan una revisión de proceso completa con costo adicional de \$100{,}000, calcule el costo esperado total (analítico + Monte Carlo).</span>
+<span id="cb29-319"><a href="#cb29-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-320"><a href="#cb29-320" aria-hidden="true" tabindex="-1"></a>**Caso E.** Un sistema de sensores IoT reporta lecturas anómalas a una tasa de 1.8 por día. Calcule la probabilidad de más de 10 anomalías en una semana, verificando si la aproximación normal o la de Poisson sería más apropiada si en cambio se supiera que estas anomalías provienen de revisar 500 sensores, cada uno con probabilidad 0.0036 de fallar por día, de forma independiente.</span>
+<span id="cb29-321"><a href="#cb29-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-322"><a href="#cb29-322" aria-hidden="true" tabindex="-1"></a>**Caso F.** $M_X(t)=(0.4e^t+0.6)^{15}$ y $M_Y(t)=(0.4e^t+0.6)^{10}$, independientes. Identifique ambas distribuciones, encuentre la distribución de $X+Y$, y calcule $E<span class="co">[</span><span class="ot">5(X+Y)+(X+Y)^2</span><span class="co">]</span>$ analíticamente y por simulación.</span>
+<span id="cb29-323"><a href="#cb29-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-324"><a href="#cb29-324" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
+<span id="cb29-325"><a href="#cb29-325" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ver respuestas</span></span>
+<span id="cb29-326"><a href="#cb29-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-327"><a href="#cb29-327" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Caso D:** $X\sim\text{Bin}(40,0.22)$; $E(X)=8.8$; $P(X&gt;12)\approx0.0830$; $E<span class="co">[</span><span class="ot">\text{Costo}</span><span class="co">]</span>\approx\$140{,}300$.</span>
+<span id="cb29-328"><a href="#cb29-328" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Caso E:** $\lambda=1.8\times7=12.6$ por semana; $P(X&gt;10)\approx0.7124$ (Poisson). Con $n=500,p=0.0036$: $np=1.8$, $n(1-p)=498.2$ — como $np&lt;5$, la aproximación apropiada es **Poisson**, no normal (consistente con el mismo $\lambda=1.8$ por día usado arriba).</span>
+<span id="cb29-329"><a href="#cb29-329" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Caso F:** ambas son Binomial ($n{=}15,p{=}0.4$ y $n{=}10,p{=}0.4$); $X+Y\sim\text{Bin}(25,0.4)$, con $E<span class="co">[</span><span class="ot">W</span><span class="co">]</span>=10$, $\text{Var}(W)=6$, $E<span class="co">[</span><span class="ot">W^2</span><span class="co">]</span>=106$; $E<span class="co">[</span><span class="ot">5W+W^2</span><span class="co">]</span>=5(10)+106=156$.</span>
+<span id="cb29-330"><a href="#cb29-330" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
