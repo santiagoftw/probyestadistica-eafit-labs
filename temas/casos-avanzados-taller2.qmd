@@ -82,22 +82,116 @@ E_costo
 
 ---
 
-## 3. El patrón de verificación Monte Carlo
+## 3. El patrón de verificación Monte Carlo, paso a paso
 
-Toda respuesta analítica debería venir acompañada de una verificación por simulación. El patrón es siempre el mismo:
+Toda respuesta analítica debería venir acompañada de una verificación por simulación. Esta sección desglosa **cada paso** del patrón general, y —lo que normalmente no se explica— **cómo leer e interpretar** lo que la simulación te devuelve, no solo cómo generarla.
+
+### Paso 1 — Simular la variable base
 
 ```{r}
-# Patrón general (usando el ejemplo anterior)
+n <- 20; p <- 0.1
 set.seed(1)
 n_sim <- 100000
-X_sim <- rbinom(n_sim, n, p)              # 1. simular la variable base
-costo_sim <- 50*X_sim + 800*(X_sim > 3)   # 2. aplicar la MISMA función de costo
-mean(costo_sim)                            # 3. promediar
+X_sim <- rbinom(n_sim, n, p)
+```
+
+`X_sim` es un **vector de 100,000 números**, cada uno una posible realización de $X\sim\text{Bin}(20,0.1)$ — no un solo valor. Antes de seguir, vale la pena *mirar* qué generaste:
+
+```{r}
+head(X_sim, 10)      # los primeros 10 valores simulados
+table(X_sim) / n_sim # la distribución empírica de X_sim
+```
+
+::: {.ficha-resultado}
+La tabla de frecuencias relativas de `X_sim` debería parecerse mucho a `dbinom(0:8, 20, 0.1)` — si no se parece, el problema está en este primer paso, antes incluso de llegar al costo.
+:::
+
+### Paso 2 — Aplicar la MISMA función de costo, vectorizada
+
+```{r}
+costo_sim <- 50*X_sim + 800*(X_sim > 3)
+```
+
+`(X_sim > 3)` produce un vector de `TRUE`/`FALSE`, que R trata como `1`/`0` al multiplicar — por eso `800*(X_sim > 3)` suma 800 exactamente en las posiciones donde `X_sim` superó 3, y 0 en las demás. Este es el paso donde más se cometen errores (ver la tabla de la Sección 4): la función de costo simulada debe ser **algebraicamente idéntica** a la que usaste en el cálculo analítico.
+
+### Paso 3 — Resumir, y cuantificar qué tan confiable es el resumen
+
+```{r}
+media_sim <- mean(costo_sim)
+ee_montecarlo <- sd(costo_sim) / sqrt(n_sim)
+media_sim
+ee_montecarlo
+```
+
+`mean(costo_sim)` da tu estimación puntual. Pero como es un promedio de una muestra simulada, **también tiene su propio error estándar** —el "error de Monte Carlo"— que decrece con $1/\sqrt{n_{\text{sim}}}$. Con eso puedes construir un intervalo de confianza para tu propia simulación, exactamente como en el Tema I3:
+
+```{r}
+c(inferior = media_sim - 1.96*ee_montecarlo, superior = media_sim + 1.96*ee_montecarlo)
+```
+
+## Cómo "ver" los resultados: tres formas de verificar que todo cuadra
+
+### Forma 1 — Tabla comparativa numérica
+
+La forma más simple: poner el valor analítico y el simulado lado a lado, con su diferencia relativa.
+
+```{r}
+EX <- n*p
+P_umbral <- 1 - pbinom(3, n, p)
+E_costo_analitico <- 50*EX + 800*P_umbral
+
+data.frame(
+  metodo = c("Analítico", "Monte Carlo"),
+  valor  = c(E_costo_analitico, media_sim),
+  diferencia_relativa = c(NA, abs(media_sim - E_costo_analitico)/E_costo_analitico)
+)
+```
+
+Si el intervalo de confianza del Paso 3 **contiene** al valor analítico, tienes una verificación estadísticamente honesta —no solo "se parecen a ojo"— de que ambos métodos coinciden.
+
+### Forma 2 — Histograma de la variable simulada
+
+Ver la *forma completa* de la distribución del costo, no solo su promedio, ayuda a entender por qué el valor esperado es el que es:
+
+```{r}
+#| label: fig-histograma-costo-mc
+#| fig-cap: "Distribución simulada del costo, con la media analítica y la simulada superpuestas"
+hist(costo_sim, breaks = 30, col = "#4B8BC2", probability = TRUE,
+     main = "Distribución Monte Carlo del costo",
+     xlab = "Costo simulado")
+abline(v = E_costo_analitico, col = "#FFB903", lwd = 3, lty = 2)
+abline(v = media_sim, col = "#004B85", lwd = 2)
+legend("topright", legend = c("Media analítica", "Media simulada"),
+       col = c("#FFB903", "#004B85"), lwd = 2, lty = c(2,1), bty = "n")
+```
+
+::: {.ficha-resultado}
+El histograma tiene dos "grupos" claramente separados: uno alrededor de valores bajos (cuando $X\le3$, sin penalización) y otro desplazado más a la derecha (cuando $X>3$, con la penalización de 800 sumada). El valor esperado (las líneas verticales) cae en algún punto intermedio — no es "el valor más probable", es el promedio ponderado de ambos grupos.
+:::
+
+### Forma 3 — Gráfico de convergencia
+
+Una pregunta razonable es: ¿por qué $10^5$ repeticiones y no 100, o un millón? Este gráfico lo responde visualmente:
+
+```{r}
+#| label: fig-convergencia-mc
+#| fig-cap: "El promedio simulado se estabiliza a medida que crecen las repeticiones"
+promedio_acumulado <- cumsum(costo_sim) / seq_along(costo_sim)
+
+plot(1:n_sim, promedio_acumulado, type = "l", col = "#4B8BC2", log = "x",
+     xlab = "Número de repeticiones (escala log)", ylab = "Promedio acumulado del costo",
+     main = "Convergencia de la simulación Monte Carlo")
+abline(h = E_costo_analitico, col = "#FFB903", lwd = 2, lty = 2)
 ```
 
 ::: {.callout-tip}
 ## 💡 Truco de interpretación
-El error más común al simular es aplicar la función de costo de forma distinta a como se definió analíticamente (por ejemplo, olvidar el `+0*x` cuando hace falta vectorizar, o escribir la condición del umbral con `>=` cuando el enunciado dice `>`). Si el valor simulado no se acerca al analítico, antes de dudar de la teoría, revisa si el código de la simulación replica *exactamente* la función de costo. [Ver más trucos →](../recursos.qmd)
+Con pocas repeticiones (los primeros cientos) el promedio acumulado "salta" bastante — todavía no hay suficiente información. A partir de unos pocos miles ya se estabiliza cerca del valor teórico, y el resto de las repeticiones solo lo afinan más. Por eso $10^5$ es un estándar razonable: mucho más que suficiente para estabilizar, sin ser computacionalmente pesado. [Ver más trucos →](../recursos.qmd)
+:::
+
+::: {.callout-important}
+## Qué tan cerca es "suficientemente cerca"
+No existe un umbral universal, pero una guía práctica: si tu valor analítico cae **dentro** del intervalo de confianza de la simulación (Paso 3), la coincidencia es estadísticamente sólida. Si la diferencia relativa es menor al 1-2% con $10^5$ repeticiones, es una señal fuerte de que el cálculo analítico es correcto. Si la diferencia es mucho mayor, el error casi siempre está en que la función de costo simulada no coincide exactamente con la analítica (revisa la Sección 4) — rara vez es "mala suerte" de la simulación con $10^5$ repeticiones.
 :::
 
 ---
@@ -140,10 +234,19 @@ c(EX = EX, P_mayor_4 = P_mayor_4, E_costo = E_costo)
 set.seed(1)
 X_sim <- rbinom(100000, n, p)
 costo_sim <- 200*X_sim + 3000*(X_sim > 4)
-mean(costo_sim)
+
+media_sim <- mean(costo_sim)
+ee_mc <- sd(costo_sim) / sqrt(100000)
+
+data.frame(
+  metodo = c("Analítico", "Monte Carlo"),
+  valor = c(E_costo, media_sim),
+  IC_inferior = c(NA, media_sim - 1.96*ee_mc),
+  IC_superior = c(NA, media_sim + 1.96*ee_mc)
+)
 ```
 
-**Resultado:** $E[\text{Costo}]\approx\$923$ por lote, confirmado por simulación.
+**Resultado:** $E[\text{Costo}]\approx\$923$ por lote. La simulación da $\approx\$926$, con un intervalo de confianza del 95% de $(\$918,\ \$933)$ — el valor analítico cae dentro de ese intervalo, la misma verificación aplicada paso a paso en la Sección 3.
 
 ### Caso B — Monitoreo de una plataforma de streaming
 
