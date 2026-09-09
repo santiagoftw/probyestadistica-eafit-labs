@@ -1,0 +1,220 @@
+---
+title: "Tema P7b · La distribución normal en profundidad"
+---
+
+::: {.hero-motivacion}
+## 🔔 ¿Por qué la campana aparece en todas partes?
+
+Estaturas, errores de medición, puntajes de examen, el número de caras en muchos lanzamientos de moneda (Tema P6c)... todos terminan pareciéndose a la misma curva de campana, aunque provengan de procesos completamente distintos. Esto no es casualidad — es una de las regularidades más profundas de la probabilidad. Este tema explica **de dónde sale** la fórmula de la normal, **por qué** aparece tan seguido, y **qué propiedades** la hacen tan manejable matemáticamente.
+:::
+
+::: {.ficha-prediccion}
+Si sumas 12 números elegidos al azar entre 0 y 1 (cada uno con distribución uniforme), y repites ese experimento miles de veces, ¿qué forma esperas que tenga el histograma de esas sumas? ¿Uniforme, como los números originales? ¿O algo distinto?
+:::
+
+## 🔬 Exploremos: sumar variables "aburridas" produce una campana
+
+```{r}
+set.seed(1)
+n_repeticiones <- 100000
+n_terminos <- 12
+
+# Cada fila: 12 números uniformes en (0,1); sumamos cada fila
+sumas <- replicate(n_repeticiones, sum(runif(n_terminos)))
+
+c(media_simulada = mean(sumas), media_teorica = n_terminos * 0.5)
+c(var_simulada = var(sumas), var_teorica = n_terminos * (1/12))
+```
+
+```{r}
+#| label: fig-suma-uniformes
+#| fig-cap: "La suma de 12 uniformes ya es prácticamente normal"
+hist(sumas, breaks = 50, probability = TRUE, col = "#4B8BC2",
+     main = "Histograma de la suma de 12 variables Uniforme(0,1)",
+     xlab = "Suma")
+curve(dnorm(x, mean = 6, sd = 1), add = TRUE, col = "#FFB903", lwd = 2)
+```
+
+::: {.ficha-resultado}
+La distribución Uniforme(0,1) —la más "plana" y menos parecida a una campana que existe— se convierte en algo casi indistinguible de una normal en cuanto sumas apenas 12 copias de ella. Esto no es un truco de este ejemplo en particular: es una manifestación del **Teorema Central del Límite**, la razón matemática profunda por la que la normal aparece en tantos contextos distintos — la verás formalmente en el Laboratorio de Inferencia, pero aquí ya tienes evidencia numérica de que es real.
+:::
+
+## 📖 Ahora sí, la teoría
+
+::: {.panel-tabset}
+
+## 1. De dónde sale la fórmula
+
+La densidad normal no se inventó por capricho estético:
+
+$$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+Recuerda el **Tema P6c**: cuando $n\to\infty$ en una binomial, con $np\to\infty$ también, el histograma de $\text{Binomial}(n,p)$ converge exactamente a esta curva, con $\mu=np$ y $\sigma^2=np(1-p)$. Este resultado —descubierto por Abraham de Moivre en 1733, mucho antes de que existiera el nombre "distribución normal"— es el origen histórico de la fórmula: no se definió la normal y después se descubrió que aproximaba a la binomial; fue al revés. El término $e^{-(x-\mu)^2/2\sigma^2}$ sale de aproximar $\binom{n}{k}p^k(1-p)^{n-k}$ con herramientas de cálculo (la fórmula de Stirling) cuando $n$ es grande.
+
+## 2. Estandarización: por qué $Z=(X-\mu)/\sigma$ siempre da lo mismo
+
+**Afirmación:** si $X\sim N(\mu,\sigma^2)$, entonces $Z:=\dfrac{X-\mu}{\sigma}$ tiene *siempre* media 0 y varianza 1, sin importar los valores de $\mu$ y $\sigma$ originales.
+
+**Por qué:** usando las propiedades de valor esperado y varianza bajo transformaciones lineales (Tema 5 del Módulo 1):
+
+$$E(Z) = E\!\left(\frac{X-\mu}{\sigma}\right) = \frac{E(X)-\mu}{\sigma} = \frac{\mu-\mu}{\sigma}=0$$
+
+$$\text{Var}(Z) = \text{Var}\!\left(\frac{X-\mu}{\sigma}\right) = \frac{\text{Var}(X)}{\sigma^2} = \frac{\sigma^2}{\sigma^2}=1$$
+
+Esta es la razón por la que **una sola tabla** (o una sola función `pnorm()` con `mean=0, sd=1`) sirve para *cualquier* normal: cualquier $X\sim N(\mu,\sigma^2)$, sin importar sus parámetros, se reduce al mismo caso de referencia $N(0,1)$ mediante esta resta y división.
+
+## 3. Transformaciones lineales: $aX+b$ sigue siendo normal
+
+**Afirmación:** si $X\sim N(\mu,\sigma^2)$ y $Y:=aX+b$ (con $a\ne0$), entonces $Y\sim N(a\mu+b,\ a^2\sigma^2)$ — sigue siendo normal, con nuevos parámetros.
+
+**Demostración vía FGM** (Tema P6d): la FGM de $X$ es $M_X(t)=e^{\mu t+\sigma^2t^2/2}$. Por la propiedad de transformación de la FGM:
+
+$$M_Y(t) = E\!\left[e^{t(aX+b)}\right] = e^{tb}\cdot E\!\left[e^{(ta)X}\right] = e^{tb}\cdot M_X(at) = e^{tb}\cdot e^{\mu(at)+\sigma^2(at)^2/2}$$
+
+$$= e^{(a\mu+b)t + (a\sigma)^2t^2/2}$$
+
+Esta expresión final tiene exactamente la forma de la FGM de una $N(a\mu+b,\ (a\sigma)^2)$. Por la propiedad de **unicidad** de la FGM (Tema P6d), se concluye que $Y\sim N(a\mu+b, a^2\sigma^2)$. La estandarización de la sección anterior es, de hecho, el caso particular $a=1/\sigma$, $b=-\mu/\sigma$.
+
+## 4. La regla empírica, verificada
+
+$$P(\mu-\sigma<X<\mu+\sigma)\approx0.6827 \qquad P(\mu-2\sigma<X<\mu+2\sigma)\approx0.9545 \qquad P(\mu-3\sigma<X<\mu+3\sigma)\approx0.9973$$
+
+Estos números —el "68-95-99.7"— no son una aproximación burda: son el área bajo la curva normal estándar entre $-k$ y $k$, para $k=1,2,3$, calculable exactamente con `pnorm(k)-pnorm(-k)`.
+
+:::
+
+## 🧪 Ejemplo con datos reales: estandarización y transformación juntas
+
+**Enunciado:** la temperatura de un proceso químico se registra en grados Celsius, y sigue $X\sim N(20,\ 3^2)$. El equipo internacional del proyecto reporta todo en grados Fahrenheit, con $Y=1.8X+32$.
+
+```{r}
+mu_X <- 20; sigma_X <- 3
+
+# Parametros teoricos de Y = 1.8X + 32
+mu_Y <- 1.8 * mu_X + 32
+sigma_Y <- 1.8 * sigma_X
+
+c(mu_Y = mu_Y, sigma_Y = sigma_Y)
+```
+
+```{r}
+# Verificacion por simulacion
+set.seed(2)
+X_sim <- rnorm(200000, mu_X, sigma_X)
+Y_sim <- 1.8 * X_sim + 32
+
+c(media_simulada = mean(Y_sim), sd_simulada = sd(Y_sim))
+```
+
+::: {.ficha-resultado}
+$Y\sim N(68,\ 5.4^2)$ — la media se transforma igual que cualquier valor puntual ($1.8\times20+32=68$), pero la desviación estándar **solo** se multiplica por el valor absoluto de la pendiente ($1.8\times3=5.4$), sin sumar el 32 (sumar una constante desplaza la campana, pero no la "ensancha" ni la "encoge"). La simulación confirma ambos parámetros.
+:::
+
+```{r}
+# ¿Cuál es la probabilidad de que la temperatura exceda 75°F?
+1 - pnorm(75, mu_Y, sigma_Y)
+
+# Verificacion: exactamente la misma pregunta, resuelta desde la escala Celsius
+# 75°F equivale a (75-32)/1.8 °C
+celsius_equivalente <- (75 - 32) / 1.8
+1 - pnorm(celsius_equivalente, mu_X, sigma_X)
+```
+
+::: {.callout-tip}
+## 💡 Truco de interpretación
+No importa en qué escala trabajes la probabilidad —Celsius o Fahrenheit—, el resultado final es idéntico, porque ambas son la *misma* variable aleatoria vista con una regla distinta. Esto es exactamente lo que permite la estandarización: cualquier pregunta sobre una normal se puede resolver convirtiendo primero a $Z$. [Ver más trucos →](../recursos.qmd)
+:::
+
+## 🧑‍🔬 Laboratorio
+
+1. **Demuestra la regla empírica tú mismo.** Usa `pnorm()` para calcular $P(-1<Z<1)$, $P(-2<Z<2)$ y $P(-3<Z<3)$ para $Z\sim N(0,1)$, y confirma los tres porcentajes de la regla 68-95-99.7.
+
+2. **Otra transformación lineal.** Si $X\sim N(50, 4^2)$ representa el puntaje bruto de un examen, y se aplica la transformación $Y=2X-10$ para reportar el puntaje en una escala de 0 a 100, encuentra la distribución de $Y$ (parámetros), y calcula $P(Y>85)$ de dos formas: directamente con los parámetros de $Y$, y convirtiendo el umbral a la escala de $X$ y usando los parámetros originales. Confirma que ambas dan el mismo resultado.
+
+3. **CLT con otra distribución de partida.** Repite la simulación de la sección "Exploremos", pero sumando 12 valores de una distribución exponencial con tasa 1 (`rexp(12, rate=1)`) en vez de uniformes. ¿El histograma de las sumas también se aproxima a una normal? ¿Necesitas más o menos de 12 términos que con la uniforme para que la aproximación se vea igual de buena? (Pista: la exponencial es mucho más asimétrica que la uniforme).
+
+## ✅ Ejercicios autocorregibles
+
+### Ejercicio 1 — Completa el código
+
+```r
+# Si X ~ N(30, 5^2) y Y = 3X + 2, ¿cuáles son los parámetros de Y?
+mu_X <- 30; sigma_X <- 5
+mu_Y <- 3 * mu_X + 2
+sigma_Y <- ___ * sigma_X
+c(mu_Y = mu_Y, sigma_Y = sigma_Y)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`3` — la desviación estándar se multiplica por el valor absoluto de la pendiente ($|a|=3$), nunca se le suma la constante $b$.
+</details>
+
+### Ejercicio 2 — Completa el código
+
+```r
+# Verificar que Z=(X-mu)/sigma tiene varianza 1, para X~N(80,10^2)
+set.seed(1)
+X <- rnorm(100000, 80, 10)
+Z <- (X - 80) / ___
+var(Z)
+```
+
+<details>
+<summary>Ver respuesta</summary>
+`10` — se divide entre la desviación estándar original ($\sigma=10$), no entre la varianza ($\sigma^2=100$).
+</details>
+
+### Ejercicio 3 — Verdadero o falso
+
+<div class="card-lab" id="quiz-temap7b">
+<div style="margin-bottom: 1rem;"><strong>1. El teorema de De Moivre-Laplace (Tema P6c) es el origen histórico de la fórmula de la densidad normal.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. Si X~N(μ,σ²), entonces Z=(X-μ)/σ tiene media 0 y varianza 1 sin importar los valores de μ y σ.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. Si X~N(μ,σ²) y Y=aX+b, entonces Y también es normal.</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Al transformar Y=aX+b, la desviación estándar de Y es |a|·σ_X + b.</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. La suma de muchas variables aleatorias independientes, sin importar su distribución original, tiende a distribuirse aproximadamente normal.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizTemaP7b()">Revisar respuestas</button>
+<p id="resultado-quiz-temap7b" style="margin-top: 1rem; font-weight: 700;"></p>
+</div>
+
+<script>
+function revisarQuizTemaP7b() {
+  const respuestas = { q1: "V", q2: "V", q3: "V", q4: "F", q5: "V" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultadoEl = document.getElementById("resultado-quiz-temap7b");
+  if (sinResponder.length > 0) {
+    resultadoEl.textContent = "Responde todas las preguntas antes de revisar.";
+    resultadoEl.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultadoEl.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultadoEl.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- La fórmula de la normal no es arbitraria: nace como el límite de la distribución binomial cuando $n\to\infty$ (De Moivre-Laplace, Tema P6c) — mucho antes de estudiarse como modelo independiente.
+- $Z=(X-\mu)/\sigma$ siempre tiene media 0 y varianza 1: es lo que permite usar una sola tabla o una sola función (`pnorm` con `mean=0,sd=1`) para cualquier normal.
+- $aX+b$ sigue siendo normal, con media $a\mu+b$ y desviación estándar $|a|\sigma$ — demostrado formalmente con la FGM (Tema P6d), no solo observado por simulación.
+- La regla empírica 68-95-99.7 es exacta, no aproximada: es el área bajo la curva normal estándar entre $\pm1$, $\pm2$ y $\pm3$ desviaciones estándar.
+- La normal aparece tan seguido porque **sumar** muchas variables aleatorias independientes —sin importar su forma original— tiende a producir una forma de campana: el Teorema Central del Límite, que vale su propio tema en el Laboratorio de Inferencia.
+:::
+
+::: {.callout-note}
+## Siguiente paso
+Con esto se completa el tratamiento de la normal como distribución de referencia. El [Tema P6c](tema-p6c-estudiante.qmd) ya usó esta curva para aproximar la binomial; el [Tema P8b](tema-p8b-estudiante.qmd) (Unidad 3) la retoma para el caso de dos variables continuas a la vez.
+:::

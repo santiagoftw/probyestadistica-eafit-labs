@@ -175,3 +175,8 @@ function revisarQuizTemaP7() {
 - `pnorm()` va de un valor a una probabilidad; `qnorm()` va de una probabilidad a un valor — son inversas.
 - La distribución uniforme modela "todo es igualmente probable en un rango"; la normal, con su forma de campana, es el modelo de referencia para fenómenos que se agrupan alrededor de un valor central.
 :::
+
+::: {.callout-note}
+## Siguiente paso
+Aquí usaste la normal como herramienta práctica. El [Tema P7b](tema-p7b-estudiante.qmd) profundiza: de dónde sale realmente esa fórmula, por qué la estandarización siempre funciona, y qué pasa cuando transformas una variable normal linealmente — con las demostraciones completas, no solo el resultado.
+:::
