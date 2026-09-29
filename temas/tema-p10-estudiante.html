@@ -655,7 +655,7 @@ window.Quarto = {
 <section id="ahora-sí-la-teoría" class="level2">
 <h2 class="anchored" data-anchor-id="ahora-sí-la-teoría">📖 Ahora sí, la teoría</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Función de una variable aleatoria</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Combinación de variables aleatorias</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">El mínimo de dos exponenciales</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Función de una variable aleatoria</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Combinación de variables aleatorias</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">El mínimo de dos exponenciales</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">📘 Suma de variables discretas (Nota 5.38 y Ej. 5.39)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">📘 Sumas vía función generadora de momentos (Ej. 5.46 y 5.47)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">📘 Máximo y mínimo de <span class="math inline">\(n\)</span> variables (Ej. 5.50)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Si <span class="math inline">\(Y=g(X)\)</span> para alguna función <span class="math inline">\(g\)</span>, y conoces la distribución de <span class="math inline">\(X\)</span>, puedes obtener las propiedades de <span class="math inline">\(Y\)</span> analíticamente (a veces) o — mucho más práctico en ingeniería — <strong>por simulación</strong>: generas muchos valores de <span class="math inline">\(X\)</span>, aplicas <span class="math inline">\(g\)</span>, y resumes los valores de <span class="math inline">\(Y\)</span> resultantes con las herramientas del Módulo 1.</p>
@@ -666,6 +666,111 @@ window.Quarto = {
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>El caso “¿cuál componente falla primero?” es el mínimo de dos variables aleatorias. Se puede demostrar analíticamente que si <span class="math inline">\(A\sim Exp(\lambda_A)\)</span> y <span class="math inline">\(B\sim Exp(\lambda_B)\)</span> son independientes:</p>
 <p><span class="math display">\[P(A &lt; B) = \frac{\lambda_A}{\lambda_A+\lambda_B}\]</span></p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>Nota 5.38 (fórmula de convolución discreta):</strong> si <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son variables aleatorias discretas <strong>independientes</strong>, la distribución de <span class="math inline">\(Z=X+Y\)</span> se obtiene sumando sobre todas las formas de “repartir” <span class="math inline">\(z\)</span> entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[
+P(Z=z) = \sum_{x=0}^{z} P(X=x,\,Y=z-x) = \sum_{x=0}^{z} P(X=x)\,P(Y=z-x)
+\]</span></p>
+<p>(la segunda igualdad usa independencia: la conjunta se factoriza). Esta operación —sumar productos de valores desplazados— se llama <strong>convolución</strong>, y es la versión discreta de <span class="math inline">\(Z=X+Y\)</span> que complementa lo que ya viste arriba en “Combinación de variables aleatorias”.</p>
+<p><strong>Ejemplo 5.39 — suma de dos Poisson:</strong> si <span class="math inline">\(X\sim\mathcal P(\lambda)\)</span> y <span class="math inline">\(Y\sim\mathcal P(\mu)\)</span> son independientes, <span class="math inline">\(Z=X+Y\)</span> toma valores <span class="math inline">\(0,1,2,\dots\)</span> Aplicando la Nota 5.38:</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(Z=z) &amp;= \sum_{x=0}^{z} e^{-\lambda}\frac{\lambda^x}{x!}\cdot e^{-\mu}\frac{\mu^{z-x}}{(z-x)!} \\
+&amp;= \frac{e^{-(\lambda+\mu)}}{z!}\sum_{x=0}^{z}\binom{z}{x}\lambda^x\mu^{z-x} \qquad \text{(multiplicando y dividiendo por } z!\text{)}\\
+&amp;= \frac{e^{-(\lambda+\mu)}}{z!}(\lambda+\mu)^z \qquad \text{(binomio de Newton)}
+\end{aligned}
+\]</span></p>
+<p>Es decir, <span class="math inline">\(Z\stackrel{d}{=}\mathcal P(\lambda+\mu)\)</span> — <strong>la suma de Poisson independientes es Poisson</strong>, con parámetro igual a la suma de los parámetros.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion con lambda=3, mu=5 -&gt; Z deberia ser Poisson(8)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">3</span>; mu <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">200000</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_sim, lambda)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_sim, mu)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> X <span class="sc">+</span> Y</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_simulada =</span> <span class="fu">mean</span>(Z), <span class="at">media_teorica =</span> lambda <span class="sc">+</span> mu)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_simulada =</span> <span class="fu">var</span>(Z), <span class="at">var_teorica =</span> lambda <span class="sc">+</span> mu)   <span class="co"># Poisson: E(Z)=Var(Z)=lambda+mu</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparar P(Z=8) simulado contra la formula de Poisson(8) exacta</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">P_Z8_simulado =</span> <span class="fu">mean</span>(Z <span class="sc">==</span> <span class="dv">8</span>), <span class="at">P_Z8_teorico =</span> <span class="fu">dpois</span>(<span class="dv">8</span>, lambda <span class="sc">+</span> mu))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p>Otra forma de encontrar la distribución de una suma —sin convolución— es reconocer su <strong>función generadora de momentos (FGM)</strong>, como ya hiciste en el Tema P6d: si <span class="math inline">\(Z=X_1+\dots+X_n\)</span> con las <span class="math inline">\(X_i\)</span> independientes, <span class="math inline">\(m_Z(t)=\prod_{k=1}^n m_{X_k}(t)\)</span> (la FGM de una suma de independientes es el <strong>producto</strong> de las FGM individuales).</p>
+<p><strong>Ejemplo 5.46 — suma de exponenciales:</strong> si <span class="math inline">\(X_1,\dots,X_n\)</span> son iid <span class="math inline">\(Exp(\lambda)\)</span>, y <span class="math inline">\(Z:=X_1+\dots+X_n\)</span>:</p>
+<p><span class="math display">\[
+m_Z(t) = \prod_{k=1}^n E(e^{tX_k}) = \prod_{k=1}^n\left(\frac{\lambda}{\lambda-t}\right) = \left(\frac{\lambda}{\lambda-t}\right)^n, \qquad t&lt;\lambda
+\]</span></p>
+<p>Esa es exactamente la FGM de una distribución <strong>Gamma</strong> con parámetros <span class="math inline">\(n\)</span> y <span class="math inline">\(\lambda\)</span> — por lo tanto <span class="math inline">\(Z\stackrel{d}{=}Gamma(n,\lambda)\)</span>.</p>
+<p><strong>Ejemplo 5.47 — suma de normales estándar al cuadrado:</strong> si <span class="math inline">\(X_1,\dots,X_n\)</span> son iid <span class="math inline">\(N(0,1)\)</span>, y <span class="math inline">\(Z:=X_1^2+\dots+X_n^2\)</span>. Como cada <span class="math inline">\(X_k^2\sim\chi^2_{(1)}\)</span> (ji-cuadrado con 1 grado de libertad), y su FGM es <span class="math inline">\(m_{X_k^2}(t)=(1-2t)^{-1/2}\)</span>:</p>
+<p><span class="math display">\[
+m_Z(t) = \prod_{k=1}^n m_{X_k^2}(t) = \prod_{k=1}^n(1-2t)^{-1/2} = (1-2t)^{-n/2}, \qquad t&lt;\tfrac12
+\]</span></p>
+<p>Esa es la FGM de una <span class="math inline">\(\chi^2_{(n)}\)</span> — por lo tanto <span class="math inline">\(Z\stackrel{d}{=}\chi^2_{(n)}\)</span>. Es la razón por la que, más adelante en la Sesión 15, la varianza muestral involucra una distribución ji-cuadrado: se construye como una suma de cuadrados de normales.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ej. 5.46: suma de n=4 exponenciales Exp(lambda=2) -&gt; deberia ser Gamma(shape=4, rate=2)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span>; lambda <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>suma_exp <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100000</span>, <span class="fu">sum</span>(<span class="fu">rexp</span>(n, <span class="at">rate =</span> lambda)))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_sim =</span> <span class="fu">mean</span>(suma_exp), <span class="at">media_teo =</span> n <span class="sc">/</span> lambda)          <span class="co"># Gamma: media = n/lambda</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_sim   =</span> <span class="fu">var</span>(suma_exp),  <span class="at">var_teo   =</span> n <span class="sc">/</span> lambda<span class="sc">^</span><span class="dv">2</span>)         <span class="co"># Gamma: varianza = n/lambda^2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparando el histograma simulado contra la densidad Gamma teorica</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(suma_exp, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"Suma de 4 Exp(2) vs. Gamma(4,2)"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape =</span> n, <span class="at">rate =</span> lambda), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ej. 5.47: suma de n=5 normales estandar al cuadrado -&gt; deberia ser chi-cuadrado(5)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>suma_normales2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100000</span>, <span class="fu">sum</span>(<span class="fu">rnorm</span>(n)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_sim =</span> <span class="fu">mean</span>(suma_normales2), <span class="at">media_teo =</span> n)        <span class="co"># chi2(n): media = n</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_sim   =</span> <span class="fu">var</span>(suma_normales2),  <span class="at">var_teo   =</span> <span class="dv">2</span> <span class="sc">*</span> n)    <span class="co"># chi2(n): varianza = 2n</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(suma_normales2, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"Suma de 5 N(0,1)^2 vs. Chi-cuadrado(5)"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df =</span> n), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.50):</strong> sean <span class="math inline">\(X_1,\dots,X_n\)</span> variables aleatorias reales. Se definen <span class="math inline">\(Y:=\max(X_1,\dots,X_n)\)</span> y <span class="math inline">\(Z:=\min(X_1,\dots,X_n)\)</span>. Es exactamente la generalización a <span class="math inline">\(n\)</span> variables de “¿cuál componente falla primero?” — solo que ahora con <span class="math inline">\(n\)</span> componentes en vez de 2, y agregando también el <strong>máximo</strong>.</p>
+<p><strong>Idea clave — traducir max/min a eventos que sí sabes calcular:</strong> <span class="math display">\[
+F_Y(y):=P(Y\le y) = P(X_1\le y,\dots,X_n\le y) \qquad F_Z(z):=P(Z\le z) = 1-P(X_1&gt;z,\dots,X_n&gt;z)
+\]</span> (<span class="math inline">\(Y\le y\)</span> significa que <em>todas</em> las <span class="math inline">\(X_i\)</span> están por debajo de <span class="math inline">\(y\)</span>; <span class="math inline">\(Z&gt;z\)</span> significa que <em>todas</em> están por encima de <span class="math inline">\(z\)</span>, así que <span class="math inline">\(Z\le z\)</span> es el complemento). Si además las <span class="math inline">\(X_i\)</span> son <strong>independientes</strong>, cada probabilidad conjunta se factoriza:</p>
+<p><span class="math display">\[
+F_Y(y) = \prod_{k=1}^n P(X_k\le y) = \prod_{k=1}^n F_{X_k}(y) \qquad\qquad F_Z(z) = 1-\prod_{k=1}^n\big[1-P(X_k\le z)\big] = 1-\prod_{k=1}^n\big[1-F_{X_k}(z)\big]
+\]</span></p>
+<p><strong>Caso particular — <span class="math inline">\(n\)</span> exponenciales iid <span class="math inline">\(Exp(\lambda)\)</span></strong> (generalizando “el mínimo de dos exponenciales” de arriba, a <span class="math inline">\(n\)</span> componentes con la misma tasa):</p>
+<p><span class="math display">\[
+F_Z(z) = 1-\prod_{k=1}^n\big[1-(1-e^{-\lambda z})\big] = 1-\big(e^{-\lambda z}\big)^n = 1-e^{-n\lambda z}
+\]</span></p>
+<p>Es decir, <span class="math inline">\(Z=\min(X_1,\dots,X_n)\stackrel{d}{=}Exp(n\lambda)\)</span> — el mínimo de <span class="math inline">\(n\)</span> exponenciales independientes con tasa <span class="math inline">\(\lambda\)</span> es, otra vez, exponencial, pero con tasa <span class="math inline">\(n\lambda\)</span> (el sistema falla <span class="math inline">\(n\)</span> veces más rápido con <span class="math inline">\(n\)</span> componentes en paralelo, cada uno pudiendo fallar primero).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n=3 componentes, cada uno Exp(lambda=0.5) -&gt; el minimo deberia ser Exp(n*lambda=1.5)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">3</span>; lambda <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>fallas <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rexp</span>(n_sim <span class="sc">*</span> n, <span class="at">rate =</span> lambda), <span class="at">ncol =</span> n)   <span class="co"># cada fila = un sistema con n componentes</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Z_min <span class="ot">&lt;-</span> <span class="fu">apply</span>(fallas, <span class="dv">1</span>, min)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Y_max <span class="ot">&lt;-</span> <span class="fu">apply</span>(fallas, <span class="dv">1</span>, max)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_min_sim =</span> <span class="fu">mean</span>(Z_min), <span class="at">media_min_teo =</span> <span class="dv">1</span> <span class="sc">/</span> (n <span class="sc">*</span> lambda))   <span class="co"># Exp(n*lambda): media = 1/(n*lambda)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># F_Y(y) empirica vs. teorica, para el maximo, en un punto concreto</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">F_Y_empirica =</span> <span class="fu">mean</span>(Y_max <span class="sc">&lt;=</span> y0),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">F_Y_teorica  =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda <span class="sc">*</span> y0))<span class="sc">^</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Conexión con el motivo de esta página
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El “¿cuál componente falla primero?” de arriba es <span class="math inline">\(P(A&lt;B)\)</span> para <span class="math inline">\(n=2\)</span> — un caso particular de <span class="math inline">\(F_Z(z)\)</span> con <span class="math inline">\(n=2\)</span> componentes de tasas distintas. Este ejemplo generaliza esa misma idea a <span class="math inline">\(n\)</span> componentes, y agrega el caso simétrico del <strong>máximo</strong> (útil, por ejemplo, para modelar cuándo <em>terminan</em> de fallar todos los componentes de un sistema en serie que se reemplaza automáticamente).</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -689,29 +794,29 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mean_A <span class="ot">&lt;-</span> <span class="fl">0.08</span>; sd_A <span class="ot">&lt;-</span> <span class="fl">0.12</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>mean_B <span class="ot">&lt;-</span> <span class="fl">0.06</span>; sd_B <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>correlacion <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sd_A<span class="sc">^</span><span class="dv">2</span>, correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                        correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B, sd_B<span class="sc">^</span><span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>normal_vars <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">10000</span>, <span class="at">mu =</span> <span class="fu">c</span>(mean_A, mean_B), <span class="at">Sigma =</span> cov_matrix)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>peso_A <span class="ot">&lt;-</span> <span class="fl">0.6</span>; peso_B <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>rentabilidad_portafolio <span class="ot">&lt;-</span> peso_A <span class="sc">*</span> normal_vars[,<span class="dv">1</span>] <span class="sc">+</span> peso_B <span class="sc">*</span> normal_vars[,<span class="dv">2</span>]</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rentabilidad_portafolio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mean_A <span class="ot">&lt;-</span> <span class="fl">0.08</span>; sd_A <span class="ot">&lt;-</span> <span class="fl">0.12</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mean_B <span class="ot">&lt;-</span> <span class="fl">0.06</span>; sd_B <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>correlacion <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sd_A<span class="sc">^</span><span class="dv">2</span>, correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                        correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B, sd_B<span class="sc">^</span><span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>normal_vars <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">10000</span>, <span class="at">mu =</span> <span class="fu">c</span>(mean_A, mean_B), <span class="at">Sigma =</span> cov_matrix)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>peso_A <span class="ot">&lt;-</span> <span class="fl">0.6</span>; peso_B <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>rentabilidad_portafolio <span class="ot">&lt;-</span> peso_A <span class="sc">*</span> normal_vars[,<span class="dv">1</span>] <span class="sc">+</span> peso_B <span class="sc">*</span> normal_vars[,<span class="dv">2</span>]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rentabilidad_portafolio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.07222229</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(rentabilidad_portafolio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(rentabilidad_portafolio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.09816448</code></pre>
@@ -744,8 +849,8 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="ejercicios-autocorregibles">✅ Ejercicios autocorregibles</h2>
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cuál componente falla primero? Completa la comparación</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(tiempos_A ___ tiempos_B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cuál componente falla primero? Completa la comparación</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(tiempos_A ___ tiempos_B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
@@ -1289,169 +1394,299 @@ function revisarQuizTemaP10() {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P10 · Funciones de variables aleatorias y simulación de sistemas"</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## ⚙️ ¿Cuál componente falla primero?</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>Un sistema mecánico tiene dos componentes, A y B, con tiempos de falla exponenciales independientes: A con tasa $\lambda=0.1$, B con tasa $\lambda=0.2$. ¿Cuál es la probabilidad de que el sistema falle por causa de A, antes que por B?</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>Antes de calcular: B tiene una tasa de falla más alta que A (0.2 vs. 0.1) — es decir, B tiende a fallar más rápido en promedio. ¿Eso hace que la probabilidad de que A falle primero sea mayor o menor a 50%?</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: simulando una carrera de fallas</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>lambda_A <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>lambda_B <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>tiempos_A <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n_sim, <span class="at">rate =</span> lambda_A)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>tiempos_B <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n_sim, <span class="at">rate =</span> lambda_B)</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(tiempos_A <span class="sc">&lt;</span> tiempos_B)</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>¿El resultado confirmó tu predicción? Como B tiene tasa de falla más alta, tiende a fallar *más rápido* — por lo tanto A gana la "carrera" con menos frecuencia de lo que un 50-50 sugeriría.</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>¿Por qué una tasa de falla ($\lambda$) más alta implica un tiempo de falla esperado más *corto*? (pista: revisa la relación $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>=1/\lambda$ de la exponencial, Tema P5)</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Función de una variable aleatoria</span></span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>Si $Y=g(X)$ para alguna función $g$, y conoces la distribución de $X$, puedes obtener las propiedades de $Y$ analíticamente (a veces) o — mucho más práctico en ingeniería — **por simulación**: generas muchos valores de $X$, aplicas $g$, y resumes los valores de $Y$ resultantes con las herramientas del Módulo 1.</span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Combinación de variables aleatorias</span></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>Sumas, productos, mínimos y máximos de variables aleatorias son casos particulares de "función de varias variables aleatorias". Por ejemplo, si $F_1, F_2$ son dos fuerzas normales independientes, $F_{total}=F_1+F_2$ es simplemente otra variable aleatoria, cuya distribución se puede simular directamente sumando las simulaciones de cada una.</span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## El mínimo de dos exponenciales</span></span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>El caso "¿cuál componente falla primero?" es el mínimo de dos variables aleatorias. Se puede demostrar analíticamente que si $A\sim Exp(\lambda_A)$ y $B\sim Exp(\lambda_B)$ son independientes:</span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>$$P(A &lt; B) = \frac{\lambda_A}{\lambda_A+\lambda_B}$$</span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Verificación analítica vs. simulación</span></span>
-<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>Para el ejemplo de arriba: $P(A&lt;B) = 0.1/(0.1+0.2) = 0.333...$ — muy cercano al <span class="in">`prob_A_antes_B`</span> que obtuviste por simulación. Cuando existe una fórmula cerrada, siempre es buena práctica usar la simulación como **verificación**, no como único método.</span>
-<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: portafolio de inversión</span></span>
-<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>Un portafolio con 60% en el activo A ($\mu=8\%$, $\sigma=12\%$) y 40% en el activo B ($\mu=6\%$, $\sigma=10\%$), correlacionados con $\rho=0.5$.</span>
-<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>mean_A <span class="ot">&lt;-</span> <span class="fl">0.08</span>; sd_A <span class="ot">&lt;-</span> <span class="fl">0.12</span></span>
-<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>mean_B <span class="ot">&lt;-</span> <span class="fl">0.06</span>; sd_B <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
-<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>correlacion <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sd_A<span class="sc">^</span><span class="dv">2</span>, correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B,</span>
-<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>                        correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B, sd_B<span class="sc">^</span><span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>normal_vars <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">10000</span>, <span class="at">mu =</span> <span class="fu">c</span>(mean_A, mean_B), <span class="at">Sigma =</span> cov_matrix)</span>
-<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>peso_A <span class="ot">&lt;-</span> <span class="fl">0.6</span>; peso_B <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
-<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>rentabilidad_portafolio <span class="ot">&lt;-</span> peso_A <span class="sc">*</span> normal_vars[,<span class="dv">1</span>] <span class="sc">+</span> peso_B <span class="sc">*</span> normal_vars[,<span class="dv">2</span>]</span>
-<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rentabilidad_portafolio)</span>
-<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(rentabilidad_portafolio)</span>
-<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
-<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>La desviación estándar del portafolio combinado es **menor** que un promedio ponderado ingenuo de las desviaciones individuales ($0.6\times0.12 + 0.4\times0.10 = 0.112$) — este es el efecto de diversificación: combinar activos correlacionados (pero no perfectamente) reduce el riesgo total.</span>
-<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>El crecimiento del PIB se modela como $Crecimiento(t) = \alpha + \beta t + \epsilon$, con $\alpha=2\%$, $\beta=1\%$ por año, $\epsilon \sim N(0, 0.5\%^2)$, para $t=1,\dots,30$.</span>
-<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Simula 10,000 trayectorias completas del crecimiento (una matriz de 10,000 × 30).</span>
-<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Extrae el crecimiento del año 30 para cada simulación.</span>
-<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calcula la media y desviación estándar del crecimiento en el último año. ¿Coincide la media con lo que esperarías analíticamente de $\alpha + \beta\cdot 30$?</span>
-<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cuál componente falla primero? Completa la comparación</span></span>
-<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(tiempos_A ___ tiempos_B)</span>
-<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a><span class="in">`&lt;`</span> — cuenta la proporción de simulaciones donde el tiempo de falla de A es menor que el de B.</span>
-<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap10"</span><span class="dt">&gt;</span></span>
-<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La simulación es útil cuando Y=g(X) no tiene fórmula cerrada simple.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Combinar activos correlacionados en un portafolio siempre aumenta el riesgo total.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. P(A<span class="dv">&amp;lt;</span>B) = λA/(λA+λB) para exponenciales independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP10()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap10"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP10</span>() {</span>
-<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap10"</span>)<span class="op">;</span></span>
-<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap10"</span>)<span class="op">;</span></span>
-<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cuando $Y=g(X)$ no tiene fórmula analítica simple, la simulación es la herramienta práctica: generar $X$, aplicar $g$, resumir $Y$.</span>
-<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El mínimo de dos exponenciales independientes tiene fórmula cerrada — úsala para verificar tus simulaciones, no como sustituto de ellas.</span>
-<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Combinar variables correlacionadas (como en un portafolio) reduce el riesgo total por debajo del promedio ponderado ingenuo — el efecto de diversificación, visible directamente en la simulación.</span>
-<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎓 Fin de la Sesión 14 (Unidad 3)</span></span>
-<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a>Con este tema se completa la Sesión 14 del cronograma — variables aleatorias independientes y valor esperado de una función de variables aleatorias. Ya tienes todo lo necesario para el último tramo del curso: la <span class="co">[</span><span class="ot">Sesión 15</span><span class="co">](tema-i1-estudiante.qmd)</span> da el salto de "modelar la incertidumbre" a "decidir con ella" — pruebas de hipótesis (Temas I1-I2) e intervalos de confianza (Tema I3).</span>
-<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P10 · Funciones de variables aleatorias y simulación de sistemas"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## ⚙️ ¿Cuál componente falla primero?</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>Un sistema mecánico tiene dos componentes, A y B, con tiempos de falla exponenciales independientes: A con tasa $\lambda=0.1$, B con tasa $\lambda=0.2$. ¿Cuál es la probabilidad de que el sistema falle por causa de A, antes que por B?</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>Antes de calcular: B tiene una tasa de falla más alta que A (0.2 vs. 0.1) — es decir, B tiende a fallar más rápido en promedio. ¿Eso hace que la probabilidad de que A falle primero sea mayor o menor a 50%?</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: simulando una carrera de fallas</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>lambda_A <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>lambda_B <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>tiempos_A <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n_sim, <span class="at">rate =</span> lambda_A)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>tiempos_B <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n_sim, <span class="at">rate =</span> lambda_B)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(tiempos_A <span class="sc">&lt;</span> tiempos_B)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>¿El resultado confirmó tu predicción? Como B tiene tasa de falla más alta, tiende a fallar *más rápido* — por lo tanto A gana la "carrera" con menos frecuencia de lo que un 50-50 sugeriría.</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>¿Por qué una tasa de falla ($\lambda$) más alta implica un tiempo de falla esperado más *corto*? (pista: revisa la relación $E<span class="co">[</span><span class="ot">X</span><span class="co">]</span>=1/\lambda$ de la exponencial, Tema P5)</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Función de una variable aleatoria</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>Si $Y=g(X)$ para alguna función $g$, y conoces la distribución de $X$, puedes obtener las propiedades de $Y$ analíticamente (a veces) o — mucho más práctico en ingeniería — **por simulación**: generas muchos valores de $X$, aplicas $g$, y resumes los valores de $Y$ resultantes con las herramientas del Módulo 1.</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Combinación de variables aleatorias</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>Sumas, productos, mínimos y máximos de variables aleatorias son casos particulares de "función de varias variables aleatorias". Por ejemplo, si $F_1, F_2$ son dos fuerzas normales independientes, $F_{total}=F_1+F_2$ es simplemente otra variable aleatoria, cuya distribución se puede simular directamente sumando las simulaciones de cada una.</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## El mínimo de dos exponenciales</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>El caso "¿cuál componente falla primero?" es el mínimo de dos variables aleatorias. Se puede demostrar analíticamente que si $A\sim Exp(\lambda_A)$ y $B\sim Exp(\lambda_B)$ son independientes:</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>$$P(A &lt; B) = \frac{\lambda_A}{\lambda_A+\lambda_B}$$</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Suma de variables discretas (Nota 5.38 y Ej. 5.39)</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>**Nota 5.38 (fórmula de convolución discreta):** si $X$ e $Y$ son variables aleatorias discretas **independientes**, la distribución de $Z=X+Y$ se obtiene sumando sobre todas las formas de "repartir" $z$ entre $X$ y $Y$:</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>P(Z=z) = \sum_{x=0}^{z} P(X=x,\,Y=z-x) = \sum_{x=0}^{z} P(X=x)\,P(Y=z-x)</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>(la segunda igualdad usa independencia: la conjunta se factoriza). Esta operación —sumar productos de valores desplazados— se llama **convolución**, y es la versión discreta de $Z=X+Y$ que complementa lo que ya viste arriba en "Combinación de variables aleatorias".</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>**Ejemplo 5.39 — suma de dos Poisson:** si $X\sim\mathcal P(\lambda)$ y $Y\sim\mathcal P(\mu)$ son independientes, $Z=X+Y$ toma valores $0,1,2,\dots$ Aplicando la Nota 5.38:</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>P(Z=z) &amp;= \sum_{x=0}^{z} e^{-\lambda}\frac{\lambda^x}{x!}\cdot e^{-\mu}\frac{\mu^{z-x}}{(z-x)!} <span class="sc">\\</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{e^{-(\lambda+\mu)}}{z!}\sum_{x=0}^{z}\binom{z}{x}\lambda^x\mu^{z-x} \qquad \text{(multiplicando y dividiendo por } z!\text{)}<span class="sc">\\</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{e^{-(\lambda+\mu)}}{z!}(\lambda+\mu)^z \qquad \text{(binomio de Newton)}</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>Es decir, $Z\stackrel{d}{=}\mathcal P(\lambda+\mu)$ — **la suma de Poisson independientes es Poisson**, con parámetro igual a la suma de los parámetros.</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion con lambda=3, mu=5 -&gt; Z deberia ser Poisson(8)</span></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">3</span>; mu <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">200000</span></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_sim, lambda)</span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_sim, mu)</span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> X <span class="sc">+</span> Y</span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_simulada =</span> <span class="fu">mean</span>(Z), <span class="at">media_teorica =</span> lambda <span class="sc">+</span> mu)</span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_simulada =</span> <span class="fu">var</span>(Z), <span class="at">var_teorica =</span> lambda <span class="sc">+</span> mu)   <span class="co"># Poisson: E(Z)=Var(Z)=lambda+mu</span></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparar P(Z=8) simulado contra la formula de Poisson(8) exacta</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">P_Z8_simulado =</span> <span class="fu">mean</span>(Z <span class="sc">==</span> <span class="dv">8</span>), <span class="at">P_Z8_teorico =</span> <span class="fu">dpois</span>(<span class="dv">8</span>, lambda <span class="sc">+</span> mu))</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Sumas vía función generadora de momentos (Ej. 5.46 y 5.47)</span></span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>Otra forma de encontrar la distribución de una suma —sin convolución— es reconocer su **función generadora de momentos (FGM)**, como ya hiciste en el Tema P6d: si $Z=X_1+\dots+X_n$ con las $X_i$ independientes, $m_Z(t)=\prod_{k=1}^n m_{X_k}(t)$ (la FGM de una suma de independientes es el **producto** de las FGM individuales).</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>**Ejemplo 5.46 — suma de exponenciales:** si $X_1,\dots,X_n$ son iid $Exp(\lambda)$, y $Z:=X_1+\dots+X_n$:</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>m_Z(t) = \prod_{k=1}^n E(e^{tX_k}) = \prod_{k=1}^n\left(\frac{\lambda}{\lambda-t}\right) = \left(\frac{\lambda}{\lambda-t}\right)^n, \qquad t&lt;\lambda</span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>Esa es exactamente la FGM de una distribución **Gamma** con parámetros $n$ y $\lambda$ — por lo tanto $Z\stackrel{d}{=}Gamma(n,\lambda)$.</span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>**Ejemplo 5.47 — suma de normales estándar al cuadrado:** si $X_1,\dots,X_n$ son iid $N(0,1)$, y $Z:=X_1^2+\dots+X_n^2$. Como cada $X_k^2\sim\chi^2_{(1)}$ (ji-cuadrado con 1 grado de libertad), y su FGM es $m_{X_k^2}(t)=(1-2t)^{-1/2}$:</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>m_Z(t) = \prod_{k=1}^n m_{X_k^2}(t) = \prod_{k=1}^n(1-2t)^{-1/2} = (1-2t)^{-n/2}, \qquad t&lt;\tfrac12</span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>Esa es la FGM de una $\chi^2_{(n)}$ — por lo tanto $Z\stackrel{d}{=}\chi^2_{(n)}$. Es la razón por la que, más adelante en la Sesión 15, la varianza muestral involucra una distribución ji-cuadrado: se construye como una suma de cuadrados de normales.</span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a><span class="co"># Ej. 5.46: suma de n=4 exponenciales Exp(lambda=2) -&gt; deberia ser Gamma(shape=4, rate=2)</span></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span>; lambda <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>suma_exp <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100000</span>, <span class="fu">sum</span>(<span class="fu">rexp</span>(n, <span class="at">rate =</span> lambda)))</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_sim =</span> <span class="fu">mean</span>(suma_exp), <span class="at">media_teo =</span> n <span class="sc">/</span> lambda)          <span class="co"># Gamma: media = n/lambda</span></span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_sim   =</span> <span class="fu">var</span>(suma_exp),  <span class="at">var_teo   =</span> n <span class="sc">/</span> lambda<span class="sc">^</span><span class="dv">2</span>)         <span class="co"># Gamma: varianza = n/lambda^2</span></span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparando el histograma simulado contra la densidad Gamma teorica</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(suma_exp, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"Suma de 4 Exp(2) vs. Gamma(4,2)"</span>)</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape =</span> n, <span class="at">rate =</span> lambda), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="co"># Ej. 5.47: suma de n=5 normales estandar al cuadrado -&gt; deberia ser chi-cuadrado(5)</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12</span>)</span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>suma_normales2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100000</span>, <span class="fu">sum</span>(<span class="fu">rnorm</span>(n)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_sim =</span> <span class="fu">mean</span>(suma_normales2), <span class="at">media_teo =</span> n)        <span class="co"># chi2(n): media = n</span></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">var_sim   =</span> <span class="fu">var</span>(suma_normales2),  <span class="at">var_teo   =</span> <span class="dv">2</span> <span class="sc">*</span> n)    <span class="co"># chi2(n): varianza = 2n</span></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(suma_normales2, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"Suma de 5 N(0,1)^2 vs. Chi-cuadrado(5)"</span>)</span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df =</span> n), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"#004B85"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Máximo y mínimo de $n$ variables (Ej. 5.50)</span></span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.50):** sean $X_1,\dots,X_n$ variables aleatorias reales. Se definen $Y:=\max(X_1,\dots,X_n)$ y $Z:=\min(X_1,\dots,X_n)$. Es exactamente la generalización a $n$ variables de "¿cuál componente falla primero?" — solo que ahora con $n$ componentes en vez de 2, y agregando también el **máximo**.</span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a>**Idea clave — traducir max/min a eventos que sí sabes calcular:**</span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>F_Y(y):=P(Y\le y) = P(X_1\le y,\dots,X_n\le y) \qquad F_Z(z):=P(Z\le z) = 1-P(X_1&gt;z,\dots,X_n&gt;z)</span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a>($Y\le y$ significa que *todas* las $X_i$ están por debajo de $y$; $Z&gt;z$ significa que *todas* están por encima de $z$, así que $Z\le z$ es el complemento). Si además las $X_i$ son **independientes**, cada probabilidad conjunta se factoriza:</span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>F_Y(y) = \prod_{k=1}^n P(X_k\le y) = \prod_{k=1}^n F_{X_k}(y) \qquad\qquad F_Z(z) = 1-\prod_{k=1}^n\big<span class="co">[</span><span class="ot">1-P(X_k\le z)\big</span><span class="co">]</span> = 1-\prod_{k=1}^n\big<span class="co">[</span><span class="ot">1-F_{X_k}(z)\big</span><span class="co">]</span></span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>**Caso particular — $n$ exponenciales iid $Exp(\lambda)$** (generalizando "el mínimo de dos exponenciales" de arriba, a $n$ componentes con la misma tasa):</span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>F_Z(z) = 1-\prod_{k=1}^n\big<span class="co">[</span><span class="ot">1-(1-e^{-\lambda z})\big</span><span class="co">]</span> = 1-\big(e^{-\lambda z}\big)^n = 1-e^{-n\lambda z}</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>Es decir, $Z=\min(X_1,\dots,X_n)\stackrel{d}{=}Exp(n\lambda)$ — el mínimo de $n$ exponenciales independientes con tasa $\lambda$ es, otra vez, exponencial, pero con tasa $n\lambda$ (el sistema falla $n$ veces más rápido con $n$ componentes en paralelo, cada uno pudiendo fallar primero).</span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a><span class="co"># n=3 componentes, cada uno Exp(lambda=0.5) -&gt; el minimo deberia ser Exp(n*lambda=1.5)</span></span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">3</span>; lambda <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a>fallas <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rexp</span>(n_sim <span class="sc">*</span> n, <span class="at">rate =</span> lambda), <span class="at">ncol =</span> n)   <span class="co"># cada fila = un sistema con n componentes</span></span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>Z_min <span class="ot">&lt;-</span> <span class="fu">apply</span>(fallas, <span class="dv">1</span>, min)</span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>Y_max <span class="ot">&lt;-</span> <span class="fu">apply</span>(fallas, <span class="dv">1</span>, max)</span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media_min_sim =</span> <span class="fu">mean</span>(Z_min), <span class="at">media_min_teo =</span> <span class="dv">1</span> <span class="sc">/</span> (n <span class="sc">*</span> lambda))   <span class="co"># Exp(n*lambda): media = 1/(n*lambda)</span></span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a><span class="co"># F_Y(y) empirica vs. teorica, para el maximo, en un punto concreto</span></span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">F_Y_empirica =</span> <span class="fu">mean</span>(Y_max <span class="sc">&lt;=</span> y0),</span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>  <span class="at">F_Y_teorica  =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda <span class="sc">*</span> y0))<span class="sc">^</span>n)</span>
+<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conexión con el motivo de esta página</span></span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>El "¿cuál componente falla primero?" de arriba es $P(A&lt;B)$ para $n=2$ — un caso particular de $F_Z(z)$ con $n=2$ componentes de tasas distintas. Este ejemplo generaliza esa misma idea a $n$ componentes, y agrega el caso simétrico del **máximo** (útil, por ejemplo, para modelar cuándo *terminan* de fallar todos los componentes de un sistema en serie que se reemplaza automáticamente).</span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## Verificación analítica vs. simulación</span></span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>Para el ejemplo de arriba: $P(A&lt;B) = 0.1/(0.1+0.2) = 0.333...$ — muy cercano al <span class="in">`prob_A_antes_B`</span> que obtuviste por simulación. Cuando existe una fórmula cerrada, siempre es buena práctica usar la simulación como **verificación**, no como único método.</span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: portafolio de inversión</span></span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>Un portafolio con 60% en el activo A ($\mu=8\%$, $\sigma=12\%$) y 40% en el activo B ($\mu=6\%$, $\sigma=10\%$), correlacionados con $\rho=0.5$.</span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>mean_A <span class="ot">&lt;-</span> <span class="fl">0.08</span>; sd_A <span class="ot">&lt;-</span> <span class="fl">0.12</span></span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>mean_B <span class="ot">&lt;-</span> <span class="fl">0.06</span>; sd_B <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>correlacion <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sd_A<span class="sc">^</span><span class="dv">2</span>, correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B,</span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>                        correlacion<span class="sc">*</span>sd_A<span class="sc">*</span>sd_B, sd_B<span class="sc">^</span><span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>normal_vars <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">10000</span>, <span class="at">mu =</span> <span class="fu">c</span>(mean_A, mean_B), <span class="at">Sigma =</span> cov_matrix)</span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a>peso_A <span class="ot">&lt;-</span> <span class="fl">0.6</span>; peso_B <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a>rentabilidad_portafolio <span class="ot">&lt;-</span> peso_A <span class="sc">*</span> normal_vars[,<span class="dv">1</span>] <span class="sc">+</span> peso_B <span class="sc">*</span> normal_vars[,<span class="dv">2</span>]</span>
+<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rentabilidad_portafolio)</span>
+<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(rentabilidad_portafolio)</span>
+<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lo que deberías notar</span></span>
+<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a>La desviación estándar del portafolio combinado es **menor** que un promedio ponderado ingenuo de las desviaciones individuales ($0.6\times0.12 + 0.4\times0.10 = 0.112$) — este es el efecto de diversificación: combinar activos correlacionados (pero no perfectamente) reduce el riesgo total.</span>
+<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>El crecimiento del PIB se modela como $Crecimiento(t) = \alpha + \beta t + \epsilon$, con $\alpha=2\%$, $\beta=1\%$ por año, $\epsilon \sim N(0, 0.5\%^2)$, para $t=1,\dots,30$.</span>
+<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Simula 10,000 trayectorias completas del crecimiento (una matriz de 10,000 × 30).</span>
+<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Extrae el crecimiento del año 30 para cada simulación.</span>
+<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calcula la media y desviación estándar del crecimiento en el último año. ¿Coincide la media con lo que esperarías analíticamente de $\alpha + \beta\cdot 30$?</span>
+<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cuál componente falla primero? Completa la comparación</span></span>
+<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a>prob_A_antes_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(tiempos_A ___ tiempos_B)</span>
+<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a><span class="in">`&lt;`</span> — cuenta la proporción de simulaciones donde el tiempo de falla de A es menor que el de B.</span>
+<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap10"</span><span class="dt">&gt;</span></span>
+<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. La simulación es útil cuando Y=g(X) no tiene fórmula cerrada simple.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Combinar activos correlacionados en un portafolio siempre aumenta el riesgo total.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. P(A<span class="dv">&amp;lt;</span>B) = λA/(λA+λB) para exponenciales independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP10()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap10"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP10</span>() {</span>
+<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
+<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap10"</span>)<span class="op">;</span></span>
+<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap10"</span>)<span class="op">;</span></span>
+<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cuando $Y=g(X)$ no tiene fórmula analítica simple, la simulación es la herramienta práctica: generar $X$, aplicar $g$, resumir $Y$.</span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El mínimo de dos exponenciales independientes tiene fórmula cerrada — úsala para verificar tus simulaciones, no como sustituto de ellas.</span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Combinar variables correlacionadas (como en un portafolio) reduce el riesgo total por debajo del promedio ponderado ingenuo — el efecto de diversificación, visible directamente en la simulación.</span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎓 Fin de la Sesión 14 (Unidad 3)</span></span>
+<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a>Con este tema se completa la Sesión 14 del cronograma — variables aleatorias independientes y valor esperado de una función de variables aleatorias. Ya tienes todo lo necesario para el último tramo del curso: la <span class="co">[</span><span class="ot">Sesión 15</span><span class="co">](tema-i1-estudiante.qmd)</span> da el salto de "modelar la incertidumbre" a "decidir con ella" — pruebas de hipótesis (Temas I1-I2) e intervalos de confianza (Tema I3).</span>
+<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

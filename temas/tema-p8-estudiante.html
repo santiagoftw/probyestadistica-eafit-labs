@@ -612,6 +612,19 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="tres-monedas-dos-variables-una-pregunta-escondida">🪙 Tres monedas, dos variables, una pregunta escondida</h2>
 <p>Lanzas 3 monedas. <span class="math inline">\(Y_1\)</span> = número de caras. <span class="math inline">\(Y_2\)</span> = tu ganancia en una apuesta: si la primera cara sale en el primer tiro, ganas $1; en el segundo, $2; en el tercero, $3; si no sale ninguna cara, pierdes $1. ¿Estas dos variables están relacionadas entre sí, o son independientes?</p>
 </section>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Fuente de este tema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este tema y su ejemplo del libro están basados en Blanco Castañeda, L. (2010). <em>Probabilidad</em> (2.ª ed.). Universidad Nacional de Colombia, Capítulo 5 (Vectores Aleatorios), Ejemplos 5.7 y 5.8. Todos los resultados numéricos fueron verificados de forma independiente antes de incluirse aquí.</p>
+</div>
+</div>
 <div class="ficha-prediccion">
 <p>Antes de calcular: <span class="math inline">\(Y_2\)</span> depende de <em>cuándo</em> sale la primera cara, y <span class="math inline">\(Y_1\)</span> del <em>número total</em> de caras. ¿Tu intuición dice que son independientes o no?</p>
 </div>
@@ -791,7 +804,7 @@ window.Quarto = {
 <section id="ahora-sí-la-teoría" class="level2">
 <h2 class="anchored" data-anchor-id="ahora-sí-la-teoría">📖 Ahora sí, la teoría</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Distribución conjunta</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Distribuciones marginales</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Distribución condicional</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Independencia de variables aleatorias</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Distribución conjunta</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Distribuciones marginales</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Distribución condicional</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Independencia de variables aleatorias</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">📘 Ejemplo del libro — 3 monedas (Ej. 5.7)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">📘 Ejemplo del libro — puntillas, tachuelas y tornillos (Ej. 5.8)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Para dos variables aleatorias discretas <span class="math inline">\(Y_1, Y_2\)</span>, la función de probabilidad conjunta da <span class="math inline">\(P(Y_1=y_1, Y_2=y_2)\)</span> para cada combinación posible — toda la información sobre cómo se comportan <strong>juntas</strong>.</p>
@@ -818,6 +831,346 @@ P(X=3) = \sum_{y} P(X{=}3,Y{=}y) = P(3,4)+P(3,5)+P(3,6) = \frac{2}{36}+\frac{2}{
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p><span class="math inline">\(Y_1\)</span> y <span class="math inline">\(Y_2\)</span> son independientes si <span class="math inline">\(P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2=y_2)\)</span> para <strong>toda</strong> combinación de valores — no basta con que se cumpla en una sola celda de la tabla.</p>
+<p><strong>Cómo cambia la independencia con y sin reemplazo (Ej. 5.35 y 5.36 del libro):</strong> una urna tiene 3 bolas rojas y 6 azules (9 en total). Se extrae una muestra de tamaño 2. <span class="math inline">\(X:=1\)</span> si la primera bola es roja (0 si es azul), <span class="math inline">\(Y:=1\)</span> si la segunda es roja (0 si es azul).</p>
+<p><strong>Con reemplazo (Ej. 5.35):</strong> la composición de la urna es <em>la misma</em> en ambas extracciones, así que:</p>
+<p><span class="math display">\[
+P(X{=}0,Y{=}0)=\tfrac69\cdot\tfrac69=\tfrac49, \quad P(X{=}0,Y{=}1)=\tfrac69\cdot\tfrac39=\tfrac29, \quad P(X{=}1,Y{=}0)=\tfrac39\cdot\tfrac69=\tfrac29, \quad P(X{=}1,Y{=}1)=\tfrac39\cdot\tfrac39=\tfrac19
+\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(X\backslash Y\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{4}{9}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{2}{9}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{2}{9}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{9}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Es fácil verificar que <span class="math inline">\(P(X{=}x,Y{=}y)=P(X{=}x)P(Y{=}y)\)</span> para las 4 combinaciones — con marginales <span class="math inline">\(P(X{=}0)=P(Y{=}0)=\tfrac23\)</span>, <span class="math inline">\(P(X{=}1)=P(Y{=}1)=\tfrac13\)</span>. <strong><span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son independientes</strong> — tiene sentido, porque la composición de la urna no cambia entre extracciones.</p>
+<p><strong>Sin reemplazo (Ej. 5.36):</strong> ahora la segunda extracción sí depende de qué salió en la primera:</p>
+<p><span class="math display">\[
+P(X{=}0,Y{=}0)=\tfrac69\cdot\tfrac58=\tfrac{5}{12}, \quad P(X{=}0,Y{=}1)=\tfrac69\cdot\tfrac38=\tfrac{3}{12}, \quad P(X{=}1,Y{=}0)=\tfrac39\cdot\tfrac68=\tfrac{3}{12}, \quad P(X{=}1,Y{=}1)=\tfrac39\cdot\tfrac28=\tfrac{1}{12}
+\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(X\backslash Y\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{5}{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{3}{12}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{3}{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{12}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Las marginales siguen siendo <span class="math inline">\(P(X{=}0)=P(Y{=}0)=\tfrac23\)</span> (sin condicionar, la chance de roja en <em>cualquier</em> posición sigue siendo <span class="math inline">\(\tfrac39=\tfrac13\)</span> para 1, <span class="math inline">\(\tfrac23\)</span> para 0 — el mismo argumento de simetría del Ejemplo 5.29). Pero: <span class="math display">\[
+P(X{=}0,Y{=}0)=\frac{5}{12} \;\ne\; \frac23\times\frac23=\frac49=P(X{=}0)P(Y{=}0)
+\]</span> <strong><span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> ya no son independientes.</strong> El muestreo sin reemplazo es exactamente lo que rompe la independencia: saber que la primera bola fue roja cambia la composición que queda para la segunda.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Con reemplazo: composicion de la urna no cambia -&gt; independientes</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p_con <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>)<span class="sc">/</span><span class="dv">9</span>, <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>)<span class="sc">/</span><span class="dv">9</span>)   <span class="co"># producto de marginales = conjunta</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(p_con) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">X =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">Y =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>p_con</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Sin reemplazo: la conjunta ya no es un producto de marginales</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>p_sin <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">6</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">5</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">6</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">3</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">6</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">2</span><span class="sc">/</span><span class="dv">8</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(p_sin) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">X =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">Y =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>p_sin</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>marginal_X <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(p_sin)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>marginal_Y <span class="ot">&lt;-</span> <span class="fu">colSums</span>(p_sin)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>producto_marginales <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_X, marginal_Y)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>p_sin[<span class="st">"0"</span>, <span class="st">"0"</span>] <span class="sc">==</span> producto_marginales[<span class="st">"0"</span>, <span class="st">"0"</span>]   <span class="co"># FALSE -&gt; no independientes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 El patrón general
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Con reemplazo” siempre da variables independientes (la urna “se olvida” de lo que ya salió); “sin reemplazo” casi nunca las da, porque cada extracción cambia lo que queda disponible para las siguientes. Es la misma razón por la que, en el Ejemplo 5.29 (Tema P9a), las indicadoras <span class="math inline">\(X_i\)</span> de una extracción hipergeométrica sin reemplazo son dependientes entre sí, aunque cada una tenga individualmente <span class="math inline">\(P(X_i{=}1)=R/N\)</span>.</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.7):</strong> se lanza una moneda corriente tres veces consecutivas. <span class="math inline">\(X:=\)</span> “número de caras obtenidas”, <span class="math inline">\(Y:=\)</span> “número del lanzamiento en el que se obtiene por primera vez cara” (<span class="math inline">\(Y=0\)</span> si no hay ninguna). Es el mismo experimento que ya trabajaste arriba con <span class="math inline">\(Y_1,Y_2\)</span> — aquí usamos la notación <span class="math inline">\(X,Y\)</span> del libro, con <span class="math inline">\(Y=0\)</span> en vez de <span class="math inline">\(Y_2=-1\)</span> para “no salió ninguna cara”.</p>
+<p><strong>1. Distribución conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(X\backslash Y\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{2}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. Distribuciones marginales de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(X=x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{3}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{3}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(y\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(Y=y)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{4}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{2}{8}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{8}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>3. Calcular <span class="math inline">\(P(X\le 2,Y=1)\)</span>, <span class="math inline">\(P(X\le 2,Y\le 1)\)</span> y <span class="math inline">\(P(X\le 2 \text{ o } Y\le 1)\)</span>:</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+P(X\le 2,\,Y=1) &amp;= P(X{=}0,Y{=}1)+P(X{=}1,Y{=}1)+P(X{=}2,Y{=}1) \\
+&amp;= 0+\tfrac{1}{8}+\tfrac{2}{8} = \tfrac{3}{8}
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+P(X\le 2,\,Y\le 1) &amp;= P(X\le 2,Y{=}1) + P(X{=}0,Y{=}0)+P(X{=}1,Y{=}0)+P(X{=}2,Y{=}0) \\
+&amp;= \tfrac{3}{8} + \tfrac{1}{8}+0+0 = \tfrac{1}{2}
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+P(X\le 2 \text{ o } Y\le 1) &amp;= P(X\le 2)+P(Y\le 1)-P(X\le 2,Y\le 1) \\
+&amp;= \big[P(X{=}0)+P(X{=}1)+P(X{=}2)\big] + \big[P(Y{=}0)+P(Y{=}1)\big] - \tfrac{1}{2} \\
+&amp;= \tfrac{7}{8}+\tfrac{5}{8}-\tfrac{1}{2} = 1
+\end{aligned}
+\]</span></p>
+<p>Que <span class="math inline">\(P(X\le 2 \text{ o } Y\le 1)=1\)</span> tiene sentido: el único resultado que <strong>no</strong> cumple <span class="math inline">\(X\le 2\)</span> es <span class="math inline">\(X=3\)</span> (las 3 caras), y ese resultado sí cumple <span class="math inline">\(Y\le 1\)</span> (con <span class="math inline">\(Y=1\)</span>) — entre los dos eventos cubren <em>todo</em> el espacio muestral.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion en R, reusando prob_matrix (aqui X=Y1, Y=Y2 con -1 en vez de 0)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>p_x_le2_y1     <span class="ot">&lt;-</span> <span class="fu">sum</span>(prob_matrix[<span class="fu">c</span>(<span class="st">"0"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>), <span class="st">"1"</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p_x_le2_y_le1  <span class="ot">&lt;-</span> p_x_le2_y1 <span class="sc">+</span> prob_matrix[<span class="st">"0"</span>, <span class="fu">as.character</span>(<span class="sc">-</span><span class="dv">1</span>)]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p_x_le2        <span class="ot">&lt;-</span> <span class="fu">sum</span>(prob_matrix[<span class="fu">c</span>(<span class="st">"0"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>), ])</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>p_y_le1        <span class="ot">&lt;-</span> <span class="fu">sum</span>(prob_matrix[, <span class="fu">c</span>(<span class="fu">as.character</span>(<span class="sc">-</span><span class="dv">1</span>), <span class="st">"1"</span>)])</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>p_union        <span class="ot">&lt;-</span> p_x_le2 <span class="sc">+</span> p_y_le1 <span class="sc">-</span> p_x_le2_y_le1</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>p_union   <span class="co"># debe dar 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.8):</strong> una caja contiene 3 puntillas, 4 tachuelas y 2 tornillos. Se extraen, al azar, 3 objetos (sin reemplazo). <span class="math inline">\(X:=\)</span> número de tachuelas extraídas, <span class="math inline">\(Y:=\)</span> número de puntillas extraídas.</p>
+<p>A diferencia del ejemplo de las monedas (donde cada resultado tenía la misma probabilidad), aquí el muestreo es <strong>sin reemplazo</strong> de un grupo con 3 categorías — la distribución conjunta se construye con la fórmula hipergeométrica multivariada:</p>
+<p><span class="math display">\[
+P(X=x,\,Y=y) = \frac{\dbinom{4}{x}\dbinom{3}{y}\dbinom{2}{9-(x+y)}}{\dbinom{9}{3}}, \qquad x,y = 0,1,2,3
+\]</span></p>
+<p>El numerador cuenta, por separado, de cuántas formas eliges <span class="math inline">\(x\)</span> tachuelas (de 4), <span class="math inline">\(y\)</span> puntillas (de 3) y el resto — <span class="math inline">\(9-(x+y)\)</span> objetos — de tornillos (de 2); el denominador es el total de formas de elegir 3 objetos de los 9. Cuando <span class="math inline">\(9-(x+y)\)</span> es negativo o mayor que 2, ese combinatorio vale 0 — no hay suficientes tornillos para completar la extracción.</p>
+<p><strong>Distribución conjunta</strong> (todos los valores sobre <span class="math inline">\(\binom{9}{3}=84\)</span>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(X\backslash Y\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{3}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{6}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{84}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{4}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{24}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{12}{84}\)</span></td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{12}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{18}{84}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{4}{84}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Distribuciones marginales:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(X=x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{10}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{40}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{30}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{4}{84}\)</span></td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(y\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(Y=y)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{20}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{45}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{18}{84}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\tfrac{1}{84}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Nota que cada marginal también se puede obtener directamente con la fórmula hipergeométrica de <strong>una</strong> variable, sin pasar por la tabla conjunta — por ejemplo, <span class="math inline">\(P(X=x)=\binom{4}{x}\binom{5}{3-x}/\binom{9}{3}\)</span> (agrupando puntillas y tornillos como “no tachuelas”, <span class="math inline">\(3+2=5\)</span>). Es la misma idea que “devolverte” a la marginal sumando filas, pero aprovechando que aquí existe además una fórmula cerrada.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construccion en R con la formula hipergeometrica multivariada</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p_conjunta_ej58 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  faltan <span class="ot">&lt;-</span> <span class="dv">9</span> <span class="sc">-</span> (x <span class="sc">+</span> y)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (faltan <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">||</span> faltan <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">choose</span>(<span class="dv">4</span>, x) <span class="sc">*</span> <span class="fu">choose</span>(<span class="dv">3</span>, y) <span class="sc">*</span> <span class="fu">choose</span>(<span class="dv">2</span>, faltan) <span class="sc">/</span> <span class="fu">choose</span>(<span class="dv">9</span>, <span class="dv">3</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>conjunta_ej58 <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">Vectorize</span>(p_conjunta_ej58))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(conjunta_ej58) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">X =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">Y =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(conjunta_ej58 <span class="sc">*</span> <span class="dv">84</span>)   <span class="co"># para comparar contra la tabla de arriba, en /84</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Conexión con el laboratorio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El Laboratorio de esta página usa la misma estructura (9 personas en 3 categorías, se seleccionan 3) — la técnica es idéntica a este ejemplo, solo cambia el contexto y lo que se pide calcular al final.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -853,9 +1206,9 @@ P(Y_2=3) &amp;= P(1,3) = \tfrac{1}{8}
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>marginal_Y2 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(prob_matrix)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>marginal_Y2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>marginal_Y2 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(prob_matrix)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>marginal_Y2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   -1     1     2     3 
@@ -863,9 +1216,9 @@ P(Y_2=3) &amp;= P(1,3) = \tfrac{1}{8}
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1 (filas están rotuladas 0, 1, 2, 3)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(prob_matrix)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>marginal_Y1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1 (filas están rotuladas 0, 1, 2, 3)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(prob_matrix)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>marginal_Y1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0     1     2     3 
@@ -888,11 +1241,11 @@ P(Y_1=3 \mid Y_2=1) = \frac{1/8}{4/8} = \frac{1}{4} = 0.25
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Condicional: P(Y1=3 | Y2=1)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p_Y1_3_Y2_1 <span class="ot">&lt;-</span> prob_matrix[<span class="st">"3"</span>, <span class="st">"1"</span>]</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>p_Y2_1 <span class="ot">&lt;-</span> marginal_Y2[<span class="st">"1"</span>]</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1 <span class="ot">&lt;-</span> p_Y1_3_Y2_1 <span class="sc">/</span> p_Y2_1</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Condicional: P(Y1=3 | Y2=1)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p_Y1_3_Y2_1 <span class="ot">&lt;-</span> prob_matrix[<span class="st">"3"</span>, <span class="st">"1"</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>p_Y2_1 <span class="ot">&lt;-</span> marginal_Y2[<span class="st">"1"</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1 <span class="ot">&lt;-</span> p_Y1_3_Y2_1 <span class="sc">/</span> p_Y2_1</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   1 
@@ -913,9 +1266,9 @@ P(Y_1=2,\,Y_2=1) = \frac{2}{8} = 0.25
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificación de independencia: comparar la matriz conjunta contra el producto de marginales</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>independencia_teorica <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_Y1, marginal_Y2)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(prob_matrix, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificación de independencia: comparar la matriz conjunta contra el producto de marginales</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>independencia_teorica <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_Y1, marginal_Y2)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(prob_matrix, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
@@ -927,7 +1280,7 @@ P(Y_1=2,\,Y_2=1) = \frac{2}{8} = 0.25
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(independencia_teorica, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(independencia_teorica, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     -1     1     2     3
@@ -966,8 +1319,8 @@ P(Y_1=2,\,Y_2=1) = \frac{2}{8} = 0.25
 <h2 class="anchored" data-anchor-id="ejercicios-autocorregibles">✅ Ejercicios autocorregibles</h2>
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1: completa la función correcta</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">___</span>(prob_matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1: completa la función correcta</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">___</span>(prob_matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
@@ -1510,294 +1863,464 @@ function revisarQuizTemaP8() {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P8 · Distribución de probabilidad multivariada"</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🪙 Tres monedas, dos variables, una pregunta escondida</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>Lanzas 3 monedas. $Y_1$ = número de caras. $Y_2$ = tu ganancia en una apuesta: si la primera cara sale en el primer tiro, ganas \$1; en el segundo, \$2; en el tercero, \$3; si no sale ninguna cara, pierdes \$1. ¿Estas dos variables están relacionadas entre sí, o son independientes?</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>Antes de calcular: $Y_2$ depende de *cuándo* sale la primera cara, y $Y_1$ del *número total* de caras. ¿Tu intuición dice que son independientes o no?</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: construyendo la tabla conjunta</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>La forma más segura de construir la tabla conjunta no es "adivinar" una fórmula, sino **enumerar los 8 resultados posibles** de los 3 lanzamientos y contar directamente:</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Los 8 resultados igualmente probables de lanzar 3 monedas</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>monedas <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t1 =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"S"</span>), <span class="at">t2 =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"S"</span>), <span class="at">t3 =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"S"</span>))</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Y1: número total de caras</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>monedas<span class="sc">$</span>Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(monedas[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="sc">==</span> <span class="st">"C"</span>)</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Y2: en qué tiro salió la PRIMERA cara (o -1 si no salió ninguna)</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>primera_cara <span class="ot">&lt;-</span> <span class="cf">function</span>(fila) {</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  pos <span class="ot">&lt;-</span> <span class="fu">which</span>(fila <span class="sc">==</span> <span class="st">"C"</span>)</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(pos) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">min</span>(pos)</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>monedas<span class="sc">$</span>Y2 <span class="ot">&lt;-</span> <span class="fu">apply</span>(monedas[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">1</span>, primera_cara)</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla conjunta: cuenta cada combinación (Y1,Y2) y divide por los 8 casos</span></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>prob_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(monedas<span class="sc">$</span>Y1, monedas<span class="sc">$</span>Y2) <span class="sc">/</span> <span class="fu">nrow</span>(monedas)</span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>prob_matrix</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>Mira la fila <span class="in">`Y1=2`</span>: la combinación <span class="in">`(Y1=2, Y2=1)`</span> tiene probabilidad 2/8, el doble que las demás celdas no vacías. ¿Por qué? (pista: hay dos maneras distintas de sacar exactamente 2 caras *con la primera cara en el primer tiro*: CCS y CSC).</span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🔎 De los números a los casos: ¿qué evento hay detrás de cada probabilidad?</span></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>La tabla <span class="in">`prob_matrix`</span> de arriba es correcta, pero solo muestra fracciones — no dice **qué secuencia de monedas** produce cada una. Como los 8 resultados de lanzar 3 monedas son igualmente probables, cada uno individualmente tiene probabilidad $1/8$, y notamos $C$ = cara, $S$ = sello. Traduciendo cada uno de los 8 resultados a sus valores de $(Y_1, Y_2)$:</span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Evento (t1,t2,t3) <span class="pp">|</span> Probabilidad <span class="pp">|</span> $Y_1$ (n° caras) <span class="pp">|</span> $Y_2$ (tiro de la 1ª cara) <span class="pp">|</span></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|</span></span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,S,S)=\dfrac{1}{8}$ <span class="pp">|</span> ninguna cara <span class="pp">|</span> $0$ <span class="pp">|</span> $-1$ <span class="pp">|</span></span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,S,S)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 1 <span class="pp">|</span> $1$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,C,S)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 2 <span class="pp">|</span> $1$ <span class="pp">|</span> $2$ <span class="pp">|</span></span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,S,C)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 3 <span class="pp">|</span> $1$ <span class="pp">|</span> $3$ <span class="pp">|</span></span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,C,S)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $2$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,S,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $2$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,C,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 2 <span class="pp">|</span> $2$ <span class="pp">|</span> $2$ <span class="pp">|</span></span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,C,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $3$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>Como $(C,C,S)$ y $(C,S,C)$ caen en la **misma** casilla $(Y_1{=}2,\,Y_2{=}1)$, sus probabilidades se **suman**: eso es exactamente lo que la celda de la tabla conjunta representa — la probabilidad de la *casilla*, no la de un solo lanzamiento. Agrupando los 8 eventos por su casilla $(Y_1,Y_2)$, la tabla conjunta completa, ahora con los eventos explícitos, queda:</span>
-<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(Y_1,Y_2)$ <span class="pp">|</span> Eventos que caen ahí <span class="pp">|</span> Probabilidad de la casilla <span class="pp">|</span></span>
-<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---|:---:|</span></span>
-<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(0,-1)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,S,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,S,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
-<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,S,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,S,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
-<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,2)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,C,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,C,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
-<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,3)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,S,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,S,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
-<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(2,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,C,S),\,(C,S,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,C,S)+P(C,S,C)=\dfrac{1}{8}+\dfrac{1}{8}=\dfrac{2}{8}$ <span class="pp">|</span></span>
-<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(2,2)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,C,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,C,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
-<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(3,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,C,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,C,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
-<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>Todas las demás combinaciones de $(Y_1,Y_2)$ (por ejemplo, $(2,3)$ o $(0,2)$) tienen probabilidad **0**: no existe ninguna secuencia de 3 monedas que las produzca — por eso `prob_matrix` las deja vacías. Esta es la razón exacta por la que $(Y_1{=}2,Y_2{=}1)$ vale $2/8$ y no $1/8$ como las demás casillas no vacías: es la **única** casilla a la que llegan dos eventos distintos en vez de uno solo.</span>
-<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrección de rigor</span></span>
-<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>Una versión anterior de este tema seguía la solución oficial del Laboratorio 3, que calcula la tabla conjunta con una función que solo cubre la diagonal ($Y_1=1\Rightarrow Y_2=1$, $Y_1=2\Rightarrow Y_2=2$, etc.), asignando probabilidad 0 a combinaciones que sí son posibles — por ejemplo, <span class="in">`CCS`</span> y <span class="in">`CSC`</span> dan $Y_1=2$ pero $Y_2=1$ (la primera cara salió en el primer tiro), no $Y_2=2$. Aquí se corrigió **enumerando los 8 resultados directamente** en vez de escribir una fórmula a mano — la lección general es que cuando el espacio muestral es pequeño y enumerable, contar es más confiable que "adivinar" una expresión cerrada.</span>
-<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución conjunta</span></span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a>Para dos variables aleatorias discretas $Y_1, Y_2$, la función de probabilidad conjunta da $P(Y_1=y_1, Y_2=y_2)$ para cada combinación posible — toda la información sobre cómo se comportan **juntas**.</span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>**Cómo se construye, en general:** enumeras el espacio muestral (todos los resultados igualmente probables), calculas ambas variables sobre cada resultado, y cuentas cuántos resultados caen en cada combinación $(y_1,y_2)$. Un segundo ejemplo, distinto al de las monedas: lanza dos dados justos y define $X=\max(D_1,D_2)$, $Y=D_1+D_2$. Hay $6\times 6=36$ pares $(d_1,d_2)$ igualmente probables. Para $(X{=}3,Y{=}5)$, buscas qué pares cumplen **ambas** condiciones a la vez:</span>
-<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span>(d_1,d_2): \max(d_1,d_2)=3,\ d_1+d_2=5<span class="sc">\}</span> = <span class="sc">\{</span>(2,3),(3,2)<span class="sc">\}</span> \;\Rightarrow\; P(X{=}3,\,Y{=}5)=\frac{2}{36}=\frac{1}{18}</span>
-<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">d1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">d2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="fu">pmax</span>(dados<span class="sc">$</span>d1, dados<span class="sc">$</span>d2)</span>
-<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Y <span class="ot">&lt;-</span> dados<span class="sc">$</span>d1 <span class="sc">+</span> dados<span class="sc">$</span>d2</span>
-<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>conjunta_dados <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>X, dados<span class="sc">$</span>Y) <span class="sc">/</span> <span class="fu">nrow</span>(dados)</span>
-<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a>Es exactamente la misma lógica que ya usaste con <span class="in">`expand.grid()`</span> y <span class="in">`table()`</span> en la sección de exploración: solo cambia qué variables calculas sobre cada resultado.</span>
-<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribuciones marginales</span></span>
-<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a>Se obtienen "sumando hacia afuera" la variable que no interesa:</span>
-<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1) = \sum_{y_2} P(Y_1=y_1, Y_2=y_2)$$</span>
-<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a>En R, esto es exactamente <span class="in">`rowSums()`</span> o <span class="in">`colSums()`</span> sobre la matriz conjunta.</span>
-<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a>**Cómo "devolverte" a la marginal cuando solo tienes la conjunta:** retomando `conjunta_dados`, si quieres la distribución de $X=\max(D_1,D_2)$ sola, sumas la fila $X=3$ sobre **todos** los valores de $Y$ — sin importar cuál fue la suma, solo que el máximo haya sido 3:</span>
-<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a>P(X=3) = \sum_{y} P(X{=}3,Y{=}y) = P(3,4)+P(3,5)+P(3,6) = \frac{2}{36}+\frac{2}{36}+\frac{1}{36} = \frac{5}{36}</span>
-<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a>marginal_X_dados <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(conjunta_dados)</span>
-<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a>marginal_X_dados[<span class="st">"3"</span>]   <span class="co"># 5/36 = 0.1389</span></span>
-<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a>"Devolverse" a la marginal es literalmente deshacer la partición por $Y$ que hiciste al construir la conjunta: vuelves a agrupar todo lo que tenga $X=3$, sin importar el valor de $Y$. Vas a repetir este mismo procedimiento con $Y_1$ y $Y_2$ (monedas) en el ejemplo de abajo.</span>
-<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución condicional</span></span>
-<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1 | Y_2=y_2) = \frac{P(Y_1=y_1, Y_2=y_2)}{P(Y_2=y_2)}$$</span>
-<span id="cb16-115"><a href="#cb16-115" aria-hidden="true" tabindex="-1"></a>La misma idea del Tema P2, ahora aplicada a variables aleatorias en vez de eventos sueltos.</span>
-<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## Independencia de variables aleatorias</span></span>
-<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a>$Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2=y_2)$ para **toda** combinación de valores — no basta con que se cumpla en una sola celda de la tabla.</span>
-<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: marginales, condicional e independencia</span></span>
-<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a>Antes de correr el código, así se ven los cálculos a mano — usando la tabla conjunta con eventos que ya construiste arriba.</span>
-<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cálculo de la marginal de $Y_1$</span></span>
-<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a>$P(Y_1=y_1)$ se obtiene sumando la fila $y_1$ completa, es decir, sumando todas las casillas $(y_1,\cdot)$ sin importar el valor de $Y_2$:</span>
-<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a>P(Y_1=0) &amp;= P(0,-1) = \tfrac{1}{8} <span class="sc">\\</span></span>
-<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a>P(Y_1=1) &amp;= P(1,1)+P(1,2)+P(1,3) = \tfrac{1}{8}+\tfrac{1}{8}+\tfrac{1}{8} = \tfrac{3}{8} <span class="sc">\\</span></span>
-<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a>P(Y_1=2) &amp;= P(2,1)+P(2,2) = \tfrac{2}{8}+\tfrac{1}{8} = \tfrac{3}{8} <span class="sc">\\</span></span>
-<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a>P(Y_1=3) &amp;= P(3,1) = \tfrac{1}{8}</span>
-<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a>Verificación: $\tfrac{1}{8}+\tfrac{3}{8}+\tfrac{3}{8}+\tfrac{1}{8}=\tfrac{8}{8}=1$ ✓ — toda distribución marginal debe sumar 1, porque sigue cubriendo el 100% del espacio muestral.</span>
-<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cálculo de la marginal de $Y_2$</span></span>
-<span id="cb16-142"><a href="#cb16-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-143"><a href="#cb16-143" aria-hidden="true" tabindex="-1"></a>De la misma forma, $P(Y_2=y_2)$ suma la **columna** $y_2$ completa, sin importar el valor de $Y_1$:</span>
-<span id="cb16-144"><a href="#cb16-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-145"><a href="#cb16-145" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-146"><a href="#cb16-146" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a>P(Y_2=-1) &amp;= P(0,-1) = \tfrac{1}{8} <span class="sc">\\</span></span>
-<span id="cb16-148"><a href="#cb16-148" aria-hidden="true" tabindex="-1"></a>P(Y_2=1) &amp;= P(1,1)+P(2,1)+P(3,1) = \tfrac{1}{8}+\tfrac{2}{8}+\tfrac{1}{8} = \tfrac{4}{8} <span class="sc">\\</span></span>
-<span id="cb16-149"><a href="#cb16-149" aria-hidden="true" tabindex="-1"></a>P(Y_2=2) &amp;= P(1,2)+P(2,2) = \tfrac{1}{8}+\tfrac{1}{8} = \tfrac{2}{8} <span class="sc">\\</span></span>
-<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a>P(Y_2=3) &amp;= P(1,3) = \tfrac{1}{8}</span>
-<span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a>Verificación: $\tfrac{1}{8}+\tfrac{4}{8}+\tfrac{2}{8}+\tfrac{1}{8}=\tfrac{8}{8}=1$ ✓.</span>
-<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)</span></span>
-<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a>marginal_Y2 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(prob_matrix)</span>
-<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a>marginal_Y2</span>
-<span id="cb16-162"><a href="#cb16-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-163"><a href="#cb16-163" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1 (filas están rotuladas 0, 1, 2, 3)</span></span>
-<span id="cb16-164"><a href="#cb16-164" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(prob_matrix)</span>
-<span id="cb16-165"><a href="#cb16-165" aria-hidden="true" tabindex="-1"></a>marginal_Y1</span>
-<span id="cb16-166"><a href="#cb16-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-167"><a href="#cb16-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-168"><a href="#cb16-168" aria-hidden="true" tabindex="-1"></a>Compara estos resultados con el código: <span class="in">`marginal_Y1`</span> y <span class="in">`marginal_Y2`</span> deben coincidir exactamente con los valores calculados a mano arriba — es la misma operación (sumar filas o columnas), solo que R la hace automáticamente sobre <span class="in">`prob_matrix`</span>.</span>
-<span id="cb16-169"><a href="#cb16-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-170"><a href="#cb16-170" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cálculo de la condicional $P(Y_1=3 \mid Y_2=1)$</span></span>
-<span id="cb16-171"><a href="#cb16-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-172"><a href="#cb16-172" aria-hidden="true" tabindex="-1"></a>Por definición de probabilidad condicional:</span>
-<span id="cb16-173"><a href="#cb16-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-174"><a href="#cb16-174" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-175"><a href="#cb16-175" aria-hidden="true" tabindex="-1"></a>P(Y_1=3 \mid Y_2=1) = \frac{P(Y_1=3,\,Y_2=1)}{P(Y_2=1)}</span>
-<span id="cb16-176"><a href="#cb16-176" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-177"><a href="#cb16-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-178"><a href="#cb16-178" aria-hidden="true" tabindex="-1"></a>Ya tienes ambos números: $P(Y_1{=}3,Y_2{=}1)=P(3,1)=\tfrac{1}{8}$ de la tabla conjunta, y $P(Y_2{=}1)=\tfrac{4}{8}$ de la marginal que acabas de calcular. Entonces:</span>
-<span id="cb16-179"><a href="#cb16-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-180"><a href="#cb16-180" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-181"><a href="#cb16-181" aria-hidden="true" tabindex="-1"></a>P(Y_1=3 \mid Y_2=1) = \frac{1/8}{4/8} = \frac{1}{4} = 0.25</span>
-<span id="cb16-182"><a href="#cb16-182" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-183"><a href="#cb16-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-184"><a href="#cb16-184" aria-hidden="true" tabindex="-1"></a>**Interpretación:** si ya sabes que la primera cara salió en el primer lanzamiento ($Y_2=1$), la probabilidad de que en total hayan salido las 3 caras sube a $0.25$ — mientras que, sin esa información, $P(Y_1=3)=\tfrac{1}{8}=0.125$ (la marginal). Que la condicional sea distinta de la marginal es, de hecho, una señal de que $Y_1$ y $Y_2$ no son independientes — lo vas a confirmar formalmente a continuación.</span>
-<span id="cb16-185"><a href="#cb16-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-188"><a href="#cb16-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-189"><a href="#cb16-189" aria-hidden="true" tabindex="-1"></a><span class="co"># Condicional: P(Y1=3 | Y2=1)</span></span>
-<span id="cb16-190"><a href="#cb16-190" aria-hidden="true" tabindex="-1"></a>p_Y1_3_Y2_1 <span class="ot">&lt;-</span> prob_matrix[<span class="st">"3"</span>, <span class="st">"1"</span>]</span>
-<span id="cb16-191"><a href="#cb16-191" aria-hidden="true" tabindex="-1"></a>p_Y2_1 <span class="ot">&lt;-</span> marginal_Y2[<span class="st">"1"</span>]</span>
-<span id="cb16-192"><a href="#cb16-192" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1 <span class="ot">&lt;-</span> p_Y1_3_Y2_1 <span class="sc">/</span> p_Y2_1</span>
-<span id="cb16-193"><a href="#cb16-193" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1</span>
-<span id="cb16-194"><a href="#cb16-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-195"><a href="#cb16-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-196"><a href="#cb16-196" aria-hidden="true" tabindex="-1"></a><span class="fu">### Verificación de independencia: conjunta vs. producto de marginales</span></span>
-<span id="cb16-197"><a href="#cb16-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-198"><a href="#cb16-198" aria-hidden="true" tabindex="-1"></a>$Y_1$ y $Y_2$ serían independientes solo si $P(Y_1=y_1,Y_2=y_2)=P(Y_1=y_1)\cdot P(Y_2=y_2)$ se cumple en **cada** casilla. Basta con que falle en una sola para descartar la independencia — y la casilla $(Y_1{=}2,Y_2{=}1)$ ya es sospechosa, porque ahí la conjunta es el doble de las demás:</span>
-<span id="cb16-199"><a href="#cb16-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-200"><a href="#cb16-200" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-201"><a href="#cb16-201" aria-hidden="true" tabindex="-1"></a>P(Y_1=2)\cdot P(Y_2=1) = \frac{3}{8}\cdot\frac{4}{8} = \frac{12}{64} = \frac{3}{16} = 0.1875</span>
-<span id="cb16-202"><a href="#cb16-202" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-203"><a href="#cb16-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-204"><a href="#cb16-204" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-205"><a href="#cb16-205" aria-hidden="true" tabindex="-1"></a>P(Y_1=2,\,Y_2=1) = \frac{2}{8} = 0.25</span>
-<span id="cb16-206"><a href="#cb16-206" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-207"><a href="#cb16-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-208"><a href="#cb16-208" aria-hidden="true" tabindex="-1"></a>Como $0.25 \ne 0.1875$, la igualdad ya falla en esta única casilla — con eso alcanza para concluir que **$Y_1$ y $Y_2$ no son independientes**, sin necesidad de revisar las demás. (El código de abajo sí las revisa todas, para que veas el patrón completo.)</span>
-<span id="cb16-209"><a href="#cb16-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-212"><a href="#cb16-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-213"><a href="#cb16-213" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificación de independencia: comparar la matriz conjunta contra el producto de marginales</span></span>
-<span id="cb16-214"><a href="#cb16-214" aria-hidden="true" tabindex="-1"></a>independencia_teorica <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_Y1, marginal_Y2)</span>
-<span id="cb16-215"><a href="#cb16-215" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(prob_matrix, <span class="dv">3</span>)</span>
-<span id="cb16-216"><a href="#cb16-216" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(independencia_teorica, <span class="dv">3</span>)</span>
-<span id="cb16-217"><a href="#cb16-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-218"><a href="#cb16-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-219"><a href="#cb16-219" aria-hidden="true" tabindex="-1"></a>El código confirma, casilla por casilla, lo que ya calculaste a mano: <span class="in">`round(prob_matrix, 3)`</span> y <span class="in">`round(independencia_teorica, 3)`</span> difieren en varias posiciones, no solo en $(Y_1{=}2,Y_2{=}1)$.</span>
-<span id="cb16-220"><a href="#cb16-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-221"><a href="#cb16-221" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb16-222"><a href="#cb16-222" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resultado del ejemplo</span></span>
-<span id="cb16-223"><a href="#cb16-223" aria-hidden="true" tabindex="-1"></a>Las dos matrices de arriba **no son iguales** — la matriz conjunta real tiene ceros donde el producto de marginales no los tiene. Esto confirma que $Y_1$ y $Y_2$ **no son independientes**: saber en qué tiro salió la primera cara determina información parcial sobre el número total de caras, y viceversa.</span>
-<span id="cb16-224"><a href="#cb16-224" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-225"><a href="#cb16-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-226"><a href="#cb16-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb16-227"><a href="#cb16-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-228"><a href="#cb16-228" aria-hidden="true" tabindex="-1"></a>De 9 ejecutivos: 4 casados, 3 solteros, 2 divorciados. Se seleccionan 3 al azar. $Y_1$ = número de casados seleccionados, $Y_2$ = número de solteros seleccionados.</span>
-<span id="cb16-229"><a href="#cb16-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-230"><a href="#cb16-230" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Construye la función de probabilidad conjunta usando combinaciones (<span class="in">`choose()`</span>), siguiendo la lógica de una distribución hipergeométrica multivariada.</span>
-<span id="cb16-231"><a href="#cb16-231" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Obtén la distribución marginal de $Y_1$.</span>
-<span id="cb16-232"><a href="#cb16-232" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Si $Y_3 = 3 - Y_1 - Y_2$ es el número de divorciados seleccionados, calcula $P(Y_3=1 | Y_2=1)$.</span>
-<span id="cb16-233"><a href="#cb16-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-234"><a href="#cb16-234" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb16-235"><a href="#cb16-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-236"><a href="#cb16-236" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb16-237"><a href="#cb16-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-238"><a href="#cb16-238" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb16-239"><a href="#cb16-239" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1: completa la función correcta</span></span>
-<span id="cb16-240"><a href="#cb16-240" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">___</span>(prob_matrix)</span>
-<span id="cb16-241"><a href="#cb16-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-242"><a href="#cb16-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-243"><a href="#cb16-243" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb16-244"><a href="#cb16-244" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb16-245"><a href="#cb16-245" aria-hidden="true" tabindex="-1"></a><span class="in">`rowSums(prob_matrix)`</span> — suma cada fila de la tabla conjunta para obtener la marginal de Y1.</span>
-<span id="cb16-246"><a href="#cb16-246" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb16-247"><a href="#cb16-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-248"><a href="#cb16-248" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb16-249"><a href="#cb16-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-250"><a href="#cb16-250" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap8"</span><span class="dt">&gt;</span></span>
-<span id="cb16-251"><a href="#cb16-251" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Las marginales se obtienen sumando la tabla conjunta en una dirección.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb16-252"><a href="#cb16-252" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb16-253"><a href="#cb16-253" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Basta con que una sola celda cumpla la igualdad para decir que las variables son independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb16-254"><a href="#cb16-254" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb16-255"><a href="#cb16-255" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. La condicional P(Y1|Y2) se calcula dividiendo la conjunta entre la marginal de Y2.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb16-256"><a href="#cb16-256" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb16-257"><a href="#cb16-257" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP8()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb16-258"><a href="#cb16-258" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap8"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb16-259"><a href="#cb16-259" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb16-260"><a href="#cb16-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-261"><a href="#cb16-261" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb16-262"><a href="#cb16-262" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP8</span>() {</span>
-<span id="cb16-263"><a href="#cb16-263" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb16-264"><a href="#cb16-264" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb16-265"><a href="#cb16-265" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb16-266"><a href="#cb16-266" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb16-267"><a href="#cb16-267" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb16-268"><a href="#cb16-268" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
-<span id="cb16-269"><a href="#cb16-269" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb16-270"><a href="#cb16-270" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb16-271"><a href="#cb16-271" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb16-272"><a href="#cb16-272" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb16-273"><a href="#cb16-273" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-274"><a href="#cb16-274" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb16-275"><a href="#cb16-275" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb16-276"><a href="#cb16-276" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb16-277"><a href="#cb16-277" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb16-278"><a href="#cb16-278" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-279"><a href="#cb16-279" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
-<span id="cb16-280"><a href="#cb16-280" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb16-281"><a href="#cb16-281" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb16-282"><a href="#cb16-282" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-283"><a href="#cb16-283" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb16-284"><a href="#cb16-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-285"><a href="#cb16-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb16-286"><a href="#cb16-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-287"><a href="#cb16-287" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb16-288"><a href="#cb16-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La distribución conjunta contiene toda la información sobre cómo se relacionan dos variables aleatorias.</span>
-<span id="cb16-289"><a href="#cb16-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las marginales se obtienen sumando la tabla conjunta en una dirección; las condicionales dividen una celda entre su marginal correspondiente.</span>
-<span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La independencia de variables aleatorias exige que la igualdad $P(Y_1,Y_2)=P(Y_1)P(Y_2)$ se cumpla en **todas** las combinaciones, no solo en algunas.</span>
-<span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb16-294"><a href="#cb16-294" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
-<span id="cb16-295"><a href="#cb16-295" aria-hidden="true" tabindex="-1"></a>Todo esto fue para el caso **discreto** (tablas finitas). El [Tema P8b](tema-p8b-estudiante.qmd) extiende las mismas ideas —conjunta, marginal, independencia— al caso **continuo**, donde una tabla se reemplaza por una función de densidad y las sumas se vuelven integrales.</span>
-<span id="cb16-296"><a href="#cb16-296" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P8 · Distribución de probabilidad multivariada"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🪙 Tres monedas, dos variables, una pregunta escondida</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>Lanzas 3 monedas. $Y_1$ = número de caras. $Y_2$ = tu ganancia en una apuesta: si la primera cara sale en el primer tiro, ganas \$1; en el segundo, \$2; en el tercero, \$3; si no sale ninguna cara, pierdes \$1. ¿Estas dos variables están relacionadas entre sí, o son independientes?</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fuente de este tema</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>Este tema y su ejemplo del libro están basados en Blanco Castañeda, L. (2010). *Probabilidad* (2.ª ed.). Universidad Nacional de Colombia, Capítulo 5 (Vectores Aleatorios), Ejemplos 5.7 y 5.8. Todos los resultados numéricos fueron verificados de forma independiente antes de incluirse aquí.</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>Antes de calcular: $Y_2$ depende de *cuándo* sale la primera cara, y $Y_1$ del *número total* de caras. ¿Tu intuición dice que son independientes o no?</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: construyendo la tabla conjunta</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>La forma más segura de construir la tabla conjunta no es "adivinar" una fórmula, sino **enumerar los 8 resultados posibles** de los 3 lanzamientos y contar directamente:</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Los 8 resultados igualmente probables de lanzar 3 monedas</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>monedas <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">t1 =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"S"</span>), <span class="at">t2 =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"S"</span>), <span class="at">t3 =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"S"</span>))</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Y1: número total de caras</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>monedas<span class="sc">$</span>Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(monedas[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="sc">==</span> <span class="st">"C"</span>)</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Y2: en qué tiro salió la PRIMERA cara (o -1 si no salió ninguna)</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>primera_cara <span class="ot">&lt;-</span> <span class="cf">function</span>(fila) {</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>  pos <span class="ot">&lt;-</span> <span class="fu">which</span>(fila <span class="sc">==</span> <span class="st">"C"</span>)</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(pos) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">min</span>(pos)</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>monedas<span class="sc">$</span>Y2 <span class="ot">&lt;-</span> <span class="fu">apply</span>(monedas[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">1</span>, primera_cara)</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla conjunta: cuenta cada combinación (Y1,Y2) y divide por los 8 casos</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>prob_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(monedas<span class="sc">$</span>Y1, monedas<span class="sc">$</span>Y2) <span class="sc">/</span> <span class="fu">nrow</span>(monedas)</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>prob_matrix</span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>Mira la fila <span class="in">`Y1=2`</span>: la combinación <span class="in">`(Y1=2, Y2=1)`</span> tiene probabilidad 2/8, el doble que las demás celdas no vacías. ¿Por qué? (pista: hay dos maneras distintas de sacar exactamente 2 caras *con la primera cara en el primer tiro*: CCS y CSC).</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🔎 De los números a los casos: ¿qué evento hay detrás de cada probabilidad?</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>La tabla <span class="in">`prob_matrix`</span> de arriba es correcta, pero solo muestra fracciones — no dice **qué secuencia de monedas** produce cada una. Como los 8 resultados de lanzar 3 monedas son igualmente probables, cada uno individualmente tiene probabilidad $1/8$, y notamos $C$ = cara, $S$ = sello. Traduciendo cada uno de los 8 resultados a sus valores de $(Y_1, Y_2)$:</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Evento (t1,t2,t3) <span class="pp">|</span> Probabilidad <span class="pp">|</span> $Y_1$ (n° caras) <span class="pp">|</span> $Y_2$ (tiro de la 1ª cara) <span class="pp">|</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,S,S)=\dfrac{1}{8}$ <span class="pp">|</span> ninguna cara <span class="pp">|</span> $0$ <span class="pp">|</span> $-1$ <span class="pp">|</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,S,S)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 1 <span class="pp">|</span> $1$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,C,S)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 2 <span class="pp">|</span> $1$ <span class="pp">|</span> $2$ <span class="pp">|</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,S,C)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 3 <span class="pp">|</span> $1$ <span class="pp">|</span> $3$ <span class="pp">|</span></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,C,S)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $2$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,S,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $2$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,C,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 2 <span class="pp">|</span> $2$ <span class="pp">|</span> $2$ <span class="pp">|</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,C,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $3$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>Como $(C,C,S)$ y $(C,S,C)$ caen en la **misma** casilla $(Y_1{=}2,\,Y_2{=}1)$, sus probabilidades se **suman**: eso es exactamente lo que la celda de la tabla conjunta representa — la probabilidad de la *casilla*, no la de un solo lanzamiento. Agrupando los 8 eventos por su casilla $(Y_1,Y_2)$, la tabla conjunta completa, ahora con los eventos explícitos, queda:</span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(Y_1,Y_2)$ <span class="pp">|</span> Eventos que caen ahí <span class="pp">|</span> Probabilidad de la casilla <span class="pp">|</span></span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---|:---:|</span></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(0,-1)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,S,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,S,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,S,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,S,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,2)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,C,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,C,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,3)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,S,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,S,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(2,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,C,S),\,(C,S,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,C,S)+P(C,S,C)=\dfrac{1}{8}+\dfrac{1}{8}=\dfrac{2}{8}$ <span class="pp">|</span></span>
+<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(2,2)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,C,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,C,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(3,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,C,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,C,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>Todas las demás combinaciones de $(Y_1,Y_2)$ (por ejemplo, $(2,3)$ o $(0,2)$) tienen probabilidad **0**: no existe ninguna secuencia de 3 monedas que las produzca — por eso `prob_matrix` las deja vacías. Esta es la razón exacta por la que $(Y_1{=}2,Y_2{=}1)$ vale $2/8$ y no $1/8$ como las demás casillas no vacías: es la **única** casilla a la que llegan dos eventos distintos en vez de uno solo.</span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrección de rigor</span></span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a>Una versión anterior de este tema seguía la solución oficial del Laboratorio 3, que calcula la tabla conjunta con una función que solo cubre la diagonal ($Y_1=1\Rightarrow Y_2=1$, $Y_1=2\Rightarrow Y_2=2$, etc.), asignando probabilidad 0 a combinaciones que sí son posibles — por ejemplo, <span class="in">`CCS`</span> y <span class="in">`CSC`</span> dan $Y_1=2$ pero $Y_2=1$ (la primera cara salió en el primer tiro), no $Y_2=2$. Aquí se corrigió **enumerando los 8 resultados directamente** en vez de escribir una fórmula a mano — la lección general es que cuando el espacio muestral es pequeño y enumerable, contar es más confiable que "adivinar" una expresión cerrada.</span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución conjunta</span></span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>Para dos variables aleatorias discretas $Y_1, Y_2$, la función de probabilidad conjunta da $P(Y_1=y_1, Y_2=y_2)$ para cada combinación posible — toda la información sobre cómo se comportan **juntas**.</span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a>**Cómo se construye, en general:** enumeras el espacio muestral (todos los resultados igualmente probables), calculas ambas variables sobre cada resultado, y cuentas cuántos resultados caen en cada combinación $(y_1,y_2)$. Un segundo ejemplo, distinto al de las monedas: lanza dos dados justos y define $X=\max(D_1,D_2)$, $Y=D_1+D_2$. Hay $6\times 6=36$ pares $(d_1,d_2)$ igualmente probables. Para $(X{=}3,Y{=}5)$, buscas qué pares cumplen **ambas** condiciones a la vez:</span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span>(d_1,d_2): \max(d_1,d_2)=3,\ d_1+d_2=5<span class="sc">\}</span> = <span class="sc">\{</span>(2,3),(3,2)<span class="sc">\}</span> \;\Rightarrow\; P(X{=}3,\,Y{=}5)=\frac{2}{36}=\frac{1}{18}</span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">d1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">d2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="fu">pmax</span>(dados<span class="sc">$</span>d1, dados<span class="sc">$</span>d2)</span>
+<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Y <span class="ot">&lt;-</span> dados<span class="sc">$</span>d1 <span class="sc">+</span> dados<span class="sc">$</span>d2</span>
+<span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a>conjunta_dados <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>X, dados<span class="sc">$</span>Y) <span class="sc">/</span> <span class="fu">nrow</span>(dados)</span>
+<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a>Es exactamente la misma lógica que ya usaste con <span class="in">`expand.grid()`</span> y <span class="in">`table()`</span> en la sección de exploración: solo cambia qué variables calculas sobre cada resultado.</span>
+<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribuciones marginales</span></span>
+<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a>Se obtienen "sumando hacia afuera" la variable que no interesa:</span>
+<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1) = \sum_{y_2} P(Y_1=y_1, Y_2=y_2)$$</span>
+<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a>En R, esto es exactamente <span class="in">`rowSums()`</span> o <span class="in">`colSums()`</span> sobre la matriz conjunta.</span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a>**Cómo "devolverte" a la marginal cuando solo tienes la conjunta:** retomando `conjunta_dados`, si quieres la distribución de $X=\max(D_1,D_2)$ sola, sumas la fila $X=3$ sobre **todos** los valores de $Y$ — sin importar cuál fue la suma, solo que el máximo haya sido 3:</span>
+<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a>P(X=3) = \sum_{y} P(X{=}3,Y{=}y) = P(3,4)+P(3,5)+P(3,6) = \frac{2}{36}+\frac{2}{36}+\frac{1}{36} = \frac{5}{36}</span>
+<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a>marginal_X_dados <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(conjunta_dados)</span>
+<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a>marginal_X_dados[<span class="st">"3"</span>]   <span class="co"># 5/36 = 0.1389</span></span>
+<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-116"><a href="#cb19-116" aria-hidden="true" tabindex="-1"></a>"Devolverse" a la marginal es literalmente deshacer la partición por $Y$ que hiciste al construir la conjunta: vuelves a agrupar todo lo que tenga $X=3$, sin importar el valor de $Y$. Vas a repetir este mismo procedimiento con $Y_1$ y $Y_2$ (monedas) en el ejemplo de abajo.</span>
+<span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-118"><a href="#cb19-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución condicional</span></span>
+<span id="cb19-119"><a href="#cb19-119" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1 | Y_2=y_2) = \frac{P(Y_1=y_1, Y_2=y_2)}{P(Y_2=y_2)}$$</span>
+<span id="cb19-120"><a href="#cb19-120" aria-hidden="true" tabindex="-1"></a>La misma idea del Tema P2, ahora aplicada a variables aleatorias en vez de eventos sueltos.</span>
+<span id="cb19-121"><a href="#cb19-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-122"><a href="#cb19-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## Independencia de variables aleatorias</span></span>
+<span id="cb19-123"><a href="#cb19-123" aria-hidden="true" tabindex="-1"></a>$Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2=y_2)$ para **toda** combinación de valores — no basta con que se cumpla en una sola celda de la tabla.</span>
+<span id="cb19-124"><a href="#cb19-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-125"><a href="#cb19-125" aria-hidden="true" tabindex="-1"></a>**Cómo cambia la independencia con y sin reemplazo (Ej. 5.35 y 5.36 del libro):** una urna tiene 3 bolas rojas y 6 azules (9 en total). Se extrae una muestra de tamaño 2. $X:=1$ si la primera bola es roja (0 si es azul), $Y:=1$ si la segunda es roja (0 si es azul).</span>
+<span id="cb19-126"><a href="#cb19-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-127"><a href="#cb19-127" aria-hidden="true" tabindex="-1"></a>**Con reemplazo (Ej. 5.35):** la composición de la urna es *la misma* en ambas extracciones, así que:</span>
+<span id="cb19-128"><a href="#cb19-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-129"><a href="#cb19-129" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-130"><a href="#cb19-130" aria-hidden="true" tabindex="-1"></a>P(X{=}0,Y{=}0)=\tfrac69\cdot\tfrac69=\tfrac49, \quad P(X{=}0,Y{=}1)=\tfrac69\cdot\tfrac39=\tfrac29, \quad P(X{=}1,Y{=}0)=\tfrac39\cdot\tfrac69=\tfrac29, \quad P(X{=}1,Y{=}1)=\tfrac39\cdot\tfrac39=\tfrac19</span>
+<span id="cb19-131"><a href="#cb19-131" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-132"><a href="#cb19-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-133"><a href="#cb19-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $X\backslash Y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb19-134"><a href="#cb19-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|</span></span>
+<span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> $\tfrac{4}{9}$ <span class="pp">|</span> $\tfrac{2}{9}$ <span class="pp">|</span></span>
+<span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> $\tfrac{2}{9}$ <span class="pp">|</span> $\tfrac{1}{9}$ <span class="pp">|</span></span>
+<span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a>Es fácil verificar que $P(X{=}x,Y{=}y)=P(X{=}x)P(Y{=}y)$ para las 4 combinaciones — con marginales $P(X{=}0)=P(Y{=}0)=\tfrac23$, $P(X{=}1)=P(Y{=}1)=\tfrac13$. **$X$ e $Y$ son independientes** — tiene sentido, porque la composición de la urna no cambia entre extracciones.</span>
+<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a>**Sin reemplazo (Ej. 5.36):** ahora la segunda extracción sí depende de qué salió en la primera:</span>
+<span id="cb19-141"><a href="#cb19-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-142"><a href="#cb19-142" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a>P(X{=}0,Y{=}0)=\tfrac69\cdot\tfrac58=\tfrac{5}{12}, \quad P(X{=}0,Y{=}1)=\tfrac69\cdot\tfrac38=\tfrac{3}{12}, \quad P(X{=}1,Y{=}0)=\tfrac39\cdot\tfrac68=\tfrac{3}{12}, \quad P(X{=}1,Y{=}1)=\tfrac39\cdot\tfrac28=\tfrac{1}{12}</span>
+<span id="cb19-144"><a href="#cb19-144" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-145"><a href="#cb19-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-146"><a href="#cb19-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $X\backslash Y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb19-147"><a href="#cb19-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|</span></span>
+<span id="cb19-148"><a href="#cb19-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> $\tfrac{5}{12}$ <span class="pp">|</span> $\tfrac{3}{12}$ <span class="pp">|</span></span>
+<span id="cb19-149"><a href="#cb19-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> $\tfrac{3}{12}$ <span class="pp">|</span> $\tfrac{1}{12}$ <span class="pp">|</span></span>
+<span id="cb19-150"><a href="#cb19-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-151"><a href="#cb19-151" aria-hidden="true" tabindex="-1"></a>Las marginales siguen siendo $P(X{=}0)=P(Y{=}0)=\tfrac23$ (sin condicionar, la chance de roja en *cualquier* posición sigue siendo $\tfrac39=\tfrac13$ para 1, $\tfrac23$ para 0 — el mismo argumento de simetría del Ejemplo 5.29). Pero:</span>
+<span id="cb19-152"><a href="#cb19-152" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a>P(X{=}0,Y{=}0)=\frac{5}{12} \;\ne\; \frac23\times\frac23=\frac49=P(X{=}0)P(Y{=}0)</span>
+<span id="cb19-154"><a href="#cb19-154" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-155"><a href="#cb19-155" aria-hidden="true" tabindex="-1"></a>**$X$ e $Y$ ya no son independientes.** El muestreo sin reemplazo es exactamente lo que rompe la independencia: saber que la primera bola fue roja cambia la composición que queda para la segunda.</span>
+<span id="cb19-156"><a href="#cb19-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-157"><a href="#cb19-157" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb19-158"><a href="#cb19-158" aria-hidden="true" tabindex="-1"></a><span class="co"># Con reemplazo: composicion de la urna no cambia -&gt; independientes</span></span>
+<span id="cb19-159"><a href="#cb19-159" aria-hidden="true" tabindex="-1"></a>p_con <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>)<span class="sc">/</span><span class="dv">9</span>, <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>)<span class="sc">/</span><span class="dv">9</span>)   <span class="co"># producto de marginales = conjunta</span></span>
+<span id="cb19-160"><a href="#cb19-160" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(p_con) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">X =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">Y =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb19-161"><a href="#cb19-161" aria-hidden="true" tabindex="-1"></a>p_con</span>
+<span id="cb19-162"><a href="#cb19-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-163"><a href="#cb19-163" aria-hidden="true" tabindex="-1"></a><span class="co"># Sin reemplazo: la conjunta ya no es un producto de marginales</span></span>
+<span id="cb19-164"><a href="#cb19-164" aria-hidden="true" tabindex="-1"></a>p_sin <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">6</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">5</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">6</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>,</span>
+<span id="cb19-165"><a href="#cb19-165" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">3</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">6</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">9</span><span class="sc">*</span><span class="dv">2</span><span class="sc">/</span><span class="dv">8</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-166"><a href="#cb19-166" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(p_sin) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">X =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">Y =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb19-167"><a href="#cb19-167" aria-hidden="true" tabindex="-1"></a>p_sin</span>
+<span id="cb19-168"><a href="#cb19-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-169"><a href="#cb19-169" aria-hidden="true" tabindex="-1"></a>marginal_X <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(p_sin)</span>
+<span id="cb19-170"><a href="#cb19-170" aria-hidden="true" tabindex="-1"></a>marginal_Y <span class="ot">&lt;-</span> <span class="fu">colSums</span>(p_sin)</span>
+<span id="cb19-171"><a href="#cb19-171" aria-hidden="true" tabindex="-1"></a>producto_marginales <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_X, marginal_Y)</span>
+<span id="cb19-172"><a href="#cb19-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-173"><a href="#cb19-173" aria-hidden="true" tabindex="-1"></a>p_sin[<span class="st">"0"</span>, <span class="st">"0"</span>] <span class="sc">==</span> producto_marginales[<span class="st">"0"</span>, <span class="st">"0"</span>]   <span class="co"># FALSE -&gt; no independientes</span></span>
+<span id="cb19-174"><a href="#cb19-174" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-175"><a href="#cb19-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-176"><a href="#cb19-176" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb19-177"><a href="#cb19-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 El patrón general</span></span>
+<span id="cb19-178"><a href="#cb19-178" aria-hidden="true" tabindex="-1"></a>"Con reemplazo" siempre da variables independientes (la urna "se olvida" de lo que ya salió); "sin reemplazo" casi nunca las da, porque cada extracción cambia lo que queda disponible para las siguientes. Es la misma razón por la que, en el Ejemplo 5.29 (Tema P9a), las indicadoras $X_i$ de una extracción hipergeométrica sin reemplazo son dependientes entre sí, aunque cada una tenga individualmente $P(X_i{=}1)=R/N$.</span>
+<span id="cb19-179"><a href="#cb19-179" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-180"><a href="#cb19-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-181"><a href="#cb19-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — 3 monedas (Ej. 5.7)</span></span>
+<span id="cb19-182"><a href="#cb19-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-183"><a href="#cb19-183" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.7):** se lanza una moneda corriente tres veces consecutivas. $X:=$ "número de caras obtenidas", $Y:=$ "número del lanzamiento en el que se obtiene por primera vez cara" ($Y=0$ si no hay ninguna). Es el mismo experimento que ya trabajaste arriba con $Y_1,Y_2$ — aquí usamos la notación $X,Y$ del libro, con $Y=0$ en vez de $Y_2=-1$ para "no salió ninguna cara".</span>
+<span id="cb19-184"><a href="#cb19-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-185"><a href="#cb19-185" aria-hidden="true" tabindex="-1"></a>**1. Distribución conjunta de $X$ e $Y$:**</span>
+<span id="cb19-186"><a href="#cb19-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-187"><a href="#cb19-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $X\backslash Y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb19-188"><a href="#cb19-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb19-189"><a href="#cb19-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb19-190"><a href="#cb19-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 0 <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-191"><a href="#cb19-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 0 <span class="pp">|</span> $\tfrac{2}{8}$ <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb19-192"><a href="#cb19-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 0 <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb19-193"><a href="#cb19-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-194"><a href="#cb19-194" aria-hidden="true" tabindex="-1"></a>**2. Distribuciones marginales de $X$ e $Y$:**</span>
+<span id="cb19-195"><a href="#cb19-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-196"><a href="#cb19-196" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $x$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb19-197"><a href="#cb19-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb19-198"><a href="#cb19-198" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(X=x)$ <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span> $\tfrac{3}{8}$ <span class="pp">|</span> $\tfrac{3}{8}$ <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-199"><a href="#cb19-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-200"><a href="#cb19-200" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(Y=y)$ <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span> $\tfrac{4}{8}$ <span class="pp">|</span> $\tfrac{2}{8}$ <span class="pp">|</span> $\tfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb19-203"><a href="#cb19-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-204"><a href="#cb19-204" aria-hidden="true" tabindex="-1"></a>**3. Calcular $P(X\le 2,Y=1)$, $P(X\le 2,Y\le 1)$ y $P(X\le 2 \text{ o } Y\le 1)$:**</span>
+<span id="cb19-205"><a href="#cb19-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-206"><a href="#cb19-206" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-207"><a href="#cb19-207" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb19-208"><a href="#cb19-208" aria-hidden="true" tabindex="-1"></a>P(X\le 2,\,Y=1) &amp;= P(X{=}0,Y{=}1)+P(X{=}1,Y{=}1)+P(X{=}2,Y{=}1) <span class="sc">\\</span></span>
+<span id="cb19-209"><a href="#cb19-209" aria-hidden="true" tabindex="-1"></a>&amp;= 0+\tfrac{1}{8}+\tfrac{2}{8} = \tfrac{3}{8}</span>
+<span id="cb19-210"><a href="#cb19-210" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb19-211"><a href="#cb19-211" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-212"><a href="#cb19-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-213"><a href="#cb19-213" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-214"><a href="#cb19-214" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb19-215"><a href="#cb19-215" aria-hidden="true" tabindex="-1"></a>P(X\le 2,\,Y\le 1) &amp;= P(X\le 2,Y{=}1) + P(X{=}0,Y{=}0)+P(X{=}1,Y{=}0)+P(X{=}2,Y{=}0) <span class="sc">\\</span></span>
+<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a>&amp;= \tfrac{3}{8} + \tfrac{1}{8}+0+0 = \tfrac{1}{2}</span>
+<span id="cb19-217"><a href="#cb19-217" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb19-218"><a href="#cb19-218" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-219"><a href="#cb19-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-220"><a href="#cb19-220" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-221"><a href="#cb19-221" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb19-222"><a href="#cb19-222" aria-hidden="true" tabindex="-1"></a>P(X\le 2 \text{ o } Y\le 1) &amp;= P(X\le 2)+P(Y\le 1)-P(X\le 2,Y\le 1) <span class="sc">\\</span></span>
+<span id="cb19-223"><a href="#cb19-223" aria-hidden="true" tabindex="-1"></a>&amp;= \big<span class="co">[</span><span class="ot">P(X{=}0)+P(X{=}1)+P(X{=}2)\big</span><span class="co">]</span> + \big<span class="co">[</span><span class="ot">P(Y{=}0)+P(Y{=}1)\big</span><span class="co">]</span> - \tfrac{1}{2} <span class="sc">\\</span></span>
+<span id="cb19-224"><a href="#cb19-224" aria-hidden="true" tabindex="-1"></a>&amp;= \tfrac{7}{8}+\tfrac{5}{8}-\tfrac{1}{2} = 1</span>
+<span id="cb19-225"><a href="#cb19-225" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb19-226"><a href="#cb19-226" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-227"><a href="#cb19-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-228"><a href="#cb19-228" aria-hidden="true" tabindex="-1"></a>Que $P(X\le 2 \text{ o } Y\le 1)=1$ tiene sentido: el único resultado que **no** cumple $X\le 2$ es $X=3$ (las 3 caras), y ese resultado sí cumple $Y\le 1$ (con $Y=1$) — entre los dos eventos cubren *todo* el espacio muestral.</span>
+<span id="cb19-229"><a href="#cb19-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-230"><a href="#cb19-230" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb19-231"><a href="#cb19-231" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion en R, reusando prob_matrix (aqui X=Y1, Y=Y2 con -1 en vez de 0)</span></span>
+<span id="cb19-232"><a href="#cb19-232" aria-hidden="true" tabindex="-1"></a>p_x_le2_y1     <span class="ot">&lt;-</span> <span class="fu">sum</span>(prob_matrix[<span class="fu">c</span>(<span class="st">"0"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>), <span class="st">"1"</span>])</span>
+<span id="cb19-233"><a href="#cb19-233" aria-hidden="true" tabindex="-1"></a>p_x_le2_y_le1  <span class="ot">&lt;-</span> p_x_le2_y1 <span class="sc">+</span> prob_matrix[<span class="st">"0"</span>, <span class="fu">as.character</span>(<span class="sc">-</span><span class="dv">1</span>)]</span>
+<span id="cb19-234"><a href="#cb19-234" aria-hidden="true" tabindex="-1"></a>p_x_le2        <span class="ot">&lt;-</span> <span class="fu">sum</span>(prob_matrix[<span class="fu">c</span>(<span class="st">"0"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>), ])</span>
+<span id="cb19-235"><a href="#cb19-235" aria-hidden="true" tabindex="-1"></a>p_y_le1        <span class="ot">&lt;-</span> <span class="fu">sum</span>(prob_matrix[, <span class="fu">c</span>(<span class="fu">as.character</span>(<span class="sc">-</span><span class="dv">1</span>), <span class="st">"1"</span>)])</span>
+<span id="cb19-236"><a href="#cb19-236" aria-hidden="true" tabindex="-1"></a>p_union        <span class="ot">&lt;-</span> p_x_le2 <span class="sc">+</span> p_y_le1 <span class="sc">-</span> p_x_le2_y_le1</span>
+<span id="cb19-237"><a href="#cb19-237" aria-hidden="true" tabindex="-1"></a>p_union   <span class="co"># debe dar 1</span></span>
+<span id="cb19-238"><a href="#cb19-238" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-239"><a href="#cb19-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-240"><a href="#cb19-240" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — puntillas, tachuelas y tornillos (Ej. 5.8)</span></span>
+<span id="cb19-241"><a href="#cb19-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-242"><a href="#cb19-242" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.8):** una caja contiene 3 puntillas, 4 tachuelas y 2 tornillos. Se extraen, al azar, 3 objetos (sin reemplazo). $X:=$ número de tachuelas extraídas, $Y:=$ número de puntillas extraídas.</span>
+<span id="cb19-243"><a href="#cb19-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-244"><a href="#cb19-244" aria-hidden="true" tabindex="-1"></a>A diferencia del ejemplo de las monedas (donde cada resultado tenía la misma probabilidad), aquí el muestreo es **sin reemplazo** de un grupo con 3 categorías — la distribución conjunta se construye con la fórmula hipergeométrica multivariada:</span>
+<span id="cb19-245"><a href="#cb19-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-246"><a href="#cb19-246" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-247"><a href="#cb19-247" aria-hidden="true" tabindex="-1"></a>P(X=x,\,Y=y) = \frac{\dbinom{4}{x}\dbinom{3}{y}\dbinom{2}{9-(x+y)}}{\dbinom{9}{3}}, \qquad x,y = 0,1,2,3</span>
+<span id="cb19-248"><a href="#cb19-248" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-249"><a href="#cb19-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-250"><a href="#cb19-250" aria-hidden="true" tabindex="-1"></a>El numerador cuenta, por separado, de cuántas formas eliges $x$ tachuelas (de 4), $y$ puntillas (de 3) y el resto — $9-(x+y)$ objetos — de tornillos (de 2); el denominador es el total de formas de elegir 3 objetos de los 9. Cuando $9-(x+y)$ es negativo o mayor que 2, ese combinatorio vale 0 — no hay suficientes tornillos para completar la extracción.</span>
+<span id="cb19-251"><a href="#cb19-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-252"><a href="#cb19-252" aria-hidden="true" tabindex="-1"></a>**Distribución conjunta** (todos los valores sobre $\binom{9}{3}=84$):</span>
+<span id="cb19-253"><a href="#cb19-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-254"><a href="#cb19-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $X\backslash Y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb19-255"><a href="#cb19-255" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb19-256"><a href="#cb19-256" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span> $\tfrac{3}{84}$ <span class="pp">|</span> $\tfrac{6}{84}$ <span class="pp">|</span> $\tfrac{1}{84}$ <span class="pp">|</span></span>
+<span id="cb19-257"><a href="#cb19-257" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> $\tfrac{4}{84}$ <span class="pp">|</span> $\tfrac{24}{84}$ <span class="pp">|</span> $\tfrac{12}{84}$ <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb19-258"><a href="#cb19-258" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> $\tfrac{12}{84}$ <span class="pp">|</span> $\tfrac{18}{84}$ <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb19-259"><a href="#cb19-259" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> $\tfrac{4}{84}$ <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb19-260"><a href="#cb19-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-261"><a href="#cb19-261" aria-hidden="true" tabindex="-1"></a>**Distribuciones marginales:**</span>
+<span id="cb19-262"><a href="#cb19-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-263"><a href="#cb19-263" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $x$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb19-264"><a href="#cb19-264" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb19-265"><a href="#cb19-265" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(X=x)$ <span class="pp">|</span> $\tfrac{10}{84}$ <span class="pp">|</span> $\tfrac{40}{84}$ <span class="pp">|</span> $\tfrac{30}{84}$ <span class="pp">|</span> $\tfrac{4}{84}$ <span class="pp">|</span></span>
+<span id="cb19-266"><a href="#cb19-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-267"><a href="#cb19-267" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb19-268"><a href="#cb19-268" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb19-269"><a href="#cb19-269" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(Y=y)$ <span class="pp">|</span> $\tfrac{20}{84}$ <span class="pp">|</span> $\tfrac{45}{84}$ <span class="pp">|</span> $\tfrac{18}{84}$ <span class="pp">|</span> $\tfrac{1}{84}$ <span class="pp">|</span></span>
+<span id="cb19-270"><a href="#cb19-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-271"><a href="#cb19-271" aria-hidden="true" tabindex="-1"></a>Nota que cada marginal también se puede obtener directamente con la fórmula hipergeométrica de **una** variable, sin pasar por la tabla conjunta — por ejemplo, $P(X=x)=\binom{4}{x}\binom{5}{3-x}/\binom{9}{3}$ (agrupando puntillas y tornillos como "no tachuelas", $3+2=5$). Es la misma idea que "devolverte" a la marginal sumando filas, pero aprovechando que aquí existe además una fórmula cerrada.</span>
+<span id="cb19-272"><a href="#cb19-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-273"><a href="#cb19-273" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb19-274"><a href="#cb19-274" aria-hidden="true" tabindex="-1"></a><span class="co"># Construccion en R con la formula hipergeometrica multivariada</span></span>
+<span id="cb19-275"><a href="#cb19-275" aria-hidden="true" tabindex="-1"></a>p_conjunta_ej58 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb19-276"><a href="#cb19-276" aria-hidden="true" tabindex="-1"></a>  faltan <span class="ot">&lt;-</span> <span class="dv">9</span> <span class="sc">-</span> (x <span class="sc">+</span> y)</span>
+<span id="cb19-277"><a href="#cb19-277" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (faltan <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">||</span> faltan <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb19-278"><a href="#cb19-278" aria-hidden="true" tabindex="-1"></a>  <span class="fu">choose</span>(<span class="dv">4</span>, x) <span class="sc">*</span> <span class="fu">choose</span>(<span class="dv">3</span>, y) <span class="sc">*</span> <span class="fu">choose</span>(<span class="dv">2</span>, faltan) <span class="sc">/</span> <span class="fu">choose</span>(<span class="dv">9</span>, <span class="dv">3</span>)</span>
+<span id="cb19-279"><a href="#cb19-279" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-280"><a href="#cb19-280" aria-hidden="true" tabindex="-1"></a>conjunta_ej58 <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">Vectorize</span>(p_conjunta_ej58))</span>
+<span id="cb19-281"><a href="#cb19-281" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(conjunta_ej58) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">X =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">Y =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb19-282"><a href="#cb19-282" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(conjunta_ej58 <span class="sc">*</span> <span class="dv">84</span>)   <span class="co"># para comparar contra la tabla de arriba, en /84</span></span>
+<span id="cb19-283"><a href="#cb19-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-284"><a href="#cb19-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-285"><a href="#cb19-285" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb19-286"><a href="#cb19-286" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conexión con el laboratorio</span></span>
+<span id="cb19-287"><a href="#cb19-287" aria-hidden="true" tabindex="-1"></a>El Laboratorio de esta página usa la misma estructura (9 personas en 3 categorías, se seleccionan 3) — la técnica es idéntica a este ejemplo, solo cambia el contexto y lo que se pide calcular al final.</span>
+<span id="cb19-288"><a href="#cb19-288" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: marginales, condicional e independencia</span></span>
+<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a>Antes de correr el código, así se ven los cálculos a mano — usando la tabla conjunta con eventos que ya construiste arriba.</span>
+<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cálculo de la marginal de $Y_1$</span></span>
+<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a>$P(Y_1=y_1)$ se obtiene sumando la fila $y_1$ completa, es decir, sumando todas las casillas $(y_1,\cdot)$ sin importar el valor de $Y_2$:</span>
+<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a>P(Y_1=0) &amp;= P(0,-1) = \tfrac{1}{8} <span class="sc">\\</span></span>
+<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a>P(Y_1=1) &amp;= P(1,1)+P(1,2)+P(1,3) = \tfrac{1}{8}+\tfrac{1}{8}+\tfrac{1}{8} = \tfrac{3}{8} <span class="sc">\\</span></span>
+<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a>P(Y_1=2) &amp;= P(2,1)+P(2,2) = \tfrac{2}{8}+\tfrac{1}{8} = \tfrac{3}{8} <span class="sc">\\</span></span>
+<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a>P(Y_1=3) &amp;= P(3,1) = \tfrac{1}{8}</span>
+<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a>Verificación: $\tfrac{1}{8}+\tfrac{3}{8}+\tfrac{3}{8}+\tfrac{1}{8}=\tfrac{8}{8}=1$ ✓ — toda distribución marginal debe sumar 1, porque sigue cubriendo el 100% del espacio muestral.</span>
+<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cálculo de la marginal de $Y_2$</span></span>
+<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a>De la misma forma, $P(Y_2=y_2)$ suma la **columna** $y_2$ completa, sin importar el valor de $Y_1$:</span>
+<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a>P(Y_2=-1) &amp;= P(0,-1) = \tfrac{1}{8} <span class="sc">\\</span></span>
+<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a>P(Y_2=1) &amp;= P(1,1)+P(2,1)+P(3,1) = \tfrac{1}{8}+\tfrac{2}{8}+\tfrac{1}{8} = \tfrac{4}{8} <span class="sc">\\</span></span>
+<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a>P(Y_2=2) &amp;= P(1,2)+P(2,2) = \tfrac{1}{8}+\tfrac{1}{8} = \tfrac{2}{8} <span class="sc">\\</span></span>
+<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a>P(Y_2=3) &amp;= P(1,3) = \tfrac{1}{8}</span>
+<span id="cb19-321"><a href="#cb19-321" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb19-322"><a href="#cb19-322" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-323"><a href="#cb19-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a>Verificación: $\tfrac{1}{8}+\tfrac{4}{8}+\tfrac{2}{8}+\tfrac{1}{8}=\tfrac{8}{8}=1$ ✓.</span>
+<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)</span></span>
+<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a>marginal_Y2 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(prob_matrix)</span>
+<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a>marginal_Y2</span>
+<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1 (filas están rotuladas 0, 1, 2, 3)</span></span>
+<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(prob_matrix)</span>
+<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a>marginal_Y1</span>
+<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a>Compara estos resultados con el código: <span class="in">`marginal_Y1`</span> y <span class="in">`marginal_Y2`</span> deben coincidir exactamente con los valores calculados a mano arriba — es la misma operación (sumar filas o columnas), solo que R la hace automáticamente sobre <span class="in">`prob_matrix`</span>.</span>
+<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cálculo de la condicional $P(Y_1=3 \mid Y_2=1)$</span></span>
+<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a>Por definición de probabilidad condicional:</span>
+<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-345"><a href="#cb19-345" aria-hidden="true" tabindex="-1"></a>P(Y_1=3 \mid Y_2=1) = \frac{P(Y_1=3,\,Y_2=1)}{P(Y_2=1)}</span>
+<span id="cb19-346"><a href="#cb19-346" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a>Ya tienes ambos números: $P(Y_1{=}3,Y_2{=}1)=P(3,1)=\tfrac{1}{8}$ de la tabla conjunta, y $P(Y_2{=}1)=\tfrac{4}{8}$ de la marginal que acabas de calcular. Entonces:</span>
+<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a>P(Y_1=3 \mid Y_2=1) = \frac{1/8}{4/8} = \frac{1}{4} = 0.25</span>
+<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a>**Interpretación:** si ya sabes que la primera cara salió en el primer lanzamiento ($Y_2=1$), la probabilidad de que en total hayan salido las 3 caras sube a $0.25$ — mientras que, sin esa información, $P(Y_1=3)=\tfrac{1}{8}=0.125$ (la marginal). Que la condicional sea distinta de la marginal es, de hecho, una señal de que $Y_1$ y $Y_2$ no son independientes — lo vas a confirmar formalmente a continuación.</span>
+<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a><span class="co"># Condicional: P(Y1=3 | Y2=1)</span></span>
+<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a>p_Y1_3_Y2_1 <span class="ot">&lt;-</span> prob_matrix[<span class="st">"3"</span>, <span class="st">"1"</span>]</span>
+<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a>p_Y2_1 <span class="ot">&lt;-</span> marginal_Y2[<span class="st">"1"</span>]</span>
+<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1 <span class="ot">&lt;-</span> p_Y1_3_Y2_1 <span class="sc">/</span> p_Y2_1</span>
+<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1</span>
+<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a><span class="fu">### Verificación de independencia: conjunta vs. producto de marginales</span></span>
+<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a>$Y_1$ y $Y_2$ serían independientes solo si $P(Y_1=y_1,Y_2=y_2)=P(Y_1=y_1)\cdot P(Y_2=y_2)$ se cumple en **cada** casilla. Basta con que falle en una sola para descartar la independencia — y la casilla $(Y_1{=}2,Y_2{=}1)$ ya es sospechosa, porque ahí la conjunta es el doble de las demás:</span>
+<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a>P(Y_1=2)\cdot P(Y_2=1) = \frac{3}{8}\cdot\frac{4}{8} = \frac{12}{64} = \frac{3}{16} = 0.1875</span>
+<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-373"><a href="#cb19-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a>P(Y_1=2,\,Y_2=1) = \frac{2}{8} = 0.25</span>
+<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a>Como $0.25 \ne 0.1875$, la igualdad ya falla en esta única casilla — con eso alcanza para concluir que **$Y_1$ y $Y_2$ no son independientes**, sin necesidad de revisar las demás. (El código de abajo sí las revisa todas, para que veas el patrón completo.)</span>
+<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-383"><a href="#cb19-383" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificación de independencia: comparar la matriz conjunta contra el producto de marginales</span></span>
+<span id="cb19-384"><a href="#cb19-384" aria-hidden="true" tabindex="-1"></a>independencia_teorica <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_Y1, marginal_Y2)</span>
+<span id="cb19-385"><a href="#cb19-385" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(prob_matrix, <span class="dv">3</span>)</span>
+<span id="cb19-386"><a href="#cb19-386" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(independencia_teorica, <span class="dv">3</span>)</span>
+<span id="cb19-387"><a href="#cb19-387" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-388"><a href="#cb19-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-389"><a href="#cb19-389" aria-hidden="true" tabindex="-1"></a>El código confirma, casilla por casilla, lo que ya calculaste a mano: <span class="in">`round(prob_matrix, 3)`</span> y <span class="in">`round(independencia_teorica, 3)`</span> difieren en varias posiciones, no solo en $(Y_1{=}2,Y_2{=}1)$.</span>
+<span id="cb19-390"><a href="#cb19-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-391"><a href="#cb19-391" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb19-392"><a href="#cb19-392" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resultado del ejemplo</span></span>
+<span id="cb19-393"><a href="#cb19-393" aria-hidden="true" tabindex="-1"></a>Las dos matrices de arriba **no son iguales** — la matriz conjunta real tiene ceros donde el producto de marginales no los tiene. Esto confirma que $Y_1$ y $Y_2$ **no son independientes**: saber en qué tiro salió la primera cara determina información parcial sobre el número total de caras, y viceversa.</span>
+<span id="cb19-394"><a href="#cb19-394" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-395"><a href="#cb19-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-396"><a href="#cb19-396" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb19-397"><a href="#cb19-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-398"><a href="#cb19-398" aria-hidden="true" tabindex="-1"></a>De 9 ejecutivos: 4 casados, 3 solteros, 2 divorciados. Se seleccionan 3 al azar. $Y_1$ = número de casados seleccionados, $Y_2$ = número de solteros seleccionados.</span>
+<span id="cb19-399"><a href="#cb19-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-400"><a href="#cb19-400" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Construye la función de probabilidad conjunta usando combinaciones (<span class="in">`choose()`</span>), siguiendo la lógica de una distribución hipergeométrica multivariada.</span>
+<span id="cb19-401"><a href="#cb19-401" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Obtén la distribución marginal de $Y_1$.</span>
+<span id="cb19-402"><a href="#cb19-402" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Si $Y_3 = 3 - Y_1 - Y_2$ es el número de divorciados seleccionados, calcula $P(Y_3=1 | Y_2=1)$.</span>
+<span id="cb19-403"><a href="#cb19-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-404"><a href="#cb19-404" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb19-405"><a href="#cb19-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-406"><a href="#cb19-406" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb19-407"><a href="#cb19-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-408"><a href="#cb19-408" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb19-409"><a href="#cb19-409" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1: completa la función correcta</span></span>
+<span id="cb19-410"><a href="#cb19-410" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">___</span>(prob_matrix)</span>
+<span id="cb19-411"><a href="#cb19-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-412"><a href="#cb19-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-413"><a href="#cb19-413" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb19-414"><a href="#cb19-414" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb19-415"><a href="#cb19-415" aria-hidden="true" tabindex="-1"></a><span class="in">`rowSums(prob_matrix)`</span> — suma cada fila de la tabla conjunta para obtener la marginal de Y1.</span>
+<span id="cb19-416"><a href="#cb19-416" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb19-417"><a href="#cb19-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-418"><a href="#cb19-418" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb19-419"><a href="#cb19-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-420"><a href="#cb19-420" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap8"</span><span class="dt">&gt;</span></span>
+<span id="cb19-421"><a href="#cb19-421" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Las marginales se obtienen sumando la tabla conjunta en una dirección.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb19-422"><a href="#cb19-422" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb19-423"><a href="#cb19-423" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Basta con que una sola celda cumpla la igualdad para decir que las variables son independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb19-424"><a href="#cb19-424" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb19-425"><a href="#cb19-425" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. La condicional P(Y1|Y2) se calcula dividiendo la conjunta entre la marginal de Y2.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb19-426"><a href="#cb19-426" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb19-427"><a href="#cb19-427" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP8()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb19-428"><a href="#cb19-428" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap8"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb19-429"><a href="#cb19-429" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb19-430"><a href="#cb19-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-431"><a href="#cb19-431" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb19-432"><a href="#cb19-432" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP8</span>() {</span>
+<span id="cb19-433"><a href="#cb19-433" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
+<span id="cb19-434"><a href="#cb19-434" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb19-435"><a href="#cb19-435" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb19-436"><a href="#cb19-436" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb19-437"><a href="#cb19-437" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb19-438"><a href="#cb19-438" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
+<span id="cb19-439"><a href="#cb19-439" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb19-440"><a href="#cb19-440" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb19-441"><a href="#cb19-441" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb19-442"><a href="#cb19-442" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb19-443"><a href="#cb19-443" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-444"><a href="#cb19-444" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-445"><a href="#cb19-445" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb19-446"><a href="#cb19-446" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb19-447"><a href="#cb19-447" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb19-448"><a href="#cb19-448" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-449"><a href="#cb19-449" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
+<span id="cb19-450"><a href="#cb19-450" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb19-451"><a href="#cb19-451" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb19-452"><a href="#cb19-452" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-453"><a href="#cb19-453" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb19-454"><a href="#cb19-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-455"><a href="#cb19-455" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb19-456"><a href="#cb19-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-457"><a href="#cb19-457" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb19-458"><a href="#cb19-458" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La distribución conjunta contiene toda la información sobre cómo se relacionan dos variables aleatorias.</span>
+<span id="cb19-459"><a href="#cb19-459" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las marginales se obtienen sumando la tabla conjunta en una dirección; las condicionales dividen una celda entre su marginal correspondiente.</span>
+<span id="cb19-460"><a href="#cb19-460" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La independencia de variables aleatorias exige que la igualdad $P(Y_1,Y_2)=P(Y_1)P(Y_2)$ se cumpla en **todas** las combinaciones, no solo en algunas.</span>
+<span id="cb19-461"><a href="#cb19-461" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-462"><a href="#cb19-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-463"><a href="#cb19-463" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb19-464"><a href="#cb19-464" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb19-465"><a href="#cb19-465" aria-hidden="true" tabindex="-1"></a>Todo esto fue para el caso **discreto** (tablas finitas). El [Tema P8b](tema-p8b-estudiante.qmd) extiende las mismas ideas —conjunta, marginal, independencia— al caso **continuo**, donde una tabla se reemplaza por una función de densidad y las sumas se vuelven integrales.</span>
+<span id="cb19-466"><a href="#cb19-466" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

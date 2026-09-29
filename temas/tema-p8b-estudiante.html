@@ -676,7 +676,7 @@ Figure&nbsp;1: Superficie de f(x,y) = 6xy²
 <section id="ahora-sí-la-teoría" class="level2">
 <h2 class="anchored" data-anchor-id="ahora-sí-la-teoría">📖 Ahora sí, la teoría</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">1. Definición</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">2. Marginales por integración</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">3. Independencia</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">1. Definición</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">2. Marginales por integración</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">3. Independencia</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">📘 Ejemplo del libro — variables ya dadas como independientes (Ej. 5.37)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">📘 Ejemplo del libro — probabilidad sobre una región (Ej. 5.19)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">📘 Ejemplo del libro — CDF conjunta y marginales (Ej. 5.21)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">📘 Ejemplo del libro — región no rectangular (Ej. 5.22)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><strong>Definición (variables conjuntamente continuas).</strong> <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son <em>conjuntamente continuas</em> si existe una función <span class="math inline">\(f(x,y)\ge0\)</span>, integrable, tal que:</p>
@@ -715,6 +715,174 @@ f_Y(y) = \int_0^1 6xy^2\,dx = 6y^2\left[\frac{x^2}{2}\right]_0^1 = 6y^2\cdot\fra
 <p><strong>Criterio práctico (más rápido que calcular las marginales primero):</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son independientes si y solo si <span class="math inline">\(f(x,y)\)</span> puede escribirse como <span class="math inline">\(h(x)\cdot g(y)\)</span> para <em>algunas</em> funciones <span class="math inline">\(h\)</span> y <span class="math inline">\(g\)</span> — no necesariamente ya normalizadas como densidades. Si logras separar la expresión en “una parte que solo tiene <span class="math inline">\(x\)</span>” times “una parte que solo tiene <span class="math inline">\(y\)</span>”, ya sabes que son independientes, sin integrar nada todavía.</p>
 <p>Si además son independientes, <span class="math inline">\(E(XY)=E(X)\,E(Y)\)</span> — la misma propiedad que ya usaste con FGM en el Tema P6d, ahora para el caso continuo general.</p>
 </div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.37):</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son variables aleatorias <strong>independientes</strong> con densidades <span class="math inline">\(f(x)=\tfrac{3x^2}{8}\)</span> para <span class="math inline">\(0&lt;x&lt;2\)</span>, y <span class="math inline">\(g(y)=y^{-2}\)</span> para <span class="math inline">\(y&gt;1\)</span>. Calcule <span class="math inline">\(P(XY&gt;1)\)</span>.</p>
+<p><strong>Paso 1 — Construir la conjunta, aprovechando que ya sabes que son independientes:</strong> a diferencia de los ejemplos anteriores (donde la independencia había que <em>verificarla</em>), aquí el enunciado ya la da por hecho — así que la conjunta es directamente el producto de las densidades individuales, sin necesidad de factorizar nada:</p>
+<p><span class="math display">\[
+h(x,y) = f(x)\cdot g(y) = \frac{3x^2}{8}\cdot\frac{1}{y^2} = \frac{3x^2}{8y^2}, \qquad 0&lt;x&lt;2,\ y&gt;1
+\]</span></p>
+<p><strong>Paso 2 — Identificar la región <span class="math inline">\(XY&gt;1\)</span> dentro del soporte:</strong> como <span class="math inline">\(y&gt;1\)</span>, se tiene <span class="math inline">\(\tfrac1y&lt;1&lt;2\)</span>, así que para cada <span class="math inline">\(y\)</span> fijo, la condición <span class="math inline">\(x&gt;\tfrac1y\)</span> ya cabe dentro de <span class="math inline">\((0,2)\)</span> sin salirse del soporte. La región de integración es <span class="math inline">\(x\in(\tfrac1y,\,2)\)</span>, <span class="math inline">\(y\in(1,\infty)\)</span>:</p>
+<p><span class="math display">\[
+P(XY&gt;1) = \int_1^{\infty}\!\!\int_{1/y}^{2} \frac{3x^2}{8y^2}\,dx\,dy = \frac{31}{32} = 0.96875
+\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (<span class="dv">3</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">8</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(y) y<span class="sc">^</span>(<span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">f</span>(x) <span class="sc">*</span> <span class="fu">g</span>(y)   <span class="co"># conjunta = producto, porque ya son independientes</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># P(XY &gt; 1): para cada y &gt; 1, integrar x de 1/y a 2</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>p_xy_mayor_1 <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(y, <span class="cf">function</span>(yi) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">h</span>(x, yi), <span class="dv">1</span><span class="sc">/</span>yi, <span class="dv">2</span>)<span class="sc">$</span>value)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">1</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>p_xy_mayor_1   <span class="co"># deberia dar 31/32 = 0.96875</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="dv">31</span><span class="sc">/</span><span class="dv">32</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 La diferencia con los ejemplos anteriores
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En el Ejemplo 5.19 (<span class="math inline">\(6xy^2\)</span>) tuviste que <strong>verificar</strong> la independencia factorizando <span class="math inline">\(f(x,y)\)</span>. Aquí el enunciado directamente te da <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> como independientes con sus densidades individuales — el trabajo entonces es el inverso: <strong>construir</strong> la conjunta multiplicando, no descomponerla. Es la misma relación <span class="math inline">\(f(x,y)=f_X(x)f_Y(y)\)</span>, solo que usada en la dirección contraria.</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.19):</strong> con la misma densidad <span class="math inline">\(f(x,y)=6xy^2\)</span>, <span class="math inline">\(0&lt;x&lt;1,\,0&lt;y&lt;1\)</span>, de la sección de exploración, calcule (1) <span class="math inline">\(P\!\left(\tfrac12&lt;X\le\tfrac34,\,0&lt;Y\le\tfrac13\right)\)</span> y (2) <span class="math inline">\(P\!\left(\tfrac12&lt;X\le\tfrac34\right)\)</span>.</p>
+<p><strong>1. Probabilidad sobre un rectángulo dentro del soporte:</strong> cuando el evento es un rectángulo <span class="math inline">\([a,b]\times[c,d]\)</span> (no todo el soporte), los límites de la integral doble se ajustan a ese rectángulo, no a <span class="math inline">\((0,1)\times(0,1)\)</span>:</p>
+<p><span class="math display">\[
+P\!\left(\tfrac12&lt;X\le\tfrac34,\,0&lt;Y\le\tfrac13\right) = \int_0^{1/3}\!\!\int_{1/2}^{3/4} 6xy^2\,dx\,dy = 1.1574\times10^{-2}
+\]</span></p>
+<p><strong>2. Probabilidad marginal, integrando <span class="math inline">\(Y\)</span> en todo su rango:</strong> si el evento solo restringe <span class="math inline">\(X\)</span> (sin restringir <span class="math inline">\(Y\)</span>), integras <span class="math inline">\(y\)</span> en <span class="math inline">\((0,1)\)</span> completo — reusando directamente la marginal <span class="math inline">\(f_X(x)=2x\)</span> que ya dedujiste arriba:</p>
+<p><span class="math display">\[
+P\!\left(\tfrac12&lt;X\le\tfrac34\right) = \int_{1/2}^{3/4}\!\!\int_0^1 6xy^2\,dy\,dx = \int_{1/2}^{3/4} 2x\,dx = 0.3125
+\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) rectangulo dentro del soporte: Y restringido a (0, 1/3)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">0</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)<span class="sc">$</span>value)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>)<span class="sc">$</span>value</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>p1   <span class="co"># 0.011574...</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) Y integrado en todo su rango -- equivalente a usar la marginal fX</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">2</span> <span class="sc">*</span> x, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>)<span class="sc">$</span>value</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>p2   <span class="co"># 0.3125</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Diferencia clave
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En (1) el evento restringe <strong>ambas</strong> variables, así que los límites en <span class="math inline">\(y\)</span> son <span class="math inline">\((0,\tfrac13)\)</span>, no <span class="math inline">\((0,1)\)</span>. En (2) el evento solo restringe <span class="math inline">\(X\)</span>, así que <span class="math inline">\(Y\)</span> se integra en <strong>todo</strong> su soporte <span class="math inline">\((0,1)\)</span> — que es justamente la definición de la marginal <span class="math inline">\(f_X\)</span>. Confundir estos dos casos es un error común al leer un enunciado.</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.21):</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> tienen densidad conjunta <span class="math inline">\(f(x,y)=x+y\)</span>, <span class="math inline">\(0&lt;x&lt;1\)</span>, <span class="math inline">\(0&lt;y&lt;1\)</span> — la misma densidad “no independiente” que verás en el Laboratorio. Halle (1) la función de distribución acumulativa conjunta y (2) las densidades marginales.</p>
+<p><strong>1. Función de distribución acumulativa conjunta:</strong> se integra la densidad desde <span class="math inline">\(-\infty\)</span> hasta <span class="math inline">\((x,y)\)</span>; como <span class="math inline">\(f\)</span> solo es distinta de cero en el cuadrado <span class="math inline">\((0,1)^2\)</span>, hay que distinguir regiones según dónde caiga el punto <span class="math inline">\((x,y)\)</span>. Dentro del cuadrado:</p>
+<p><span class="math display">\[
+F_{XY}(x,y) = \int_0^x\int_0^y (u+t)\,dt\,du = \frac{x^2y+xy^2}{2}, \qquad 0&lt;x&lt;1,\ 0&lt;y&lt;1
+\]</span></p>
+<p>Si <span class="math inline">\(x\)</span> ya está dentro pero <span class="math inline">\(y\ge1\)</span>, sustituyes <span class="math inline">\(y=1\)</span> en esa misma fórmula (ya no hay más densidad que sumar más allá de <span class="math inline">\(y=1\)</span>):</p>
+<p><span class="math display">\[
+F_{XY}(x,y) = \frac{x^2+x}{2}, \qquad 0&lt;x&lt;1,\ y\ge1
+\]</span></p>
+<p>Y por simetría, si <span class="math inline">\(y&lt;1\)</span> pero <span class="math inline">\(x\ge1\)</span>: <span class="math inline">\(F_{XY}(x,y)=\dfrac{y+y^2}{2}\)</span>. Si ambos superaron 1, <span class="math inline">\(F_{XY}(x,y)=1\)</span>.</p>
+<p><strong>2. Marginales, por integración directa</strong> (mismo procedimiento de la pestaña “Marginales por integración”):</p>
+<p><span class="math display">\[
+f_X(x)=\int_0^1(x+y)\,dy = x+\frac12, \qquad 0&lt;x&lt;1 \qquad\qquad f_Y(y)=\int_0^1(x+y)\,dx = y+\frac12, \qquad 0&lt;y&lt;1
+\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x <span class="sc">+</span> y</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>F_XY <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">||</span> y <span class="sc">&lt;=</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  xx <span class="ot">&lt;-</span> <span class="fu">min</span>(x, <span class="dv">1</span>); yy <span class="ot">&lt;-</span> <span class="fu">min</span>(y, <span class="dv">1</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  (xx<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> yy <span class="sc">+</span> xx <span class="sc">*</span> yy<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">F_XY</span>(<span class="fl">0.6</span>, <span class="fl">0.6</span>)   <span class="co"># dentro del cuadrado</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">F_XY</span>(<span class="fl">0.6</span>, <span class="dv">2</span>)     <span class="co"># y &gt;= 1 -&gt; usa la formula recortada en y = 1</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>fX <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>fY <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">fX</span>(<span class="fl">0.4</span>), <span class="fl">0.4</span> <span class="sc">+</span> <span class="fl">0.5</span>)   <span class="co"># deben coincidir</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">fY</span>(<span class="fl">0.4</span>), <span class="fl">0.4</span> <span class="sc">+</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Por qué esta densidad no es independiente
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(f_X(x)\cdot f_Y(y) = (x+\tfrac12)(y+\tfrac12) \ne x+y = f(x,y)\)</span> — no se factoriza como en el Ejemplo 5.19, así que (a diferencia de <span class="math inline">\(6xy^2\)</span>) estas variables <strong>no son independientes</strong>. Vas a confirmar esto mismo en el Laboratorio.</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.22):</strong> <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> tienen densidad conjunta <span class="math inline">\(f(x,y)=k\)</span> (constante) para <span class="math inline">\(0\le x\le2,\ 0\le y\le1\)</span> y además <span class="math inline">\(2y\le x\)</span> — el soporte no es un rectángulo sino un <strong>triángulo</strong> (la parte del cuadrado por debajo de la recta <span class="math inline">\(x=2y\)</span>). Halle (1) <span class="math inline">\(k\)</span>, (2) la CDF conjunta, (3) las marginales, y (4) <span class="math inline">\(P(X\le3Y)\)</span>.</p>
+<p><strong>1. El valor de <span class="math inline">\(k\)</span>:</strong> con <span class="math inline">\(f\)</span> constante, la integral doble es <span class="math inline">\(k\)</span> veces el área de la región. Para <span class="math inline">\(x\)</span> fijo entre 0 y 2, <span class="math inline">\(y\)</span> va de 0 hasta <span class="math inline">\(x/2\)</span> (despejando de <span class="math inline">\(2y=x\)</span>):</p>
+<p><span class="math display">\[
+1 = \int_0^2\int_0^{x/2} k\,dy\,dx = k\int_0^2 \frac{x}{2}\,dx = k\cdot\left[\frac{x^2}{4}\right]_0^2 = k \;\Rightarrow\; k=1
+\]</span></p>
+<p><strong>2. CDF conjunta</strong>, según qué porción del triángulo cubre el punto <span class="math inline">\((x,y)\)</span>:</p>
+<p><span class="math display">\[
+F_{XY}(x,y)=
+\begin{cases}
+0 &amp; x&lt;0 \text{ o } y&lt;0\\[2pt]
+xy-y^2 &amp; 0\le x\le2,\ 0\le y\le\tfrac{x}{2}\\[2pt]
+\tfrac{x^2}{4} &amp; 0\le x\le2,\ y\ge\tfrac{x}{2}\ \text{(incluye } y\ge1)\\[2pt]
+2y-y^2 &amp; x&gt;2,\ 0\le y\le1\\[2pt]
+1 &amp; x\ge2,\ y\ge1
+\end{cases}
+\]</span></p>
+<p><strong>3. Marginales, integrando sobre los límites reales del triángulo</strong> (no sobre todo el cuadrado):</p>
+<p><span class="math display">\[
+f_X(x) = \int_0^{x/2} 1\,dy = \frac{x}{2}, \qquad 0\le x\le2 \qquad\qquad f_Y(y) = \int_{2y}^{2} 1\,dx = 2-2y, \qquad 0\le y\le1
+\]</span></p>
+<p>Ninguna de las dos marginales usa límites fijos: dependen de la otra variable, precisamente porque el soporte es un triángulo, no un rectángulo.</p>
+<p><strong>4. <span class="math inline">\(P(X\le3Y)\)</span>:</strong> el evento recorta el triángulo con la condición adicional <span class="math inline">\(x\le3y\)</span>. La recta <span class="math inline">\(x=3y\)</span> sale del triángulo por <span class="math inline">\(x=2\)</span> cuando <span class="math inline">\(y=\tfrac23\)</span>:</p>
+<p><span class="math display">\[
+P(X\le3Y) = \int_0^{2/3}\int_{2y}^{3y} 1\,dx\,dy + \int_{2/3}^{1}\int_{2y}^{2} 1\,dx\,dy = \frac13
+\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k=1, region: 0&lt;=x&lt;=2, 0&lt;=y&lt;=1, 2y&lt;=x</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fX <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fY <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>y</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(fX, <span class="dv">0</span>, <span class="dv">2</span>)<span class="sc">$</span>value   <span class="co"># 1 -- fX es una densidad valida</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(fY, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value   <span class="co"># 1 -- fY tambien</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &lt;= 3Y), integrando sobre la region recortada por el evento</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>p_x_le_3y <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) {</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(y, <span class="cf">function</span>(yi) {</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    x_sup <span class="ot">&lt;-</span> <span class="cf">if</span> (yi <span class="sc">&lt;=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>) <span class="dv">3</span><span class="sc">*</span>yi <span class="cf">else</span> <span class="dv">2</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">1</span>, <span class="dv">2</span><span class="sc">*</span>yi, x_sup)<span class="sc">$</span>value</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>p_x_le_3y   <span class="co"># deberia dar 1/3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 La lección de este ejemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuando el soporte de <span class="math inline">\(f(x,y)\)</span> no es un rectángulo, <strong>los límites de integración de una variable dependen del valor de la otra</strong> — tanto para verificar que <span class="math inline">\(f\)</span> integra a 1, como para marginales o cualquier probabilidad. Antes de integrar, identifica la región donde <span class="math inline">\(f&gt;0\)</span> y expresa los límites de una variable en función de la otra.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -724,19 +892,19 @@ f_Y(y) = \int_0^1 6xy^2\,dx = 6y^2\left[\frac{x^2}{2}\right]_0^1 = 6y^2\cdot\fra
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) P(X &lt; 1/2, Y &gt; 6) / P(Y &gt; 6)</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Con integrales impropias, se integra hasta un límite muy grande (aproximación numérica)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="fl">0.5</span>)<span class="sc">$</span>value</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>den <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">P_X_menor_0.5_Y_mayor_6 =</span> num, <span class="at">P_Y_mayor_6 =</span> den, <span class="at">condicional =</span> num <span class="sc">/</span> den)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) P(X &lt; 1/2, Y &gt; 6) / P(Y &gt; 6)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Con integrales impropias, se integra hasta un límite muy grande (aproximación numérica)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="fl">0.5</span>)<span class="sc">$</span>value</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>den <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">P_X_menor_0.5_Y_mayor_6 =</span> num, <span class="at">P_Y_mayor_6 =</span> den, <span class="at">condicional =</span> num <span class="sc">/</span> den)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>P_X_menor_0.5_Y_mayor_6             P_Y_mayor_6             condicional 
@@ -749,13 +917,13 @@ f_Y(y) = \int_0^1 6xy^2\,dx = 6y^2\left[\frac{x^2}{2}\right]_0^1 = 6y^2\cdot\fra
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) Marginales, por integración directa (forma cerrada verificada analíticamente:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     f_X(x) = 2x para 0&lt;x&lt;1;  f_Y(y) = 2/y^3 para y&gt;1)</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">1</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>f_Y <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">f_X_en_0.3 =</span> <span class="fu">f_X</span>(<span class="fl">0.3</span>), <span class="st">"2x_en_0.3"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.3</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">f_Y_en_2   =</span> <span class="fu">f_Y</span>(<span class="dv">2</span>),   <span class="st">"2/y3_en_2"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) Marginales, por integración directa (forma cerrada verificada analíticamente:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     f_X(x) = 2x para 0&lt;x&lt;1;  f_Y(y) = 2/y^3 para y&gt;1)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">1</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>f_Y <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">f_X_en_0.3 =</span> <span class="fu">f_X</span>(<span class="fl">0.3</span>), <span class="st">"2x_en_0.3"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.3</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">f_Y_en_2   =</span> <span class="fu">f_Y</span>(<span class="dv">2</span>),   <span class="st">"2/y3_en_2"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>f_X_en_0.3  2x_en_0.3   f_Y_en_2  2/y3_en_2 
@@ -801,10 +969,10 @@ f_Y(y) = \int_0^1 6xy^2\,dx = 6y^2\left[\frac{x^2}{2}\right]_0^1 = 6y^2\cdot\fra
 <h2 class="anchored" data-anchor-id="ejercicios-autocorregibles">✅ Ejercicios autocorregibles</h2>
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar que f(x,y) = 6xy^2 integra a 1 sobre (0,1)x(0,1)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>integral_interna <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, ___)<span class="sc">$</span>value</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">sapply</span>(x, integral_interna), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar que f(x,y) = 6xy^2 integra a 1 sobre (0,1)x(0,1)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>integral_interna <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, ___)<span class="sc">$</span>value</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">sapply</span>(x, integral_interna), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
@@ -814,10 +982,10 @@ Ver respuesta
 </section>
 <section id="ejercicio-2-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-2-completa-el-código">Ejercicio 2 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 4x/y^3, 0&lt;x&lt;1, y&gt;1. Marginal de X evaluada en x=0.5</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), ___, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">f_X</span>(<span class="fl">0.5</span>)   <span class="co"># debería dar 1 (porque f_X(x) = 2x)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 4x/y^3, 0&lt;x&lt;1, y&gt;1. Marginal de X evaluada en x=0.5</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), ___, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">f_X</span>(<span class="fl">0.5</span>)   <span class="co"># debería dar 1 (porque f_X(x) = 2x)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
@@ -1365,252 +1533,428 @@ function revisarQuizTemaP8b() {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P8b · Distribución conjunta continua"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🌡️ Dos mediciones continuas, una sola función</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>En el Tema P8 trabajaste variables discretas conjuntas (monedas, ejecutivos) — ahí bastaba una tabla. Pero ¿qué pasa cuando ambas variables son continuas, como el tiempo de espera de un cliente y la distancia que recorre, o dos dimensiones físicas de una pieza fabricada? Ya no hay una tabla finita: hace falta una **función de densidad conjunta** $f(x,y)$, y el "volumen" bajo su superficie —no una suma— es lo que da las probabilidades.</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fuente de este tema</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>La teoría y los ejemplos de este tema y del siguiente (P8c) están basados en Blanco Castañeda, L. (2010). *Probabilidad* (2.ª ed.). Universidad Nacional de Colombia, Capítulo 5 (Vectores Aleatorios) y Capítulo 6 (Densidad Condicional). Cada resultado numérico fue verificado de forma independiente antes de incluirse aquí.</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>Si $f(x,y)$ es una densidad conjunta válida, ¿qué integral doble sobre todo el plano *tiene* que dar exactamente 1? (Piensa en el análogo de "el área bajo una densidad de una variable es 1", pero ahora en dos dimensiones).</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: el volumen bajo la superficie</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 6xy^2, para 0 &lt; x &lt; 1, 0 &lt; y &lt; 1</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Integral doble: para cada x, integrar en y; luego integrar ese resultado en x</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>integral_interna <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>volumen_total <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">sapply</span>(x, integral_interna), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>volumen_total</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>El volumen bajo la superficie $f(x,y)=6xy^2$ sobre el cuadrado $(0,1)\times(0,1)$ es exactamente 1 — confirma que es una densidad conjunta válida. En R, una integral doble se calcula anidando dos <span class="in">`integrate()`</span>: uno para cada variable.</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-superficie-6xy2</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Superficie de f(x,y) = 6xy²"</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">40</span>)</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>ys <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">40</span>)</span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>zs <span class="ot">&lt;-</span> <span class="fu">outer</span>(xs, ys, f)</span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="fu">persp</span>(xs, ys, zs, <span class="at">theta =</span> <span class="dv">35</span>, <span class="at">phi =</span> <span class="dv">25</span>, <span class="at">col =</span> <span class="st">"#4B8BC2"</span>,</span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>, <span class="at">zlab =</span> <span class="st">"f(x,y)"</span>,</span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">"f(x,y) = 6xy²"</span>)</span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Definición</span></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>**Definición (variables conjuntamente continuas).** $X$ y $Y$ son *conjuntamente continuas* si existe una función $f(x,y)\ge0$, integrable, tal que:</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>$$P((X,Y)\in C) = \iint_C f(x,y)\,dx\,dy$$</span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>para todo conjunto (Borel) $C$ del plano. $f$ se llama **función de densidad de probabilidad conjunta**.</span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>De esta definición se sigue, en particular, que $\displaystyle\iint_{\mathbb{R}^2} f(x,y)\,dx\,dy=1$ — es exactamente lo que verificaste en la sección "Exploremos".</span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>**Cómo se construye/verifica, a mano:** con $f(x,y)=6xy^2$ sobre $(0,1)\times(0,1)$, la integral doble se resuelve de adentro hacia afuera — primero en $y$ (tratando $x$ como constante), y el resultado se vuelve a integrar en $x$:</span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>\int_0^1<span class="sc">\!\!</span>\int_0^1 6xy^2\,dy\,dx = \int_0^1 6x\left<span class="co">[</span><span class="ot">\frac{y^3}{3}\right</span><span class="co">]</span>_0^1 dx = \int_0^1 6x\cdot\frac{1}{3}\,dx = \int_0^1 2x\,dx = \Big<span class="co">[</span><span class="ot">x^2\Big</span><span class="co">]</span>_0^1 = 1</span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>Esa es exactamente la cuenta que hace <span class="in">`integrate()`</span> dos veces, de forma anidada, en la sección de exploración: primero <span class="in">`integrate(function(y) f(x,y), 0, 1)`</span> congela $x$ e integra en $y$; el resultado (una función de $x$) se vuelve a integrar en $x$. Con esta estructura puedes verificar **cualquier** $f(x,y)$ candidata antes de usarla — si la integral doble no da 1, no es una densidad conjunta válida.</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Marginales por integración</span></span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>Así como en el caso discreto la marginal se obtiene *sumando* sobre la otra variable, en el caso continuo se obtiene **integrando**:</span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>$$f_X(x) := \int_{-\infty}^{\infty} f(x,y)\,dy \qquad f_Y(y) := \int_{-\infty}^{\infty} f(x,y)\,dx$$</span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>Es el mismo principio del Tema P8 (colapsar la tabla sumando filas o columnas), adaptado a un continuo de valores.</span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>**Cómo "devolverte" a la marginal, con el mismo $f(x,y)=6xy^2$:** integras solo sobre la variable que quieres eliminar, dejando la otra fija como parámetro:</span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>f_X(x) = \int_0^1 6xy^2\,dy = 6x\left<span class="co">[</span><span class="ot">\frac{y^3}{3}\right</span><span class="co">]</span>_0^1 = 6x\cdot\frac{1}{3} = 2x, \qquad 0&lt;x&lt;1</span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>f_Y(y) = \int_0^1 6xy^2\,dx = 6y^2\left<span class="co">[</span><span class="ot">\frac{x^2}{2}\right</span><span class="co">]</span>_0^1 = 6y^2\cdot\frac{1}{2} = 3y^2, \qquad 0&lt;y&lt;1</span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>En código, "devolverte" a la marginal es dejar una integral **sin resolver** (la que va a quedar como función de la variable que conservas) y resolver solo la otra:</span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 6xy^2 definida en la sección de exploración</span></span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>fX <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="fu">fX</span>(<span class="fl">0.5</span>)   <span class="co"># debe coincidir con 2*0.5 = 1</span></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>fY <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a><span class="fu">fY</span>(<span class="fl">0.5</span>)   <span class="co"># debe coincidir con 3*0.5^2 = 0.75</span></span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>Verifica también que ambas marginales son densidades válidas por sí solas: $\int_0^1 2x\,dx=1$ y $\int_0^1 3y^2\,dy=1$ — "devolverte" a la marginal nunca pierde probabilidad, solo la reorganiza.</span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Independencia</span></span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>$X$ e $Y$ son independientes si y solo si su densidad conjunta se **factoriza**:</span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a>$$f(x,y) = f_X(x)\cdot f_Y(y) \quad \text{para todo } x,y$$</span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a>**Criterio práctico (más rápido que calcular las marginales primero):** $X$ e $Y$ son independientes si y solo si $f(x,y)$ puede escribirse como $h(x)\cdot g(y)$ para *algunas* funciones $h$ y $g$ — no necesariamente ya normalizadas como densidades. Si logras separar la expresión en "una parte que solo tiene $x$" times "una parte que solo tiene $y$", ya sabes que son independientes, sin integrar nada todavía.</span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a>Si además son independientes, $E(XY)=E(X)\,E(Y)$ — la misma propiedad que ya usaste con FGM en el Tema P6d, ahora para el caso continuo general.</span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a>**Enunciado:** $X$ e $Y$ tienen densidad conjunta $f(x,y)=\dfrac{4x}{y^3}$ para $0&lt;x&lt;1$, $y&gt;1$. Determine: (1) $P\left(X&lt;\frac12 \mid Y&gt;6\right)$; (2) las densidades marginales de $X$ y de $Y$.</span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) P(X &lt; 1/2, Y &gt; 6) / P(Y &gt; 6)</span></span>
-<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Con integrales impropias, se integra hasta un límite muy grande (aproximación numérica)</span></span>
-<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="fl">0.5</span>)<span class="sc">$</span>value</span>
-<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>den <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
-<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
-<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">P_X_menor_0.5_Y_mayor_6 =</span> num, <span class="at">P_Y_mayor_6 =</span> den, <span class="at">condicional =</span> num <span class="sc">/</span> den)</span>
-<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>$P(X&lt;0.5,\,Y&gt;6)\approx0.006944$, $P(Y&gt;6)\approx0.02778$, y su razón da $P(X&lt;0.5\mid Y&gt;6)=0.25$ exactamente. Nota que este cálculo usó directamente la razón $\frac{P(X\in A,\,Y\in B)}{P(Y\in B)}$ — una probabilidad condicional "clásica" entre dos *eventos*, no todavía la función de densidad condicional formal (eso es exactamente lo que viene en el Tema P8c).</span>
-<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) Marginales, por integración directa (forma cerrada verificada analíticamente:</span></span>
-<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a><span class="co">#     f_X(x) = 2x para 0&lt;x&lt;1;  f_Y(y) = 2/y^3 para y&gt;1)</span></span>
-<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">1</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
-<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a>f_Y <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">f_X_en_0.3 =</span> <span class="fu">f_X</span>(<span class="fl">0.3</span>), <span class="st">"2x_en_0.3"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.3</span>,</span>
-<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>  <span class="at">f_Y_en_2   =</span> <span class="fu">f_Y</span>(<span class="dv">2</span>),   <span class="st">"2/y3_en_2"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)</span>
-<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>Cuando integras en $y$ para obtener $f_X(x)$, los **límites de integración dependen de la región donde $f$ es distinta de cero** — aquí, para cada $x$ fijo, $y$ va de 1 a $\infty$ (no de $-\infty$ a $\infty$: fuera de $y&gt;1$ la densidad es cero). El error más común al calcular marginales es usar límites genéricos $(-\infty,\infty)$ sin adaptarlos a la región real de soporte de $f$. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
-<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## Verificando independencia con el criterio de factorización</span></span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>$f(x,y)=6xy^2$ (la del ejemplo de "Exploremos") se factoriza directamente como $h(x)g(y)=(6x)(y^2)$ — **son independientes**, sin necesidad de calcular marginales primero. Y si las calculas de todas formas ($f_X(x)=2x$, $f_Y(y)=3y^2$), verificas que $f_X(x)f_Y(y)=6xy^2=f(x,y)$ — coincide exactamente. En cambio, $f(x,y)=x+y$ (que verás en el Laboratorio) **no** se puede factorizar como un producto de una función de $x$ por una de $y$ — así que ahí $X$ e $Y$ **no** son independientes.</span>
-<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Marginales de una densidad que no factoriza.** Para $f(x,y)=x+y$, $0&lt;x&lt;1$, $0&lt;y&lt;1$: (a) verifica que $\iint f=1$; (b) encuentra $f_X(x)$ y $f_Y(y)$ por integración; (c) confirma que $f_X(x)f_Y(y)\ne f(x,y)$, y por lo tanto $X$ e $Y$ **no** son independientes.</span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Aplicar el criterio de factorización sin integrar.** Para cada una de estas densidades, decide —solo mirando la fórmula, sin integrar— si $X$ e $Y$ son independientes: (a) $f(x,y)=8xy$, $0&lt;x&lt;y&lt;1$; (b) $f(x,y)=2$, $0&lt;x&lt;y&lt;1$; (c) $f(x,y)=e^{-x}e^{-y}$, $x&gt;0,y&gt;0$. (Pista para (a) y (b): aunque la fórmula "se ve" factorizada, la **región** donde $f&gt;0$ también importa — si la región no es un rectángulo, no hay independencia aunque la expresión parezca separable).</span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Verificación numérica en R.** Para la densidad del Ejemplo con datos reales ($f(x,y)=4x/y^3$), usa <span class="in">`integrate()`</span> anidado para verificar numéricamente que $\iint f=1$ sobre toda la región $0&lt;x&lt;1,\,y&gt;1$.</span>
-<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar que f(x,y) = 6xy^2 integra a 1 sobre (0,1)x(0,1)</span></span>
-<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a>integral_interna <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, ___)<span class="sc">$</span>value</span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">sapply</span>(x, integral_interna), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="in">`1`</span> — el límite superior de integración en $y$ es 1, porque la densidad solo es distinta de cero en $0&lt;y&lt;1$.</span>
-<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Completa el código</span></span>
-<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 4x/y^3, 0&lt;x&lt;1, y&gt;1. Marginal de X evaluada en x=0.5</span></span>
-<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), ___, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
-<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a><span class="fu">f_X</span>(<span class="fl">0.5</span>)   <span class="co"># debería dar 1 (porque f_X(x) = 2x)</span></span>
-<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a><span class="in">`1`</span> — el límite inferior de integración en $y$ para la marginal de $X$ es 1, porque la densidad conjunta solo está definida para $y&gt;1$.</span>
-<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 3 — Verdadero o falso</span></span>
-<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap8b"</span><span class="dt">&gt;</span></span>
-<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Para una densidad conjunta válida, la integral doble sobre todo el plano siempre debe dar 1.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. La marginal continua se obtiene derivando la densidad conjunta respecto a la otra variable.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Si f(x,y) se puede escribir como h(x)·g(y) sobre un rectángulo, X e Y son independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>4. f(x,y) = x + y sobre el cuadrado unitario corresponde a X e Y independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>5. Si X e Y son independientes, siempre se cumple E(XY) = E(X)E(Y).<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP8b()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap8b"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP8b</span>() {</span>
-<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q4</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q5</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8b"</span>)<span class="op">;</span></span>
-<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb11-228"><a href="#cb11-228" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb11-229"><a href="#cb11-229" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb11-230"><a href="#cb11-230" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb11-231"><a href="#cb11-231" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-232"><a href="#cb11-232" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb11-233"><a href="#cb11-233" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb11-234"><a href="#cb11-234" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb11-236"><a href="#cb11-236" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a>  resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb11-238"><a href="#cb11-238" aria-hidden="true" tabindex="-1"></a>  resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-240"><a href="#cb11-240" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb11-241"><a href="#cb11-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-242"><a href="#cb11-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-244"><a href="#cb11-244" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb11-245"><a href="#cb11-245" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La densidad conjunta $f(x,y)$ juega, en el caso continuo, el mismo papel que la tabla de probabilidades en el caso discreto: $P((X,Y)\in C)=\iint_C f(x,y)\,dx\,dy$.</span>
-<span id="cb11-246"><a href="#cb11-246" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las marginales se obtienen **integrando** sobre la otra variable (no sumando) — y los límites de integración deben respetar la región real donde $f&gt;0$.</span>
-<span id="cb11-247"><a href="#cb11-247" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El criterio de factorización $f(x,y)=h(x)g(y)$ (sobre una región rectangular) es la forma más rápida de verificar independencia, sin calcular marginales primero.</span>
-<span id="cb11-248"><a href="#cb11-248" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$f(x,y)=6xy^2$ (independientes) y $f(x,y)=x+y$ (no independientes) son dos ejemplos de referencia útiles para reconocer el patrón en un examen.</span>
-<span id="cb11-249"><a href="#cb11-249" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-250"><a href="#cb11-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-251"><a href="#cb11-251" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb11-252"><a href="#cb11-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
-<span id="cb11-253"><a href="#cb11-253" aria-hidden="true" tabindex="-1"></a>El <span class="co">[</span><span class="ot">Tema P8c</span><span class="co">](tema-p8c-estudiante.qmd)</span> retoma la pregunta que quedó pendiente en el ejemplo de esta página: ¿qué significa exactamente "la densidad de $X$ dado $Y=y$" cuando $P(Y=y)=0$ para toda variable continua? Ahí se formaliza.</span>
-<span id="cb11-254"><a href="#cb11-254" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P8b · Distribución conjunta continua"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🌡️ Dos mediciones continuas, una sola función</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>En el Tema P8 trabajaste variables discretas conjuntas (monedas, ejecutivos) — ahí bastaba una tabla. Pero ¿qué pasa cuando ambas variables son continuas, como el tiempo de espera de un cliente y la distancia que recorre, o dos dimensiones físicas de una pieza fabricada? Ya no hay una tabla finita: hace falta una **función de densidad conjunta** $f(x,y)$, y el "volumen" bajo su superficie —no una suma— es lo que da las probabilidades.</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fuente de este tema</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>La teoría y los ejemplos de este tema y del siguiente (P8c) están basados en Blanco Castañeda, L. (2010). *Probabilidad* (2.ª ed.). Universidad Nacional de Colombia, Capítulo 5 (Vectores Aleatorios) y Capítulo 6 (Densidad Condicional). Cada resultado numérico fue verificado de forma independiente antes de incluirse aquí.</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>Si $f(x,y)$ es una densidad conjunta válida, ¿qué integral doble sobre todo el plano *tiene* que dar exactamente 1? (Piensa en el análogo de "el área bajo una densidad de una variable es 1", pero ahora en dos dimensiones).</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: el volumen bajo la superficie</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 6xy^2, para 0 &lt; x &lt; 1, 0 &lt; y &lt; 1</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Integral doble: para cada x, integrar en y; luego integrar ese resultado en x</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>integral_interna <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>volumen_total <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">sapply</span>(x, integral_interna), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>volumen_total</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>El volumen bajo la superficie $f(x,y)=6xy^2$ sobre el cuadrado $(0,1)\times(0,1)$ es exactamente 1 — confirma que es una densidad conjunta válida. En R, una integral doble se calcula anidando dos <span class="in">`integrate()`</span>: uno para cada variable.</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-superficie-6xy2</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Superficie de f(x,y) = 6xy²"</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">40</span>)</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>ys <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">40</span>)</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>zs <span class="ot">&lt;-</span> <span class="fu">outer</span>(xs, ys, f)</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="fu">persp</span>(xs, ys, zs, <span class="at">theta =</span> <span class="dv">35</span>, <span class="at">phi =</span> <span class="dv">25</span>, <span class="at">col =</span> <span class="st">"#4B8BC2"</span>,</span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>, <span class="at">zlab =</span> <span class="st">"f(x,y)"</span>,</span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">"f(x,y) = 6xy²"</span>)</span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Definición</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>**Definición (variables conjuntamente continuas).** $X$ y $Y$ son *conjuntamente continuas* si existe una función $f(x,y)\ge0$, integrable, tal que:</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>$$P((X,Y)\in C) = \iint_C f(x,y)\,dx\,dy$$</span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>para todo conjunto (Borel) $C$ del plano. $f$ se llama **función de densidad de probabilidad conjunta**.</span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>De esta definición se sigue, en particular, que $\displaystyle\iint_{\mathbb{R}^2} f(x,y)\,dx\,dy=1$ — es exactamente lo que verificaste en la sección "Exploremos".</span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>**Cómo se construye/verifica, a mano:** con $f(x,y)=6xy^2$ sobre $(0,1)\times(0,1)$, la integral doble se resuelve de adentro hacia afuera — primero en $y$ (tratando $x$ como constante), y el resultado se vuelve a integrar en $x$:</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>\int_0^1<span class="sc">\!\!</span>\int_0^1 6xy^2\,dy\,dx = \int_0^1 6x\left<span class="co">[</span><span class="ot">\frac{y^3}{3}\right</span><span class="co">]</span>_0^1 dx = \int_0^1 6x\cdot\frac{1}{3}\,dx = \int_0^1 2x\,dx = \Big<span class="co">[</span><span class="ot">x^2\Big</span><span class="co">]</span>_0^1 = 1</span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>Esa es exactamente la cuenta que hace <span class="in">`integrate()`</span> dos veces, de forma anidada, en la sección de exploración: primero <span class="in">`integrate(function(y) f(x,y), 0, 1)`</span> congela $x$ e integra en $y$; el resultado (una función de $x$) se vuelve a integrar en $x$. Con esta estructura puedes verificar **cualquier** $f(x,y)$ candidata antes de usarla — si la integral doble no da 1, no es una densidad conjunta válida.</span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Marginales por integración</span></span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>Así como en el caso discreto la marginal se obtiene *sumando* sobre la otra variable, en el caso continuo se obtiene **integrando**:</span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>$$f_X(x) := \int_{-\infty}^{\infty} f(x,y)\,dy \qquad f_Y(y) := \int_{-\infty}^{\infty} f(x,y)\,dx$$</span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>Es el mismo principio del Tema P8 (colapsar la tabla sumando filas o columnas), adaptado a un continuo de valores.</span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>**Cómo "devolverte" a la marginal, con el mismo $f(x,y)=6xy^2$:** integras solo sobre la variable que quieres eliminar, dejando la otra fija como parámetro:</span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>f_X(x) = \int_0^1 6xy^2\,dy = 6x\left<span class="co">[</span><span class="ot">\frac{y^3}{3}\right</span><span class="co">]</span>_0^1 = 6x\cdot\frac{1}{3} = 2x, \qquad 0&lt;x&lt;1</span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>f_Y(y) = \int_0^1 6xy^2\,dx = 6y^2\left<span class="co">[</span><span class="ot">\frac{x^2}{2}\right</span><span class="co">]</span>_0^1 = 6y^2\cdot\frac{1}{2} = 3y^2, \qquad 0&lt;y&lt;1</span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>En código, "devolverte" a la marginal es dejar una integral **sin resolver** (la que va a quedar como función de la variable que conservas) y resolver solo la otra:</span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 6xy^2 definida en la sección de exploración</span></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a>fX <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a><span class="fu">fX</span>(<span class="fl">0.5</span>)   <span class="co"># debe coincidir con 2*0.5 = 1</span></span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a>fY <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="fu">fY</span>(<span class="fl">0.5</span>)   <span class="co"># debe coincidir con 3*0.5^2 = 0.75</span></span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>Verifica también que ambas marginales son densidades válidas por sí solas: $\int_0^1 2x\,dx=1$ y $\int_0^1 3y^2\,dy=1$ — "devolverte" a la marginal nunca pierde probabilidad, solo la reorganiza.</span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Independencia</span></span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>$X$ e $Y$ son independientes si y solo si su densidad conjunta se **factoriza**:</span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a>$$f(x,y) = f_X(x)\cdot f_Y(y) \quad \text{para todo } x,y$$</span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>**Criterio práctico (más rápido que calcular las marginales primero):** $X$ e $Y$ son independientes si y solo si $f(x,y)$ puede escribirse como $h(x)\cdot g(y)$ para *algunas* funciones $h$ y $g$ — no necesariamente ya normalizadas como densidades. Si logras separar la expresión en "una parte que solo tiene $x$" times "una parte que solo tiene $y$", ya sabes que son independientes, sin integrar nada todavía.</span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>Si además son independientes, $E(XY)=E(X)\,E(Y)$ — la misma propiedad que ya usaste con FGM en el Tema P6d, ahora para el caso continuo general.</span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — variables ya dadas como independientes (Ej. 5.37)</span></span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.37):** $X$ e $Y$ son variables aleatorias **independientes** con densidades $f(x)=\tfrac{3x^2}{8}$ para $0&lt;x&lt;2$, y $g(y)=y^{-2}$ para $y&gt;1$. Calcule $P(XY&gt;1)$.</span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Construir la conjunta, aprovechando que ya sabes que son independientes:** a diferencia de los ejemplos anteriores (donde la independencia había que *verificarla*), aquí el enunciado ya la da por hecho — así que la conjunta es directamente el producto de las densidades individuales, sin necesidad de factorizar nada:</span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>h(x,y) = f(x)\cdot g(y) = \frac{3x^2}{8}\cdot\frac{1}{y^2} = \frac{3x^2}{8y^2}, \qquad 0&lt;x&lt;2,\ y&gt;1</span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Identificar la región $XY&gt;1$ dentro del soporte:** como $y&gt;1$, se tiene $\tfrac1y&lt;1&lt;2$, así que para cada $y$ fijo, la condición $x&gt;\tfrac1y$ ya cabe dentro de $(0,2)$ sin salirse del soporte. La región de integración es $x\in(\tfrac1y,\,2)$, $y\in(1,\infty)$:</span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>P(XY&gt;1) = \int_1^{\infty}<span class="sc">\!\!</span>\int_{1/y}^{2} \frac{3x^2}{8y^2}\,dx\,dy = \frac{31}{32} = 0.96875</span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (<span class="dv">3</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">8</span></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(y) y<span class="sc">^</span>(<span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">f</span>(x) <span class="sc">*</span> <span class="fu">g</span>(y)   <span class="co"># conjunta = producto, porque ya son independientes</span></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a><span class="co"># P(XY &gt; 1): para cada y &gt; 1, integrar x de 1/y a 2</span></span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>p_xy_mayor_1 <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) {</span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(y, <span class="cf">function</span>(yi) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">h</span>(x, yi), <span class="dv">1</span><span class="sc">/</span>yi, <span class="dv">2</span>)<span class="sc">$</span>value)</span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">1</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>p_xy_mayor_1   <span class="co"># deberia dar 31/32 = 0.96875</span></span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a><span class="dv">31</span><span class="sc">/</span><span class="dv">32</span></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 La diferencia con los ejemplos anteriores</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>En el Ejemplo 5.19 ($6xy^2$) tuviste que **verificar** la independencia factorizando $f(x,y)$. Aquí el enunciado directamente te da $X$ e $Y$ como independientes con sus densidades individuales — el trabajo entonces es el inverso: **construir** la conjunta multiplicando, no descomponerla. Es la misma relación $f(x,y)=f_X(x)f_Y(y)$, solo que usada en la dirección contraria.</span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — probabilidad sobre una región (Ej. 5.19)</span></span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.19):** con la misma densidad $f(x,y)=6xy^2$, $0&lt;x&lt;1,\,0&lt;y&lt;1$, de la sección de exploración, calcule (1) $P<span class="sc">\!</span>\left(\tfrac12&lt;X\le\tfrac34,\,0&lt;Y\le\tfrac13\right)$ y (2) $P<span class="sc">\!</span>\left(\tfrac12&lt;X\le\tfrac34\right)$.</span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>**1. Probabilidad sobre un rectángulo dentro del soporte:** cuando el evento es un rectángulo $<span class="co">[</span><span class="ot">a,b</span><span class="co">]</span>\times<span class="co">[</span><span class="ot">c,d</span><span class="co">]</span>$ (no todo el soporte), los límites de la integral doble se ajustan a ese rectángulo, no a $(0,1)\times(0,1)$:</span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a>P<span class="sc">\!</span>\left(\tfrac12&lt;X\le\tfrac34,\,0&lt;Y\le\tfrac13\right) = \int_0^{1/3}<span class="sc">\!\!</span>\int_{1/2}^{3/4} 6xy^2\,dx\,dy = 1.1574\times10^{-2}</span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>**2. Probabilidad marginal, integrando $Y$ en todo su rango:** si el evento solo restringe $X$ (sin restringir $Y$), integras $y$ en $(0,1)$ completo — reusando directamente la marginal $f_X(x)=2x$ que ya dedujiste arriba:</span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a>P<span class="sc">\!</span>\left(\tfrac12&lt;X\le\tfrac34\right) = \int_{1/2}^{3/4}<span class="sc">\!\!</span>\int_0^1 6xy^2\,dy\,dx = \int_{1/2}^{3/4} 2x\,dx = 0.3125</span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) rectangulo dentro del soporte: Y restringido a (0, 1/3)</span></span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">0</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)<span class="sc">$</span>value)</span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>)<span class="sc">$</span>value</span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a>p1   <span class="co"># 0.011574...</span></span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) Y integrado en todo su rango -- equivalente a usar la marginal fX</span></span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">2</span> <span class="sc">*</span> x, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>)<span class="sc">$</span>value</span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a>p2   <span class="co"># 0.3125</span></span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Diferencia clave</span></span>
+<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a>En (1) el evento restringe **ambas** variables, así que los límites en $y$ son $(0,\tfrac13)$, no $(0,1)$. En (2) el evento solo restringe $X$, así que $Y$ se integra en **todo** su soporte $(0,1)$ — que es justamente la definición de la marginal $f_X$. Confundir estos dos casos es un error común al leer un enunciado.</span>
+<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — CDF conjunta y marginales (Ej. 5.21)</span></span>
+<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.21):** $X$ e $Y$ tienen densidad conjunta $f(x,y)=x+y$, $0&lt;x&lt;1$, $0&lt;y&lt;1$ — la misma densidad "no independiente" que verás en el Laboratorio. Halle (1) la función de distribución acumulativa conjunta y (2) las densidades marginales.</span>
+<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a>**1. Función de distribución acumulativa conjunta:** se integra la densidad desde $-\infty$ hasta $(x,y)$; como $f$ solo es distinta de cero en el cuadrado $(0,1)^2$, hay que distinguir regiones según dónde caiga el punto $(x,y)$. Dentro del cuadrado:</span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a>F_{XY}(x,y) = \int_0^x\int_0^y (u+t)\,dt\,du = \frac{x^2y+xy^2}{2}, \qquad 0&lt;x&lt;1,\ 0&lt;y&lt;1</span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a>Si $x$ ya está dentro pero $y\ge1$, sustituyes $y=1$ en esa misma fórmula (ya no hay más densidad que sumar más allá de $y=1$):</span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>F_{XY}(x,y) = \frac{x^2+x}{2}, \qquad 0&lt;x&lt;1,\ y\ge1</span>
+<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>Y por simetría, si $y&lt;1$ pero $x\ge1$: $F_{XY}(x,y)=\dfrac{y+y^2}{2}$. Si ambos superaron 1, $F_{XY}(x,y)=1$.</span>
+<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>**2. Marginales, por integración directa** (mismo procedimiento de la pestaña "Marginales por integración"):</span>
+<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a>f_X(x)=\int_0^1(x+y)\,dy = x+\frac12, \qquad 0&lt;x&lt;1 \qquad\qquad f_Y(y)=\int_0^1(x+y)\,dx = y+\frac12, \qquad 0&lt;y&lt;1</span>
+<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x <span class="sc">+</span> y</span>
+<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a>F_XY <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">||</span> y <span class="sc">&lt;=</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a>  xx <span class="ot">&lt;-</span> <span class="fu">min</span>(x, <span class="dv">1</span>); yy <span class="ot">&lt;-</span> <span class="fu">min</span>(y, <span class="dv">1</span>)</span>
+<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a>  (xx<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> yy <span class="sc">+</span> xx <span class="sc">*</span> yy<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a><span class="fu">F_XY</span>(<span class="fl">0.6</span>, <span class="fl">0.6</span>)   <span class="co"># dentro del cuadrado</span></span>
+<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a><span class="fu">F_XY</span>(<span class="fl">0.6</span>, <span class="dv">2</span>)     <span class="co"># y &gt;= 1 -&gt; usa la formula recortada en y = 1</span></span>
+<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a>fX <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a>fY <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">fX</span>(<span class="fl">0.4</span>), <span class="fl">0.4</span> <span class="sc">+</span> <span class="fl">0.5</span>)   <span class="co"># deben coincidir</span></span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">fY</span>(<span class="fl">0.4</span>), <span class="fl">0.4</span> <span class="sc">+</span> <span class="fl">0.5</span>)</span>
+<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## Por qué esta densidad no es independiente</span></span>
+<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a>$f_X(x)\cdot f_Y(y) = (x+\tfrac12)(y+\tfrac12) \ne x+y = f(x,y)$ — no se factoriza como en el Ejemplo 5.19, así que (a diferencia de $6xy^2$) estas variables **no son independientes**. Vas a confirmar esto mismo en el Laboratorio.</span>
+<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — región no rectangular (Ej. 5.22)</span></span>
+<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.22):** $X$ e $Y$ tienen densidad conjunta $f(x,y)=k$ (constante) para $0\le x\le2,\ 0\le y\le1$ y además $2y\le x$ — el soporte no es un rectángulo sino un **triángulo** (la parte del cuadrado por debajo de la recta $x=2y$). Halle (1) $k$, (2) la CDF conjunta, (3) las marginales, y (4) $P(X\le3Y)$.</span>
+<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a>**1. El valor de $k$:** con $f$ constante, la integral doble es $k$ veces el área de la región. Para $x$ fijo entre 0 y 2, $y$ va de 0 hasta $x/2$ (despejando de $2y=x$):</span>
+<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a>1 = \int_0^2\int_0^{x/2} k\,dy\,dx = k\int_0^2 \frac{x}{2}\,dx = k\cdot\left<span class="co">[</span><span class="ot">\frac{x^2}{4}\right</span><span class="co">]</span>_0^2 = k \;\Rightarrow\; k=1</span>
+<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a>**2. CDF conjunta**, según qué porción del triángulo cubre el punto $(x,y)$:</span>
+<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a>F_{XY}(x,y)=</span>
+<span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a>\begin{cases}</span>
+<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a>0 &amp; x&lt;0 \text{ o } y&lt;0<span class="sc">\\</span><span class="co">[</span><span class="ot">2pt</span><span class="co">]</span></span>
+<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a>xy-y^2 &amp; 0\le x\le2,\ 0\le y\le\tfrac{x}{2}<span class="sc">\\</span><span class="co">[</span><span class="ot">2pt</span><span class="co">]</span></span>
+<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a>\tfrac{x^2}{4} &amp; 0\le x\le2,\ y\ge\tfrac{x}{2}\ \text{(incluye } y\ge1)<span class="sc">\\</span><span class="co">[</span><span class="ot">2pt</span><span class="co">]</span></span>
+<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a>2y-y^2 &amp; x&gt;2,\ 0\le y\le1<span class="sc">\\</span><span class="co">[</span><span class="ot">2pt</span><span class="co">]</span></span>
+<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a>1 &amp; x\ge2,\ y\ge1</span>
+<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a>**3. Marginales, integrando sobre los límites reales del triángulo** (no sobre todo el cuadrado):</span>
+<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a>f_X(x) = \int_0^{x/2} 1\,dy = \frac{x}{2}, \qquad 0\le x\le2 \qquad\qquad f_Y(y) = \int_{2y}^{2} 1\,dx = 2-2y, \qquad 0\le y\le1</span>
+<span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a>Ninguna de las dos marginales usa límites fijos: dependen de la otra variable, precisamente porque el soporte es un triángulo, no un rectángulo.</span>
+<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a>**4. $P(X\le3Y)$:** el evento recorta el triángulo con la condición adicional $x\le3y$. La recta $x=3y$ sale del triángulo por $x=2$ cuando $y=\tfrac23$:</span>
+<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a>P(X\le3Y) = \int_0^{2/3}\int_{2y}^{3y} 1\,dx\,dy + \int_{2/3}^{1}\int_{2y}^{2} 1\,dx\,dy = \frac13</span>
+<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a><span class="co"># k=1, region: 0&lt;=x&lt;=2, 0&lt;=y&lt;=1, 2y&lt;=x</span></span>
+<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a>fX <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a>fY <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>y</span>
+<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(fX, <span class="dv">0</span>, <span class="dv">2</span>)<span class="sc">$</span>value   <span class="co"># 1 -- fX es una densidad valida</span></span>
+<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(fY, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value   <span class="co"># 1 -- fY tambien</span></span>
+<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &lt;= 3Y), integrando sobre la region recortada por el evento</span></span>
+<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a>p_x_le_3y <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) {</span>
+<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(y, <span class="cf">function</span>(yi) {</span>
+<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a>    x_sup <span class="ot">&lt;-</span> <span class="cf">if</span> (yi <span class="sc">&lt;=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>) <span class="dv">3</span><span class="sc">*</span>yi <span class="cf">else</span> <span class="dv">2</span></span>
+<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a>    <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">1</span>, <span class="dv">2</span><span class="sc">*</span>yi, x_sup)<span class="sc">$</span>value</span>
+<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a>p_x_le_3y   <span class="co"># deberia dar 1/3</span></span>
+<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 La lección de este ejemplo</span></span>
+<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a>Cuando el soporte de $f(x,y)$ no es un rectángulo, **los límites de integración de una variable dependen del valor de la otra** — tanto para verificar que $f$ integra a 1, como para marginales o cualquier probabilidad. Antes de integrar, identifica la región donde $f&gt;0$ y expresa los límites de una variable en función de la otra.</span>
+<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
+<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a>**Enunciado:** $X$ e $Y$ tienen densidad conjunta $f(x,y)=\dfrac{4x}{y^3}$ para $0&lt;x&lt;1$, $y&gt;1$. Determine: (1) $P\left(X&lt;\frac12 \mid Y&gt;6\right)$; (2) las densidades marginales de $X$ y de $Y$.</span>
+<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) P(X &lt; 1/2, Y &gt; 6) / P(Y &gt; 6)</span></span>
+<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a><span class="co"># Con integrales impropias, se integra hasta un límite muy grande (aproximación numérica)</span></span>
+<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
+<span id="cb15-306"><a href="#cb15-306" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="fl">0.5</span>)<span class="sc">$</span>value</span>
+<span id="cb15-307"><a href="#cb15-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-308"><a href="#cb15-308" aria-hidden="true" tabindex="-1"></a>den <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(x, <span class="cf">function</span>(xi) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(xi, y), <span class="dv">6</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value)</span>
+<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a>}, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">P_X_menor_0.5_Y_mayor_6 =</span> num, <span class="at">P_Y_mayor_6 =</span> den, <span class="at">condicional =</span> num <span class="sc">/</span> den)</span>
+<span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a>$P(X&lt;0.5,\,Y&gt;6)\approx0.006944$, $P(Y&gt;6)\approx0.02778$, y su razón da $P(X&lt;0.5\mid Y&gt;6)=0.25$ exactamente. Nota que este cálculo usó directamente la razón $\frac{P(X\in A,\,Y\in B)}{P(Y\in B)}$ — una probabilidad condicional "clásica" entre dos *eventos*, no todavía la función de densidad condicional formal (eso es exactamente lo que viene en el Tema P8c).</span>
+<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) Marginales, por integración directa (forma cerrada verificada analíticamente:</span></span>
+<span id="cb15-323"><a href="#cb15-323" aria-hidden="true" tabindex="-1"></a><span class="co">#     f_X(x) = 2x para 0&lt;x&lt;1;  f_Y(y) = 2/y^3 para y&gt;1)</span></span>
+<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">1</span>, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
+<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a>f_Y <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x, y), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">f_X_en_0.3 =</span> <span class="fu">f_X</span>(<span class="fl">0.3</span>), <span class="st">"2x_en_0.3"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.3</span>,</span>
+<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a>  <span class="at">f_Y_en_2   =</span> <span class="fu">f_Y</span>(<span class="dv">2</span>),   <span class="st">"2/y3_en_2"</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb15-329"><a href="#cb15-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-330"><a href="#cb15-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-331"><a href="#cb15-331" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb15-333"><a href="#cb15-333" aria-hidden="true" tabindex="-1"></a>Cuando integras en $y$ para obtener $f_X(x)$, los **límites de integración dependen de la región donde $f$ es distinta de cero** — aquí, para cada $x$ fijo, $y$ va de 1 a $\infty$ (no de $-\infty$ a $\infty$: fuera de $y&gt;1$ la densidad es cero). El error más común al calcular marginales es usar límites genéricos $(-\infty,\infty)$ sin adaptarlos a la región real de soporte de $f$. <span class="co">[</span><span class="ot">Ver más trucos →</span><span class="co">](../recursos.qmd)</span></span>
+<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a><span class="fu">## Verificando independencia con el criterio de factorización</span></span>
+<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a>$f(x,y)=6xy^2$ (la del ejemplo de "Exploremos") se factoriza directamente como $h(x)g(y)=(6x)(y^2)$ — **son independientes**, sin necesidad de calcular marginales primero. Y si las calculas de todas formas ($f_X(x)=2x$, $f_Y(y)=3y^2$), verificas que $f_X(x)f_Y(y)=6xy^2=f(x,y)$ — coincide exactamente. En cambio, $f(x,y)=x+y$ (que verás en el Laboratorio) **no** se puede factorizar como un producto de una función de $x$ por una de $y$ — así que ahí $X$ e $Y$ **no** son independientes.</span>
+<span id="cb15-339"><a href="#cb15-339" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Marginales de una densidad que no factoriza.** Para $f(x,y)=x+y$, $0&lt;x&lt;1$, $0&lt;y&lt;1$: (a) verifica que $\iint f=1$; (b) encuentra $f_X(x)$ y $f_Y(y)$ por integración; (c) confirma que $f_X(x)f_Y(y)\ne f(x,y)$, y por lo tanto $X$ e $Y$ **no** son independientes.</span>
+<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-345"><a href="#cb15-345" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Aplicar el criterio de factorización sin integrar.** Para cada una de estas densidades, decide —solo mirando la fórmula, sin integrar— si $X$ e $Y$ son independientes: (a) $f(x,y)=8xy$, $0&lt;x&lt;y&lt;1$; (b) $f(x,y)=2$, $0&lt;x&lt;y&lt;1$; (c) $f(x,y)=e^{-x}e^{-y}$, $x&gt;0,y&gt;0$. (Pista para (a) y (b): aunque la fórmula "se ve" factorizada, la **región** donde $f&gt;0$ también importa — si la región no es un rectángulo, no hay independencia aunque la expresión parezca separable).</span>
+<span id="cb15-346"><a href="#cb15-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Verificación numérica en R.** Para la densidad del Ejemplo con datos reales ($f(x,y)=4x/y^3$), usa <span class="in">`integrate()`</span> anidado para verificar numéricamente que $\iint f=1$ sobre toda la región $0&lt;x&lt;1,\,y&gt;1$.</span>
+<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb15-350"><a href="#cb15-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-353"><a href="#cb15-353" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb15-354"><a href="#cb15-354" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar que f(x,y) = 6xy^2 integra a 1 sobre (0,1)x(0,1)</span></span>
+<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a>integral_interna <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), <span class="dv">0</span>, ___)<span class="sc">$</span>value</span>
+<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">sapply</span>(x, integral_interna), <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a><span class="in">`1`</span> — el límite superior de integración en $y$ es 1, porque la densidad solo es distinta de cero en $0&lt;y&lt;1$.</span>
+<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Completa el código</span></span>
+<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x,y) = 4x/y^3, 0&lt;x&lt;1, y&gt;1. Marginal de X evaluada en x=0.5</span></span>
+<span id="cb15-369"><a href="#cb15-369" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">/</span> y<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb15-370"><a href="#cb15-370" aria-hidden="true" tabindex="-1"></a>f_X <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">f</span>(x, y), ___, <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
+<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a><span class="fu">f_X</span>(<span class="fl">0.5</span>)   <span class="co"># debería dar 1 (porque f_X(x) = 2x)</span></span>
+<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-373"><a href="#cb15-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-374"><a href="#cb15-374" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a><span class="in">`1`</span> — el límite inferior de integración en $y$ para la marginal de $X$ es 1, porque la densidad conjunta solo está definida para $y&gt;1$.</span>
+<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-379"><a href="#cb15-379" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 3 — Verdadero o falso</span></span>
+<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap8b"</span><span class="dt">&gt;</span></span>
+<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Para una densidad conjunta válida, la integral doble sobre todo el plano siempre debe dar 1.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. La marginal continua se obtiene derivando la densidad conjunta respecto a la otra variable.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb15-386"><a href="#cb15-386" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Si f(x,y) se puede escribir como h(x)·g(y) sobre un rectángulo, X e Y son independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb15-387"><a href="#cb15-387" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb15-388"><a href="#cb15-388" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>4. f(x,y) = x + y sobre el cuadrado unitario corresponde a X e Y independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q4"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>5. Si X e Y son independientes, siempre se cumple E(XY) = E(X)E(Y).<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q5"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP8b()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb15-393"><a href="#cb15-393" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap8b"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb15-394"><a href="#cb15-394" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb15-395"><a href="#cb15-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-396"><a href="#cb15-396" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb15-397"><a href="#cb15-397" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP8b</span>() {</span>
+<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q4</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q5</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
+<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8b"</span>)<span class="op">;</span></span>
+<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb15-404"><a href="#cb15-404" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-408"><a href="#cb15-408" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb15-409"><a href="#cb15-409" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb15-412"><a href="#cb15-412" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a>  resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a>  resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-418"><a href="#cb15-418" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb15-419"><a href="#cb15-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-420"><a href="#cb15-420" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La densidad conjunta $f(x,y)$ juega, en el caso continuo, el mismo papel que la tabla de probabilidades en el caso discreto: $P((X,Y)\in C)=\iint_C f(x,y)\,dx\,dy$.</span>
+<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las marginales se obtienen **integrando** sobre la otra variable (no sumando) — y los límites de integración deben respetar la región real donde $f&gt;0$.</span>
+<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El criterio de factorización $f(x,y)=h(x)g(y)$ (sobre una región rectangular) es la forma más rápida de verificar independencia, sin calcular marginales primero.</span>
+<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$f(x,y)=6xy^2$ (independientes) y $f(x,y)=x+y$ (no independientes) son dos ejemplos de referencia útiles para reconocer el patrón en un examen.</span>
+<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-427"><a href="#cb15-427" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a>El <span class="co">[</span><span class="ot">Tema P8c</span><span class="co">](tema-p8c-estudiante.qmd)</span> retoma la pregunta que quedó pendiente en el ejemplo de esta página: ¿qué significa exactamente "la densidad de $X$ dado $Y=y$" cuando $P(Y=y)=0$ para toda variable continua? Ahí se formaliza.</span>
+<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

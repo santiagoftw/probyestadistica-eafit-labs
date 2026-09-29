@@ -612,6 +612,19 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="dos-sensores-se-activan-juntos-por-casualidad-o-por-diseño">🚨 Dos sensores, ¿se activan juntos por casualidad o por diseño?</h2>
 <p>Un sistema de alarma tiene dos sensores: A detecta movimiento (<span class="math inline">\(X=1\)</span> si detecta, <span class="math inline">\(X=0\)</span> si no) y B detecta calor (<span class="math inline">\(Y=1\)</span> si detecta, <span class="math inline">\(Y=0\)</span> si no). Con datos históricos, ¿cómo determinas si un sensor “sabe” algo sobre el otro, y cuánto le cuesta al sistema (en falsas alarmas) esa posible dependencia?</p>
 </section>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Fuente de este tema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los ejemplos del libro de esta página están basados en Blanco Castañeda, L. (2010). <em>Probabilidad</em> (2.ª ed.). Universidad Nacional de Colombia, Capítulo 5 (Vectores Aleatorios), Definición 5.23 y Ejemplos 5.24, 5.25 y 5.29. Todos los resultados numéricos fueron verificados de forma independiente antes de incluirse aquí.</p>
+</div>
+</div>
 <div class="ficha-prediccion">
 <p>Antes de calcular nada: si dos sensores fueran completamente independientes, ¿qué relación esperarías entre <span class="math inline">\(P(X{=}1,Y{=}1)\)</span> y el producto <span class="math inline">\(P(X{=}1)\cdot P(Y{=}1)\)</span>? Escribe tu expectativa antes de ver la tabla.</p>
 </div>
@@ -670,10 +683,19 @@ window.Quarto = {
 <section id="ahora-sí-la-teoría" class="level2">
 <h2 class="anchored" data-anchor-id="ahora-sí-la-teoría">📖 Ahora sí, la teoría</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Valor esperado de una función de dos variables</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Covarianza — fórmula de cómputo</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Correlación</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Verificación de independencia (recordatorio del Tema P8)</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Valor esperado de una función de dos variables</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Covarianza — fórmula de cómputo</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Correlación</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Verificación de independencia (recordatorio del Tema P8)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">📘 Ejemplo del libro — dos dados (Ej. 5.24)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">📘 Ejemplo del libro — vector tridimensional (Ej. 5.25)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">📘 Ejemplo del libro — el truco de las indicadoras (Ej. 5.29)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Si <span class="math inline">\(g(X,Y)\)</span> es cualquier función de dos variables aleatorias discretas con distribución conjunta <span class="math inline">\(p(x,y)\)</span>: <span class="math display">\[E[g(X,Y)] = \sum_x\sum_y g(x,y)\cdot p(x,y)\]</span> <span class="math inline">\(E(X)\)</span>, <span class="math inline">\(E(Y)\)</span> y <span class="math inline">\(E(XY)\)</span> son casos particulares con <span class="math inline">\(g(x,y)=x\)</span>, <span class="math inline">\(g(x,y)=y\)</span> y <span class="math inline">\(g(x,y)=xy\)</span>, respectivamente. Esta es la generalización discreta exacta de la fórmula continua que viste en el Tema P8b/P8c con integrales.</p>
+<p><strong>Definición 5.23 (caso general, <span class="math inline">\(n\)</span> variables):</strong> sea <span class="math inline">\((X_1,\dots,X_n)\)</span> un vector aleatorio <span class="math inline">\(n\)</span>-dimensional y <span class="math inline">\(g(\cdot,\dots,\cdot)\)</span> una función real definida sobre <span class="math inline">\(\mathbb{R}^n\)</span>. El valor esperado de <span class="math inline">\(g(X_1,\dots,X_n)\)</span> se define como:</p>
+<p><span class="math display">\[
+E\big[g(X_1,\dots,X_n)\big] :=
+\begin{cases}
+\displaystyle\sum_{x_1}\cdots\sum_{x_n} g(x_1,\dots,x_n)\,P(X_1{=}x_1,\dots,X_n{=}x_n) &amp; \text{caso discreto} \\[10pt]
+\displaystyle\int_{-\infty}^{\infty}\!\!\cdots\!\int_{-\infty}^{\infty} g(x_1,\dots,x_n)\,f(x_1,\dots,x_n)\,dx_1\cdots dx_n &amp; \text{caso continuo}
+\end{cases}
+\]</span></p>
+<p>siempre que la suma o la integral múltiple converjan absolutamente. Es exactamente la misma idea que ya usaste arriba con <span class="math inline">\(g(X,Y)=XY\)</span> — solo generalizada a cualquier número de variables y a ambos casos (discreto y continuo) con una sola definición.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p><span class="math display">\[Cov(X,Y) = E(XY) - E(X)\,E(Y)\]</span> Es algebraicamente idéntica a la definición por desviaciones (<span class="math inline">\(E[(X-\mu_X)(Y-\mu_Y)]\)</span>), pero mucho más rápida de calcular a mano o en R: basta con tres valores esperados simples.</p>
@@ -684,6 +706,112 @@ window.Quarto = {
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes si y solo si <span class="math inline">\(P(X=a,Y=b)=P(X=a)\cdot P(Y=b)\)</span> <strong>para toda</strong> combinación <span class="math inline">\((a,b)\)</span> — no basta con revisar una sola celda, y <strong>no</strong> basta con que <span class="math inline">\(Cov(X,Y)\)</span> sea pequeña: covarianza cero es <em>necesaria</em> pero no <em>suficiente</em> para independencia (puede haber dependencia no lineal con covarianza exactamente 0).</p>
 </div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.24):</strong> se lanza un dado corriente dos veces consecutivas. <span class="math inline">\(X:=\)</span> “máximo valor obtenido”, <span class="math inline">\(Y:=\)</span> “suma de los valores obtenidos”. Calcule <span class="math inline">\(E(XY)\)</span>.</p>
+<p><strong>Cálculo, aplicando directamente la Definición 5.23:</strong> hay <span class="math inline">\(6\times6=36\)</span> pares <span class="math inline">\((d_1,d_2)\)</span> igualmente probables, cada uno con probabilidad <span class="math inline">\(\tfrac{1}{36}\)</span>. Como <span class="math inline">\(g(X,Y)=XY\)</span>, sumas <span class="math inline">\(x\cdot y\)</span> sobre los 36 resultados (agrupando los que compartan el mismo <span class="math inline">\((x,y)\)</span>, igual que hiciste con las monedas en el Tema P8):</p>
+<p><span class="math display">\[
+E(XY) = \sum_{d_1=1}^{6}\sum_{d_2=1}^{6} \max(d_1,d_2)\cdot(d_1+d_2)\cdot\frac{1}{36} = \frac{1232}{36} = \frac{308}{9} \approx 34.22
+\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicando la Definicion 5.23 directamente: enumerar y promediar g(X,Y)=XY</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">d1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">d2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="fu">pmax</span>(dados<span class="sc">$</span>d1, dados<span class="sc">$</span>d2)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Y <span class="ot">&lt;-</span> dados<span class="sc">$</span>d1 <span class="sc">+</span> dados<span class="sc">$</span>d2</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>EXY_dados <span class="ot">&lt;-</span> <span class="fu">mean</span>(dados<span class="sc">$</span>X <span class="sc">*</span> dados<span class="sc">$</span>Y)   <span class="co"># promedio simple porque los 36 casos son equiprobables</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>EXY_dados            <span class="co"># 34.222... = 1232/36</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1232</span> <span class="sc">/</span> <span class="dv">36</span>             <span class="co"># verificacion de la fraccion exacta</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Por qué “promediar” es lo mismo que “sumar × probabilidad”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Como los 36 resultados son igualmente probables (<span class="math inline">\(p=\tfrac{1}{36}\)</span> cada uno), <span class="math inline">\(\sum g(x,y)\cdot p(x,y) = \sum g(x,y)\cdot\tfrac{1}{36} = \text{promedio simple de } g\)</span>. <code>mean(dados$X * dados$Y)</code> funciona aquí porque cada fila de <code>dados</code> ya es un resultado individual con la misma probabilidad — no hace falta agrupar en una tabla conjunta primero. Con probabilidades desiguales (como en el ejemplo de los sensores, arriba) sí necesitas la suma ponderada explícita.</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.25):</strong> sea <span class="math inline">\((X,Y,Z)\)</span> un vector aleatorio tridimensional con densidad conjunta <span class="math inline">\(f(x,y,z)=8xyz\)</span> para <span class="math inline">\(0&lt;x&lt;1,\,0&lt;y&lt;1,\,0&lt;z&lt;1\)</span>. Calcule <span class="math inline">\(E(5X-2Y+Z)\)</span> y <span class="math inline">\(E(XY)\)</span>.</p>
+<p><strong>Paso 1 — Marginales por integración</strong> (extendiendo lo que ya sabes del Tema P8b a tres variables): <span class="math inline">\(f(x,y,z)=8xyz=(2x)(2y)(2z)\)</span> ya está factorizada, así que <span class="math inline">\(X,Y,Z\)</span> son independientes y cada marginal es <span class="math inline">\(f_X(x)=2x\)</span>, <span class="math inline">\(f_Y(y)=2y\)</span>, <span class="math inline">\(f_Z(z)=2z\)</span> en <span class="math inline">\((0,1)\)</span> — la misma forma que <span class="math inline">\(f_X(x)=2x\)</span> del Tema P8b.</p>
+<p><strong>Paso 2 — Valores esperados individuales:</strong> <span class="math display">\[
+E(X)=\int_0^1 x\cdot2x\,dx=\frac23, \qquad E(Y)=\frac23, \qquad E(Z)=\frac23
+\]</span></p>
+<p><strong>Paso 3 — Combinación lineal, usando linealidad del valor esperado</strong> (no hace falta integrar <span class="math inline">\(g=5x-2y+z\)</span> en tres dimensiones; basta combinar los esperados individuales): <span class="math display">\[
+E(5X-2Y+Z) = 5E(X)-2E(Y)+E(Z) = 5\cdot\tfrac23-2\cdot\tfrac23+\tfrac23 = (5-2+1)\cdot\tfrac23 = \frac{8}{3}
+\]</span></p>
+<p><strong>Paso 4 — <span class="math inline">\(E(XY)\)</span>, usando independencia</strong> (Tema P8b: si son independientes, <span class="math inline">\(E(XY)=E(X)E(Y)\)</span>, sin integrar <span class="math inline">\(xy\cdot f\)</span> en tres dimensiones): <span class="math display">\[
+E(XY) = E(X)\,E(Y) = \frac23\cdot\frac23 = \frac{4}{9}
+\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, z) <span class="dv">8</span> <span class="sc">*</span> x <span class="sc">*</span> y <span class="sc">*</span> z</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion por integracion triple directa (sin usar independencia todavia)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> x, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value   <span class="co"># marginal fX(x)=2x</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>EY <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) y <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> y, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>EZ <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(z) z <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> z, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(EX, EY, EZ)   <span class="co"># 0.6667 cada uno</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>E_combo <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">*</span>EX <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>EY <span class="sc">+</span> EZ</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>E_combo          <span class="co"># 8/3 = 2.6667</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>EXY <span class="ot">&lt;-</span> EX <span class="sc">*</span> EY   <span class="co"># valido porque X,Y,Z son independientes (f se factoriza)</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>EXY              <span class="co"># 4/9 = 0.4444</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>La independencia ahorra trabajo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sin aprovechar que <span class="math inline">\(f(x,y,z)\)</span> se factoriza, <span class="math inline">\(E(XY)\)</span> requeriría resolver <span class="math inline">\(\int_0^1\!\!\int_0^1\!\!\int_0^1 xy\cdot8xyz\,dz\,dy\,dx\)</span> — una integral triple. Como <span class="math inline">\(X,Y,Z\)</span> son independientes, basta multiplicar <span class="math inline">\(E(X)\cdot E(Y)\)</span>, dos valores esperados de una sola variable. Reconocer la factorización <strong>antes</strong> de integrar (el mismo criterio del Tema P8b) ahorra la mayor parte del trabajo.</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<p><strong>Enunciado (Blanco Castañeda, Ej. 5.29):</strong> una urna tiene <span class="math inline">\(N\)</span> bolas, de las cuales <span class="math inline">\(R\)</span> son rojas y <span class="math inline">\(N-R\)</span> blancas. Se extrae una muestra de tamaño <span class="math inline">\(n\)</span>, sin sustitución. Sea <span class="math inline">\(X\)</span> el número de bolas rojas extraídas. Ya sabes (Módulo 2, distribución hipergeométrica) que <span class="math inline">\(E(X)=\tfrac{nR}{N}\)</span> — este ejemplo deduce ese mismo resultado con una técnica distinta y mucho más rápida: <strong>variables indicadoras</strong>.</p>
+<p><strong>La idea central:</strong> en vez de calcular <span class="math inline">\(E(X)\)</span> sumando <span class="math inline">\(x\cdot P(X=x)\)</span> sobre la distribución hipergeométrica completa (que requiere combinatorios grandes), escribe <span class="math inline">\(X\)</span> como una <strong>suma</strong> de variables más simples. Define, para <span class="math inline">\(i=1,\dots,n\)</span>: <span class="math display">\[
+X_i := \begin{cases} 1 &amp; \text{si la } i\text{-ésima bola extraída es roja} \\ 0 &amp; \text{si la } i\text{-ésima bola extraída es blanca} \end{cases}
+\]</span></p>
+<p>Como cada bola extraída es roja o blanca, el número total de rojas es simplemente: <span class="math display">\[
+X = \sum_{i=1}^{n} X_i
+\]</span></p>
+<p><strong>Por qué esto simplifica todo:</strong> por simetría (antes de ver ninguna extracción, cada posición tiene la misma chance de ser roja), <span class="math inline">\(P(X_i=1)=\tfrac{R}{N}\)</span> para <strong>cada</strong> <span class="math inline">\(i\)</span> — aunque las extracciones sean sin reemplazo y las <span class="math inline">\(X_i\)</span> <strong>no</strong> sean independientes entre sí. Entonces <span class="math inline">\(E(X_i)=1\cdot\tfrac{R}{N}+0\cdot\tfrac{N-R}{N}=\tfrac{R}{N}\)</span>, igual para todo <span class="math inline">\(i\)</span>.</p>
+<p>Y aquí está el punto clave: la <strong>linealidad del valor esperado</strong> (<span class="math inline">\(E(\sum X_i)=\sum E(X_i)\)</span>) vale siempre, <strong>incluso si las <span class="math inline">\(X_i\)</span> son dependientes</strong> — no necesitas que las extracciones sean independientes para poder sumar los esperados:</p>
+<p><span class="math display">\[
+E(X) = E\!\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n E(X_i) = \sum_{i=1}^n \frac{R}{N} = \frac{nR}{N}
+\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion con un caso concreto: N=10 bolas, R=4 rojas, n=3 extracciones</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10</span>; R <span class="ot">&lt;-</span> <span class="dv">4</span>; n <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># E(X) por la formula hipergeometrica "tradicional" (sumando x * P(X=x))</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>p_x <span class="ot">&lt;-</span> <span class="fu">dhyper</span>(x_vals, <span class="at">m =</span> R, <span class="at">n =</span> N <span class="sc">-</span> R, <span class="at">k =</span> n)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>EX_tradicional <span class="ot">&lt;-</span> <span class="fu">sum</span>(x_vals <span class="sc">*</span> p_x)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># E(X) por el truco de las indicadoras: n * (R/N), sin combinatorios</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>EX_indicadoras <span class="ot">&lt;-</span> n <span class="sc">*</span> (R <span class="sc">/</span> N)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(EX_tradicional, EX_indicadoras)   <span class="co"># deben coincidir: 1.2 y 1.2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>💡 Por qué este truco es tan usado
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La linealidad del valor esperado (<span class="math inline">\(E(X+Y)=E(X)+E(Y)\)</span>) <strong>no requiere independencia</strong> — a diferencia de <span class="math inline">\(E(XY)=E(X)E(Y)\)</span>, que sí la requiere. Por eso escribir una variable complicada (como <span class="math inline">\(X\)</span>, con distribución hipergeométrica) como una <strong>suma de indicadoras simples</strong> (<span class="math inline">\(X_i\in\{0,1\}\)</span>) casi siempre simplifica el cálculo de <span class="math inline">\(E(X)\)</span>, incluso cuando las <span class="math inline">\(X_i\)</span> están correlacionadas entre sí. Es la misma estrategia que usarás más adelante para deducir la media de la distribución binomial o de otras distribuciones de conteo.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -693,8 +821,8 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> EXY <span class="sc">-</span> EX <span class="sc">*</span> EY</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cov_XY   <span class="co"># 0.03</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> EXY <span class="sc">-</span> EX <span class="sc">*</span> EY</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cov_XY   <span class="co"># 0.03</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.03</code></pre>
@@ -704,19 +832,19 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>PX1 <span class="ot">&lt;-</span> <span class="fl">0.70</span>   <span class="co"># P(X=1): suma de la fila X=1 -&gt; 0.25+0.45</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>PY1 <span class="ot">&lt;-</span> <span class="fl">0.60</span>   <span class="co"># P(Y=1): suma de la columna Y=1 -&gt; 0.15+0.45</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1        <span class="co"># 0.42</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>PX1 <span class="ot">&lt;-</span> <span class="fl">0.70</span>   <span class="co"># P(X=1): suma de la fila X=1 -&gt; 0.25+0.45</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>PY1 <span class="ot">&lt;-</span> <span class="fl">0.60</span>   <span class="co"># P(Y=1): suma de la columna Y=1 -&gt; 0.15+0.45</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1        <span class="co"># 0.42</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.42</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X=1, Y=1) observado en la tabla = 0.45</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1 <span class="sc">==</span> <span class="fl">0.45</span>   <span class="co"># FALSE -&gt; no son independientes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X=1, Y=1) observado en la tabla = 0.45</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1 <span class="sc">==</span> <span class="fl">0.45</span>   <span class="co"># FALSE -&gt; no son independientes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
@@ -739,20 +867,20 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>EG_analitico <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>EY <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>EXY</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>EG_analitico   <span class="co"># 3.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>EG_analitico <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>EY <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>EXY</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>EG_analitico   <span class="co"># 3.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.05</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion por simulacion</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">200000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> p)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> X[idx]; Y_sim <span class="ot">&lt;-</span> Y[idx]</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>G_sim <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>Y_sim <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>X_sim<span class="sc">*</span>Y_sim</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(G_sim)   <span class="co"># deberia acercarse a 3.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion por simulacion</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">200000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> p)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> X[idx]; Y_sim <span class="ot">&lt;-</span> Y[idx]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>G_sim <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>Y_sim <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>X_sim<span class="sc">*</span>Y_sim</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(G_sim)   <span class="co"># deberia acercarse a 3.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.04876</code></pre>
@@ -810,8 +938,8 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="ejercicios-autocorregibles">✅ Ejercicios autocorregibles</h2>
 <section id="ejercicio-1-completa-el-código" class="level3">
 <h3 class="anchored" data-anchor-id="ejercicio-1-completa-el-código">Ejercicio 1 — Completa el código</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Covarianza por la formula de computo</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> ___ <span class="sc">-</span> EX <span class="sc">*</span> EY</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Covarianza por la formula de computo</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> ___ <span class="sc">-</span> EX <span class="sc">*</span> EY</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Ver respuesta
@@ -1369,199 +1497,326 @@ function revisarQuizTemaP9a() {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P9a · Valor esperado de funciones de v.a. discretas y covarianza"</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🚨 Dos sensores, ¿se activan juntos por casualidad o por diseño?</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>Un sistema de alarma tiene dos sensores: A detecta movimiento ($X=1$ si detecta, $X=0$ si no) y B detecta calor ($Y=1$ si detecta, $Y=0$ si no). Con datos históricos, ¿cómo determinas si un sensor "sabe" algo sobre el otro, y cuánto le cuesta al sistema (en falsas alarmas) esa posible dependencia?</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>Antes de calcular nada: si dos sensores fueran completamente independientes, ¿qué relación esperarías entre $P(X{=}1,Y{=}1)$ y el producto $P(X{=}1)\cdot P(Y{=}1)$? Escribe tu expectativa antes de ver la tabla.</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: la tabla conjunta de dos sensores</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de probabilidad conjunta observada</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>, <span class="fl">0.45</span>)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(p)   <span class="co"># debe dar 1 -- verificacion basica de cualquier tabla conjunta</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> <span class="fu">sum</span>(X <span class="sc">*</span> p)</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>EY <span class="ot">&lt;-</span> <span class="fu">sum</span>(Y <span class="sc">*</span> p)</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>EXY <span class="ot">&lt;-</span> <span class="fu">sum</span>(X <span class="sc">*</span> Y <span class="sc">*</span> p)</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>EX; EY; EXY</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>Calcula <span class="in">`EX * EY`</span> y compáralo con <span class="in">`EXY`</span>. ¿Son exactamente iguales? Esa diferencia (o esa igualdad) es, por definición, la covarianza — vas a formalizarla en la siguiente sección.</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>En el Módulo 1 (Tema 8), calculaste la covarianza de **datos ya observados** con la fórmula basada en desviaciones $\frac{1}{n}\sum(x_i-\bar x)(y_i-\bar y)$. Aquí no tienes "datos" — tienes una tabla de *probabilidades*. ¿Cómo generalizarías esa misma idea?</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Valor esperado de una función de dos variables</span></span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>Si $g(X,Y)$ es cualquier función de dos variables aleatorias discretas con distribución conjunta $p(x,y)$:</span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">g(X,Y)</span><span class="co">]</span> = \sum_x\sum_y g(x,y)\cdot p(x,y)$$</span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>$E(X)$, $E(Y)$ y $E(XY)$ son casos particulares con $g(x,y)=x$, $g(x,y)=y$ y $g(x,y)=xy$, respectivamente. Esta es la generalización discreta exacta de la fórmula continua que viste en el Tema P8b/P8c con integrales.</span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Covarianza — fórmula de cómputo</span></span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>$$Cov(X,Y) = E(XY) - E(X)\,E(Y)$$</span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>Es algebraicamente idéntica a la definición por desviaciones ($E<span class="co">[</span><span class="ot">(X-\mu_X)(Y-\mu_Y)</span><span class="co">]</span>$), pero mucho más rápida de calcular a mano o en R: basta con tres valores esperados simples.</span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Correlación</span></span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>$$\rho(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)\cdot Var(Y)}}, \qquad Var(X)=E(X^2)-E(X)^2$$</span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>Igual que en el Módulo 1: normaliza la covarianza a $<span class="co">[</span><span class="ot">-1,1</span><span class="co">]</span>$, independiente de las unidades de $X$ y $Y$.</span>
-<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Verificación de independencia (recordatorio del Tema P8)</span></span>
-<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>$X$ y $Y$ son independientes si y solo si $P(X=a,Y=b)=P(X=a)\cdot P(Y=b)$ **para toda** combinación $(a,b)$ — no basta con revisar una sola celda, y **no** basta con que $Cov(X,Y)$ sea pequeña: covarianza cero es *necesaria* pero no *suficiente* para independencia (puede haber dependencia no lineal con covarianza exactamente 0).</span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Covarianza por la fórmula de cómputo:**</span>
-<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> EXY <span class="sc">-</span> EX <span class="sc">*</span> EY</span>
-<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>cov_XY   <span class="co"># 0.03</span></span>
-<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Verificación explícita de independencia:**</span>
-<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a>PX1 <span class="ot">&lt;-</span> <span class="fl">0.70</span>   <span class="co"># P(X=1): suma de la fila X=1 -&gt; 0.25+0.45</span></span>
-<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a>PY1 <span class="ot">&lt;-</span> <span class="fl">0.60</span>   <span class="co"># P(Y=1): suma de la columna Y=1 -&gt; 0.15+0.45</span></span>
-<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1        <span class="co"># 0.42</span></span>
-<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X=1, Y=1) observado en la tabla = 0.45</span></span>
-<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1 <span class="sc">==</span> <span class="fl">0.45</span>   <span class="co"># FALSE -&gt; no son independientes</span></span>
-<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretación</span></span>
-<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a>$P(X{=}1)\cdot P(Y{=}1)=0.42 \ne P(X{=}1,Y{=}1)=0.45$ — los sensores **no son independientes**. Es consistente con $Cov(X,Y)=0.03&gt;0$: cuando A detecta movimiento, hay una tendencia (leve) a que B también detecte algo — quizás ambos reaccionan a una fuente común (una persona real moviéndose y generando calor a la vez).</span>
-<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a>**Paso 3 — Valor esperado de una función más compleja:** si el costo de revisión (en miles de pesos) cuando se disparan las alarmas se modela como $G=2X+5Y-3XY$ (el término $-3XY$ representa un descuento cuando ambos sensores coinciden, porque se envía una sola cuadrilla):</span>
-<span id="cb18-100"><a href="#cb18-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a>EG_analitico <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>EY <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>EXY</span>
-<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a>EG_analitico   <span class="co"># 3.05</span></span>
-<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion por simulacion</span></span>
-<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
-<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">200000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> p)</span>
-<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> X[idx]; Y_sim <span class="ot">&lt;-</span> Y[idx]</span>
-<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a>G_sim <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>Y_sim <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>X_sim<span class="sc">*</span>Y_sim</span>
-<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(G_sim)   <span class="co"># deberia acercarse a 3.05</span></span>
-<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
-<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a>$E(aX+bY+cXY) \ne a\,E(X)+b\,E(Y)+c\,E(X)E(Y)$ en general — el término cruzado necesita $E(XY)$ real (calculado de la tabla), no el producto $E(X)E(Y)$. Ambos solo coinciden cuando $X$ y $Y$ son independientes — que ya comprobaste que no es el caso aquí. Usar $E(X)E(Y)$ en vez de $E(XY)$ cuando las variables son dependientes es uno de los errores más comunes al calcular valores esperados de funciones conjuntas.</span>
-<span id="cb18-115"><a href="#cb18-115" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-116"><a href="#cb18-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a>Dos sucursales de un banco registran el número de reclamos por hora. $X\in<span class="sc">\{</span>0,1<span class="sc">\}</span>$ para la sucursal 1, $Y\in<span class="sc">\{</span>0,1,2<span class="sc">\}</span>$ para la sucursal 2, con tabla conjunta:</span>
-<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $X\backslash Y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span></span>
-<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0.10 <span class="pp">|</span> 0.15 <span class="pp">|</span> 0.05 <span class="pp">|</span></span>
-<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 0.10 <span class="pp">|</span> 0.25 <span class="pp">|</span> 0.35 <span class="pp">|</span></span>
-<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Verifique que la tabla es una distribución de probabilidad válida.</span>
-<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calcule $E(X)$, $E(Y)$, $E(XY)$ y $Cov(X,Y)$.</span>
-<span id="cb18-128"><a href="#cb18-128" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Verifique si $X$ y $Y$ son independientes, comparando $P(X{=}1,Y{=}2)$ contra $P(X{=}1)\cdot P(Y{=}2)$.</span>
-<span id="cb18-129"><a href="#cb18-129" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Calcule $E(3X^2 - 2Y + XY)$, tanto con la fórmula analítica como verificando por simulación en R.</span>
-<span id="cb18-130"><a href="#cb18-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Covarianza por la formula de computo</span></span>
-<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> ___ <span class="sc">-</span> EX <span class="sc">*</span> EY</span>
-<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a><span class="in">`EXY`</span> — la fórmula de cómputo es $Cov(X,Y)=E(XY)-E(X)E(Y)$.</span>
-<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
-<span id="cb18-146"><a href="#cb18-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-147"><a href="#cb18-147" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap9a"</span><span class="dt">&gt;</span></span>
-<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Si Cov(X,Y) = 0, entonces X y Y son necesariamente independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb18-149"><a href="#cb18-149" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb18-150"><a href="#cb18-150" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. E(XY) se calcula sumando x·y·p(x,y) sobre todas las combinaciones de la tabla.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb18-151"><a href="#cb18-151" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Si X y Y son dependientes, E(XY) es en general distinto de E(X)·E(Y).<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP9a()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap9a"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb18-156"><a href="#cb18-156" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">"explicacion-quiz-temap9a"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"display: none; margin-top: 0.75rem;"</span><span class="dt">&gt;</span></span>
-<span id="cb18-157"><a href="#cb18-157" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Explicación:<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span></span>
-<span id="cb18-158"><a href="#cb18-158" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
-<span id="cb18-159"><a href="#cb18-159" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Falso<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — covarianza cero es necesaria pero no suficiente; puede haber dependencia no lineal con covarianza exactamente 0.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
-<span id="cb18-160"><a href="#cb18-160" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Verdadero<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — es exactamente la definición de valor esperado de una función de dos variables, aplicada a g(x,y)=xy.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
-<span id="cb18-161"><a href="#cb18-161" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Verdadero<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — si fueran independientes sí coincidirían (E(XY)=E(X)E(Y)); si son dependientes, en general no.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
-<span id="cb18-162"><a href="#cb18-162" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
-<span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP9a</span>() {</span>
-<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb18-169"><a href="#cb18-169" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb18-170"><a href="#cb18-170" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb18-171"><a href="#cb18-171" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb18-172"><a href="#cb18-172" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultado <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap9a"</span>)<span class="op">;</span></span>
-<span id="cb18-173"><a href="#cb18-173" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a>    resultado<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a>    resultado<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb18-178"><a href="#cb18-178" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb18-179"><a href="#cb18-179" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb18-180"><a href="#cb18-180" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb18-181"><a href="#cb18-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb18-182"><a href="#cb18-182" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb18-183"><a href="#cb18-183" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb18-184"><a href="#cb18-184" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb18-185"><a href="#cb18-185" aria-hidden="true" tabindex="-1"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"explicacion-quiz-temap9a"</span>)<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">display</span> <span class="op">=</span> <span class="st">"block"</span><span class="op">;</span></span>
-<span id="cb18-186"><a href="#cb18-186" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-187"><a href="#cb18-187" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb18-188"><a href="#cb18-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-189"><a href="#cb18-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb18-190"><a href="#cb18-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-191"><a href="#cb18-191" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb18-192"><a href="#cb18-192" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$E<span class="co">[</span><span class="ot">g(X,Y)</span><span class="co">]</span>=\sum_x\sum_y g(x,y)p(x,y)$ generaliza el valor esperado a cualquier función de dos variables discretas — $E(X)$, $E(Y)$ y $E(XY)$ son casos particulares.</span>
-<span id="cb18-193"><a href="#cb18-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Cov(X,Y)=E(XY)-E(X)E(Y)$ es la fórmula de cómputo, algebraicamente igual a la definición por desviaciones pero más rápida de aplicar.</span>
-<span id="cb18-194"><a href="#cb18-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La independencia se verifica comparando $P(X=a,Y=b)$ contra $P(X=a)P(Y=b)$ en **cada** celda — covarianza cero no basta para concluir independencia.</span>
-<span id="cb18-195"><a href="#cb18-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$E(aX+bY+cXY)$ requiere el valor real de $E(XY)$ de la tabla — sustituirlo por $E(X)E(Y)$ solo es válido bajo independencia.</span>
-<span id="cb18-196"><a href="#cb18-196" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb18-197"><a href="#cb18-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-198"><a href="#cb18-198" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb18-199"><a href="#cb18-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-200"><a href="#cb18-200" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb18-201"><a href="#cb18-201" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
-<span id="cb18-202"><a href="#cb18-202" aria-hidden="true" tabindex="-1"></a>El Tema P9 (siguiente) extiende estas mismas ideas de covarianza y correlación al caso **continuo**, simulando variables normales correlacionadas con <span class="in">`mvrnorm()`</span>.</span>
-<span id="cb18-203"><a href="#cb18-203" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tema P9a · Valor esperado de funciones de v.a. discretas y covarianza"</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>::: {.hero-motivacion}</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🚨 Dos sensores, ¿se activan juntos por casualidad o por diseño?</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>Un sistema de alarma tiene dos sensores: A detecta movimiento ($X=1$ si detecta, $X=0$ si no) y B detecta calor ($Y=1$ si detecta, $Y=0$ si no). Con datos históricos, ¿cómo determinas si un sensor "sabe" algo sobre el otro, y cuánto le cuesta al sistema (en falsas alarmas) esa posible dependencia?</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fuente de este tema</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>Los ejemplos del libro de esta página están basados en Blanco Castañeda, L. (2010). *Probabilidad* (2.ª ed.). Universidad Nacional de Colombia, Capítulo 5 (Vectores Aleatorios), Definición 5.23 y Ejemplos 5.24, 5.25 y 5.29. Todos los resultados numéricos fueron verificados de forma independiente antes de incluirse aquí.</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>::: {.ficha-prediccion}</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>Antes de calcular nada: si dos sensores fueran completamente independientes, ¿qué relación esperarías entre $P(X{=}1,Y{=}1)$ y el producto $P(X{=}1)\cdot P(Y{=}1)$? Escribe tu expectativa antes de ver la tabla.</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔬 Exploremos: la tabla conjunta de dos sensores</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de probabilidad conjunta observada</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>, <span class="fl">0.45</span>)</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(p)   <span class="co"># debe dar 1 -- verificacion basica de cualquier tabla conjunta</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> <span class="fu">sum</span>(X <span class="sc">*</span> p)</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>EY <span class="ot">&lt;-</span> <span class="fu">sum</span>(Y <span class="sc">*</span> p)</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>EXY <span class="ot">&lt;-</span> <span class="fu">sum</span>(X <span class="sc">*</span> Y <span class="sc">*</span> p)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>EX; EY; EXY</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>::: {.ficha-resultado}</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>Calcula <span class="in">`EX * EY`</span> y compáralo con <span class="in">`EXY`</span>. ¿Son exactamente iguales? Esa diferencia (o esa igualdad) es, por definición, la covarianza — vas a formalizarla en la siguiente sección.</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta guía</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>En el Módulo 1 (Tema 8), calculaste la covarianza de **datos ya observados** con la fórmula basada en desviaciones $\frac{1}{n}\sum(x_i-\bar x)(y_i-\bar y)$. Aquí no tienes "datos" — tienes una tabla de *probabilidades*. ¿Cómo generalizarías esa misma idea?</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Valor esperado de una función de dos variables</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>Si $g(X,Y)$ es cualquier función de dos variables aleatorias discretas con distribución conjunta $p(x,y)$:</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">g(X,Y)</span><span class="co">]</span> = \sum_x\sum_y g(x,y)\cdot p(x,y)$$</span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>$E(X)$, $E(Y)$ y $E(XY)$ son casos particulares con $g(x,y)=x$, $g(x,y)=y$ y $g(x,y)=xy$, respectivamente. Esta es la generalización discreta exacta de la fórmula continua que viste en el Tema P8b/P8c con integrales.</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>**Definición 5.23 (caso general, $n$ variables):** sea $(X_1,\dots,X_n)$ un vector aleatorio $n$-dimensional y $g(\cdot,\dots,\cdot)$ una función real definida sobre $\mathbb{R}^n$. El valor esperado de $g(X_1,\dots,X_n)$ se define como:</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>E\big<span class="co">[</span><span class="ot">g(X_1,\dots,X_n)\big</span><span class="co">]</span> :=</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>\begin{cases}</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>\displaystyle\sum_{x_1}\cdots\sum_{x_n} g(x_1,\dots,x_n)\,P(X_1{=}x_1,\dots,X_n{=}x_n) &amp; \text{caso discreto} <span class="sc">\\</span><span class="co">[</span><span class="ot">10pt</span><span class="co">]</span></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>\displaystyle\int_{-\infty}^{\infty}<span class="sc">\!\!</span>\cdots<span class="sc">\!</span>\int_{-\infty}^{\infty} g(x_1,\dots,x_n)\,f(x_1,\dots,x_n)\,dx_1\cdots dx_n &amp; \text{caso continuo}</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a>siempre que la suma o la integral múltiple converjan absolutamente. Es exactamente la misma idea que ya usaste arriba con $g(X,Y)=XY$ — solo generalizada a cualquier número de variables y a ambos casos (discreto y continuo) con una sola definición.</span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## Covarianza — fórmula de cómputo</span></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a>$$Cov(X,Y) = E(XY) - E(X)\,E(Y)$$</span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a>Es algebraicamente idéntica a la definición por desviaciones ($E<span class="co">[</span><span class="ot">(X-\mu_X)(Y-\mu_Y)</span><span class="co">]</span>$), pero mucho más rápida de calcular a mano o en R: basta con tres valores esperados simples.</span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Correlación</span></span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a>$$\rho(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)\cdot Var(Y)}}, \qquad Var(X)=E(X^2)-E(X)^2$$</span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a>Igual que en el Módulo 1: normaliza la covarianza a $<span class="co">[</span><span class="ot">-1,1</span><span class="co">]</span>$, independiente de las unidades de $X$ y $Y$.</span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Verificación de independencia (recordatorio del Tema P8)</span></span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a>$X$ y $Y$ son independientes si y solo si $P(X=a,Y=b)=P(X=a)\cdot P(Y=b)$ **para toda** combinación $(a,b)$ — no basta con revisar una sola celda, y **no** basta con que $Cov(X,Y)$ sea pequeña: covarianza cero es *necesaria* pero no *suficiente* para independencia (puede haber dependencia no lineal con covarianza exactamente 0).</span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — dos dados (Ej. 5.24)</span></span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.24):** se lanza un dado corriente dos veces consecutivas. $X:=$ "máximo valor obtenido", $Y:=$ "suma de los valores obtenidos". Calcule $E(XY)$.</span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a>**Cálculo, aplicando directamente la Definición 5.23:** hay $6\times6=36$ pares $(d_1,d_2)$ igualmente probables, cada uno con probabilidad $\tfrac{1}{36}$. Como $g(X,Y)=XY$, sumas $x\cdot y$ sobre los 36 resultados (agrupando los que compartan el mismo $(x,y)$, igual que hiciste con las monedas en el Tema P8):</span>
+<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a>E(XY) = \sum_{d_1=1}^{6}\sum_{d_2=1}^{6} \max(d_1,d_2)\cdot(d_1+d_2)\cdot\frac{1}{36} = \frac{1232}{36} = \frac{308}{9} \approx 34.22</span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicando la Definicion 5.23 directamente: enumerar y promediar g(X,Y)=XY</span></span>
+<span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">d1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">d2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="fu">pmax</span>(dados<span class="sc">$</span>d1, dados<span class="sc">$</span>d2)</span>
+<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Y <span class="ot">&lt;-</span> dados<span class="sc">$</span>d1 <span class="sc">+</span> dados<span class="sc">$</span>d2</span>
+<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a>EXY_dados <span class="ot">&lt;-</span> <span class="fu">mean</span>(dados<span class="sc">$</span>X <span class="sc">*</span> dados<span class="sc">$</span>Y)   <span class="co"># promedio simple porque los 36 casos son equiprobables</span></span>
+<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a>EXY_dados            <span class="co"># 34.222... = 1232/36</span></span>
+<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a><span class="dv">1232</span> <span class="sc">/</span> <span class="dv">36</span>             <span class="co"># verificacion de la fraccion exacta</span></span>
+<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Por qué "promediar" es lo mismo que "sumar × probabilidad"</span></span>
+<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a>Como los 36 resultados son igualmente probables ($p=\tfrac{1}{36}$ cada uno), $\sum g(x,y)\cdot p(x,y) = \sum g(x,y)\cdot\tfrac{1}{36} = \text{promedio simple de } g$. <span class="in">`mean(dados$X * dados$Y)`</span> funciona aquí porque cada fila de <span class="in">`dados`</span> ya es un resultado individual con la misma probabilidad — no hace falta agrupar en una tabla conjunta primero. Con probabilidades desiguales (como en el ejemplo de los sensores, arriba) sí necesitas la suma ponderada explícita.</span>
+<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — vector tridimensional (Ej. 5.25)</span></span>
+<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.25):** sea $(X,Y,Z)$ un vector aleatorio tridimensional con densidad conjunta $f(x,y,z)=8xyz$ para $0&lt;x&lt;1,\,0&lt;y&lt;1,\,0&lt;z&lt;1$. Calcule $E(5X-2Y+Z)$ y $E(XY)$.</span>
+<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Marginales por integración** (extendiendo lo que ya sabes del Tema P8b a tres variables): $f(x,y,z)=8xyz=(2x)(2y)(2z)$ ya está factorizada, así que $X,Y,Z$ son independientes y cada marginal es $f_X(x)=2x$, $f_Y(y)=2y$, $f_Z(z)=2z$ en $(0,1)$ — la misma forma que $f_X(x)=2x$ del Tema P8b.</span>
+<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Valores esperados individuales:**</span>
+<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a>E(X)=\int_0^1 x\cdot2x\,dx=\frac23, \qquad E(Y)=\frac23, \qquad E(Z)=\frac23</span>
+<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a>**Paso 3 — Combinación lineal, usando linealidad del valor esperado** (no hace falta integrar $g=5x-2y+z$ en tres dimensiones; basta combinar los esperados individuales):</span>
+<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a>E(5X-2Y+Z) = 5E(X)-2E(Y)+E(Z) = 5\cdot\tfrac23-2\cdot\tfrac23+\tfrac23 = (5-2+1)\cdot\tfrac23 = \frac{8}{3}</span>
+<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a>**Paso 4 — $E(XY)$, usando independencia** (Tema P8b: si son independientes, $E(XY)=E(X)E(Y)$, sin integrar $xy\cdot f$ en tres dimensiones):</span>
+<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a>E(XY) = E(X)\,E(Y) = \frac23\cdot\frac23 = \frac{4}{9}</span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, z) <span class="dv">8</span> <span class="sc">*</span> x <span class="sc">*</span> y <span class="sc">*</span> z</span>
+<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion por integracion triple directa (sin usar independencia todavia)</span></span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a>EX <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> x, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value   <span class="co"># marginal fX(x)=2x</span></span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a>EY <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) y <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> y, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>EZ <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(z) z <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> z, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(EX, EY, EZ)   <span class="co"># 0.6667 cada uno</span></span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a>E_combo <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">*</span>EX <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>EY <span class="sc">+</span> EZ</span>
+<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a>E_combo          <span class="co"># 8/3 = 2.6667</span></span>
+<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a>EXY <span class="ot">&lt;-</span> EX <span class="sc">*</span> EY   <span class="co"># valido porque X,Y,Z son independientes (f se factoriza)</span></span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a>EXY              <span class="co"># 4/9 = 0.4444</span></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a><span class="fu">## La independencia ahorra trabajo</span></span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a>Sin aprovechar que $f(x,y,z)$ se factoriza, $E(XY)$ requeriría resolver $\int_0^1<span class="sc">\!\!</span>\int_0^1<span class="sc">\!\!</span>\int_0^1 xy\cdot8xyz\,dz\,dy\,dx$ — una integral triple. Como $X,Y,Z$ son independientes, basta multiplicar $E(X)\cdot E(Y)$, dos valores esperados de una sola variable. Reconocer la factorización **antes** de integrar (el mismo criterio del Tema P8b) ahorra la mayor parte del trabajo.</span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📘 Ejemplo del libro — el truco de las indicadoras (Ej. 5.29)</span></span>
+<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a>**Enunciado (Blanco Castañeda, Ej. 5.29):** una urna tiene $N$ bolas, de las cuales $R$ son rojas y $N-R$ blancas. Se extrae una muestra de tamaño $n$, sin sustitución. Sea $X$ el número de bolas rojas extraídas. Ya sabes (Módulo 2, distribución hipergeométrica) que $E(X)=\tfrac{nR}{N}$ — este ejemplo deduce ese mismo resultado con una técnica distinta y mucho más rápida: **variables indicadoras**.</span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a>**La idea central:** en vez de calcular $E(X)$ sumando $x\cdot P(X=x)$ sobre la distribución hipergeométrica completa (que requiere combinatorios grandes), escribe $X$ como una **suma** de variables más simples. Define, para $i=1,\dots,n$:</span>
+<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a>X_i := \begin{cases} 1 &amp; \text{si la } i\text{-ésima bola extraída es roja} <span class="sc">\\</span> 0 &amp; \text{si la } i\text{-ésima bola extraída es blanca} \end{cases}</span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a>Como cada bola extraída es roja o blanca, el número total de rojas es simplemente:</span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a>X = \sum_{i=1}^{n} X_i</span>
+<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a>**Por qué esto simplifica todo:** por simetría (antes de ver ninguna extracción, cada posición tiene la misma chance de ser roja), $P(X_i=1)=\tfrac{R}{N}$ para **cada** $i$ — aunque las extracciones sean sin reemplazo y las $X_i$ **no** sean independientes entre sí. Entonces $E(X_i)=1\cdot\tfrac{R}{N}+0\cdot\tfrac{N-R}{N}=\tfrac{R}{N}$, igual para todo $i$.</span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a>Y aquí está el punto clave: la **linealidad del valor esperado** ($E(\sum X_i)=\sum E(X_i)$) vale siempre, **incluso si las $X_i$ son dependientes** — no necesitas que las extracciones sean independientes para poder sumar los esperados:</span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a>E(X) = E<span class="sc">\!</span>\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n E(X_i) = \sum_{i=1}^n \frac{R}{N} = \frac{nR}{N}</span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion con un caso concreto: N=10 bolas, R=4 rojas, n=3 extracciones</span></span>
+<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10</span>; R <span class="ot">&lt;-</span> <span class="dv">4</span>; n <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a><span class="co"># E(X) por la formula hipergeometrica "tradicional" (sumando x * P(X=x))</span></span>
+<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n</span>
+<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a>p_x <span class="ot">&lt;-</span> <span class="fu">dhyper</span>(x_vals, <span class="at">m =</span> R, <span class="at">n =</span> N <span class="sc">-</span> R, <span class="at">k =</span> n)</span>
+<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a>EX_tradicional <span class="ot">&lt;-</span> <span class="fu">sum</span>(x_vals <span class="sc">*</span> p_x)</span>
+<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a><span class="co"># E(X) por el truco de las indicadoras: n * (R/N), sin combinatorios</span></span>
+<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a>EX_indicadoras <span class="ot">&lt;-</span> n <span class="sc">*</span> (R <span class="sc">/</span> N)</span>
+<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(EX_tradicional, EX_indicadoras)   <span class="co"># deben coincidir: 1.2 y 1.2</span></span>
+<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb21-190"><a href="#cb21-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Por qué este truco es tan usado</span></span>
+<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a>La linealidad del valor esperado ($E(X+Y)=E(X)+E(Y)$) **no requiere independencia** — a diferencia de $E(XY)=E(X)E(Y)$, que sí la requiere. Por eso escribir una variable complicada (como $X$, con distribución hipergeométrica) como una **suma de indicadoras simples** ($X_i\in<span class="sc">\{</span>0,1<span class="sc">\}</span>$) casi siempre simplifica el cálculo de $E(X)$, incluso cuando las $X_i$ están correlacionadas entre sí. Es la misma estrategia que usarás más adelante para deducir la media de la distribución binomial o de otras distribuciones de conteo.</span>
+<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-194"><a href="#cb21-194" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-195"><a href="#cb21-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-196"><a href="#cb21-196" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales</span></span>
+<span id="cb21-197"><a href="#cb21-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-198"><a href="#cb21-198" aria-hidden="true" tabindex="-1"></a>**Paso 1 — Covarianza por la fórmula de cómputo:**</span>
+<span id="cb21-201"><a href="#cb21-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-202"><a href="#cb21-202" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> EXY <span class="sc">-</span> EX <span class="sc">*</span> EY</span>
+<span id="cb21-203"><a href="#cb21-203" aria-hidden="true" tabindex="-1"></a>cov_XY   <span class="co"># 0.03</span></span>
+<span id="cb21-204"><a href="#cb21-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-205"><a href="#cb21-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-206"><a href="#cb21-206" aria-hidden="true" tabindex="-1"></a>**Paso 2 — Verificación explícita de independencia:**</span>
+<span id="cb21-209"><a href="#cb21-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-210"><a href="#cb21-210" aria-hidden="true" tabindex="-1"></a>PX1 <span class="ot">&lt;-</span> <span class="fl">0.70</span>   <span class="co"># P(X=1): suma de la fila X=1 -&gt; 0.25+0.45</span></span>
+<span id="cb21-211"><a href="#cb21-211" aria-hidden="true" tabindex="-1"></a>PY1 <span class="ot">&lt;-</span> <span class="fl">0.60</span>   <span class="co"># P(Y=1): suma de la columna Y=1 -&gt; 0.15+0.45</span></span>
+<span id="cb21-212"><a href="#cb21-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-213"><a href="#cb21-213" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1        <span class="co"># 0.42</span></span>
+<span id="cb21-214"><a href="#cb21-214" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X=1, Y=1) observado en la tabla = 0.45</span></span>
+<span id="cb21-215"><a href="#cb21-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-216"><a href="#cb21-216" aria-hidden="true" tabindex="-1"></a>PX1 <span class="sc">*</span> PY1 <span class="sc">==</span> <span class="fl">0.45</span>   <span class="co"># FALSE -&gt; no son independientes</span></span>
+<span id="cb21-217"><a href="#cb21-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-218"><a href="#cb21-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-219"><a href="#cb21-219" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb21-220"><a href="#cb21-220" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretación</span></span>
+<span id="cb21-221"><a href="#cb21-221" aria-hidden="true" tabindex="-1"></a>$P(X{=}1)\cdot P(Y{=}1)=0.42 \ne P(X{=}1,Y{=}1)=0.45$ — los sensores **no son independientes**. Es consistente con $Cov(X,Y)=0.03&gt;0$: cuando A detecta movimiento, hay una tendencia (leve) a que B también detecte algo — quizás ambos reaccionan a una fuente común (una persona real moviéndose y generando calor a la vez).</span>
+<span id="cb21-222"><a href="#cb21-222" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-223"><a href="#cb21-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-224"><a href="#cb21-224" aria-hidden="true" tabindex="-1"></a>**Paso 3 — Valor esperado de una función más compleja:** si el costo de revisión (en miles de pesos) cuando se disparan las alarmas se modela como $G=2X+5Y-3XY$ (el término $-3XY$ representa un descuento cuando ambos sensores coinciden, porque se envía una sola cuadrilla):</span>
+<span id="cb21-227"><a href="#cb21-227" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-228"><a href="#cb21-228" aria-hidden="true" tabindex="-1"></a>EG_analitico <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>EX <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>EY <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>EXY</span>
+<span id="cb21-229"><a href="#cb21-229" aria-hidden="true" tabindex="-1"></a>EG_analitico   <span class="co"># 3.05</span></span>
+<span id="cb21-230"><a href="#cb21-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-231"><a href="#cb21-231" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificacion por simulacion</span></span>
+<span id="cb21-232"><a href="#cb21-232" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb21-233"><a href="#cb21-233" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">200000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> p)</span>
+<span id="cb21-234"><a href="#cb21-234" aria-hidden="true" tabindex="-1"></a>X_sim <span class="ot">&lt;-</span> X[idx]; Y_sim <span class="ot">&lt;-</span> Y[idx]</span>
+<span id="cb21-235"><a href="#cb21-235" aria-hidden="true" tabindex="-1"></a>G_sim <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>X_sim <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>Y_sim <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>X_sim<span class="sc">*</span>Y_sim</span>
+<span id="cb21-236"><a href="#cb21-236" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(G_sim)   <span class="co"># deberia acercarse a 3.05</span></span>
+<span id="cb21-237"><a href="#cb21-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-238"><a href="#cb21-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-239"><a href="#cb21-239" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb21-240"><a href="#cb21-240" aria-hidden="true" tabindex="-1"></a><span class="fu">## 💡 Truco de interpretación</span></span>
+<span id="cb21-241"><a href="#cb21-241" aria-hidden="true" tabindex="-1"></a>$E(aX+bY+cXY) \ne a\,E(X)+b\,E(Y)+c\,E(X)E(Y)$ en general — el término cruzado necesita $E(XY)$ real (calculado de la tabla), no el producto $E(X)E(Y)$. Ambos solo coinciden cuando $X$ y $Y$ son independientes — que ya comprobaste que no es el caso aquí. Usar $E(X)E(Y)$ en vez de $E(XY)$ cuando las variables son dependientes es uno de los errores más comunes al calcular valores esperados de funciones conjuntas.</span>
+<span id="cb21-242"><a href="#cb21-242" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-243"><a href="#cb21-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-244"><a href="#cb21-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb21-245"><a href="#cb21-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-246"><a href="#cb21-246" aria-hidden="true" tabindex="-1"></a>Dos sucursales de un banco registran el número de reclamos por hora. $X\in<span class="sc">\{</span>0,1<span class="sc">\}</span>$ para la sucursal 1, $Y\in<span class="sc">\{</span>0,1,2<span class="sc">\}</span>$ para la sucursal 2, con tabla conjunta:</span>
+<span id="cb21-247"><a href="#cb21-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-248"><a href="#cb21-248" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $X\backslash Y$ <span class="pp">|</span> 0 <span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span></span>
+<span id="cb21-249"><a href="#cb21-249" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb21-250"><a href="#cb21-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0.10 <span class="pp">|</span> 0.15 <span class="pp">|</span> 0.05 <span class="pp">|</span></span>
+<span id="cb21-251"><a href="#cb21-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 0.10 <span class="pp">|</span> 0.25 <span class="pp">|</span> 0.35 <span class="pp">|</span></span>
+<span id="cb21-252"><a href="#cb21-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-253"><a href="#cb21-253" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Verifique que la tabla es una distribución de probabilidad válida.</span>
+<span id="cb21-254"><a href="#cb21-254" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calcule $E(X)$, $E(Y)$, $E(XY)$ y $Cov(X,Y)$.</span>
+<span id="cb21-255"><a href="#cb21-255" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Verifique si $X$ y $Y$ son independientes, comparando $P(X{=}1,Y{=}2)$ contra $P(X{=}1)\cdot P(Y{=}2)$.</span>
+<span id="cb21-256"><a href="#cb21-256" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Calcule $E(3X^2 - 2Y + XY)$, tanto con la fórmula analítica como verificando por simulación en R.</span>
+<span id="cb21-257"><a href="#cb21-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-258"><a href="#cb21-258" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb21-259"><a href="#cb21-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-260"><a href="#cb21-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb21-261"><a href="#cb21-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-262"><a href="#cb21-262" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb21-263"><a href="#cb21-263" aria-hidden="true" tabindex="-1"></a><span class="co"># Covarianza por la formula de computo</span></span>
+<span id="cb21-264"><a href="#cb21-264" aria-hidden="true" tabindex="-1"></a>cov_XY <span class="ot">&lt;-</span> ___ <span class="sc">-</span> EX <span class="sc">*</span> EY</span>
+<span id="cb21-265"><a href="#cb21-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-266"><a href="#cb21-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-267"><a href="#cb21-267" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb21-268"><a href="#cb21-268" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb21-269"><a href="#cb21-269" aria-hidden="true" tabindex="-1"></a><span class="in">`EXY`</span> — la fórmula de cómputo es $Cov(X,Y)=E(XY)-E(X)E(Y)$.</span>
+<span id="cb21-270"><a href="#cb21-270" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb21-271"><a href="#cb21-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-272"><a href="#cb21-272" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb21-273"><a href="#cb21-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-274"><a href="#cb21-274" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap9a"</span><span class="dt">&gt;</span></span>
+<span id="cb21-275"><a href="#cb21-275" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Si Cov(X,Y) = 0, entonces X y Y son necesariamente independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb21-276"><a href="#cb21-276" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb21-277"><a href="#cb21-277" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. E(XY) se calcula sumando x·y·p(x,y) sobre todas las combinaciones de la tabla.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb21-278"><a href="#cb21-278" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb21-279"><a href="#cb21-279" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. Si X y Y son dependientes, E(XY) es en general distinto de E(X)·E(Y).<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb21-280"><a href="#cb21-280" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb21-281"><a href="#cb21-281" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP9a()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb21-282"><a href="#cb21-282" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap9a"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb21-283"><a href="#cb21-283" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">"explicacion-quiz-temap9a"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"display: none; margin-top: 0.75rem;"</span><span class="dt">&gt;</span></span>
+<span id="cb21-284"><a href="#cb21-284" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Explicación:<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span></span>
+<span id="cb21-285"><a href="#cb21-285" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
+<span id="cb21-286"><a href="#cb21-286" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Falso<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — covarianza cero es necesaria pero no suficiente; puede haber dependencia no lineal con covarianza exactamente 0.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb21-287"><a href="#cb21-287" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Verdadero<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — es exactamente la definición de valor esperado de una función de dos variables, aplicada a g(x,y)=xy.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb21-288"><a href="#cb21-288" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Verdadero<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;</span> — si fueran independientes sí coincidirían (E(XY)=E(X)E(Y)); si son dependientes, en general no.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb21-289"><a href="#cb21-289" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
+<span id="cb21-290"><a href="#cb21-290" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb21-291"><a href="#cb21-291" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb21-292"><a href="#cb21-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-293"><a href="#cb21-293" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb21-294"><a href="#cb21-294" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP9a</span>() {</span>
+<span id="cb21-295"><a href="#cb21-295" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
+<span id="cb21-296"><a href="#cb21-296" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb21-297"><a href="#cb21-297" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb21-298"><a href="#cb21-298" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb21-299"><a href="#cb21-299" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultado <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap9a"</span>)<span class="op">;</span></span>
+<span id="cb21-300"><a href="#cb21-300" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb21-301"><a href="#cb21-301" aria-hidden="true" tabindex="-1"></a>    resultado<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb21-302"><a href="#cb21-302" aria-hidden="true" tabindex="-1"></a>    resultado<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb21-303"><a href="#cb21-303" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb21-304"><a href="#cb21-304" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-305"><a href="#cb21-305" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-306"><a href="#cb21-306" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb21-307"><a href="#cb21-307" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb21-308"><a href="#cb21-308" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb21-309"><a href="#cb21-309" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-310"><a href="#cb21-310" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb21-311"><a href="#cb21-311" aria-hidden="true" tabindex="-1"></a>  resultado<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb21-312"><a href="#cb21-312" aria-hidden="true" tabindex="-1"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"explicacion-quiz-temap9a"</span>)<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">display</span> <span class="op">=</span> <span class="st">"block"</span><span class="op">;</span></span>
+<span id="cb21-313"><a href="#cb21-313" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-314"><a href="#cb21-314" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb21-315"><a href="#cb21-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-316"><a href="#cb21-316" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb21-317"><a href="#cb21-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-318"><a href="#cb21-318" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb21-319"><a href="#cb21-319" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$E<span class="co">[</span><span class="ot">g(X,Y)</span><span class="co">]</span>=\sum_x\sum_y g(x,y)p(x,y)$ generaliza el valor esperado a cualquier función de dos variables discretas — $E(X)$, $E(Y)$ y $E(XY)$ son casos particulares.</span>
+<span id="cb21-320"><a href="#cb21-320" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$Cov(X,Y)=E(XY)-E(X)E(Y)$ es la fórmula de cómputo, algebraicamente igual a la definición por desviaciones pero más rápida de aplicar.</span>
+<span id="cb21-321"><a href="#cb21-321" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La independencia se verifica comparando $P(X=a,Y=b)$ contra $P(X=a)P(Y=b)$ en **cada** celda — covarianza cero no basta para concluir independencia.</span>
+<span id="cb21-322"><a href="#cb21-322" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$E(aX+bY+cXY)$ requiere el valor real de $E(XY)$ de la tabla — sustituirlo por $E(X)E(Y)$ solo es válido bajo independencia.</span>
+<span id="cb21-323"><a href="#cb21-323" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-324"><a href="#cb21-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-325"><a href="#cb21-325" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb21-326"><a href="#cb21-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-327"><a href="#cb21-327" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb21-328"><a href="#cb21-328" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb21-329"><a href="#cb21-329" aria-hidden="true" tabindex="-1"></a>El Tema P9 (siguiente) extiende estas mismas ideas de covarianza y correlación al caso **continuo**, simulando variables normales correlacionadas con <span class="in">`mvrnorm()`</span>.</span>
+<span id="cb21-330"><a href="#cb21-330" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
