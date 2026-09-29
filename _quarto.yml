@@ -78,6 +78,7 @@ website:
               - temas/tema-p8c-estudiante.qmd
           - section: "Sesión 14 · Independencia y valor esperado de función de v.a."
             contents:
+              - temas/tema-p9a-estudiante.qmd
               - temas/tema-p9-estudiante.qmd
               - temas/tema-p10-estudiante.qmd
           - section: "Sesión 15 · Pruebas de hipótesis e intervalos de confianza"

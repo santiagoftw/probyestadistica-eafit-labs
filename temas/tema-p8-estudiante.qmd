@@ -40,6 +40,35 @@ prob_matrix
 Mira la fila `Y1=2`: la combinación `(Y1=2, Y2=1)` tiene probabilidad 2/8, el doble que las demás celdas no vacías. ¿Por qué? (pista: hay dos maneras distintas de sacar exactamente 2 caras *con la primera cara en el primer tiro*: CCS y CSC).
 :::
 
+### 🔎 De los números a los casos: ¿qué evento hay detrás de cada probabilidad?
+
+La tabla `prob_matrix` de arriba es correcta, pero solo muestra fracciones — no dice **qué secuencia de monedas** produce cada una. Como los 8 resultados de lanzar 3 monedas son igualmente probables, cada uno individualmente tiene probabilidad $1/8$, y notamos $C$ = cara, $S$ = sello. Traduciendo cada uno de los 8 resultados a sus valores de $(Y_1, Y_2)$:
+
+| Evento (t1,t2,t3) | Probabilidad | $Y_1$ (n° caras) | $Y_2$ (tiro de la 1ª cara) |
+|:---:|:---:|:---:|:---:|
+| $P(S,S,S)=\dfrac{1}{8}$ | ninguna cara | $0$ | $-1$ |
+| $P(C,S,S)=\dfrac{1}{8}$ | cara en el tiro 1 | $1$ | $1$ |
+| $P(S,C,S)=\dfrac{1}{8}$ | cara en el tiro 2 | $1$ | $2$ |
+| $P(S,S,C)=\dfrac{1}{8}$ | cara en el tiro 3 | $1$ | $3$ |
+| $P(C,C,S)=\dfrac{1}{8}$ | 1ª cara en el tiro 1 | $2$ | $1$ |
+| $P(C,S,C)=\dfrac{1}{8}$ | 1ª cara en el tiro 1 | $2$ | $1$ |
+| $P(S,C,C)=\dfrac{1}{8}$ | 1ª cara en el tiro 2 | $2$ | $2$ |
+| $P(C,C,C)=\dfrac{1}{8}$ | 1ª cara en el tiro 1 | $3$ | $1$ |
+
+Como $(C,C,S)$ y $(C,S,C)$ caen en la **misma** casilla $(Y_1{=}2,\,Y_2{=}1)$, sus probabilidades se **suman**: eso es exactamente lo que la celda de la tabla conjunta representa — la probabilidad de la *casilla*, no la de un solo lanzamiento. Agrupando los 8 eventos por su casilla $(Y_1,Y_2)$, la tabla conjunta completa, ahora con los eventos explícitos, queda:
+
+| $(Y_1,Y_2)$ | Eventos que caen ahí | Probabilidad de la casilla |
+|:---:|:---|:---:|
+| $(0,-1)$ | $\{(S,S,S)\}$ | $P(S,S,S)=\dfrac{1}{8}$ |
+| $(1,1)$ | $\{(C,S,S)\}$ | $P(C,S,S)=\dfrac{1}{8}$ |
+| $(1,2)$ | $\{(S,C,S)\}$ | $P(S,C,S)=\dfrac{1}{8}$ |
+| $(1,3)$ | $\{(S,S,C)\}$ | $P(S,S,C)=\dfrac{1}{8}$ |
+| $(2,1)$ | $\{(C,C,S),\,(C,S,C)\}$ | $P(C,C,S)+P(C,S,C)=\dfrac{1}{8}+\dfrac{1}{8}=\dfrac{2}{8}$ |
+| $(2,2)$ | $\{(S,C,C)\}$ | $P(S,C,C)=\dfrac{1}{8}$ |
+| $(3,1)$ | $\{(C,C,C)\}$ | $P(C,C,C)=\dfrac{1}{8}$ |
+
+Todas las demás combinaciones de $(Y_1,Y_2)$ (por ejemplo, $(2,3)$ o $(0,2)$) tienen probabilidad **0**: no existe ninguna secuencia de 3 monedas que las produzca — por eso `prob_matrix` las deja vacías. Esta es la razón exacta por la que $(Y_1{=}2,Y_2{=}1)$ vale $2/8$ y no $1/8$ como las demás casillas no vacías: es la **única** casilla a la que llegan dos eventos distintos en vez de uno solo.
+
 ::: {.callout-important}
 ## Corrección de rigor
 Una versión anterior de este tema seguía la solución oficial del Laboratorio 3, que calcula la tabla conjunta con una función que solo cubre la diagonal ($Y_1=1\Rightarrow Y_2=1$, $Y_1=2\Rightarrow Y_2=2$, etc.), asignando probabilidad 0 a combinaciones que sí son posibles — por ejemplo, `CCS` y `CSC` dan $Y_1=2$ pero $Y_2=1$ (la primera cara salió en el primer tiro), no $Y_2=2$. Aquí se corrigió **enumerando los 8 resultados directamente** en vez de escribir una fórmula a mano — la lección general es que cuando el espacio muestral es pequeño y enumerable, contar es más confiable que "adivinar" una expresión cerrada.

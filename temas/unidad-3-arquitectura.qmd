@@ -10,7 +10,7 @@ La Unidad 3 tiene una progresión clara: primero aprendes a describir **dos** va
 
 ::: {.callout-note}
 ## Estado de esta unidad
-Las 4 sesiones están completamente construidas — 8 temas de estudiante en total, más un banco de ejercicios manuales con desarrollo teórico y en R. Los Temas P8-P10 están basados en Blanco Castañeda (2010), *Probabilidad* (Universidad Nacional de Colombia); los Temas I1-I3 están basados en Walpole, Myers, Myers y Ye, *Probabilidad y Estadística para Ingeniería y Ciencias*.
+Las 4 sesiones están completamente construidas — 9 temas de estudiante en total, más un banco de ejercicios manuales con desarrollo teórico y en R. Los Temas P8-P10 están basados en Blanco Castañeda (2010), *Probabilidad* (Universidad Nacional de Colombia); los Temas I1-I3 están basados en Walpole, Myers, Myers y Ye, *Probabilidad y Estadística para Ingeniería y Ciencias*.
 :::
 
 ## Cronograma de la unidad
@@ -19,7 +19,7 @@ Las 4 sesiones están completamente construidas — 8 temas de estudiante en tot
 |---|---|---|---|
 | 12 | 30-sep | Distribución de probabilidad bivariada | P8, P8b |
 | 13 | 14-oct | Distribución de probabilidad marginal y condicional | P8c |
-| 14 | 21-oct | Variables aleatorias independientes y valor esperado de una función de variables aleatorias | P9, P10 |
+| 14 | 21-oct | Variables aleatorias independientes y valor esperado de una función de variables aleatorias | P9a, P9, P10 |
 | 15 | 04-nov | Pruebas de hipótesis e intervalos de confianza | I1, I2, I3 |
 
 ---
@@ -44,6 +44,11 @@ Las 4 sesiones están completamente construidas — 8 temas de estudiante en tot
 **Estado:** ✅ construido — [ir al tema](tema-p8c-estudiante.qmd). Basado en Blanco Castañeda (2010), Cap. 6.
 
 ## Sesión 14 · Independencia y valor esperado de función de variables aleatorias
+
+**P9a — Valor esperado de funciones de v.a. discretas y covarianza**
+**Objetivo:** calcular $E[g(X,Y)]$ y $Cov(X,Y)=E(XY)-E(X)E(Y)$ directamente de una tabla de probabilidad conjunta discreta, y verificar independencia comparando $P(X{=}a,Y{=}b)$ contra $P(X{=}a)P(Y{=}b)$ en cada celda.
+**Motivación real:** dos sensores de un sistema de alarma (movimiento y calor) — ¿se activan por casualidad o hay dependencia?
+**Estado:** ✅ construido — [ir al tema](tema-p9a-estudiante.qmd). Cubre el Criterio 3 de la rúbrica de Taller 3 (E(X), E(Y), E(XY) y covarianza desde tablas discretas), que no estaba cubierto explícitamente en los temas P8-P10.
 
 **P9 — Covarianza y correlación de variables aleatorias**
 **Objetivo:** simular variables correlacionadas con `MASS::mvrnorm()` y verificar la matriz de covarianza/correlación resultante — la covarianza es, en el fondo, $E\big[(X-\mu_X)(Y-\mu_Y)\big]$, un caso particular de valor esperado de una función de dos variables.
