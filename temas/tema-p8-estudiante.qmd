@@ -97,6 +97,38 @@ $Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2
 
 ## 🧪 Ejemplo con datos reales: marginales, condicional e independencia
 
+Antes de correr el código, así se ven los cálculos a mano — usando la tabla conjunta con eventos que ya construiste arriba.
+
+### Cálculo de la marginal de $Y_1$
+
+$P(Y_1=y_1)$ se obtiene sumando la fila $y_1$ completa, es decir, sumando todas las casillas $(y_1,\cdot)$ sin importar el valor de $Y_2$:
+
+$$
+\begin{aligned}
+P(Y_1=0) &= P(0,-1) = \tfrac{1}{8} \\
+P(Y_1=1) &= P(1,1)+P(1,2)+P(1,3) = \tfrac{1}{8}+\tfrac{1}{8}+\tfrac{1}{8} = \tfrac{3}{8} \\
+P(Y_1=2) &= P(2,1)+P(2,2) = \tfrac{2}{8}+\tfrac{1}{8} = \tfrac{3}{8} \\
+P(Y_1=3) &= P(3,1) = \tfrac{1}{8}
+\end{aligned}
+$$
+
+Verificación: $\tfrac{1}{8}+\tfrac{3}{8}+\tfrac{3}{8}+\tfrac{1}{8}=\tfrac{8}{8}=1$ ✓ — toda distribución marginal debe sumar 1, porque sigue cubriendo el 100% del espacio muestral.
+
+### Cálculo de la marginal de $Y_2$
+
+De la misma forma, $P(Y_2=y_2)$ suma la **columna** $y_2$ completa, sin importar el valor de $Y_1$:
+
+$$
+\begin{aligned}
+P(Y_2=-1) &= P(0,-1) = \tfrac{1}{8} \\
+P(Y_2=1) &= P(1,1)+P(2,1)+P(3,1) = \tfrac{1}{8}+\tfrac{2}{8}+\tfrac{1}{8} = \tfrac{4}{8} \\
+P(Y_2=2) &= P(1,2)+P(2,2) = \tfrac{1}{8}+\tfrac{1}{8} = \tfrac{2}{8} \\
+P(Y_2=3) &= P(1,3) = \tfrac{1}{8}
+\end{aligned}
+$$
+
+Verificación: $\tfrac{1}{8}+\tfrac{4}{8}+\tfrac{2}{8}+\tfrac{1}{8}=\tfrac{8}{8}=1$ ✓.
+
 ```{r}
 # Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)
 marginal_Y2 <- colSums(prob_matrix)
@@ -107,6 +139,24 @@ marginal_Y1 <- rowSums(prob_matrix)
 marginal_Y1
 ```
 
+Compara estos resultados con el código: `marginal_Y1` y `marginal_Y2` deben coincidir exactamente con los valores calculados a mano arriba — es la misma operación (sumar filas o columnas), solo que R la hace automáticamente sobre `prob_matrix`.
+
+### Cálculo de la condicional $P(Y_1=3 \mid Y_2=1)$
+
+Por definición de probabilidad condicional:
+
+$$
+P(Y_1=3 \mid Y_2=1) = \frac{P(Y_1=3,\,Y_2=1)}{P(Y_2=1)}
+$$
+
+Ya tienes ambos números: $P(Y_1{=}3,Y_2{=}1)=P(3,1)=\tfrac{1}{8}$ de la tabla conjunta, y $P(Y_2{=}1)=\tfrac{4}{8}$ de la marginal que acabas de calcular. Entonces:
+
+$$
+P(Y_1=3 \mid Y_2=1) = \frac{1/8}{4/8} = \frac{1}{4} = 0.25
+$$
+
+**Interpretación:** si ya sabes que la primera cara salió en el primer lanzamiento ($Y_2=1$), la probabilidad de que en total hayan salido las 3 caras sube a $0.25$ — mientras que, sin esa información, $P(Y_1=3)=\tfrac{1}{8}=0.125$ (la marginal). Que la condicional sea distinta de la marginal es, de hecho, una señal de que $Y_1$ y $Y_2$ no son independientes — lo vas a confirmar formalmente a continuación.
+
 ```{r}
 # Condicional: P(Y1=3 | Y2=1)
 p_Y1_3_Y2_1 <- prob_matrix["3", "1"]
@@ -115,6 +165,20 @@ p_Y1_3_dado_Y2_1 <- p_Y1_3_Y2_1 / p_Y2_1
 p_Y1_3_dado_Y2_1
 ```
 
+### Verificación de independencia: conjunta vs. producto de marginales
+
+$Y_1$ y $Y_2$ serían independientes solo si $P(Y_1=y_1,Y_2=y_2)=P(Y_1=y_1)\cdot P(Y_2=y_2)$ se cumple en **cada** casilla. Basta con que falle en una sola para descartar la independencia — y la casilla $(Y_1{=}2,Y_2{=}1)$ ya es sospechosa, porque ahí la conjunta es el doble de las demás:
+
+$$
+P(Y_1=2)\cdot P(Y_2=1) = \frac{3}{8}\cdot\frac{4}{8} = \frac{12}{64} = \frac{3}{16} = 0.1875
+$$
+
+$$
+P(Y_1=2,\,Y_2=1) = \frac{2}{8} = 0.25
+$$
+
+Como $0.25 \ne 0.1875$, la igualdad ya falla en esta única casilla — con eso alcanza para concluir que **$Y_1$ y $Y_2$ no son independientes**, sin necesidad de revisar las demás. (El código de abajo sí las revisa todas, para que veas el patrón completo.)
+
 ```{r}
 # Verificación de independencia: comparar la matriz conjunta contra el producto de marginales
 independencia_teorica <- outer(marginal_Y1, marginal_Y2)
@@ -122,7 +186,7 @@ round(prob_matrix, 3)
 round(independencia_teorica, 3)
 ```
 
-Fíjate en la celda `(Y1=2, Y2=1)`: en la tabla conjunta real vale $2/8=0.25$, pero el producto de marginales da $P(Y_1=2)\cdot P(Y_2=1) = 0.375 \times 0.5 = 0.1875$ — no coinciden.
+El código confirma, casilla por casilla, lo que ya calculaste a mano: `round(prob_matrix, 3)` y `round(independencia_teorica, 3)` difieren en varias posiciones, no solo en $(Y_1{=}2,Y_2{=}1)$.
 
 ::: {.callout-important}
 ## Resultado del ejemplo
