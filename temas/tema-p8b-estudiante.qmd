@@ -120,9 +120,44 @@ $$
 
 **Paso 2 — Identificar la región $XY>1$ dentro del soporte:** como $y>1$, se tiene $\tfrac1y<1<2$, así que para cada $y$ fijo, la condición $x>\tfrac1y$ ya cabe dentro de $(0,2)$ sin salirse del soporte. La región de integración es $x\in(\tfrac1y,\,2)$, $y\in(1,\infty)$:
 
+![Región de integración para P(XY > 1): el soporte completo es 0<x<2, y>1 (área celeste); la condición XY>1 recorta la parte a la derecha de la curva xy=1 (área amarilla). Para cada y fijo, x va de 1/y hasta 2 — el borde derecho del soporte.](../images/region-p8b-ej537.svg){#fig-region-ej537 fig-alt="Gráfico del plano xy mostrando el soporte 0<x<2, y>1 y la región XY>1 acotada por la curva xy=1, con el punto (1,1) marcado y una flecha indicando que x va de 1/y a 2 para cada y fijo."}
+
+La curva $xy=1$ (equivalente a $x=\tfrac1y$) entra al soporte exactamente en el punto $(1,1)$ — donde $y=1$ — y se acerca a $x=0$ a medida que $y\to\infty$. **Nunca cruza el borde derecho $x=2$** dentro del rango $y>1$ (por eso la región amarilla llega intacta hasta $x=2$ en toda su altura): eso es justamente lo que permite escribir los límites de integración en $x$ como un intervalo simple, $\left(\tfrac1y,\,2\right)$, sin partir la integral en casos.
+
+**Cómo se llega a esa región, en 6 pasos:**
+
+1. **Parte siempre del soporte** (dónde vive la densidad) — viene dado por el enunciado, no lo derivas: $0<x<2$, $y>1$. Fuera de ahí, $h(x,y)=0$ y no aporta nada a la integral. Es la caja celeste del dibujo.
+
+2. **Traduce el evento a una desigualdad algebraica.** El evento es $XY>1$. Como $y>0$ en todo el soporte, puedes dividir ambos lados por $y$ sin voltear la desigualdad:
 $$
-P(XY>1) = \int_1^{\infty}\!\!\int_{1/y}^{2} \frac{3x^2}{8y^2}\,dx\,dy = \frac{31}{32} = 0.96875
+xy>1 \;\;\Longleftrightarrow\;\; x>\frac{1}{y}
 $$
+Convertiste una condición sobre el *producto* de las dos variables en una condición sobre *una sola* variable ($x$), en función de la otra ($y$). Esa curva $x=\tfrac1y$ es la línea azul del dibujo.
+
+3. **Intersecta las dos condiciones, para $y$ fijo.** Ahora tienes dos restricciones sobre $x$ al mismo tiempo: $0<x<2$ (soporte) y $x>\tfrac1y$ (evento). Combinadas, $x$ tiene que estar por encima de $\max\!\left(0,\tfrac1y\right)$ y por debajo de $2$. Como $\tfrac1y>0$ siempre, ese máximo es simplemente $\tfrac1y$:
+$$
+\frac1y < x < 2
+$$
+Ese es el intervalo de integración en $x$ — la flecha horizontal del dibujo.
+
+4. **Revisa si el intervalo puede "romperse" o quedar vacío.** Este es el paso que casi siempre se salta, y donde están los errores típicos. Un intervalo $\left(\tfrac1y,2\right)$ solo tiene sentido si $\tfrac1y<2$. Como $y>1$ (viene del soporte):
+$$
+y>1 \;\;\Longrightarrow\;\; \frac1y<1<2
+$$
+Para **todo** $y$ del soporte, automáticamente $\tfrac1y<2$ — el intervalo nunca está vacío y nunca hace falta partir la integral en casos. Es justo lo que se ve en el dibujo: la curva azul jamás toca ni cruza la línea punteada $x=2$.
+
+5. **Determina el rango de la variable "de afuera" ($y$).** Como el intervalo en $x$ nunca se vacía para ningún $y>1$, el rango completo de $y$ del soporte entra íntegro en la región del evento: $y\in(1,\infty)$. Sin el chequeo del paso 4, no podrías afirmar esto con confianza — podría ser que el evento excluyera algunos valores de $y$ por completo (así ocurre, por ejemplo, en la región triangular del Ejemplo 5.22).
+
+6. **Arma la integral iterada**, con la variable cuyo límite depende de la otra como la interna (aquí, $x$), y la otra como la externa con límites numéricos fijos (aquí, $y$):
+
+$$
+P(XY>1) = \int_{1}^{\infty}\int_{1/y}^{2} \frac{3x^2}{8y^2}\,dx\,dy = \frac{31}{32} = 0.96875
+$$
+
+::: {.callout-note}
+## El patrón general, para cualquier región de este tipo
+1. Soporte primero (del enunciado). 2. Evento como desigualdad algebraica, despejando una variable en función de la otra. 3. Intersectar con el soporte, para la variable fija. 4. Verificar si el intervalo resultante puede vaciarse o partirse (comparando los extremos). 5. Ver qué rango de la otra variable sobrevive. 6. Integrar de adentro (límites variables) hacia afuera (límites numéricos). Es la misma secuencia que se usó en el Ejemplo 5.22 para la región triangular — solo que ahí el paso 4 sí producía una partición (en $y=\tfrac23$), porque la recta $x=3y$ sí llegaba a cruzar el borde $x=2$ dentro del rango de $y$.
+:::
 
 ```r
 f <- function(x) (3 * x^2) / 8
