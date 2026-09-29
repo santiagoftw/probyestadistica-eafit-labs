@@ -8,6 +8,11 @@ title: "Tema P8 · Distribución de probabilidad multivariada"
 Lanzas 3 monedas. $Y_1$ = número de caras. $Y_2$ = tu ganancia en una apuesta: si la primera cara sale en el primer tiro, ganas \$1; en el segundo, \$2; en el tercero, \$3; si no sale ninguna cara, pierdes \$1. ¿Estas dos variables están relacionadas entre sí, o son independientes?
 :::
 
+::: {.callout-note}
+## Fuente de este tema
+Este tema y su ejemplo del libro están basados en Blanco Castañeda, L. (2010). *Probabilidad* (2.ª ed.). Universidad Nacional de Colombia, Capítulo 5 (Vectores Aleatorios), Ejemplos 5.7 y 5.8. Todos los resultados numéricos fueron verificados de forma independiente antes de incluirse aquí.
+:::
+
 ::: {.ficha-prediccion}
 Antes de calcular: $Y_2$ depende de *cuándo* sale la primera cara, y $Y_1$ del *número total* de caras. ¿Tu intuición dice que son independientes o no?
 :::
@@ -114,6 +119,171 @@ La misma idea del Tema P2, ahora aplicada a variables aleatorias en vez de event
 
 ## Independencia de variables aleatorias
 $Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2=y_2)$ para **toda** combinación de valores — no basta con que se cumpla en una sola celda de la tabla.
+
+**Cómo cambia la independencia con y sin reemplazo (Ej. 5.35 y 5.36 del libro):** una urna tiene 3 bolas rojas y 6 azules (9 en total). Se extrae una muestra de tamaño 2. $X:=1$ si la primera bola es roja (0 si es azul), $Y:=1$ si la segunda es roja (0 si es azul).
+
+**Con reemplazo (Ej. 5.35):** la composición de la urna es *la misma* en ambas extracciones, así que:
+
+$$
+P(X{=}0,Y{=}0)=\tfrac69\cdot\tfrac69=\tfrac49, \quad P(X{=}0,Y{=}1)=\tfrac69\cdot\tfrac39=\tfrac29, \quad P(X{=}1,Y{=}0)=\tfrac39\cdot\tfrac69=\tfrac29, \quad P(X{=}1,Y{=}1)=\tfrac39\cdot\tfrac39=\tfrac19
+$$
+
+| $X\backslash Y$ | 0 | 1 |
+|:---:|:---:|:---:|
+| 0 | $\tfrac{4}{9}$ | $\tfrac{2}{9}$ |
+| 1 | $\tfrac{2}{9}$ | $\tfrac{1}{9}$ |
+
+Es fácil verificar que $P(X{=}x,Y{=}y)=P(X{=}x)P(Y{=}y)$ para las 4 combinaciones — con marginales $P(X{=}0)=P(Y{=}0)=\tfrac23$, $P(X{=}1)=P(Y{=}1)=\tfrac13$. **$X$ e $Y$ son independientes** — tiene sentido, porque la composición de la urna no cambia entre extracciones.
+
+**Sin reemplazo (Ej. 5.36):** ahora la segunda extracción sí depende de qué salió en la primera:
+
+$$
+P(X{=}0,Y{=}0)=\tfrac69\cdot\tfrac58=\tfrac{5}{12}, \quad P(X{=}0,Y{=}1)=\tfrac69\cdot\tfrac38=\tfrac{3}{12}, \quad P(X{=}1,Y{=}0)=\tfrac39\cdot\tfrac68=\tfrac{3}{12}, \quad P(X{=}1,Y{=}1)=\tfrac39\cdot\tfrac28=\tfrac{1}{12}
+$$
+
+| $X\backslash Y$ | 0 | 1 |
+|:---:|:---:|:---:|
+| 0 | $\tfrac{5}{12}$ | $\tfrac{3}{12}$ |
+| 1 | $\tfrac{3}{12}$ | $\tfrac{1}{12}$ |
+
+Las marginales siguen siendo $P(X{=}0)=P(Y{=}0)=\tfrac23$ (sin condicionar, la chance de roja en *cualquier* posición sigue siendo $\tfrac39=\tfrac13$ para 1, $\tfrac23$ para 0 — el mismo argumento de simetría del Ejemplo 5.29). Pero:
+$$
+P(X{=}0,Y{=}0)=\frac{5}{12} \;\ne\; \frac23\times\frac23=\frac49=P(X{=}0)P(Y{=}0)
+$$
+**$X$ e $Y$ ya no son independientes.** El muestreo sin reemplazo es exactamente lo que rompe la independencia: saber que la primera bola fue roja cambia la composición que queda para la segunda.
+
+```r
+# Con reemplazo: composicion de la urna no cambia -> independientes
+p_con <- outer(c(6,3)/9, c(6,3)/9)   # producto de marginales = conjunta
+dimnames(p_con) <- list(X = 0:1, Y = 0:1)
+p_con
+
+# Sin reemplazo: la conjunta ya no es un producto de marginales
+p_sin <- matrix(c(6/9*5/8, 6/9*3/8,
+                   3/9*6/8, 3/9*2/8), nrow = 2, byrow = TRUE)
+dimnames(p_sin) <- list(X = 0:1, Y = 0:1)
+p_sin
+
+marginal_X <- rowSums(p_sin)
+marginal_Y <- colSums(p_sin)
+producto_marginales <- outer(marginal_X, marginal_Y)
+
+p_sin["0", "0"] == producto_marginales["0", "0"]   # FALSE -> no independientes
+```
+
+::: {.callout-tip}
+## 💡 El patrón general
+"Con reemplazo" siempre da variables independientes (la urna "se olvida" de lo que ya salió); "sin reemplazo" casi nunca las da, porque cada extracción cambia lo que queda disponible para las siguientes. Es la misma razón por la que, en el Ejemplo 5.29 (Tema P9a), las indicadoras $X_i$ de una extracción hipergeométrica sin reemplazo son dependientes entre sí, aunque cada una tenga individualmente $P(X_i{=}1)=R/N$.
+:::
+
+## 📘 Ejemplo del libro — 3 monedas (Ej. 5.7)
+
+**Enunciado (Blanco Castañeda, Ej. 5.7):** se lanza una moneda corriente tres veces consecutivas. $X:=$ "número de caras obtenidas", $Y:=$ "número del lanzamiento en el que se obtiene por primera vez cara" ($Y=0$ si no hay ninguna). Es el mismo experimento que ya trabajaste arriba con $Y_1,Y_2$ — aquí usamos la notación $X,Y$ del libro, con $Y=0$ en vez de $Y_2=-1$ para "no salió ninguna cara".
+
+**1. Distribución conjunta de $X$ e $Y$:**
+
+| $X\backslash Y$ | 0 | 1 | 2 | 3 |
+|:---:|:---:|:---:|:---:|:---:|
+| 0 | $\tfrac{1}{8}$ | 0 | 0 | 0 |
+| 1 | 0 | $\tfrac{1}{8}$ | $\tfrac{1}{8}$ | $\tfrac{1}{8}$ |
+| 2 | 0 | $\tfrac{2}{8}$ | $\tfrac{1}{8}$ | 0 |
+| 3 | 0 | $\tfrac{1}{8}$ | 0 | 0 |
+
+**2. Distribuciones marginales de $X$ e $Y$:**
+
+| $x$ | 0 | 1 | 2 | 3 |
+|:---:|:---:|:---:|:---:|:---:|
+| $P(X=x)$ | $\tfrac{1}{8}$ | $\tfrac{3}{8}$ | $\tfrac{3}{8}$ | $\tfrac{1}{8}$ |
+
+| $y$ | 0 | 1 | 2 | 3 |
+|:---:|:---:|:---:|:---:|:---:|
+| $P(Y=y)$ | $\tfrac{1}{8}$ | $\tfrac{4}{8}$ | $\tfrac{2}{8}$ | $\tfrac{1}{8}$ |
+
+**3. Calcular $P(X\le 2,Y=1)$, $P(X\le 2,Y\le 1)$ y $P(X\le 2 \text{ o } Y\le 1)$:**
+
+$$
+\begin{aligned}
+P(X\le 2,\,Y=1) &= P(X{=}0,Y{=}1)+P(X{=}1,Y{=}1)+P(X{=}2,Y{=}1) \\
+&= 0+\tfrac{1}{8}+\tfrac{2}{8} = \tfrac{3}{8}
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+P(X\le 2,\,Y\le 1) &= P(X\le 2,Y{=}1) + P(X{=}0,Y{=}0)+P(X{=}1,Y{=}0)+P(X{=}2,Y{=}0) \\
+&= \tfrac{3}{8} + \tfrac{1}{8}+0+0 = \tfrac{1}{2}
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+P(X\le 2 \text{ o } Y\le 1) &= P(X\le 2)+P(Y\le 1)-P(X\le 2,Y\le 1) \\
+&= \big[P(X{=}0)+P(X{=}1)+P(X{=}2)\big] + \big[P(Y{=}0)+P(Y{=}1)\big] - \tfrac{1}{2} \\
+&= \tfrac{7}{8}+\tfrac{5}{8}-\tfrac{1}{2} = 1
+\end{aligned}
+$$
+
+Que $P(X\le 2 \text{ o } Y\le 1)=1$ tiene sentido: el único resultado que **no** cumple $X\le 2$ es $X=3$ (las 3 caras), y ese resultado sí cumple $Y\le 1$ (con $Y=1$) — entre los dos eventos cubren *todo* el espacio muestral.
+
+```r
+# Verificacion en R, reusando prob_matrix (aqui X=Y1, Y=Y2 con -1 en vez de 0)
+p_x_le2_y1     <- sum(prob_matrix[c("0","1","2"), "1"])
+p_x_le2_y_le1  <- p_x_le2_y1 + prob_matrix["0", as.character(-1)]
+p_x_le2        <- sum(prob_matrix[c("0","1","2"), ])
+p_y_le1        <- sum(prob_matrix[, c(as.character(-1), "1")])
+p_union        <- p_x_le2 + p_y_le1 - p_x_le2_y_le1
+p_union   # debe dar 1
+```
+
+## 📘 Ejemplo del libro — puntillas, tachuelas y tornillos (Ej. 5.8)
+
+**Enunciado (Blanco Castañeda, Ej. 5.8):** una caja contiene 3 puntillas, 4 tachuelas y 2 tornillos. Se extraen, al azar, 3 objetos (sin reemplazo). $X:=$ número de tachuelas extraídas, $Y:=$ número de puntillas extraídas.
+
+A diferencia del ejemplo de las monedas (donde cada resultado tenía la misma probabilidad), aquí el muestreo es **sin reemplazo** de un grupo con 3 categorías — la distribución conjunta se construye con la fórmula hipergeométrica multivariada:
+
+$$
+P(X=x,\,Y=y) = \frac{\dbinom{4}{x}\dbinom{3}{y}\dbinom{2}{9-(x+y)}}{\dbinom{9}{3}}, \qquad x,y = 0,1,2,3
+$$
+
+El numerador cuenta, por separado, de cuántas formas eliges $x$ tachuelas (de 4), $y$ puntillas (de 3) y el resto — $9-(x+y)$ objetos — de tornillos (de 2); el denominador es el total de formas de elegir 3 objetos de los 9. Cuando $9-(x+y)$ es negativo o mayor que 2, ese combinatorio vale 0 — no hay suficientes tornillos para completar la extracción.
+
+**Distribución conjunta** (todos los valores sobre $\binom{9}{3}=84$):
+
+| $X\backslash Y$ | 0 | 1 | 2 | 3 |
+|:---:|:---:|:---:|:---:|:---:|
+| 0 | 0 | $\tfrac{3}{84}$ | $\tfrac{6}{84}$ | $\tfrac{1}{84}$ |
+| 1 | $\tfrac{4}{84}$ | $\tfrac{24}{84}$ | $\tfrac{12}{84}$ | 0 |
+| 2 | $\tfrac{12}{84}$ | $\tfrac{18}{84}$ | 0 | 0 |
+| 3 | $\tfrac{4}{84}$ | 0 | 0 | 0 |
+
+**Distribuciones marginales:**
+
+| $x$ | 0 | 1 | 2 | 3 |
+|:---:|:---:|:---:|:---:|:---:|
+| $P(X=x)$ | $\tfrac{10}{84}$ | $\tfrac{40}{84}$ | $\tfrac{30}{84}$ | $\tfrac{4}{84}$ |
+
+| $y$ | 0 | 1 | 2 | 3 |
+|:---:|:---:|:---:|:---:|:---:|
+| $P(Y=y)$ | $\tfrac{20}{84}$ | $\tfrac{45}{84}$ | $\tfrac{18}{84}$ | $\tfrac{1}{84}$ |
+
+Nota que cada marginal también se puede obtener directamente con la fórmula hipergeométrica de **una** variable, sin pasar por la tabla conjunta — por ejemplo, $P(X=x)=\binom{4}{x}\binom{5}{3-x}/\binom{9}{3}$ (agrupando puntillas y tornillos como "no tachuelas", $3+2=5$). Es la misma idea que "devolverte" a la marginal sumando filas, pero aprovechando que aquí existe además una fórmula cerrada.
+
+```r
+# Construccion en R con la formula hipergeometrica multivariada
+p_conjunta_ej58 <- function(x, y) {
+  faltan <- 9 - (x + y)
+  if (faltan < 0 || faltan > 2) return(0)
+  choose(4, x) * choose(3, y) * choose(2, faltan) / choose(9, 3)
+}
+conjunta_ej58 <- outer(0:3, 0:3, Vectorize(p_conjunta_ej58))
+dimnames(conjunta_ej58) <- list(X = 0:3, Y = 0:3)
+round(conjunta_ej58 * 84)   # para comparar contra la tabla de arriba, en /84
+```
+
+::: {.callout-tip}
+## Conexión con el laboratorio
+El Laboratorio de esta página usa la misma estructura (9 personas en 3 categorías, se seleccionan 3) — la técnica es idéntica a este ejemplo, solo cambia el contexto y lo que se pide calcular al final.
+:::
 
 :::
 

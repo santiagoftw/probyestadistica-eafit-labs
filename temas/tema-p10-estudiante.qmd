@@ -51,6 +51,136 @@ El caso "¿cuál componente falla primero?" es el mínimo de dos variables aleat
 
 $$P(A < B) = \frac{\lambda_A}{\lambda_A+\lambda_B}$$
 
+## 📘 Suma de variables discretas (Nota 5.38 y Ej. 5.39)
+
+**Nota 5.38 (fórmula de convolución discreta):** si $X$ e $Y$ son variables aleatorias discretas **independientes**, la distribución de $Z=X+Y$ se obtiene sumando sobre todas las formas de "repartir" $z$ entre $X$ y $Y$:
+
+$$
+P(Z=z) = \sum_{x=0}^{z} P(X=x,\,Y=z-x) = \sum_{x=0}^{z} P(X=x)\,P(Y=z-x)
+$$
+
+(la segunda igualdad usa independencia: la conjunta se factoriza). Esta operación —sumar productos de valores desplazados— se llama **convolución**, y es la versión discreta de $Z=X+Y$ que complementa lo que ya viste arriba en "Combinación de variables aleatorias".
+
+**Ejemplo 5.39 — suma de dos Poisson:** si $X\sim\mathcal P(\lambda)$ y $Y\sim\mathcal P(\mu)$ son independientes, $Z=X+Y$ toma valores $0,1,2,\dots$ Aplicando la Nota 5.38:
+
+$$
+\begin{aligned}
+P(Z=z) &= \sum_{x=0}^{z} e^{-\lambda}\frac{\lambda^x}{x!}\cdot e^{-\mu}\frac{\mu^{z-x}}{(z-x)!} \\
+&= \frac{e^{-(\lambda+\mu)}}{z!}\sum_{x=0}^{z}\binom{z}{x}\lambda^x\mu^{z-x} \qquad \text{(multiplicando y dividiendo por } z!\text{)}\\
+&= \frac{e^{-(\lambda+\mu)}}{z!}(\lambda+\mu)^z \qquad \text{(binomio de Newton)}
+\end{aligned}
+$$
+
+Es decir, $Z\stackrel{d}{=}\mathcal P(\lambda+\mu)$ — **la suma de Poisson independientes es Poisson**, con parámetro igual a la suma de los parámetros.
+
+```r
+# Verificacion con lambda=3, mu=5 -> Z deberia ser Poisson(8)
+lambda <- 3; mu <- 5
+set.seed(10)
+n_sim <- 200000
+X <- rpois(n_sim, lambda)
+Y <- rpois(n_sim, mu)
+Z <- X + Y
+
+c(media_simulada = mean(Z), media_teorica = lambda + mu)
+c(var_simulada = var(Z), var_teorica = lambda + mu)   # Poisson: E(Z)=Var(Z)=lambda+mu
+
+# Comparar P(Z=8) simulado contra la formula de Poisson(8) exacta
+c(P_Z8_simulado = mean(Z == 8), P_Z8_teorico = dpois(8, lambda + mu))
+```
+
+## 📘 Sumas vía función generadora de momentos (Ej. 5.46 y 5.47)
+
+Otra forma de encontrar la distribución de una suma —sin convolución— es reconocer su **función generadora de momentos (FGM)**, como ya hiciste en el Tema P6d: si $Z=X_1+\dots+X_n$ con las $X_i$ independientes, $m_Z(t)=\prod_{k=1}^n m_{X_k}(t)$ (la FGM de una suma de independientes es el **producto** de las FGM individuales).
+
+**Ejemplo 5.46 — suma de exponenciales:** si $X_1,\dots,X_n$ son iid $Exp(\lambda)$, y $Z:=X_1+\dots+X_n$:
+
+$$
+m_Z(t) = \prod_{k=1}^n E(e^{tX_k}) = \prod_{k=1}^n\left(\frac{\lambda}{\lambda-t}\right) = \left(\frac{\lambda}{\lambda-t}\right)^n, \qquad t<\lambda
+$$
+
+Esa es exactamente la FGM de una distribución **Gamma** con parámetros $n$ y $\lambda$ — por lo tanto $Z\stackrel{d}{=}Gamma(n,\lambda)$.
+
+**Ejemplo 5.47 — suma de normales estándar al cuadrado:** si $X_1,\dots,X_n$ son iid $N(0,1)$, y $Z:=X_1^2+\dots+X_n^2$. Como cada $X_k^2\sim\chi^2_{(1)}$ (ji-cuadrado con 1 grado de libertad), y su FGM es $m_{X_k^2}(t)=(1-2t)^{-1/2}$:
+
+$$
+m_Z(t) = \prod_{k=1}^n m_{X_k^2}(t) = \prod_{k=1}^n(1-2t)^{-1/2} = (1-2t)^{-n/2}, \qquad t<\tfrac12
+$$
+
+Esa es la FGM de una $\chi^2_{(n)}$ — por lo tanto $Z\stackrel{d}{=}\chi^2_{(n)}$. Es la razón por la que, más adelante en la Sesión 15, la varianza muestral involucra una distribución ji-cuadrado: se construye como una suma de cuadrados de normales.
+
+```r
+# Ej. 5.46: suma de n=4 exponenciales Exp(lambda=2) -> deberia ser Gamma(shape=4, rate=2)
+n <- 4; lambda <- 2
+set.seed(11)
+suma_exp <- replicate(100000, sum(rexp(n, rate = lambda)))
+
+c(media_sim = mean(suma_exp), media_teo = n / lambda)          # Gamma: media = n/lambda
+c(var_sim   = var(suma_exp),  var_teo   = n / lambda^2)         # Gamma: varianza = n/lambda^2
+
+# Comparando el histograma simulado contra la densidad Gamma teorica
+hist(suma_exp, breaks = 50, freq = FALSE, main = "Suma de 4 Exp(2) vs. Gamma(4,2)")
+curve(dgamma(x, shape = n, rate = lambda), add = TRUE, col = "#004B85", lwd = 2)
+```
+
+```r
+# Ej. 5.47: suma de n=5 normales estandar al cuadrado -> deberia ser chi-cuadrado(5)
+n <- 5
+set.seed(12)
+suma_normales2 <- replicate(100000, sum(rnorm(n)^2))
+
+c(media_sim = mean(suma_normales2), media_teo = n)        # chi2(n): media = n
+c(var_sim   = var(suma_normales2),  var_teo   = 2 * n)    # chi2(n): varianza = 2n
+
+hist(suma_normales2, breaks = 50, freq = FALSE, main = "Suma de 5 N(0,1)^2 vs. Chi-cuadrado(5)")
+curve(dchisq(x, df = n), add = TRUE, col = "#004B85", lwd = 2)
+```
+
+## 📘 Máximo y mínimo de $n$ variables (Ej. 5.50)
+
+**Enunciado (Blanco Castañeda, Ej. 5.50):** sean $X_1,\dots,X_n$ variables aleatorias reales. Se definen $Y:=\max(X_1,\dots,X_n)$ y $Z:=\min(X_1,\dots,X_n)$. Es exactamente la generalización a $n$ variables de "¿cuál componente falla primero?" — solo que ahora con $n$ componentes en vez de 2, y agregando también el **máximo**.
+
+**Idea clave — traducir max/min a eventos que sí sabes calcular:**
+$$
+F_Y(y):=P(Y\le y) = P(X_1\le y,\dots,X_n\le y) \qquad F_Z(z):=P(Z\le z) = 1-P(X_1>z,\dots,X_n>z)
+$$
+($Y\le y$ significa que *todas* las $X_i$ están por debajo de $y$; $Z>z$ significa que *todas* están por encima de $z$, así que $Z\le z$ es el complemento). Si además las $X_i$ son **independientes**, cada probabilidad conjunta se factoriza:
+
+$$
+F_Y(y) = \prod_{k=1}^n P(X_k\le y) = \prod_{k=1}^n F_{X_k}(y) \qquad\qquad F_Z(z) = 1-\prod_{k=1}^n\big[1-P(X_k\le z)\big] = 1-\prod_{k=1}^n\big[1-F_{X_k}(z)\big]
+$$
+
+**Caso particular — $n$ exponenciales iid $Exp(\lambda)$** (generalizando "el mínimo de dos exponenciales" de arriba, a $n$ componentes con la misma tasa):
+
+$$
+F_Z(z) = 1-\prod_{k=1}^n\big[1-(1-e^{-\lambda z})\big] = 1-\big(e^{-\lambda z}\big)^n = 1-e^{-n\lambda z}
+$$
+
+Es decir, $Z=\min(X_1,\dots,X_n)\stackrel{d}{=}Exp(n\lambda)$ — el mínimo de $n$ exponenciales independientes con tasa $\lambda$ es, otra vez, exponencial, pero con tasa $n\lambda$ (el sistema falla $n$ veces más rápido con $n$ componentes en paralelo, cada uno pudiendo fallar primero).
+
+```r
+# n=3 componentes, cada uno Exp(lambda=0.5) -> el minimo deberia ser Exp(n*lambda=1.5)
+n <- 3; lambda <- 0.5
+set.seed(13)
+n_sim <- 100000
+fallas <- matrix(rexp(n_sim * n, rate = lambda), ncol = n)   # cada fila = un sistema con n componentes
+
+Z_min <- apply(fallas, 1, min)
+Y_max <- apply(fallas, 1, max)
+
+c(media_min_sim = mean(Z_min), media_min_teo = 1 / (n * lambda))   # Exp(n*lambda): media = 1/(n*lambda)
+
+# F_Y(y) empirica vs. teorica, para el maximo, en un punto concreto
+y0 <- 3
+c(F_Y_empirica = mean(Y_max <= y0),
+  F_Y_teorica  = (1 - exp(-lambda * y0))^n)
+```
+
+::: {.callout-important}
+## Conexión con el motivo de esta página
+El "¿cuál componente falla primero?" de arriba es $P(A<B)$ para $n=2$ — un caso particular de $F_Z(z)$ con $n=2$ componentes de tasas distintas. Este ejemplo generaliza esa misma idea a $n$ componentes, y agrega el caso simétrico del **máximo** (útil, por ejemplo, para modelar cuándo *terminan* de fallar todos los componentes de un sistema en serie que se reemplaza automáticamente).
+:::
+
 :::
 
 ::: {.callout-important}

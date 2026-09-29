@@ -108,6 +108,182 @@ $$f(x,y) = f_X(x)\cdot f_Y(y) \quad \text{para todo } x,y$$
 
 Si además son independientes, $E(XY)=E(X)\,E(Y)$ — la misma propiedad que ya usaste con FGM en el Tema P6d, ahora para el caso continuo general.
 
+## 📘 Ejemplo del libro — variables ya dadas como independientes (Ej. 5.37)
+
+**Enunciado (Blanco Castañeda, Ej. 5.37):** $X$ e $Y$ son variables aleatorias **independientes** con densidades $f(x)=\tfrac{3x^2}{8}$ para $0<x<2$, y $g(y)=y^{-2}$ para $y>1$. Calcule $P(XY>1)$.
+
+**Paso 1 — Construir la conjunta, aprovechando que ya sabes que son independientes:** a diferencia de los ejemplos anteriores (donde la independencia había que *verificarla*), aquí el enunciado ya la da por hecho — así que la conjunta es directamente el producto de las densidades individuales, sin necesidad de factorizar nada:
+
+$$
+h(x,y) = f(x)\cdot g(y) = \frac{3x^2}{8}\cdot\frac{1}{y^2} = \frac{3x^2}{8y^2}, \qquad 0<x<2,\ y>1
+$$
+
+**Paso 2 — Identificar la región $XY>1$ dentro del soporte:** como $y>1$, se tiene $\tfrac1y<1<2$, así que para cada $y$ fijo, la condición $x>\tfrac1y$ ya cabe dentro de $(0,2)$ sin salirse del soporte. La región de integración es $x\in(\tfrac1y,\,2)$, $y\in(1,\infty)$:
+
+$$
+P(XY>1) = \int_1^{\infty}\!\!\int_{1/y}^{2} \frac{3x^2}{8y^2}\,dx\,dy = \frac{31}{32} = 0.96875
+$$
+
+```r
+f <- function(x) (3 * x^2) / 8
+g <- function(y) y^(-2)
+h <- function(x, y) f(x) * g(y)   # conjunta = producto, porque ya son independientes
+
+# P(XY > 1): para cada y > 1, integrar x de 1/y a 2
+p_xy_mayor_1 <- integrate(function(y) {
+  sapply(y, function(yi) integrate(function(x) h(x, yi), 1/yi, 2)$value)
+}, 1, Inf)$value
+
+p_xy_mayor_1   # deberia dar 31/32 = 0.96875
+31/32
+```
+
+::: {.callout-tip}
+## 💡 La diferencia con los ejemplos anteriores
+En el Ejemplo 5.19 ($6xy^2$) tuviste que **verificar** la independencia factorizando $f(x,y)$. Aquí el enunciado directamente te da $X$ e $Y$ como independientes con sus densidades individuales — el trabajo entonces es el inverso: **construir** la conjunta multiplicando, no descomponerla. Es la misma relación $f(x,y)=f_X(x)f_Y(y)$, solo que usada en la dirección contraria.
+:::
+
+## 📘 Ejemplo del libro — probabilidad sobre una región (Ej. 5.19)
+
+**Enunciado (Blanco Castañeda, Ej. 5.19):** con la misma densidad $f(x,y)=6xy^2$, $0<x<1,\,0<y<1$, de la sección de exploración, calcule (1) $P\!\left(\tfrac12<X\le\tfrac34,\,0<Y\le\tfrac13\right)$ y (2) $P\!\left(\tfrac12<X\le\tfrac34\right)$.
+
+**1. Probabilidad sobre un rectángulo dentro del soporte:** cuando el evento es un rectángulo $[a,b]\times[c,d]$ (no todo el soporte), los límites de la integral doble se ajustan a ese rectángulo, no a $(0,1)\times(0,1)$:
+
+$$
+P\!\left(\tfrac12<X\le\tfrac34,\,0<Y\le\tfrac13\right) = \int_0^{1/3}\!\!\int_{1/2}^{3/4} 6xy^2\,dx\,dy = 1.1574\times10^{-2}
+$$
+
+**2. Probabilidad marginal, integrando $Y$ en todo su rango:** si el evento solo restringe $X$ (sin restringir $Y$), integras $y$ en $(0,1)$ completo — reusando directamente la marginal $f_X(x)=2x$ que ya dedujiste arriba:
+
+$$
+P\!\left(\tfrac12<X\le\tfrac34\right) = \int_{1/2}^{3/4}\!\!\int_0^1 6xy^2\,dy\,dx = \int_{1/2}^{3/4} 2x\,dx = 0.3125
+$$
+
+```r
+f <- function(x, y) 6 * x * y^2
+
+# (1) rectangulo dentro del soporte: Y restringido a (0, 1/3)
+p1 <- integrate(function(x) {
+  sapply(x, function(xi) integrate(function(y) f(xi, y), 0, 1/3)$value)
+}, 1/2, 3/4)$value
+p1   # 0.011574...
+
+# (2) Y integrado en todo su rango -- equivalente a usar la marginal fX
+p2 <- integrate(function(x) 2 * x, 1/2, 3/4)$value
+p2   # 0.3125
+```
+
+::: {.callout-tip}
+## 💡 Diferencia clave
+En (1) el evento restringe **ambas** variables, así que los límites en $y$ son $(0,\tfrac13)$, no $(0,1)$. En (2) el evento solo restringe $X$, así que $Y$ se integra en **todo** su soporte $(0,1)$ — que es justamente la definición de la marginal $f_X$. Confundir estos dos casos es un error común al leer un enunciado.
+:::
+
+## 📘 Ejemplo del libro — CDF conjunta y marginales (Ej. 5.21)
+
+**Enunciado (Blanco Castañeda, Ej. 5.21):** $X$ e $Y$ tienen densidad conjunta $f(x,y)=x+y$, $0<x<1$, $0<y<1$ — la misma densidad "no independiente" que verás en el Laboratorio. Halle (1) la función de distribución acumulativa conjunta y (2) las densidades marginales.
+
+**1. Función de distribución acumulativa conjunta:** se integra la densidad desde $-\infty$ hasta $(x,y)$; como $f$ solo es distinta de cero en el cuadrado $(0,1)^2$, hay que distinguir regiones según dónde caiga el punto $(x,y)$. Dentro del cuadrado:
+
+$$
+F_{XY}(x,y) = \int_0^x\int_0^y (u+t)\,dt\,du = \frac{x^2y+xy^2}{2}, \qquad 0<x<1,\ 0<y<1
+$$
+
+Si $x$ ya está dentro pero $y\ge1$, sustituyes $y=1$ en esa misma fórmula (ya no hay más densidad que sumar más allá de $y=1$):
+
+$$
+F_{XY}(x,y) = \frac{x^2+x}{2}, \qquad 0<x<1,\ y\ge1
+$$
+
+Y por simetría, si $y<1$ pero $x\ge1$: $F_{XY}(x,y)=\dfrac{y+y^2}{2}$. Si ambos superaron 1, $F_{XY}(x,y)=1$.
+
+**2. Marginales, por integración directa** (mismo procedimiento de la pestaña "Marginales por integración"):
+
+$$
+f_X(x)=\int_0^1(x+y)\,dy = x+\frac12, \qquad 0<x<1 \qquad\qquad f_Y(y)=\int_0^1(x+y)\,dx = y+\frac12, \qquad 0<y<1
+$$
+
+```r
+f <- function(x, y) x + y
+
+F_XY <- function(x, y) {
+  if (x <= 0 || y <= 0) return(0)
+  xx <- min(x, 1); yy <- min(y, 1)
+  (xx^2 * yy + xx * yy^2) / 2
+}
+F_XY(0.6, 0.6)   # dentro del cuadrado
+F_XY(0.6, 2)     # y >= 1 -> usa la formula recortada en y = 1
+
+fX <- function(x) integrate(function(y) f(x, y), 0, 1)$value
+fY <- function(y) integrate(function(x) f(x, y), 0, 1)$value
+c(fX(0.4), 0.4 + 0.5)   # deben coincidir
+c(fY(0.4), 0.4 + 0.5)
+```
+
+::: {.callout-important}
+## Por qué esta densidad no es independiente
+$f_X(x)\cdot f_Y(y) = (x+\tfrac12)(y+\tfrac12) \ne x+y = f(x,y)$ — no se factoriza como en el Ejemplo 5.19, así que (a diferencia de $6xy^2$) estas variables **no son independientes**. Vas a confirmar esto mismo en el Laboratorio.
+:::
+
+## 📘 Ejemplo del libro — región no rectangular (Ej. 5.22)
+
+**Enunciado (Blanco Castañeda, Ej. 5.22):** $X$ e $Y$ tienen densidad conjunta $f(x,y)=k$ (constante) para $0\le x\le2,\ 0\le y\le1$ y además $2y\le x$ — el soporte no es un rectángulo sino un **triángulo** (la parte del cuadrado por debajo de la recta $x=2y$). Halle (1) $k$, (2) la CDF conjunta, (3) las marginales, y (4) $P(X\le3Y)$.
+
+**1. El valor de $k$:** con $f$ constante, la integral doble es $k$ veces el área de la región. Para $x$ fijo entre 0 y 2, $y$ va de 0 hasta $x/2$ (despejando de $2y=x$):
+
+$$
+1 = \int_0^2\int_0^{x/2} k\,dy\,dx = k\int_0^2 \frac{x}{2}\,dx = k\cdot\left[\frac{x^2}{4}\right]_0^2 = k \;\Rightarrow\; k=1
+$$
+
+**2. CDF conjunta**, según qué porción del triángulo cubre el punto $(x,y)$:
+
+$$
+F_{XY}(x,y)=
+\begin{cases}
+0 & x<0 \text{ o } y<0\\[2pt]
+xy-y^2 & 0\le x\le2,\ 0\le y\le\tfrac{x}{2}\\[2pt]
+\tfrac{x^2}{4} & 0\le x\le2,\ y\ge\tfrac{x}{2}\ \text{(incluye } y\ge1)\\[2pt]
+2y-y^2 & x>2,\ 0\le y\le1\\[2pt]
+1 & x\ge2,\ y\ge1
+\end{cases}
+$$
+
+**3. Marginales, integrando sobre los límites reales del triángulo** (no sobre todo el cuadrado):
+
+$$
+f_X(x) = \int_0^{x/2} 1\,dy = \frac{x}{2}, \qquad 0\le x\le2 \qquad\qquad f_Y(y) = \int_{2y}^{2} 1\,dx = 2-2y, \qquad 0\le y\le1
+$$
+
+Ninguna de las dos marginales usa límites fijos: dependen de la otra variable, precisamente porque el soporte es un triángulo, no un rectángulo.
+
+**4. $P(X\le3Y)$:** el evento recorta el triángulo con la condición adicional $x\le3y$. La recta $x=3y$ sale del triángulo por $x=2$ cuando $y=\tfrac23$:
+
+$$
+P(X\le3Y) = \int_0^{2/3}\int_{2y}^{3y} 1\,dx\,dy + \int_{2/3}^{1}\int_{2y}^{2} 1\,dx\,dy = \frac13
+$$
+
+```r
+# k=1, region: 0<=x<=2, 0<=y<=1, 2y<=x
+fX <- function(x) x / 2
+fY <- function(y) 2 - 2*y
+
+integrate(fX, 0, 2)$value   # 1 -- fX es una densidad valida
+integrate(fY, 0, 1)$value   # 1 -- fY tambien
+
+# P(X <= 3Y), integrando sobre la region recortada por el evento
+p_x_le_3y <- integrate(function(y) {
+  sapply(y, function(yi) {
+    x_sup <- if (yi <= 2/3) 3*yi else 2
+    integrate(function(x) 1, 2*yi, x_sup)$value
+  })
+}, 0, 1)$value
+p_x_le_3y   # deberia dar 1/3
+```
+
+::: {.callout-tip}
+## 💡 La lección de este ejemplo
+Cuando el soporte de $f(x,y)$ no es un rectángulo, **los límites de integración de una variable dependen del valor de la otra** — tanto para verificar que $f$ integra a 1, como para marginales o cualquier probabilidad. Antes de integrar, identifica la región donde $f>0$ y expresa los límites de una variable en función de la otra.
+:::
+
 :::
 
 ## 🧪 Ejemplo con datos reales
