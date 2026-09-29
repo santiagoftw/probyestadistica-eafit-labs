@@ -1,0 +1,88 @@
+<svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+
+  <!-- fondo -->
+  <rect x="0" y="0" width="640" height="480" fill="#ffffff"/>
+
+  <!-- titulo -->
+  <text x="320" y="24" text-anchor="middle" fill="#004B85" font-size="16" font-weight="700">Región de integración de P(XY &gt; 1)</text>
+
+  <!-- soporte completo: 0 &lt; x &lt; 2, y &gt; 1 (truncado en y=6, se extiende hacia arriba) -->
+  <rect x="70" y="42.9" width="452.2" height="322.6" fill="#EAF2F8" stroke="#4B8BC2" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="365" y="60" text-anchor="middle" fill="#4B8BC2" font-size="12" font-weight="700">soporte: 0 &lt; x &lt; 2,  y &gt; 1</text>
+
+  <!-- region XY > 1, dentro del soporte (a la derecha de la curva x=1/y) -->
+  <path d="M 296.1 365.5 L 258.4 352.6 L 220.7 333.2 L 183.0 301.0 L 160.4 268.7 L 145.4 236.5 L 134.6 204.2 L 126.5 171.9 L 120.2 139.7 L 115.2 107.4 L 111.1 75.2 L 107.7 42.9 L 522.2 42.9 L 522.2 365.5 Z"
+        fill="#FFB903" fill-opacity="0.40" stroke="none"/>
+
+  <!-- curva xy=1 (x=1/y), borde de la region -->
+  <path d="M 296.1 365.5 L 258.4 352.6 L 220.7 333.2 L 183.0 301.0 L 160.4 268.7 L 145.4 236.5 L 134.6 204.2 L 126.5 171.9 L 120.2 139.7 L 115.2 107.4 L 111.1 75.2 L 107.7 42.9"
+        fill="none" stroke="#004B85" stroke-width="2.5"/>
+
+  <!-- ejes -->
+  <line x1="70" y1="430" x2="610" y2="430" stroke="#2B2B2B" stroke-width="1.5"/>
+  <polygon points="610,430 598,425 598,435" fill="#2B2B2B"/>
+  <line x1="70" y1="430" x2="70" y2="20" stroke="#2B2B2B" stroke-width="1.5"/>
+  <polygon points="70,20 65,32 75,32" fill="#2B2B2B"/>
+  <text x="620" y="435" fill="#2B2B2B" font-size="14" font-weight="700">x</text>
+  <text x="60" y="18" text-anchor="end" fill="#2B2B2B" font-size="14" font-weight="700">y</text>
+
+  <!-- marcas y etiquetas eje x: 0,1,2 -->
+  <line x1="70" y1="425" x2="70" y2="435" stroke="#2B2B2B" stroke-width="1.5"/>
+  <text x="70" y="450" text-anchor="middle" fill="#2B2B2B" font-size="13">0</text>
+
+  <line x1="296.1" y1="425" x2="296.1" y2="435" stroke="#2B2B2B" stroke-width="1.5"/>
+  <text x="296.1" y="450" text-anchor="middle" fill="#2B2B2B" font-size="13">1</text>
+
+  <line x1="522.2" y1="425" x2="522.2" y2="435" stroke="#2B2B2B" stroke-width="1.5"/>
+  <text x="522.2" y="450" text-anchor="middle" fill="#2B2B2B" font-size="13" font-weight="700">2</text>
+
+  <!-- marcas y etiquetas eje y: 1..6 -->
+  <line x1="65" y1="365.5" x2="75" y2="365.5" stroke="#2B2B2B" stroke-width="1.5"/>
+  <text x="55" y="370" text-anchor="end" fill="#2B2B2B" font-size="13" font-weight="700">1</text>
+
+  <line x1="65" y1="301.0" x2="75" y2="301.0" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="55" y="305" text-anchor="end" fill="#2B2B2B" font-size="12">2</text>
+
+  <line x1="65" y1="236.5" x2="75" y2="236.5" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="55" y="240" text-anchor="end" fill="#2B2B2B" font-size="12">3</text>
+
+  <line x1="65" y1="171.9" x2="75" y2="171.9" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="55" y="176" text-anchor="end" fill="#2B2B2B" font-size="12">4</text>
+
+  <line x1="65" y1="107.4" x2="75" y2="107.4" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="55" y="111" text-anchor="end" fill="#2B2B2B" font-size="12">5</text>
+
+  <line x1="65" y1="42.9" x2="75" y2="42.9" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="55" y="47" text-anchor="end" fill="#2B2B2B" font-size="12">6</text>
+
+  <!-- indicacion de que y sigue creciendo hacia infinito -->
+  <text x="70" y="34" text-anchor="middle" fill="#4B8BC2" font-size="16" font-weight="700">⋮</text>
+  <text x="95" y="30" fill="#4B8BC2" font-size="11">y → ∞</text>
+
+  <!-- linea vertical x=2, borde derecho del soporte -->
+  <line x1="522.2" y1="42.9" x2="522.2" y2="365.5" stroke="#4B8BC2" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- punto (1,1) donde xy=1 cruza y=1 -->
+  <circle cx="296.1" cy="365.5" r="4.5" fill="#004B85"/>
+  <text x="296.1" y="386" text-anchor="middle" fill="#004B85" font-size="12" font-weight="700">(1, 1)</text>
+
+  <!-- etiqueta de la curva -->
+  <text x="205" y="285" fill="#004B85" font-size="13" font-weight="700" transform="rotate(-58 205 285)">curva xy = 1  (x = 1/y)</text>
+
+  <!-- etiqueta de la region sombreada -->
+  <text x="400" y="150" text-anchor="middle" fill="#7A5A00" font-size="15" font-weight="700">XY &gt; 1</text>
+
+  <!-- flecha horizontal mostrando el orden de integracion para un y fijo -->
+  <line x1="330" y1="220" x2="480" y2="220" stroke="#B37D00" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <circle cx="330" cy="220" r="3" fill="#B37D00"/>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#B37D00"/>
+    </marker>
+  </defs>
+  <text x="405" y="212" text-anchor="middle" fill="#B37D00" font-size="12" font-weight="700">x: de 1/y hasta 2</text>
+
+  <!-- nota inferior con el resultado -->
+  <rect x="70" y="455" width="500" height="0" fill="none"/>
+
+</svg>
