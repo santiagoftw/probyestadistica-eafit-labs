@@ -81,10 +81,32 @@ Una versión anterior de este tema seguía la solución oficial del Laboratorio 
 ## Distribución conjunta
 Para dos variables aleatorias discretas $Y_1, Y_2$, la función de probabilidad conjunta da $P(Y_1=y_1, Y_2=y_2)$ para cada combinación posible — toda la información sobre cómo se comportan **juntas**.
 
+**Cómo se construye, en general:** enumeras el espacio muestral (todos los resultados igualmente probables), calculas ambas variables sobre cada resultado, y cuentas cuántos resultados caen en cada combinación $(y_1,y_2)$. Un segundo ejemplo, distinto al de las monedas: lanza dos dados justos y define $X=\max(D_1,D_2)$, $Y=D_1+D_2$. Hay $6\times 6=36$ pares $(d_1,d_2)$ igualmente probables. Para $(X{=}3,Y{=}5)$, buscas qué pares cumplen **ambas** condiciones a la vez:
+$$
+\{(d_1,d_2): \max(d_1,d_2)=3,\ d_1+d_2=5\} = \{(2,3),(3,2)\} \;\Rightarrow\; P(X{=}3,\,Y{=}5)=\frac{2}{36}=\frac{1}{18}
+$$
+```r
+dados <- expand.grid(d1 = 1:6, d2 = 1:6)
+dados$X <- pmax(dados$d1, dados$d2)
+dados$Y <- dados$d1 + dados$d2
+conjunta_dados <- table(dados$X, dados$Y) / nrow(dados)
+```
+Es exactamente la misma lógica que ya usaste con `expand.grid()` y `table()` en la sección de exploración: solo cambia qué variables calculas sobre cada resultado.
+
 ## Distribuciones marginales
 Se obtienen "sumando hacia afuera" la variable que no interesa:
 $$P(Y_1=y_1) = \sum_{y_2} P(Y_1=y_1, Y_2=y_2)$$
 En R, esto es exactamente `rowSums()` o `colSums()` sobre la matriz conjunta.
+
+**Cómo "devolverte" a la marginal cuando solo tienes la conjunta:** retomando `conjunta_dados`, si quieres la distribución de $X=\max(D_1,D_2)$ sola, sumas la fila $X=3$ sobre **todos** los valores de $Y$ — sin importar cuál fue la suma, solo que el máximo haya sido 3:
+$$
+P(X=3) = \sum_{y} P(X{=}3,Y{=}y) = P(3,4)+P(3,5)+P(3,6) = \frac{2}{36}+\frac{2}{36}+\frac{1}{36} = \frac{5}{36}
+$$
+```r
+marginal_X_dados <- rowSums(conjunta_dados)
+marginal_X_dados["3"]   # 5/36 = 0.1389
+```
+"Devolverse" a la marginal es literalmente deshacer la partición por $Y$ que hiciste al construir la conjunta: vuelves a agrupar todo lo que tenga $X=3$, sin importar el valor de $Y$. Vas a repetir este mismo procedimiento con $Y_1$ y $Y_2$ (monedas) en el ejemplo de abajo.
 
 ## Distribución condicional
 $$P(Y_1=y_1 | Y_2=y_2) = \frac{P(Y_1=y_1, Y_2=y_2)}{P(Y_2=y_2)}$$
