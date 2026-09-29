@@ -493,6 +493,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../temas/tema-p9a-estudiante.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tema P9a · Valor esperado de funciones de v.a. discretas y covarianza</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../temas/tema-p9-estudiante.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tema P9 · Covarianza y correlación de variables aleatorias</span></a>
   </div>
@@ -645,6 +651,128 @@ window.Quarto = {
 <div class="ficha-resultado">
 <p>Mira la fila <code>Y1=2</code>: la combinación <code>(Y1=2, Y2=1)</code> tiene probabilidad 2/8, el doble que las demás celdas no vacías. ¿Por qué? (pista: hay dos maneras distintas de sacar exactamente 2 caras <em>con la primera cara en el primer tiro</em>: CCS y CSC).</p>
 </div>
+<section id="de-los-números-a-los-casos-qué-evento-hay-detrás-de-cada-probabilidad" class="level3">
+<h3 class="anchored" data-anchor-id="de-los-números-a-los-casos-qué-evento-hay-detrás-de-cada-probabilidad">🔎 De los números a los casos: ¿qué evento hay detrás de cada probabilidad?</h3>
+<p>La tabla <code>prob_matrix</code> de arriba es correcta, pero solo muestra fracciones — no dice <strong>qué secuencia de monedas</strong> produce cada una. Como los 8 resultados de lanzar 3 monedas son igualmente probables, cada uno individualmente tiene probabilidad <span class="math inline">\(1/8\)</span>, y notamos <span class="math inline">\(C\)</span> = cara, <span class="math inline">\(S\)</span> = sello. Traduciendo cada uno de los 8 resultados a sus valores de <span class="math inline">\((Y_1, Y_2)\)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Evento (t1,t2,t3)</th>
+<th style="text-align: center;">Probabilidad</th>
+<th style="text-align: center;"><span class="math inline">\(Y_1\)</span> (n° caras)</th>
+<th style="text-align: center;"><span class="math inline">\(Y_2\)</span> (tiro de la 1ª cara)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(S,S,S)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">ninguna cara</td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(P(C,S,S)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">cara en el tiro 1</td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(S,C,S)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">cara en el tiro 2</td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(P(S,S,C)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">cara en el tiro 3</td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(C,C,S)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">1ª cara en el tiro 1</td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(P(C,S,C)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">1ª cara en el tiro 1</td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(P(S,C,C)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">1ª cara en el tiro 2</td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(P(C,C,C)=\dfrac{1}{8}\)</span></td>
+<td style="text-align: center;">1ª cara en el tiro 1</td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Como <span class="math inline">\((C,C,S)\)</span> y <span class="math inline">\((C,S,C)\)</span> caen en la <strong>misma</strong> casilla <span class="math inline">\((Y_1{=}2,\,Y_2{=}1)\)</span>, sus probabilidades se <strong>suman</strong>: eso es exactamente lo que la celda de la tabla conjunta representa — la probabilidad de la <em>casilla</em>, no la de un solo lanzamiento. Agrupando los 8 eventos por su casilla <span class="math inline">\((Y_1,Y_2)\)</span>, la tabla conjunta completa, ahora con los eventos explícitos, queda:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 28%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\((Y_1,Y_2)\)</span></th>
+<th style="text-align: left;">Eventos que caen ahí</th>
+<th style="text-align: center;">Probabilidad de la casilla</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\((0,-1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\{(S,S,S)\}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P(S,S,S)=\dfrac{1}{8}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\((1,1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\{(C,S,S)\}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P(C,S,S)=\dfrac{1}{8}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\((1,2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\{(S,C,S)\}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P(S,C,S)=\dfrac{1}{8}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\((1,3)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\{(S,S,C)\}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P(S,S,C)=\dfrac{1}{8}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\((2,1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\{(C,C,S),\,(C,S,C)\}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P(C,C,S)+P(C,S,C)=\dfrac{1}{8}+\dfrac{1}{8}=\dfrac{2}{8}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\((2,2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\{(S,C,C)\}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P(S,C,C)=\dfrac{1}{8}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\((3,1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\{(C,C,C)\}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P(C,C,C)=\dfrac{1}{8}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Todas las demás combinaciones de <span class="math inline">\((Y_1,Y_2)\)</span> (por ejemplo, <span class="math inline">\((2,3)\)</span> o <span class="math inline">\((0,2)\)</span>) tienen probabilidad <strong>0</strong>: no existe ninguna secuencia de 3 monedas que las produzca — por eso <code>prob_matrix</code> las deja vacías. Esta es la razón exacta por la que <span class="math inline">\((Y_1{=}2,Y_2{=}1)\)</span> vale <span class="math inline">\(2/8\)</span> y no <span class="math inline">\(1/8\)</span> como las demás casillas no vacías: es la <strong>única</strong> casilla a la que llegan dos eventos distintos en vez de uno solo.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -658,6 +786,7 @@ window.Quarto = {
 <p>Una versión anterior de este tema seguía la solución oficial del Laboratorio 3, que calcula la tabla conjunta con una función que solo cubre la diagonal (<span class="math inline">\(Y_1=1\Rightarrow Y_2=1\)</span>, <span class="math inline">\(Y_1=2\Rightarrow Y_2=2\)</span>, etc.), asignando probabilidad 0 a combinaciones que sí son posibles — por ejemplo, <code>CCS</code> y <code>CSC</code> dan <span class="math inline">\(Y_1=2\)</span> pero <span class="math inline">\(Y_2=1\)</span> (la primera cara salió en el primer tiro), no <span class="math inline">\(Y_2=2\)</span>. Aquí se corrigió <strong>enumerando los 8 resultados directamente</strong> en vez de escribir una fórmula a mano — la lección general es que cuando el espacio muestral es pequeño y enumerable, contar es más confiable que “adivinar” una expresión cerrada.</p>
 </div>
 </div>
+</section>
 </section>
 <section id="ahora-sí-la-teoría" class="level2">
 <h2 class="anchored" data-anchor-id="ahora-sí-la-teoría">📖 Ahora sí, la teoría</h2>
@@ -1358,137 +1487,166 @@ function revisarQuizTemaP8() {
 <span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>Mira la fila <span class="in">`Y1=2`</span>: la combinación <span class="in">`(Y1=2, Y2=1)`</span> tiene probabilidad 2/8, el doble que las demás celdas no vacías. ¿Por qué? (pista: hay dos maneras distintas de sacar exactamente 2 caras *con la primera cara en el primer tiro*: CCS y CSC).</span>
 <span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrección de rigor</span></span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>Una versión anterior de este tema seguía la solución oficial del Laboratorio 3, que calcula la tabla conjunta con una función que solo cubre la diagonal ($Y_1=1\Rightarrow Y_2=1$, $Y_1=2\Rightarrow Y_2=2$, etc.), asignando probabilidad 0 a combinaciones que sí son posibles — por ejemplo, <span class="in">`CCS`</span> y <span class="in">`CSC`</span> dan $Y_1=2$ pero $Y_2=1$ (la primera cara salió en el primer tiro), no $Y_2=2$. Aquí se corrigió **enumerando los 8 resultados directamente** en vez de escribir una fórmula a mano — la lección general es que cuando el espacio muestral es pequeño y enumerable, contar es más confiable que "adivinar" una expresión cerrada.</span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución conjunta</span></span>
-<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>Para dos variables aleatorias discretas $Y_1, Y_2$, la función de probabilidad conjunta da $P(Y_1=y_1, Y_2=y_2)$ para cada combinación posible — toda la información sobre cómo se comportan **juntas**.</span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribuciones marginales</span></span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>Se obtienen "sumando hacia afuera" la variable que no interesa:</span>
-<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1) = \sum_{y_2} P(Y_1=y_1, Y_2=y_2)$$</span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>En R, esto es exactamente <span class="in">`rowSums()`</span> o <span class="in">`colSums()`</span> sobre la matriz conjunta.</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🔎 De los números a los casos: ¿qué evento hay detrás de cada probabilidad?</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>La tabla <span class="in">`prob_matrix`</span> de arriba es correcta, pero solo muestra fracciones — no dice **qué secuencia de monedas** produce cada una. Como los 8 resultados de lanzar 3 monedas son igualmente probables, cada uno individualmente tiene probabilidad $1/8$, y notamos $C$ = cara, $S$ = sello. Traduciendo cada uno de los 8 resultados a sus valores de $(Y_1, Y_2)$:</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Evento (t1,t2,t3) <span class="pp">|</span> Probabilidad <span class="pp">|</span> $Y_1$ (n° caras) <span class="pp">|</span> $Y_2$ (tiro de la 1ª cara) <span class="pp">|</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|:---:|</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,S,S)=\dfrac{1}{8}$ <span class="pp">|</span> ninguna cara <span class="pp">|</span> $0$ <span class="pp">|</span> $-1$ <span class="pp">|</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,S,S)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 1 <span class="pp">|</span> $1$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,C,S)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 2 <span class="pp">|</span> $1$ <span class="pp">|</span> $2$ <span class="pp">|</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,S,C)=\dfrac{1}{8}$ <span class="pp">|</span> cara en el tiro 3 <span class="pp">|</span> $1$ <span class="pp">|</span> $3$ <span class="pp">|</span></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,C,S)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $2$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,S,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $2$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(S,C,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 2 <span class="pp">|</span> $2$ <span class="pp">|</span> $2$ <span class="pp">|</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $P(C,C,C)=\dfrac{1}{8}$ <span class="pp">|</span> 1ª cara en el tiro 1 <span class="pp">|</span> $3$ <span class="pp">|</span> $1$ <span class="pp">|</span></span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>Como $(C,C,S)$ y $(C,S,C)$ caen en la **misma** casilla $(Y_1{=}2,\,Y_2{=}1)$, sus probabilidades se **suman**: eso es exactamente lo que la celda de la tabla conjunta representa — la probabilidad de la *casilla*, no la de un solo lanzamiento. Agrupando los 8 eventos por su casilla $(Y_1,Y_2)$, la tabla conjunta completa, ahora con los eventos explícitos, queda:</span>
 <span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución condicional</span></span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1 | Y_2=y_2) = \frac{P(Y_1=y_1, Y_2=y_2)}{P(Y_2=y_2)}$$</span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>La misma idea del Tema P2, ahora aplicada a variables aleatorias en vez de eventos sueltos.</span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Independencia de variables aleatorias</span></span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>$Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2=y_2)$ para **toda** combinación de valores — no basta con que se cumpla en una sola celda de la tabla.</span>
-<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: marginales, condicional e independencia</span></span>
-<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)</span></span>
-<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>marginal_Y2 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(prob_matrix)</span>
-<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>marginal_Y2</span>
-<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1 (filas están rotuladas 0, 1, 2, 3)</span></span>
-<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(prob_matrix)</span>
-<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>marginal_Y1</span>
-<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Condicional: P(Y1=3 | Y2=1)</span></span>
-<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a>p_Y1_3_Y2_1 <span class="ot">&lt;-</span> prob_matrix[<span class="st">"3"</span>, <span class="st">"1"</span>]</span>
-<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a>p_Y2_1 <span class="ot">&lt;-</span> marginal_Y2[<span class="st">"1"</span>]</span>
-<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1 <span class="ot">&lt;-</span> p_Y1_3_Y2_1 <span class="sc">/</span> p_Y2_1</span>
-<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1</span>
-<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(Y_1,Y_2)$ <span class="pp">|</span> Eventos que caen ahí <span class="pp">|</span> Probabilidad de la casilla <span class="pp">|</span></span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---|:---:|</span></span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(0,-1)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,S,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,S,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,S,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,S,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,2)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,C,S)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,C,S)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(1,3)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,S,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,S,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(2,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,C,S),\,(C,S,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,C,S)+P(C,S,C)=\dfrac{1}{8}+\dfrac{1}{8}=\dfrac{2}{8}$ <span class="pp">|</span></span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(2,2)$ <span class="pp">|</span> $<span class="sc">\{</span>(S,C,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(S,C,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $(3,1)$ <span class="pp">|</span> $<span class="sc">\{</span>(C,C,C)<span class="sc">\}</span>$ <span class="pp">|</span> $P(C,C,C)=\dfrac{1}{8}$ <span class="pp">|</span></span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>Todas las demás combinaciones de $(Y_1,Y_2)$ (por ejemplo, $(2,3)$ o $(0,2)$) tienen probabilidad **0**: no existe ninguna secuencia de 3 monedas que las produzca — por eso `prob_matrix` las deja vacías. Esta es la razón exacta por la que $(Y_1{=}2,Y_2{=}1)$ vale $2/8$ y no $1/8$ como las demás casillas no vacías: es la **única** casilla a la que llegan dos eventos distintos en vez de uno solo.</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrección de rigor</span></span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>Una versión anterior de este tema seguía la solución oficial del Laboratorio 3, que calcula la tabla conjunta con una función que solo cubre la diagonal ($Y_1=1\Rightarrow Y_2=1$, $Y_1=2\Rightarrow Y_2=2$, etc.), asignando probabilidad 0 a combinaciones que sí son posibles — por ejemplo, <span class="in">`CCS`</span> y <span class="in">`CSC`</span> dan $Y_1=2$ pero $Y_2=1$ (la primera cara salió en el primer tiro), no $Y_2=2$. Aquí se corrigió **enumerando los 8 resultados directamente** en vez de escribir una fórmula a mano — la lección general es que cuando el espacio muestral es pequeño y enumerable, contar es más confiable que "adivinar" una expresión cerrada.</span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📖 Ahora sí, la teoría</span></span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución conjunta</span></span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>Para dos variables aleatorias discretas $Y_1, Y_2$, la función de probabilidad conjunta da $P(Y_1=y_1, Y_2=y_2)$ para cada combinación posible — toda la información sobre cómo se comportan **juntas**.</span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribuciones marginales</span></span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a>Se obtienen "sumando hacia afuera" la variable que no interesa:</span>
+<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1) = \sum_{y_2} P(Y_1=y_1, Y_2=y_2)$$</span>
+<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a>En R, esto es exactamente <span class="in">`rowSums()`</span> o <span class="in">`colSums()`</span> sobre la matriz conjunta.</span>
+<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución condicional</span></span>
+<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>$$P(Y_1=y_1 | Y_2=y_2) = \frac{P(Y_1=y_1, Y_2=y_2)}{P(Y_2=y_2)}$$</span>
+<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a>La misma idea del Tema P2, ahora aplicada a variables aleatorias en vez de eventos sueltos.</span>
 <span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificación de independencia: comparar la matriz conjunta contra el producto de marginales</span></span>
-<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a>independencia_teorica <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_Y1, marginal_Y2)</span>
-<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(prob_matrix, <span class="dv">3</span>)</span>
-<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(independencia_teorica, <span class="dv">3</span>)</span>
-<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a>Fíjate en la celda <span class="in">`(Y1=2, Y2=1)`</span>: en la tabla conjunta real vale $2/8=0.25$, pero el producto de marginales da $P(Y_1=2)\cdot P(Y_2=1) = 0.375 \times 0.5 = 0.1875$ — no coinciden.</span>
-<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resultado del ejemplo</span></span>
-<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a>Las dos matrices de arriba **no son iguales** — la matriz conjunta real tiene ceros donde el producto de marginales no los tiene. Esto confirma que $Y_1$ y $Y_2$ **no son independientes**: saber en qué tiro salió la primera cara determina información parcial sobre el número total de caras, y viceversa.</span>
-<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
-<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a>De 9 ejecutivos: 4 casados, 3 solteros, 2 divorciados. Se seleccionan 3 al azar. $Y_1$ = número de casados seleccionados, $Y_2$ = número de solteros seleccionados.</span>
-<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Construye la función de probabilidad conjunta usando combinaciones (<span class="in">`choose()`</span>), siguiendo la lógica de una distribución hipergeométrica multivariada.</span>
-<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Obtén la distribución marginal de $Y_1$.</span>
-<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Si $Y_3 = 3 - Y_1 - Y_2$ es el número de divorciados seleccionados, calcula $P(Y_3=1 | Y_2=1)$.</span>
-<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
-<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
-<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1: completa la función correcta</span></span>
-<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">___</span>(prob_matrix)</span>
-<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a><span class="in">`rowSums(prob_matrix)`</span> — suma cada fila de la tabla conjunta para obtener la marginal de Y1.</span>
-<span id="cb14-131"><a href="#cb14-131" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Independencia de variables aleatorias</span></span>
+<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a>$Y_1$ y $Y_2$ son independientes si $P(Y_1=y_1, Y_2=y_2) = P(Y_1=y_1)\cdot P(Y_2=y_2)$ para **toda** combinación de valores — no basta con que se cumpla en una sola celda de la tabla.</span>
+<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧪 Ejemplo con datos reales: marginales, condicional e independencia</span></span>
+<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y2 (columnas están rotuladas -1, 1, 2, 3)</span></span>
+<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a>marginal_Y2 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(prob_matrix)</span>
+<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a>marginal_Y2</span>
+<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1 (filas están rotuladas 0, 1, 2, 3)</span></span>
+<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(prob_matrix)</span>
+<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a>marginal_Y1</span>
+<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Condicional: P(Y1=3 | Y2=1)</span></span>
+<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a>p_Y1_3_Y2_1 <span class="ot">&lt;-</span> prob_matrix[<span class="st">"3"</span>, <span class="st">"1"</span>]</span>
+<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a>p_Y2_1 <span class="ot">&lt;-</span> marginal_Y2[<span class="st">"1"</span>]</span>
+<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1 <span class="ot">&lt;-</span> p_Y1_3_Y2_1 <span class="sc">/</span> p_Y2_1</span>
+<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a>p_Y1_3_dado_Y2_1</span>
+<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificación de independencia: comparar la matriz conjunta contra el producto de marginales</span></span>
+<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a>independencia_teorica <span class="ot">&lt;-</span> <span class="fu">outer</span>(marginal_Y1, marginal_Y2)</span>
+<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(prob_matrix, <span class="dv">3</span>)</span>
+<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(independencia_teorica, <span class="dv">3</span>)</span>
+<span id="cb14-131"><a href="#cb14-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb14-132"><a href="#cb14-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a>Fíjate en la celda <span class="in">`(Y1=2, Y2=1)`</span>: en la tabla conjunta real vale $2/8=0.25$, pero el producto de marginales da $P(Y_1=2)\cdot P(Y_2=1) = 0.375 \times 0.5 = 0.1875$ — no coinciden.</span>
 <span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap8"</span><span class="dt">&gt;</span></span>
-<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Las marginales se obtienen sumando la tabla conjunta en una dirección.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Basta con que una sola celda cumpla la igualdad para decir que las variables son independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. La condicional P(Y1|Y2) se calcula dividiendo la conjunta entre la marginal de Y2.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
-<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP8()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
-<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap8"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
-<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP8</span>() {</span>
-<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
-<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
-<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
-<span id="cb14-152"><a href="#cb14-152" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
-<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
-<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-159"><a href="#cb14-159" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
-<span id="cb14-161"><a href="#cb14-161" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
-<span id="cb14-162"><a href="#cb14-162" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
-<span id="cb14-163"><a href="#cb14-163" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
-<span id="cb14-165"><a href="#cb14-165" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
-<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
-<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
-<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
-<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La distribución conjunta contiene toda la información sobre cómo se relacionan dos variables aleatorias.</span>
-<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las marginales se obtienen sumando la tabla conjunta en una dirección; las condicionales dividen una celda entre su marginal correspondiente.</span>
-<span id="cb14-175"><a href="#cb14-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La independencia de variables aleatorias exige que la igualdad $P(Y_1,Y_2)=P(Y_1)P(Y_2)$ se cumpla en **todas** las combinaciones, no solo en algunas.</span>
-<span id="cb14-176"><a href="#cb14-176" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-177"><a href="#cb14-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-178"><a href="#cb14-178" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb14-179"><a href="#cb14-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
-<span id="cb14-180"><a href="#cb14-180" aria-hidden="true" tabindex="-1"></a>Todo esto fue para el caso **discreto** (tablas finitas). El [Tema P8b](tema-p8b-estudiante.qmd) extiende las mismas ideas —conjunta, marginal, independencia— al caso **continuo**, donde una tabla se reemplaza por una función de densidad y las sumas se vuelven integrales.</span>
-<span id="cb14-181"><a href="#cb14-181" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resultado del ejemplo</span></span>
+<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a>Las dos matrices de arriba **no son iguales** — la matriz conjunta real tiene ceros donde el producto de marginales no los tiene. Esto confirma que $Y_1$ y $Y_2$ **no son independientes**: saber en qué tiro salió la primera cara determina información parcial sobre el número total de caras, y viceversa.</span>
+<span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🧑‍🔬 Laboratorio</span></span>
+<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a>De 9 ejecutivos: 4 casados, 3 solteros, 2 divorciados. Se seleccionan 3 al azar. $Y_1$ = número de casados seleccionados, $Y_2$ = número de solteros seleccionados.</span>
+<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Construye la función de probabilidad conjunta usando combinaciones (<span class="in">`choose()`</span>), siguiendo la lógica de una distribución hipergeométrica multivariada.</span>
+<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Obtén la distribución marginal de $Y_1$.</span>
+<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Si $Y_3 = 3 - Y_1 - Y_2$ es el número de divorciados seleccionados, calcula $P(Y_3=1 | Y_2=1)$.</span>
+<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a><span class="fu">## ✅ Ejercicios autocorregibles</span></span>
+<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 1 — Completa el código</span></span>
+<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-152"><a href="#cb14-152" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal de Y1: completa la función correcta</span></span>
+<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a>marginal_Y1 <span class="ot">&lt;-</span> <span class="fu">___</span>(prob_matrix)</span>
+<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver respuesta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb14-159"><a href="#cb14-159" aria-hidden="true" tabindex="-1"></a><span class="in">`rowSums(prob_matrix)`</span> — suma cada fila de la tabla conjunta para obtener la marginal de Y1.</span>
+<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb14-161"><a href="#cb14-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-162"><a href="#cb14-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ejercicio 2 — Verdadero o falso</span></span>
+<span id="cb14-163"><a href="#cb14-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"card-lab"</span><span class="ot"> id</span><span class="op">=</span><span class="st">"quiz-temap8"</span><span class="dt">&gt;</span></span>
+<span id="cb14-165"><a href="#cb14-165" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>1. Las marginales se obtienen sumando la tabla conjunta en una dirección.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q1"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>2. Basta con que una sola celda cumpla la igualdad para decir que las variables son independientes.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q2"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>3. La condicional P(Y1|Y2) se calcula dividiendo la conjunta entre la marginal de Y2.<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"V"</span><span class="dt">&gt;</span> Verdadero<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-left: 1rem;"</span><span class="dt">&gt;&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">"radio"</span><span class="ot"> name</span><span class="op">=</span><span class="st">"q3"</span><span class="ot"> value</span><span class="op">=</span><span class="st">"F"</span><span class="dt">&gt;</span> Falso<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"btn-outline-prediccion"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;"</span><span class="ot"> onclick</span><span class="op">=</span><span class="st">"revisarQuizTemaP8()"</span><span class="dt">&gt;</span>Revisar respuestas<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> id</span><span class="op">=</span><span class="st">"resultado-quiz-temap8"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-top: 1rem; font-weight: 700;"</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-175"><a href="#cb14-175" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb14-176"><a href="#cb14-176" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">revisarQuizTemaP8</span>() {</span>
+<span id="cb14-177"><a href="#cb14-177" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> respuestas <span class="op">=</span> { <span class="dt">q1</span><span class="op">:</span> <span class="st">"V"</span><span class="op">,</span> <span class="dt">q2</span><span class="op">:</span> <span class="st">"F"</span><span class="op">,</span> <span class="dt">q3</span><span class="op">:</span> <span class="st">"V"</span> }<span class="op">;</span></span>
+<span id="cb14-178"><a href="#cb14-178" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Exigir que todas las preguntas estén respondidas antes de revelar el resultado</span></span>
+<span id="cb14-179"><a href="#cb14-179" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sinResponder <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb14-180"><a href="#cb14-180" aria-hidden="true" tabindex="-1"></a>    p <span class="kw">=&gt;</span> <span class="op">!</span><span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)</span>
+<span id="cb14-181"><a href="#cb14-181" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb14-182"><a href="#cb14-182" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> resultadoEl <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
+<span id="cb14-183"><a href="#cb14-183" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sinResponder<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb14-184"><a href="#cb14-184" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">"Responde todas las preguntas antes de revisar."</span><span class="op">;</span></span>
+<span id="cb14-185"><a href="#cb14-185" aria-hidden="true" tabindex="-1"></a>    resultadoEl<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb14-186"><a href="#cb14-186" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb14-187"><a href="#cb14-187" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-188"><a href="#cb14-188" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> correctas <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb14-189"><a href="#cb14-189" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [p<span class="op">,</span> c] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(respuestas)) {</span>
+<span id="cb14-190"><a href="#cb14-190" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="vs">`input[name="</span><span class="sc">${</span>p<span class="sc">}</span><span class="vs">"]:checked`</span>)<span class="op">;</span></span>
+<span id="cb14-191"><a href="#cb14-191" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">value</span> <span class="op">===</span> c) correctas<span class="op">++;</span></span>
+<span id="cb14-192"><a href="#cb14-192" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-193"><a href="#cb14-193" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"resultado-quiz-temap8"</span>)<span class="op">;</span></span>
+<span id="cb14-194"><a href="#cb14-194" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`Obtuviste </span><span class="sc">${</span>correctas<span class="sc">}</span><span class="vs"> de </span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> correctas.`</span><span class="op">;</span></span>
+<span id="cb14-195"><a href="#cb14-195" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> correctas <span class="op">===</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(respuestas)<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"#004B85"</span> <span class="op">:</span> <span class="st">"#B37D00"</span><span class="op">;</span></span>
+<span id="cb14-196"><a href="#cb14-196" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-197"><a href="#cb14-197" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb14-198"><a href="#cb14-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-199"><a href="#cb14-199" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Resumen</span></span>
+<span id="cb14-200"><a href="#cb14-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-201"><a href="#cb14-201" aria-hidden="true" tabindex="-1"></a>::: {.card-lab}</span>
+<span id="cb14-202"><a href="#cb14-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La distribución conjunta contiene toda la información sobre cómo se relacionan dos variables aleatorias.</span>
+<span id="cb14-203"><a href="#cb14-203" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las marginales se obtienen sumando la tabla conjunta en una dirección; las condicionales dividen una celda entre su marginal correspondiente.</span>
+<span id="cb14-204"><a href="#cb14-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La independencia de variables aleatorias exige que la igualdad $P(Y_1,Y_2)=P(Y_1)P(Y_2)$ se cumpla en **todas** las combinaciones, no solo en algunas.</span>
+<span id="cb14-205"><a href="#cb14-205" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-206"><a href="#cb14-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-207"><a href="#cb14-207" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb14-208"><a href="#cb14-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## Siguiente paso</span></span>
+<span id="cb14-209"><a href="#cb14-209" aria-hidden="true" tabindex="-1"></a>Todo esto fue para el caso **discreto** (tablas finitas). El [Tema P8b](tema-p8b-estudiante.qmd) extiende las mismas ideas —conjunta, marginal, independencia— al caso **continuo**, donde una tabla se reemplaza por una función de densidad y las sumas se vuelven integrales.</span>
+<span id="cb14-210"><a href="#cb14-210" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
