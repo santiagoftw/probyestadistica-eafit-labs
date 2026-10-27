@@ -99,26 +99,80 @@ d) ¿Son $X$ e $Y$ independientes?
 Antes de calcular: ¿crees que los autos manuales tienden a tener **más** o **menos** cilindros que los automáticos? Escribe tu apuesta.
 :::
 
-### Paso 1 — Contar: tabla de frecuencias absolutas
+### Paso 1 — De los datos a los conteos: clasificar cada auto
+
+Cada fila de `mtcars` es **un auto**, es decir, un resultado posible del experimento "elegir un auto al azar". Para cada auto se leen los dos valores, $X$ (cilindros) e $Y$ (transmisión). Así se ven las primeras filas:
 
 ```{r}
 data("mtcars")
-tabla_abs <- table(cyl = mtcars$cyl, am = mtcars$am)
-tabla_abs
+mtcars[1:8, c("cyl", "am")]   # solo las dos columnas que nos interesan
 ```
 
-`table()` recibe dos vectores y cuenta cuántas filas tienen cada combinación de valores. Los nombres `cyl =` y `am =` solo sirven para que la tabla quede rotulada.
+Por ejemplo, el *Mazda RX4* tiene $X=6$, $Y=1$; el *Datsun 710*, $X=4$, $Y=1$; el *Hornet 4 Drive*, $X=6$, $Y=0$.
 
-### Paso 2 — Dividir por el total: distribución conjunta
+**Construcción manual de la tabla.** Como $X$ toma 3 valores (4, 6, 8) e $Y$ toma 2 (0, 1), hay $3\times2=6$ casillas posibles. Se recorre la base auto por auto y se pone cada uno en la casilla que le corresponde. El resultado completo, con todos los autos de cada casilla, es:
 
-Como cada uno de los 32 autos tiene la misma probabilidad de ser elegido, $P(X=x,Y=y)=\dfrac{\text{n.º de autos con }(x,y)}{32}$. Por ejemplo:
+| Casilla $(x,y)$ | Autos que caen ahí | Conteo |
+|:---:|:---|:---:|
+| $(4,\,0)$ | Merc 240D, Merc 230, Toyota Corona | **3** |
+| $(4,\,1)$ | Datsun 710, Fiat 128, Honda Civic, Toyota Corolla, Fiat X1-9, Porsche 914-2, Lotus Europa, Volvo 142E | **8** |
+| $(6,\,0)$ | Hornet 4 Drive, Valiant, Merc 280, Merc 280C | **4** |
+| $(6,\,1)$ | Mazda RX4, Mazda RX4 Wag, Ferrari Dino | **3** |
+| $(8,\,0)$ | Hornet Sportabout, Duster 360, Merc 450SE, Merc 450SL, Merc 450SLC, Cadillac Fleetwood, Lincoln Continental, Chrysler Imperial, Dodge Challenger, AMC Javelin, Camaro Z28, Pontiac Firebird | **12** |
+| $(8,\,1)$ | Ford Pantera L, Maserati Bora | **2** |
+| | **Total** | $3+8+4+3+12+2=$ **32** ✓ |
+
+La verificación del total es obligatoria: si los conteos no suman el número de filas de la base (32), algún auto quedó sin clasificar o se contó dos veces.
+
+Ordenados como tabla de doble entrada ($X$ en las filas, $Y$ en las columnas), los conteos son:
+
+| $X\backslash Y$ | $0$ (automático) | $1$ (manual) |
+|:---:|:---:|:---:|
+| $4$ | 3 | 8 |
+| $6$ | 4 | 3 |
+| $8$ | 12 | 2 |
+
+En R, `table()` hace exactamente este conteo: recorre los dos vectores a la vez y cuenta cuántas filas tienen cada combinación.
+
+```{r}
+tabla_abs <- table(cyl = mtcars$cyl, am = mtcars$am)
+tabla_abs
+sum(tabla_abs)   # debe dar 32
+
+# Para ver qué autos hay en una casilla, por ejemplo (8, 1):
+rownames(mtcars)[mtcars$cyl == 8 & mtcars$am == 1]
+```
+
+Los nombres `cyl =` y `am =` dentro de `table()` solo sirven para que la tabla quede rotulada.
+
+### Paso 2 — Distribución conjunta: dividir cada conteo por el total
+
+Como los 32 autos tienen la misma probabilidad de ser elegidos, la probabilidad de cada casilla es su conteo dividido por 32:
 $$
-P(X=4,\,Y=1)=\frac{8}{32}=0.25 \qquad P(X=8,\,Y=1)=\frac{2}{32}=0.0625
+P(X=x,\,Y=y)=\frac{\text{n.º de autos en la casilla }(x,y)}{32}
 $$
+
+Las seis casillas, una por una:
+$$
+\begin{aligned}
+P(X=4,\,Y=0)&=\tfrac{3}{32}=0.09375 & \qquad P(X=4,\,Y=1)&=\tfrac{8}{32}=0.25000\\[2pt]
+P(X=6,\,Y=0)&=\tfrac{4}{32}=0.12500 & \qquad P(X=6,\,Y=1)&=\tfrac{3}{32}=0.09375\\[2pt]
+P(X=8,\,Y=0)&=\tfrac{12}{32}=0.37500 & \qquad P(X=8,\,Y=1)&=\tfrac{2}{32}=0.06250
+\end{aligned}
+$$
+
+**Verificación:** $\tfrac{3+8+4+3+12+2}{32}=\tfrac{32}{32}=1$ ✓ — toda distribución conjunta debe sumar 1.
+
+| $X\backslash Y$ | $0$ | $1$ |
+|:---:|:---:|:---:|
+| $4$ | $\tfrac{3}{32}=0.0938$ | $\tfrac{8}{32}=0.2500$ |
+| $6$ | $\tfrac{4}{32}=0.1250$ | $\tfrac{3}{32}=0.0938$ |
+| $8$ | $\tfrac{12}{32}=0.3750$ | $\tfrac{2}{32}=0.0625$ |
 
 ```{r}
 p_conj <- prop.table(tabla_abs)   # divide cada celda por el total (32)
 round(p_conj, 4)
+sum(p_conj)                       # debe dar 1
 ```
 
 ### Paso 3 — Marginales: sumar filas y columnas
@@ -127,7 +181,33 @@ $$
 P(X=x)=\sum_{y}P(X=x,Y=y) \qquad\qquad P(Y=y)=\sum_{x}P(X=x,Y=y)
 $$
 
-Por ejemplo, $P(X=8)=0.3750+0.0625=0.4375$ y $P(Y=1)=0.2500+0.0938+0.0625=0.40625$.
+**Marginal de $X$** (sumar cada **fila**, sin importar la transmisión):
+$$
+\begin{aligned}
+P(X=4)&=P(4,0)+P(4,1)=\tfrac{3}{32}+\tfrac{8}{32}=\tfrac{11}{32}=0.34375\\[2pt]
+P(X=6)&=P(6,0)+P(6,1)=\tfrac{4}{32}+\tfrac{3}{32}=\tfrac{7}{32}=0.21875\\[2pt]
+P(X=8)&=P(8,0)+P(8,1)=\tfrac{12}{32}+\tfrac{2}{32}=\tfrac{14}{32}=0.43750
+\end{aligned}
+$$
+Verificación: $\tfrac{11+7+14}{32}=1$ ✓
+
+**Marginal de $Y$** (sumar cada **columna**, sin importar los cilindros):
+$$
+\begin{aligned}
+P(Y=0)&=P(4,0)+P(6,0)+P(8,0)=\tfrac{3}{32}+\tfrac{4}{32}+\tfrac{12}{32}=\tfrac{19}{32}=0.59375\\[2pt]
+P(Y=1)&=P(4,1)+P(6,1)+P(8,1)=\tfrac{8}{32}+\tfrac{3}{32}+\tfrac{2}{32}=\tfrac{13}{32}=0.40625
+\end{aligned}
+$$
+Verificación: $\tfrac{19+13}{32}=1$ ✓
+
+Con las marginales escritas "al margen" de la tabla (de ahí su nombre):
+
+| $X\backslash Y$ | $0$ | $1$ | $P(X=x)$ |
+|:---:|:---:|:---:|:---:|
+| $4$ | $\tfrac{3}{32}$ | $\tfrac{8}{32}$ | $\tfrac{11}{32}$ |
+| $6$ | $\tfrac{4}{32}$ | $\tfrac{3}{32}$ | $\tfrac{7}{32}$ |
+| $8$ | $\tfrac{12}{32}$ | $\tfrac{2}{32}$ | $\tfrac{14}{32}$ |
+| $P(Y=y)$ | $\tfrac{19}{32}$ | $\tfrac{13}{32}$ | $1$ |
 
 ```{r}
 p_X <- rowSums(p_conj)   # marginal de X (suma de cada fila)
@@ -138,19 +218,32 @@ p_Y
 addmargins(p_conj)       # la tabla completa con los totales al margen
 ```
 
-| $x$ | 4 | 6 | 8 | | $y$ | 0 | 1 |
-|:---:|:---:|:---:|:---:|---|:---:|:---:|:---:|
-| $P(X=x)$ | $\tfrac{11}{32}$ | $\tfrac{7}{32}$ | $\tfrac{14}{32}$ | | $P(Y=y)$ | $\tfrac{19}{32}$ | $\tfrac{13}{32}$ |
-
 ### Paso 4 — Condicional: dividir la columna $Y=1$ entre $P(Y=1)$
 
 $$
 P(X=x\mid Y=1)=\frac{P(X=x,\,Y=1)}{P(Y=1)}
-\quad\Rightarrow\quad
-P(X=4\mid Y=1)=\frac{8/32}{13/32}=\frac{8}{13}=0.6154
 $$
 
-y del mismo modo $P(X=6\mid Y=1)=\tfrac{3}{13}=0.2308$, $P(X=8\mid Y=1)=\tfrac{2}{13}=0.1538$.
+Las tres probabilidades, una por una. Fíjate que el 32 se cancela: la condicional es simplemente **conteo de la casilla ÷ total de la columna** (los 13 autos manuales):
+$$
+\begin{aligned}
+P(X=4\mid Y=1)&=\frac{8/32}{13/32}=\frac{8}{13}=0.6154\\[4pt]
+P(X=6\mid Y=1)&=\frac{3/32}{13/32}=\frac{3}{13}=0.2308\\[4pt]
+P(X=8\mid Y=1)&=\frac{2/32}{13/32}=\frac{2}{13}=0.1538
+\end{aligned}
+$$
+Verificación: $\tfrac{8+3+2}{13}=1$ ✓ — una distribución condicional también debe sumar 1.
+
+Para comparar, la condicional dado que el auto es **automático** ($Y=0$, los 19 autos automáticos):
+$$
+P(X=4\mid Y=0)=\tfrac{3}{19}=0.1579 \qquad P(X=6\mid Y=0)=\tfrac{4}{19}=0.2105 \qquad P(X=8\mid Y=0)=\tfrac{12}{19}=0.6316
+$$
+
+| $x$ | 4 | 6 | 8 | Suma |
+|:---:|:---:|:---:|:---:|:---:|
+| $P(X=x\mid Y=1)$ (manuales) | $\tfrac{8}{13}=0.6154$ | $\tfrac{3}{13}=0.2308$ | $\tfrac{2}{13}=0.1538$ | 1 |
+| $P(X=x\mid Y=0)$ (automáticos) | $\tfrac{3}{19}=0.1579$ | $\tfrac{4}{19}=0.2105$ | $\tfrac{12}{19}=0.6316$ | 1 |
+| $P(X=x)$ (todos) | $\tfrac{11}{32}=0.3438$ | $\tfrac{7}{32}=0.2188$ | $\tfrac{14}{32}=0.4375$ | 1 |
 
 ```{r}
 # Forma 1: aplicando la fórmula directamente
@@ -162,26 +255,40 @@ round(prop.table(tabla_abs, margin = 2), 4)
 
 ::: {.callout-important}
 ## `margin = 1` vs. `margin = 2`
-`prop.table(tabla, margin = 2)` normaliza **por columnas** → da la condicional de la variable de las filas dada la de las columnas ($X\mid Y$). Con `margin = 1` normaliza **por filas** → da $Y\mid X$. Antes de elegir, mira qué variable quedó en filas y cuál en columnas en tu `table()`. Verificación rápida: cada columna de la condicional $X\mid Y$ debe sumar 1.
+`prop.table(tabla, margin = 2)` normaliza **por columnas** → da la condicional de la variable de las filas dada la de las columnas ($X\mid Y$). Con `margin = 1` normaliza **por filas** → da $Y\mid X$; por ejemplo, $P(Y=1\mid X=4)=\tfrac{8}{11}=0.7273$ (de los 11 autos de 4 cilindros, 8 son manuales). Antes de elegir, mira qué variable quedó en filas y cuál en columnas en tu `table()`. Verificación rápida: cada columna de la condicional $X\mid Y$ debe sumar 1.
 :::
 
-### Paso 5 — Independencia: comparar celda contra producto de marginales
+### Paso 5 — Independencia: comparar cada celda contra el producto de marginales
 
-$X$ e $Y$ son independientes solo si $P(X=x,Y=y)=P(X=x)P(Y=y)$ en **todas** las celdas. Basta una celda que falle:
+$X$ e $Y$ son independientes solo si $P(X=x,Y=y)=P(X=x)\,P(Y=y)$ en **todas** las celdas. El producto de marginales se calcula multiplicando la marginal de la fila por la de la columna; como ambas están sobre 32, el producto queda sobre $32\times32=1024$:
 $$
-P(X=8,\,Y=1)=0.0625 \quad\text{vs.}\quad P(X=8)\,P(Y=1)=0.4375\times0.40625=0.1777
+P(X=4)\,P(Y=0)=\frac{11}{32}\cdot\frac{19}{32}=\frac{209}{1024}=0.2041
 $$
+
+Las seis celdas completas:
+
+| Casilla $(x,y)$ | Observada $P(X{=}x,Y{=}y)$ | Si fueran independientes: $P(X{=}x)\,P(Y{=}y)$ | ¿Iguales? |
+|:---:|:---:|:---:|:---:|
+| $(4,0)$ | $\tfrac{3}{32}=0.0938$ | $\tfrac{11}{32}\cdot\tfrac{19}{32}=\tfrac{209}{1024}=0.2041$ | No |
+| $(4,1)$ | $\tfrac{8}{32}=0.2500$ | $\tfrac{11}{32}\cdot\tfrac{13}{32}=\tfrac{143}{1024}=0.1396$ | No |
+| $(6,0)$ | $\tfrac{4}{32}=0.1250$ | $\tfrac{7}{32}\cdot\tfrac{19}{32}=\tfrac{133}{1024}=0.1299$ | No |
+| $(6,1)$ | $\tfrac{3}{32}=0.0938$ | $\tfrac{7}{32}\cdot\tfrac{13}{32}=\tfrac{91}{1024}=0.0889$ | No |
+| $(8,0)$ | $\tfrac{12}{32}=0.3750$ | $\tfrac{14}{32}\cdot\tfrac{19}{32}=\tfrac{266}{1024}=0.2598$ | No |
+| $(8,1)$ | $\tfrac{2}{32}=0.0625$ | $\tfrac{14}{32}\cdot\tfrac{13}{32}=\tfrac{182}{1024}=0.1777$ | No |
+
+Para concluir que **no** son independientes basta **una** celda que falle; aquí fallan todas, y algunas por mucho, como $(8,1)$: $0.0625$ frente a $0.1777$. En las celdas de 6 cilindros los valores quedan cerca ($0.1250$ frente a $0.1299$), pero eso no cambia nada: la independencia exige la igualdad en **todas** las casillas.
 
 ```{r}
 producto <- outer(p_X, p_Y)   # tabla que tendríamos SI fueran independientes
 round(producto, 4)
+round(p_conj, 4)              # tabla observada, para comparar celda por celda
 
-p_conj["8", "1"]              # lo observado
+p_conj["8", "1"]              # lo observado en la casilla (8, 1)
 producto["8", "1"]            # lo esperado bajo independencia
 ```
 
 ::: {.ficha-resultado}
-**Conclusión.** $0.0625\ne0.1777$: **$X$ e $Y$ no son independientes**. Entre los autos manuales, el 61.5% tiene 4 cilindros y solo el 15.4% tiene 8; entre todos los autos, el 43.75% tiene 8. Los autos manuales de esta base tienden a tener **menos** cilindros. ¿Acertaste tu predicción?
+**Conclusión.** La conjunta no coincide con el producto de marginales (por ejemplo, $0.0625\ne0.1777$ en la casilla $(8,1)$): **$X$ e $Y$ no son independientes**. Entre los autos manuales, el 61.5% tiene 4 cilindros y solo el 15.4% tiene 8; entre los automáticos, el 63.2% tiene 8. Los autos manuales de esta base tienden a tener **menos** cilindros. ¿Acertaste tu predicción?
 :::
 
 ---
@@ -231,11 +338,33 @@ Construye una matriz con todos los productos $x_i\cdot y_j$, del mismo tamaño q
 
 ### Paso 2 — Covarianza y correlación
 
+**Covarianza:**
 $$
-\text{Cov}(X,Y)=E(XY)-E(X)E(Y)=2.0625-6.1875\times0.40625=-0.4512
+\text{Cov}(X,Y)=E(XY)-E(X)E(Y)=2.0625-6.1875\times0.40625=2.0625-2.5137=-0.4512
 $$
+
+**Correlación:**
 $$
 \rho=\frac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X)\,\text{Var}(Y)}},\qquad \text{Var}(X)=E(X^2)-E(X)^2
+$$
+
+Para las varianzas hace falta primero $E(X^2)$ y $E(Y^2)$: "valor **al cuadrado** × probabilidad, y sumar", con las marginales del Problema 1:
+$$
+E(X^2)=4^2\cdot\tfrac{11}{32}+6^2\cdot\tfrac{7}{32}+8^2\cdot\tfrac{14}{32}=\frac{176+252+896}{32}=\frac{1324}{32}=41.375
+$$
+$$
+\text{Var}(X)=E(X^2)-E(X)^2=41.375-6.1875^2=41.375-38.2852=3.0898
+$$
+
+Como $Y$ solo toma los valores 0 y 1, se cumple $Y^2=Y$, así que $E(Y^2)=E(Y)$:
+$$
+E(Y^2)=0^2\cdot\tfrac{19}{32}+1^2\cdot\tfrac{13}{32}=\tfrac{13}{32}=0.40625 \qquad
+\text{Var}(Y)=0.40625-0.40625^2=0.40625-0.16504=0.2412
+$$
+
+Reemplazando:
+$$
+\rho=\frac{-0.4512}{\sqrt{3.0898\times0.2412}}=\frac{-0.4512}{\sqrt{0.7453}}=\frac{-0.4512}{0.8633}=-0.5226
 $$
 
 ```{r}
