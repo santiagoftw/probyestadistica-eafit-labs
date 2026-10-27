@@ -542,6 +542,12 @@ window.Quarto = {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../temas/guia-r-taller3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Guía de R · Taller 3: problemas reales, paso a paso</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../temas/ejercicios-manual-taller3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Práctica manual · Unidad 3 (Sesiones 12-15)</span></a>
   </div>
@@ -582,6 +588,7 @@ window.Quarto = {
   <li><a href="#sesión-13-distribución-de-probabilidad-marginal-y-condicional" id="toc-sesión-13-distribución-de-probabilidad-marginal-y-condicional" class="nav-link" data-scroll-target="#sesión-13-distribución-de-probabilidad-marginal-y-condicional">Sesión 13 · Distribución de probabilidad marginal y condicional</a></li>
   <li><a href="#sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias" id="toc-sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias" class="nav-link" data-scroll-target="#sesión-14-independencia-y-valor-esperado-de-función-de-variables-aleatorias">Sesión 14 · Independencia y valor esperado de función de variables aleatorias</a></li>
   <li><a href="#sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" id="toc-sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza" class="nav-link" data-scroll-target="#sesión-15-pruebas-de-hipótesis-e-intervalos-de-confianza">Sesión 15 · Pruebas de hipótesis e intervalos de confianza</a></li>
+  <li><a href="#material-de-práctica-para-el-taller-3" id="toc-material-de-práctica-para-el-taller-3" class="nav-link" data-scroll-target="#material-de-práctica-para-el-taller-3">Material de práctica para el Taller 3</a></li>
   </ul>
 </nav>
     </div>
@@ -690,6 +697,10 @@ window.Quarto = {
 <p><strong>I1 — Fundamentos de pruebas de hipótesis y prueba Z</strong> <strong>Objetivo:</strong> hipótesis nula y alternativa, errores de tipo I y II, el compromiso ineludible entre <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>, y el procedimiento completo de la prueba Z (varianza conocida). <strong>Motivación real:</strong> la analogía judicial (inocente hasta que se demuestre lo contrario) — y ejemplos reales del libro: colisiones de auto, tiempo de secado de pintura, temperatura de activación de rociadores contra incendios. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-i1-estudiante.html">ir al tema</a></p>
 <p><strong>I2 — Prueba t y valores P</strong> <strong>Objetivo:</strong> qué hacer cuando <span class="math inline">\(\sigma\)</span> es desconocida (prueba t con <span class="math inline">\(n-1\)</span> grados de libertad), y cómo cuantificar la fuerza de la evidencia contra <span class="math inline">\(H_0\)</span> con el valor P. <strong>Motivación real:</strong> peso máximo de elevación (ejemplo real de <em>Ergonomics</em>, 1992) y la comparación de conclusiones a distintos niveles <span class="math inline">\(\alpha\)</span> para el mismo dato. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-i2-estudiante.html">ir al tema</a></p>
 <p><strong>I3 — Intervalos de confianza</strong> <strong>Objetivo:</strong> qué significa realmente “95% de confianza” (interpretación de muestreo repetido, no probabilidad sobre el intervalo ya calculado), y los tres casos prácticos: <span class="math inline">\(\sigma\)</span> conocida, <span class="math inline">\(\sigma\)</span> desconocida con muestra grande, y la distribución <span class="math inline">\(t\)</span> para muestra pequeña. <strong>Motivación real:</strong> dos conjuntos de datos reales completos — 48 mediciones de tensión disruptiva de un líquido aislante, y 16 mediciones del módulo de elasticidad de madera de pino escocés. <strong>Estado:</strong> ✅ construido — <a href="../temas/tema-i3-estudiante.html">ir al tema</a></p>
+</section>
+<section id="material-de-práctica-para-el-taller-3" class="level2">
+<h2 class="anchored" data-anchor-id="material-de-práctica-para-el-taller-3">Material de práctica para el Taller 3</h2>
+<p><strong>Guía de R · Taller 3</strong> — cinco problemas con bases de datos reales incluidas en R (<code>mtcars</code>, <code>faithful</code>, <code>sleep</code>), resueltos paso a paso con fórmula, código y conclusión, organizados según los cuatro criterios de la rúbrica: tablas conjuntas, marginales y condicionales; valor esperado y covarianza; probabilidades conjuntas y condicionales con datos continuos; e intervalos de confianza y pruebas de hipótesis (incluye el ejercicio del géiser Old Faithful). Todo el código fue ejecutado y verificado en R. <strong>Estado:</strong> ✅ construido — <a href="../temas/guia-r-taller3.html">ir a la guía</a></p>
 <hr>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1257,14 +1268,19 @@ window.Quarto = {
 <span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>**Motivación real:** dos conjuntos de datos reales completos — 48 mediciones de tensión disruptiva de un líquido aislante, y 16 mediciones del módulo de elasticidad de madera de pino escocés.</span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir al tema</span><span class="co">](tema-i3-estudiante.qmd)</span></span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Material de práctica para el Taller 3</span></span>
 <span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pendientes explícitos de esta unidad</span></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Distribuciones muestrales, Teorema Central del Límite y estimación puntual (el puente conceptual entre la Sesión 14 y la Sesión 15) todavía viven solo como ítems de laboratorio resueltos — <span class="co">[</span><span class="ot">Laboratorio de Inferencia Estadística</span><span class="co">](../laboratorios.qmd#laboratorio-de-inferencia-estadística)</span>, Ítems 35-39 — sin el tratamiento pedagógico completo (predicción, teoría formal, quiz) que sí tienen los demás temas de esta unidad.</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pruebas de dos muestras (comparación de dos medias, dos proporciones, dos varianzas) — Ítems 42-43 del mismo laboratorio, o Capítulo 9 de Walpole et al. — sin tema de estudiante dedicado todavía.</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Una sección explícita de "Taller 3" en <span class="in">`laboratorios.qmd`</span>, con los cuatro criterios exactos de esa rúbrica — análoga a la que ya existe para el Taller 2.</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>**Guía de R · Taller 3** — cinco problemas con bases de datos reales incluidas en R (<span class="in">`mtcars`</span>, <span class="in">`faithful`</span>, <span class="in">`sleep`</span>), resueltos paso a paso con fórmula, código y conclusión, organizados según los cuatro criterios de la rúbrica: tablas conjuntas, marginales y condicionales; valor esperado y covarianza; probabilidades conjuntas y condicionales con datos continuos; e intervalos de confianza y pruebas de hipótesis (incluye el ejercicio del géiser Old Faithful). Todo el código fue ejecutado y verificado en R.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>**Estado:** ✅ construido — <span class="co">[</span><span class="ot">ir a la guía</span><span class="co">](guia-r-taller3.qmd)</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pendientes explícitos de esta unidad</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Distribuciones muestrales, Teorema Central del Límite y estimación puntual (el puente conceptual entre la Sesión 14 y la Sesión 15) todavía viven solo como ítems de laboratorio resueltos — <span class="co">[</span><span class="ot">Laboratorio de Inferencia Estadística</span><span class="co">](../laboratorios.qmd#laboratorio-de-inferencia-estadística)</span>, Ítems 35-39 — sin el tratamiento pedagógico completo (predicción, teoría formal, quiz) que sí tienen los demás temas de esta unidad.</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pruebas de dos muestras (comparación de dos medias, dos proporciones, dos varianzas) — Ítems 42-43 del mismo laboratorio, o Capítulo 9 de Walpole et al. — sin tema de estudiante dedicado todavía.</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Una sección explícita de "Taller 3" en <span class="in">`laboratorios.qmd`</span>, con los cuatro criterios exactos de esa rúbrica — análoga a la que ya existe para el Taller 2.</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
