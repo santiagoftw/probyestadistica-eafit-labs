@@ -53,24 +53,30 @@ Un número sin interpretación no responde la pregunta. "No se rechaza $H_0$" no
 
 ## 📂 Paso 0 · Cargar y explorar los datos
 
-Usaremos tres bases que vienen con R:
+Usaremos cuatro bases que vienen con R:
 
 | Base | Qué contiene | Variables que usaremos |
 |---|---|---|
-| `faithful` | 272 erupciones del géiser Old Faithful (Yellowstone, EE. UU.) | `eruptions` (duración de la erupción, min), `waiting` (espera hasta la siguiente erupción, min) |
 | `mtcars` | 32 modelos de automóviles (revista *Motor Trend*, 1974) | `cyl` (número de cilindros: 4, 6 u 8), `am` (transmisión: 0 = automática, 1 = manual) |
+| `cars` | 50 pruebas de frenado de automóviles (década de 1920) | `speed` (velocidad, mph), `dist` (distancia de frenado, pies) |
+| `airquality` | 153 días de mediciones en Nueva York, mayo a septiembre de 1973 | `Temp` (temperatura máxima diaria, °F) |
 | `sleep` | Horas de sueño adicional de 10 pacientes con un medicamento (Student, 1908) | `extra` (horas extra), `group` (medicamento) |
 
 ```{r}
-data("faithful")     # carga la base en la memoria de R
-head(faithful)       # primeras 6 filas
-str(faithful)        # tipo de cada variable y número de observaciones
-summary(faithful)    # mínimo, cuartiles, media y máximo de cada variable
+data("airquality")     # carga la base en la memoria de R
+head(airquality)       # primeras 6 filas
+str(airquality)        # tipo de cada variable y número de observaciones
+summary(airquality)    # mínimo, cuartiles, media, máximo y datos faltantes (NA's)
 ```
 
 ::: {.callout-tip}
 ## 💡 El operador `$`
-`faithful$waiting` extrae **una sola columna** como vector numérico. Todas las funciones de esta guía (`mean()`, `sd()`, `length()`, `table()`) se aplican sobre vectores así. Si escribes `mean(faithful)` sin el `$`, R no sabe qué columna promediar.
+`airquality$Temp` extrae **una sola columna** como vector numérico. Todas las funciones de esta guía (`mean()`, `sd()`, `length()`, `table()`) se aplican sobre vectores así. Si escribes `mean(airquality)` sin el `$`, R no sabe qué columna promediar.
+:::
+
+::: {.callout-warning}
+## Revisa los `NA` antes de calcular
+`summary(airquality)` muestra que `Ozone` y `Solar.R` tienen datos faltantes (`NA's`). Si una variable tiene `NA`, `mean(x)` devuelve `NA`; hay que usar `mean(x, na.rm = TRUE)` y contar el tamaño de muestra con `sum(!is.na(x))`, no con `length(x)`. La variable `Temp`, la que usaremos, no tiene faltantes.
 :::
 
 ---
@@ -292,119 +298,124 @@ Ambos recorren la tabla **por columnas**: primero todas las $x$ con $y=0$, luego
 
 ---
 
-## Problema 3 · Dos variables continuas con datos reales: erupciones y espera
+## Problema 3 · Dos variables continuas con datos reales: velocidad y frenado
 
 ::: {.callout-note}
 ## Criterios 1 y 2, versión continua
 Con datos reales continuos no tenemos una fórmula $f(x,y)$, pero sí podemos estimar probabilidades conjuntas, marginales y condicionales como **proporciones** de la muestra — la misma lógica de las integrales, ahora contando puntos.
 :::
 
-**Enunciado.** En `faithful`, sea $E$ la duración de una erupción y $W$ el tiempo de espera hasta la siguiente.
+**Enunciado.** En `cars`, sea $V$ la velocidad de un auto (mph) y $D$ la distancia que necesitó para detenerse (pies).
 
-a) Estime $P(E>3)$, $P(W>70)$ y $P(E>3,\,W>70)$.
-b) Estime $P(W>70\mid E>3)$ y $P(W>70\mid E\le3)$.
-c) ¿Parecen independientes $E$ y $W$?
+a) Estime $P(V>15)$, $P(D>40)$ y $P(V>15,\,D>40)$.
+b) Estime $P(D>40\mid V>15)$ y $P(D>40\mid V\le15)$.
+c) ¿Parecen independientes $V$ y $D$?
+
+::: {.ficha-prediccion}
+Antes de calcular: si un auto va a más de 15 mph, ¿qué tan probable crees que sea que necesite más de 40 pies para frenar? ¿Más o menos que un auto cualquiera?
+:::
 
 ### Paso 1 — Mirar la conjunta: el diagrama de dispersión
 
 ```{r}
-#| fig-cap: "Cada punto es una erupción. Las líneas punteadas marcan E = 3 y W = 70."
-plot(faithful$eruptions, faithful$waiting,
+#| fig-cap: "Cada punto es una prueba de frenado. Las líneas punteadas marcan V = 15 y D = 40."
+data("cars")
+plot(cars$speed, cars$dist,
      pch = 19, col = "#004B85",
-     xlab = "Duración de la erupción E (min)",
-     ylab = "Espera hasta la siguiente W (min)")
-abline(v = 3, h = 70, lty = 2, col = "#FFB903", lwd = 2)
+     xlab = "Velocidad V (mph)",
+     ylab = "Distancia de frenado D (pies)")
+abline(v = 15, h = 40, lty = 2, col = "#FFB903", lwd = 2)
 ```
 
 El diagrama de dispersión es la versión empírica de la superficie $f(x,y)$: donde hay más puntos, hay más densidad. Las dos líneas dividen el plano en cuatro regiones, y cada probabilidad del enunciado es la proporción de puntos en una de ellas.
 
 ### Paso 2 — Probabilidades como proporciones
 
-En R, una comparación como `faithful$eruptions > 3` produce un vector de `TRUE`/`FALSE`; `mean()` de ese vector es la **proporción de `TRUE`**, es decir, la probabilidad estimada.
+En R, una comparación como `cars$speed > 15` produce un vector de `TRUE`/`FALSE`; `mean()` de ese vector es la **proporción de `TRUE`**, es decir, la probabilidad estimada.
 
 ```{r}
-A <- faithful$eruptions > 3   # evento E > 3
-B <- faithful$waiting > 70    # evento W > 70
+A <- cars$speed > 15   # evento V > 15
+B <- cars$dist > 40    # evento D > 40
 
-c(P_E_mayor3   = mean(A),         # marginal
-  P_W_mayor70  = mean(B),         # marginal
+c(P_V_mayor15  = mean(A),         # marginal
+  P_D_mayor40  = mean(B),         # marginal
   P_conjunta   = mean(A & B),     # conjunta: ambos a la vez
   P_producto   = mean(A) * mean(B))
 
-table(E_mayor_3 = A, W_mayor_70 = B)   # conteos de las 4 regiones
+table(V_mayor_15 = A, D_mayor_40 = B)   # conteos de las 4 regiones
 ```
 
 $$
-\widehat P(E>3)=\tfrac{175}{272}=0.643 \qquad \widehat P(W>70)=\tfrac{165}{272}=0.607 \qquad \widehat P(E>3,\,W>70)=\tfrac{164}{272}=0.603
+\widehat P(V>15)=\tfrac{24}{50}=0.48 \qquad \widehat P(D>40)=\tfrac{22}{50}=0.44 \qquad \widehat P(V>15,\,D>40)=\tfrac{18}{50}=0.36
 $$
 
 ### Paso 3 — Condicionales: filtrar y volver a contar
 
 $$
-\widehat P(W>70\mid E>3)=\frac{\widehat P(E>3,\,W>70)}{\widehat P(E>3)}=\frac{164/272}{175/272}=\frac{164}{175}=0.937
+\widehat P(D>40\mid V>15)=\frac{\widehat P(V>15,\,D>40)}{\widehat P(V>15)}=\frac{18/50}{24/50}=\frac{18}{24}=0.75
 $$
 
 ```{r}
-mean(B[A])     # P(W > 70 | E > 3): solo entre las erupciones largas
-mean(B[!A])    # P(W > 70 | E <= 3): solo entre las erupciones cortas
+mean(B[A])     # P(D > 40 | V > 15): solo entre los autos rápidos
+mean(B[!A])    # P(D > 40 | V <= 15): solo entre los autos lentos
 ```
 
 `B[A]` significa "los valores de `B` en las posiciones donde `A` es `TRUE`" — es el filtro que implementa el condicionamiento.
 
 ::: {.ficha-resultado}
-**Conclusión.** $\widehat P(E>3,W>70)=0.603$ está muy lejos de $\widehat P(E>3)\widehat P(W>70)=0.390$, y la condicional cambia de $0.937$ a $0.010$ según la duración de la erupción: **no son independientes**. Tras una erupción larga casi siempre se espera más de 70 minutos; tras una corta, casi nunca. La correlación lo confirma: `cor(faithful$eruptions, faithful$waiting)` $=0.90$.
+**Conclusión.** $\widehat P(V>15,D>40)=0.36$ está lejos de $\widehat P(V>15)\widehat P(D>40)=0.48\times0.44=0.211$, y la condicional cambia de $0.75$ a $\tfrac{4}{26}=0.154$ según la velocidad: **no son independientes**. Un auto que va a más de 15 mph necesita más de 40 pies para frenar en 3 de cada 4 casos; uno más lento, en menos de 1 de cada 6. La correlación lo confirma: `cor(cars$speed, cars$dist)` $=0.81$.
 :::
 
 ---
 
-## ⭐ Problema 4 · Intervalo de confianza y prueba de hipótesis con `faithful`
+## ⭐ Problema 4 · Intervalo de confianza y prueba de hipótesis para una media
 
 ::: {.callout-note}
 ## Criterio 4 de la rúbrica
 Intervalos de confianza y pruebas de hipótesis para la media.
 :::
 
-**Enunciado.** Utilice el código de R `data("faithful")` para cargar la base de datos de erupciones en el géiser Old Faithful en el parque nacional de Yellowstone, Estados Unidos.
+**Enunciado.** Utilice el código de R `data("airquality")` para cargar la base de mediciones diarias de calidad del aire en Nueva York entre mayo y septiembre de 1973. La variable `Temp` es la temperatura máxima diaria, en grados Fahrenheit.
 
-1. Construya un intervalo de confianza del 90% para el tiempo de espera promedio entre erupciones (variable `waiting`).
-2. ¿Existe evidencia significativa al nivel del 5% de que el tiempo de espera promedio entre erupciones es menor a sesenta? Plantee la hipótesis nula, la hipótesis alternativa, calcule el estadístico de prueba y concluya a partir del límite entre la región de aceptación de la hipótesis nula y la región de rechazo de esta.
+1. Construya un intervalo de confianza del 90% para la temperatura máxima diaria promedio (variable `Temp`).
+2. ¿Existe evidencia significativa al nivel del 5% de que la temperatura máxima diaria promedio es menor a 80 °F? Plantee la hipótesis nula, la hipótesis alternativa, calcule el estadístico de prueba y concluya a partir del límite entre la región de aceptación de la hipótesis nula y la región de rechazo de esta.
 
 ### Paso 0 — Mirar los datos antes de calcular
 
 ```{r}
-#| fig-cap: "La variable waiting es bimodal: dos grupos, alrededor de 55 y de 80 minutos."
-data("faithful")
-w <- faithful$waiting
+#| fig-cap: "Temperatura máxima diaria en Nueva York, mayo a septiembre de 1973."
+data("airquality")
+temp <- airquality$Temp
 
-hist(w, breaks = 20, col = "#4B8BC2", border = "white",
-     main = "Tiempo de espera entre erupciones",
-     xlab = "waiting (minutos)", ylab = "Frecuencia")
-abline(v = mean(w), col = "#FFB903", lwd = 3)
+hist(temp, breaks = 20, col = "#4B8BC2", border = "white",
+     main = "Temperatura máxima diaria",
+     xlab = "Temp (°F)", ylab = "Frecuencia")
+abline(v = mean(temp), col = "#FFB903", lwd = 3)
 ```
 
 ::: {.callout-tip}
-## 💡 ¿Importa que los datos no sean normales?
-El histograma tiene **dos jorobas** (son los dos grupos que encontraste en el Problema 3: erupciones cortas y largas). Para un intervalo sobre la **media** esto no es un problema: con $n=272$, el Teorema Central del Límite garantiza que $\bar X$ es aproximadamente normal aunque los datos individuales no lo sean. Lo verificarás por simulación al final de este problema.
+## 💡 ¿Importa que los datos no sean exactamente normales?
+El histograma es algo asimétrico (hay una cola hacia las temperaturas bajas, de los días de mayo). Para un intervalo sobre la **media** esto no es un problema: con $n=153$, el Teorema Central del Límite garantiza que $\bar X$ es aproximadamente normal aunque los datos individuales no lo sean. Lo verificarás por simulación al final de este problema.
 :::
 
 ### Paso 1 — Los tres números que necesitas
 
 ```{r}
-n    <- length(w)        # tamaño de muestra
-xbar <- mean(w)          # media muestral
-s    <- sd(w)            # desviación estándar muestral (divide por n - 1)
+n    <- length(temp)     # tamaño de muestra
+xbar <- mean(temp)       # media muestral
+s    <- sd(temp)         # desviación estándar muestral (divide por n - 1)
 ee   <- s / sqrt(n)      # error estándar de la media
 
 c(n = n, xbar = xbar, s = s, ee = ee)
 ```
 
 $$
-n=272 \qquad \bar x=70.897 \qquad s=13.595 \qquad \frac{s}{\sqrt n}=\frac{13.595}{\sqrt{272}}=0.8243
+n=153 \qquad \bar x=77.882 \qquad s=9.465 \qquad \frac{s}{\sqrt n}=\frac{9.465}{\sqrt{153}}=0.7652
 $$
 
 ### Parte 1 — Intervalo de confianza del 90%
 
-**¿Qué distribución usar?** $\sigma$ es desconocida, pero $n=272>40$: por el TCL se usa $z$ con $s$ en lugar de $\sigma$ (Tema I3, caso 3).
+**¿Qué distribución usar?** $\sigma$ es desconocida, pero $n=153>40$: por el TCL se usa $z$ con $s$ en lugar de $\sigma$ (Tema I3, caso 3).
 
 **Fórmula:**
 $$
@@ -424,41 +435,41 @@ c(z_crit = z_crit, margen = margen,
 
 **Cálculo:**
 $$
-70.897 \pm 1.645\times0.8243 = 70.897 \pm 1.356 \quad\Rightarrow\quad \boxed{(69.54,\;72.25)\ \text{minutos}}
+77.882 \pm 1.645\times0.7652 = 77.882 \pm 1.259 \quad\Rightarrow\quad \boxed{(76.62,\;79.14)\ \text{°F}}
 $$
 
 **Verificación con la función de R:**
 
 ```{r}
-t.test(w, conf.level = 0.90)$conf.int
+t.test(temp, conf.level = 0.90)$conf.int
 ```
 
-`t.test()` usa la distribución $t$ con 271 grados de libertad y da $(69.54,\,72.26)$: con $n=272$, $t_{0.05,271}=1.6505$ y $z_{0.05}=1.6449$ son prácticamente iguales, y el intervalo cambia solo en el segundo decimal.
+`t.test()` usa la distribución $t$ con 152 grados de libertad y da $(76.62,\,79.15)$: con $n=153$, $t_{0.05,152}$ y $z_{0.05}=1.645$ son prácticamente iguales, y el intervalo cambia solo en el segundo decimal.
 
 ::: {.ficha-resultado}
-**Conclusión (parte 1).** Con 90% de confianza, el tiempo de espera **promedio** entre erupciones del Old Faithful está entre **69.54 y 72.25 minutos**. Recuerda: el 90% describe el procedimiento (de cada 100 intervalos construidos así, unos 90 contienen la verdadera $\mu$), no la probabilidad de que $\mu$ esté en este intervalo particular.
+**Conclusión (parte 1).** Con 90% de confianza, la temperatura máxima diaria **promedio** en Nueva York entre mayo y septiembre de 1973 está entre **76.62 y 79.14 °F** (entre 24.8 y 26.2 °C). Recuerda: el 90% describe el procedimiento (de cada 100 intervalos construidos así, unos 90 contienen la verdadera $\mu$), no la probabilidad de que $\mu$ esté en este intervalo particular.
 :::
 
-### Parte 2 — Prueba de hipótesis: ¿es la espera promedio menor a 60?
+### Parte 2 — Prueba de hipótesis: ¿es la temperatura promedio menor a 80 °F?
 
-**Paso A — Plantear las hipótesis.** La afirmación que se quiere respaldar con evidencia ("es menor a sesenta") va en la alternativa; la nula es la igualdad:
+**Paso A — Plantear las hipótesis.** La afirmación que se quiere respaldar con evidencia ("es menor a 80") va en la alternativa; la nula es la igualdad:
 $$
-H_0:\mu = 60 \qquad\qquad H_a:\mu < 60 \qquad\qquad \alpha=0.05
+H_0:\mu = 80 \qquad\qquad H_a:\mu < 80 \qquad\qquad \alpha=0.05
 $$
-Es una prueba de **cola izquierda**, porque $H_a$ apunta a valores menores que 60.
+Es una prueba de **cola izquierda**, porque $H_a$ apunta a valores menores que 80.
 
 ::: {.callout-warning}
 ## Antes de calcular: mira hacia qué lado cae $\bar x$
-$H_a$ dice "menor que 60", pero la muestra dio $\bar x=70.9$, **mayor** que 60. La evidencia apunta en dirección contraria a $H_a$, así que ya se puede anticipar que no se rechazará $H_0$ con ningún $\alpha$ razonable. El procedimiento completo se hace igual —es lo que se evalúa—, pero esta mirada previa evita errores de signo.
+$H_a$ dice "menor que 80" y la muestra dio $\bar x=77.9$: la evidencia apunta **en la dirección** de $H_a$. Eso no basta para rechazar — hay que ver si $77.9$ está *suficientemente* por debajo de 80, o si esa diferencia podría deberse al azar del muestreo. Si $\bar x$ hubiera salido **mayor** que 80, ya se sabría que no se puede rechazar con ningún $\alpha$ razonable.
 :::
 
 **Paso B — Estadístico de prueba.** Como en la parte 1 ($n>40$, $\sigma$ desconocida), se usa:
 $$
-z=\frac{\bar x-\mu_0}{s/\sqrt n}=\frac{70.897-60}{0.8243}=\frac{10.897}{0.8243}=13.22
+z=\frac{\bar x-\mu_0}{s/\sqrt n}=\frac{77.882-80}{0.7652}=\frac{-2.118}{0.7652}=-2.77
 $$
 
 ```{r}
-mu0   <- 60
+mu0   <- 80
 z_obs <- (xbar - mu0) / ee
 z_obs
 ```
@@ -473,9 +484,9 @@ z_limite <- qnorm(0.05)   # -1.645: deja 0.05 a la IZQUIERDA
 z_limite
 ```
 
-El mismo límite se puede expresar en la escala de $\bar x$ (minutos), que suele ser más fácil de interpretar: se rechazaría $H_0$ solo si la media muestral hubiera sido
+El mismo límite se puede expresar en la escala de $\bar x$ (°F), que suele ser más fácil de interpretar: se rechaza $H_0$ si la media muestral es
 $$
-\bar x \le \mu_0 - z_{0.05}\,\frac{s}{\sqrt n} = 60-1.645\times0.8243 = 58.64 \text{ minutos}
+\bar x \le \mu_0 - z_{0.05}\,\frac{s}{\sqrt n} = 80-1.645\times0.7652 = 78.74 \text{ °F}
 $$
 
 ```{r}
@@ -486,59 +497,64 @@ xbar_limite
 **Paso D — Comparar y decidir.**
 
 $$
-z_{\text{obs}}=13.22 \;>\; -1.645 \qquad\Longleftrightarrow\qquad \bar x=70.90 \;>\; 58.64
+z_{\text{obs}}=-2.77 \;\le\; -1.645 \qquad\Longleftrightarrow\qquad \bar x=77.88 \;\le\; 78.74
 $$
 
-El estadístico cae en la **región de aceptación** → **no se rechaza $H_0$**.
+El estadístico cae en la **región de rechazo** → **se rechaza $H_0$**.
 
 ```{r}
-#| fig-cap: "Distribución de la media muestral si H0 fuera cierta (μ = 60). La región de rechazo (rojo) está a la izquierda de 58.64; la media observada (70.90) está muy lejos, a la derecha."
-curve(dnorm(x, mean = mu0, sd = ee), from = 56, to = 73, n = 500,
+#| fig-cap: "Distribución de la media muestral si H0 fuera cierta (μ = 80). La región de rechazo (rojo) está a la izquierda de 78.74; la media observada (77.88) cae dentro de ella."
+curve(dnorm(x, mean = mu0, sd = ee), from = 76, to = 84, n = 500,
       lwd = 2, col = "#004B85",
-      xlab = "Media muestral (minutos)", ylab = "Densidad",
+      xlab = "Media muestral (°F)", ylab = "Densidad",
       main = "Regiones de aceptación y rechazo (escala de la media)")
 
 # Sombrear la región de rechazo
-x_rech <- seq(56, xbar_limite, length.out = 200)
-polygon(c(56, x_rech, xbar_limite), c(0, dnorm(x_rech, mu0, ee), 0),
+x_rech <- seq(76, xbar_limite, length.out = 200)
+polygon(c(76, x_rech, xbar_limite), c(0, dnorm(x_rech, mu0, ee), 0),
         col = "#E3342F", border = NA)
 
 abline(v = xbar_limite, lty = 2, lwd = 2, col = "#E3342F")   # límite
 abline(v = xbar, lwd = 3, col = "#FFB903")                   # observado
 legend("topright", bty = "n",
-       legend = c("Límite: 58.64", "Observado: 70.90"),
+       legend = c("Límite: 78.74", "Observado: 77.88"),
        col = c("#E3342F", "#FFB903"), lty = c(2, 1), lwd = c(2, 3))
 ```
 
 **Verificación con la función de R:**
 
 ```{r}
-t.test(w, mu = 60, alternative = "less")
+t.test(temp, mu = 80, alternative = "less")
 ```
 
-`t.test()` reporta $t=13.22$ (el mismo valor, porque la fórmula es idéntica) y un valor P de prácticamente 1: la probabilidad de observar una media de 70.9 o **menor** si $\mu=60$ es casi total — la media observada no es evidencia de nada a favor de "menor que 60".
+`t.test()` reporta $t=-2.77$ (el mismo valor, porque la fórmula es idéntica) y un valor P de $0.003$, mucho menor que $\alpha=0.05$: si la media real fuera 80 °F, observar una media muestral de 77.9 o menor sería muy improbable. Ambos criterios —límite de la región y valor P— llevan a la misma decisión.
 
 ::: {.ficha-resultado}
-**Conclusión (parte 2).** Como $z_{\text{obs}}=13.22$ es mayor que el límite $-1.645$ (equivalentemente, $\bar x=70.90>58.64$), el estadístico cae en la región de aceptación y **no se rechaza $H_0$**. Al nivel del 5%, **no existe evidencia significativa de que el tiempo de espera promedio entre erupciones sea menor a 60 minutos**. De hecho, la muestra sugiere lo contrario: el intervalo de la parte 1 está completamente por encima de 60.
+**Conclusión (parte 2).** Como $z_{\text{obs}}=-2.77$ es menor que el límite $-1.645$ (equivalentemente, $\bar x=77.88<78.74$), el estadístico cae en la región de rechazo y **se rechaza $H_0$**. Al nivel del 5%, **existe evidencia significativa de que la temperatura máxima diaria promedio es menor a 80 °F**. Es coherente con la parte 1: el intervalo $(76.62,\,79.14)$ queda completamente por debajo de 80.
+:::
+
+::: {.callout-important}
+## Si el resultado hubiera sido el contrario
+Con otros datos, el estadístico puede caer en la región de **aceptación** ($z>-1.645$). Entonces la conclusión se escribe así: "no se rechaza $H_0$; al nivel del 5%, **no existe evidencia significativa** de que la media sea menor a $\mu_0$". Nunca se escribe "se acepta que $\mu=\mu_0$": no rechazar no demuestra que $H_0$ sea cierta. El procedimiento —hipótesis, estadístico, límite, comparación— es exactamente el mismo en ambos casos.
 :::
 
 ### Verificación por simulación (bootstrap)
 
-¿Es razonable usar la normal con datos bimodales? Remuestrea los 272 datos con reemplazo muchas veces y mira cómo se distribuyen las medias:
+¿Es razonable usar la normal con datos asimétricos? Remuestrea los 153 datos con reemplazo muchas veces y mira cómo se distribuyen las medias:
 
 ```{r}
-#| fig-cap: "10 000 medias bootstrap: aunque los datos son bimodales, la media se distribuye como una campana (TCL)."
+#| fig-cap: "10 000 medias bootstrap: aunque los datos son asimétricos, la media se distribuye como una campana (TCL)."
 set.seed(2026)
-medias_boot <- replicate(10000, mean(sample(w, n, replace = TRUE)))
+medias_boot <- replicate(10000, mean(sample(temp, n, replace = TRUE)))
 
 hist(medias_boot, breaks = 40, freq = FALSE, col = "#4B8BC2", border = "white",
-     main = "Distribución bootstrap de la media", xlab = "Media de waiting")
+     main = "Distribución bootstrap de la media", xlab = "Media de Temp (°F)")
 curve(dnorm(x, mean = xbar, sd = ee), add = TRUE, lwd = 2, col = "#FFB903")
 
-quantile(medias_boot, c(0.05, 0.95))   # IC bootstrap del 90%: ~ (69.56, 72.22)
+quantile(medias_boot, c(0.05, 0.95))   # IC bootstrap del 90%: ~ (76.63, 79.14)
 ```
 
-El intervalo bootstrap del 90% —percentiles 5 y 95 de las medias simuladas— da aproximadamente $(69.56,\,72.22)$, prácticamente igual al de la fórmula $(69.54,\,72.25)$. El histograma de medias tiene forma de campana: el TCL funciona incluso con estos datos bimodales.
+El intervalo bootstrap del 90% —percentiles 5 y 95 de las medias simuladas— da aproximadamente $(76.63,\,79.14)$, prácticamente igual al de la fórmula $(76.62,\,79.14)$. El histograma de medias tiene forma de campana: el TCL funciona incluso con datos que no son exactamente normales.
 
 ---
 
@@ -609,8 +625,8 @@ t.test(g1, mu = 0, alternative = "greater")   # verificación (valor P = 0.109)
 | `pt(t, df = n)` o `qt(p, df = n)` | Grados de libertad incorrectos; en casos límite cambia la decisión | `df = n - 1` |
 | `prop.table(tabla)` cuando se pide una condicional | Da la conjunta, no la condicional | `prop.table(tabla, margin = 2)` (o `1`, según dónde esté la variable que se condiciona) |
 | `cov(x, y)` para comparar con $E(XY)-E(X)E(Y)$ de una tabla | Divide entre $n-1$, no entre $n$ | Usa la fórmula, o multiplica por $(n-1)/n$ |
-| `t.test(w, mu = 60)` cuando $H_a$ es "menor que" | Hace la prueba de dos colas por defecto | `alternative = "less"` (o `"greater"`) |
-| Concluir "se acepta que $\mu = 60$" | No rechazar $H_0$ no prueba que sea cierta | "No hay evidencia suficiente de que…" |
+| `t.test(temp, mu = 80)` cuando $H_a$ es "menor que" | Hace la prueba de dos colas por defecto | `alternative = "less"` (o `"greater"`) |
+| Concluir "se acepta que $\mu = \mu_0$" | No rechazar $H_0$ no prueba que sea cierta | "No hay evidencia suficiente de que…" |
 
 ## 📋 Chuleta de funciones
 
@@ -633,7 +649,7 @@ t.test(g1, mu = 0, alternative = "greater")   # verificación (valor P = 0.109)
 ## ✅ Autoevaluación
 
 <div class="card-lab" id="quiz-guiar3">
-<div style="margin-bottom: 1rem;"><strong>1. En el Problema 4, como x̄ = 70.9 es mayor que 60, es imposible rechazar H₀ a favor de Hₐ: μ &lt; 60, sin importar el nivel α que se elija.</strong><br>
+<div style="margin-bottom: 1rem;"><strong>1. En una prueba con Hₐ: μ &lt; μ₀, si la media muestral sale mayor que μ₀, es imposible rechazar H₀ sin importar el nivel α que se elija.</strong><br>
 <label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
 <div style="margin-bottom: 1rem;"><strong>2. cov(x, y) en R da exactamente el mismo número que E(XY) − E(X)E(Y) calculado desde la tabla de probabilidades de esos mismos datos.</strong><br>
 <label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
@@ -641,7 +657,7 @@ t.test(g1, mu = 0, alternative = "greater")   # verificación (valor P = 0.109)
 <label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
 <div style="margin-bottom: 1rem;"><strong>4. Con n = 10 y σ desconocida, el valor crítico del intervalo del 95% se obtiene con qt(0.975, df = 9).</strong><br>
 <label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
-<div style="margin-bottom: 1rem;"><strong>5. Como el histograma de waiting es bimodal, el intervalo z del Problema 4 no es válido.</strong><br>
+<div style="margin-bottom: 1rem;"><strong>5. Como el histograma de Temp no es simétrico, el intervalo z del Problema 4 no es válido.</strong><br>
 <label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
 <button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizGuiaR3()">Revisar respuestas</button>
 <p id="resultado-quiz-guiar3" style="margin-top: 1rem; font-weight: 700;"></p>
@@ -652,7 +668,7 @@ t.test(g1, mu = 0, alternative = "greater")   # verificación (valor P = 0.109)
 <li><strong>Falso</strong> — cov() divide entre n − 1 (covarianza muestral); la fórmula sobre la tabla divide entre n. En mtcars: −0.4657 frente a −0.4512.</li>
 <li><strong>Falso</strong> — qnorm(0.95) = +1.645. Para cola izquierda el límite es qnorm(0.05) = −1.645.</li>
 <li><strong>Verdadero</strong> — 95% de confianza deja 0.025 en cada cola, y los grados de libertad son n − 1 = 9.</li>
-<li><strong>Falso</strong> — el intervalo es para la media, y con n = 272 el TCL hace que la media muestral sea aproximadamente normal aunque los datos no lo sean; el bootstrap lo confirma.</li>
+<li><strong>Falso</strong> — el intervalo es para la media, y con n = 153 el TCL hace que la media muestral sea aproximadamente normal aunque los datos no lo sean; el bootstrap lo confirma.</li>
 </ol>
 </div>
 </div>
