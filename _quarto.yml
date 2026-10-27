@@ -86,6 +86,7 @@ website:
               - temas/tema-i1-estudiante.qmd
               - temas/tema-i2-estudiante.qmd
               - temas/tema-i3-estudiante.qmd
+          - temas/guia-r-taller3.qmd
           - temas/ejercicios-manual-taller3.qmd
           - temas/ejercicios-manual-taller3-resueltos.qmd
       - laboratorios.qmd

@@ -89,9 +89,9 @@ Covarianza, correlación y regresión — ¿el área de una casa predice su prec
 
 ::: {.g-col-6 .card-lab}
 ### Unidad 3 · Bivariadas e Inferencia
-8 temas (P8-P10, I1-I3): dos variables a la vez, y el salto final de una muestra a una conclusión sobre la población.
+9 temas (P8-P10, I1-I3): dos variables a la vez, y el salto final de una muestra a una conclusión sobre la población.
 
-[Ver arquitectura →](temas/unidad-3-arquitectura.qmd)
+[Ver arquitectura →](temas/unidad-3-arquitectura.qmd) · [Guía de R para el Taller 3 →](temas/guia-r-taller3.qmd)
 :::
 
 ::: {.g-col-6 .card-lab}

@@ -77,6 +77,11 @@ Las 4 sesiones están completamente construidas — 9 temas de estudiante en tot
 **Motivación real:** dos conjuntos de datos reales completos — 48 mediciones de tensión disruptiva de un líquido aislante, y 16 mediciones del módulo de elasticidad de madera de pino escocés.
 **Estado:** ✅ construido — [ir al tema](tema-i3-estudiante.qmd)
 
+## Material de práctica para el Taller 3
+
+**Guía de R · Taller 3** — cinco problemas con bases de datos reales incluidas en R (`mtcars`, `faithful`, `sleep`), resueltos paso a paso con fórmula, código y conclusión, organizados según los cuatro criterios de la rúbrica: tablas conjuntas, marginales y condicionales; valor esperado y covarianza; probabilidades conjuntas y condicionales con datos continuos; e intervalos de confianza y pruebas de hipótesis (incluye el ejercicio del géiser Old Faithful). Todo el código fue ejecutado y verificado en R.
+**Estado:** ✅ construido — [ir a la guía](guia-r-taller3.qmd)
+
 ---
 
 ::: {.callout-important}

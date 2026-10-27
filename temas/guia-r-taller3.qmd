@@ -1,0 +1,696 @@
+---
+title: "Guía de R · Taller 3: problemas reales, paso a paso"
+format:
+  html:
+    code-fold: false
+---
+
+::: {.hero-motivacion}
+## 🧰 De la fórmula al código, sin saltos
+
+Ya sabes calcular una marginal, una covarianza o un intervalo de confianza en papel. El Taller 3 te pide además **hacerlo en R, con datos reales, y verificarlo**. Esta guía resuelve cinco problemas con bases de datos que vienen incluidas en R —no hay que descargar nada— mostrando, para cada uno, la idea, la fórmula, el código línea por línea y cómo se escribe la conclusión.
+:::
+
+::: {.callout-note}
+## Cómo usar esta guía
+1. Abre RStudio y crea un script nuevo (*File → New File → R Script*).
+2. Copia **un bloque a la vez**, ejecútalo (`Ctrl + Enter`) y compara tu salida con la que aparece aquí antes de pasar al siguiente.
+3. No copies la guía completa de una sola vez: el objetivo es que entiendas qué hace cada línea, porque en el taller los datos y las preguntas serán otros.
+:::
+
+## 🧭 La receta de 5 pasos
+
+Todos los problemas de esta guía —y del taller— se resuelven con la misma secuencia:
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6 .card-lab}
+**1. Cargar y mirar los datos**
+`data()`, `head()`, `str()`, `summary()`. Antes de calcular, sabe qué variables tienes, cuántas observaciones y en qué rango están.
+:::
+
+::: {.g-col-12 .g-col-md-6 .card-lab}
+**2. Identificar qué se pide**
+¿Una probabilidad conjunta? ¿Una marginal? ¿Un valor esperado? ¿Un parámetro ($\mu$) con un intervalo o una prueba?
+:::
+
+::: {.g-col-12 .g-col-md-6 .card-lab}
+**3. Escribir la fórmula**
+En papel primero. El código es solo la traducción de la fórmula — si no tienes la fórmula, el código no la va a inventar.
+:::
+
+::: {.g-col-12 .g-col-md-6 .card-lab}
+**4. Traducir a código y verificar**
+Calcula "a mano" en R y compara con una función ya hecha (`t.test()`, `cor()`) o con una simulación. Si no coinciden, algo está mal.
+:::
+
+::: {.g-col-12 .card-lab}
+**5. Concluir en palabras, en el contexto del problema**
+Un número sin interpretación no responde la pregunta. "No se rechaza $H_0$" no es una conclusión completa; "no hay evidencia de que el tiempo de espera promedio sea menor a 60 minutos" sí lo es.
+:::
+
+:::
+
+## 📂 Paso 0 · Cargar y explorar los datos
+
+Usaremos tres bases que vienen con R:
+
+| Base | Qué contiene | Variables que usaremos |
+|---|---|---|
+| `faithful` | 272 erupciones del géiser Old Faithful (Yellowstone, EE. UU.) | `eruptions` (duración de la erupción, min), `waiting` (espera hasta la siguiente erupción, min) |
+| `mtcars` | 32 modelos de automóviles (revista *Motor Trend*, 1974) | `cyl` (número de cilindros: 4, 6 u 8), `am` (transmisión: 0 = automática, 1 = manual) |
+| `sleep` | Horas de sueño adicional de 10 pacientes con un medicamento (Student, 1908) | `extra` (horas extra), `group` (medicamento) |
+
+```{r}
+data("faithful")     # carga la base en la memoria de R
+head(faithful)       # primeras 6 filas
+str(faithful)        # tipo de cada variable y número de observaciones
+summary(faithful)    # mínimo, cuartiles, media y máximo de cada variable
+```
+
+::: {.callout-tip}
+## 💡 El operador `$`
+`faithful$waiting` extrae **una sola columna** como vector numérico. Todas las funciones de esta guía (`mean()`, `sd()`, `length()`, `table()`) se aplican sobre vectores así. Si escribes `mean(faithful)` sin el `$`, R no sabe qué columna promediar.
+:::
+
+---
+
+## Problema 1 · Tabla conjunta, marginales y condicionales (datos discretos)
+
+::: {.callout-note}
+## Criterios 1 y 2 de la rúbrica
+Distribución conjunta discreta; distribuciones marginales y condicionales.
+:::
+
+**Enunciado.** En la base `mtcars`, sea $X$ el número de cilindros (`cyl`) y $Y$ el tipo de transmisión (`am`: 0 = automática, 1 = manual) de un auto elegido al azar entre los 32.
+
+a) Construya la distribución conjunta de $X$ e $Y$.
+b) Encuentre las distribuciones marginales.
+c) Encuentre la distribución de $X$ condicionada a que el auto es manual ($Y=1$).
+d) ¿Son $X$ e $Y$ independientes?
+
+::: {.ficha-prediccion}
+Antes de calcular: ¿crees que los autos manuales tienden a tener **más** o **menos** cilindros que los automáticos? Escribe tu apuesta.
+:::
+
+### Paso 1 — Contar: tabla de frecuencias absolutas
+
+```{r}
+data("mtcars")
+tabla_abs <- table(cyl = mtcars$cyl, am = mtcars$am)
+tabla_abs
+```
+
+`table()` recibe dos vectores y cuenta cuántas filas tienen cada combinación de valores. Los nombres `cyl =` y `am =` solo sirven para que la tabla quede rotulada.
+
+### Paso 2 — Dividir por el total: distribución conjunta
+
+Como cada uno de los 32 autos tiene la misma probabilidad de ser elegido, $P(X=x,Y=y)=\dfrac{\text{n.º de autos con }(x,y)}{32}$. Por ejemplo:
+$$
+P(X=4,\,Y=1)=\frac{8}{32}=0.25 \qquad P(X=8,\,Y=1)=\frac{2}{32}=0.0625
+$$
+
+```{r}
+p_conj <- prop.table(tabla_abs)   # divide cada celda por el total (32)
+round(p_conj, 4)
+```
+
+### Paso 3 — Marginales: sumar filas y columnas
+
+$$
+P(X=x)=\sum_{y}P(X=x,Y=y) \qquad\qquad P(Y=y)=\sum_{x}P(X=x,Y=y)
+$$
+
+Por ejemplo, $P(X=8)=0.3750+0.0625=0.4375$ y $P(Y=1)=0.2500+0.0938+0.0625=0.40625$.
+
+```{r}
+p_X <- rowSums(p_conj)   # marginal de X (suma de cada fila)
+p_Y <- colSums(p_conj)   # marginal de Y (suma de cada columna)
+p_X
+p_Y
+
+addmargins(p_conj)       # la tabla completa con los totales al margen
+```
+
+| $x$ | 4 | 6 | 8 | | $y$ | 0 | 1 |
+|:---:|:---:|:---:|:---:|---|:---:|:---:|:---:|
+| $P(X=x)$ | $\tfrac{11}{32}$ | $\tfrac{7}{32}$ | $\tfrac{14}{32}$ | | $P(Y=y)$ | $\tfrac{19}{32}$ | $\tfrac{13}{32}$ |
+
+### Paso 4 — Condicional: dividir la columna $Y=1$ entre $P(Y=1)$
+
+$$
+P(X=x\mid Y=1)=\frac{P(X=x,\,Y=1)}{P(Y=1)}
+\quad\Rightarrow\quad
+P(X=4\mid Y=1)=\frac{8/32}{13/32}=\frac{8}{13}=0.6154
+$$
+
+y del mismo modo $P(X=6\mid Y=1)=\tfrac{3}{13}=0.2308$, $P(X=8\mid Y=1)=\tfrac{2}{13}=0.1538$.
+
+```{r}
+# Forma 1: aplicando la fórmula directamente
+p_conj[, "1"] / p_Y["1"]
+
+# Forma 2: prop.table con margin = 2 divide cada COLUMNA por su total
+round(prop.table(tabla_abs, margin = 2), 4)
+```
+
+::: {.callout-important}
+## `margin = 1` vs. `margin = 2`
+`prop.table(tabla, margin = 2)` normaliza **por columnas** → da la condicional de la variable de las filas dada la de las columnas ($X\mid Y$). Con `margin = 1` normaliza **por filas** → da $Y\mid X$. Antes de elegir, mira qué variable quedó en filas y cuál en columnas en tu `table()`. Verificación rápida: cada columna de la condicional $X\mid Y$ debe sumar 1.
+:::
+
+### Paso 5 — Independencia: comparar celda contra producto de marginales
+
+$X$ e $Y$ son independientes solo si $P(X=x,Y=y)=P(X=x)P(Y=y)$ en **todas** las celdas. Basta una celda que falle:
+$$
+P(X=8,\,Y=1)=0.0625 \quad\text{vs.}\quad P(X=8)\,P(Y=1)=0.4375\times0.40625=0.1777
+$$
+
+```{r}
+producto <- outer(p_X, p_Y)   # tabla que tendríamos SI fueran independientes
+round(producto, 4)
+
+p_conj["8", "1"]              # lo observado
+producto["8", "1"]            # lo esperado bajo independencia
+```
+
+::: {.ficha-resultado}
+**Conclusión.** $0.0625\ne0.1777$: **$X$ e $Y$ no son independientes**. Entre los autos manuales, el 61.5% tiene 4 cilindros y solo el 15.4% tiene 8; entre todos los autos, el 43.75% tiene 8. Los autos manuales de esta base tienden a tener **menos** cilindros. ¿Acertaste tu predicción?
+:::
+
+---
+
+## Problema 2 · Valor esperado, covarianza y correlación desde la tabla
+
+::: {.callout-note}
+## Criterio 3 de la rúbrica
+Valor esperado de funciones de variables aleatorias discretas, covarianza y correlación.
+:::
+
+**Enunciado.** Con la misma distribución conjunta del Problema 1:
+
+a) Calcule $E(X)$, $E(Y)$ y $E(XY)$.
+b) Calcule $\text{Cov}(X,Y)$ y $\rho(X,Y)$, e interprete el signo.
+c) Calcule $E(X\mid Y=1)$ y compárelo con $E(X)$.
+d) Verifique $\text{Cov}(X,Y)$ mediante simulación Monte Carlo.
+
+### Paso 1 — Valores esperados: "valor × probabilidad, y sumar"
+
+$$
+E(X)=\sum_x x\,P(X=x)=4\cdot\tfrac{11}{32}+6\cdot\tfrac{7}{32}+8\cdot\tfrac{14}{32}=\tfrac{198}{32}=6.1875
+\qquad
+E(Y)=0\cdot\tfrac{19}{32}+1\cdot\tfrac{13}{32}=0.40625
+$$
+
+Para $E(XY)$ se usa la **tabla conjunta**, con $g(x,y)=xy$. Como $Y=0$ anula todos los términos de la primera columna, solo cuenta la columna $Y=1$:
+$$
+E(XY)=\sum_x\sum_y xy\,P(X=x,Y=y)=4\cdot1\cdot\tfrac{8}{32}+6\cdot1\cdot\tfrac{3}{32}+8\cdot1\cdot\tfrac{2}{32}=\tfrac{66}{32}=2.0625
+$$
+
+```{r}
+x <- as.numeric(rownames(p_conj))   # valores de X: 4, 6, 8
+y <- as.numeric(colnames(p_conj))   # valores de Y: 0, 1
+
+EX  <- sum(x * p_X)
+EY  <- sum(y * p_Y)
+EXY <- sum(outer(x, y) * p_conj)    # outer(x, y) arma la tabla de productos x*y
+
+c(EX = EX, EY = EY, EXY = EXY)
+```
+
+::: {.callout-tip}
+## 💡 Qué hace `outer(x, y)`
+Construye una matriz con todos los productos $x_i\cdot y_j$, del mismo tamaño que la tabla conjunta. Al multiplicarla celda a celda por `p_conj` y sumar, obtienes exactamente $\sum\sum xy\,p(x,y)$. Cambiando la función —por ejemplo `outer(x, y, function(a, b) 3*a + 2*b)`— calculas $E[g(X,Y)]$ para cualquier $g$.
+:::
+
+### Paso 2 — Covarianza y correlación
+
+$$
+\text{Cov}(X,Y)=E(XY)-E(X)E(Y)=2.0625-6.1875\times0.40625=-0.4512
+$$
+$$
+\rho=\frac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X)\,\text{Var}(Y)}},\qquad \text{Var}(X)=E(X^2)-E(X)^2
+$$
+
+```{r}
+cov_XY <- EXY - EX * EY
+VX <- sum(x^2 * p_X) - EX^2
+VY <- sum(y^2 * p_Y) - EY^2
+rho <- cov_XY / sqrt(VX * VY)
+
+c(cov = cov_XY, rho = rho)
+```
+
+**Interpretación:** la covarianza negativa ($\rho\approx-0.52$) dice que cuando $Y$ sube (de automático a manual), $X$ tiende a bajar (menos cilindros) — consistente con la conclusión del Problema 1.
+
+::: {.callout-important}
+## Nota de rigor: `cov()` no da lo mismo
+```{r}
+cov(mtcars$cyl, mtcars$am)   # -0.4657
+cor(mtcars$cyl, mtcars$am)   # -0.5226  (esta sí coincide)
+```
+`cov()` de R calcula la covarianza **muestral**, que divide entre $n-1=31$; la fórmula $E(XY)-E(X)E(Y)$ sobre la tabla divide entre $n=32$. Por eso $-0.4657\times\tfrac{31}{32}=-0.4512$. En la correlación ese factor se cancela entre numerador y denominador, y ambos métodos coinciden. Si el ejercicio da una **tabla de probabilidades**, usa la fórmula; si da **datos**, sé explícito sobre cuál de las dos usaste.
+:::
+
+### Paso 3 — Esperanza condicional
+
+$$
+E(X\mid Y=1)=\sum_x x\,P(X=x\mid Y=1)=4\cdot\tfrac{8}{13}+6\cdot\tfrac{3}{13}+8\cdot\tfrac{2}{13}=\tfrac{66}{13}=5.077
+$$
+
+```{r}
+p_X_dado_Y1 <- p_conj[, "1"] / p_Y["1"]
+sum(x * p_X_dado_Y1)    # E(X | Y = 1)
+```
+
+Los autos manuales tienen en promedio $5.08$ cilindros, contra $6.19$ del conjunto completo.
+
+### Paso 4 — Verificación por simulación
+
+La idea: generar muchos autos "ficticios" con las probabilidades de la tabla y calcular la covarianza de esos datos simulados.
+
+```{r}
+# 1. Pasar la tabla a "formato largo": una fila por celda
+celdas <- expand.grid(x = x, y = y)    # todas las combinaciones (x, y)
+celdas$p <- as.vector(p_conj)          # su probabilidad (mismo orden)
+celdas
+
+# 2. Elegir 100 000 celdas al azar con esas probabilidades
+set.seed(1)
+idx <- sample(1:nrow(celdas), size = 1e5, replace = TRUE, prob = celdas$p)
+X_sim <- celdas$x[idx]
+Y_sim <- celdas$y[idx]
+
+# 3. Covarianza "tipo tabla" de los datos simulados
+mean(X_sim * Y_sim) - mean(X_sim) * mean(Y_sim)   # debe acercarse a -0.4512
+```
+
+::: {.callout-tip}
+## 💡 Por qué funciona `as.vector(p_conj)` con `expand.grid()`
+Ambos recorren la tabla **por columnas**: primero todas las $x$ con $y=0$, luego todas las $x$ con $y=1$. Por eso el orden de las probabilidades coincide con el de las combinaciones. Revisa siempre la tabla `celdas` impresa: cada fila debe tener la probabilidad que le corresponde en la tabla original.
+:::
+
+---
+
+## Problema 3 · Dos variables continuas con datos reales: erupciones y espera
+
+::: {.callout-note}
+## Criterios 1 y 2, versión continua
+Con datos reales continuos no tenemos una fórmula $f(x,y)$, pero sí podemos estimar probabilidades conjuntas, marginales y condicionales como **proporciones** de la muestra — la misma lógica de las integrales, ahora contando puntos.
+:::
+
+**Enunciado.** En `faithful`, sea $E$ la duración de una erupción y $W$ el tiempo de espera hasta la siguiente.
+
+a) Estime $P(E>3)$, $P(W>70)$ y $P(E>3,\,W>70)$.
+b) Estime $P(W>70\mid E>3)$ y $P(W>70\mid E\le3)$.
+c) ¿Parecen independientes $E$ y $W$?
+
+### Paso 1 — Mirar la conjunta: el diagrama de dispersión
+
+```{r}
+#| fig-cap: "Cada punto es una erupción. Las líneas punteadas marcan E = 3 y W = 70."
+plot(faithful$eruptions, faithful$waiting,
+     pch = 19, col = "#004B85",
+     xlab = "Duración de la erupción E (min)",
+     ylab = "Espera hasta la siguiente W (min)")
+abline(v = 3, h = 70, lty = 2, col = "#FFB903", lwd = 2)
+```
+
+El diagrama de dispersión es la versión empírica de la superficie $f(x,y)$: donde hay más puntos, hay más densidad. Las dos líneas dividen el plano en cuatro regiones, y cada probabilidad del enunciado es la proporción de puntos en una de ellas.
+
+### Paso 2 — Probabilidades como proporciones
+
+En R, una comparación como `faithful$eruptions > 3` produce un vector de `TRUE`/`FALSE`; `mean()` de ese vector es la **proporción de `TRUE`**, es decir, la probabilidad estimada.
+
+```{r}
+A <- faithful$eruptions > 3   # evento E > 3
+B <- faithful$waiting > 70    # evento W > 70
+
+c(P_E_mayor3   = mean(A),         # marginal
+  P_W_mayor70  = mean(B),         # marginal
+  P_conjunta   = mean(A & B),     # conjunta: ambos a la vez
+  P_producto   = mean(A) * mean(B))
+
+table(E_mayor_3 = A, W_mayor_70 = B)   # conteos de las 4 regiones
+```
+
+$$
+\widehat P(E>3)=\tfrac{175}{272}=0.643 \qquad \widehat P(W>70)=\tfrac{165}{272}=0.607 \qquad \widehat P(E>3,\,W>70)=\tfrac{164}{272}=0.603
+$$
+
+### Paso 3 — Condicionales: filtrar y volver a contar
+
+$$
+\widehat P(W>70\mid E>3)=\frac{\widehat P(E>3,\,W>70)}{\widehat P(E>3)}=\frac{164/272}{175/272}=\frac{164}{175}=0.937
+$$
+
+```{r}
+mean(B[A])     # P(W > 70 | E > 3): solo entre las erupciones largas
+mean(B[!A])    # P(W > 70 | E <= 3): solo entre las erupciones cortas
+```
+
+`B[A]` significa "los valores de `B` en las posiciones donde `A` es `TRUE`" — es el filtro que implementa el condicionamiento.
+
+::: {.ficha-resultado}
+**Conclusión.** $\widehat P(E>3,W>70)=0.603$ está muy lejos de $\widehat P(E>3)\widehat P(W>70)=0.390$, y la condicional cambia de $0.937$ a $0.010$ según la duración de la erupción: **no son independientes**. Tras una erupción larga casi siempre se espera más de 70 minutos; tras una corta, casi nunca. La correlación lo confirma: `cor(faithful$eruptions, faithful$waiting)` $=0.90$.
+:::
+
+---
+
+## ⭐ Problema 4 · Intervalo de confianza y prueba de hipótesis con `faithful`
+
+::: {.callout-note}
+## Criterio 4 de la rúbrica
+Intervalos de confianza y pruebas de hipótesis para la media.
+:::
+
+**Enunciado.** Utilice el código de R `data("faithful")` para cargar la base de datos de erupciones en el géiser Old Faithful en el parque nacional de Yellowstone, Estados Unidos.
+
+1. Construya un intervalo de confianza del 90% para el tiempo de espera promedio entre erupciones (variable `waiting`).
+2. ¿Existe evidencia significativa al nivel del 5% de que el tiempo de espera promedio entre erupciones es menor a sesenta? Plantee la hipótesis nula, la hipótesis alternativa, calcule el estadístico de prueba y concluya a partir del límite entre la región de aceptación de la hipótesis nula y la región de rechazo de esta.
+
+### Paso 0 — Mirar los datos antes de calcular
+
+```{r}
+#| fig-cap: "La variable waiting es bimodal: dos grupos, alrededor de 55 y de 80 minutos."
+data("faithful")
+w <- faithful$waiting
+
+hist(w, breaks = 20, col = "#4B8BC2", border = "white",
+     main = "Tiempo de espera entre erupciones",
+     xlab = "waiting (minutos)", ylab = "Frecuencia")
+abline(v = mean(w), col = "#FFB903", lwd = 3)
+```
+
+::: {.callout-tip}
+## 💡 ¿Importa que los datos no sean normales?
+El histograma tiene **dos jorobas** (son los dos grupos que encontraste en el Problema 3: erupciones cortas y largas). Para un intervalo sobre la **media** esto no es un problema: con $n=272$, el Teorema Central del Límite garantiza que $\bar X$ es aproximadamente normal aunque los datos individuales no lo sean. Lo verificarás por simulación al final de este problema.
+:::
+
+### Paso 1 — Los tres números que necesitas
+
+```{r}
+n    <- length(w)        # tamaño de muestra
+xbar <- mean(w)          # media muestral
+s    <- sd(w)            # desviación estándar muestral (divide por n - 1)
+ee   <- s / sqrt(n)      # error estándar de la media
+
+c(n = n, xbar = xbar, s = s, ee = ee)
+```
+
+$$
+n=272 \qquad \bar x=70.897 \qquad s=13.595 \qquad \frac{s}{\sqrt n}=\frac{13.595}{\sqrt{272}}=0.8243
+$$
+
+### Parte 1 — Intervalo de confianza del 90%
+
+**¿Qué distribución usar?** $\sigma$ es desconocida, pero $n=272>40$: por el TCL se usa $z$ con $s$ en lugar de $\sigma$ (Tema I3, caso 3).
+
+**Fórmula:**
+$$
+\bar x \pm z_{\alpha/2}\,\frac{s}{\sqrt n}, \qquad 1-\alpha=0.90 \;\Rightarrow\; \alpha=0.10 \;\Rightarrow\; \alpha/2=0.05
+$$
+
+**Valor crítico:** $z_{0.05}$ es el valor que deja **0.05 a la derecha**, es decir, 0.95 a la izquierda → `qnorm(0.95)` $=1.645$.
+
+```{r}
+alpha  <- 0.10
+z_crit <- qnorm(1 - alpha/2)     # qnorm(0.95) = 1.645
+margen <- z_crit * ee
+
+c(z_crit = z_crit, margen = margen,
+  inferior = xbar - margen, superior = xbar + margen)
+```
+
+**Cálculo:**
+$$
+70.897 \pm 1.645\times0.8243 = 70.897 \pm 1.356 \quad\Rightarrow\quad \boxed{(69.54,\;72.25)\ \text{minutos}}
+$$
+
+**Verificación con la función de R:**
+
+```{r}
+t.test(w, conf.level = 0.90)$conf.int
+```
+
+`t.test()` usa la distribución $t$ con 271 grados de libertad y da $(69.54,\,72.26)$: con $n=272$, $t_{0.05,271}=1.6505$ y $z_{0.05}=1.6449$ son prácticamente iguales, y el intervalo cambia solo en el segundo decimal.
+
+::: {.ficha-resultado}
+**Conclusión (parte 1).** Con 90% de confianza, el tiempo de espera **promedio** entre erupciones del Old Faithful está entre **69.54 y 72.25 minutos**. Recuerda: el 90% describe el procedimiento (de cada 100 intervalos construidos así, unos 90 contienen la verdadera $\mu$), no la probabilidad de que $\mu$ esté en este intervalo particular.
+:::
+
+### Parte 2 — Prueba de hipótesis: ¿es la espera promedio menor a 60?
+
+**Paso A — Plantear las hipótesis.** La afirmación que se quiere respaldar con evidencia ("es menor a sesenta") va en la alternativa; la nula es la igualdad:
+$$
+H_0:\mu = 60 \qquad\qquad H_a:\mu < 60 \qquad\qquad \alpha=0.05
+$$
+Es una prueba de **cola izquierda**, porque $H_a$ apunta a valores menores que 60.
+
+::: {.callout-warning}
+## Antes de calcular: mira hacia qué lado cae $\bar x$
+$H_a$ dice "menor que 60", pero la muestra dio $\bar x=70.9$, **mayor** que 60. La evidencia apunta en dirección contraria a $H_a$, así que ya se puede anticipar que no se rechazará $H_0$ con ningún $\alpha$ razonable. El procedimiento completo se hace igual —es lo que se evalúa—, pero esta mirada previa evita errores de signo.
+:::
+
+**Paso B — Estadístico de prueba.** Como en la parte 1 ($n>40$, $\sigma$ desconocida), se usa:
+$$
+z=\frac{\bar x-\mu_0}{s/\sqrt n}=\frac{70.897-60}{0.8243}=\frac{10.897}{0.8243}=13.22
+$$
+
+```{r}
+mu0   <- 60
+z_obs <- (xbar - mu0) / ee
+z_obs
+```
+
+**Paso C — El límite entre la región de aceptación y la de rechazo.** En una prueba de cola izquierda al 5%, se rechaza $H_0$ si el estadístico cae en el 5% más bajo de la normal estándar:
+$$
+\text{Región de rechazo: } z \le -z_{0.05} = -1.645 \qquad\qquad \text{Región de aceptación: } z > -1.645
+$$
+
+```{r}
+z_limite <- qnorm(0.05)   # -1.645: deja 0.05 a la IZQUIERDA
+z_limite
+```
+
+El mismo límite se puede expresar en la escala de $\bar x$ (minutos), que suele ser más fácil de interpretar: se rechazaría $H_0$ solo si la media muestral hubiera sido
+$$
+\bar x \le \mu_0 - z_{0.05}\,\frac{s}{\sqrt n} = 60-1.645\times0.8243 = 58.64 \text{ minutos}
+$$
+
+```{r}
+xbar_limite <- mu0 + z_limite * ee
+xbar_limite
+```
+
+**Paso D — Comparar y decidir.**
+
+$$
+z_{\text{obs}}=13.22 \;>\; -1.645 \qquad\Longleftrightarrow\qquad \bar x=70.90 \;>\; 58.64
+$$
+
+El estadístico cae en la **región de aceptación** → **no se rechaza $H_0$**.
+
+```{r}
+#| fig-cap: "Distribución de la media muestral si H0 fuera cierta (μ = 60). La región de rechazo (rojo) está a la izquierda de 58.64; la media observada (70.90) está muy lejos, a la derecha."
+curve(dnorm(x, mean = mu0, sd = ee), from = 56, to = 73, n = 500,
+      lwd = 2, col = "#004B85",
+      xlab = "Media muestral (minutos)", ylab = "Densidad",
+      main = "Regiones de aceptación y rechazo (escala de la media)")
+
+# Sombrear la región de rechazo
+x_rech <- seq(56, xbar_limite, length.out = 200)
+polygon(c(56, x_rech, xbar_limite), c(0, dnorm(x_rech, mu0, ee), 0),
+        col = "#E3342F", border = NA)
+
+abline(v = xbar_limite, lty = 2, lwd = 2, col = "#E3342F")   # límite
+abline(v = xbar, lwd = 3, col = "#FFB903")                   # observado
+legend("topright", bty = "n",
+       legend = c("Límite: 58.64", "Observado: 70.90"),
+       col = c("#E3342F", "#FFB903"), lty = c(2, 1), lwd = c(2, 3))
+```
+
+**Verificación con la función de R:**
+
+```{r}
+t.test(w, mu = 60, alternative = "less")
+```
+
+`t.test()` reporta $t=13.22$ (el mismo valor, porque la fórmula es idéntica) y un valor P de prácticamente 1: la probabilidad de observar una media de 70.9 o **menor** si $\mu=60$ es casi total — la media observada no es evidencia de nada a favor de "menor que 60".
+
+::: {.ficha-resultado}
+**Conclusión (parte 2).** Como $z_{\text{obs}}=13.22$ es mayor que el límite $-1.645$ (equivalentemente, $\bar x=70.90>58.64$), el estadístico cae en la región de aceptación y **no se rechaza $H_0$**. Al nivel del 5%, **no existe evidencia significativa de que el tiempo de espera promedio entre erupciones sea menor a 60 minutos**. De hecho, la muestra sugiere lo contrario: el intervalo de la parte 1 está completamente por encima de 60.
+:::
+
+### Verificación por simulación (bootstrap)
+
+¿Es razonable usar la normal con datos bimodales? Remuestrea los 272 datos con reemplazo muchas veces y mira cómo se distribuyen las medias:
+
+```{r}
+#| fig-cap: "10 000 medias bootstrap: aunque los datos son bimodales, la media se distribuye como una campana (TCL)."
+set.seed(2026)
+medias_boot <- replicate(10000, mean(sample(w, n, replace = TRUE)))
+
+hist(medias_boot, breaks = 40, freq = FALSE, col = "#4B8BC2", border = "white",
+     main = "Distribución bootstrap de la media", xlab = "Media de waiting")
+curve(dnorm(x, mean = xbar, sd = ee), add = TRUE, lwd = 2, col = "#FFB903")
+
+quantile(medias_boot, c(0.05, 0.95))   # IC bootstrap del 90%: ~ (69.56, 72.22)
+```
+
+El intervalo bootstrap del 90% —percentiles 5 y 95 de las medias simuladas— da aproximadamente $(69.56,\,72.22)$, prácticamente igual al de la fórmula $(69.54,\,72.25)$. El histograma de medias tiene forma de campana: el TCL funciona incluso con estos datos bimodales.
+
+---
+
+## Problema 5 · Muestra pequeña: cuándo usar $t$ y por qué $n-1$
+
+::: {.callout-note}
+## Criterio 4, caso $n$ pequeño
+El mismo procedimiento del Problema 4, pero con $n=10$: aquí $z$ ya no es apropiado.
+:::
+
+**Enunciado.** La base `sleep` registra las horas de sueño adicional de 10 pacientes con un medicamento (grupo 1). Suponga que las horas extra son aproximadamente normales.
+
+a) Construya un intervalo de confianza del 95% para el aumento promedio de sueño.
+b) Al 5%, ¿hay evidencia de que el medicamento aumenta el sueño en promedio ($\mu>0$)?
+
+```{r}
+data("sleep")
+g1 <- sleep$extra[sleep$group == 1]   # filtrar solo el medicamento 1
+g1
+
+n1 <- length(g1); xbar1 <- mean(g1); s1 <- sd(g1)
+c(n = n1, xbar = xbar1, s = s1)
+```
+
+### a) Intervalo con $t$, $n-1=9$ grados de libertad
+
+Con $n=10<40$ y $\sigma$ desconocida, el valor crítico sale de la $t$ con $n-1=9$ grados de libertad: $t_{0.025,9}=2.262$ (más grande que $z_{0.025}=1.96$, porque $s$ estimada con 10 datos es más incierta).
+
+$$
+0.75 \pm 2.262\times\frac{1.789}{\sqrt{10}} = 0.75\pm1.28 \quad\Rightarrow\quad (-0.53,\;2.03)\ \text{horas}
+$$
+
+```{r}
+t_crit <- qt(0.975, df = n1 - 1)
+c(t_crit = t_crit,
+  inferior = xbar1 - t_crit * s1 / sqrt(n1),
+  superior = xbar1 + t_crit * s1 / sqrt(n1))
+
+t.test(g1, conf.level = 0.95)$conf.int   # verificación
+```
+
+### b) Prueba de cola derecha
+
+$$
+H_0:\mu=0 \qquad H_a:\mu>0 \qquad t=\frac{0.75-0}{1.789/\sqrt{10}}=1.326 \qquad \text{límite: } t_{0.05,9}=1.833
+$$
+
+```{r}
+t_obs <- (xbar1 - 0) / (s1 / sqrt(n1))
+t_lim <- qt(0.95, df = n1 - 1)       # cola DERECHA: deja 0.05 a la derecha
+c(t_obs = t_obs, t_limite = t_lim)
+
+t.test(g1, mu = 0, alternative = "greater")   # verificación (valor P = 0.109)
+```
+
+::: {.ficha-resultado}
+**Conclusión.** $t=1.326<1.833$: cae en la región de aceptación, **no se rechaza $H_0$**. Al 5%, no hay evidencia suficiente de que el medicamento 1 aumente el sueño en promedio. Coherente con el intervalo de la parte (a), que contiene el 0.
+:::
+
+---
+
+## 🚨 Errores frecuentes en el código
+
+| Error | Qué pasa | Corrección |
+|---|---|---|
+| `qnorm(0.90)` para un IC del 90% | Usa $\alpha$ completo en una sola cola: intervalo demasiado angosto | `qnorm(1 - alpha/2)` = `qnorm(0.95)` |
+| `qnorm(0.95)` como límite de una prueba de **cola izquierda** | Da $+1.645$: el límite queda del lado equivocado | `qnorm(0.05)` = $-1.645$ |
+| `pt(t, df = n)` o `qt(p, df = n)` | Grados de libertad incorrectos; en casos límite cambia la decisión | `df = n - 1` |
+| `prop.table(tabla)` cuando se pide una condicional | Da la conjunta, no la condicional | `prop.table(tabla, margin = 2)` (o `1`, según dónde esté la variable que se condiciona) |
+| `cov(x, y)` para comparar con $E(XY)-E(X)E(Y)$ de una tabla | Divide entre $n-1$, no entre $n$ | Usa la fórmula, o multiplica por $(n-1)/n$ |
+| `t.test(w, mu = 60)` cuando $H_a$ es "menor que" | Hace la prueba de dos colas por defecto | `alternative = "less"` (o `"greater"`) |
+| Concluir "se acepta que $\mu = 60$" | No rechazar $H_0$ no prueba que sea cierta | "No hay evidencia suficiente de que…" |
+
+## 📋 Chuleta de funciones
+
+| Quiero… | Función en R |
+|---|---|
+| Tabla de conteos de dos variables | `table(x, y)` |
+| Conjunta (dividir por el total) | `prop.table(tabla)` |
+| Condicional (por columnas / filas) | `prop.table(tabla, margin = 2)` / `margin = 1` |
+| Marginales | `rowSums()`, `colSums()`, `addmargins()` |
+| Tabla "si fueran independientes" | `outer(p_X, p_Y)` |
+| $E[g(X,Y)]$ desde una tabla | `sum(outer(x, y, g) * p_conj)` |
+| Probabilidad de un evento con datos | `mean(condicion)` |
+| Probabilidad condicional con datos | `mean(B[A])` |
+| Simular desde una tabla | `sample(1:k, size, replace = TRUE, prob = p)` |
+| Valor crítico normal / $t$ | `qnorm(p)` / `qt(p, df = n - 1)` |
+| Valor P normal / $t$ | `pnorm(z)` / `pt(t, df = n - 1)` |
+| IC y prueba para una media | `t.test(x, mu = , alternative = , conf.level = )` |
+| Bootstrap de la media | `replicate(B, mean(sample(x, replace = TRUE)))` |
+
+## ✅ Autoevaluación
+
+<div class="card-lab" id="quiz-guiar3">
+<div style="margin-bottom: 1rem;"><strong>1. En el Problema 4, como x̄ = 70.9 es mayor que 60, es imposible rechazar H₀ a favor de Hₐ: μ &lt; 60, sin importar el nivel α que se elija.</strong><br>
+<label><input type="radio" name="q1" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q1" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>2. cov(x, y) en R da exactamente el mismo número que E(XY) − E(X)E(Y) calculado desde la tabla de probabilidades de esos mismos datos.</strong><br>
+<label><input type="radio" name="q2" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q2" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>3. El límite de la región de rechazo para una prueba de cola izquierda al 5% se obtiene con qnorm(0.95).</strong><br>
+<label><input type="radio" name="q3" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q3" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>4. Con n = 10 y σ desconocida, el valor crítico del intervalo del 95% se obtiene con qt(0.975, df = 9).</strong><br>
+<label><input type="radio" name="q4" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q4" value="F"> Falso</label></div>
+<div style="margin-bottom: 1rem;"><strong>5. Como el histograma de waiting es bimodal, el intervalo z del Problema 4 no es válido.</strong><br>
+<label><input type="radio" name="q5" value="V"> Verdadero</label> <label style="margin-left: 1rem;"><input type="radio" name="q5" value="F"> Falso</label></div>
+<button class="btn-outline-prediccion" style="padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" onclick="revisarQuizGuiaR3()">Revisar respuestas</button>
+<p id="resultado-quiz-guiar3" style="margin-top: 1rem; font-weight: 700;"></p>
+<div id="explicacion-quiz-guiar3" style="display: none; margin-top: 0.75rem;">
+<strong>Explicación:</strong>
+<ol>
+<li><strong>Verdadero</strong> — si x̄ &gt; μ₀, el estadístico z es positivo, y la región de rechazo de una prueba de cola izquierda solo contiene valores negativos (z ≤ −z<sub>α</sub>). Ningún α razonable lleva el límite a la derecha de 0.</li>
+<li><strong>Falso</strong> — cov() divide entre n − 1 (covarianza muestral); la fórmula sobre la tabla divide entre n. En mtcars: −0.4657 frente a −0.4512.</li>
+<li><strong>Falso</strong> — qnorm(0.95) = +1.645. Para cola izquierda el límite es qnorm(0.05) = −1.645.</li>
+<li><strong>Verdadero</strong> — 95% de confianza deja 0.025 en cada cola, y los grados de libertad son n − 1 = 9.</li>
+<li><strong>Falso</strong> — el intervalo es para la media, y con n = 272 el TCL hace que la media muestral sea aproximadamente normal aunque los datos no lo sean; el bootstrap lo confirma.</li>
+</ol>
+</div>
+</div>
+
+<script>
+function revisarQuizGuiaR3() {
+  const respuestas = { q1: "V", q2: "F", q3: "F", q4: "V", q5: "F" };
+  const sinResponder = Object.keys(respuestas).filter(
+    p => !document.querySelector(`input[name="${p}"]:checked`)
+  );
+  const resultado = document.getElementById("resultado-quiz-guiar3");
+  if (sinResponder.length > 0) {
+    resultado.textContent = "Responde todas las preguntas antes de revisar.";
+    resultado.style.color = "#B37D00";
+    return;
+  }
+  let correctas = 0;
+  for (const [p, c] of Object.entries(respuestas)) {
+    const s = document.querySelector(`input[name="${p}"]:checked`);
+    if (s && s.value === c) correctas++;
+  }
+  resultado.textContent = `Obtuviste ${correctas} de ${Object.keys(respuestas).length} correctas.`;
+  resultado.style.color = correctas === Object.keys(respuestas).length ? "#004B85" : "#B37D00";
+  document.getElementById("explicacion-quiz-guiar3").style.display = "block";
+}
+</script>
+
+## 🗂️ Resumen
+
+::: {.card-lab}
+- **Tablas discretas:** `table()` → `prop.table()` → `rowSums()`/`colSums()` para marginales, `margin = 2` para condicionales, `outer()` para comparar contra independencia.
+- **Valores esperados:** "valor × probabilidad, y sumar"; `outer(x, y)` arma la tabla de $xy$ para $E(XY)$. Ojo: `cov()` divide entre $n-1$.
+- **Datos continuos:** probabilidades como `mean(condición)`, condicionales como `mean(B[A])`.
+- **Intervalos y pruebas:** $n>40$ → `qnorm()`; $n$ pequeño y población normal → `qt(..., df = n - 1)`. Concluye comparando el estadístico con el **límite** de la región de rechazo, y verifica con `t.test()`.
+- **Siempre:** verifica con una función de R o una simulación, y escribe la conclusión en el contexto del problema.
+:::
+
+::: {.callout-tip}
+## Siguiente paso
+Practica con el [banco de ejercicios del Taller 3](ejercicios-manual-taller3.qmd) y su [versión resuelta](ejercicios-manual-taller3-resueltos.qmd). La teoría detrás de cada problema está en los Temas [P8](tema-p8-estudiante.qmd) (conjuntas), [P8c](tema-p8c-estudiante.qmd) (condicionales), [P9a](tema-p9a-estudiante.qmd) (valor esperado y covarianza), [I1](tema-i1-estudiante.qmd)–[I2](tema-i2-estudiante.qmd) (pruebas) e [I3](tema-i3-estudiante.qmd) (intervalos).
+:::
